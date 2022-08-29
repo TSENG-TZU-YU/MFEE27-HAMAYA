@@ -1,5 +1,16 @@
 // 這裡導入所有要預設變數覆蓋
-
+$primary:       #00323D;
+$secondary:     #6A777A;
+// 成功
+$success:       #BABABA;
+// 信息
+$info:          $cyan !default;
+// 警告
+$warning:       $yellow !default;
+// 危險
+$danger:        $red !default;
+$light:         $gray-100 !default;
+$dark:          $gray-900 !default;
 
 // 導入bootstrap所有的樣式與預設變數
 @import '~bootstrap/scss/bootstrap';
