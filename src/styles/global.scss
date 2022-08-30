@@ -1,28 +1,170 @@
 // 這裡導入所有要預設變數覆蓋
 $primary:       #00323D;
 $secondary:     #6A777A;
-// 成功
-$success:       #BABABA;
-// 信息
-$info:          $cyan !default;
-// 警告
-$warning:       $yellow !default;
-// 危險
-$danger:        $red !default;
-$light:         $gray-100 !default;
-$dark:          $gray-900 !default;
+$danger:        #5B322F;
+
+$border-radius: 0;
 
 // 導入bootstrap所有的樣式與預設變數
 @import '~bootstrap/scss/bootstrap';
 
+
 // 其它要導入覆蓋掉原本的預設bootstrap樣式要放在這下面
 // 全站都會使用的共同樣式
+
+// 中文字體
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap');
+// font-family: 'Noto Sans TC', sans-serif;
+
+// 英文字體
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@600&display=swap');
+// font-family: 'Noto Serif Display', serif;
+
+
+// 顏色變數-------------------------------
+
+// 主色
+$main:            #00323D;
+// 輔助色
+$main-light:      #6A777A;
+$main-gary-light: #BABABA;
+// 強調色
+$accent:          #5B322F;
+$accent-light:    #F2F2F2;
+// 中性色
+$gary-light:      #767676;
+$gary-dark:       #333333;
+
+// 漸層色
+// 白 -> 透明
+$linear-light-transparent: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 80%);
+// 白 -> 墨綠
+$linear: linear-gradient(163.87deg, #FFFFFF 14.25%, #00323D 93.03%);
+
+// 顏色變數 end -------------------------------
+
+
 html {
-  font-size: 12px;
+  font-size: 1rem;
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  box-sizing: border-box;
+  font-family: 'Noto Sans TC', 'Microsoft JhengHei', PingFang, sans-serif;
+  letter-spacing: .1rem;
+  background: $accent-light;
+  color: $dark;
 }
+
+a {
+  text-decoration: none;
+}
+
+
+// 背景顏色 ----------------------
+
+.bg-main-color {
+  background-color: $main;
+}
+
+.bg-main-light-color {
+  background-color: $main-light;
+}
+
+.bg-main-gary-light-color {
+  background-color: $main-gary-light;
+}
+
+.bg-accent-color {
+  background-color: $accent;
+}
+
+.bg-accent-light-color {
+  background-color: $accent-light;
+}
+
+.bg-gary-light-color {
+  background-color: $gary-light;
+}
+
+.bg-gary-dark-color {
+  background-color: $gary-dark;
+}
+
+// 背景顏色 end ----------------------
+
+
+// 顏色 ----------------------
+
+.main-color {
+  color: $main;
+}
+
+.main-light-color {
+  color: $main-light;
+}
+
+.main-gary-light-color {
+  color: $main-gary-light;
+}
+
+.accent-color {
+  color: $accent;
+}
+
+.accent-light-color {
+  color: $accent-light;
+}
+
+.gary-light-color {
+  color: $gary-light;
+}
+
+.gary-dark-color {
+  color: $gary-dark;
+}
+
+// 顏色 end ----------------------
+
+
+// 字級 ----------------------
+
+h1 {
+  font-size: 4rem; // 64px
+}
+
+h3 {
+  font-size: 3rem; // 48px
+}
+
+h3 {
+  font-size: 2rem; // 32px
+}
+
+h4 {
+  font-size: 1.5rem; // 24px
+}
+
+h5 {
+  font-size: 1.25rem; // 20px
+}
+
+h6 {
+  font-size: 1.15rem; // 18px
+}
+
+p {
+  font-size: 1rem; // 16px
+}
+
+.small {
+  font-size: .85rem; // 14px
+}
+
+.minimum {
+  font-size: .75rem; // 12px
+}
+
+// 字級 end ----------------------
