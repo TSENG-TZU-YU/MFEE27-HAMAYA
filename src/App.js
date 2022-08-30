@@ -2,13 +2,14 @@
 
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './index.scss';
 
 // 版面頁面元件
 import Layout from './layouts/Layout';
 // 其它子頁面
 import Home from './pages/Home';
 import Products from './pages/Products';
-import List from './pages/Product/List';
+// import List from './pages/Product/List';
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
             {/* 注意Product頁面在 /product/index.js 裡，只是一個作layout用頁面*/}
             <Route path="product" element={<Products />}>
               {/* index代表此路由中的預設子頁 */}
-              <Route index element={<List />} />
+              {/* <Route index element={<List />} /> */}
               {/* 代表此路由中的有id子頁，例`product/123` */}
               {/* <Route path=":productId" element={<Detail />} /> */}
             </Route>
