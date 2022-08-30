@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
 function MainOutlet(props) {
-    return <Outlet />;
+  return <Outlet />;
 }
 
 export default MainOutlet;
