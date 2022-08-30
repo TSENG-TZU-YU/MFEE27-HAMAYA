@@ -5,7 +5,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.scss';
 
 // 版面頁面元件
+import Header from './layouts/Header';
 import MainOutlet from './layouts/MainOutlet'
+import Footer from './layouts/Footer';
 
 // 其它子頁面
 import Home from './pages/Home';
@@ -21,6 +23,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+        <Header/>
         <Routes>
           <Route path="/" element={<MainOutlet />}>
             {/* index代表此路由中的預設子頁 */}
@@ -59,11 +62,12 @@ function App() {
             <Route path="Members" element={<MainOutlet />}>
               <Route index element={<Members />} />
             </Route>
-            
+
             {/* 404未找到的頁面路由，需放在最下方 */}
             <Route path="*" element={<h1>404 NOT FOUND</h1>} />
           </Route>
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </>
   );
