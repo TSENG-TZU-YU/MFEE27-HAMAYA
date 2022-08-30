@@ -4,7 +4,9 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // 版面頁面元件
-import MainOutlet from './layouts/MainOutlet'
+import MainOutlet from './layouts/MainOutlet';
+import Footer from './layouts/Footer';
+import Header from './layouts/Header';
 
 // 其它子頁面
 import Home from './pages/Home';
@@ -20,7 +22,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Header/>
+        <Header />
         <Routes>
           <Route path="/" element={<MainOutlet />}>
             <Route index element={<Home />} />
@@ -57,7 +59,7 @@ function App() {
             <Route path="*" element={<h1>404 NOT FOUND</h1>} />
           </Route>
         </Routes>
-        <Footer/>
+        <Footer />
       </BrowserRouter>
     </>
   );
