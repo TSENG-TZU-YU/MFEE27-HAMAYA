@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './index.scss';
+
 
 // 版面頁面元件
 import Layout from './layouts/Layout';
