@@ -1,12 +1,13 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import visib from './visibility.svg';
 import unVisib from './visibility_off.svg';
 
-function LogIn(props) {
+function LogIn({setLoginPopup}) {
   const [visibility, setVisibility] = useState('password');
   const [img, setImg] = useState(unVisib);
   return (
-    <div>
+    <form>
       <label className="">
         帳號(E-MAIL)
         <br />
@@ -36,8 +37,11 @@ function LogIn(props) {
 
       <br />
       <br />
+      <Link className="text-danger" onClick={()=>{
+        setLoginPopup(false);
+      }} to="/member">測試用登入</Link>
       <button className="subBtn">登入</button>
-    </div>
+    </form>
   );
 }
 
