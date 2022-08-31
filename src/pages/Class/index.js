@@ -40,7 +40,7 @@ function Class(props) {
           <h4 className="engText me-3">ARTICLE</h4>
           <div className="vector3  mt-3"></div>
         </div>
-        <Row className="blank-top-art ">
+        <Row className="blank-top-art mt-5">
           <Col md={6}>
             <img
               style={{ width: '600px', height: '400px' }}
