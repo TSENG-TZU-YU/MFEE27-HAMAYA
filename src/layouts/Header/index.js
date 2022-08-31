@@ -9,9 +9,12 @@ import '../../styles/global.scss';
 function Header(props) {
   return (
     <>
-      <Link className="mx-3" to="/">
-        <img src={Logo} width="160" alt="Logo" className="mr-2" />
-      </Link>
+      <div className="d-flex justify-content-start align-items-start ">
+        <Link className="mx-3" to="/">
+          <img src={Logo} width="160" alt="Logo" className="mr-2" />
+        </Link>
+      </div>
+
       <Container>
         <div className="d-flex justify-content-center align-items-end ">
           <Link className="mx-3" to="news">
