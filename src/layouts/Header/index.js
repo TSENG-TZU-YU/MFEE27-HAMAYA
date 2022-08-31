@@ -38,7 +38,7 @@ function Header(props) {
         <Link className="mx-3" to="">
           <img src={Cart} width="25" alt="Logo" className="mr-2" />
         </Link>
-        <Link className="mx-3" to="members">
+        <Link className="mx-3" to="member">
           <img src={Users} width="25" alt="Logo" className="mr-2" />
         </Link>
         <Link className="mx-3" to="">
