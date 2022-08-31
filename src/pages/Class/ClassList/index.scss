@@ -1,0 +1,16 @@
+@import '../../../index.scss';
+
+p {
+  margin-bottom: 0;
+}
+.vector3-main-light {
+  border-top: 3px solid $main-light;
+  width: 1260px;
+  position: relative;
+}
+.vector5-main {
+  border-top: 5px solid $main;
+  width: 630px;
+  position: absolute;
+  margin-top: 12px;
+}
