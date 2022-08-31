@@ -1,0 +1,88 @@
+@import '../../styles/global.scss';
+
+
+ul > li {
+  list-style: none;
+}
+
+ul > li:hover {
+  cursor: pointer;
+}
+
+.breadcrumb {
+  margin-top: 1rem;
+}
+
+.btn-link {
+  text-decoration: none;
+}
+
+.main-color {
+  color: $main;
+}
+
+.category-navbar {
+  line-height: 2rem;
+}
+
+.product-main-category {
+  color: $accent;
+  font-weight: bold;
+  margin: .5rem 0;
+  padding-left: 1rem;
+  border-left: transparent solid 3px;
+  transition: .3s;
+}
+
+.product-main-category:hover {
+  color: $main;
+  border-left: $main solid 3px;
+}
+
+.product-main-category-active {
+  color: $main;
+  border-left: $main solid 3px;
+}
+
+.icon-img {
+  width: 1.5rem;
+}
+
+.price {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.cart-check-btn {
+  line-height: 1rem;
+  letter-spacing: 0.1rem;
+}
+
+.product-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.product-img {
+  overflow: hidden;
+}
+
+.compare {
+  color: $accent-light;
+  width: 4rem;
+  padding: 1px;
+  // margin: 1px;
+  background: $main-light;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.compare:hover {
+  background: lighten($main-light,10%);
+}
+
+.like {
+  // width: 2rem;
+}
+
+
