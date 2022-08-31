@@ -1,5 +1,7 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import './index.scss';
+import { Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import banner from '../../assets/ClassImg/banner.png';
 import art01 from '../../assets/ClassImg/Rectangle 343.png';
