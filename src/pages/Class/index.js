@@ -42,13 +42,11 @@ function Class(props) {
         </div>
         <Row className="blank-top-art mt-5">
           <Col md={6}>
-            <button>
-              <img
-                style={{ width: '600px', height: '400px' }}
-                src={art01}
-                alt="art01"
-              />
-            </button>
+            <img
+              style={{ width: '600px', height: '400px', cursor: 'pointer' }}
+              src={art01}
+              alt="art01"
+            />
             <h5 className="mt-3" style={{ color: '#333333' }}>
               【親子點唱機】孟德爾頌《無言歌》為什麼沒有歌詞？
             </h5>
@@ -69,7 +67,7 @@ function Class(props) {
             <div className="d-flex">
               <img
                 className="me-4"
-                style={{ width: '150px', height: '100px' }}
+                style={{ width: '150px', height: '100px', cursor: 'pointer' }}
                 src={art02}
                 alt="art02"
               />
@@ -95,7 +93,7 @@ function Class(props) {
             <div className="d-flex">
               <img
                 className="me-4"
-                style={{ width: '150px', height: '100px' }}
+                style={{ width: '150px', height: '100px', cursor: 'pointer' }}
                 src={art03}
                 alt="art03"
               />
@@ -119,7 +117,7 @@ function Class(props) {
             <div className="d-flex">
               <img
                 className="me-4"
-                style={{ width: '150px', height: '100px' }}
+                style={{ width: '150px', height: '100px', cursor: 'pointer' }}
                 src={art04}
                 alt="art04"
               />
@@ -170,12 +168,20 @@ function Class(props) {
           </div>
           <Row className="mt-5 text-center">
             <Col>
-              <img src={Adult_Course} alt="Adult Course" />
-              <h3 className="adult-course ">成人課程</h3>
+              <img
+                src={Adult_Course}
+                alt="Adult Course"
+                style={{ cursor: 'pointer' }}
+              />
+              <h3 className="adult-course " style={{ cursor: 'pointer' }}>
+                成人課程
+              </h3>
             </Col>
             <Col>
               <img src={Children_Lessons} alt="Children Lessons" />
-              <h3 className="children-lessons ">兒童課程</h3>
+              <h3 className="children-lessons " style={{ cursor: 'pointer' }}>
+                兒童課程
+              </h3>
             </Col>
           </Row>
         </Container>
