@@ -13,7 +13,6 @@ import Home from './pages/Home';
 import Products from './pages/Products';
 import NEWs from './pages/NEWs';
 import Class from './pages/Class';
-import Educate from './pages/Educate';
 import Place from './pages/Place';
 import AboutUs from './pages/AboutUs';
 import Member from './pages/Member';
@@ -39,9 +38,6 @@ function App() {
               <Route index element={<Class />} />
             </Route>
 
-            <Route path="educate" element={<MainOutlet />}>
-              <Route index element={<Educate />} />
-            </Route>
 
             <Route path="place" element={<MainOutlet />}>
               <Route index element={<Place />} />

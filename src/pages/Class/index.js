@@ -196,16 +196,16 @@ function Class(props) {
               <img src={teacher01} alt="teacher01" />
             </Col>
             <Col>
-              <img src={teacher01} alt="teacher01" />
+              <img src={teacher02} alt="teacher02" />
             </Col>
             <Col>
-              <img src={teacher01} alt="teacher01" />
+              <img src={teacher03} alt="teacher03" />
             </Col>
             <Col>
-              <img src={teacher01} alt="teacher01" />
+              <img src={teacher04} alt="teacher04" />
             </Col>
             <Col>
-              <img src={teacher01} alt="teacher01" />
+              <img src={teacher05} alt="teacher05" />
             </Col>
           </Row>
           <div className="teacher-arrow ms-3">
