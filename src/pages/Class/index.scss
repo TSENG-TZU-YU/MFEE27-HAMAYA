@@ -4,6 +4,9 @@
   font-family: 'Noto Serif Display', serif;
   color: $main;
 }
+.cursor-pinter {
+  cursor: pointer;
+}
 .blank-top {
   margin-top: 20px;
 }
@@ -88,5 +91,10 @@
   height: 30px;
   background-color: $gary-light;
   text-align: center;
-  
+}
+.teacher-h5 {
+  color: $accent;
+}
+.teacher-p {
+  color: $gary-dark;
 }
