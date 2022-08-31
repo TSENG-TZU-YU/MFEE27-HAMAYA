@@ -45,7 +45,6 @@ function About(props) {
           <h4>門市資訊 STORE INFORMATION</h4>
         </div>
       </div>
-      ;
     </>
   );
 }
