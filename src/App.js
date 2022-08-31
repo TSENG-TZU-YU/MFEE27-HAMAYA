@@ -16,7 +16,7 @@ import Class from './pages/Class';
 import Educate from './pages/Educate';
 import Place from './pages/Place';
 import AboutUs from './pages/AboutUs';
-import Members from './pages/Members';
+import Member from './pages/Member';
 
 function App() {
   return (
@@ -31,28 +31,34 @@ function App() {
               <Route index element={<Products />} />
             </Route>
 
-            <Route path="NEWs" element={<MainOutlet />}>
+            <Route path="news" element={<MainOutlet />}>
               <Route index element={<NEWs />} />
             </Route>
 
-            <Route path="Class" element={<MainOutlet />}>
+            <Route path="class" element={<MainOutlet />}>
               <Route index element={<Class />} />
             </Route>
 
-            <Route path="Educate" element={<MainOutlet />}>
+            <Route path="educate" element={<MainOutlet />}>
               <Route index element={<Educate />} />
             </Route>
 
-            <Route path="Place" element={<MainOutlet />}>
+            <Route path="place" element={<MainOutlet />}>
               <Route index element={<Place />} />
             </Route>
 
-            <Route path="AboutUs" element={<MainOutlet />}>
+            <Route path="aboutus" element={<MainOutlet />}>
               <Route index element={<AboutUs />} />
             </Route>
 
-            <Route path="Members" element={<MainOutlet />}>
-              <Route index element={<Members />} />
+            <Route path="member" element={<MainOutlet />}>
+              <Route index element={<Member />} />
+              <Route path="class" element={<Member />} />
+              <Route path="bucketlist" element={<Member />} />
+              <Route path="cart" element={<Member />} />
+              <Route path="order" element={<Member />} />
+              <Route path="coupon" element={<Member />} />
+              <Route path="question" element={<Member />} />
             </Route>
 
             {/* 404未找到的頁面路由，需放在最下方 */}
