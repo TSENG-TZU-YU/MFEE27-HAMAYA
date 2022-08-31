@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react'; //睿渝加的CODE不要刪
 import { Container } from 'react-bootstrap';
 import Logo from '../../assets/HeaderImg/logo.svg';
 import Users from '../../assets/HeaderImg/users.svg';
@@ -6,7 +7,10 @@ import Cart from '../../assets/HeaderImg/shopping_cart.svg';
 import LogoOut from '../../assets/HeaderImg/logout.svg';
 import '../../styles/global.scss';
 
+import LogInSignUp from '../../components/LogInSignUp'; //睿渝加的CODE不要刪
+
 function Header(props) {
+  const [loginPopup, setLoginPopup] = useState(false); //睿渝加的CODE不要刪
   return (
     <>
       <div className="d-flex justify-content-start align-items-start ">
@@ -38,14 +42,21 @@ function Header(props) {
         <Link className="mx-3" to="">
           <img src={Cart} width="25" alt="Logo" className="mr-2" />
         </Link>
-        <Link className="mx-3" to="member">
+        {/*會員登入我改成按鈕 如果衝突 原本的會員LINK請刪除*/}
+        <button
+          className="border-0"
+          onClick={() => {
+            setLoginPopup(true);
+          }}
+        >
           <img src={Users} width="25" alt="Logo" className="mr-2" />
-        </Link>
+        </button>
         <Link className="mx-3" to="">
           <img src={LogoOut} width="25" alt="Logo" className="mr-2" />
         </Link>
       </div>
       <hr />
+      {loginPopup && <LogInSignUp setLoginPopup={setLoginPopup} /> /*睿渝加的CODE不要刪*/}
     </>
   );
 }
