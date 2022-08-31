@@ -42,11 +42,13 @@ function Class(props) {
         </div>
         <Row className="blank-top-art mt-5">
           <Col md={6}>
-            <img
-              style={{ width: '600px', height: '400px' }}
-              src={art01}
-              alt="art01"
-            />
+            <button>
+              <img
+                style={{ width: '600px', height: '400px' }}
+                src={art01}
+                alt="art01"
+              />
+            </button>
             <h5 className="mt-3" style={{ color: '#333333' }}>
               【親子點唱機】孟德爾頌《無言歌》為什麼沒有歌詞？
             </h5>
