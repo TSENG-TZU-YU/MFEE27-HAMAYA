@@ -9,7 +9,9 @@ import { Container } from 'react-bootstrap';
 function index() {
   return (
     <>
-      <img src={banner} alt="banner" />
+      <div className="banner-img">
+        <img src={banner} alt="banner" />
+      </div>
       <Container>
         <FilterNav />
         <div className="row">
