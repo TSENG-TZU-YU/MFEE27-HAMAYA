@@ -1,9 +1,10 @@
 .shoppingCart {
     background-color: rgb(255, 255, 255);
-    /* width: 100px; */
+    /* width: 00px; */
     /* height: 200px; */
     position: absolute;
     right: 0;
+    z-index: 1;
 }
 
 .shoppingCartTitle {
@@ -12,6 +13,11 @@
 
 .shoppingCartItem {
     border-bottom: 1px solid #bababa;
+}
+.shoppingCartItemImg{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
 }
 
 .checkOutBtn {
@@ -26,6 +32,7 @@
 
 .checkOutIcon {
     width: 20px;
+    height: 20px;
 }
 
 .overflow-auto {
