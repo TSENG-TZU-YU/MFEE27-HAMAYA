@@ -7,6 +7,9 @@ import { Container, Row, Col } from 'react-bootstrap';
 import AdultCourse from './AdultCourse';
 import ChildrenCourse from './ChildrenCourse';
 
+// 元件
+import Slider from '../../../components/Slider/Slider';
+
 // 圖檔
 import filterIcon from '../../../assets/svg/filter_alt.svg';
 import sort from '../../../assets/svg/sort.svg';
@@ -90,6 +93,7 @@ function ClassList(props) {
                   >
                     費用
                   </p>
+                  <Slider />
                 </div>
               ) : (
                 ''

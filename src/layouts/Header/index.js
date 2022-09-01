@@ -59,14 +59,13 @@ function Header(props) {
               </button>
             </div>
 
-<<<<<<< HEAD
             {
               loginPopup && (
                 <LogInSignUp setLoginPopup={setLoginPopup} />
               ) /*睿渝加的CODE不要刪*/
             }
           </div>
-=======
+
           <div className="d-flex justify-content-end align-items-end ">
             <button
               className="mx-3 border-0  btn "
@@ -94,7 +93,6 @@ function Header(props) {
               <LogInSignUp setLoginPopup={setLoginPopup} />
             ) /*睿渝加的CODE不要刪*/
           }
->>>>>>> de96d377010beac2b1687b6357762147c71d4afa
         </Container>
         {shoppingCart ? <Cart /> : ''}
       </div>
