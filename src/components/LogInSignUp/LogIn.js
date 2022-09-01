@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import visib from './visibility.svg';
 import unVisib from './visibility_off.svg';
 
-function LogIn({setLoginPopup}) {
+function LogIn({ setLoginPopup }) {
   const [visibility, setVisibility] = useState('password');
   const [img, setImg] = useState(unVisib);
   return (
@@ -20,7 +20,8 @@ function LogIn({setLoginPopup}) {
         <a
           href="/#"
           className="visibiImg"
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             if (visibility == 'password') {
               setVisibility('text');
               setImg(visib);
@@ -37,9 +38,15 @@ function LogIn({setLoginPopup}) {
 
       <br />
       <br />
-      <Link className="text-danger" onClick={()=>{
-        setLoginPopup(false);
-      }} to="/member">測試用登入</Link>
+      <Link
+        className="text-danger"
+        onClick={() => {
+          setLoginPopup(false);
+        }}
+        to="/member"
+      >
+        測試用登入
+      </Link>
       <button className="subBtn">登入</button>
     </form>
   );

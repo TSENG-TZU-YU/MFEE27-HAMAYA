@@ -16,7 +16,7 @@ function MyProfile(props) {
     setUser(newUser);
   };
   return (
-    <div className="col-9 ">
+    <div className="col-10 ">
       <h4>會員資料</h4>
       <br />
       <label>

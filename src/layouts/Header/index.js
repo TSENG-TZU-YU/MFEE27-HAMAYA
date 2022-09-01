@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { useState } from 'react'; //睿渝加的CODE不要刪
 import { Container } from 'react-bootstrap';
@@ -19,13 +18,13 @@ function Header(props) {
     <>
       <div className="bg-main-gary-light-color">
         <Container className="height ">
-          <div class="row">
-            <div class="col-3">
+          <div className="row">
+            <div className="col-3">
               <Link className="" to="/">
                 <img src={Logo} width="180" alt="Logo" className="mr-2 mt-3" />
               </Link>
             </div>
-            <div class="col mt-5">
+            <div className="col mt-5">
               <Link className="mx-4 h6 " to="news">
                 最新消息
               </Link>
@@ -43,7 +42,7 @@ function Header(props) {
               </Link>
             </div>
 
-            <div class="col-1 mt-4">
+            <div className="col-1 mt-4">
               <div className="d-flex justify-content-end align-items-end ">
                 <button
                   className="mx-3 border-0  btn "

@@ -26,7 +26,8 @@ function SignUp(props) {
         <a
           href="/#"
           className="visibiImg"
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             if (visibility == 'password') {
               setVisibility('text');
               setImg(visib);
@@ -46,7 +47,8 @@ function SignUp(props) {
         <a
           href="/#"
           className="visibiImg"
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             if (visibility2 == 'password') {
               setVisibility2('text');
               setImg2(visib);
