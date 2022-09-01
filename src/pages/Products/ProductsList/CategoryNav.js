@@ -1,10 +1,8 @@
 import React from 'react';
+import './styles/categoryNav.scss';
 
 function CategoryNav() {
   const category = [
-    {
-      main: '最新商品',
-    },
     {
       main: '琴鍵樂器',
       sub: ['直立/平台鋼琴', '電子鋼琴', '數位鋼琴'],

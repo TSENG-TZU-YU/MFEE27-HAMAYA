@@ -1,5 +1,5 @@
 import React from 'react';
-import './index.scss';
+import './styles/index.scss';
 import CategoryNav from './CategoryNav';
 import ProductsItem from './ProductsItem';
 import FilterNav from './FilterNav';

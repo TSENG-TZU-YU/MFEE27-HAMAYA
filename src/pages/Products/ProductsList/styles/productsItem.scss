@@ -1,62 +1,9 @@
-@import '../../../styles/global.scss';
-
-ul.category-navbar {
-  padding: 0;
-}
-
-ul.product-sub-category {
-  padding-left: 1.2rem;
-}
-
-ul > li {
-  list-style: none;
-  font-size: 1rem;
-}
-
-ul > li:hover {
-  cursor: pointer;
-}
-
-.breadcrumb {
-  margin-top: 1rem;
-}
-
-.main-color {
-  color: $main;
-}
-
-.category-navbar {
-  line-height: 2rem;
-}
-
-.product-main-category {
-  color: $accent;
-  font-weight: bold;
-  margin: .5rem 0;
-  padding-left: 1rem;
-  border-left: transparent solid 3px;
-  transition: .3s;
-}
-
-.product-main-category:hover {
-  color: $main;
-  border-left: $main solid 3px;
-}
-
-.product-main-category-active {
-  color: $main;
-  border-left: $main solid 3px;
-}
-
-.icon-img {
-  width: 1.5rem;
-}
+@import '../../../../styles/global.scss';
 
 .price {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
 }
-
 
 .product-icon {
   width: 1.15rem;
@@ -78,6 +25,10 @@ ul > li:hover {
   height: 100%;
   background-color: rgba(0, 0, 0, 0);
   transition: .4s;
+}
+
+.product{
+  height: 350px;
 }
 
 .product:hover .img-mask{
@@ -117,6 +68,7 @@ ul > li:hover {
 .product:hover .compare {
   opacity: 1;
 }
+
 .product:hover .like {
   opacity: 1;
 }
@@ -131,10 +83,3 @@ ul > li:hover {
 .compare:hover {
   background: lighten($main-light,10%);
 }
-
-
-.filter-nav {
-  cursor: pointer;
-}
-
-
