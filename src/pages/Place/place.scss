@@ -22,20 +22,33 @@
 }
 
 .intro1  {
-  background-color: $main-light;
+  background-color: #6A777ACC;
   color:white;
   width: fit-content;
+  top: 0;
+  left:-100px;
+  padding: 30px;
+  width:750px;
 }
 
 .intro2 {
-  background-color: $gary-light;
+  background-color: #767676c7;
   color:white;
+  width: fit-content;
+  top: 0;
+  left:0px;
+  padding: 30px;
+  width:750px;
 }
 
 .intro3{
-  background-color: $accent;
+  background-color: #5b322fd7;
   color:white;
   width: fit-content;
+  top: 0;
+  left:-100px;
+  padding: 30px;
+  width:750px;
 }
 
 .title1{
