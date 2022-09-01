@@ -3,6 +3,7 @@ import './index.scss';
 import CategoryNav from './ProductsList/CategoryNav';
 import ProductsItem from './ProductsList/ProductsItem';
 import FilterNav from './ProductsList/FilterNav';
+import MobileFilterNav from './ProductsList/MobileFilterNav';
 import banner from '../../assets/ProductsImg/banner.png';
 import bannerTitle from '../../assets/ProductsImg/icon/banner_title.svg';
 
@@ -18,36 +19,39 @@ function index() {
         <img src={banner} alt="banner" />
       </div>
       <div className="container">
-        <FilterNav />
+        {/* <FilterNav /> */}
+        <MobileFilterNav />
+        {/* TODO: 再寫手機版元件做替換 */}
         <div className="row">
-          <div className="col-2">
-            <CategoryNav />
-          </div>
-          <div className="col-10 row row-cols-2 row-cols-md-4">
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
-            <ProductsItem />
+          {/* TODO: md以下讓它消失 */}
+          {/* <CategoryNav /> */}
+          <div className="col-12 col-md-10">
+            <div className=" row row-cols-2 row-cols-md-4">
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+              <ProductsItem />
+            </div>
             {/* 頁碼 */}
             <div className="d-flex justify-content-center align-items-center flex-fill">
               <div className="page my-3">
