@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import './index.css';
 import Close from '../../assets/svg/close.svg';
@@ -11,7 +10,6 @@ function LogInSignUp(props) {
   const [logInActive, setLogInActive] = useState(true);
   const [signUpActive, setSignUpActive] = useState(false);
   return (
-    
     <div className="popup">
       <div className="popup-inner">
         <div className="d-flex justify-content-end">
