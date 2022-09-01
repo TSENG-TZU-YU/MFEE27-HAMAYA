@@ -4,40 +4,43 @@ function Members(props) {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-2">
+        <div className="col-3">
+        <div>
+          <img src="" alt="" />
+        </div>
           <ul>
             <li>
-              <Link className="mx-3" to="">
+              <Link className="" to="">
                 會員資料
               </Link>
             </li>
             <li>
-              <Link className="mx-3" to="myclass">
+              <Link className="" to="myclass">
                 我的課程
               </Link>
             </li>
             <li>
-              <Link className="mx-3" to="mybucketlist">
+              <Link className="" to="mybucketlist">
                 我的收藏
               </Link>
             </li>
             <li>
-              <Link className="mx-3" to="mycart">
+              <Link className="" to="mycart">
                 購物車
               </Link>
             </li>
             <li>
-              <Link className="mx-3" to="myorder">
+              <Link className="" to="myorder">
                 訂單查詢
               </Link>
             </li>
             <li>
-              <Link className="mx-3" to="mycoupon">
+              <Link className="" to="mycoupon">
                 我的優惠券
               </Link>
             </li>
             <li>
-              <Link className="mx-3" to="myquestion">
+              <Link className="" to="myquestion">
                 我的詢問
               </Link>
             </li>
