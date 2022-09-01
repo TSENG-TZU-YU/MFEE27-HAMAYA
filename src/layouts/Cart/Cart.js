@@ -1,5 +1,5 @@
 import React from 'react';
-import './Cart.css';
+import './Cart.scss';
 import ashBin from '../../assets/svg/delete.svg';
 //修改 CheckOut 顏色
 import { ReactComponent as CheckOut } from '../../assets/svg/shopping_cart_checkout.svg';

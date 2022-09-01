@@ -1,0 +1,54 @@
+@import '../../styles/global.scss';
+.shoppingCart {
+    background-color: #fff;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+}
+
+.shoppingCartTitle {
+    border-bottom: 1px solid $main;
+}
+
+.shoppingCartItem {
+    border-bottom: 1px solid $main-gary-light;
+}
+.shoppingCartItemImg{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.checkOutBtn {
+    width: 100%;
+    color: #fff;
+}
+
+/* 修改 svg icon */
+.checkOutIcon path {
+    fill: $accent-light;
+}
+
+.checkOutIcon {
+    width: 20px;
+    height: 20px;
+}
+
+.overflow-auto {
+    /* height 可以自行修改 只為了產生卷軸加的 */
+    max-height: 300px;
+    overflow: auto;
+}
+
+/* 捲軸底色 */
+.scrollStyle::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+/* 捲軸寬度 */
+.scrollStyle::-webkit-scrollbar {
+    width: 5px;
+}
+/* 捲軸本體顏色 */
+.scrollStyle::-webkit-scrollbar-thumb {
+    background-color: #D9D9D9;
+}
