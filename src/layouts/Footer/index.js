@@ -97,7 +97,7 @@ function Footer(props) {
             <img src={All} width="200" alt="Logo" className="mr-2" />
           </div>
         </Container>
-        <img src={Lines} width="1920" alt="Logo" className="mr-2 pt-5" />
+        <img src={Lines} alt="Logo" className="mr-2 pt-5 img-fluid" />
       </div>
     </>
   );
