@@ -19,6 +19,7 @@ ul > li:hover {
 
 .breadcrumb {
   margin-top: 1rem;
+  color: $main;
 }
 
 .main-color {
@@ -53,10 +54,9 @@ ul > li:hover {
 }
 
 .price {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
 }
-
 
 .product-icon {
   width: 1.15rem;
@@ -78,6 +78,10 @@ ul > li:hover {
   height: 100%;
   background-color: rgba(0, 0, 0, 0);
   transition: .4s;
+}
+
+.product{
+  height: 350px;
 }
 
 .product:hover .img-mask{
@@ -117,6 +121,7 @@ ul > li:hover {
 .product:hover .compare {
   opacity: 1;
 }
+
 .product:hover .like {
   opacity: 1;
 }
@@ -132,9 +137,10 @@ ul > li:hover {
   background: lighten($main-light,10%);
 }
 
-
 .filter-nav {
   cursor: pointer;
 }
+
+
 
 

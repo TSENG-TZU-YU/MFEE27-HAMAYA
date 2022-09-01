@@ -31,7 +31,7 @@ function ProductsItem() {
       </div>
       <div className="product-body">
         {/* 品名 */}
-        <h5 className="product-name mt-2">YAMAHA U系列 U1</h5>
+        <p className="product-name mt-2">YAMAHA U系列 U1</p>
         {/* 價格 */}
         <p className="price accent-color">NT $5,000</p>
       </div>
