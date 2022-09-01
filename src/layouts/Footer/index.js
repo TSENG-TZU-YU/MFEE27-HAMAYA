@@ -12,26 +12,26 @@ function Footer(props) {
     <>
       <div className="bg-main-light-color footer-height">
         <Container className=" d-flex justify-content-between">
-          <div>
-            <h4 className="main-gary-light-color letter  pt-5 ms-3">
+          <div className="text-nowrap">
+            <h4 className="main-gary-light-color letter  pt-5 ms-3 ">
               HAMAYA{' '}
               <span className="main-gary-light-color h6 pt-2">MUSIC</span>
             </h4>
-            <p className="main-gary-light-color ">
+            <p className="main-gary-light-color  ">
               TEL: 06-6946-5820/ FAX: 06-7635-8075 <br />
               MAIL: service@gmail.com <br />
               ON.-FRI. 09:00-12:00 / 13:00-18:00
             </p>
           </div>
-          <div className="d-flex flex-column pt-5">
+          <div className="d-flex flex-column pt-5 text-nowrap ">
             <Link className="main-gary-light-color h6 " to="product">
               樂器商城
             </Link>
-            <Link className="main-gary-light-color small ms-2" to="product">
+            <Link className="main-gary-light-color small ms-2 " to="product">
               最新商品
             </Link>
           </div>
-          <div className="d-flex flex-column pt-5">
+          <div className="d-flex flex-column pt-5 text-nowrap">
             <Link className="main-gary-light-color h6 " to="product">
               音樂教育
             </Link>
@@ -45,10 +45,13 @@ function Footer(props) {
               師資介紹
             </Link>
           </div>
-          <Link className="main-gary-light-color h6 pt-5 " to="product">
+          <Link
+            className="main-gary-light-color h6 pt-5 text-nowrap "
+            to="product"
+          >
             場地租借
           </Link>
-          <div className="d-flex flex-column pt-5">
+          <div className="d-flex flex-column pt-5 text-nowrap">
             <Link className="main-gary-light-color h6 " to="product">
               最新消息
             </Link>
@@ -65,7 +68,10 @@ function Footer(props) {
               音樂文章
             </Link>
           </div>
-          <Link className="main-gary-light-color h6 pt-5  " to="product">
+          <Link
+            className="main-gary-light-color h6 pt-5  text-nowrap"
+            to="product"
+          >
             關於我們
           </Link>
           <div className="padding">
