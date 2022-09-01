@@ -19,82 +19,62 @@ function Header(props) {
       <div className="bg-main-gary-light-color">
         <Container className="height ">
           <div class="row">
-            <div class="col">
+            <div class="col-3">
               <Link className="" to="/">
                 <img src={Logo} width="180" alt="Logo" className="mr-2 mt-3" />
               </Link>
             </div>
-            <div class="col-6 d-flex align-items-center mt-5">
-              <Link className="mx-4 mx-md-1 h6 " to="news">
+            <div class="col mt-5">
+              <Link className="mx-4 h6 " to="news">
                 最新消息
               </Link>
-              <Link className="  mx-md-1 mx-4 h6  " to="product">
+              <Link className="  mx-4 h6  " to="product">
                 樂器商城
               </Link>
-              <Link className=" mx-md-1 mx-4  h6" to="class">
+              <Link className="  mx-4  h6" to="class">
                 音樂教育
               </Link>
-              <Link className="mx-4  mx- h6  " to="place">
+              <Link className="mx-4   h6  " to="place">
                 場地租借
               </Link>
-              <Link className="mx-4  mx-md-1 h6" to="aboutus">
+              <Link className="mx-4  h6" to="aboutus">
                 關於我們
               </Link>
             </div>
-            <div class="col d-flex justify-content-end align-items-end ">
-              <button className="mx-3 border-0  btn " to="">
-                <img src={Cart} width="25" alt="Logo" className="mr-2" />
-              </button>
-              {/*會員登入我改成按鈕 如果衝突 原本的會員LINK請刪除*/}
-              <button
-                className="border-0 btn "
-                onClick={() => {
-                  setLoginPopup(true);
-                }}
-              >
-                <img src={Users} width="25" alt="Logo" className="mr-2 " />
-              </button>
-              <button className="mx-3 border-0 btn  " to="">
-                <img src={LogoOut} width="25" alt="Logo" className="mr-2 " />
-              </button>
-            </div>
 
-<<<<<<< HEAD
-            {
-              loginPopup && (
-                <LogInSignUp setLoginPopup={setLoginPopup} />
-              ) /*睿渝加的CODE不要刪*/
-            }
+            <div class="col-1 mt-4">
+              <div className="d-flex justify-content-end align-items-end ">
+                <button
+                  className="mx-3 border-0  btn "
+                  onClick={() => {
+                    shoppingCart
+                      ? setShoppingCart(false)
+                      : setShoppingCart(true);
+                  }}
+                >
+                  <img src={shopCart} width="25" alt="Logo" className="mr-2" />
+                </button>
+                {/*會員登入我改成按鈕 如果衝突 原本的會員LINK請刪除*/}
+                <button
+                  className="border-0 btn "
+                  onClick={() => {
+                    setLoginPopup(true);
+                  }}
+                >
+                  <img src={Users} width="25" alt="Logo" className="mr-2 " />
+                </button>
+                <button className="mx-3 border-0 btn  " to="">
+                  <img src={LogoOut} width="25" alt="Logo" className="mr-2 " />
+                </button>
+              </div>
+            </div>
           </div>
-=======
-          <div className="d-flex justify-content-end align-items-end ">
-            <button
-              className="mx-3 border-0  btn "
-              onClick={() => {
-                shoppingCart ? setShoppingCart(false) : setShoppingCart(true);
-              }}
-            >
-              <img src={shopCart} width="25" alt="Logo" className="mr-2" />
-            </button>
-            {/*會員登入我改成按鈕 如果衝突 原本的會員LINK請刪除*/}
-            <button
-              className="border-0 btn "
-              onClick={() => {
-                setLoginPopup(true);
-              }}
-            >
-              <img src={Users} width="25" alt="Logo" className="mr-2 " />
-            </button>
-            <button className="mx-3 border-0 btn  " to="">
-              <img src={LogoOut} width="25" alt="Logo" className="mr-2 " />
-            </button>
-          </div>
+
           {
             loginPopup && (
               <LogInSignUp setLoginPopup={setLoginPopup} />
             ) /*睿渝加的CODE不要刪*/
           }
->>>>>>> de96d377010beac2b1687b6357762147c71d4afa
         </Container>
         {shoppingCart ? <Cart /> : ''}
       </div>
