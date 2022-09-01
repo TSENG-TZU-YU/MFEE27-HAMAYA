@@ -7,7 +7,7 @@ function SignUp(props) {
   const [visibility2, setVisibility2] = useState('password');
   const [img2, setImg2] = useState(unVisib);
   return (
-    <>
+    <form>
       <label>
         會員姓名
         <br />
@@ -67,7 +67,7 @@ function SignUp(props) {
       <br />
       <br />
       <button className="subBtn">確認送出</button>
-    </>
+    </form>
   );
 }
 
