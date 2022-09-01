@@ -180,3 +180,10 @@ p {
 }
 
 // 字級 end ----------------------
+
+
+.btn:hover,
+.btn:focus{
+  outline: none;
+  box-shadow: none;
+}

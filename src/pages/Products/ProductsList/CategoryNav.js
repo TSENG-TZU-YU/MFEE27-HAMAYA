@@ -1,10 +1,10 @@
 import React from 'react';
+import { useState } from 'react';
+import './styles/categoryNav.scss';
 
 function CategoryNav() {
+  const [activeText, setActiveText] = useState('');
   const category = [
-    {
-      main: '最新商品',
-    },
     {
       main: '琴鍵樂器',
       sub: ['直立/平台鋼琴', '電子鋼琴', '數位鋼琴'],
@@ -29,6 +29,14 @@ function CategoryNav() {
 
   return (
     <ul className="category-navbar">
+      {/* {category.map(v,i)=>{
+      <li
+        key={Math.random().toString(36).replace('0.', '')}
+        onClick={() => {
+          setActiveText(v);
+        }}
+      ></li>
+    }} */}
       <li className="product-main-category">最新商品</li>
       <li className="product-main-category product-main-category-active">
         琴鍵樂器

@@ -1,5 +1,5 @@
 import React from 'react';
-import './index.scss';
+import './styles/index.scss';
 import CategoryNav from './CategoryNav';
 import ProductsItem from './ProductsItem';
 import FilterNav from './FilterNav';
@@ -9,7 +9,9 @@ import { Container } from 'react-bootstrap';
 function index() {
   return (
     <>
-      <img src={banner} alt="banner" />
+      <div className="banner-img">
+        <img src={banner} alt="banner" />
+      </div>
       <Container>
         <FilterNav />
         <div className="row">
