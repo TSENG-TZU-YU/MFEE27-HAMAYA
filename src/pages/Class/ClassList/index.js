@@ -94,7 +94,7 @@ function ClassList(props) {
                     價格
                   </p>
                   <Slider />
-                  <button className="filter-btn-class mt-3">篩選</button>
+                  <button className="filter-btn-class mt-3 mb-3">篩選</button>
                 </div>
               ) : (
                 ''
