@@ -11,8 +11,8 @@
 }
 
 .favorite-icon {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.8rem;
+  height: 1.8rem;
 }
 
 .product-img {
@@ -28,7 +28,9 @@
 }
 
 .product{
-  height: 350px;
+  height: 300px;
+  padding: 0;
+  margin: 5px 0;
 }
 
 .product:hover .img-mask{
@@ -83,3 +85,4 @@
 .compare:hover {
   background: lighten($main-light,10%);
 }
+

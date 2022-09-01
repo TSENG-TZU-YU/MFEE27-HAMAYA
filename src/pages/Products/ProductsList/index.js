@@ -4,25 +4,66 @@ import CategoryNav from './CategoryNav';
 import ProductsItem from './ProductsItem';
 import FilterNav from './FilterNav';
 import banner from '../../../assets/ProductsImg/banner.png';
-import { Container } from 'react-bootstrap';
+import bannerTitle from '../../../assets/ProductsImg/icon/banner_title.svg';
 
 function index() {
   return (
     <>
-      <div className="banner-img">
+      <div className="banner-img position-relative">
+        <img
+          src={bannerTitle}
+          alt="bannerTitle"
+          className="banner-title position-absolute"
+        />
         <img src={banner} alt="banner" />
       </div>
-      <Container>
+      <div className="container">
         <FilterNav />
         <div className="row">
           <div className="col-2">
             <CategoryNav />
           </div>
-          <div className="col-10 row row-cols-sm-2 row-cols-md-4">
+          <div className="col-10 row row-cols-2 row-cols-md-4">
             <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            <ProductsItem />
+            {/* 頁碼 */}
+            <div className="d-flex justify-content-center align-items-center flex-fill">
+              <div className="page my-3">
+                <a href="/">&#x3C;</a>
+                <a className="page-active" href="/">
+                  1
+                </a>
+                <a href="/">2</a>
+                <a href="/">3</a>
+                <a href="/">4</a>
+                <a href="/">&#x3E;</a>
+              </div>
+            </div>
           </div>
         </div>
-      </Container>
+      </div>
     </>
   );
 }
