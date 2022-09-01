@@ -56,7 +56,7 @@ function Header(props) {
               <img src={LogoOut} width="25" alt="Logo" className="mr-2 " />
             </button>
           </div>
-          <hr />
+
           {
             loginPopup && (
               <LogInSignUp setLoginPopup={setLoginPopup} />
