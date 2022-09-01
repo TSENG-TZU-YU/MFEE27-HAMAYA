@@ -38,7 +38,6 @@ function App() {
               <Route index element={<Class />} />
             </Route>
 
-
             <Route path="place" element={<MainOutlet />}>
               <Route index element={<Place />} />
             </Route>
