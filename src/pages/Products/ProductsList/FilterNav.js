@@ -29,9 +29,7 @@ function FilterNav() {
               alt="filterIcon"
             ></img>
           </div>
-          <div className="filter">
-
-          </div>
+          <div className="filter"></div>
           <div className="main-color me-3">
             商品排序
             <img className="icon-img ms-1 mb-1" src={sort} alt="sort"></img>
