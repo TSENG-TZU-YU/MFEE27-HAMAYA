@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss';
 import { Container, Row, Col } from 'react-bootstrap';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import filterIcon from '../../../assets/svg/filter_alt.svg';
 import sort from '../../../assets/svg/sort.svg';
@@ -38,14 +38,10 @@ function ClassList(props) {
       </div>
       <Row className="text-center mt-5">
         <Col>
-          {/* <Link>
-            <h4>成人課程</h4>
-          </Link> */}
+          <h4>成人課程</h4>
         </Col>
         <Col>
-          {/* <Link>
-            <h4>兒童課程</h4>
-          </Link> */}
+          <h4>兒童課程</h4>
         </Col>
       </Row>
 
