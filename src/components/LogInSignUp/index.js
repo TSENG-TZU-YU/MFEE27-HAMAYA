@@ -22,7 +22,7 @@ function LogInSignUp({setLoginPopup}) {
             <img src={Close} alt="close" />
           </button>
         </div>
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center ">
           <button
             className={logInActive ? 'setLogIn active' : 'setLogIn'}
             onClick={() => {

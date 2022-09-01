@@ -3,15 +3,17 @@ import { useState } from 'react'; //睿渝加的CODE不要刪
 import { Container } from 'react-bootstrap';
 import Logo from '../../assets/HeaderImg/logo.svg';
 import Users from '../../assets/HeaderImg/users.svg';
-import Cart from '../../assets/HeaderImg/shopping_cart.svg';
+import shopCart from '../../assets/HeaderImg/shopping_cart.svg';
 import LogoOut from '../../assets/HeaderImg/logout.svg';
 import './index.scss';
 
 import LogInSignUp from '../../components/LogInSignUp'; //睿渝加的CODE不要刪
+import Cart from '../Cart/Cart';
 import { Button } from 'bootstrap';
 
 function Header(props) {
   const [loginPopup, setLoginPopup] = useState(false); //睿渝加的CODE不要刪
+  const [shoppingCart, setShoppingCart] = useState(true);
   return (
     <>
       <div className="bg-main-gary-light-color">
@@ -57,13 +59,44 @@ function Header(props) {
               </button>
             </div>
 
+<<<<<<< HEAD
             {
               loginPopup && (
                 <LogInSignUp setLoginPopup={setLoginPopup} />
               ) /*睿渝加的CODE不要刪*/
             }
           </div>
+=======
+          <div className="d-flex justify-content-end align-items-end ">
+            <button
+              className="mx-3 border-0  btn "
+              onClick={() => {
+                shoppingCart ? setShoppingCart(false) : setShoppingCart(true);
+              }}
+            >
+              <img src={shopCart} width="25" alt="Logo" className="mr-2" />
+            </button>
+            {/*會員登入我改成按鈕 如果衝突 原本的會員LINK請刪除*/}
+            <button
+              className="border-0 btn "
+              onClick={() => {
+                setLoginPopup(true);
+              }}
+            >
+              <img src={Users} width="25" alt="Logo" className="mr-2 " />
+            </button>
+            <button className="mx-3 border-0 btn  " to="">
+              <img src={LogoOut} width="25" alt="Logo" className="mr-2 " />
+            </button>
+          </div>
+          {
+            loginPopup && (
+              <LogInSignUp setLoginPopup={setLoginPopup} />
+            ) /*睿渝加的CODE不要刪*/
+          }
+>>>>>>> de96d377010beac2b1687b6357762147c71d4afa
         </Container>
+        {shoppingCart ? <Cart /> : ''}
       </div>
     </>
   );

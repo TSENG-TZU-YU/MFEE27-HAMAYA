@@ -3,14 +3,48 @@
 p {
   margin-bottom: 0;
 }
+.filter-active {
+  position: absolute;
+  width: 121px;
+  height: 181px;
+  background-color: $main-light;
+  top: 40px;
+  left: -15px;
+}
+.sort-active {
+  position: absolute;
+  width: 121px;
+  height: 181px;
+  background-color: $main-light;
+  top: 40px;
+  left: -8px;
+}
+.z-index {
+  z-index: -1;
+}
 .vector3-main-light {
   border-top: 3px solid $main-light;
   width: 1260px;
   position: relative;
 }
-.vector5-main {
+.vector5-active-left {
   border-top: 5px solid $main;
   width: 630px;
   position: absolute;
   margin-top: 12px;
+}
+.vector5-active-right {
+  border-top: 5px solid $main;
+  width: 630px;
+  margin-left: 630px;
+  position: absolute;
+  margin-top: 12px;
+}
+.pages {
+  display: inline-block;
+  margin: 2px;
+  border-width: 1px;
+  width: 28px;
+  height: 28px;
+  text-align: center;
 }

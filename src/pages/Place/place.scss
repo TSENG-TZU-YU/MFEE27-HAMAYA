@@ -1,203 +1,54 @@
-// 顏色變數-------------------------------
+@import '../../index.scss';
 
-// 主色
-$main: #00323d;
-// 輔助色
-$main-light: #6a777a;
-$main-gary-light: #bababa;
-// 強調色
-$accent: #5b322f;
-$accent-light: #f2f2f2;
-// 中性色
-$gary-light: #767676;
-$gary-dark: #333333;
-
-// 漸層色
-// 白 -> 透明
-$linear-light-transparent: linear-gradient(
-  180deg,
-  #ffffff 0%,
-  rgba(255, 255, 255, 0) 80%
-);
-// 白 -> 墨綠
-$linear: linear-gradient(163.87deg, #ffffff 14.25%, #00323d 93.03%);
-
-// 顏色變數 end -------------------------------
-
-// 這裡導入所有要預設變數覆蓋
-$primary: $main;
-$secondary: $main-light;
-$danger: $accent;
-
-$border-radius: 0;
-
-$spacer: 5px !default; // 1rem
-$spacers: (
-  0: 0,
-  1: $spacer,
-  2: $spacer * 2,
-  // 10px
-  3: $spacer * 3,
-  // 15px
-  4: $spacer * 4,
-  // 20px
-  5: $spacer * 6,
-  // 30px
-) !default;
-
-// 導入bootstrap所有的樣式與預設變數
-@import '~bootstrap/scss/bootstrap';
-
-// 其它要導入覆蓋掉原本的預設bootstrap樣式要放在這下面
-// 全站都會使用的共同樣式
-
-// 中文字體
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap');
-// font-family: 'Noto Sans TC', sans-serif;
-
-// 英文字體
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@600&display=swap');
-// font-family: 'Noto Serif Display', serif;
-
-html {
-  font-size: 1rem;
+.engText {
+  font-family: 'Noto Serif Display', serif;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Noto Sans TC', 'Microsoft JhengHei', PingFang, sans-serif;
-  letter-spacing: 0.1rem;
-  background: $accent-light;
-  color: $dark;
+.cursor-pinter {
+  cursor: pointer;
 }
 
-a {
-  text-decoration: none;
-}
-
-// 背景顏色 ----------------------
-
-.bg-main-color {
-  background-color: $main;
-}
-
-.bg-main-light-color {
-  background-color: $main-light;
-}
-
-.bg-main-gary-light-color {
+.session1-bg {
+  height: 648px;
   background-color: $main-gary-light;
 }
-
-.bg-accent-color {
-  background-color: $accent;
+.session-bg .vector3 {
+  border-top: 3px solid $gary-dark;
+  width: 863px;
 }
-
-.bg-accent-light-color {
-  background-color: $accent-light;
-}
-
-.bg-gary-light-color {
-  background-color: $gary-light;
-}
-
-.bg-gary-dark-color {
-  background-color: $gary-dark;
-}
-
-// 背景顏色 end ----------------------
-
-// 顏色 ----------------------
-
-.main-color {
-  color: $main;
-}
-
-.main-light-color {
-  color: $main-light;
-}
-
-.main-gary-light-color {
-  color: $main-gary-light;
-}
-
-.accent-color {
-  color: $accent;
-}
-
-.accent-light-color {
-  color: $accent-light;
-}
-
-.gary-light-color {
-  color: $gary-light;
-}
-
-.gary-dark-color {
-  color: $gary-dark;
-}
-
-// 顏色 end ----------------------
-
-// 字級 ----------------------
-
-h1 {
-  font-size: 4rem; // 64px
-}
-
-h3 {
-  font-size: 3rem; // 48px
-}
-
-h3 {
-  font-size: 2rem; // 32px
-}
-
-h4 {
-  font-size: 1.5rem; // 24px
-}
-
-h5 {
-  font-size: 1.25rem; // 20px
-}
-
-h6 {
-  font-size: 1.15rem; // 18px
-}
-
-p {
-  font-size: 1rem; // 16px
-}
-
-.small {
-  font-size: 0.85rem; // 14px
-}
-
-.minimum {
-  font-size: 0.75rem; // 12px
-}
-
-// 字級 end ----------------------
 
 .container2{
   background-color: $main-gary-light;
 }
 
-.intro1 {
-  background-color: $main-light;
+.intro1  {
+  background-color: #6A777ACC;
   color:white;
+  width: fit-content;
+  top: 0;
+  left:-100px;
+  padding: 30px;
+  width:750px;
 }
 
 .intro2 {
-  background-color: $gary-light;
+  background-color: #767676c7;
   color:white;
+  width: fit-content;
+  top: 0;
+  left:0px;
+  padding: 30px;
+  width:750px;
 }
 
 .intro3{
-  background-color: $accent;
+  background-color: #5b322fd7;
   color:white;
+  width: fit-content;
+  top: 0;
+  left:-100px;
+  padding: 30px;
+  width:750px;
 }
 
 .title1{

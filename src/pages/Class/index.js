@@ -3,6 +3,7 @@ import './index.scss';
 // import { Outlet } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
+// 圖檔
 import banner from '../../assets/ClassImg/banner.png';
 import art01 from '../../assets/ClassImg/Rectangle 343.png';
 import art02 from '../../assets/ClassImg/Rectangle 344.png';
