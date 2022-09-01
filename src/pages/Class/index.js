@@ -35,7 +35,12 @@ function Class(props) {
           </a>
         </div>
         <div className="d-flex blank-top ">
-          <h4 className="me-3 cursor-pinter text-nowrap">音樂文章</h4>
+          <h4
+            className="me-3 cursor-pinter text-nowrap"
+            style={{ color: '#00323d' }}
+          >
+            音樂文章
+          </h4>
           <h4 className="engText me-3 text-nowrap">ARTICLE</h4>
           <div className="vector3  mt-3"></div>
         </div>
@@ -165,7 +170,7 @@ function Class(props) {
             >
               MUSICAL EDUCATION
             </h4>
-            <div className="vector3  mt-3"></div>
+            <div className="vector4 mt-3"></div>
           </div>
           <Row className="mt-5 text-center">
             <Col>
