@@ -22,7 +22,9 @@ import teacher05 from '../../assets/ClassImg/teacher05.png';
 function Class(props) {
   return (
     <>
-      <img src={banner} alt="banner" />
+      <div>
+        <img className="img-fluid" src={banner} alt="banner" />
+      </div>
       <Container>
         <div className="d-flex mt-5">
           <a href="/">
@@ -30,7 +32,6 @@ function Class(props) {
           </a>
           /
           <a href="/">
-            {' '}
             <p>音樂教育</p>
           </a>
         </div>
@@ -40,7 +41,7 @@ function Class(props) {
           <div className="vector3  mt-3"></div>
         </div>
         <Row className="blank-top-art mt-5">
-          <Col md={6}>
+          <Col lg={6}>
             <img
               className="cursor-pinter"
               style={{ width: '600px', height: '400px' }}
@@ -63,7 +64,7 @@ function Class(props) {
             </div>
             <div className="d-flex"></div>
           </Col>
-          <Col md={5} className="blank-art-left">
+          <Col lg={5} className="blank-art-left">
             <div className="d-flex">
               <img
                 className="me-4 cursor-pinter"
