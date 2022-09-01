@@ -1,0 +1,28 @@
+@import '../../styles/global.scss';
+
+.main-color {
+  color: $main;
+}
+
+.banner-img {
+  height: 260px;
+  overflow: hidden;
+}
+
+.page > a {
+  color: $main-light;
+  font-size: 1.2rem;
+  margin: 0 5px;
+}
+
+a.page-active {
+  color: $main;
+}
+
+.banner-title {
+  top: 80px;
+  right: 350px;
+}
+
+
+

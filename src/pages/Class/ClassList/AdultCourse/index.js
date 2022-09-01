@@ -15,7 +15,7 @@ function index(props) {
           <h4 className="ms-1 mb-2" style={{ color: '#00323d' }}>
             藍調與爵士鋼琴的獨奏技巧與應用
           </h4>
-          <div className="vector3"></div>
+          <div className="vector2"></div>
           <div className="ms-2 mt-2">
             <p className="text-p mb-3">
               這門課程希望能以我自身的鋼琴學習經驗和逾 20

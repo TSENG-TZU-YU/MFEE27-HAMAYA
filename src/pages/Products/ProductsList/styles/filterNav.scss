@@ -5,10 +5,73 @@
   color: $main;
 }
 
-.filter-nav {
-  cursor: pointer;
-}
 
 .icon-img {
   width: 1.5rem;
 }
+
+.filter-menu {
+  background: $main-light;
+  width: 180px;
+  top: 43px;
+  z-index: 3;
+  color: $accent-light;
+}
+
+.filter-menu > p {
+  color: $accent-light;
+}
+  
+button {
+  border: none;
+}
+
+.form-check {
+  margin: 5px 0;
+}
+
+.no-color-box {
+  background:
+  linear-gradient(-45deg, transparent 44%, $main-gary-light 44%, $main-gary-light 50%, transparent 50%);
+  background-color: #fff;
+}
+
+.color-box {
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.color-box:active{
+  outline: 3px solid $main-gary-light;
+}
+
+
+.color {
+  background-color: rgb(78, 42, 42);
+}
+
+.filter-btn {
+ background: $main-gary-light;
+ color: $main;
+ padding: 5px;
+ letter-spacing: 0.1rem;
+}
+
+.sort-menu {
+  background: $main-light;
+  // width: 180px;
+  left: 110px;
+  top: 43px;
+  z-index: 3;
+  color: $accent-light;
+}
+
+.sort-menu > ul {
+  line-height: 1.5rem;
+  padding: 0;
+  margin-bottom: 0 !important;
+}
+
+// .sort-menu > ul:hover
