@@ -14,7 +14,7 @@ function Header(props) {
   const [loginPopup, setLoginPopup] = useState(false); //睿渝加的CODE不要刪
   return (
     <>
-      <div className="bg-main-gary-light-color ">
+      <div className="bg-main-gary-light-color">
         <Container className="  d-flex justify-content-between align-items-center height">
           <div className="d-flex align-items-start ">
             <Link className="" to="/">
