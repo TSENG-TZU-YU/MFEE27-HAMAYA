@@ -21,20 +21,20 @@ function Header(props) {
               <img src={Logo} width="180" alt="Logo" className="mr-2" />
             </Link>
           </div>
-          <div className="d-flex align-items-center ">
-            <Link className="mx-5 h6" to="news">
+          <div className="d-flex align-items-center">
+            <Link className="mx-5 h6 text-nowrap" to="news">
               最新消息
             </Link>
-            <Link className="mx-5 h6" to="product">
+            <Link className="mx-5 h6 text-nowrap" to="product">
               樂器商城
             </Link>
-            <Link className="mx-5 h6" to="class">
+            <Link className="mx-5 h6 text-nowrap" to="class">
               音樂教育
             </Link>
-            <Link className="mx-5 h6" to="place">
+            <Link className="mx-5 h6 text-nowrap" to="place">
               場地租借
             </Link>
-            <Link className="mx-5 h6" to="aboutus">
+            <Link className="mx-5 h6 text-nowrap" to="aboutus">
               關於我們
             </Link>
           </div>
