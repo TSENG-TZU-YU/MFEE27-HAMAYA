@@ -42,7 +42,7 @@ function Class(props) {
             音樂文章
           </h4>
           <h4 className="engText me-3 text-nowrap">ARTICLE</h4>
-          <div className="vector3  mt-3"></div>
+          <div className="vector3 mt-3"></div>
         </div>
         <Row className="blank-top-art mt-5">
           <Col lg={6}>

@@ -7,7 +7,7 @@ import favoriteDefault from '../../../assets/ProductsImg/icon/favorite_default.s
 
 function ProductsItem() {
   return (
-    <div className="col product p-3">
+    <div className="col product">
       <div className="position-relative">
         {/* 商品照片 */}
         <div className="product-img ">

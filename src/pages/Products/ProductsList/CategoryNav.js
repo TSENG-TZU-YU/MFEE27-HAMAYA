@@ -1,42 +1,56 @@
 import React from 'react';
-import { useState } from 'react';
 import './styles/categoryNav.scss';
 
 function CategoryNav() {
-  const [activeText, setActiveText] = useState('');
+  // const [activeText, setActiveText] = useState('');
+  const mainCategory = [
+    {
+      id: 1,
+      name: '琴鍵樂器',
+    },
+    {
+      id: 2,
+      name: '管樂器',
+    },
+  ];
   const category = [
     {
-      main: '琴鍵樂器',
-      sub: ['直立/平台鋼琴', '電子鋼琴', '數位鋼琴'],
+      ins_main: 1,
+      ins_sub: 1,
     },
     {
-      main: '管樂器',
-      sub: ['長笛', '短笛', '薩克斯風'],
+      ins_main: 1,
+      ins_sub: 2,
     },
     {
-      main: '吉他/烏克麗麗',
-      sub: ['木吉他', '電吉他', '貝斯', '烏克麗麗'],
+      ins_main: 1,
+      ins_sub: 3,
     },
     {
-      main: '打擊樂器',
-      sub: ['爵士鼓', '電子鼓', '木箱鼓'],
+      ins_main: 2,
+      ins_sub: 4,
     },
     {
-      main: '配件',
-      sub: ['琴鍵樂器', '管樂器', '弓弦樂器', '吉他', '打擊樂器'],
+      ins_main: 2,
+      ins_sub: 5,
+    },
+    {
+      ins_main: 2,
+      ins_sub: 6,
     },
   ];
 
   return (
+    // <ul className="category-navbar">
+    //   <li className="product-main-category">最新商品</li>
+    //   {mainCategory.map((v) => {
+    //     let dataItem = category.filter((item) => {
+    //       return item.ins_main === v.id;
+    //     });
+    //     return dataItem;
+    //   })}
+    // </ul>
     <ul className="category-navbar">
-      {/* {category.map(v,i)=>{
-      <li
-        key={Math.random().toString(36).replace('0.', '')}
-        onClick={() => {
-          setActiveText(v);
-        }}
-      ></li>
-    }} */}
       <li className="product-main-category">最新商品</li>
       <li className="product-main-category product-main-category-active">
         琴鍵樂器

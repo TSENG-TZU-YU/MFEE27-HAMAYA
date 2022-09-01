@@ -4,7 +4,7 @@ function Members(props) {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-3">
+        <div className="col-2">
         <div>
           <img src="" alt="" />
         </div>
