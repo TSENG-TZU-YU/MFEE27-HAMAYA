@@ -10,7 +10,7 @@ import Lines from '../../assets/FooterImg/lines.svg';
 function Footer(props) {
   return (
     <>
-      <div className="bg-main-light-color footer-height width ">
+      <div className="bg-main-light-color footer-height">
         <Container className=" d-flex justify-content-between">
           <div>
             <h4 className="main-gary-light-color letter  pt-5 ms-3">
