@@ -84,16 +84,17 @@ function ClassList(props) {
                   <p className="toggled-p mb-0 " style={{ color: '#f2f2f2' }}>
                     類型
                   </p>
-                  <select className="mt-1">
-                    <option className="opacity-50">所有課程</option>
+                  <select className="select-class mt-1">
+                    <option>所有課程</option>
                   </select>
                   <p
-                    className="toggled-p mb-0  mt-1 "
+                    className="toggled-p mb-0  mt-1 mb-1"
                     style={{ color: '#f2f2f2' }}
                   >
-                    費用
+                    價格
                   </p>
                   <Slider />
+                  <button className="filter-btn-class mt-3">篩選</button>
                 </div>
               ) : (
                 ''
@@ -108,7 +109,20 @@ function ClassList(props) {
               alt="Sort"
               onClick={toggleSortTrueFalse}
             ></img>
-            <div className={sortToggled ? 'sort-active' : ''}></div>
+            <div className={sortToggled ? 'sort-active' : ''}>
+              {sortToggled ? (
+                <div className="sort-menu-class ">
+                  <ul className="p-2">
+                    <li>價格：低到高</li>
+                    <li>價格：高到低</li>
+                    <li>上架：新到舊</li>
+                    <li>上架：舊到新</li>
+                  </ul>
+                </div>
+              ) : (
+                ''
+              )}
+            </div>
           </div>
           <img className="ms-5 " src={search} alt="search"></img>
         </nav>
