@@ -22,9 +22,7 @@ import teacher05 from '../../assets/ClassImg/teacher05.png';
 function Class(props) {
   return (
     <>
-      <div>
-        <img className="img-fluid" src={banner} alt="banner" />
-      </div>
+      <img className="img-fluid" src={banner} alt="banner" />
       <Container>
         <div className="d-flex mt-5">
           <a href="/">
@@ -36,8 +34,8 @@ function Class(props) {
           </a>
         </div>
         <div className="d-flex blank-top ">
-          <h4 className="me-3 cursor-pinter">音樂文章</h4>
-          <h4 className="engText me-3">ARTICLE</h4>
+          <h4 className="me-3 cursor-pinter text-nowrap">音樂文章</h4>
+          <h4 className="engText me-3 text-nowrap">ARTICLE</h4>
           <div className="vector3  mt-3"></div>
         </div>
         <Row className="blank-top-art mt-5">
@@ -157,10 +155,13 @@ function Class(props) {
       <div className="session-bg">
         <Container>
           <div className="d-flex pt-5">
-            <h4 className="me-3 " style={{ color: '#f2f2f2' }}>
+            <h4 className="me-3 text-nowrap" style={{ color: '#f2f2f2' }}>
               音樂教育
             </h4>
-            <h4 className="engText me-3 " style={{ color: '#f2f2f2' }}>
+            <h4
+              className="engText me-3 text-nowrap"
+              style={{ color: '#f2f2f2' }}
+            >
               MUSICAL EDUCATION
             </h4>
             <div className="vector3  mt-3"></div>
@@ -190,10 +191,10 @@ function Class(props) {
 
       <Container>
         <div className="d-flex mt-5 ">
-          <h4 className="me-3" style={{ color: '#00323d' }}>
+          <h4 className="me-3 text-nowrap" style={{ color: '#00323d' }}>
             嚴選師資
           </h4>
-          <h4 className="engText me-3">ARTICLE</h4>
+          <h4 className="engText me-3 text-nowrap">ARTICLE</h4>
           <div className="vector3  mt-3"></div>
         </div>
         <div className="d-flex  justify-content-center align-items-center mt-5">
