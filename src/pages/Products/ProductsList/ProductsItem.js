@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles/productsItem.scss';
 import product from '../../../assets/ProductsImg/product.png';
 import cartCheck from '../../../assets/ProductsImg/icon/shopping_cart_check.svg';
 import compare from '../../../assets/ProductsImg/icon/compare.svg';

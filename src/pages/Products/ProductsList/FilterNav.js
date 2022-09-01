@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles/filterNav.scss';
 import filterIcon from '../../../assets/ProductsImg/icon/filter_alt.svg';
 import sort from '../../../assets/ProductsImg/icon/sort.svg';
 import search from '../../../assets/ProductsImg/icon/search.svg';
@@ -27,6 +28,9 @@ function FilterNav() {
               src={filterIcon}
               alt="filterIcon"
             ></img>
+          </div>
+          <div className="filter">
+
           </div>
           <div className="main-color me-3">
             商品排序
