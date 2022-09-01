@@ -1,5 +1,5 @@
 import React from 'react';
-import './index.scss';
+import './place.scss';
 
 function Place(props) {
   return (

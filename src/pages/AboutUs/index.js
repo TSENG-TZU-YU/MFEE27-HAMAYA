@@ -1,5 +1,5 @@
 import React from 'react';
-import './index.css';
+import './about.scss';
 
 function About(props) {
   return (
@@ -8,11 +8,11 @@ function About(props) {
         <div>
           <h3>關於我們/About</h3>
         </div>
-        <div>
-          <h4>品牌理念 BRAND CONCEPT</h4>
+        <div className="bg-main-light-color">
+          <h4 className="title1">品牌理念 BRAND CONCEPT</h4>
         </div>
         <div>
-          <h4>創辦人 FOUNDER</h4>
+          <h4 className="title2">創辦人 FOUNDER</h4>
           <div>33 范家寧 組長</div>
           <div>03 黃睿渝 技術長</div>
           <div>09 黃秀莉</div>
@@ -20,8 +20,8 @@ function About(props) {
           <div>17 温侑臻</div>
           <div>27 曾子瑜</div>
         </div>
-        <div>
-          <h4>聯絡我們 CONTACT US</h4>
+        <div className="container3">
+          <h4 className="title3">聯絡我們 CONTACT US</h4>
           <p>姓名</p>
           <input type="text" id="fullName" placeholder="請輸入姓名" />
           <p>聯絡電話</p>
@@ -41,8 +41,8 @@ function About(props) {
           <input type="text" id="comment" placeholder="問題描述" />
           <button>確認送出</button>
         </div>
-        <div>
-          <h4>門市資訊 STORE INFORMATION</h4>
+        <div className="container4">
+          <h4 className="title4">門市資訊 STORE INFORMATION</h4>
         </div>
       </div>
     </>
