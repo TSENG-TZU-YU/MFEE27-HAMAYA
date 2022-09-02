@@ -7,7 +7,7 @@ function MyQuestion(props) {
         setbread('我的詢問'); //載入頁面時 設定麵包削
     }, []);
     return (
-        <div className="col-12 col-md-9 col-lg-10">
+        <div className="col-12 col-md-8 col-lg-9">
             {' '}
             {/*此className為RWD設定請勿更動*/}
             Question

@@ -1,3 +1,6 @@
 .MemberListTable li{
  margin: 15px 0;
 }
+.MemberListTable-line{
+    background: linear-gradient(to right,#ffffff00 0%,#ffffff00 48%,#BABABA 48%,#BABABA 51%,#ffffff00 51%,#ffffff00 100%);
+}
