@@ -187,3 +187,13 @@ p {
   outline: none;
   box-shadow: none;
 }
+
+// 網站文字反白顏色
+::selection {
+	background: $main-light;
+	color: $accent-light;
+}
+::-moz-selection {
+	background: $main-light;
+	color: $accent-light;
+}
