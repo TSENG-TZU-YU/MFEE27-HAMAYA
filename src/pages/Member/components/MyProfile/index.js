@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import './index.css';
 function MyProfile(props) {
     const [user, setUser] = useState({
@@ -11,6 +12,12 @@ function MyProfile(props) {
         repassword: '',
         sub: '1',
     });
+    
+    const [setbread] = useOutletContext();
+    useEffect(() => {
+        setbread('會員資料');
+    }, []);
+
     const [edit, setEdit] = useState(true);
     const handleFieldChange = (e) => {
         const newUser = { ...user, [e.target.name]: e.target.value };
@@ -19,11 +26,11 @@ function MyProfile(props) {
     };
     return (
         <div className="col-12 col-md-9 col-lg-10">
-            <table className="myprofile_table w-100 w-md-75">
+            <table className="myprofile_table ">
                 <thead>
                     <tr>
                         <th colSpan="2">
-                            <h4 className="main-color">會員資料</h4>
+                            <h4 className="main-color ">會員資料</h4>
                         </th>
                     </tr>
                 </thead>
@@ -123,7 +130,7 @@ function MyProfile(props) {
                         onChange={handleFieldChange}
                         disabled={edit}
                     />
-                    <label htmlFor="sub" >訂閱</label>
+                    <label htmlFor="sub">訂閱</label>
                     &nbsp;
                     <input
                         className="d-block"

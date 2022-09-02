@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom';
+import member_img from '../../../../assets/svg/member_avatar.svg';
+import add_img from '../../../../assets/svg/add.svg';
+import './index.css'
 function MemberListTable(props) {
     return (
-        <div className="col-3 col-lg-2 d-none d-md-block">
-            <div>
-                <img src="" alt="" />
+        <div className="col-3 col-lg-2 d-none d-md-block MemberListTable">
+            <div className="MemberListTable">
+                <img className="img-fluid" src={member_img} alt="" />
             </div>
-            <ul>
+            <ul className="list-unstyled">
                 <li>
                     <Link className="" to="">
                         會員資料
