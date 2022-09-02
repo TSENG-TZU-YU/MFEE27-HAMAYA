@@ -13,7 +13,7 @@ import { Button } from 'bootstrap';
 
 function Header(props) {
   const [loginPopup, setLoginPopup] = useState(false); //睿渝加的CODE不要刪
-  const [shoppingCart, setShoppingCart] = useState(true);
+  const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
   return (
     <>
       <div className="bg-main-gary-light-color">

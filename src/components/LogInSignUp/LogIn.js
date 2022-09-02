@@ -17,9 +17,8 @@ function LogIn({ setLoginPopup }) {
         密碼
         <br />
         <input type={visibility} placeholder="請輸入密碼" required />
-        <a
-          href="/#"
-          className="visibiImg"
+        <button
+          className="visibiImg "
           onClick={(e) => {
             e.preventDefault();
             if (visibility == 'password') {
@@ -32,7 +31,7 @@ function LogIn({ setLoginPopup }) {
           }}
         >
           <img src={img} alt="" />
-        </a>
+        </button>
       </label>
       <a>忘記密碼?</a>
 

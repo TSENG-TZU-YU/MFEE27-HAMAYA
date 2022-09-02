@@ -1,5 +1,5 @@
 import React from 'react';
-import './Cart.css';
+import './Cart.scss';
 import ashBin from '../../assets/svg/delete.svg';
 //修改 CheckOut 顏色
 import { ReactComponent as CheckOut } from '../../assets/svg/shopping_cart_checkout.svg';
@@ -18,7 +18,7 @@ function Cart() {
         </div>
         <div className="scrollStyle overflow-auto pb-2">
           <div className="shoppingCartItem d-flex py-2">
-            <img style={{ width: '100px' }} src={img} alt="" />
+            <img className="shoppingCartItemImg mx-3" src={img} alt="" />
             <div className="d-flex flex-column">
               <span className="small main-color mb-5">YAMAHA U系列 U1...</span>
               <span className="small gary-dark-color">數量:1</span>
@@ -29,7 +29,7 @@ function Cart() {
             </button>
           </div>
           <div className="shoppingCartItem d-flex py-2">
-            <img style={{ width: '100px' }} src={img} alt="" />
+            <img className="shoppingCartItemImg mx-3" src={img} alt="" />
             <div className="d-flex flex-column">
               <span className="small main-color mb-5">YAMAHA U系列 U1...</span>
               <span className="small gary-dark-color">數量:1</span>
@@ -40,7 +40,7 @@ function Cart() {
             </button>
           </div>
           <div className="shoppingCartItem d-flex py-2">
-            <img style={{ width: '100px' }} src={img} alt="" />
+            <img className="shoppingCartItemImg mx-3" src={img} alt="" />
             <div className="d-flex flex-column">
               <span className="small main-color mb-5">YAMAHA U系列 U1...</span>
               <span className="small gary-dark-color">數量:1</span>
@@ -51,8 +51,8 @@ function Cart() {
             </button>
           </div>
         </div>
-        <div>
-          <button className="border-0 bg-main-color checkOutBtn py-1">
+        <div className="pt-2">
+          <button className="border-0 bg-main-color checkOutBtn py-2">
             <CheckOut className="checkOutIcon" />
             <span className="px-2">訂單結帳</span>
           </button>

@@ -1,8 +1,9 @@
 @import '../../../../styles/global.scss';
 
-.price {
+.product-price {
   font-size: 1.1rem;
   font-weight: bold;
+  margin-bottom: 0;
 }
 
 .product-icon {
@@ -10,17 +11,21 @@
   height: 1.15rem;
 }
 
-.favorite-icon {
-  width: 1.8rem;
-  height: 1.8rem;
-}
 
 .product-img {
-  height: 230px;
-  overflow: hidden;
+  background: #fff;
 }
 
-.img-mask {
+.product-img > img {
+  overflow: hidden;
+  object-fit: contain;
+}
+
+.card-img-top{
+  height: 240px;
+}
+
+.product-img-mask {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0);
@@ -28,12 +33,10 @@
 }
 
 .product{
-  height: 300px;
-  padding: 0;
-  margin: 5px 0;
+  padding: 5px;
 }
 
-.product:hover .img-mask{
+.product:hover .product-img-mask{
   content:"";
   width: 100%;
   height: 100%;
@@ -43,7 +46,7 @@
   left: 0;
 }
 
-.compare {
+.product-compare {
   opacity: 0;
   color: $accent-light;
   width: 4rem;
@@ -53,37 +56,43 @@
   transition: .4s;
 }
 
-.like {
+.product-like {
   opacity: 0;
   padding: 1px;
+  margin: 5px;
   width: 30px;
   height: 30px;
   cursor: pointer;
 }
 
-.cart-check-btn {
+.product-cart-check-btn {
   opacity: 0;
   line-height: 1rem;
   letter-spacing: 0.1rem;
 }
 
-.product:hover .compare {
+.product:hover .product-compare {
   opacity: 1;
 }
 
-.product:hover .like {
+.product:hover .product-like {
   opacity: 1;
 }
 
-.product:hover .cart-check-btn {
+.product:hover .product-cart-check-btn {
   opacity: 1;
 }
 
-.cover-fit{
-  object-fit: cover;
-}
+// .cover-fit{
+//   object-fit: cover;
+// }
 
-.compare:hover {
+.product-compare:hover {
   background: lighten($main-light,10%);
 }
 
+
+.product-name {
+  margin-top: 5px;
+  margin-bottom: 0;
+}

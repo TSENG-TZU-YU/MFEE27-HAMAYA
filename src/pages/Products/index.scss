@@ -1,28 +1,33 @@
 @import '../../styles/global.scss';
 
-.main-color {
-  color: $main;
+html{
+  // to page top 移動效果
+  scroll-behavior: smooth;
 }
 
-.banner-img {
+.products-banner-img {
   height: 260px;
   overflow: hidden;
 }
 
-.page > a {
+.products-page > a {
   color: $main-light;
   font-size: 1.2rem;
   margin: 0 5px;
 }
 
-a.page-active {
+a.products-page-active {
   color: $main;
 }
 
-.banner-title {
+.products-banner-title {
   top: 80px;
   right: 350px;
 }
 
+// to page top link
+.products-float-right {
+  float: right;
+}
 
 

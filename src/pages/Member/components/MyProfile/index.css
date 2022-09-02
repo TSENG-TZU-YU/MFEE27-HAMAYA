@@ -1,3 +1,15 @@
-input{
-    
+.myprofile_btn{
+    width: 200px;
+    height: 40px;
+}
+.myprofile_table tr{
+    height: 60px;
+}
+.myprofile_table input{
+    width: 100%;
+}
+
+.myprofile_table input:focus{
+    outline:solid 2px #0099ff;
+    width: 100%;
 }
