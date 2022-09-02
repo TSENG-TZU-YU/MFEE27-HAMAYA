@@ -51,7 +51,7 @@ function MemberListTable(props) {
                     </li>
                 </ul>
             </div>
-            <div className="col-1 py-3">
+            <div className="col-1 py-3 d-none d-md-block">
                 <div className="MemberListTable-line h-100"></div>
             </div>
         </>
