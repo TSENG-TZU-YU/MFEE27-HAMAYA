@@ -7,11 +7,8 @@ function MyProfile(props) {
         birthday: '1993-11-14',
         phone: '093008422',
         address: '桃園市中壢區新生路二段421號',
-<<<<<<< HEAD
-=======
         password: '123456789',
         repassword: '',
->>>>>>> 6708379d3e75957e763848a53d2c7f9ef07fa1b9
         sub: '1',
     });
     const [edit, setEdit] = useState(true);
@@ -21,112 +18,6 @@ function MyProfile(props) {
         setUser(newUser);
     };
     return (
-<<<<<<< HEAD
-        <div className="col-10 ">
-            <h4>會員資料</h4>
-            <br />
-            <label>
-                會員帳號
-                <br />
-                <span>{user.email}</span>
-            </label>
-            <br />
-            <br />
-            <label>
-                會員姓名
-                <br />
-                <input
-                    type="text"
-                    value={user.fullName}
-                    name="fullName"
-                    onChange={handleFieldChange}
-                    disabled={edit}
-                />
-            </label>
-            <br />
-            <br />
-            <label>
-                出生日期
-                <br />
-                <input
-                    type="date"
-                    value={user.birthday}
-                    name="birthday"
-                    onChange={handleFieldChange}
-                    disabled={edit}
-                />
-            </label>
-            <br />
-            <br />
-            <label>
-                手機號碼
-                <br />
-                <input
-                    type="text"
-                    value={user.phone}
-                    name="phone"
-                    onChange={handleFieldChange}
-                    disabled={edit}
-                />
-            </label>
-            <br />
-            <br />
-            <label>
-                居住地址
-                <br />
-                <input
-                    type="text"
-                    value={user.address}
-                    name="address"
-                    onChange={handleFieldChange}
-                    disabled={edit}
-                />
-            </label>
-            <br />
-            <br />
-            <label>
-                修改密碼
-                <br />
-                <input type="text" value="" disabled={edit} />
-            </label>
-            <br />
-            <br />
-            <label>
-                確認新密碼
-                <br />
-                <input type="text" value="" disabled={edit} />
-            </label>
-            <br />
-            <br />
-            <h5>優惠訊息通知</h5>
-            <label>
-                <input
-                    type="radio"
-                    name="sub"
-                    checked={user.sub === '1'}
-                    value={'1'}
-                    onChange={handleFieldChange}
-                    disabled={edit}
-                />{' '}
-                訂閱
-            </label>
-            &nbsp;&nbsp;
-            <label>
-                <input
-                    type="radio"
-                    name="sub"
-                    checked={user.sub === '0'}
-                    value={'0'}
-                    onChange={handleFieldChange}
-                    disabled={edit}
-                />{' '}
-                取消訂閱
-            </label>
-            <br />
-            <br />
-            {edit ? (
-                <button
-=======
         <div className="col-12 col-md-9 col-lg-10">
             <table className="myprofile_table w-100 w-md-75">
                 <thead>
@@ -250,7 +141,6 @@ function MyProfile(props) {
             {edit ? (
                 <button
                     className="myprofile_btn mb-4 accent-light-color bg-accent-color border-0 "
->>>>>>> 6708379d3e75957e763848a53d2c7f9ef07fa1b9
                     onClick={() => {
                         setEdit(false);
                     }}
@@ -259,10 +149,7 @@ function MyProfile(props) {
                 </button>
             ) : (
                 <button
-<<<<<<< HEAD
-=======
                     className="myprofile_btn mb-4 accent-light-color bg-main-color border-0"
->>>>>>> 6708379d3e75957e763848a53d2c7f9ef07fa1b9
                     onClick={() => {
                         setEdit(true);
                     }}
