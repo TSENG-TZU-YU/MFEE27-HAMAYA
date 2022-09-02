@@ -1,14 +1,30 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './index.css';
+
 function MemberListMobile(props) {
+    const [url, setUrl] = useState('');
+    const navigate = useNavigate();
     return (
-        <div className="col-2 d-md-none">
-            <select>
-                <option value="1-10">會員資料</option>
-                <option value="10-15">我的課程</option>
-                <option value="15-20">我的收藏</option>
-                <option value="20+">訂單查詢</option>
-                <option value="20+">我的優惠券</option>
-                <option value="20+">我的詢問</option>
-            </select>
+        <div className="col-12 d-md-none MemberListMobile">
+            <div className="my-3">
+                <select
+                    value={url}
+                    onChange={(e) => {
+                        setUrl(e.target.value);
+                        const newUrl = e.target.value;
+                        navigate(newUrl);
+                    }}
+                >
+                    <option value="">會員資料</option>
+                    <option value="myclass">我的課程</option>
+                    <option value="mybucketlist">我的收藏</option>
+                    <option value="mycart">購物車</option>
+                    <option value="myorder">訂單查詢</option>
+                    <option value="mycoupon">我的優惠券</option>
+                    <option value="myquestion">我的詢問</option>
+                </select>
+            </div>
         </div>
     );
 }

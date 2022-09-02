@@ -140,7 +140,7 @@ function MyProfile(props) {
             </div>
             {edit ? (
                 <button
-                    className="myprofile_btn mb-4 accent-light-color bg-accent-color"
+                    className="myprofile_btn mb-4 accent-light-color bg-accent-color border-0"
                     onClick={() => {
                         setEdit(false);
                     }}
@@ -149,7 +149,7 @@ function MyProfile(props) {
                 </button>
             ) : (
                 <button
-                    className="myprofile_btn mb-4 accent-light-color bg-main-color"
+                    className="myprofile_btn mb-4 accent-light-color bg-main-color border-0"
                     onClick={() => {
                         setEdit(true);
                     }}

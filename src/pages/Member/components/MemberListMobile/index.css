@@ -1,0 +1,12 @@
+.MemberListMobile select{
+    width: 100%;
+    padding: 10px;
+    font-size: 24px;
+    color: azure;
+    background-color: #6A777A;
+    outline-color: #0099ff;
+
+}
+.MemberListMobile select option{
+    font-size: 24px;
+}
