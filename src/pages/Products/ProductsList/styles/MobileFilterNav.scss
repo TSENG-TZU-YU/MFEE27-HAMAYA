@@ -1,0 +1,22 @@
+@import '../../../../styles/global.scss';
+
+.filter-nav-item-name {
+  color: $gary-light;
+  margin-bottom: 0;
+  margin-left: 10px;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+.filter-nav-item {
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.filter-nav-btn {
+  font-style: 1.5rem;
+  font-weight: bold;
+  color: $main;
+}

@@ -28,9 +28,9 @@
 }
 
 .product{
-  height: 300px;
+  // height: 250px;
   padding: 0;
-  margin: 5px 0;
+  margin: 10px 0;
 }
 
 .product:hover .img-mask{
@@ -87,3 +87,12 @@
   background: lighten($main-light,10%);
 }
 
+
+.product-name {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.price {
+  margin-bottom: 0;
+}
