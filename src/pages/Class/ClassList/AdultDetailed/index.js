@@ -5,7 +5,7 @@ import './index.scss';
 
 // 子元件
 import StarRating from '../../../../components/Star/StarRating';
-import ToShareCollect from '../../../../components/ToShareCollect';
+import ToShareCollect from '../../../../components/ToShare';
 
 // 圖檔
 import AdultDetailed01 from '../../../../assets/ClassImg/AdultDetailed01.png';

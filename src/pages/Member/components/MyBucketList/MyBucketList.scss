@@ -1,0 +1,41 @@
+@import '../../../../styles/global.scss';
+
+.myBucketListBtn {
+   color: $main-light;
+   border-bottom: 3px solid $main-light;
+}
+
+.active {
+   color: $main;
+   border-bottom: 5px solid $main;
+}
+
+.myBucketItem {
+   height: 130px;
+   background-color: white;
+
+}
+
+.myBucketImg {
+   max-height: 130px;
+   object-fit: cover;
+   // border: 1px solid #ccc;//測試用記得拿掉
+}
+
+.itemFlex {
+   flex: 1 1 0;
+}
+
+.itemPrice {
+   color: $accent;
+   font-weight: 700;
+}
+
+.myBucketItemIcon path {
+   fill: $gary-dark;
+}
+
+.myBucketItemIcon {
+   width: 20px;
+   height: 20px;
+}
