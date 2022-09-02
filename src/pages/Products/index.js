@@ -84,54 +84,25 @@ function index() {
                         </div>
                         {/* 頁碼 end */}
 
-                        {/* to page top link */}
-                        <a href="#top">
-                            <img
-                                src={pageTop}
-                                alt="pageTop"
-                                className="d-block  products-float-right sticky-bottom"
-                            />
-                        </a>
-                        {/* to page top link end */}
+                        {/* 頁碼 end */}
+
+                        <ScrollTo />
 
                         {/* 商品比較 btn */}
-
-                        {/* TODO: 可不可以用a? btn / a / LINK 區別 */}
-                        <a href="/">
-                            <img
-                                src={compareBtn}
-                                alt="compareBtn"
-                                className="d-block products-float-right me-4 sticky-bottom"
-                            />
-                        </a>
+                        <div className="float-right cursor-pointer sticky-bottom me-4">
+                            <div className="d-blok position-relative">
+                                <img src={compareBtn} alt="compareBtn" />
+                                <div className="compare-quantity position-absolute top-0 translate-middle badge rounded-pill">
+                                    0
+                                </div>
+                            </div>
+                        </div>
                         {/* 商品比較 btn end */}
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
-            {/* 頁碼 end */}
-
-            <ScrollTo />
-
-            {/* 商品比較 btn */}
-            <div className="float-right cursor-pointer sticky-bottom me-4">
-              <div className="d-blok position-relative">
-                <img src={compareBtn} alt="compareBtn" />
-                <div className="compare-quantity position-absolute top-0 translate-middle badge rounded-pill">
-                  0
-                </div>
-              </div>
-            </div>
-            {/* 商品比較 btn end */}
-          </div>
-        </div>
-      </div>
-    </>
-  );
-=======
         </>
     );
->>>>>>> e4c911bf992bb31b389543c24c4cbd3e1fd38af3
 }
 
 export default index;

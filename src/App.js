@@ -36,7 +36,7 @@ import MyCoupon from './pages/Member/components/MyCoupon';
 import MyQuestion from './pages/Member/components/MyQuestion';
 
 function App() {
-    // page to top 要用的
+    //page to top 要用的
     useEffect(() => {
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }, []);
