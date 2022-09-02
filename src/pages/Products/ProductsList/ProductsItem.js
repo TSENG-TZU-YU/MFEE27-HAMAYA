@@ -13,10 +13,10 @@ function ProductsItem() {
     <div className="col product">
       <div className="position-relative">
         {/* 商品照片 */}
-        <div className="product-img">
+        <Link to="ProductDetail" className="product-img d-block">
           <div className="product-img-mask position-absolute"></div>
           <img src={product} className="card-img-top" alt="product" />
-        </div>
+        </Link>
         <div className="product-like position-absolute top-0 end-0">
           <img
             src={favoriteDefault}
