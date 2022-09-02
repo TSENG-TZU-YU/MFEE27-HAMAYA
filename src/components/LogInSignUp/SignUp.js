@@ -23,12 +23,11 @@ function SignUp(props) {
         密碼
         <br />
         <input type={visibility} placeholder="請輸入密碼" required />
-        <a
-          href="/#"
+        <button
           className="visibiImg"
           onClick={(e) => {
             e.preventDefault();
-            if (visibility == 'password') {
+            if (visibility === 'password') {
               setVisibility('text');
               setImg(visib);
             } else {
@@ -38,18 +37,17 @@ function SignUp(props) {
           }}
         >
           <img src={img} alt="" />
-        </a>
+        </button>
       </label>
       <label className="position-relative">
         確認密碼
         <br />
         <input type={visibility2} placeholder="請再次輸入密碼" required />
-        <a
-          href="/#"
+        <button
           className="visibiImg"
           onClick={(e) => {
             e.preventDefault();
-            if (visibility2 == 'password') {
+            if (visibility2 === 'password') {
               setVisibility2('text');
               setImg2(visib);
             } else {
@@ -59,7 +57,7 @@ function SignUp(props) {
           }}
         >
           <img src={img2} alt="" />
-        </a>
+        </button>
       </label>
       <label>
         出生日期
