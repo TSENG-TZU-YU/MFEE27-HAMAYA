@@ -13,10 +13,16 @@
 
 
 .product-img {
-  min-height: 230px;
+  background: #fff;
 }
+
 .product-img > img {
   overflow: hidden;
+  object-fit: contain;
+}
+
+.card-img-top{
+  height: 240px;
 }
 
 .product-img-mask {
@@ -27,9 +33,7 @@
 }
 
 .product{
-  // height: 250px;
-  padding: 0;
-  margin: 10px 0;
+  padding: 5px;
 }
 
 .product:hover .product-img-mask{

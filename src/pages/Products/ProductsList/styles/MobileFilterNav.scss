@@ -1,22 +1,77 @@
 @import '../../../../styles/global.scss';
 
+.mobile-products-filter-nav{
+  margin: 10px 0;
+}
+
 .products-filter-nav-item-name {
   color: $gary-light;
-  margin-bottom: 0;
   margin-left: 10px;
+  margin-bottom: 0;
 }
 
 .products-filter-nav-item {
-  margin: 1rem 0;
   width: 100%;
 }
 
 .products-filter-nav-btn {
   font-style: 1.5rem;
-  font-weight: bold;
   color: $main;
 }
 
 .products-filter-nav-item.border-end {
   border-color: $gary-light;
 }
+
+.products-filter-category-select {
+  width: 100%;
+  height: 300px;
+  background: $main-light;
+  color: $accent-light;
+}
+
+.products-filter-category-select:focus{
+  border: none;
+}
+
+.products-filter-category-select > option {
+  font-size: 1rem;
+  padding: 5px;
+}
+
+// 捲軸寬度
+.products-filter-category-scroll-style::-webkit-scrollbar {
+  width: 5px;
+  margin-right: 5px;
+}
+
+// 捲軸本體顏色
+.products-filter-category-scroll-style::-webkit-scrollbar-thumb {
+  background-color: $accent-light;
+}
+
+.products-filter-category-select > option:checked, 
+.products-filter-category-select > option:hover {
+  background-color: $accent-light;
+  color: $main-light;
+}
+
+.mobile-products-filter-menu {
+  width: 100%;
+  background: $main-light;
+}
+
+.products-form-check{
+  color: $accent-light;
+}
+
+
+// 網頁文字反白顏色
+// ::selection {
+// 	background: $main-light;
+// 	color: $accent-light;
+// }
+// ::-moz-selection {
+// 	background: $main-light;
+// 	color: $accent-light;
+// }

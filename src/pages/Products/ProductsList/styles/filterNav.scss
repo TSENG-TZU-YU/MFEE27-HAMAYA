@@ -11,14 +11,15 @@
 
 .products-filter-menu {
   background: $main-light;
-  width: 180px;
+  width: 150px;
   top: 43px;
-  z-index: 3;
+  z-index: 1;
   color: $accent-light;
 }
 
 .products-filter-menu > p {
   color: $accent-light;
+  margin: 0;
 }
   
 button.products-btn-border-none {
@@ -59,12 +60,18 @@ button.products-btn-border-none {
 
 .products-sort-menu {
   background: $main-light;
-  // width: 180px;
   left: 110px;
   top: 43px;
-  z-index: 3;
+  z-index: 1;
   color: $accent-light;
 }
+
+.products-sort-menu > ul > li {
+  padding: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
 
 .products-sort-menu > ul {
   line-height: 1.5rem;

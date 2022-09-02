@@ -1,5 +1,10 @@
 @import '../../styles/global.scss';
 
+html{
+  // to page top 移動效果
+  scroll-behavior: smooth;
+}
+
 .products-banner-img {
   height: 260px;
   overflow: hidden;
@@ -20,5 +25,9 @@ a.products-page-active {
   right: 350px;
 }
 
+// to page top link
+.products-float-right {
+  float: right;
+}
 
 

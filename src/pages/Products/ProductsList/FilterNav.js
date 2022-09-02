@@ -36,7 +36,7 @@ function FilterNav() {
             {/* 進階篩選區塊 */}
             <div className="products-filter-menu position-absolute">
               <div className="p-3">
-                <p>品牌</p>
+                <p className="mb-0 accent-light-color">品牌</p>
                 <div className="form-check products-form-check">
                   <input
                     className="form-check-input"
@@ -77,14 +77,14 @@ function FilterNav() {
                   />
                   <label className="form-check-label">YAMAHA</label>
                 </div>
-                <p className="mt-3">顏色</p>
+                <p className="mt-4 mb-0 accent-light-color">顏色</p>
                 <div className="d-flex mt-2">
                   <div className="products-filter-color-box products-filter-no-color-box products-filter-color-box-active"></div>
                   <div className="products-filter-color-box color"></div>
                 </div>
-                <p className="mt-3">價格</p>
+                <p className="mt-4 mb-0 accent-light-color">價格</p>
                 <input className="form-range" type="range" max="100" min="0" />
-                <p>NT$0 ~ 190,000</p>
+                <p className="accent-light-color small m-0">NT$0 ~ 190,000</p>
                 <button className="products-btn-border-none products-filter-btn mt-3 w-100">
                   篩選
                 </button>
@@ -92,7 +92,7 @@ function FilterNav() {
             </div>
             {/* 進階篩選區塊 end */}
 
-            {/* 商品排序 */}
+            {/* 商品排序區塊 */}
             <button className="products-btn-border-none main-color me-4 position-relative">
               商品排序
               <img
@@ -101,16 +101,17 @@ function FilterNav() {
                 alt="sort"
               ></img>
             </button>
-            <div className="products-sort-menu position-absolute">
+            {/* <div className="products-sort-menu position-absolute">
               <ul className="p-3">
                 <li>價格：低到高</li>
                 <li>價格：高到低</li>
                 <li>上架：新到舊</li>
                 <li>上架：舊到新</li>
               </ul>
-            </div>
+            </div> */}
+            {/* 商品排序區塊 end */}
 
-            <button className="products-btn-border-none me-4">
+            <button className="products-btn-border-none">
               <img
                 className="products-icon-img ms-1 mb-1"
                 src={search}
