@@ -1,10 +1,15 @@
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import search from '../../../../assets/svg/search.svg';
 import './MyBucketList.scss';
 import BucketClass from './components/BucketClass';
 import BucketProduct from './components/BucketProduct';
+import { useOutletContext } from 'react-router-dom'; //抓取Outlet的props
 
 function MyBucketList(props) {
+  const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
+    useEffect(() => {
+      setbread('我的收藏'); //載入頁面時 設定麵包削
+    }, []);
   const [bucketProduct, setBucketProduct] = useState(true);
   const [bucketClass, setBucketClass] = useState(false);
   return (
