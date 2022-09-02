@@ -7,6 +7,8 @@ function MyProfile(props) {
         birthday: '1993-11-14',
         phone: '093008422',
         address: '桃園市中壢區新生路二段421號',
+        password: '123456789',
+        repassword: '',
         sub: '1',
     });
     const [edit, setEdit] = useState(true);
@@ -16,23 +18,24 @@ function MyProfile(props) {
         setUser(newUser);
     };
     return (
-        <div className="col-10 ">
-            <h4>會員資料</h4>
-            <table>
+        <div className="col-12 col-md-9 col-lg-10">
+            <table className="myprofile_table w-100 w-md-75">
                 <thead>
                     <tr>
-                        <th colspan="2">會員資料</th>
+                        <th colSpan="2">
+                            <h4 className="main-color">會員資料</h4>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>會員帳號</td>
+                        <td className="text-primary">會員帳號</td>
                         <td>
                             <span>{user.email}</span>
                         </td>
                     </tr>
                     <tr>
-                        <td>會員姓名</td>
+                        <td className="text-primary">會員姓名</td>
                         <td>
                             <input
                                 type="text"
@@ -44,7 +47,7 @@ function MyProfile(props) {
                         </td>
                     </tr>
                     <tr>
-                        <td>出生日期</td>
+                        <td className="text-primary">出生日期</td>
                         <td>
                             <input
                                 type="date"
@@ -56,7 +59,7 @@ function MyProfile(props) {
                         </td>
                     </tr>
                     <tr>
-                        <td>手機號碼</td>
+                        <td className="text-primary">手機號碼</td>
                         <td>
                             <input
                                 type="text"
@@ -68,7 +71,7 @@ function MyProfile(props) {
                         </td>
                     </tr>
                     <tr>
-                        <td>居住地址</td>
+                        <td className="text-primary">居住地址</td>
                         <td>
                             <input
                                 type="text"
@@ -80,49 +83,64 @@ function MyProfile(props) {
                         </td>
                     </tr>
                     <tr>
-                        <td>修改密碼</td>
+                        <td className="text-primary">修改密碼</td>
                         <td>
-                            <input type="text" value="" disabled={edit} />
+                            <input
+                                type="password"
+                                value={user.password}
+                                name="password"
+                                onChange={handleFieldChange}
+                                disabled={edit}
+                                placeholder="請輸入新密碼"
+                            />
                         </td>
                     </tr>
                     <tr>
-                        <td>確認新密碼</td>
+                        <td className="text-primary">確認新密碼</td>
                         <td>
-                            <input type="text" value="" disabled={edit} />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>優惠訊息通知</td>
-                        <td>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="sub"
-                                    checked={user.sub === '1'}
-                                    value={'1'}
-                                    onChange={handleFieldChange}
-                                    disabled={edit}
-                                />{' '}
-                                訂閱
-                            </label>
-                            &nbsp;&nbsp;
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="sub"
-                                    checked={user.sub === '0'}
-                                    value={'0'}
-                                    onChange={handleFieldChange}
-                                    disabled={edit}
-                                />{' '}
-                                取消訂閱
-                            </label>
+                            <input
+                                type="password"
+                                value={user.repassword}
+                                name="repassword"
+                                onChange={handleFieldChange}
+                                disabled={edit}
+                                placeholder="再次輸入新密碼"
+                            />
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <div>
+                <h5 className="gary-dark-color mt-4">優惠訊息通知</h5>
+                <div className="d-flex my-3">
+                    <input
+                        className="d-block"
+                        type="radio"
+                        id="sub"
+                        name="sub"
+                        checked={user.sub === '1'}
+                        value={'1'}
+                        onChange={handleFieldChange}
+                        disabled={edit}
+                    />
+                    <label htmlFor="sub" >訂閱</label>
+                    &nbsp;
+                    <input
+                        className="d-block"
+                        type="radio"
+                        id="unsub"
+                        name="sub"
+                        checked={user.sub === '0'}
+                        value={'0'}
+                        onChange={handleFieldChange}
+                        disabled={edit}
+                    />
+                    <label htmlFor="unsub">取消訂閱 </label>
+                </div>
+            </div>
             {edit ? (
                 <button
+                    className="myprofile_btn mb-4 accent-light-color bg-accent-color border-0 "
                     onClick={() => {
                         setEdit(false);
                     }}
@@ -131,6 +149,7 @@ function MyProfile(props) {
                 </button>
             ) : (
                 <button
+                    className="myprofile_btn mb-4 accent-light-color bg-main-color border-0"
                     onClick={() => {
                         setEdit(true);
                     }}
