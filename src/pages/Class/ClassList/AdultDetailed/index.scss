@@ -1,0 +1,44 @@
+@import '../../../../index.scss';
+
+.AdultDetailed-img01 {
+    width: 615px;
+    height: auto;
+    max-width: 100%;
+}
+.AdultDetailed-img02 {
+    width: 141px;
+    height: auto;
+    max-width: 100%;
+}
+
+.AdultDetailed-vector1 {
+    border-top: 3px solid $main-light;
+    width: 468px;
+}
+
+.AdultDetailed-introduce-width {
+    width: 468px;
+}
+.AdultDetailed-line-height {
+    line-height: 36px;
+}
+
+.AdultDetailed-price0 {
+    color: #5b322f;
+}
+.AdultDetailed-price {
+    margin-top: 13px;
+    color: #5b322f;
+}
+.AdultDetailed-btn {
+    width: auto;
+    height: 58px;
+    background-color: $main-light;
+    margin-right: 20px;
+}
+.AdultDetailed-btn:hover {
+    background-color: $main;
+}
+.AdultDetailed-car-text-color {
+    color: $accent-light;
+}

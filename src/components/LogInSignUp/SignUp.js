@@ -2,73 +2,77 @@ import { useState } from 'react';
 import visib from './visibility.svg';
 import unVisib from './visibility_off.svg';
 function SignUp(props) {
-  const [visibility, setVisibility] = useState('password');
-  const [img, setImg] = useState(unVisib);
-  const [visibility2, setVisibility2] = useState('password');
-  const [img2, setImg2] = useState(unVisib);
-  return (
-    <form>
-      <label>
-        會員姓名
-        <br />
-        <input type="text" placeholder="請輸入您的姓名" required />
-      </label>
-      <label>
-        帳號(E-MAIL)
-        <br />
-        <input type="email" placeholder="請輸入您的E-MAIL" required />
-      </label>
+    const [visibility, setVisibility] = useState('password');
+    const [img, setImg] = useState(unVisib);
+    const [visibility2, setVisibility2] = useState('password');
+    const [img2, setImg2] = useState(unVisib);
+    return (
+        <form>
+            <label>
+                會員姓名
+                <br />
+                <input type="text" placeholder="請輸入您的姓名" required />
+            </label>
+            <label>
+                帳號(E-MAIL)
+                <br />
+                <input type="email" placeholder="請輸入您的E-MAIL" required />
+            </label>
 
-      <label className="position-relative">
-        密碼
-        <br />
-        <input type={visibility} placeholder="請輸入密碼" required />
-        <button
-          className="visibiImg"
-          onClick={(e) => {
-            e.preventDefault();
-            if (visibility === 'password') {
-              setVisibility('text');
-              setImg(visib);
-            } else {
-              setVisibility('password');
-              setImg(unVisib);
-            }
-          }}
-        >
-          <img src={img} alt="" />
-        </button>
-      </label>
-      <label className="position-relative">
-        確認密碼
-        <br />
-        <input type={visibility2} placeholder="請再次輸入密碼" required />
-        <button
-          className="visibiImg"
-          onClick={(e) => {
-            e.preventDefault();
-            if (visibility2 === 'password') {
-              setVisibility2('text');
-              setImg2(visib);
-            } else {
-              setVisibility2('password');
-              setImg2(unVisib);
-            }
-          }}
-        >
-          <img src={img2} alt="" />
-        </button>
-      </label>
-      <label>
-        出生日期
-        <br />
-        <input type="date" required />
-      </label>
-      <br />
-      <br />
-      <button className="subBtn">確認送出</button>
-    </form>
-  );
+            <label className="position-relative">
+                密碼
+                <br />
+                <input type={visibility} placeholder="請輸入密碼" required />
+                <button
+                    className="visibiImg border-0"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        if (visibility === 'password') {
+                            setVisibility('text');
+                            setImg(visib);
+                        } else {
+                            setVisibility('password');
+                            setImg(unVisib);
+                        }
+                    }}
+                >
+                    <img src={img} alt="" />
+                </button>
+            </label>
+            <label className="position-relative">
+                確認密碼
+                <br />
+                <input
+                    type={visibility2}
+                    placeholder="請再次輸入密碼"
+                    required
+                />
+                <button
+                    className="visibiImg border-0"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        if (visibility2 === 'password') {
+                            setVisibility2('text');
+                            setImg2(visib);
+                        } else {
+                            setVisibility2('password');
+                            setImg2(unVisib);
+                        }
+                    }}
+                >
+                    <img src={img2} alt="" />
+                </button>
+            </label>
+            <label>
+                出生日期
+                <br />
+                <input type="date" required />
+            </label>
+            <br />
+            <br />
+            <button className="subBtn">確認送出</button>
+        </form>
+    );
 }
 
 export default SignUp;

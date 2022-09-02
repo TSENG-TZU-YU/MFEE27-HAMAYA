@@ -6,61 +6,67 @@ import arrowDown from '../../../assets/ProductsImg/icon/arrow_down.svg';
 import search from '../../../assets/ProductsImg/icon/search.svg';
 
 function MobileFilterNav() {
-  return (
-    <div className="d-md-none">
-      <div className="d-flex justify-content-between align-items-center">
-        {/* 麵包屑 */}
-        <ul className="breadcrumb products-breadcrumb">
-          <li className="breadcrumb-item">
-            <a href="/">首頁</a>
-          </li>
-          <li className="breadcrumb-item">
-            <a href="/">樂器商城 </a>
-          </li>
-          <li className="breadcrumb-item">琴鍵樂器</li>
-        </ul>
-        {/* 麵包屑 end */}
+    return (
+        <div className="d-md-none">
+            <div className="d-flex justify-content-between align-items-center">
+                {/* 麵包屑 */}
+                <ul className="breadcrumb products-breadcrumb">
+                    <li className="breadcrumb-item">
+                        <a href="/">首頁</a>
+                    </li>
+                    <li className="breadcrumb-item">
+                        <a href="/">樂器商城 </a>
+                    </li>
+                    <li className="breadcrumb-item">琴鍵樂器</li>
+                </ul>
+                {/* 麵包屑 end */}
 
-        {/* 搜尋 */}
-        <button className="products-btn-border-none">
-          <img
-            className="products-icon-img ms-1 mb-1"
-            src={search}
-            alt="search"
-          ></img>
-        </button>
-        {/* 搜尋 end */}
-      </div>
+                {/* 搜尋 */}
+                <button className="products-btn-border-none">
+                    <img
+                        className="products-icon-img ms-1 mb-1"
+                        src={search}
+                        alt="search"
+                    ></img>
+                </button>
+                {/* 搜尋 end */}
+            </div>
 
-      {/* 篩選按鈕 */}
-      <div className="mobile-products-filter-nav position-relative">
-        <div className="d-flex justify-content-center align-items-center">
-          <div className="products-filter-nav-item border-end">
-            <p className="products-filter-nav-item-name">商品分類</p>
-            <button className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center">
-              琴鍵樂器
-              <img src={arrowDown} alt="arrowDown" />
-            </button>
-          </div>
-          <div className="products-filter-nav-item border-end">
-            <p className="products-filter-nav-item-name">進階篩選</p>
-            <button className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center">
-              篩選條件
-              <img src={arrowDown} alt="arrowDown" />
-            </button>
-          </div>
-          <div className="products-filter-nav-item">
-            <p className="products-filter-nav-item-name">商品排序</p>
-            <button className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center">
-              排序條件
-              <img src={arrowDown} alt="arrowDown" />
-            </button>
-          </div>
-        </div>
-        {/* 篩選按鈕 end */}
+            {/* 篩選按鈕 */}
+            <div className="mobile-products-filter-nav position-relative">
+                <div className="d-flex justify-content-center align-items-center">
+                    <div className="products-filter-nav-item border-end">
+                        <p className="products-filter-nav-item-name">
+                            商品分類
+                        </p>
+                        <button className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center">
+                            琴鍵樂器
+                            <img src={arrowDown} alt="arrowDown" />
+                        </button>
+                    </div>
+                    <div className="products-filter-nav-item border-end">
+                        <p className="products-filter-nav-item-name">
+                            進階篩選
+                        </p>
+                        <button className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center">
+                            篩選條件
+                            <img src={arrowDown} alt="arrowDown" />
+                        </button>
+                    </div>
+                    <div className="products-filter-nav-item">
+                        <p className="products-filter-nav-item-name">
+                            商品排序
+                        </p>
+                        <button className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center">
+                            排序條件
+                            <img src={arrowDown} alt="arrowDown" />
+                        </button>
+                    </div>
+                </div>
+                {/* 篩選按鈕 end */}
 
-        {/* 商品類別選項 */}
-        {/* <select
+                {/* 商品類別選項 */}
+                {/* <select
           className="products-filter-category-select products-filter-category-scroll-style"
           size="2"
         >
@@ -92,10 +98,10 @@ function MobileFilterNav() {
           <option value="26">吉他</option>
           <option value="27">打擊樂器</option>
         </select> */}
-        {/* 商品類別選項 end */}
+                {/* 商品類別選項 end */}
 
-        {/* 進階篩選區塊 */}
-        {/* <div className="mobile-products-filter-menu">
+                {/* 進階篩選區塊 */}
+                {/* <div className="mobile-products-filter-menu">
           <div className="p-3">
             <p className="mb-2 accent-light-color">品牌</p>
             <div className="row g-1 ">
@@ -153,10 +159,10 @@ function MobileFilterNav() {
             </button>
           </div>
         </div> */}
-        {/* 進階篩選區塊 end */}
+                {/* 進階篩選區塊 end */}
 
-        {/* 商品排序區塊 */}
-        {/* <div className="products-sort-menu">
+                {/* 商品排序區塊 */}
+                {/* <div className="products-sort-menu">
           <ul className="p-3">
             <li>價格：低到高</li>
             <li>價格：高到低</li>
@@ -164,11 +170,11 @@ function MobileFilterNav() {
             <li>上架：舊到新</li>
           </ul>
         </div> */}
-        {/* 商品排序區塊 end */}
-      </div>
-      {/* 篩選 end */}
-    </div>
-  );
+                {/* 商品排序區塊 end */}
+            </div>
+            {/* 篩選 end */}
+        </div>
+    );
 }
 
 export default MobileFilterNav;

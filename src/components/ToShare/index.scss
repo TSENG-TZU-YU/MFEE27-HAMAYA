@@ -1,0 +1,15 @@
+@import '../../index.scss';
+
+.share {
+    color: $main;
+}
+.share:hover {
+    color: $main-light;
+}
+
+.collect {
+    color: $main;
+}
+.collect:hover {
+    color: $main-light;
+}

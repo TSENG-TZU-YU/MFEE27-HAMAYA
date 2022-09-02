@@ -2,6 +2,10 @@
     width: 200px;
     height: 40px;
 }
+.myprofile_table{
+    width: 100%;
+    max-width: 600px;
+}
 .myprofile_table tr{
     height: 60px;
 }
