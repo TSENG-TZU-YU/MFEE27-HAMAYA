@@ -1,10 +1,6 @@
 .myprofile_btn{
-    width: 150px;;
-}
-.myprofile_table{
-    width: 500px;
-    height: 100px;
-    
+    width: 200px;
+    height: 40px;
 }
 .myprofile_table tr{
     height: 60px;

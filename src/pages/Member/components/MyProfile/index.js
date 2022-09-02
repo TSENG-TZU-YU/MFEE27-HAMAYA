@@ -19,7 +19,7 @@ function MyProfile(props) {
     };
     return (
         <div className="col-12 col-md-9 col-lg-10">
-            <table className="myprofile_table">
+            <table className="myprofile_table w-100 w-md-75">
                 <thead>
                     <tr>
                         <th colSpan="2">
@@ -140,7 +140,7 @@ function MyProfile(props) {
             </div>
             {edit ? (
                 <button
-                    className="myprofile_btn mb-4 accent-light-color bg-accent-color border-0"
+                    className="myprofile_btn mb-4 accent-light-color bg-accent-color border-0 "
                     onClick={() => {
                         setEdit(false);
                     }}

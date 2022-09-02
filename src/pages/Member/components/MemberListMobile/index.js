@@ -6,7 +6,7 @@ function MemberListMobile(props) {
     const [url, setUrl] = useState('');
     const navigate = useNavigate();
     return (
-        <div className="col-12 d-md-none MemberListMobile">
+        <div className="d-md-none MemberListMobile">
             <div className="my-3">
                 <select
                     value={url}
