@@ -91,6 +91,7 @@ function AdultDetailed(props) {
                                     <Col lg={3}>
                                         <p>付款方式：</p>
                                     </Col>
+                                    {/* TODO: 勾選 樣式 */}
                                     <Col>
                                         <div className=" mt-1">
                                             <div class="form-check d-flex align-items-center">
@@ -111,9 +112,9 @@ function AdultDetailed(props) {
                                             </div>
                                             <div class="form-check  d-flex align-items-center mt-3">
                                                 <input
-                                                    className="form-check-input me-2"
+                                                    className="d-block me-2"
                                                     //  type="radio"
-                                                    type="checkbox"
+                                                    type="radio"
                                                     value=""
                                                     name="flexRadioDefault"
                                                     id="flexRadioDefault1"
@@ -131,13 +132,10 @@ function AdultDetailed(props) {
                                         <div className=" mt-1">
                                             <div class="form-check d-flex align-items-center">
                                                 <input
-                                                    className="form-check-input me-2"
-                                                    //  type="radio"
-                                                    type="checkbox"
-                                                    value=""
-                                                    name="flexRadioDefault"
-                                                    id="flexRadioDefault1"
-                                                    checked
+                                                    className="d-block me-2"
+                                                    type="radio"
+                                                    id="sub"
+                                                    name="sub"
                                                 />
                                                 <label
                                                     class="form-check-label"
