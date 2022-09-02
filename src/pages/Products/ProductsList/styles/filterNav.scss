@@ -1,15 +1,15 @@
 @import '../../../../styles/global.scss';
 
-.breadcrumb {
+.products-breadcrumb {
   margin-top: 1rem;
   color: $main;
 }
 
-.icon-img {
+.products-icon-img {
   width: 1.5rem;
 }
 
-.filter-menu {
+.products-filter-menu {
   background: $main-light;
   width: 180px;
   top: 43px;
@@ -17,32 +17,32 @@
   color: $accent-light;
 }
 
-.filter-menu > p {
+.products-filter-menu > p {
   color: $accent-light;
 }
   
-button {
+button.products-btn-border-none {
   border: none;
 }
 
-.form-check {
+.products-form-check {
   margin: 5px 0;
 }
 
-.no-color-box {
+.products-filter-no-color-box {
   background:
   linear-gradient(-45deg, transparent 44%, $main-gary-light 44%, $main-gary-light 50%, transparent 50%);
   background-color: #fff;
 }
 
-.color-box {
+.products-filter-color-box {
   width: 20px;
   height: 20px;
   margin: 0 5px;
   cursor: pointer;
 }
 
-.color-box:active{
+.products-filter-color-box-active{
   outline: 3px solid $main-gary-light;
 }
 
@@ -50,14 +50,14 @@ button {
   background-color: rgb(78, 42, 42);
 }
 
-.filter-btn {
+.products-filter-btn {
  background: $main-gary-light;
  color: $main;
  padding: 5px;
  letter-spacing: 0.1rem;
 }
 
-.sort-menu {
+.products-sort-menu {
   background: $main-light;
   // width: 180px;
   left: 110px;
@@ -66,7 +66,7 @@ button {
   color: $accent-light;
 }
 
-.sort-menu > ul {
+.products-sort-menu > ul {
   line-height: 1.5rem;
   padding: 0;
   margin-bottom: 0 !important;

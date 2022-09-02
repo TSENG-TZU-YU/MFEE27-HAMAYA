@@ -8,7 +8,7 @@ function MyBucketList(props) {
   const [bucketProduct, setBucketProduct] = useState(true);
   const [bucketClass, setBucketClass] = useState(false);
   return (
-    <div className="col-10">
+    <div className="col-12 col-md-9 col-lg-10">
       <div className="d-flex justify-content-between">
         <h4>
           <b>我的收藏</b>
