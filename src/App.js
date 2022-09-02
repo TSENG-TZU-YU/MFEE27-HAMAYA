@@ -19,8 +19,7 @@ import Member from './pages/Member';
 
 // class 次頁面
 import ClassList from './pages/Class/ClassList';
-import AdultCourse from './pages/Class/ClassList/AdultCourse';
-import ChildrenCourse from './pages/Class/ClassList/ChildrenCourse';
+import AdultDetailed from './pages/Class/ClassList/AdultDetailed';
 
 //member次頁面
 import MyProfile from './pages/Member/components/MyProfile';
@@ -32,56 +31,63 @@ import MyCoupon from './pages/Member/components/MyCoupon';
 import MyQuestion from './pages/Member/components/MyQuestion';
 
 function App() {
-  return (
-    <>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<MainOutlet />}>
-            <Route index element={<Home />} />
+    return (
+        <>
+            <BrowserRouter>
+                <Header />
+                <Routes>
+                    <Route path="/" element={<MainOutlet />}>
+                        <Route index element={<Home />} />
 
-            <Route path="product" element={<MainOutlet />}>
-              <Route index element={<Products />} />
-            </Route>
+                        <Route path="product" element={<MainOutlet />}>
+                            <Route index element={<Products />} />
+                        </Route>
 
-            <Route path="news" element={<MainOutlet />}>
-              <Route index element={<NEWs />} />
-            </Route>
+                        <Route path="news" element={<MainOutlet />}>
+                            <Route index element={<NEWs />} />
+                        </Route>
 
-            <Route path="class" element={<MainOutlet />}>
-              <Route index element={<Class />} />
-              <Route path="classlist" element={<ClassList />} />
-              <Route path="adultCourse" element={<AdultCourse />} />
-              <Route path="childrenCourse" element={<ChildrenCourse />} />
-            </Route>
+                        <Route path="class" element={<MainOutlet />}>
+                            <Route index element={<Class />} />
+                            <Route path="classlist" element={<MainOutlet />}>
+                                <Route index element={<ClassList />} />
+                                <Route
+                                    path="adultDetailed"
+                                    element={<AdultDetailed />}
+                                />
+                            </Route>
+                        </Route>
 
-            <Route path="place" element={<MainOutlet />}>
-              <Route index element={<Place />} />
-            </Route>
+                        <Route path="place" element={<MainOutlet />}>
+                            <Route index element={<Place />} />
+                        </Route>
 
-            <Route path="aboutus" element={<MainOutlet />}>
-              <Route index element={<AboutUs />} />
-            </Route>
+                        <Route path="aboutus" element={<MainOutlet />}>
+                            <Route index element={<AboutUs />} />
+                        </Route>
 
-            <Route path="member" element={<Member />}>
-              <Route index element={<MyProfile />} />
-              <Route path="myclass" element={<MyClass />} />
-              <Route path="mybucketlist" element={<MyBucketList />} />
-              <Route path="mycart" element={<MyCart />} />
-              <Route path="myorder" element={<MyOrder />} />
-              <Route path="mycoupon" element={<MyCoupon />} />
-              <Route path="myquestion" element={<MyQuestion />} />
-            </Route>
+                        <Route path="member" element={<Member />}>
+                            <Route index element={<MyProfile />} />
+                            <Route path="myclass" element={<MyClass />} />
+                            <Route
+                                path="mybucketlist"
+                                element={<MyBucketList />}
+                            />
+                            <Route path="mycart" element={<MyCart />} />
+                            <Route path="myorder" element={<MyOrder />} />
+                            <Route path="mycoupon" element={<MyCoupon />} />
+                            <Route path="myquestion" element={<MyQuestion />} />
+                        </Route>
 
-            {/* 404未找到的頁面路由，需放在最下方 */}
-            <Route path="*" element={<h1>404 NOT FOUND</h1>} />
-          </Route>
-        </Routes>
+                        {/* 404未找到的頁面路由，需放在最下方 */}
+                        <Route path="*" element={<h1>404 NOT FOUND</h1>} />
+                    </Route>
+                </Routes>
 
-        <Footer />
-      </BrowserRouter>
-    </>
-  );
+                <Footer />
+            </BrowserRouter>
+        </>
+    );
 }
 
 export default App;
