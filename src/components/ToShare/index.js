@@ -5,12 +5,10 @@ import { RiHeartAddLine } from 'react-icons/ri';
 
 // 圖檔
 import Share from '../../assets/svg/open_in_new.svg';
-// import heart_plus from '../../assets/svg/heart_plus.svg';
 
 function ToShareCollect(props) {
     const [plusToggled, setPlus] = useState(false);
     const toggle = () => setPlus(!plusToggled);
-    console.log('plus', toggle);
     return (
         <div className="d-flex mt-2">
             <div className="d-flex justify-content-center align-items-center cursor-pinter me-4">

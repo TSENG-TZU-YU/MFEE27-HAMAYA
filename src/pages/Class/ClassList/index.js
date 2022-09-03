@@ -136,38 +136,30 @@ function ClassList(props) {
                     <img className="ms-5 " src={search} alt="search"></img>
                 </nav>
             </div>
-            <Row className="text-center mt-5 pt-5">
-                <Col>
-                    <h4
-                        className="cursor-pinter"
-                        onClick={() => {
-                            setSelectCourse(true);
-                        }}
-                    >
-                        成人課程
-                    </h4>
-                </Col>
-                <Col>
-                    <h4
-                        className="cursor-pinter"
-                        onClick={() => {
-                            setSelectCourse(false);
-                        }}
-                    >
-                        兒童課程
-                    </h4>
-                </Col>
+            <Row className="text-center mt-5 pt-5 mb-5 ">
+                <button
+                    className={`cursor-pinter col-6 ${
+                        selectCourse ? 'vector5-Btn-active' : 'vector5-Btn'
+                    }`}
+                    onClick={() => {
+                        setSelectCourse(true);
+                    }}
+                >
+                    <h4>成人課程</h4>
+                </button>
+
+                <button
+                    className={`cursor-pinter col-6 ${
+                        selectCourse ? 'vector5-Btn' : 'vector5-Btn-active'
+                    }`}
+                    onClick={() => {
+                        setSelectCourse(false);
+                    }}
+                >
+                    <h4>兒童課程</h4>
+                </button>
             </Row>
-            <div className="d-flex justify-content-between mb-5">
-                <div className="vector3-main-light  mt-3  z-index"></div>
-                <div
-                    className={
-                        selectCourse
-                            ? 'vector5-active-left'
-                            : 'vector5-active-right'
-                    }
-                ></div>
-            </div>
+          
             {selectCourse ? <AdultCourse /> : <ChildrenCourse />}
             <ul className="text-center">{getPage()}</ul>
         </Container>
