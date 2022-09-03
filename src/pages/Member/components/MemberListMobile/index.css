@@ -5,8 +5,13 @@
     color: azure;
     background-color: #6A777A;
     outline-color: #0099ff;
-
 }
 .MemberListMobile select option{
     font-size: 24px;
+}
+.MemberListBg{
+    background: url("../../../../assets/svg/mobile_list_bg.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right;
 }

@@ -5,7 +5,7 @@ import Fb from '../../assets/FooterImg/fb-gray.svg';
 import Youtube from '../../assets/FooterImg/youtube-gray.svg';
 import Line from '../../assets/FooterImg/line-gray.svg';
 import All from '../../assets/FooterImg/All.svg';
-
+// import FooterImage from '../../assets/FooterImg/footer-informtion.svg';   // assets/FooterImg 裡面沒有這個svg會出錯 git 的時候要注意
 import Lines from '../../assets/FooterImg/lines.svg';
 
 function Footer(props) {
