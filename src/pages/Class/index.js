@@ -1,7 +1,10 @@
 import { Container, Row, Col } from 'react-bootstrap';
+import { useState } from 'react';
 import './index.scss';
 // import { Outlet } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+// 子頁面
+// import ClassList from './ClassList';
 
 // 圖檔
 import banner from '../../assets/ClassImg/banner.png';
@@ -21,6 +24,7 @@ import teacher04 from '../../assets/ClassImg/teacher04.png';
 import teacher05 from '../../assets/ClassImg/teacher05.png';
 
 function Class(props) {
+    const [selectCourse, setSelectCourse] = useState(true);
     return (
         <>
             <img className="img-fluid" src={banner} alt="banner" />
@@ -182,11 +186,16 @@ function Class(props) {
                     </div>
                     <Row className="mt-5 text-center">
                         <Col>
-                            <Link to="classlist">
+                            <Link
+                                to="classlist"
+                                onClick={() => {
+                                    setSelectCourse(true);
+                                }}
+                            >
                                 <img
                                     src={Adult_Course}
                                     alt="Adult Course"
-                                    className="cursor-pinter"
+                                    className="cursor-pinter img-fluid"
                                 />
                                 <h3 className="adult-course cursor-pinter">
                                     成人課程
@@ -194,10 +203,10 @@ function Class(props) {
                             </Link>
                         </Col>
                         <Col>
-                        {/* TODO: 無法跳轉到兒童課程 */}
+                            {/* TODO: 無法跳轉到兒童課程 */}
                             <Link to="classlist">
                                 <img
-                                    className="cursor-pinter"
+                                    className="cursor-pinter img-fluid"
                                     src={Children_Lessons}
                                     alt="Children Lessons"
                                 />

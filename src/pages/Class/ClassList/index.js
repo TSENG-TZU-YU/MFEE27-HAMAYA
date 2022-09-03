@@ -15,10 +15,11 @@ import filterIcon from '../../../assets/svg/filter_alt.svg';
 import sort from '../../../assets/svg/sort.svg';
 import search from '../../../assets/svg/search.svg';
 
-function ClassList(props) {
+function ClassList({ selectCourse }) {
     const [course, setCourse] = useState(true);
     const [vector, setVector] = useState(true);
 
+    console.log('課程', selectCourse);
     // Toggled
     const [filterToggled, setFilterToggled] = useState(false);
     const toggleFilterTrueFalse = () => setFilterToggled(!filterToggled);
