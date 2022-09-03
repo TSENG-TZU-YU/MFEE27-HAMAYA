@@ -1,4 +1,4 @@
-import React from 'react';
+// import React, { useEffect } from 'react';
 import './index.scss';
 
 // 元件
@@ -6,12 +6,11 @@ import CategoryNav from './ProductsList/CategoryNav';
 import ProductsItem from './ProductsList/ProductsItem';
 import FilterNav from './ProductsList/FilterNav';
 import MobileFilterNav from './ProductsList/MobileFilterNav';
+import ScrollTo from '../../components/ScrollTo';
 
 // 圖檔
 import banner from '../../assets/ProductsImg/banner.png';
-import mobileBanner from '../../assets/ProductsImg/mobile-banner.png';
 import bannerTitle from '../../assets/ProductsImg/icon/banner_title.svg';
-import pageTop from '../../assets/ProductsImg/icon/page_top.svg';
 import compareBtn from '../../assets/ProductsImg/icon/compare_btn.svg';
 
 function index() {
@@ -85,26 +84,19 @@ function index() {
                         </div>
                         {/* 頁碼 end */}
 
-                        {/* to page top link */}
-                        <a href="#top">
-                            <img
-                                src={pageTop}
-                                alt="pageTop"
-                                className="d-block  products-float-right sticky-bottom"
-                            />
-                        </a>
-                        {/* to page top link end */}
+                        {/* 頁碼 end */}
+
+                        <ScrollTo />
 
                         {/* 商品比較 btn */}
-
-                        {/* TODO: 可不可以用a? btn / a / LINK 區別 */}
-                        <a href="/">
-                            <img
-                                src={compareBtn}
-                                alt="compareBtn"
-                                className="d-block products-float-right me-4 sticky-bottom"
-                            />
-                        </a>
+                        <div className="float-right cursor-pointer sticky-bottom me-4">
+                            <div className="d-blok position-relative">
+                                <img src={compareBtn} alt="compareBtn" />
+                                <div className="compare-quantity position-absolute top-0 translate-middle badge rounded-pill">
+                                    0
+                                </div>
+                            </div>
+                        </div>
                         {/* 商品比較 btn end */}
                     </div>
                 </div>

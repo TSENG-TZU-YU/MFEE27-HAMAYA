@@ -2,11 +2,13 @@
 
 .myBucketListBtn {
    color: $main-light;
+   border: 0px;
    border-bottom: 3px solid $main-light;
 }
 
 .active {
    color: $main;
+   border: 0px;
    border-bottom: 5px solid $main;
 }
 

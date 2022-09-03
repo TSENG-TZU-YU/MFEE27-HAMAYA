@@ -6,7 +6,6 @@ import LogIn from './LogIn';
 import SignUp from './SignUp';
 function LogInSignUp({ setLoginPopup }) {
     const [isLogIn, setIsLogIn] = useState(false);
-    const [logInToggle, setLogInToggle] = useState(true);
     const [logInActive, setLogInActive] = useState(true);
     const [signUpActive, setSignUpActive] = useState(false);
     return (
@@ -24,9 +23,12 @@ function LogInSignUp({ setLoginPopup }) {
                 </div>
                 <div className="d-flex justify-content-center ">
                     <button
-                        className={logInActive ? 'setLogIn active' : 'setLogIn'}
+                        className={
+                            logInActive
+                                ? 'setLogIn LogInSignUp-active'
+                                : 'setLogIn'
+                        }
                         onClick={() => {
-                            setLogInToggle(true);
                             setLogInActive(true);
                             setSignUpActive(false);
                         }}
@@ -35,10 +37,11 @@ function LogInSignUp({ setLoginPopup }) {
                     </button>
                     <button
                         className={
-                            signUpActive ? 'setLogIn active' : 'setLogIn'
+                            signUpActive
+                                ? 'setLogIn LogInSignUp-active'
+                                : 'setLogIn'
                         }
                         onClick={() => {
-                            setLogInToggle(false);
                             setLogInActive(false);
                             setSignUpActive(true);
                         }}
@@ -47,7 +50,7 @@ function LogInSignUp({ setLoginPopup }) {
                     </button>
                 </div>
                 <br />
-                {logInToggle ? (
+                {logInActive ? (
                     <LogIn setLoginPopup={setLoginPopup} />
                 ) : (
                     <SignUp />

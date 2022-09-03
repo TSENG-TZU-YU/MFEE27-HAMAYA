@@ -1,6 +1,8 @@
 // import Detailed from './constants/Detailed';
 
-import React from 'react';
+import React, { useEffect } from 'react';
+
+// import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // 版面頁面元件
@@ -17,6 +19,9 @@ import Place from './pages/Place';
 import AboutUs from './pages/AboutUs';
 import Member from './pages/Member';
 
+// products 次頁面
+import ProductDetail from './pages/Products/ProductDetail';
+
 // class 次頁面
 import ClassList from './pages/Class/ClassList';
 import AdultDetailed from './pages/Class/ClassList/AdultDetailed';
@@ -31,6 +36,10 @@ import MyCoupon from './pages/Member/components/MyCoupon';
 import MyQuestion from './pages/Member/components/MyQuestion';
 
 function App() {
+    //page to top 要用的
+    useEffect(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    }, []);
     return (
         <>
             <BrowserRouter>
@@ -41,6 +50,10 @@ function App() {
 
                         <Route path="product" element={<MainOutlet />}>
                             <Route index element={<Products />} />
+                            <Route
+                                path="ProductDetail"
+                                element={<ProductDetail />}
+                            />
                         </Route>
 
                         <Route path="news" element={<MainOutlet />}>
@@ -49,13 +62,12 @@ function App() {
 
                         <Route path="class" element={<MainOutlet />}>
                             <Route index element={<Class />} />
-                            <Route path="classlist" element={<MainOutlet />}>
-                                <Route index element={<ClassList />} />
-                                <Route
-                                    path="adultDetailed"
-                                    element={<AdultDetailed />}
-                                />
-                            </Route>
+                            <Route path="classlist" element={<ClassList />} />
+
+                            <Route
+                                path="adultDetailed"
+                                element={<AdultDetailed />}
+                            />
                         </Route>
 
                         <Route path="place" element={<MainOutlet />}>

@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.scss';
+import { useOutletContext } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 // import { Link } from 'react-router-dom';
+import ScrollTo from '../../../components/ScrollTo';
 
 // 子頁面
 import AdultCourse from './AdultCourse';
@@ -15,11 +17,12 @@ import filterIcon from '../../../assets/svg/filter_alt.svg';
 import sort from '../../../assets/svg/sort.svg';
 import search from '../../../assets/svg/search.svg';
 
-function ClassList({ selectCourse }) {
-    const [course, setCourse] = useState(true);
-    const [vector, setVector] = useState(true);
-
-    console.log('課程', selectCourse);
+function ClassList(props) {
+    const [selectCourse, setSelectCourse] = useOutletContext();
+    console.log('classList', selectCourse);
+    useEffect(() => {
+        // setSelectCourse(false)
+    }, []);
     // Toggled
     const [filterToggled, setFilterToggled] = useState(false);
     const toggleFilterTrueFalse = () => setFilterToggled(!filterToggled);
@@ -138,8 +141,7 @@ function ClassList({ selectCourse }) {
                     <h4
                         className="cursor-pinter"
                         onClick={() => {
-                            setVector(true);
-                            setCourse(true);
+                            // setSelectCourse(true);
                         }}
                     >
                         成人課程
@@ -149,8 +151,7 @@ function ClassList({ selectCourse }) {
                     <h4
                         className="cursor-pinter"
                         onClick={() => {
-                            setVector(false);
-                            setCourse(false);
+                            // setSelectCourse(false);
                         }}
                     >
                         兒童課程
@@ -161,12 +162,18 @@ function ClassList({ selectCourse }) {
                 <div className="vector3-main-light  mt-3  z-index"></div>
                 <div
                     className={
-                        vector ? 'vector5-active-left' : 'vector5-active-right'
+                        selectCourse
+                            ? 'vector5-active-left'
+                            : 'vector5-active-right'
                     }
                 ></div>
             </div>
-            {course ? <AdultCourse /> : <ChildrenCourse />}
-            <ul className="text-center">{getPage()}</ul>
+            {selectCourse ? <AdultCourse /> : <ChildrenCourse />}
+            <div className="d-flex">
+                {' '}
+                <ul className="text-center">{getPage()}</ul>
+                <ScrollTo />
+            </div>
         </Container>
     );
 }
