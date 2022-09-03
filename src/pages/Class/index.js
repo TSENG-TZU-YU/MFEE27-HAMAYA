@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useOutletContext } from 'react-router-dom';
 import './index.scss';
 // import { Outlet } from 'react-router-dom';
-import ScrollTo from '../../components/ScrollTo';
+
 import { Link } from 'react-router-dom';
 // 子頁面
 // import ClassList from './ClassList';
@@ -24,7 +24,7 @@ import teacher02 from '../../assets/ClassImg/teacher02.png';
 import teacher03 from '../../assets/ClassImg/teacher03.png';
 import teacher04 from '../../assets/ClassImg/teacher04.png';
 import teacher05 from '../../assets/ClassImg/teacher05.png';
-import { useEffect } from 'react';
+
 
 function Class(props) {
     const [selectCourse, setSelectCourse] = useOutletContext();
@@ -34,13 +34,13 @@ function Class(props) {
             <img className="img-fluid" src={banner} alt="banner" />
             <Container>
                 <div className="d-flex mt-5">
-                    <a href="/">
+                    <Link to="/">
                         <p>首頁</p>
-                    </a>
+                    </Link>
                     /
-                    <a href="/class">
+                    <Link to="/class">
                         <p>音樂教育</p>
-                    </a>
+                    </Link>
                 </div>
                 <div className="d-flex blank-top ">
                     <h4
@@ -190,7 +190,6 @@ function Class(props) {
                     </div>
                     <Row className="mt-5 text-center">
                         <Col>
-                            {/* TODO: 無法跳轉到成人課程 */}
                             <Link to="classlist">
                                 <img
                                     src={Adult_Course}
@@ -206,7 +205,6 @@ function Class(props) {
                             </Link>
                         </Col>
                         <Col>
-                            {/* TODO: 無法跳轉到兒童課程 */}
                             <Link to="classlist">
                                 <img
                                     className="cursor-pinter img-fluid"
@@ -226,7 +224,6 @@ function Class(props) {
             </div>
 
             <Container>
-                <ScrollTo />
                 <div className="d-flex mt-5 ">
                     <h4
                         className="me-3 text-nowrap"

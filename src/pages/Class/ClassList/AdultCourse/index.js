@@ -65,7 +65,7 @@ function AdultCourse(props) {
                                 >
                                     NT $2,500 / 期
                                 </h4>
-                                <Link to="adultDetailed">
+                                <Link to="detailed">
                                     <Car />
                                 </Link>
                             </div>

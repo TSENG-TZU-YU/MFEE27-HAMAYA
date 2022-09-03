@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './index.scss';
 import { useOutletContext } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-// import { Link } from 'react-router-dom';
-import ScrollTo from '../../../components/ScrollTo';
+import { Link } from 'react-router-dom';
 
 // 子頁面
 import AdultCourse from './AdultCourse';
@@ -20,12 +19,11 @@ import search from '../../../assets/svg/search.svg';
 function ClassList(props) {
     const [selectCourse, setSelectCourse] = useOutletContext();
     console.log('classList', selectCourse);
-    useEffect(() => {
-        // setSelectCourse(false)
-    }, []);
+
     // Toggled
     const [filterToggled, setFilterToggled] = useState(false);
     const toggleFilterTrueFalse = () => setFilterToggled(!filterToggled);
+    console.log('toggle', toggleFilterTrueFalse);
 
     const [sortToggled, setSortToggled] = useState(false);
     const toggleSortTrueFalse = () => setSortToggled(!sortToggled);
@@ -61,17 +59,19 @@ function ClassList(props) {
         <Container>
             <div className="d-flex mt-5 justify-content-between align-items-center">
                 <nav className="d-flex">
-                    <a href="/">
+                    <Link to="/">
                         <p className="mb-0">首頁</p>
-                    </a>
+                    </Link>
                     /
-                    <a href="/class">
+                    <Link to="/class">
                         <p className="mb-0">音樂教育</p>
-                    </a>
+                    </Link>
                     /
-                    <a href="/class/classlist">
-                        <p className="mb-0 ">成人課程</p>
-                    </a>
+                    <Link to="/class/classlist">
+                        <p className="mb-0 ">
+                            {selectCourse ? '成人課程' : '兒童課程'}
+                        </p>
+                    </Link>
                 </nav>
                 <nav className="d-flex  ">
                     <div className="d-flex me-5 justify-content-between align-items-center position-relative">
@@ -92,7 +92,7 @@ function ClassList(props) {
                                         類型
                                     </p>
                                     <select className="select-class mt-1">
-                                        <option>所有課程</option>
+                                        <option>所有樂器</option>
                                     </select>
                                     <p
                                         className="toggled-p mb-0  mt-1 mb-1"
@@ -141,7 +141,7 @@ function ClassList(props) {
                     <h4
                         className="cursor-pinter"
                         onClick={() => {
-                            // setSelectCourse(true);
+                            setSelectCourse(true);
                         }}
                     >
                         成人課程
@@ -151,7 +151,7 @@ function ClassList(props) {
                     <h4
                         className="cursor-pinter"
                         onClick={() => {
-                            // setSelectCourse(false);
+                            setSelectCourse(false);
                         }}
                     >
                         兒童課程
@@ -169,11 +169,7 @@ function ClassList(props) {
                 ></div>
             </div>
             {selectCourse ? <AdultCourse /> : <ChildrenCourse />}
-            <div className="d-flex">
-                {' '}
-                <ul className="text-center">{getPage()}</ul>
-                <ScrollTo />
-            </div>
+            <ul className="text-center">{getPage()}</ul>
         </Container>
     );
 }
