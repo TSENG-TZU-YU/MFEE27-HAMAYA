@@ -1,13 +1,27 @@
 @import '../../styles/global.scss';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@600&display=swap');
 
 .footer-height{
   height: 230px;
 }
 
-.letter{
+.footer-word{
+  font-family: 'Noto Serif Malayalam', serif;
+  letter-spacing: 0.2rem;
+  font-size:1.5rem ;
+ 
+}
+.footer-word2{
+  font-family: 'Noto Serif Malayalam', serif;
   letter-spacing: 0.3rem;
+  font-size: 0.8rem; 
+}
+.footer-word3{
+  font-size: 0.6rem;
 }
 
-.padding{
+.picture-height{
   padding-top: 70px;
+  width: 230px;
+ 
 }
