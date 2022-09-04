@@ -29,7 +29,7 @@ function ToShareCollect(props) {
             {/* 分享 */}
             <div className="d-flex justify-content-center align-items-center cursor-pinter ">
                 <img className="me-2 " src={Share} alt="Share" />
-                <p className="mt-2 share">分享</p>
+                <p className="mt-3 share">分享</p>
             </div>
         </div>
     );
