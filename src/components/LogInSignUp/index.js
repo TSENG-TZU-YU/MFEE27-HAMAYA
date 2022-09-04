@@ -6,7 +6,6 @@ import LogIn from './LogIn';
 import SignUp from './SignUp';
 function LogInSignUp({ setLoginPopup }) {
     const [isLogIn, setIsLogIn] = useState(false);
-    const [logInToggle, setLogInToggle] = useState(true);
     const [logInActive, setLogInActive] = useState(true);
     const [signUpActive, setSignUpActive] = useState(false);
     return (
@@ -30,7 +29,6 @@ function LogInSignUp({ setLoginPopup }) {
                                 : 'setLogIn'
                         }
                         onClick={() => {
-                            setLogInToggle(true);
                             setLogInActive(true);
                             setSignUpActive(false);
                         }}
@@ -44,7 +42,6 @@ function LogInSignUp({ setLoginPopup }) {
                                 : 'setLogIn'
                         }
                         onClick={() => {
-                            setLogInToggle(false);
                             setLogInActive(false);
                             setSignUpActive(true);
                         }}
@@ -53,7 +50,7 @@ function LogInSignUp({ setLoginPopup }) {
                     </button>
                 </div>
                 <br />
-                {logInToggle ? (
+                {logInActive ? (
                     <LogIn setLoginPopup={setLoginPopup} />
                 ) : (
                     <SignUp />

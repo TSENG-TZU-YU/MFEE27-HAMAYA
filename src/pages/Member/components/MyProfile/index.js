@@ -12,7 +12,7 @@ function MyProfile(props) {
         repassword: '',
         sub: '1',
     });
-    
+
     const [setbread] = useOutletContext();
     useEffect(() => {
         setbread('會員資料');
@@ -121,7 +121,7 @@ function MyProfile(props) {
                 <h5 className="gary-dark-color mt-4">優惠訊息通知</h5>
                 <div className="d-flex my-3">
                     <input
-                        className="d-block"
+                        className="form-check-input d-block"
                         type="radio"
                         id="sub"
                         name="sub"
@@ -133,7 +133,7 @@ function MyProfile(props) {
                     <label htmlFor="sub">訂閱</label>
                     &nbsp;
                     <input
-                        className="d-block"
+                        className="form-check-input d-block"
                         type="radio"
                         id="unsub"
                         name="sub"

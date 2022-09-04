@@ -10,6 +10,7 @@
 }
 .filter-btn-class {
   background: $main-gary-light;
+  border: 0;
   color: $main;
   padding: 5px;
   letter-spacing: 0.1rem;
@@ -39,24 +40,20 @@ ul > li {
 .z-index {
   z-index: -1;
 }
-.vector3-main-light {
-  border-top: 3px solid $main-light;
-  width: 1260px;
-  position: relative;
+
+.vector5-Btn {
+  color: $main-light;
+  border: 0px;
+  border-bottom: 3px solid $main-light;
 }
-.vector5-active-left {
-  border-top: 5px solid $main;
-  width: 630px;
-  position: absolute;
-  margin-top: 12px;
+.vector5-Btn-active{
+  color: $main;
+  border: 0px;
+  border-bottom: 5px solid $main;
 }
-.vector5-active-right {
-  border-top: 5px solid $main;
-  width: 630px;
-  margin-left: 630px;
-  position: absolute;
-  margin-top: 12px;
-}
+
+
+
 .pages {
   display: inline-block;
   margin: 2px;

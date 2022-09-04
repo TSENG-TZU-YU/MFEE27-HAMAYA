@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import member_img from '../../../../assets/svg/member_avatar.svg';
 import './index.css';
 
 function MemberListMobile(props) {
@@ -7,6 +8,17 @@ function MemberListMobile(props) {
     const navigate = useNavigate();
     return (
         <div className="d-md-none MemberListMobile">
+            <div className="d-flex MemberListBg">
+                <div>
+                    <img className="img-fluid" src={member_img} alt="" />
+                </div>
+                <div className="d-flex align-items-center">
+                    <div className="ms-3" >
+                        <h5 className="main-color">Emma</h5>
+                        <p>Emma@gmail.com</p>
+                    </div>
+                </div>
+            </div>
             <div className="my-3">
                 <select
                     value={url}
