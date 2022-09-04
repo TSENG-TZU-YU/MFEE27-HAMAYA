@@ -3,7 +3,6 @@ import './index.scss';
 import { useOutletContext } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 // import { Link } from 'react-router-dom';
-import ScrollTo from '../../../components/ScrollTo';
 
 // 子頁面
 import AdultCourse from './AdultCourse';
@@ -172,7 +171,6 @@ function ClassList(props) {
             <div className="d-flex">
                 {' '}
                 <ul className="text-center">{getPage()}</ul>
-                <ScrollTo />
             </div>
         </Container>
     );

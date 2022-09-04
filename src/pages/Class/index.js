@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useOutletContext } from 'react-router-dom';
 import './index.scss';
 // import { Outlet } from 'react-router-dom';
-import ScrollTo from '../../components/ScrollTo';
+
 import { Link } from 'react-router-dom';
 // 子頁面
 // import ClassList from './ClassList';
@@ -226,7 +226,6 @@ function Class(props) {
             </div>
 
             <Container>
-                <ScrollTo />
                 <div className="d-flex mt-5 ">
                     <h4
                         className="me-3 text-nowrap"
@@ -306,6 +305,7 @@ function Class(props) {
                     </div>
                 </div>
             </Container>
+    
         </>
     );
 }

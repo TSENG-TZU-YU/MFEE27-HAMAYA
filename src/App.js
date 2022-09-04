@@ -63,7 +63,7 @@ function App() {
                         <Route path="class" element={<MainOutlet />}>
                             <Route index element={<Class />} />
                             <Route path="classlist" element={<ClassList />} />
-
+                           
                             <Route
                                 path="adultDetailed"
                                 element={<AdultDetailed />}
