@@ -9,8 +9,8 @@ function MemberListTable(props) {
                 <div>
                     <img className="img-fluid" src={member_img} alt="" />
                 </div>
-                <div className='pt-3 pb-1' >
-                    <h5 className='main-color'>Emma</h5>
+                <div className="pt-3 pb-1">
+                    <h5 className="main-color">Emma</h5>
                     <p>Emma@gmail.com</p>
                 </div>
                 <ul className="list-unstyled">

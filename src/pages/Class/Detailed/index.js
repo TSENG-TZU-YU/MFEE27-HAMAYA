@@ -5,18 +5,18 @@ import { Link } from 'react-router-dom';
 import './index.scss';
 
 // 子元件
-import StarRating from '../../../../components/Star/StarRating';
-import ToShareCollect from '../../../../components/ToShare';
+import StarRating from '../../../components/Star/StarRating';
+import ToShareCollect from '../../../components/ToShare';
 
 // 圖檔
-import AdultDetailed01 from '../../../../assets/ClassImg/AdultDetailed01.png';
-import AdultDetailed02 from '../../../../assets/ClassImg/AdultDetailed02.png';
-import AdultDetailed03 from '../../../../assets/ClassImg/AdultDetailed03.png';
-import shop_car from '../../../../assets/svg/add_shopping_cart.svg';
-import arrow_right from '../../../../assets/svg/arrow-right.svg';
-import arrow_left from '../../../../assets/svg/arrow-left.svg';
+import AdultDetailed01 from '../../../assets/ClassImg/AdultDetailed01.png';
+import AdultDetailed02 from '../../../assets/ClassImg/AdultDetailed02.png';
+import AdultDetailed03 from '../../../assets/ClassImg/AdultDetailed03.png';
+import shop_car from '../../../assets/svg/add_shopping_cart.svg';
+import arrow_right from '../../../assets/svg/arrow-right.svg';
+import arrow_left from '../../../assets/svg/arrow-left.svg';
 
-function Detailed(props) {
+function Detailed() {
     const [detailedSelect, setDetailedSelect] = useState(true);
     return (
         <div>
@@ -30,14 +30,14 @@ function Detailed(props) {
                         <p className="mb-0">音樂教育</p>
                     </Link>
                     /
-                    <Link to="/class/classlist">
+                    <Link to="/class/list">
                         <p className="mb-0 ">成人課程</p>
                     </Link>
-                    <Link to="/class/adultDetailed">
+                    {/* <Link to="/class/Detailed">
                         <p className="mb-0 ">藍調與爵士鋼琴的獨奏技巧與應用</p>
-                    </Link>
+                    </Link> */}
                 </nav>
-                <Row className="mt-5 pt-5  text-center">
+                <Row className="mt-5 pt-5  text-center ">
                     <Col lg={6}>
                         <div className="d-flex align-items-center">
                             <img

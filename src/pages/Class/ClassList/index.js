@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './index.scss';
-import { useOutletContext } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap';
+import { useClass } from '../UseContext';
+import { Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 // 子頁面
@@ -17,7 +17,7 @@ import sort from '../../../assets/svg/sort.svg';
 import search from '../../../assets/svg/search.svg';
 
 function ClassList(props) {
-    const [selectCourse, setSelectCourse] = useOutletContext();
+    const { selectCourse, setSelectCourse } = useClass();
     console.log('classList', selectCourse);
 
     // Toggled
@@ -67,7 +67,7 @@ function ClassList(props) {
                         <p className="mb-0">音樂教育</p>
                     </Link>
                     /
-                    <Link to="/class/classlist">
+                    <Link to="/class/list">
                         <p className="mb-0 ">
                             {selectCourse ? '成人課程' : '兒童課程'}
                         </p>

@@ -1,6 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap';
 // import { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useClass } from './UseContext';
 import './index.scss';
 // import { Outlet } from 'react-router-dom';
 
@@ -24,10 +24,10 @@ import teacher02 from '../../assets/ClassImg/teacher02.png';
 import teacher03 from '../../assets/ClassImg/teacher03.png';
 import teacher04 from '../../assets/ClassImg/teacher04.png';
 import teacher05 from '../../assets/ClassImg/teacher05.png';
-
+// import { useState } from 'react';
 
 function Class(props) {
-    const [selectCourse, setSelectCourse] = useOutletContext();
+    const { selectCourse, setSelectCourse } = useClass();
     console.log('class', selectCourse);
     return (
         <>
@@ -190,7 +190,7 @@ function Class(props) {
                     </div>
                     <Row className="mt-5 text-center">
                         <Col>
-                            <Link to="classlist">
+                            <Link to="list">
                                 <img
                                     src={Adult_Course}
                                     alt="Adult Course"
@@ -205,7 +205,7 @@ function Class(props) {
                             </Link>
                         </Col>
                         <Col>
-                            <Link to="classlist">
+                            <Link to="list">
                                 <img
                                     className="cursor-pinter img-fluid"
                                     src={Children_Lessons}
@@ -303,7 +303,6 @@ function Class(props) {
                     </div>
                 </div>
             </Container>
-    
         </>
     );
 }
