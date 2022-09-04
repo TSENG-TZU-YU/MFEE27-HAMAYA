@@ -9,17 +9,14 @@ import users from './users.svg';
 import logout from './logout.svg';
 
 function NavbarMobile(props) {
-    const [loginPopup, setLoginPopup] = useState(false); //睿渝加的CODE不要刪
+    const [loginPopup, setLoginPopup] = useState(false);
     const [showMenu, setShowMenu] = useState('list hide');
     const [showBackground, setShowBackground] = useState('background');
     return (
         <>
-            {
-                loginPopup && (
-                    <LogInSignUp setLoginPopup={setLoginPopup} />
-                ) /*睿渝加的CODE不要刪*/
-            }
+            {loginPopup && <LogInSignUp setLoginPopup={setLoginPopup} />}
             <div className="NavbarMobile list-unstyled d-block d-md-none ">
+                <div className="space-block"></div>
                 <div className="header d-flex justify-content-between align-items-center px-2">
                     <div className="">
                         <button
