@@ -1,6 +1,5 @@
 import { Container, Row, Col } from 'react-bootstrap';
-// import { useEffect } from 'react';
-import { useClass } from './UseContext';
+import { useOutletContext } from 'react-router-dom';
 import './index.scss';
 // import { Outlet } from 'react-router-dom';
 
@@ -27,7 +26,7 @@ import teacher05 from '../../assets/ClassImg/teacher05.png';
 // import { useState } from 'react';
 
 function Class(props) {
-    const { selectCourse, setSelectCourse } = useClass();
+    const [selectCourse, setSelectCourse] = useOutletContext();
     console.log('class', selectCourse);
     return (
         <>

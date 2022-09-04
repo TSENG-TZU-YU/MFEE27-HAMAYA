@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './index.scss';
-import { useClass } from '../UseContext';
+import { useOutletContext } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -17,7 +17,8 @@ import sort from '../../../assets/svg/sort.svg';
 import search from '../../../assets/svg/search.svg';
 
 function ClassList(props) {
-    const { selectCourse, setSelectCourse } = useClass();
+    
+    const [selectCourse, setSelectCourse] = useOutletContext();
     console.log('classList', selectCourse);
 
     // Toggled
