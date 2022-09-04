@@ -25,7 +25,7 @@ function MyProfile(props) {
         setUser(newUser);
     };
     return (
-        <div className="col-12 col-md-8 col-lg-9">
+        <div className="col-12 col-md-8 col-lg-9 MyProfile">
             <table className="myprofile_table ">
                 <thead>
                     <tr>
