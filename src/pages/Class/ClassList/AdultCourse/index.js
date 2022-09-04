@@ -1,8 +1,8 @@
 import React from 'react';
 import './index.scss';
 import { Link } from 'react-router-dom';
-// import { useEffect, useState } from 'react';
-// import axios from 'axios';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 // 子元件
 import StarRating from '../../../../components/Star/StarRating';
@@ -13,26 +13,26 @@ import Adult_img from '../../../../assets/ClassImg/Adult img.png';
 
 function AdultCourse(props) {
     // const [error, setError] = useState(null);
-    // const [data, setData] = useState([]);
+    const [data, setData] = useState([]);
 
-    // useEffect(() => {
-    //     console.log('classAdult', 'useEffect []');
-    //     let getAdultClass = async () => {
-    //         let response = await axios.get(
-    //             `http://localhost:3001/class/classlist/classAdult`
-    //         );
-    //         setData(response.data);
-    //     };
-    //     getAdultClass();
-    // }, []);
+    useEffect(() => {
+        console.log('classAdult', 'useEffect []');
+        let getAdultClass = async () => {
+            let response = await axios.get(
+                `http://localhost:3001/class/classlist/classAdult`
+            );
+            setData(response.data);
+        };
+        getAdultClass();
+    }, []);
 
-    // useEffect(() => {
-    //     console.log('useEffect[data]', data);
-    // }, [data]);
+    useEffect(() => {
+        console.log('useEffect[data]', data);
+    }, [data]);
 
     return (
         <div>
-            <div className="d-lg-flex justify-content-lg-center align-items-lg-center  mb-5">
+            {/* <div className="d-lg-flex justify-content-lg-center align-items-lg-center  mb-5">
                 <img src={Adult_img} alt="Adult img" />
                 <div className="introduce">
                     <div className="ms-4 mt-3">
@@ -65,17 +65,17 @@ function AdultCourse(props) {
                                 >
                                     NT $2,500 / 期
                                 </h4>
-                                <Link to="adultDetailed">
+                                <Link to="detailed">
                                     <Car />
                                 </Link>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             {/* 已灌資料庫 */}
             {/* TODO: 圖檔無法讀取*/}
-            {/* {data.map((classAdult) => {
+            {data.map((classAdult) => {
                 return (
                     <div
                         key={classAdult.id}
@@ -125,7 +125,7 @@ function AdultCourse(props) {
                         </div>
                     </div>
                 );
-            })} */}
+            })}
         </div>
     );
 }

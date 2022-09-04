@@ -24,7 +24,7 @@ import ProductDetail from './pages/Products/ProductDetail';
 
 // class 次頁面
 import ClassList from './pages/Class/ClassList';
-import AdultDetailed from './pages/Class/ClassList/AdultDetailed';
+import Detailed from './pages/Class/ClassList/Detailed';
 
 //member次頁面
 import MyProfile from './pages/Member/components/MyProfile';
@@ -60,14 +60,11 @@ function App() {
                             <Route index element={<NEWs />} />
                         </Route>
 
+                        {/* TODO: 路徑 */}
                         <Route path="class" element={<MainOutlet />}>
                             <Route index element={<Class />} />
                             <Route path="classlist" element={<ClassList />} />
-                           
-                            <Route
-                                path="adultDetailed"
-                                element={<AdultDetailed />}
-                            />
+                            <Route path="detailed" element={<Detailed />} />
                         </Route>
 
                         <Route path="place" element={<MainOutlet />}>

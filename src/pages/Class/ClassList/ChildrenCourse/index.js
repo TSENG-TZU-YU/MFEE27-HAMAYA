@@ -10,7 +10,6 @@ import Adult_img from '../../../../assets/ClassImg/Adult img.png';
 function ChildrenCourse(props) {
     return (
         <div>
-            123
             <div className="d-lg-flex justify-content-lg-center align-items-lg-center  mb-5">
                 <img src={Adult_img} alt="Adult img" />
                 <div className="introduce">

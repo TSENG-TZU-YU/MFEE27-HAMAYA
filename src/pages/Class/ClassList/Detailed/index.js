@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import './index.scss';
 
@@ -12,34 +13,45 @@ import AdultDetailed01 from '../../../../assets/ClassImg/AdultDetailed01.png';
 import AdultDetailed02 from '../../../../assets/ClassImg/AdultDetailed02.png';
 import AdultDetailed03 from '../../../../assets/ClassImg/AdultDetailed03.png';
 import shop_car from '../../../../assets/svg/add_shopping_cart.svg';
+import arrow_right from '../../../../assets/svg/arrow-right.svg';
+import arrow_left from '../../../../assets/svg/arrow-left.svg';
 
-function AdultDetailed(props) {
+function Detailed(props) {
+    const [detailedSelect, setDetailedSelect] = useState(true);
     return (
         <div>
             <Container>
                 <nav className="d-flex mt-5 ">
-                    <a href="/">
+                    <Link to="/">
                         <p className="mb-0">首頁</p>
-                    </a>
+                    </Link>
                     /
-                    <a href="/class">
+                    <Link to="/class">
                         <p className="mb-0">音樂教育</p>
-                    </a>
+                    </Link>
                     /
-                    <a href="/class/classlist">
+                    <Link to="/class/classlist">
                         <p className="mb-0 ">成人課程</p>
-                    </a>
-                    <a href="/class/classlist/adultDetailed">
+                    </Link>
+                    <Link to="/class/adultDetailed">
                         <p className="mb-0 ">藍調與爵士鋼琴的獨奏技巧與應用</p>
-                    </a>
+                    </Link>
                 </nav>
-                <Row className="mt-5 pt-5 text-center">
+                <Row className="mt-5 pt-5  text-center">
                     <Col lg={6}>
-                        <img
-                            className="AdultDetailed-img01"
-                            src={AdultDetailed01}
-                            alt="Adult img"
-                        />
+                        <div className="d-flex align-items-center">
+                            <img
+                                className="AdultDetailed-img01 "
+                                src={AdultDetailed01}
+                                alt="Adult img"
+                            />
+                            <div className="detailed-arrow-left cursor-pinter">
+                                <img src={arrow_left} alt="arrow_left" />
+                            </div>
+                            <div className="detailed-arrow-right  cursor-pinter">
+                                <img src={arrow_right} alt="arrow_right" />
+                            </div>
+                        </div>
 
                         <div className="d-flex mt-3 ms-2">
                             <img
@@ -96,9 +108,9 @@ function AdultDetailed(props) {
                                         <div className=" mt-1">
                                             <div class="form-check d-flex align-items-center">
                                                 <input
-                                                    className="form-check-input me-2"
+                                                    className="form-check-input d-block me-2"
                                                     //  type="radio"
-                                                    type="checkbox"
+                                                    type="radio"
                                                     value=""
                                                     name="flexRadioDefault"
                                                     id="flexRadioDefault1"
@@ -112,7 +124,7 @@ function AdultDetailed(props) {
                                             </div>
                                             <div class="form-check  d-flex align-items-center mt-3">
                                                 <input
-                                                    className="d-block me-2"
+                                                    className="form-check-input d-block me-2"
                                                     //  type="radio"
                                                     type="radio"
                                                     value=""
@@ -203,9 +215,47 @@ function AdultDetailed(props) {
                         </div>
                     </Col>
                 </Row>
+                <Row className="text-center mt-5 pt-5 mb-5 ">
+                    <button
+                        className={`cursor-pinter col-6 fw-bold ${
+                            detailedSelect
+                                ? 'vector5-Btn-active'
+                                : 'vector5-Btn'
+                        }`}
+                        onClick={() => {
+                            setDetailedSelect(true);
+                        }}
+                    >
+                        <h4>課程資訊</h4>
+                    </button>
+
+                    <button
+                        className={`cursor-pinter col-6 fw-bold ${
+                            detailedSelect
+                                ? 'vector5-Btn'
+                                : 'vector5-Btn-active'
+                        }`}
+                        onClick={() => {
+                            setDetailedSelect(false);
+                        }}
+                    >
+                        <h4>課程評價</h4>
+                    </button>
+                </Row>
+                {/* {selectCourse ? <AdultCourse /> : <ChildrenCourse />} */}
+                <div className="d-flex mt-5  justify-content-center">
+                    <h4
+                        className="me-5 text-nowrap fw-bold"
+                        style={{ color: '#00323d' }}
+                    >
+                        相關課程
+                    </h4>
+
+                    <div className="detailed-vector  mt-3"></div>
+                </div>
             </Container>
         </div>
     );
 }
 
-export default AdultDetailed;
+export default Detailed;

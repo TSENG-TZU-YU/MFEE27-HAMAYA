@@ -4,6 +4,7 @@
     width: 615px;
     height: auto;
     max-width: 100%;
+    position: relative;
 }
 .AdultDetailed-img02 {
     width: 141px;
@@ -41,4 +42,33 @@
 }
 .AdultDetailed-car-text-color {
     color: $accent-light;
+}
+.detailed-arrow-left {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: $gary-light;
+    text-align: center;
+}
+.detailed-arrow-right {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    // right: 0;
+    background-color: $gary-light;
+    text-align: center;
+}
+.detailed-vector {
+    border-top: 3px solid $main-light;
+    width: 1124px;
+}
+.vector5-Btn {
+    color: $main-light;
+    border: 0px;
+    border-bottom: 3px solid $main-light;
+}
+.vector5-Btn-active {
+    color: $main;
+    border: 0px;
+    border-bottom: 5px solid $main;
 }
