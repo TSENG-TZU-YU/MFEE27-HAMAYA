@@ -1,7 +1,13 @@
-.float-right {
-  float: right;
-}
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.scroll-to {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
 }
