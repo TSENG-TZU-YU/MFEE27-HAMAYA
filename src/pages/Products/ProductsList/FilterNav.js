@@ -91,8 +91,8 @@ function FilterNav() {
                                     顏色
                                 </p>
                                 <div className="d-flex mt-2">
-                                    <div className="products-filter-color-box products-filter-no-color-box products-filter-color-box-active"></div>
-                                    <div className="products-filter-color-box color"></div>
+                                    <div className="cursor-pointer products-filter-color-box products-filter-no-color-box products-filter-color-box-active"></div>
+                                    <div className="cursor-pointer products-filter-color-box color"></div>
                                 </div>
                                 <p className="mt-4 mb-0 accent-light-color">
                                     價格
