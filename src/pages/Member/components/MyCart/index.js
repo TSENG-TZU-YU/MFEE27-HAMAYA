@@ -21,7 +21,7 @@ function MyCart(props) {
                 <b> 購物車</b>
             </h4>
             <div className="p-2">
-                <div className="row col-md-5 align-items-center ">
+                <div className="row col-md-5 align-items-center py-2">
                     <div class="col-3 d-inline-flex justify-content-evenly form-check">
                         <input
                             className="form-check-input"
@@ -47,7 +47,7 @@ function MyCart(props) {
             <div className="listBottomLine">
                 <table className="table m-0">
                     <thead>
-                        <tr className="text-center myCartTitle titleBgColorMain">
+                        <tr className="text-center accent-light-color bg-main-color">
                             <th className="tdWidth">樂器商城</th>
                             <th>商品名稱</th>
                             <th>價格</th>
@@ -64,7 +64,7 @@ function MyCart(props) {
                                     value=""
                                     id=""
                                 />
-                                <div className="itemFlex text-center">
+                                <div className="flex-grow-1 text-center">
                                     <img
                                         className="myCartImg"
                                         src={productImg}
@@ -125,7 +125,7 @@ function MyCart(props) {
                                     value=""
                                     id=""
                                 />
-                                <div className="itemFlex text-center">
+                                <div className="flex-grow-1 text-center">
                                     <img
                                         className="myCartImg"
                                         src={productImg}
@@ -182,7 +182,7 @@ function MyCart(props) {
                 </table>
                 <table className="table m-0">
                     <thead>
-                        <tr className="text-center myCartTitle titleBgColorMain">
+                        <tr className="text-center accent-light-color bg-main-color">
                             <th className="tdWidth">音樂教育</th>
                             <th>課程名稱</th>
                             <th>價格</th>
@@ -199,7 +199,7 @@ function MyCart(props) {
                                     value=""
                                     id=""
                                 />
-                                <div className="itemFlex text-center">
+                                <div className="flex-grow-1 text-center">
                                     <img
                                         className="myCartImg"
                                         src={classPic}
@@ -258,7 +258,7 @@ function MyCart(props) {
                                     value=""
                                     id=""
                                 />
-                                <div className="itemFlex text-center">
+                                <div className="flex-grow-1 text-center">
                                     <img
                                         className="myCartImg"
                                         src={classPic}
@@ -315,19 +315,26 @@ function MyCart(props) {
             {/* TODO:要微調 */}
             <div className="py-5 row justify-content-around">
                 <div className="col-md-7 row">
-                    <div className="col-12 titleBg titleBgColorMain">
-                        <span className="myCartTitle">收件人資訊</span>
+                    <div className="col-12 titleBg bg-main-color">
+                        <span className="h6 accent-light-color">
+                            <b>收件人資訊</b>
+                        </span>
                     </div>
-                    <div className="col-12 row gy-2">
-                        <span className="col-3">收件人姓名</span>
+                    <div className="d-flex gy-2 align-items-center">
+                        <span className="col main-color">收件人姓名</span>
                         <input className="col form-control" type="text" />
-                        <span className="col text-center">聯絡電話</span>
+                        <span className="col text-center main-color">
+                            聯絡電話
+                        </span>
                         <input className="col form-control" type="text" />
                     </div>
-                    <div className="col-12 row gy-2">
-                        <span className="col-3">送件地址</span>
-                        {/* <div className="col row"> */}
-                        <select className="col form-select" name="" id="">
+                    <div className="d-flex gy-2 align-items-center">
+                        <span className="col main-color">送件地址</span>
+                        <select
+                            className="col form-select marginRight"
+                            name=""
+                            id=""
+                        >
                             <option>請選擇縣市</option>
                             <option>桃園市</option>
                             <option>桃園市</option>
@@ -339,11 +346,10 @@ function MyCart(props) {
                             <option>中壢區</option>
                             <option>中壢區</option>
                         </select>
-                        {/* </div> */}
                     </div>
-                    <div className="py-2 row ">
+                    <div className="gy-2 pb-2">
                         <input
-                            className="col-5 form-control"
+                            className="form-control"
                             type="text"
                             name=""
                             id=""
@@ -351,15 +357,17 @@ function MyCart(props) {
                     </div>
                 </div>
                 <div className="col-md-5 row">
-                    <div className="col-12 titleBg titleBgColorAccent">
-                        <span className="myCartTitle">訂購資訊</span>
+                    <div className="col-12 titleBg bg-accent-color">
+                        <span className="h6 accent-light-color">
+                            <b>訂購資訊</b>
+                        </span>
                     </div>
-                    <div className="d-flex justify-content-end">
-                        <span className="mx-2">總計</span>
+                    <div className="d-flex gy-2 justify-content-end">
+                        <span className="mx-2 accent-color">總計</span>
                         <span className="">NT: 100000</span>
                     </div>
-                    <div className="d-flex align-items-center">
-                        <span className="col">運費</span>
+                    <div className="d-flex gy-2 align-items-center">
+                        <span className="col accent-color">運費</span>
                         <select className="col mx-4 form-select" name="" id="">
                             <option>請選擇運費</option>
                             <option>2000</option>
@@ -368,20 +376,22 @@ function MyCart(props) {
                         </select>
                         <span className="col me-auto">NT:1000</span>
                     </div>
-                    <div className="d-flex align-items-center">
-                        <span className="col">優惠券折扣</span>
+                    <div className="d-flex gy-2 align-items-center">
+                        <span className="col accent-color">優惠券折扣</span>
                         <select className="col mx-4 form-select" name="" id="">
                             <option>請選擇折扣</option>
                             <option>50</option>
                             <option>100</option>
                             <option>2000</option>
                         </select>
-                        <span className="col me-auto">NT:1000</span>
+                        <span className="col me-auto">- NT:1000</span>
                     </div>
                 </div>
                 <div className="col-3 offset-9 gy-2">
-                    <p>
-                        訂購金額 <span>NT: 100000</span>
+                    <p className="accent-color">
+                        <b>
+                            訂單金額 <span>NT: 100000</span>
+                        </b>
                     </p>
                     <button className="w-100 btn btn-primary p-0">
                         前往付款
