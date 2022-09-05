@@ -34,7 +34,6 @@ function StarRating() {
                         );
                     })}
                 </div>
-                {/* <div className="text">Rating: {rating}</div> */}
             </div>
         </>
     );
