@@ -8,10 +8,7 @@
   cursor: pointer;
 }
 
-.session1-bg {
-  height: 648px;
-  background-color: $main-gary-light;
-}
+
 .session-bg .vector3 {
   border-top: 3px solid $gary-dark;
   width: 863px;
@@ -25,30 +22,40 @@
   background-color: #6A777ACC;
   color:white;
   width: fit-content;
-  top: 0;
-  left:-100px;
+  // top: 0;
+  // left:-100px;
   padding: 30px;
-  width:750px;
+  // width:750px;
+}
+.intro1 p{
+  color:white;
 }
 
 .intro2 {
   background-color: #767676c7;
   color:white;
   width: fit-content;
-  top: 0;
-  left:0px;
+  // top: 0;
+  // left: 0px;
   padding: 30px;
-  width:750px;
+  // width:750px;
+}
+
+.intro2 p{
+  color:white;
 }
 
 .intro3{
   background-color: #5b322fd7;
   color:white;
   width: fit-content;
-  top: 0;
-  left:-100px;
+  // top: 0;
+  // left:-100px;
   padding: 30px;
-  width:750px;
+  // width:750px;
+}
+.intro3 p{
+  color:white;
 }
 
 .title1{
