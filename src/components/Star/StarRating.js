@@ -19,7 +19,10 @@ function StarRating() {
                                     type="radio"
                                     name="rating"
                                     value={ratingValue}
-                                    onClick={() => setRating(ratingValue)}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        setRating(ratingValue);
+                                    }}
                                 />
                                 <AiFillStar
                                     className={`fa-star ${
