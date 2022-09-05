@@ -54,8 +54,8 @@ function Class(props) {
                 <Row className=" blank-top-art mt-5">
                     <Col xl={6}>
                         <img
-                            className="cursor-pinter"
-                            style={{ width: '600px', height: '400px' }}
+                            className="cursor-pinter img-fluid"
+                            style={{ width: '600px', heigh: '400px' }}
                             src={art01}
                             alt="art01"
                         />
@@ -238,7 +238,7 @@ function Class(props) {
                         <img src={arrow_left} alt="arrow_left" />
                     </div>
                     {/*TODO: 手機板 換成 SLIDER  className="d-md-none" */}
-                    <Row>
+                    <Row className=" row-cols-md-3 row-cols-xl-5">
                         <Col>
                             <img
                                 className="cursor-pinter"

@@ -44,9 +44,12 @@ function Detailed() {
                 </nav>
                 <Row className="mt-5 pt-5  text-center ">
                     <Col lg={6}>
-                        <div className="d-flex align-items-center">
+                        <div
+                            className="d-flex align-items-center  position-relative img-fluid"
+                            style={{ width: '615px' }}
+                        >
                             <img
-                                className="AdultDetailed-img01 "
+                                className="AdultDetailed-img01  "
                                 src={AdultDetailed01}
                                 alt="Adult img"
                             />
@@ -114,13 +117,12 @@ function Detailed() {
                                     <Col lg={3}>
                                         <p>付款方式：</p>
                                     </Col>
-                                    {/* TODO: 勾選 樣式 */}
+
                                     <Col>
                                         <div className=" mt-1">
                                             <div class="form-check d-flex align-items-center">
                                                 <input
                                                     className="form-check-input d-block me-2"
-                                                    //  type="radio"
                                                     type="radio"
                                                     value=""
                                                     name="flexRadioDefault"
@@ -256,7 +258,6 @@ function Detailed() {
                     </button>
                 </Row>
                 {detailedSelect ? <Information /> : <Comment />}
-                {/* TODO: RWD  col 線要滿版*/}
                 <div className="  d-flex mt-5  px-0">
                     <h4
                         className=" me-5 text-nowrap fw-bold"
