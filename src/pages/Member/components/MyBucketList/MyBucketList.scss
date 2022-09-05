@@ -1,5 +1,20 @@
 @import '../../../../styles/global.scss';
 
+@media screen and (max-width:720px){
+   .myBucketClassImg{
+      width: 100%;
+   }
+   // .myBucketClassItem{
+   //    max-height: 500px;
+   // }
+}
+@media screen and (min-width:720px) {
+   .myBucketClassItem {
+      height: 130px;
+      // background-color: white;
+   }
+}
+
 .myBucketListBtn {
    color: $main-light;
    border: 0px;
@@ -15,11 +30,14 @@
 .myBucketItem {
    height: 130px;
    background-color: white;
-
+}
+.myBucketClassItem {
+   // height: 130px;
+   background-color: white;
 }
 
 .myBucketImg {
-   max-height: 130px;
+   min-height: 130px;
    object-fit: cover;
    // border: 1px solid #ccc;//測試用記得拿掉
 }
