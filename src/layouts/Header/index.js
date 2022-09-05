@@ -97,8 +97,8 @@ function Header(props) {
                             <LogInSignUp setLoginPopup={setLoginPopup} />
                         ) /*睿渝加的CODE不要刪*/
                     }
+                    <ScrollTo />
                 </Container>
-                <ScrollTo />
                 {shoppingCart ? <Cart /> : ''}
             </div>
         </>

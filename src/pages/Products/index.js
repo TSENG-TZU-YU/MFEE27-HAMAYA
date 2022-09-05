@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import './index.scss';
 
 // 元件
@@ -5,13 +6,18 @@ import CategoryNav from './ProductsList/CategoryNav';
 import ProductsItem from './ProductsList/ProductsItem';
 import FilterNav from './ProductsList/FilterNav';
 import MobileFilterNav from './ProductsList/MobileFilterNav';
+import Compare from './ProductCompare';
 
 // 圖檔
 import banner from '../../assets/ProductsImg/banner.png';
 import bannerTitle from '../../assets/ProductsImg/icon/banner_title.svg';
 import compareBtn from '../../assets/ProductsImg/icon/compare_btn.svg';
 
-function index() {
+function Products() {
+    // Toggled
+    const [productCompare, setProductCompare] = useState(false);
+    const toggleProductCompare = () => setProductCompare(!productCompare);
+
     return (
         <>
             {/* banner */}
@@ -83,15 +89,21 @@ function index() {
                         <img
                             src={compareBtn}
                             alt="compareBtn"
-                            className="d-blok compare-btn m-4"
+                            className="d-blok compare-btn m-4 cursor-pointer"
+                            onClick={toggleProductCompare}
                         />
                         <div className="compare-quantity">0</div>
                         {/* 商品比較 btn end */}
                     </div>
                 </div>
             </div>
+            {productCompare ? (
+                <Compare setProductCompare={setProductCompare} />
+            ) : (
+                ''
+            )}
         </>
     );
 }
 
-export default index;
+export default Products;
