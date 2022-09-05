@@ -14,8 +14,7 @@ import cartCheckout from '../../../assets/ProductsImg/icon/shopping_cart_checkou
 import compareBtn from '../../../assets/ProductsImg/icon/compare_btn.svg';
 import note from '../../../assets/ProductsImg/icon/product_details_note.svg';
 
-function index() {
-    // const [detailedSelect, setDetailedSelect] = useState(true);
+function ProductDetail() {
     return (
         <>
             <Container>
@@ -89,7 +88,7 @@ function index() {
                                             />
                                             <label
                                                 className="form-check-label"
-                                                for="flexRadioDefault1"
+                                                htmlFor="flexRadioDefault1"
                                             >
                                                 <h6 className="fw-400">
                                                     轉帳匯款
@@ -99,7 +98,6 @@ function index() {
                                         <div className="form-check m-2">
                                             <input
                                                 className="form-check-input d-block me-2"
-                                                //  type="radio"
                                                 type="radio"
                                                 value=""
                                                 name="flexRadioDefault"
@@ -107,7 +105,7 @@ function index() {
                                             />
                                             <label
                                                 className="form-check-label"
-                                                for="flexRadioDefault1"
+                                                htmlFor="flexRadioDefault1"
                                             >
                                                 <h6 className="fw-400">
                                                     信用卡
@@ -123,8 +121,8 @@ function index() {
                                                 id="flexRadioDefault1"
                                             />
                                             <label
-                                                class="form-check-label"
-                                                for="flexRadioDefault1"
+                                                className="form-check-label"
+                                                htmlFor="flexRadioDefault1"
                                             >
                                                 <h6 className="fw-400">
                                                     LINE Pay
@@ -222,7 +220,7 @@ function index() {
                 <img
                     src={compareBtn}
                     alt="compareBtn"
-                    className="d-blok compare-btn m-4"
+                    className="d-blok compare-btn m-4 cursor-pointer"
                 />
                 <div className="compare-quantity">0</div>
                 {/* 商品比較 btn end */}
@@ -231,4 +229,4 @@ function index() {
     );
 }
 
-export default index;
+export default ProductDetail;
