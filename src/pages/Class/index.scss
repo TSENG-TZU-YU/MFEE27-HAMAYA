@@ -1,104 +1,104 @@
 @import '../../index.scss';
 
 .engText {
-  font-family: 'Noto Serif Display', serif;
-  color: $main;
+    font-family: 'Noto Serif Display', serif;
+    color: $main;
 }
 .cursor-pinter {
-  cursor: pointer;
+    cursor: pointer;
 }
 .blank-top {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 .blank-top-art {
-  margin-top: 36px;
+    margin-top: 36px;
 }
 
 .vector3 {
-  border-top: 3px solid $main-light;
-  width: 1007px;
+    border-top: 3px solid $main-light;
+    width: 100%;
 }
 .vector4 {
-  border-top: 3px solid $main-gary-light;
-  width: 863px;
+    border-top: 3px solid $main-gary-light;
+    width: 100%;
 }
 .vector1 {
-  border-top: 1px solid $main-gary-light;
-  width: 629px;
+    border-top: 1px solid $main-gary-light;
+    width: 100%;
 }
-.blank-art-left {
-  margin-left: -35px;
+@media screen and (min-width: 1405px) {
+  .blank-art-left {
+    margin-left: -35px;
 }
-.h5-art02 {
-  width: 457px;
 }
+
 .important {
-  width: 70px;
-  height: 25px;
-  text-align: center;
-  vertical-align: middle;
-  background-color: $accent;
+    width: 70px;
+    height: 25px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: $accent;
 }
 .Promotions {
-  width: 70px;
-  height: 25px;
-  text-align: center;
-  vertical-align: middle;
-  background-color: $main;
+    width: 70px;
+    height: 25px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: $main;
 }
 .Event {
-  width: 70px;
-  height: 25px;
-  text-align: center;
-  vertical-align: middle;
-  background-color: $gary-light;
+    width: 70px;
+    height: 25px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: $gary-light;
 }
 .music-article {
-  width: 70px;
-  height: 25px;
-  text-align: center;
-  vertical-align: middle;
-  background-color: $main-light;
+    width: 70px;
+    height: 25px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: $main-light;
 }
 .more-art {
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  padding-right: 45px;
-  margin-bottom: 20px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-right: 45px;
+    margin-bottom: 20px;
 }
 .art-arrow {
-  margin-top: 3px;
+    margin-top: 3px;
 }
 .session-bg {
-  height: 498px;
-  background-color: $main-light;
+    // height: 498px;
+    background-color: $main-light;
 }
 .session-bg .vector3 {
-  border-top: 3px solid $main-gary-light;
-  width: 863px;
+    border-top: 3px solid $main-gary-light;
+    width: 863px;
 }
 .adult-course {
-  position: absolute;
-  margin-top: -50px;
-  margin-left: 45px;
-  color: $accent-light;
+    position: absolute;
+    margin-top: -50px;
+    margin-left: 45px;
+    color: $accent-light;
 }
 .children-lessons {
-  position: absolute;
-  margin-top: -50px;
-  margin-left: 45px;
-  color: $accent-light;
+    position: absolute;
+    margin-top: -50px;
+    margin-left: 45px;
+    color: $accent-light;
 }
 .teacher-arrow {
-  width: 30px;
-  height: 30px;
-  background-color: $gary-light;
-  text-align: center;
+    width: 30px;
+    height: 30px;
+    background-color: $gary-light;
+    text-align: center;
 }
 .teacher-h5 {
-  color: $accent;
+    color: $accent;
 }
 .teacher-p {
-  color: $gary-dark;
+    color: $gary-dark;
 }

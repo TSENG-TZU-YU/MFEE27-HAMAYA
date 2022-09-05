@@ -31,11 +31,14 @@ function BucketClass() {
                     </button>
                 </div>
             </div>
-            {/* TODO:要做成RWD */}
             <div className="py-2">
-                <div className="myBucketItem d-flex">
-                    <img className="myBucketImg" src={classPic} alt="" />
-                    <div className="itemFlex m-2">
+                <div className="myBucketClassItem d-md-flex">
+                    <img
+                        className="myBucketImg myBucketClassImg"
+                        src={classPic}
+                        alt=""
+                    />
+                    <div className="itemFlex p-2">
                         <div className="d-flex justify-content-between">
                             <h6>
                                 <b>藍調與爵士鋼琴的獨奏技巧與應用</b>
@@ -47,14 +50,16 @@ function BucketClass() {
                                 id="flexCheckDefault"
                             />
                         </div>
-                        <div className="pt-2">
-                            <div>
+                        <div className="py-1 row">
+                            <div className="col-md-6">
                                 <span>報名時間：2022/09/20 - 2022/10/01</span>
-                                <span className="mx-3">師資：XXX老師</span>
-                            </div>
-                            <div>
+                                <br />
                                 <span>上課時間：2022/09/20 - 2022/10/01</span>
-                                <span className="mx-3">名額：10人</span>
+                            </div>
+                            <div className="col-md-6">
+                                <span>師資：XXX老師</span>
+                                <br />
+                                <span>名額：10人</span>
                             </div>
                         </div>
                         <div className="d-flex justify-content-between align-items-center">
@@ -74,9 +79,13 @@ function BucketClass() {
                 </div>
             </div>
             <div className="py-2">
-                <div className="myBucketItem d-flex">
-                    <img className="myBucketImg" src={classPic} alt="" />
-                    <div className="itemFlex m-2">
+                <div className="myBucketClassItem d-md-flex">
+                    <img
+                        className="myBucketImg myBucketClassImg"
+                        src={classPic}
+                        alt=""
+                    />
+                    <div className="itemFlex p-2">
                         <div className="d-flex justify-content-between">
                             <h6>
                                 <b>藍調與爵士鋼琴的獨奏技巧與應用</b>
@@ -88,14 +97,16 @@ function BucketClass() {
                                 id="flexCheckDefault"
                             />
                         </div>
-                        <div className="pt-2">
-                            <div>
+                        <div className="py-1 row">
+                            <div className="col-md-6">
                                 <span>報名時間：2022/09/20 - 2022/10/01</span>
-                                <span className="mx-3">師資：XXX老師</span>
-                            </div>
-                            <div>
+                                <br />
                                 <span>上課時間：2022/09/20 - 2022/10/01</span>
-                                <span className="mx-3">名額：10人</span>
+                            </div>
+                            <div className="col-md-6">
+                                <span>師資：XXX老師</span>
+                                <br />
+                                <span>名額：10人</span>
                             </div>
                         </div>
                         <div className="d-flex justify-content-between align-items-center">
@@ -115,9 +126,13 @@ function BucketClass() {
                 </div>
             </div>
             <div className="py-2">
-                <div className="myBucketItem d-flex">
-                    <img className="myBucketImg" src={classPic} alt="" />
-                    <div className="itemFlex m-2">
+                <div className="myBucketClassItem d-md-flex">
+                    <img
+                        className="myBucketImg myBucketClassImg"
+                        src={classPic}
+                        alt=""
+                    />
+                    <div className="itemFlex p-2">
                         <div className="d-flex justify-content-between">
                             <h6>
                                 <b>藍調與爵士鋼琴的獨奏技巧與應用</b>
@@ -129,14 +144,16 @@ function BucketClass() {
                                 id="flexCheckDefault"
                             />
                         </div>
-                        <div className="pt-2">
-                            <div>
+                        <div className="py-1 row">
+                            <div className="col-md-6">
                                 <span>報名時間：2022/09/20 - 2022/10/01</span>
-                                <span className="mx-3">師資：XXX老師</span>
-                            </div>
-                            <div>
+                                <br />
                                 <span>上課時間：2022/09/20 - 2022/10/01</span>
-                                <span className="mx-3">名額：10人</span>
+                            </div>
+                            <div className="col-md-6">
+                                <span>師資：XXX老師</span>
+                                <br />
+                                <span>名額：10人</span>
                             </div>
                         </div>
                         <div className="d-flex justify-content-between align-items-center">

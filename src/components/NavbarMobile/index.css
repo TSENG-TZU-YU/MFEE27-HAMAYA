@@ -27,7 +27,24 @@
 .NavbarMobile .background.show{
     display: block;
 }
+.NavbarMobile .list.show{
+    display: block;
+    animation: list-animation-show .5s forwards;
+}
+@keyframes list-animation-show{
+    0% {left: -200px;}
+    100% {left: 0px;}
+}
+.NavbarMobile .list.hide{
+    display: block;
+    animation: list-animation-hide .5s forwards;
+}
+@keyframes list-animation-hide{
+    0% {left: 0px;}
+    100% {left: -200px;}
+}
 .NavbarMobile .list{
+    display: none;
     position: fixed;
     top:60px;
     left:-200px;
@@ -37,20 +54,7 @@
     padding: 15px;
     z-index: 997;
 }
-.NavbarMobile .list.show{
-    animation: list-animation-show .5s forwards;
-}
-@keyframes list-animation-show{
-    0% {left: -200px;}
-    100% {left: 0px;}
-}
-.NavbarMobile .list.hide{
-    animation: list-animation-hide .5s forwards;
-}
-@keyframes list-animation-hide{
-    0% {left: 0px;}
-    100% {left: -200px;}
-}
+
 
 .NavbarMobile .logo{
     height: 50px;
