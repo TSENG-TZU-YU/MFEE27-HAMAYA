@@ -2,7 +2,7 @@ import React from 'react';
 import pageTop from '../../assets/svg/page-top.svg';
 import './index.scss';
 
-function index() {
+function ScrollTo() {
     return (
         <img
             src={pageTop}
@@ -15,4 +15,4 @@ function index() {
     );
 }
 
-export default index;
+export default ScrollTo;

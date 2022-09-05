@@ -9,7 +9,7 @@ import AdultCourse from './AdultCourse';
 import ChildrenCourse from './ChildrenCourse';
 
 // 元件
-import Slider from '../../../components/Slider/Slider';
+import SliderAntd from '../../../components/SliderAntd';
 
 // 圖檔
 import filterIcon from '../../../assets/svg/filter_alt.svg';
@@ -17,7 +17,6 @@ import sort from '../../../assets/svg/sort.svg';
 import search from '../../../assets/svg/search.svg';
 
 function ClassList(props) {
-    
     const [selectCourse, setSelectCourse] = useOutletContext();
     console.log('classList', selectCourse);
 
@@ -59,6 +58,7 @@ function ClassList(props) {
     return (
         <Container>
             <div className="d-flex mt-5 justify-content-between align-items-center">
+                {/* 麵包屑 */}
                 <nav className="d-flex">
                     <Link to="/">
                         <p className="mb-0">首頁</p>
@@ -74,6 +74,8 @@ function ClassList(props) {
                         </p>
                     </Link>
                 </nav>
+                {/* 麵包屑 end*/}
+                {/* 篩選 */}
                 <nav className="d-flex  ">
                     <div className="d-flex me-5 justify-content-between align-items-center position-relative">
                         <p className="mb-0">進階篩選</p>
@@ -101,7 +103,7 @@ function ClassList(props) {
                                     >
                                         價格
                                     </p>
-                                    <Slider />
+                                    <SliderAntd />
                                     <button className="filter-btn-class mt-3 mb-3">
                                         篩選
                                     </button>
@@ -137,6 +139,9 @@ function ClassList(props) {
                     <img className="ms-5 " src={search} alt="search"></img>
                 </nav>
             </div>
+            {/* <SliderAntd /> */}
+            {/* 篩選 end*/}
+            {/* 課程選擇 toggle */}
             <Row className="text-center mt-5 pt-5 mb-5 ">
                 <button
                     className={`cursor-pinter col-6 ${
@@ -160,9 +165,14 @@ function ClassList(props) {
                     <h4>兒童課程</h4>
                 </button>
             </Row>
-
+            {/* 課程選擇 toggle  end*/}
+            {/* 課程選擇 頁面*/}
             {selectCourse ? <AdultCourse /> : <ChildrenCourse />}
+            {/* 課程選擇 頁面 end*/}
+
+            {/* 分頁 */}
             <ul className="text-center">{getPage()}</ul>
+            {/* 分頁 end*/}
         </Container>
     );
 }

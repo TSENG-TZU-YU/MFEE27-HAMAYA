@@ -3,9 +3,11 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 import './index.scss';
 
-// 子元件
+// 元件
 import ToShareCollect from '../../../components/ToShare';
 import ProductsItem from '../ProductsList/ProductsItem';
+import Compare from '../ProductCompare';
+import Carousel from '../../../components/Carousel/Carousel';
 
 // 圖檔
 import { FiMinus, FiPlus } from 'react-icons/fi';
@@ -14,8 +16,10 @@ import cartCheckout from '../../../assets/ProductsImg/icon/shopping_cart_checkou
 import compareBtn from '../../../assets/ProductsImg/icon/compare_btn.svg';
 import note from '../../../assets/ProductsImg/icon/product_details_note.svg';
 
-function index() {
-    // const [detailedSelect, setDetailedSelect] = useState(true);
+function ProductDetail() {
+    // Toggled
+    const [productCompare, setProductCompare] = useState(false);
+    const toggleProductCompare = () => setProductCompare(!productCompare);
     return (
         <>
             <Container>
@@ -37,7 +41,9 @@ function index() {
                 <Row className="mt-5 pt-5">
                     {/* 商品照片 */}
                     <Col lg={6} className="pe-3">
-                        <div className="bg-main-light-color h-100">ddd</div>
+                        <Carousel />
+                        {/* <div className="bg-main-light-color h-100">
+                        </div> */}
                     </Col>
                     {/* 商品照片 end */}
 
@@ -89,7 +95,7 @@ function index() {
                                             />
                                             <label
                                                 className="form-check-label"
-                                                for="flexRadioDefault1"
+                                                htmlFor="flexRadioDefault1"
                                             >
                                                 <h6 className="fw-400">
                                                     轉帳匯款
@@ -99,7 +105,6 @@ function index() {
                                         <div className="form-check m-2">
                                             <input
                                                 className="form-check-input d-block me-2"
-                                                //  type="radio"
                                                 type="radio"
                                                 value=""
                                                 name="flexRadioDefault"
@@ -107,7 +112,7 @@ function index() {
                                             />
                                             <label
                                                 className="form-check-label"
-                                                for="flexRadioDefault1"
+                                                htmlFor="flexRadioDefault1"
                                             >
                                                 <h6 className="fw-400">
                                                     信用卡
@@ -123,8 +128,8 @@ function index() {
                                                 id="flexRadioDefault1"
                                             />
                                             <label
-                                                class="form-check-label"
-                                                for="flexRadioDefault1"
+                                                className="form-check-label"
+                                                htmlFor="flexRadioDefault1"
                                             >
                                                 <h6 className="fw-400">
                                                     LINE Pay
@@ -135,7 +140,7 @@ function index() {
                                 </div>
                                 <div className="d-flex align-items-center">
                                     <h3 className="accent-color fw-bold productDetail-price-letter-spacing my-3">
-                                        NT $ 5,000{' '}
+                                        NT $ 5,000
                                     </h3>
                                     <p className="gary-light-color mb-0 ms-3">
                                         / 售出1件
@@ -222,13 +227,19 @@ function index() {
                 <img
                     src={compareBtn}
                     alt="compareBtn"
-                    className="d-blok compare-btn m-4"
+                    className="d-blok compare-btn m-4 cursor-pointer"
+                    onClick={toggleProductCompare}
                 />
                 <div className="compare-quantity">0</div>
                 {/* 商品比較 btn end */}
+                {productCompare ? (
+                    <Compare setProductCompare={setProductCompare} />
+                ) : (
+                    ''
+                )}
             </Container>
         </>
     );
 }
 
-export default index;
+export default ProductDetail;

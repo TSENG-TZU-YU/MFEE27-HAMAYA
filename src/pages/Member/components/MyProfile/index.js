@@ -7,11 +7,29 @@ function MyProfile(props) {
         fullName: 'Emma',
         birthday: '1993-11-14',
         phone: '093008422',
-        address: '桃園市中壢區新生路二段421號',
+        address: '桃園市,中壢區,新生路二段421號',
         password: '123456789',
         repassword: '',
         sub: '1',
     });
+
+    const [mainClass, setMainClass] = useState([
+        { mainClass: 1, mainName: "台北市" },
+        { mainClass: 2, mainName: "桃園市" },
+        { mainClass: 3, mainName: "新竹市" },
+    ]);
+
+    const [secondClass, setSecondClass] = useState([
+        { mainClass: 1, secondClass: '松山區' },
+        { mainClass: 1, secondClass: '大安區' },
+        { mainClass: 2, secondClass: '桃園區' },
+        { mainClass: 2, secondClass: '中壢區' },
+        { mainClass: 2, secondClass: '八德區' },
+        { mainClass: 3, secondClass: '北區' },
+        { mainClass: 3, secondClass: '東區' },
+    ]);
+
+    const [url, setUrl] = useState(1);
 
     const [setbread] = useOutletContext();
     useEffect(() => {
@@ -26,6 +44,25 @@ function MyProfile(props) {
     };
     return (
         <div className="col-12 col-md-8 col-lg-9 MyProfile">
+            {/* <select
+                value={url}
+                onChange={(e) => {
+                    setUrl(e.target.value);
+                }}
+            >
+                {mainClass.map((data, index) => {
+                    return (
+                        <option value={data.mainClass}>{data.mainName}</option>
+                    );
+                })}
+            </select>
+            <select>
+                {secondClass.map((data, index) => {
+                    console.log(data.mainClass);
+                    if (data.mainClass === Number(url))
+                        return <option>{data.secondClass}</option>;
+                })}
+            </select> */}
             <table className="myprofile_table ">
                 <thead>
                     <tr>
