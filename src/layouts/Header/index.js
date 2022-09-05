@@ -31,28 +31,43 @@ function Header(props) {
                                 />
                             </Link>
                         </div>
-                        <div className="col mt-5">
-                            <Link className="mx-4 h6 " to="news">
+                        <div className="col-6 col-md-6 mt-5">
+                            <Link
+                                className=" header-word fw-bold col "
+                                to="news"
+                            >
                                 最新消息
                             </Link>
-                            <Link className="  mx-4 h6  " to="product">
+                            <Link
+                                className=" header-word fw-bold col"
+                                to="product"
+                            >
                                 樂器商城
                             </Link>
-                            <Link className="  mx-4  h6" to="class">
+                            <Link
+                                className=" header-word fw-bold col"
+                                to="class"
+                            >
                                 音樂教育
                             </Link>
-                            <Link className="mx-4   h6  " to="place">
+                            <Link
+                                className=" header-word fw-bold col"
+                                to="place"
+                            >
                                 場地租借
                             </Link>
-                            <Link className="mx-4  h6" to="aboutus">
+                            <Link
+                                className=" header-word fw-bold col"
+                                to="aboutus"
+                            >
                                 關於我們
                             </Link>
                         </div>
 
-                        <div className="col-1 mt-4">
+                        <div className="col-3 mt-4">
                             <div className="d-flex justify-content-end align-items-end ">
                                 <button
-                                    className="mx-3 border-0  btn "
+                                    className=" border-0  btn cart-img"
                                     onClick={() => {
                                         shoppingCart
                                             ? setShoppingCart(false)
@@ -63,12 +78,12 @@ function Header(props) {
                                         src={shopCart}
                                         width="25"
                                         alt="Logo"
-                                        className="mr-2"
+                                        className=""
                                     />
                                 </button>
                                 {/*會員登入我改成按鈕 如果衝突 原本的會員LINK請刪除*/}
                                 <button
-                                    className="border-0 btn "
+                                    className="border-0 btn  cart-img"
                                     onClick={() => {
                                         setLoginPopup(true);
                                     }}
@@ -80,7 +95,10 @@ function Header(props) {
                                         className="mr-2 "
                                     />
                                 </button>
-                                <button className="mx-3 border-0 btn  " to="">
+                                <button
+                                    className=" border-0 btn cart-img "
+                                    to=""
+                                >
                                     <img
                                         src={LogoOut}
                                         width="25"
