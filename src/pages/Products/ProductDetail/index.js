@@ -3,9 +3,11 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 import './index.scss';
 
-// 子元件
+// 元件
 import ToShareCollect from '../../../components/ToShare';
 import ProductsItem from '../ProductsList/ProductsItem';
+import Compare from '../ProductCompare';
+import Slider from '../../../components/Slider/Slider';
 
 // 圖檔
 import { FiMinus, FiPlus } from 'react-icons/fi';
@@ -15,6 +17,9 @@ import compareBtn from '../../../assets/ProductsImg/icon/compare_btn.svg';
 import note from '../../../assets/ProductsImg/icon/product_details_note.svg';
 
 function ProductDetail() {
+    // Toggled
+    const [productCompare, setProductCompare] = useState(false);
+    const toggleProductCompare = () => setProductCompare(!productCompare);
     return (
         <>
             <Container>
@@ -36,7 +41,9 @@ function ProductDetail() {
                 <Row className="mt-5 pt-5">
                     {/* 商品照片 */}
                     <Col lg={6} className="pe-3">
-                        <div className="bg-main-light-color h-100">ddd</div>
+                        <div className="bg-main-light-color h-100">
+                            <Slider />
+                        </div>
                     </Col>
                     {/* 商品照片 end */}
 
@@ -133,7 +140,7 @@ function ProductDetail() {
                                 </div>
                                 <div className="d-flex align-items-center">
                                     <h3 className="accent-color fw-bold productDetail-price-letter-spacing my-3">
-                                        NT $ 5,000{' '}
+                                        NT $ 5,000
                                     </h3>
                                     <p className="gary-light-color mb-0 ms-3">
                                         / 售出1件
@@ -221,9 +228,15 @@ function ProductDetail() {
                     src={compareBtn}
                     alt="compareBtn"
                     className="d-blok compare-btn m-4 cursor-pointer"
+                    onClick={toggleProductCompare}
                 />
                 <div className="compare-quantity">0</div>
                 {/* 商品比較 btn end */}
+                {productCompare ? (
+                    <Compare setProductCompare={setProductCompare} />
+                ) : (
+                    ''
+                )}
             </Container>
         </>
     );

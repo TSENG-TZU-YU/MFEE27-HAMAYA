@@ -113,32 +113,32 @@ function ProductCompare({ setProductCompare }) {
                                 <td>顏色</td>
                                 <td>
                                     <div className="d-flex p-0">
-                                        <div className="cursor-pointer products-filter-color-box color"></div>
+                                        <div className="products-filter-color-box color"></div>
                                     </div>
                                 </td>
                                 <td>
                                     <div className="d-flex p-0">
-                                        <div className="cursor-pointer products-filter-color-box color"></div>
+                                        <div className="products-filter-color-box color"></div>
                                     </div>
                                 </td>
                                 <td>
                                     <div className="d-flex p-0">
-                                        <div className="cursor-pointer products-filter-color-box color"></div>
+                                        <div className="products-filter-color-box color"></div>
                                     </div>
                                 </td>
                                 <td>
                                     <div className="d-flex p-0">
-                                        <div className="cursor-pointer products-filter-color-box color"></div>
+                                        <div className="products-filter-color-box color"></div>
                                     </div>
                                 </td>
                                 <td>
                                     <div className="d-flex p-0">
-                                        <div className="cursor-pointer products-filter-color-box color"></div>
+                                        <div className="products-filter-color-box color"></div>
                                     </div>
                                 </td>
                                 <td>
                                     <div className="d-flex p-0">
-                                        <div className="cursor-pointer products-filter-color-box color"></div>
+                                        <div className="products-filter-color-box color"></div>
                                     </div>
                                 </td>
                             </tr>

@@ -32,11 +32,12 @@
 .productCompare-tr > td:first-child, 
 .productCompare-tr > th:first-child {
   position:sticky;
-  left:0; /* 首行永遠固定於左 */
+  left:0; /* 首欄永遠固定於左 */
   z-index:2;
   background-color: $accent-light;
   color: $main;
   font-weight: bold;
+  text-align: center;
 }
 
 .productCompare-letter-spacing {
