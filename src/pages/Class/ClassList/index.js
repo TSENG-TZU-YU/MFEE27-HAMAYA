@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './index.scss';
-import { Container, Row, Col } from 'react-bootstrap';
-// import { Link } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
+import { Container, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 // 子頁面
 import AdultCourse from './AdultCourse';
@@ -16,12 +17,14 @@ import sort from '../../../assets/svg/sort.svg';
 import search from '../../../assets/svg/search.svg';
 
 function ClassList(props) {
-    const [course, setCourse] = useState(true);
-    const [vector, setVector] = useState(true);
+    
+    const [selectCourse, setSelectCourse] = useOutletContext();
+    console.log('classList', selectCourse);
 
     // Toggled
     const [filterToggled, setFilterToggled] = useState(false);
     const toggleFilterTrueFalse = () => setFilterToggled(!filterToggled);
+    console.log('toggle', toggleFilterTrueFalse);
 
     const [sortToggled, setSortToggled] = useState(false);
     const toggleSortTrueFalse = () => setSortToggled(!sortToggled);
@@ -57,17 +60,19 @@ function ClassList(props) {
         <Container>
             <div className="d-flex mt-5 justify-content-between align-items-center">
                 <nav className="d-flex">
-                    <a href="/">
+                    <Link to="/">
                         <p className="mb-0">首頁</p>
-                    </a>
+                    </Link>
                     /
-                    <a href="/class">
+                    <Link to="/class">
                         <p className="mb-0">音樂教育</p>
-                    </a>
+                    </Link>
                     /
-                    <a href="/class/classlist">
-                        <p className="mb-0 ">成人課程</p>
-                    </a>
+                    <Link to="/class/list">
+                        <p className="mb-0 ">
+                            {selectCourse ? '成人課程' : '兒童課程'}
+                        </p>
+                    </Link>
                 </nav>
                 <nav className="d-flex  ">
                     <div className="d-flex me-5 justify-content-between align-items-center position-relative">
@@ -88,7 +93,7 @@ function ClassList(props) {
                                         類型
                                     </p>
                                     <select className="select-class mt-1">
-                                        <option>所有課程</option>
+                                        <option>所有樂器</option>
                                     </select>
                                     <p
                                         className="toggled-p mb-0  mt-1 mb-1"
@@ -132,39 +137,31 @@ function ClassList(props) {
                     <img className="ms-5 " src={search} alt="search"></img>
                 </nav>
             </div>
-            <Row className="text-center mt-5 pt-5">
-                <Col>
-                    <h4
-                        className="cursor-pinter"
-                        onClick={() => {
-                            setVector(true);
-                            setCourse(true);
-                        }}
-                    >
-                        成人課程
-                    </h4>
-                </Col>
-                <Col>
-                    <h4
-                        className="cursor-pinter"
-                        onClick={() => {
-                            setVector(false);
-                            setCourse(false);
-                        }}
-                    >
-                        兒童課程
-                    </h4>
-                </Col>
+            <Row className="text-center mt-5 pt-5 mb-5 ">
+                <button
+                    className={`cursor-pinter col-6 ${
+                        selectCourse ? 'vector5-Btn-active' : 'vector5-Btn'
+                    }`}
+                    onClick={() => {
+                        setSelectCourse(true);
+                    }}
+                >
+                    <h4>成人課程</h4>
+                </button>
+
+                <button
+                    className={`cursor-pinter col-6 ${
+                        selectCourse ? 'vector5-Btn' : 'vector5-Btn-active'
+                    }`}
+                    onClick={() => {
+                        setSelectCourse(false);
+                    }}
+                >
+                    <h4>兒童課程</h4>
+                </button>
             </Row>
-            <div className="d-flex justify-content-between mb-5">
-                <div className="vector3-main-light  mt-3  z-index"></div>
-                <div
-                    className={
-                        vector ? 'vector5-active-left' : 'vector5-active-right'
-                    }
-                ></div>
-            </div>
-            {course ? <AdultCourse /> : <ChildrenCourse />}
+
+            {selectCourse ? <AdultCourse /> : <ChildrenCourse />}
             <ul className="text-center">{getPage()}</ul>
         </Container>
     );

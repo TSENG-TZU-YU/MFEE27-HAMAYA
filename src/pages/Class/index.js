@@ -1,7 +1,11 @@
 import { Container, Row, Col } from 'react-bootstrap';
+import { useOutletContext } from 'react-router-dom';
 import './index.scss';
 // import { Outlet } from 'react-router-dom';
+
 import { Link } from 'react-router-dom';
+// 子頁面
+// import ClassList from './ClassList';
 
 // 圖檔
 import banner from '../../assets/ClassImg/banner.png';
@@ -19,20 +23,23 @@ import teacher02 from '../../assets/ClassImg/teacher02.png';
 import teacher03 from '../../assets/ClassImg/teacher03.png';
 import teacher04 from '../../assets/ClassImg/teacher04.png';
 import teacher05 from '../../assets/ClassImg/teacher05.png';
+// import { useState } from 'react';
 
 function Class(props) {
+    const [selectCourse, setSelectCourse] = useOutletContext();
+    console.log('class', selectCourse);
     return (
         <>
             <img className="img-fluid" src={banner} alt="banner" />
             <Container>
                 <div className="d-flex mt-5">
-                    <a href="/">
+                    <Link to="/">
                         <p>首頁</p>
-                    </a>
+                    </Link>
                     /
-                    <a href="/class">
+                    <Link to="/class">
                         <p>音樂教育</p>
-                    </a>
+                    </Link>
                 </div>
                 <div className="d-flex blank-top ">
                     <h4
@@ -182,11 +189,14 @@ function Class(props) {
                     </div>
                     <Row className="mt-5 text-center">
                         <Col>
-                            <Link to="classlist">
+                            <Link to="list">
                                 <img
                                     src={Adult_Course}
                                     alt="Adult Course"
-                                    className="cursor-pinter"
+                                    className="cursor-pinter img-fluid"
+                                    onClick={() => {
+                                        setSelectCourse(true);
+                                    }}
                                 />
                                 <h3 className="adult-course cursor-pinter">
                                     成人課程
@@ -194,12 +204,14 @@ function Class(props) {
                             </Link>
                         </Col>
                         <Col>
-                        {/* TODO: 無法跳轉到兒童課程 */}
-                            <Link to="classlist">
+                            <Link to="list">
                                 <img
-                                    className="cursor-pinter"
+                                    className="cursor-pinter img-fluid"
                                     src={Children_Lessons}
                                     alt="Children Lessons"
+                                    onClick={() => {
+                                        setSelectCourse(false);
+                                    }}
                                 />
                                 <h3 className="children-lessons cursor-pinter ">
                                     兒童課程

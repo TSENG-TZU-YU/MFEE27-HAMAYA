@@ -9,7 +9,13 @@ function LogInSignUp({ setLoginPopup }) {
     const [logInActive, setLogInActive] = useState(true);
     const [signUpActive, setSignUpActive] = useState(false);
     return (
-        <div className="popup">
+        <div>
+            <div
+                className="popup"
+                onClick={() => {
+                    setLoginPopup(false);
+                }}
+            ></div>
             <div className="popup-inner">
                 <div className="d-flex justify-content-end">
                     <button

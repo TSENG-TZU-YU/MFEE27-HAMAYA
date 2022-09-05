@@ -1,4 +1,3 @@
-// import React, { useEffect } from 'react';
 import './index.scss';
 
 // 元件
@@ -6,7 +5,6 @@ import CategoryNav from './ProductsList/CategoryNav';
 import ProductsItem from './ProductsList/ProductsItem';
 import FilterNav from './ProductsList/FilterNav';
 import MobileFilterNav from './ProductsList/MobileFilterNav';
-import ScrollTo from '../../components/ScrollTo';
 
 // 圖檔
 import banner from '../../assets/ProductsImg/banner.png';
@@ -16,9 +14,6 @@ import compareBtn from '../../assets/ProductsImg/icon/compare_btn.svg';
 function index() {
     return (
         <>
-            {/* to page top 位置*/}
-            <div id="top"></div>
-
             {/* banner */}
             <div className="products-banner-img position-relative">
                 <img
@@ -42,7 +37,7 @@ function index() {
 
                     <div className="col-12 col-md-10">
                         {/* 商品列 */}
-                        <div className=" row row-cols-2 row-cols-md-4">
+                        <div className=" row row-cols-2 row-cols-md-3 row-cols-xl-4">
                             <ProductsItem />
                             <ProductsItem />
                             <ProductsItem />
@@ -84,19 +79,13 @@ function index() {
                         </div>
                         {/* 頁碼 end */}
 
-                        {/* 頁碼 end */}
-
-                        <ScrollTo />
-
                         {/* 商品比較 btn */}
-                        <div className="float-right cursor-pointer sticky-bottom me-4">
-                            <div className="d-blok position-relative">
-                                <img src={compareBtn} alt="compareBtn" />
-                                <div className="compare-quantity position-absolute top-0 translate-middle badge rounded-pill">
-                                    0
-                                </div>
-                            </div>
-                        </div>
+                        <img
+                            src={compareBtn}
+                            alt="compareBtn"
+                            className="d-blok compare-btn m-4"
+                        />
+                        <div className="compare-quantity">0</div>
                         {/* 商品比較 btn end */}
                     </div>
                 </div>

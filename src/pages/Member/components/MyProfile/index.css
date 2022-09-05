@@ -1,3 +1,6 @@
+.MyProfile{
+    min-height: calc( 100vh - 380px);
+}
 .myprofile_btn{
     width: 200px;
     height: 40px;

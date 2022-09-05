@@ -1,12 +1,15 @@
 // import Detailed from './constants/Detailed';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+// import { AuthContext } from './pages/Class/UseContext';
 
 // 版面頁面元件
 import MainOutlet from './layouts/MainOutlet';
+import SubOutlet from './layouts/SubOutlet';
+
 import Footer from './layouts/Footer';
 import Header from './layouts/Header';
 
@@ -24,7 +27,7 @@ import ProductDetail from './pages/Products/ProductDetail';
 
 // class 次頁面
 import ClassList from './pages/Class/ClassList';
-import AdultDetailed from './pages/Class/ClassList/AdultDetailed';
+import Detailed from './pages/Class/Detailed';
 
 //member次頁面
 import MyProfile from './pages/Member/components/MyProfile';
@@ -62,12 +65,9 @@ function App() {
 
                         <Route path="class" element={<MainOutlet />}>
                             <Route index element={<Class />} />
-                            <Route path="classlist" element={<MainOutlet />}>
+                            <Route path="list" element={<SubOutlet />}>
                                 <Route index element={<ClassList />} />
-                                <Route
-                                    path="adultDetailed"
-                                    element={<AdultDetailed />}
-                                />
+                                <Route path="detailed" element={<Detailed />} />
                             </Route>
                         </Route>
 

@@ -25,7 +25,7 @@ function MyProfile(props) {
         setUser(newUser);
     };
     return (
-        <div className="col-12 col-md-8 col-lg-9">
+        <div className="col-12 col-md-8 col-lg-9 MyProfile">
             <table className="myprofile_table ">
                 <thead>
                     <tr>
@@ -121,7 +121,7 @@ function MyProfile(props) {
                 <h5 className="gary-dark-color mt-4">優惠訊息通知</h5>
                 <div className="d-flex my-3">
                     <input
-                        className="d-block"
+                        className="form-check-input d-block"
                         type="radio"
                         id="sub"
                         name="sub"
@@ -133,7 +133,7 @@ function MyProfile(props) {
                     <label htmlFor="sub">訂閱</label>
                     &nbsp;
                     <input
-                        className="d-block"
+                        className="form-check-input d-block"
                         type="radio"
                         id="unsub"
                         name="sub"
