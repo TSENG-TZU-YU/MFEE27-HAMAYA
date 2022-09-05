@@ -12,7 +12,7 @@ function MyProfile(props) {
         repassword: '',
         sub: '1',
     });
-    
+
     const [setbread] = useOutletContext();
     useEffect(() => {
         setbread('會員資料');
