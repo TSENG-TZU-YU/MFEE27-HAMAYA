@@ -18,6 +18,7 @@ function Products() {
     const [productCompare, setProductCompare] = useState(false);
     const toggleProductCompare = () => setProductCompare(!productCompare);
 
+
     return (
         <>
             {/* banner */}
