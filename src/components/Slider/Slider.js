@@ -3,7 +3,7 @@ import './Slider.scss';
 
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
-import ProductsImg from '../../assets/ProductsImg/product-detail1.png';
+// import ProductsImg from '../../assets/ProductsImg/product-detail1.png';
 
 const items = [
     <div className="item" data-value="1">

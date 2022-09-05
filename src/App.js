@@ -28,6 +28,7 @@ import ProductDetail from './pages/Products/ProductDetail';
 // class 次頁面
 import ClassList from './pages/Class/ClassList';
 import Detailed from './pages/Class/Detailed';
+import Article from './pages/Class/Article';
 
 //member次頁面
 import MyProfile from './pages/Member/components/MyProfile';
@@ -69,6 +70,7 @@ function App() {
                                 <Route index element={<ClassList />} />
                                 <Route path="detailed" element={<Detailed />} />
                             </Route>
+                            <Route path="article" element={<Article />} />
                         </Route>
 
                         <Route path="place" element={<MainOutlet />}>
