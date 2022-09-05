@@ -9,7 +9,7 @@ import AdultCourse from './AdultCourse';
 import ChildrenCourse from './ChildrenCourse';
 
 // 元件
-import Slider from '../../../components/Slider/Slider';
+import SliderAntd from '../../../components/SliderAntd';
 
 // 圖檔
 import filterIcon from '../../../assets/svg/filter_alt.svg';
@@ -103,7 +103,7 @@ function ClassList(props) {
                                     >
                                         價格
                                     </p>
-                                    <Slider />
+                                    <SliderAntd />
                                     <button className="filter-btn-class mt-3 mb-3">
                                         篩選
                                     </button>
@@ -139,6 +139,7 @@ function ClassList(props) {
                     <img className="ms-5 " src={search} alt="search"></img>
                 </nav>
             </div>
+            {/* <SliderAntd /> */}
             {/* 篩選 end*/}
             {/* 課程選擇 toggle */}
             <Row className="text-center mt-5 pt-5 mb-5 ">
