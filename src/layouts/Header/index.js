@@ -19,55 +19,60 @@ function Header(props) {
         <>
             <NavbarMobile />
             <div className="bg-main-gary-light-color d-none d-md-block">
-                <Container className="height ">
+                <div className="container header-height ">
                     <div className="row">
-                        <div className="col-3">
-                            <Link className="" to="/">
-                                <img
-                                    src={Logo}
-                                    width="180"
-                                    alt="Logo"
-                                    className="mr-2 mt-3"
-                                />
-                            </Link>
+                        <div className="col-2 col-lg-3 ">
+                            <div className="d-flex justify-content-center align-items-center  header-height">
+                                <Link className="" to="/">
+                                    <img
+                                        src={Logo}
+                                        alt="Logo"
+                                        className="hrader-logo"
+                                    />
+                                </Link>
+                            </div>
                         </div>
-                        <div className="col-6 col-md-6 mt-5">
-                            <Link
-                                className=" header-word fw-bold col "
-                                to="news"
-                            >
-                                最新消息
-                            </Link>
-                            <Link
-                                className=" header-word fw-bold col"
-                                to="product"
-                            >
-                                樂器商城
-                            </Link>
-                            <Link
-                                className=" header-word fw-bold col"
-                                to="class"
-                            >
-                                音樂教育
-                            </Link>
-                            <Link
-                                className=" header-word fw-bold col"
-                                to="place"
-                            >
-                                場地租借
-                            </Link>
-                            <Link
-                                className=" header-word fw-bold col"
-                                to="aboutus"
-                            >
-                                關於我們
-                            </Link>
+                        <div className="col-8 col-lg-6  ">
+                            <div className="d-flex justify-content-center align-items-center  header-height">
+                                <div className="row">
+                                    <Link
+                                        className="fw-bold col text-center header-text"
+                                        to="news"
+                                    >
+                                        最新消息
+                                    </Link>
+                                    <Link
+                                        className="fw-bold col text-center header-text"
+                                        to="product"
+                                    >
+                                        樂器商城
+                                    </Link>
+                                    <Link
+                                        className="fw-bold col text-center header-text"
+                                        to="class"
+                                    >
+                                        音樂教育
+                                    </Link>
+                                    <Link
+                                        className="fw-bold col text-center header-text"
+                                        to="place"
+                                    >
+                                        場地租借
+                                    </Link>
+                                    <Link
+                                        className="fw-bold  col text-center header-text"
+                                        to="aboutus"
+                                    >
+                                        關於我們
+                                    </Link>
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="col-3 mt-4">
-                            <div className="d-flex justify-content-end align-items-end ">
+                        <div className="col-2 col-lg-3">
+                            <div className="d-flex justify-content-center align-items-center  header-height">
                                 <button
-                                    className=" border-0  btn cart-img"
+                                    className="header-btn border-0 mx-1 mx-lg-2"
                                     onClick={() => {
                                         shoppingCart
                                             ? setShoppingCart(false)
@@ -81,9 +86,8 @@ function Header(props) {
                                         className=""
                                     />
                                 </button>
-                                {/*會員登入我改成按鈕 如果衝突 原本的會員LINK請刪除*/}
                                 <button
-                                    className="border-0 btn  cart-img"
+                                    className="header-btn border-0 mx-1 mx-lg-2"
                                     onClick={() => {
                                         setLoginPopup(true);
                                     }}
@@ -92,18 +96,15 @@ function Header(props) {
                                         src={Users}
                                         width="25"
                                         alt="Logo"
-                                        className="mr-2 "
+                                        className=""
                                     />
                                 </button>
-                                <button
-                                    className=" border-0 btn cart-img "
-                                    to=""
-                                >
+                                <button className="header-btn border-0 mx-1 mx-lg-2">
                                     <img
                                         src={LogoOut}
                                         width="25"
                                         alt="Logo"
-                                        className="mr-2 "
+                                        className=""
                                     />
                                 </button>
                             </div>
@@ -116,7 +117,7 @@ function Header(props) {
                         ) /*睿渝加的CODE不要刪*/
                     }
                     <ScrollTo />
-                </Container>
+                </div>
                 {shoppingCart ? <Cart /> : ''}
             </div>
         </>

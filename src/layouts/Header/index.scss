@@ -1,29 +1,31 @@
 @import '../../styles/global.scss';
 
-.height{
+.header-height{
   height:100px;
 }
-
-.header-word{
-  font-size: 1.15rem;
-  margin:20px ;
-  
+.hrader-logo{
+  height: 60px;
 }
-.cart-img{
-  margin: 12px;
+.header-btn{
+  background-color: transparent;
 }
-
-@media screen and (max-width:1400px) {
-  .header-word{
-    font-size: 1rem;
-    margin:10px;
-    
+.header-text{
+  font-size: 18px;
+}
+@media screen and (max-width:1200px) {
+  .hrader-logo{
+    height: 55px;
   }
-  .cart-img{
-    margin: 2px;
+  .header-text{
+    font-size: 16px;
   }
- 
-
-  
+}
+@media screen and (max-width:992px) {
+  .hrader-logo{
+    height: 45px;
+  }
+  .header-text{
+    font-size: 15px;
+  }
 }
 
