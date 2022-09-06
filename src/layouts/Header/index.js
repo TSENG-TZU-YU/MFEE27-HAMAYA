@@ -15,7 +15,10 @@ function Header(props) {
     const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
     return (
         <>
-            <NavbarMobile />
+            <NavbarMobile
+                shoppingCart={shoppingCart}
+                setShoppingCart={setShoppingCart}
+            />
             <div className="bg-main-gary-light-color d-none d-md-block">
                 <div className="container">
                     <div className="row header-height ">
@@ -108,8 +111,8 @@ function Header(props) {
                     )}
                     <ScrollTo />
                 </div>
-                {shoppingCart ? <Cart /> : ''}
             </div>
+            {shoppingCart ? <Cart /> : ''}
         </>
     );
 }
