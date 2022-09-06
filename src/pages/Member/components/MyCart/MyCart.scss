@@ -1,0 +1,36 @@
+@import '../../../../styles/global.scss';
+.myCartImg {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    // border: 1px solid #ccc;//測試用記得拿掉
+}
+.tdWidth {
+    width: 20%;
+}
+.myCartItemIconFav path {
+    stroke: $gary-dark;
+}
+.myCartItemIconFav,
+.myCartItemIcon {
+    width: 25px;
+    height: 25px;
+}
+.myCartItemIcon path {
+    fill: $gary-dark;
+}
+.countBox {
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 5px 12px;
+}
+.listBottomLine {
+    border-bottom: 5px solid $main;
+}
+.titleBg {
+    height: 38px;
+    line-height: 38px;
+}
+.marginRight{
+    margin-right: 52px;
+}

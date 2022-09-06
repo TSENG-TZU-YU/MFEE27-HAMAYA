@@ -113,70 +113,66 @@ function Detailed() {
                                 <p className="mb-0 AdultDetailed-line-height">
                                     師資：林宣樣 老師
                                 </p>
-                                <Row className="AdultDetailed-line-height ">
-                                    <Col lg={3}>
-                                        <p>付款方式：</p>
-                                    </Col>
+                                <div className="AdultDetailed-line-height d-flex">
+                                    <p className="me-3">付款方式：</p>
 
-                                    <Col>
-                                        <div className=" mt-1">
-                                            <div class="form-check d-flex align-items-center">
-                                                <input
-                                                    className="form-check-input d-block me-2"
-                                                    type="radio"
-                                                    value=""
-                                                    name="flexRadioDefault"
-                                                    id="flexRadioDefault1"
-                                                />
-                                                <label
-                                                    class="form-check-label"
-                                                    for="flexRadioDefault1"
-                                                >
-                                                    <h6 className="fw-400">
-                                                        轉帳匯款
-                                                    </h6>
-                                                </label>
-                                            </div>
-                                            <div class="form-check  d-flex align-items-center mt-3">
-                                                <input
-                                                    className="form-check-input d-block me-2"
-                                                    //  type="radio"
-                                                    type="radio"
-                                                    value=""
-                                                    name="flexRadioDefault"
-                                                    id="flexRadioDefault1"
-                                                />
-                                                <label
-                                                    class="form-check-label"
-                                                    for="flexRadioDefault1"
-                                                >
-                                                    <h6 className="fw-400">
-                                                        {' '}
-                                                        信用卡
-                                                    </h6>
-                                                </label>
-                                            </div>
-                                            <div class="form-check  d-flex align-items-center mt-3">
-                                                <input
-                                                    className="form-check-input d-block me-2"
-                                                    //  type="radio"
-                                                    type="radio"
-                                                    value=""
-                                                    name="flexRadioDefault"
-                                                    id="flexRadioDefault1"
-                                                />
-                                                <label
-                                                    class="form-check-label"
-                                                    for="flexRadioDefault1"
-                                                >
-                                                    <h6 className="fw-400">
-                                                        LINE Pay
-                                                    </h6>
-                                                </label>
-                                            </div>
+                                    <div className=" mt-1 ">
+                                        <div class="form-check d-flex align-items-center">
+                                            <input
+                                                className="form-check-input d-block me-2"
+                                                type="radio"
+                                                value=""
+                                                name="flexRadioDefault"
+                                                id="flexRadioDefault1"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="flexRadioDefault1"
+                                            >
+                                                <h6 className="fw-400">
+                                                    轉帳匯款
+                                                </h6>
+                                            </label>
                                         </div>
-                                    </Col>
-                                </Row>
+                                        <div class="form-check  d-flex align-items-center mt-3">
+                                            <input
+                                                className="form-check-input d-block me-2"
+                                                //  type="radio"
+                                                type="radio"
+                                                value=""
+                                                name="flexRadioDefault"
+                                                id="flexRadioDefault1"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="flexRadioDefault1"
+                                            >
+                                                <h6 className="fw-400">
+                                                    {' '}
+                                                    信用卡
+                                                </h6>
+                                            </label>
+                                        </div>
+                                        <div class="form-check  d-flex align-items-center mt-3">
+                                            <input
+                                                className="form-check-input d-block me-2"
+                                                //  type="radio"
+                                                type="radio"
+                                                value=""
+                                                name="flexRadioDefault"
+                                                id="flexRadioDefault1"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="flexRadioDefault1"
+                                            >
+                                                <h6 className="fw-400">
+                                                    LINE Pay
+                                                </h6>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="d-flex mt-4 justify-content-between ">
                                     <div className="d-flex">
                                         <h3 className="AdultDetailed-price0">

@@ -7,7 +7,7 @@ import './index.scss';
 import ToShareCollect from '../../../components/ToShare';
 import ProductsItem from '../ProductsList/ProductsItem';
 import Compare from '../ProductCompare';
-import Slider from '../../../components/Slider/Slider';
+import Carousel from '../../../components/Carousel/Carousel';
 
 // 圖檔
 import { FiMinus, FiPlus } from 'react-icons/fi';
@@ -41,9 +41,9 @@ function ProductDetail() {
                 <Row className="mt-5 pt-5">
                     {/* 商品照片 */}
                     <Col lg={6} className="pe-3">
-                        <div className="bg-main-light-color h-100">
-                            <Slider />
-                        </div>
+                        <Carousel />
+                        {/* <div className="bg-main-light-color h-100">
+                        </div> */}
                     </Col>
                     {/* 商品照片 end */}
 
