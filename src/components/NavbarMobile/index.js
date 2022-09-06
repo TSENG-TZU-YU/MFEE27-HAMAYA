@@ -8,13 +8,11 @@ import shopping_cart from './shopping_cart.svg';
 import users from './users.svg';
 import logout from './logout.svg';
 import ScrollTo from '../ScrollTo';
-import Cart from '../../layouts/Cart/Cart';
 
-function NavbarMobile(props) {
+function NavbarMobile({ shoppingCart, setShoppingCart }) {
     const [loginPopup, setLoginPopup] = useState(false);
     const [showMenu, setShowMenu] = useState('list');
     const [showBackground, setShowBackground] = useState('background');
-    const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
     return (
         <>
             {loginPopup && <LogInSignUp setLoginPopup={setLoginPopup} />}
@@ -154,7 +152,6 @@ function NavbarMobile(props) {
                     <ScrollTo />
                 </div>
             </div>
-            {shoppingCart ? <Cart /> : ''}
         </>
     );
 }

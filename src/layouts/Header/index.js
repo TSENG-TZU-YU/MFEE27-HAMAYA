@@ -16,7 +16,10 @@ function Header(props) {
     const [hover, setHover] = useState('test123 main-light-color');
     return (
         <>
-            <NavbarMobile />
+            <NavbarMobile
+                shoppingCart={shoppingCart}
+                setShoppingCart={setShoppingCart}
+            />
             <div className="bg-main-gary-light-color d-none d-md-block">
                 <div className="container">
                     <div className="row header-height ">
@@ -128,8 +131,8 @@ function Header(props) {
                     )}
                     <ScrollTo />
                 </div>
-                {shoppingCart ? <Cart /> : ''}
             </div>
+            {shoppingCart ? <Cart /> : ''}
         </>
     );
 }
