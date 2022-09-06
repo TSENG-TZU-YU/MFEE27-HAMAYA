@@ -12,7 +12,7 @@ import Cart from '../../layouts/Cart/Cart';
 
 function NavbarMobile(props) {
     const [loginPopup, setLoginPopup] = useState(false);
-    const [showMenu, setShowMenu] = useState('p-0 list');
+    const [showMenu, setShowMenu] = useState('list');
     const [showBackground, setShowBackground] = useState('background');
     const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
     return (
@@ -25,11 +25,11 @@ function NavbarMobile(props) {
                         <button
                             className="me-2"
                             onClick={() => {
-                                if (showMenu === 'p-0 list') {
-                                    setShowMenu('p-0 list show  ');
+                                if (showMenu === 'list') {
+                                    setShowMenu('list show ');
                                     setShowBackground('background show');
                                 } else {
-                                    setShowMenu('p-0 list');
+                                    setShowMenu('list');
                                     setShowBackground('background');
                                 }
                             }}
@@ -44,7 +44,7 @@ function NavbarMobile(props) {
                             className=""
                             to=""
                             onClick={() => {
-                                setShowMenu('p-0 list');
+                                setShowMenu('list');
                                 setShowBackground('background');
                             }}
                         >
@@ -84,7 +84,7 @@ function NavbarMobile(props) {
                 <div
                     className={showBackground}
                     onClick={() => {
-                        setShowMenu('p-0 list');
+                        setShowMenu('list');
                         setShowBackground('background');
                     }}
                 ></div>
@@ -107,7 +107,7 @@ function NavbarMobile(props) {
                                 className="accent-light-color text-nowrap"
                                 to="product"
                                 onClick={() => {
-                                    setShowMenu('p-0 list');
+                                    setShowMenu('list');
                                     setShowBackground('background');
                                 }}
                             >
@@ -119,7 +119,7 @@ function NavbarMobile(props) {
                                 className="accent-light-color text-nowrap"
                                 to="class"
                                 onClick={() => {
-                                    setShowMenu('p-0 list');
+                                    setShowMenu('list');
                                     setShowBackground('background');
                                 }}
                             >
@@ -131,7 +131,7 @@ function NavbarMobile(props) {
                                 className="accent-light-color text-nowrap"
                                 to="place"
                                 onClick={() => {
-                                    setShowMenu('p-0 list');
+                                    setShowMenu('list');
                                     setShowBackground('background');
                                 }}
                             >
@@ -143,7 +143,7 @@ function NavbarMobile(props) {
                                 className="accent-light-color text-nowrap"
                                 to="aboutus"
                                 onClick={() => {
-                                    setShowMenu('p-0 list');
+                                    setShowMenu('list');
                                     setShowBackground('background');
                                 }}
                             >
