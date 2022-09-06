@@ -7,7 +7,7 @@ function MyProfile(props) {
         fullName: 'Emma',
         birthday: '1993-11-14',
         phone: '093008422',
-        address: '桃園市,中壢區,新生路二段421號',
+        address: '桃園市中壢區新生路二段421號',
         password: '123456789',
         repassword: '',
         sub: '1',
@@ -44,7 +44,7 @@ function MyProfile(props) {
     };
     return (
         <div className="col-12 col-md-8 col-lg-9 MyProfile">
-            {/* <select
+            <select
                 value={url}
                 onChange={(e) => {
                     setUrl(e.target.value);
@@ -62,7 +62,7 @@ function MyProfile(props) {
                     if (data.mainClass === Number(url))
                         return <option>{data.secondClass}</option>;
                 })}
-            </select> */}
+            </select>
             <table className="myprofile_table ">
                 <thead>
                     <tr>
