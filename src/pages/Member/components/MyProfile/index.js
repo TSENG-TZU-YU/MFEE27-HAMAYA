@@ -44,7 +44,7 @@ function MyProfile(props) {
     };
     return (
         <div className="col-12 col-md-8 col-lg-9 MyProfile">
-            {/* <select
+            <select
                 value={url}
                 onChange={(e) => {
                     setUrl(e.target.value);
@@ -62,7 +62,7 @@ function MyProfile(props) {
                     if (data.mainClass === Number(url))
                         return <option>{data.secondClass}</option>;
                 })}
-            </select> */}
+            </select>
             <table className="myprofile_table ">
                 <thead>
                     <tr>

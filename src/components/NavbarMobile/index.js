@@ -12,7 +12,7 @@ import Cart from '../../layouts/Cart/Cart';
 
 function NavbarMobile(props) {
     const [loginPopup, setLoginPopup] = useState(false);
-    const [showMenu, setShowMenu] = useState('list hide');
+    const [showMenu, setShowMenu] = useState('p-0 list');
     const [showBackground, setShowBackground] = useState('background');
     const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
     return (
@@ -25,11 +25,11 @@ function NavbarMobile(props) {
                         <button
                             className="me-2"
                             onClick={() => {
-                                if (showMenu === 'list hide') {
-                                    setShowMenu('list show');
+                                if (showMenu === 'p-0 list') {
+                                    setShowMenu('p-0 list show  ');
                                     setShowBackground('background show');
                                 } else {
-                                    setShowMenu('list hide');
+                                    setShowMenu('p-0 list');
                                     setShowBackground('background');
                                 }
                             }}
@@ -44,7 +44,7 @@ function NavbarMobile(props) {
                             className=""
                             to=""
                             onClick={() => {
-                                setShowMenu('list hide');
+                                setShowMenu('p-0 list');
                                 setShowBackground('background');
                             }}
                         >
@@ -84,18 +84,18 @@ function NavbarMobile(props) {
                 <div
                     className={showBackground}
                     onClick={() => {
-                        setShowMenu('list hide');
+                        setShowMenu('p-0 list');
                         setShowBackground('background');
                     }}
                 ></div>
                 <div className={showMenu}>
-                    <ul className="list-unstyled text-center">
+                    <ul className="list-unstyled text-center ">
                         <li>
                             <Link
-                                className="accent-light-color"
+                                className="accent-light-color text-nowrap"
                                 to="news"
                                 onClick={() => {
-                                    setShowMenu('list hide');
+                                    setShowMenu('p-0 list');
                                     setShowBackground('background');
                                 }}
                             >
@@ -104,10 +104,10 @@ function NavbarMobile(props) {
                         </li>
                         <li>
                             <Link
-                                className="accent-light-color"
+                                className="accent-light-color text-nowrap"
                                 to="product"
                                 onClick={() => {
-                                    setShowMenu('list hide');
+                                    setShowMenu('p-0 list');
                                     setShowBackground('background');
                                 }}
                             >
@@ -116,10 +116,10 @@ function NavbarMobile(props) {
                         </li>
                         <li>
                             <Link
-                                className="accent-light-color"
+                                className="accent-light-color text-nowrap"
                                 to="class"
                                 onClick={() => {
-                                    setShowMenu('list hide');
+                                    setShowMenu('p-0 list');
                                     setShowBackground('background');
                                 }}
                             >
@@ -128,10 +128,10 @@ function NavbarMobile(props) {
                         </li>
                         <li>
                             <Link
-                                className="accent-light-color"
+                                className="accent-light-color text-nowrap"
                                 to="place"
                                 onClick={() => {
-                                    setShowMenu('list hide');
+                                    setShowMenu('p-0 list');
                                     setShowBackground('background');
                                 }}
                             >
@@ -140,10 +140,10 @@ function NavbarMobile(props) {
                         </li>
                         <li>
                             <Link
-                                className="accent-light-color"
+                                className="accent-light-color text-nowrap"
                                 to="aboutus"
                                 onClick={() => {
-                                    setShowMenu('list hide');
+                                    setShowMenu('p-0 list');
                                     setShowBackground('background');
                                 }}
                             >
