@@ -1,0 +1,12 @@
+@import '../../../../index.scss';
+
+.vector5-Btn {
+  color: $main-light;
+  border: 0px;
+  border-bottom: 3px solid $main-light;
+}
+.vector5-Btn-active {
+  color: $main;
+  border: 0px;
+  border-bottom: 5px solid $main;
+}

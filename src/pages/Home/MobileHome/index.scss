@@ -1,0 +1,84 @@
+@import '../../../styles/global.scss';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@600&display=swap');
+
+.Mobile-Decorate{
+  width: 210px;
+}
+.Mobile-font{
+  font-family: 'Noto Serif Malayalam', serif;
+background: linear-gradient(180deg, #FFFFFF 0%, rgba(500, 500, 500, 0) 65%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+font-size: 10rem;
+
+}
+// .home-img{
+//   font-family: 'Noto Serif Malayalam', serif;
+//   letter-spacing: 1rem;
+//   font-size: 3rem;
+//   position: relative;
+// top: -10rem;
+// left:5rem;
+// }
+
+// .note{
+// position: relative;
+// top: -12rem;
+// left: 6rem;
+// }
+// .note2{
+//   position: relative;
+//   top: -10rem;
+//   right:19rem;
+//   }
+// .font3{
+//   font-size: 18px;
+//   position: relative;
+//   top: -12rem;
+//  left:5rem;
+
+// }
+.Mobile-font4{
+  font-size: 8rem;
+  writing-mode: vertical-rl;
+  text-orientation: sideways;
+   transform: rotate(-180deg);
+  font-family: 'Noto Serif Malayalam', serif;
+  background: linear-gradient(-90deg, #FFFFFF 0%, rgba(500, 500, 500, 0) 65%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position:absolute ;
+  bottom:4rem;
+  left: 120px;
+
+ 
+  }
+
+// .home-img2{
+//   position: relative;
+//   bottom:75rem;
+//   left:6rem;
+//   z-index: 1;
+// }
+// .video-button{
+//   position: relative;
+// bottom:75rem;
+//   right:8rem;
+//   z-index: 2;
+// }
+// .note3{
+//   position: relative;
+//   bottom:65rem;
+//   right:7rem;
+
+// }
+// .note4{
+//   position: relative;
+//   bottom:68rem;
+//   right:1rem;
+//   z-index: 2;
+
+// }
+
+
+

@@ -4,15 +4,14 @@
   font-family: 'Noto Serif Display', serif;
 }
 
-.cursor-pinter {
-  cursor: pointer;
-}
 
 
-.session-bg .vector3 {
-  border-top: 3px solid $gary-dark;
-  width: 863px;
+
+.vector3 {
+  border-top: 3px solid $gary-light;
+  border-width: 100%;
 }
+
 
 .container2{
   background-color: $main-gary-light;
@@ -20,14 +19,14 @@
 
 .intro1  {
   background-color: #6A777ACC;
-  color:white;
   width: fit-content;
-  // top: 0;
-  // left:-100px;
   padding: 30px;
-  // width:750px;
+  
 }
-.intro1 p{
+.intro1 p {
+  color:white;
+}
+.intro1 h6 {
   color:white;
 }
 
@@ -35,13 +34,13 @@
   background-color: #767676c7;
   color:white;
   width: fit-content;
-  // top: 0;
-  // left: 0px;
   padding: 30px;
-  // width:750px;
 }
 
 .intro2 p{
+  color:white;
+}
+.intro2 h6 {
   color:white;
 }
 
@@ -49,12 +48,12 @@
   background-color: #5b322fd7;
   color:white;
   width: fit-content;
-  // top: 0;
-  // left:-100px;
   padding: 30px;
-  // width:750px;
 }
 .intro3 p{
+  color:white;
+}
+.intro3 h6{
   color:white;
 }
 
