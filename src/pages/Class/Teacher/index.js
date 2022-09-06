@@ -8,7 +8,7 @@ import ReactPlayer from 'react-player';
 import './index.scss';
 // 圖檔
 import teacher01 from '../../../assets/ClassImg/teacher01.png';
-function Article(props) {
+function Teacher(props) {
     return (
         <div>
             <Container>
@@ -71,4 +71,4 @@ function Article(props) {
     );
 }
 
-export default Article;
+export default Teacher;
