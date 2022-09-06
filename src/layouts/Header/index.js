@@ -43,7 +43,7 @@ function Header(props) {
                                     </Link>
                                     <Link
                                         className="fw-bold col text-center header-text"
-                                        to="product"
+                                        to="products"
                                     >
                                         樂器商城
                                     </Link>

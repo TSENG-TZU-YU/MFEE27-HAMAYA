@@ -18,7 +18,7 @@ function Footer(props) {
                 <MobileFooter />
                 <Container className="d-none d-md-block">
                     <div className="row">
-                        <div class="col-md-3">
+                        <div className="col-md-3">
                             <img
                                 src={FooterLogo}
                                 alt="Logo"

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+// 樣式
 import './styles/productsItem.scss';
 
 // 圖檔
@@ -13,10 +15,7 @@ function ProductsItem() {
         <div className="col product">
             <div className="position-relative">
                 {/* 商品照片 */}
-                <Link
-                    to="/Product/ProductDetail"
-                    className="product-img d-block"
-                >
+                <Link to="/products/:productId" className="product-img d-block">
                     <div className="product-img-mask position-absolute"></div>
                     <img src={product} className="card-img-top" alt="product" />
                 </Link>
@@ -46,7 +45,7 @@ function ProductsItem() {
             </div>
             <div className="product-body">
                 {/* 品名 */}
-                <Link to="ProductDetail" className="product-name">
+                <Link to="/products/:productId" className="product-name">
                     YAMAHA U系列 U1
                 </Link>
                 {/* 價格 */}

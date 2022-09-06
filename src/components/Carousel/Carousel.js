@@ -1,34 +1,61 @@
 import React, { useState } from 'react';
-import AliceCarousel from 'react-alice-carousel';
-import 'react-alice-carousel/lib/alice-carousel.css';
-import './Carousel.scss';
-import product from '../../assets/ProductsImg/product-detail1.png';
+import PropTypes from 'prop-types';
 
-function Carousel() {
-    const responsive = {
-        0: { items: 1 },
-    };
-    const items = [
-        <div className="item" data-value="1">
-            <img src={product} alt="product" />
-        </div>,
-        <div className="item" data-value="2">
-            <img src={product} alt="product" />
-        </div>,
-        <div className="item" data-value="3">
-            <img src={product} alt="product" />
-        </div>,
-    ];
+// 樣式
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/thumbs';
+import './Carousel.scss';
+
+// Swiper
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Thumbs } from 'swiper';
+
+function Carousel(props) {
+    const [activeThumb, setActiveThumb] = useState();
+
     return (
         <>
-            <AliceCarousel
-                mouseTracking
-                items={items}
-                responsive={responsive}
-                // controlsStrategy="alternate"
-            />
+            <Swiper
+                loop={true}
+                spaceBetween={10}
+                navigation={true}
+                modules={[Navigation, Thumbs]}
+                grabCursor={true}
+                thumbs={{ swiper: activeThumb }}
+                className="product-images-slider"
+            >
+                {/* 上方圖片 */}
+                {props.images.map((item, index) => (
+                    <SwiperSlide key={index}>
+                        <img src={item} alt="product images" />
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+            <Swiper
+                onSwiper={setActiveThumb}
+                loop={true}
+                spaceBetween={10}
+                slidesPerView={4}
+                modules={[Navigation, Thumbs]}
+                className="product-images-slider-thumbs"
+            >
+                {/* 下方圖片按鈕 */}
+                {props.images.map((item, index) => (
+                    <SwiperSlide key={index}>
+                        <div className="product-images-slider-thumbs-wrapper">
+                            <img src={item} alt="product images" />
+                        </div>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
         </>
     );
 }
+
+/* 要傳進去的圖片資料 */
+Carousel.propTypes = {
+    images: PropTypes.array.isRequired,
+};
 
 export default Carousel;
