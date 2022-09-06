@@ -41,7 +41,7 @@ function Header(props) {
                                 </Link>
                                 <Link
                                     className="col p-0 m-1 m-lg-2 text-center header-text"
-                                    to="product"
+                                    to="products"
                                 >
                                     樂器商城
                                 </Link>

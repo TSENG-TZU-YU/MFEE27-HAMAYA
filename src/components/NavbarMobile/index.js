@@ -103,7 +103,7 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                         <li>
                             <Link
                                 className="accent-light-color text-nowrap"
-                                to="product"
+                                to="products"
                                 onClick={() => {
                                     setShowMenu('list');
                                     setShowBackground('background');

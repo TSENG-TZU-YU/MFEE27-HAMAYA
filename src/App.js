@@ -22,7 +22,7 @@ import Place from './pages/Place';
 import AboutUs from './pages/AboutUs';
 import Member from './pages/Member';
 
-// products 次頁面
+// product 次頁面
 import ProductDetail from './pages/Products/ProductDetail';
 
 // class 次頁面
@@ -52,10 +52,10 @@ function App() {
                     <Route path="/" element={<MainOutlet />}>
                         <Route index element={<Home />} />
 
-                        <Route path="product" element={<MainOutlet />}>
+                        <Route path="products" element={<MainOutlet />}>
                             <Route index element={<Products />} />
                             <Route
-                                path="ProductDetail"
+                                path=":productId"
                                 element={<ProductDetail />}
                             />
                         </Route>
@@ -99,7 +99,6 @@ function App() {
                         <Route path="*" element={<h1>404 NOT FOUND</h1>} />
                     </Route>
                 </Routes>
-
                 <Footer />
             </BrowserRouter>
         </>

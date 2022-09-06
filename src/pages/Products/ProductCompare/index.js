@@ -1,6 +1,10 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+
+// 樣式
 import './index.scss';
+
+// 套件
+import { Container } from 'react-bootstrap';
 
 // 圖檔
 import product from '../../../assets/ProductsImg/product.png';
@@ -156,8 +160,8 @@ function ProductCompare({ setProductCompare }) {
                                     />
                                     <img
                                         style={{
-                                            width: '25px',
-                                            height: '25px',
+                                            width: '30px',
+                                            height: '30px',
                                         }}
                                         src={Delete}
                                         alt="delete"
@@ -176,8 +180,8 @@ function ProductCompare({ setProductCompare }) {
                                     />
                                     <img
                                         style={{
-                                            width: '25px',
-                                            height: '25px',
+                                            width: '30px',
+                                            height: '30px',
                                         }}
                                         src={Delete}
                                         alt="delete"
@@ -196,8 +200,8 @@ function ProductCompare({ setProductCompare }) {
                                     />
                                     <img
                                         style={{
-                                            width: '25px',
-                                            height: '25px',
+                                            width: '30px',
+                                            height: '30px',
                                         }}
                                         src={Delete}
                                         alt="delete"
@@ -216,8 +220,8 @@ function ProductCompare({ setProductCompare }) {
                                     />
                                     <img
                                         style={{
-                                            width: '25px',
-                                            height: '25px',
+                                            width: '30px',
+                                            height: '30px',
                                         }}
                                         src={Delete}
                                         alt="delete"
@@ -236,8 +240,8 @@ function ProductCompare({ setProductCompare }) {
                                     />
                                     <img
                                         style={{
-                                            width: '25px',
-                                            height: '25px',
+                                            width: '30px',
+                                            height: '30px',
                                         }}
                                         src={Delete}
                                         alt="delete"
@@ -256,8 +260,8 @@ function ProductCompare({ setProductCompare }) {
                                     />
                                     <img
                                         style={{
-                                            width: '25px',
-                                            height: '25px',
+                                            width: '30px',
+                                            height: '30px',
                                         }}
                                         src={Delete}
                                         alt="delete"
