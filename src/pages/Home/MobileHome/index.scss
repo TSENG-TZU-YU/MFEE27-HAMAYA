@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@600&display=swap');
 
 .Mobile-Decorate{
-  width: 300px;
+  width: 210px;
 }
 .Mobile-font{
   font-family: 'Noto Serif Malayalam', serif;
@@ -47,9 +47,9 @@ font-size: 10rem;
   background: linear-gradient(-90deg, #FFFFFF 0%, rgba(500, 500, 500, 0) 65%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  position:fixed ;
-  bottom:30rem;
-  left:15rem;
+  position:absolute ;
+  bottom:4rem;
+  left: 120px;
 
  
   }
