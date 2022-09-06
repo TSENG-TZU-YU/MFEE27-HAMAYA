@@ -1,6 +1,6 @@
 @import '../../../../styles/global.scss';
 
-@media screen and (max-width:720px){
+@media screen and (max-width:768px){
    .myBucketClassImg{
       width: 100%;
    }
@@ -8,7 +8,7 @@
    //    max-height: 500px;
    // }
 }
-@media screen and (min-width:720px) {
+@media screen and (min-width:768px) {
    .myBucketClassItem {
       height: 130px;
       // background-color: white;

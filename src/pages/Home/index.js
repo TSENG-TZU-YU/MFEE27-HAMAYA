@@ -7,8 +7,9 @@ import Note from '../../assets/HomeImg/note.svg';
 import Note2 from '../../assets/HomeImg/note-2.svg';
 import Note3 from '../../assets/HomeImg/note-3.svg';
 import Note4 from '../../assets/HomeImg/note-4.svg';
-import Img from '../../assets/HomeImg/homeimg.svg';
-import Img2 from '../../assets/HomeImg/homeimg-2.svg';
+import Img from '../../assets/HomeImg/homeimg.jpg';
+import Img2 from '../../assets/HomeImg/homeimg-2.jpg';
+
 import Smart from '../../assets/HomeImg/smart-display-2.svg';
 
 function Home(props) {
@@ -45,8 +46,8 @@ function Home(props) {
                                 alt="Logo"
                                 width="25"
                                 className="note2"
-                            /> 
-                             <p className="main-light-color font3 ">
+                            />
+                            <p className="main-light-color font3 ">
                                 將光亮從人心靈的深沈中釋放出來，是音樂的神聖使命。
                                 ——羅伯特·亞歷山大·舒曼
                             </p>
@@ -58,7 +59,7 @@ function Home(props) {
                                 height="247"
                                 width=""
                                 className="home-img2"
-                            /> 
+                            />
                             <button className="border-0  btn">
                                 <img
                                     src={Smart}

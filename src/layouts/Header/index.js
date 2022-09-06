@@ -24,7 +24,7 @@ function Header(props) {
                                 <img
                                     src={Logo}
                                     alt="Logo"
-                                    className="hrader-logo"
+                                    className="header-logo"
                                 />
                             </Link>
                         </div>
