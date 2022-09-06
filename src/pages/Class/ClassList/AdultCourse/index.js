@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.scss';
 import { Link } from 'react-router-dom';
 // import { useEffect, useState } from 'react';
@@ -14,6 +14,7 @@ import Adult_img from '../../../../assets/ClassImg/Adult img.png';
 function AdultCourse(props) {
     // const [error, setError] = useState(null);
     // const [data, setData] = useState([]);
+    const [active, setActive] = useState(false);
 
     // useEffect(() => {
     //     console.log('classAdult', 'useEffect []');
@@ -33,7 +34,15 @@ function AdultCourse(props) {
     return (
         <div>
             <Link to="detailed">
-                <div className="introduce row me-0">
+                <div
+                    className={`introduce row me-0 mb-5 ${
+                        active ? 'class-shadow' : ''
+                    }`}
+                    onMouseEnter={() => {
+                        setActive(true);
+                    }}
+                    onMouseLeave={() => setActive(false)}
+                >
                     <img
                         className="col-lg-6  px-lg-0"
                         src={Adult_img}

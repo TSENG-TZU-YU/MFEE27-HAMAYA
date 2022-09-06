@@ -229,7 +229,7 @@ function Class(props) {
                     >
                         嚴選師資
                     </h4>
-                    <h4 className="engText me-3 text-nowrap">ARTICLE</h4>
+                    <h4 className="engText me-3 text-nowrap">TEACHER</h4>
                     <div className="vector3  mt-3"></div>
                 </div>
                 <div className="d-flex  justify-content-center align-items-center mt-5">
@@ -238,7 +238,7 @@ function Class(props) {
                     </div>
                     {/*TODO: 手機板 換成 SLIDER  className="d-md-none" */}
                     <Row className=" row-cols-md-3 row-cols-xl-5">
-                        <Link to="article">
+                        <Link to="teacher">
                             <Col>
                                 <img
                                     className="cursor-pinter"

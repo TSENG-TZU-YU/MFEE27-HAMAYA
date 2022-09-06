@@ -1,7 +1,3 @@
-.NavbarMobile{
-    
-
-}
 .space-block{
     /* 下移區塊 */
     height: 60px;
@@ -27,7 +23,22 @@
 .NavbarMobile .background.show{
     display: block;
 }
+.NavbarMobile .list{
+    position: fixed;
+    top:60px;
+    left:0px;
+    width: 0px;
+    height: 100vh;
+    background-color: #6A777A;
+    z-index: 997;
+    transition: 0.5s;
+    overflow: hidden;
+}
 .NavbarMobile .list.show{
+    width: 200px;
+}
+
+/* .NavbarMobile .list.show{
     display: block;
     animation: list-animation-show .5s forwards;
 }
@@ -42,19 +53,7 @@
 @keyframes list-animation-hide{
     0% {left: 0px;}
     100% {left: -200px;}
-}
-.NavbarMobile .list{
-    display: none;
-    position: fixed;
-    top:60px;
-    left:-200px;
-    width: 200px;
-    height: 100vh;
-    background-color: #6A777A;
-    padding: 15px;
-    z-index: 997;
-}
-
+} */
 
 .NavbarMobile .logo{
     height: 50px;
