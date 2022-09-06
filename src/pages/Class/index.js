@@ -1,11 +1,8 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import { useOutletContext } from 'react-router-dom';
 import './index.scss';
-// import { Outlet } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
-// 子頁面
-// import ClassList from './ClassList';
 
 // 圖檔
 import banner from '../../assets/ClassImg/banner.png';
@@ -32,6 +29,7 @@ function Class(props) {
         <>
             <img className="img-fluid" src={banner} alt="banner" />
             <Container>
+                {/* 麵包屑 */}
                 <div className="d-flex mt-5">
                     <Link to="/">
                         <p>首頁</p>
@@ -41,6 +39,7 @@ function Class(props) {
                         <p>音樂教育</p>
                     </Link>
                 </div>
+                {/* 麵包屑 end*/}
                 <div className="d-flex blank-top ">
                     <h4
                         className="me-3 cursor-pinter text-nowrap"
@@ -230,7 +229,7 @@ function Class(props) {
                     >
                         嚴選師資
                     </h4>
-                    <h4 className="engText me-3 text-nowrap">ARTICLE</h4>
+                    <h4 className="engText me-3 text-nowrap">TEACHER</h4>
                     <div className="vector3  mt-3"></div>
                 </div>
                 <div className="d-flex  justify-content-center align-items-center mt-5">
@@ -239,20 +238,23 @@ function Class(props) {
                     </div>
                     {/*TODO: 手機板 換成 SLIDER  className="d-md-none" */}
                     <Row className=" row-cols-md-3 row-cols-xl-5">
-                        <Col>
-                            <img
-                                className="cursor-pinter"
-                                src={teacher01}
-                                alt="teacher01"
-                            />
-                            <div
-                                className="text-center mt-2 cursor-pinter"
-                                style={{ cursor: 'pointer' }}
-                            >
-                                <h5 className="teacher-h5">蔡侑恬 老師</h5>
-                                <p className="teacher-p">古典鋼琴</p>
-                            </div>
-                        </Col>
+                        <Link to="teacher">
+                            <Col>
+                                <img
+                                    className="cursor-pinter"
+                                    src={teacher01}
+                                    alt="teacher01"
+                                />
+                                <div
+                                    className="text-center mt-2 cursor-pinter"
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    <h5 className="teacher-h5">蔡侑恬 老師</h5>
+                                    <p className="teacher-p">古典鋼琴</p>
+                                </div>
+                            </Col>
+                        </Link>
+
                         <Col>
                             <img
                                 className="cursor-pinter"

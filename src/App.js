@@ -28,6 +28,7 @@ import ProductDetail from './pages/Products/ProductDetail';
 // class 次頁面
 import ClassList from './pages/Class/ClassList';
 import Detailed from './pages/Class/Detailed';
+import Teacher from './pages/Class/Teacher';
 
 //member次頁面
 import MyProfile from './pages/Member/components/MyProfile';
@@ -63,12 +64,14 @@ function App() {
                             <Route index element={<NEWs />} />
                         </Route>
 
+                        {/* TODO: 相關課程路徑 */}
                         <Route path="class" element={<MainOutlet />}>
                             <Route index element={<Class />} />
                             <Route path="list" element={<SubOutlet />}>
                                 <Route index element={<ClassList />} />
                                 <Route path="detailed" element={<Detailed />} />
                             </Route>
+                            <Route path="teacher" element={<Teacher />} />
                         </Route>
 
                         <Route path="place" element={<MainOutlet />}>

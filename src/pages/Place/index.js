@@ -30,15 +30,20 @@ function Place(props) {
                             <p>場地租借</p>
                         </a>
                     </div>
-                    <div className="row">
-                        <div className="col-3 mt-2">
-                            <h4 className="" style={{ color: '#00323d' }}>
-                                租借項目
-                                <span className="engText">RENTAL ITEM</span>
-                            </h4>
-                        </div>
-                        <div className="vector3 mt-4 col-9"></div>
+
+                    <div className="pb-5 pt-5 d-flex">
+                        <h4
+                            className="text-nowrap me-2"
+                            style={{ color: '#00323d' }}
+                        >
+                            租借項目
+                        </h4>
+                        <h4 className="engText text-nowrap me-5">
+                            RENTAL ITEM
+                        </h4>
+                        <div className="vector3 mt-3"></div>
                     </div>
+
                     {/* studioa */}
                     <div className="row">
                         <div className="col-12 d-block d-md-none">
@@ -188,20 +193,22 @@ function Place(props) {
             </div>
             <div className="bg-main-gary-light-color">
                 <div className="container mt-5">
-                    <div className="row">
-                        <div className="col-4 d-inline-flex pt-4">
-                            <h4 className="me-2" style={{ color: ' #333333' }}>
-                                場地預約
-                            </h4>
-                            <h4
-                                className="engText"
-                                style={{ color: ' #333333' }}
-                            >
-                                VENUE RESERVATION
-                            </h4>
-                        </div>
-                        <div className="vector3 mt-5 col-8"></div>
+                    <div className="d-flex pt-4">
+                        <h4
+                            className="me-2 text-nowrap"
+                            style={{ color: ' #333333' }}
+                        >
+                            場地預約
+                        </h4>
+                        <h4
+                            className="engText text-nowrap me-5"
+                            style={{ color: ' #333333' }}
+                        >
+                            VENUE RESERVATION
+                        </h4>
+                        <div className="vector3 mt-2"></div>
                     </div>
+
                     <div className="row p-5">
                         <div className="col-12 col-md-6">
                             <p>姓名</p>

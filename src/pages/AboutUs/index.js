@@ -7,9 +7,10 @@ import line from '../../assets/AboutImg/line.png';
 function About(props) {
     return (
         <>
-            <img src={banner} alt="banner" />
-
-            <div className="session1-bg">
+            <div className="p-0">
+                <img src={banner} alt="banner" className="w-100" />
+            </div>
+            <div className="bg-main-light-color">
                 <div className="container">
                     <div className="d-flex" style={{ color: '#f2f2f2' }}>
                         <a href="/">
@@ -22,32 +23,37 @@ function About(props) {
                         </a>
                     </div>
                     <div className="row">
-                        <div className="col-4 mt-2 d-inline-flex">
-                            <h4 className="me-2" style={{ color: '#f2f2f2' }}>
+                        <div className="pt-5 d-flex">
+                            <h4
+                                className="me-2 text-nowrap"
+                                style={{ color: '#f2f2f2' }}
+                            >
                                 品牌理念
                             </h4>
                             <h4
-                                className="engText"
+                                className="engText text-nowrap me-5"
                                 style={{ color: '#f2f2f2' }}
                             >
                                 BRAND CONCEPT
                             </h4>
+                            <div className="vector1 mt-3"></div>
                         </div>
-                        <div className="vector3 mt-4 col-9"></div>
                     </div>
                 </div>
             </div>
 
             <div className="container mt-5">
-                <div className="row">
-                    <div className="col-3 mt-2 d-inline-flex">
-                        <h4 className="me-2" style={{ color: '#00323d' }}>
-                            創辦人
-                        </h4>
-                        <h4 className="engText">FOUNDER</h4>
-                    </div>
-                    <div className="vector3 mt-4 col-9"></div>
+                <div className="pt-5 d-flex">
+                    <h4
+                        className="me-2 text-nowrap"
+                        style={{ color: '#00323d' }}
+                    >
+                        創辦人
+                    </h4>
+                    <h4 className="engText text-nowrap me-5">FOUNDER</h4>
+                    <div className="vector3 mt-3"></div>
                 </div>
+
                 <div className="row mt-5 p-4">
                     <div className="col-md-3 col-6">
                         <div className="founder"></div>
@@ -90,29 +96,31 @@ function About(props) {
                 </div>
             </div>
 
-            <div className="session2-bg">
+            <div className="bg-main-gary-light-color">
                 <div className="container mt-5">
-                    <div className="row">
-                        <div className="col-3 pt-4 d-inline-flex">
-                            <h4 className="me-2" style={{ color: ' #333333' }}>
-                                聯絡我們
-                            </h4>
-                            <h4
-                                className="engText"
-                                style={{ color: ' #333333' }}
-                            >
-                                CONTACT US
-                            </h4>
-                        </div>
-                        <div className="vector3 mt-5 col-9"></div>
+                    <div className="pt-5 d-flex">
+                        <h4
+                            className="me-2 text-nowrap"
+                            style={{ color: ' #333333' }}
+                        >
+                            聯絡我們
+                        </h4>
+                        <h4
+                            className="engText text-nowrap me-5"
+                            style={{ color: ' #333333' }}
+                        >
+                            CONTACT US
+                        </h4>
+                        <div className="vector3 mt-3"></div>
                     </div>
+
                     <div className="row p-5">
                         <div className="d-flex justify-content-between">
-                            <p>
+                            <p className="">
                                 歡迎來到 HAMAYA MUSIC
                                 ，若您有任何建議與諮詢，歡迎利用下方表單，我們將由專人儘快回覆您，謝謝。
                             </p>
-                            <p>*為必填項目</p>
+                            <p className="text-nowrap">*為必填項目</p>
                         </div>
                         <div className="col-12 col-md-6">
                             <p>姓名*</p>
@@ -170,28 +178,36 @@ function About(props) {
                         </div>
                     </div>
                     <div className="d-flex justify-content-center">
-                        <button>確認送出</button>
+                        <button className="bg-main-light-color accent-light-color border-0 px-5 py-1 mb-5">
+                            確認送出
+                        </button>
                     </div>
                 </div>
             </div>
 
             <div className="container mt-5">
+                <div className="mt-2 d-flex">
+                    <h4
+                        className="me-2 text-nowrap"
+                        style={{ color: ' #00323d' }}
+                    >
+                        門市資訊
+                    </h4>
+                    <h4
+                        className="engText text-nowrap me-5"
+                        style={{ color: ' #00323d' }}
+                    >
+                        STORE INFORMATION
+                    </h4>
+                    <div className="vector3 mt-3"></div>
+                </div>
                 <div className="row">
-                    <div className="col-4 mt-2 d-inline-flex">
-                        <h4 className="me-2" style={{ color: ' #00323d' }}>
-                            門市資訊
-                        </h4>
-                        <h4 className="engText" style={{ color: ' #00323d' }}>
-                            STORE INFORMATION
-                        </h4>
-                    </div>
-                    <div className="vector3 mt-4 col-8"></div>
                     <div className="row">
                         <div className="col-12 col-md-6">
-                            <div className="storename py-5 d-flex justify-content-between">
+                            <div className="py-5 d-flex justify-content-between">
                                 <div>
                                     <h4
-                                        className="pe-5 me-5"
+                                        className="text-nowrap"
                                         style={{ color: ' #00323d' }}
                                     >
                                         HAMAYA MUSIC 旗艦門市
@@ -202,13 +218,13 @@ function About(props) {
                                         src={fb}
                                         herf="#"
                                         alt="fb"
-                                        className="px-5 ms-5 d-flex justify-content-end"
+                                        className="p-1"
                                     ></img>
                                     <img
                                         src={line}
                                         herf="#"
                                         alt="line"
-                                        className="d-flex justify-content-end"
+                                        className="p-1"
                                     ></img>
                                 </div>
                             </div>

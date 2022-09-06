@@ -234,8 +234,7 @@ function Product() {
                     </h4>
                     <div className="productDetail-vector bg-main-light-color"></div>
                 </div>
-                <Row className="my-5 row-cols-2 row-cols-md-3 row-cols-xl-5">
-                    <ProductsItem />
+                <Row className="mt-2 mb-5 row-cols-2 row-cols-xl-4 g-5">
                     <ProductsItem />
                     <ProductsItem />
                     <ProductsItem />

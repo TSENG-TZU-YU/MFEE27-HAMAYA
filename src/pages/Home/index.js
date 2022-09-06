@@ -1,28 +1,38 @@
-import { Container } from 'react-bootstrap';
+import React from 'react';
 import './index.scss';
+import MobileHome from './MobileHome';
 import Decorate from '../../assets/HomeImg/decorate.svg';
 import BrandWord from '../../assets/HomeImg/brandword.svg';
 import Note from '../../assets/HomeImg/note.svg';
 import Note2 from '../../assets/HomeImg/note-2.svg';
 import Note3 from '../../assets/HomeImg/note-3.svg';
 import Note4 from '../../assets/HomeImg/note-4.svg';
-import Img from '../../assets/HomeImg/homeimg.svg';
-import Img2 from '../../assets/HomeImg/homeimg-2.svg';
+import Img from '../../assets/HomeImg/homeimg.jpg';
+import Img2 from '../../assets/HomeImg/homeimg-2.jpg';
+
 import Smart from '../../assets/HomeImg/smart-display-2.svg';
 
 function Home(props) {
     return (
         <>
-            {/* <div className="bg-main-gary-light-color">
-                <img src={Decorate} width="700" alt="Logo" className="mr-2" />
-                <Container className="">
+            <MobileHome />
+            <div className="d-none d-md-block  bg-main-gary-light-color">
+                <img
+                    src={Decorate}
+                    width="800"
+                    alt="Logo"
+                    className="Decorate"
+                />
+
+                <div className="container  d-none d-md-block ">
                     <div className="row">
-                        <div className="col-5">
-                            <p className="font ms-3 ">HA</p>
+                        <div className="col-12 ">
+                            <p className="font ">HA</p>
+                            <p className="font4">MA</p>
                             <img
                                 src={BrandWord}
                                 alt="Logo"
-                                width="300"
+                                width="200"
                                 className="home-img"
                             />
                             <img
@@ -41,15 +51,13 @@ function Home(props) {
                                 將光亮從人心靈的深沈中釋放出來，是音樂的神聖使命。
                                 ——羅伯特·亞歷山大·舒曼
                             </p>
-
-                            <p className="font4 ms-3 ">MA</p>
                         </div>
-                        <div className="col-2 d-flex justify-content-end ">
+                        <div className=" d-flex justify-content-end ">
                             <img
                                 src={Img}
                                 alt="Logo"
                                 height="247"
-                                width="403"
+                                width=""
                                 className="home-img2"
                             />
                             <button className="border-0  btn">
@@ -76,7 +84,7 @@ function Home(props) {
                                 className="note3"
                             />
                         </div>
-                        <div className="d-flex justify-content-end ">
+                        <div className=" d-flex justify-content-end ">
                             <img
                                 src={Img2}
                                 alt="Logo"
@@ -86,8 +94,8 @@ function Home(props) {
                             />
                         </div>
                     </div>
-                </Container>
-            </div> */}
+                </div>
+            </div>
         </>
     );
 }

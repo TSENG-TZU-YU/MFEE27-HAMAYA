@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.scss';
 import { Link } from 'react-router-dom';
-// import { useEffect, useState } from 'react';
-// import axios from 'axios';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 // 子元件
 import StarRating from '../../../../components/Star/StarRating';
@@ -13,27 +13,28 @@ import Adult_img from '../../../../assets/ClassImg/Adult img.png';
 
 function AdultCourse(props) {
     // const [error, setError] = useState(null);
-    // const [data, setData] = useState([]);
+    const [data, setData] = useState([]);
+    // const [active, setActive] = useState(null);
 
-    // useEffect(() => {
-    //     console.log('classAdult', 'useEffect []');
-    //     let getAdultClass = async () => {
-    //         let response = await axios.get(
-    //             `http://localhost:3001/class/list/Adult`
-    //         );
-    //         setData(response.data);
-    //     };
-    //     getAdultClass();
-    // }, []);
+    useEffect(() => {
+        console.log('classAdult', 'useEffect []');
+        let getAdultClass = async () => {
+            let response = await axios.get(
+                `http://localhost:3001/class/list/Adult`
+            );
+            setData(response.data);
+        };
+        getAdultClass();
+    }, []);
 
-    // useEffect(() => {
-    //     console.log('useEffect[data]', data);
-    // }, [data]);
+    useEffect(() => {
+        console.log('useEffect[data]', data);
+    }, [data]);
 
     return (
         <div>
             <Link to="detailed">
-                <div className="introduce row me-0">
+                <div className="introduce row me-0 mb-5 class-shadow">
                     <img
                         className="col-lg-6  px-lg-0"
                         src={Adult_img}
@@ -79,18 +80,18 @@ function AdultCourse(props) {
             {/* TODO: 圖檔無法讀取*/}
             {/* {data.map((classAdult) => {
                 return (
-                    <div
-                        key={classAdult.id}
-                        className="d-lg-flex justify-content-lg-center align-items-lg-center  mb-5"
-                    >
+                    <div key={classAdult.id} className="d-lg-flex justify-content-lg-center align-items-lg-center  mb-5">
                         <Link to="detailed ">
-                            <div className="introduce row">
+                            <div
+                                
+                                className="introduce row me-0 mb-5 class-shadow"
+                            >
                                 <img
                                     className="col-lg-6  px-lg-0"
                                     src={Adult_img}
                                     alt="Adult img"
                                 />
-                                <div className="col-lg-6  mt-3">
+                                <div className="col-lg-6  mt-1 mb-2">
                                     <h4
                                         className="ms-1 mb-2"
                                         style={{ color: '#00323d' }}
