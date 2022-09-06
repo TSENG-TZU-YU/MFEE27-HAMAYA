@@ -13,6 +13,7 @@ import NavbarMobile from '../../components/NavbarMobile';
 function Header(props) {
     const [loginPopup, setLoginPopup] = useState(false);
     const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
+    const [hover, setHover] = useState('test123 main-light-color');
     return (
         <>
             <NavbarMobile />
@@ -29,37 +30,56 @@ function Header(props) {
                             </Link>
                         </div>
                         <div className="col-8 d-flex justify-content-center align-items-center ">
-                            <div className="row">
-                                <Link
-                                    className="col p-0 m-1 m-lg-2 text-center header-text"
-                                    to="news"
-                                >
-                                    最新消息
-                                </Link>
-                                <Link
-                                    className="col p-0 m-1 m-lg-2 text-center header-text"
-                                    to="products"
-                                >
-                                    樂器商城
-                                </Link>
-                                <Link
-                                    className="col p-0 m-1 m-lg-2 text-center header-text"
-                                    to="class"
-                                >
-                                    音樂教育
-                                </Link>
-                                <Link
-                                    className="col p-0 m-1 m-lg-2 text-center header-text"
-                                    to="place"
-                                >
-                                    場地租借
-                                </Link>
-                                <Link
-                                    className="p-0 m-1 m-lg-2 col text-center header-text"
-                                    to="aboutus"
-                                >
-                                    關於我們
-                                </Link>
+                            <div>
+                                <div className="row">
+                                    <div className="col p-0 m-1 m-lg-2 text-center header-text position-relative">
+                                        <Link
+                                            className=""
+                                            to="news"
+                                            onMouseEnter={() => {
+                                                setHover('sublist show ');
+                                            }}
+                                            onMouseLeave={() => {
+                                                setHover('sublist');
+                                            }}
+                                        >
+                                            最新消息
+                                        </Link>
+                                        <div className={hover}>
+                                            <ul className="list-unstyled ">
+                                                <li><Link to="/">test01</Link></li>
+                                                <li><Link to="/">test01</Link></li>
+                                                <li><Link to="/">test01</Link></li>
+                                                <li><Link to="/">test01</Link></li>
+                                                <li><Link to="/">test01</Link></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <Link
+                                        className="col p-0 m-1 m-lg-2 text-center header-text"
+                                        to="products"
+                                    >
+                                        樂器商城
+                                    </Link>
+                                    <Link
+                                        className="col p-0 m-1 m-lg-2 text-center header-text"
+                                        to="class"
+                                    >
+                                        音樂教育
+                                    </Link>
+                                    <Link
+                                        className="col p-0 m-1 m-lg-2 text-center header-text"
+                                        to="place"
+                                    >
+                                        場地租借
+                                    </Link>
+                                    <Link
+                                        className="p-0 m-1 m-lg-2 col text-center header-text"
+                                        to="aboutus"
+                                    >
+                                        關於我們
+                                    </Link>
+                                </div>
                             </div>
                         </div>
 
