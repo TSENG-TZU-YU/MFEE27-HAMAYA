@@ -158,18 +158,20 @@ function Header(props) {
                                         </ul>
                                     </div>
                                 </div>
-                                <Link
-                                    className="col p-0 m-1 m-lg-2 text-center header-text"
-                                    to="place"
-                                >
-                                    場地租借
-                                </Link>
-                                <Link
-                                    className="p-0 m-1 m-lg-2 col text-center header-text"
-                                    to="aboutus"
-                                >
-                                    關於我們
-                                </Link>
+                                <div className="col p-0 m-1 m-lg-2 text-center header-text">
+                                    <div className="navbaritem">
+                                        <Link className="" to="place">
+                                            場地租借
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className="col p-0 m-1 m-lg-2 text-center header-text">
+                                    <div className="navbaritem">
+                                        <Link className="" to="aboutus">
+                                            關於我們
+                                        </Link>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

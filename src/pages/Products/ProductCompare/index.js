@@ -16,9 +16,9 @@ function ProductCompare({ setProductCompare }) {
     return (
         <div className="productCompare-popup-bg">
             <Container>
-                <div className="productCompare-box bg-accent-light-color main-color m-3 fw-bold p-5">
+                <div className="productCompare-box bg-accent-light-color main-color m-3 fw-bold p-3 m-4">
                     <div className="d-flex justify-content-between">
-                        <h4>比較結果</h4>
+                        <h4 className="main-color">比較結果</h4>
                         <button
                             className="closeBtn"
                             onClick={() => {
@@ -28,7 +28,7 @@ function ProductCompare({ setProductCompare }) {
                             <img src={Close} alt="close" />
                         </button>
                     </div>
-                    <table className="m-2 table">
+                    <table className="table">
                         <thead>
                             <tr className="productCompare-tr">
                                 <th></th>

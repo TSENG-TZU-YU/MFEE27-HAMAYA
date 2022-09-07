@@ -21,6 +21,8 @@
   max-height: 25px;
   overflow: hidden;
   transition: 1s;
+  z-index: 999;
+  
 }
 .navbaritem:hover{
   max-height: 300px;

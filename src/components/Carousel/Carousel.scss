@@ -9,32 +9,38 @@
         margin-bottom: 20px;
         
         // 圖片
-      img {
-        max-height: 100%;  
-        max-width: 100%; 
-        width: auto;
-        height: auto;
-        position: absolute;  
-        top: 0;  
-        bottom: 0;  
-        left: 0;  
-        right: 0;  
-        margin: auto;
-      }
-  }
+        img {
+            max-height: 100%;  
+            max-width: 100%; 
+            width: auto;
+            height: auto;
+            position: absolute;  
+            top: 0;  
+            bottom: 0;  
+            left: 0;  
+            right: 0;  
+            margin: auto;
+            transition: .3s;
+        }
+    }
+    .swiper-slide:hover {
+        img {
+            transform: scale(1.2);
+        }
+    }
 
 //   按鈕樣式 上一張
-.swiper-button-prev {
-    left: 0;
-    color: #f2f2f2;
-    width: 40px;
-    height: 50px;
-    background-color: #33333372;
-    margin: 0;
-}
+    .swiper-button-prev {
+        left: 0;
+        color: #f2f2f2;
+        width: 40px;
+        height: 50px;
+        background-color: #33333372;
+        margin: 0;
+    }
 
 //   按鈕樣式 下一張
-.swiper-button-next {
+    .swiper-button-next {
         right: 0;
         color: #f2f2f2;
         width: 40px;
@@ -47,35 +53,36 @@
 // 小圖
 .product-images-slider-thumbs {
     // 容器
-  .swiper-slide {
-      cursor: pointer;
-      border: 2px solid transparent;
+    .swiper-slide {
+        cursor: pointer;
+        border: 2px solid transparent;
 
-      &-thumb-active {
-          border-color: #bababa;
-      }
-  }
-// 外框樣式
-  &-wrapper {
-      width: 100%;
-      padding-top: 100%;
-      overflow: hidden;
-      position: relative;
-      background: #fff;
-      // 圖片
-      img {
-          max-height: 100%;  
-          max-width: 100%; 
-          width: auto;
-          height: auto;
-          position: absolute;  
-          top: 0;  
-          bottom: 0;  
-          left: 0;  
-          right: 0;  
-          margin: auto;
+        &-thumb-active {
+            border-color: #cce1e4;
         }
-  }
+    }
+// 外框樣式
+    &-wrapper {
+        width: 100%;
+        padding-top: 100%;
+        overflow: hidden;
+        position: relative;
+        background: #fff;
+        
+        // 圖片
+        img {
+            max-height: 100%;  
+            max-width: 100%; 
+            width: auto;
+            height: auto;
+            position: absolute;  
+            top: 0;  
+            bottom: 0;  
+            left: 0;  
+            right: 0;  
+            margin: auto;
+        }
+    }
 }
 
 .swiper-button-next:after, .swiper-button-prev:after {

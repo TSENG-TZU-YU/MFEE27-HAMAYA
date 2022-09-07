@@ -172,14 +172,14 @@ function Product() {
                                         size="30px"
                                         className="gary-dark-color cursor-pointer"
                                     />
-                                    <div className="product-purchase-quantity border border-2 mx-4">
-                                        <h4 className="text-center">0</h4>
+                                    <div className="product-purchase-quantity border border-2 mx-2">
+                                        <h4 className="text-center m-0">0</h4>
                                     </div>
                                     <FiPlus
                                         size="30px"
                                         className="gary-dark-color cursor-pointer"
                                     />
-                                    <p className="mb-0 ms-5 gary-light-color">
+                                    <p className="mb-0 ms-2 gary-light-color">
                                         庫存充足
                                     </p>
                                 </div>
@@ -234,7 +234,7 @@ function Product() {
                     </h4>
                     <div className="productDetail-vector bg-main-light-color"></div>
                 </div>
-                <Row className="mt-2 mb-5 row-cols-2 row-cols-xl-4 g-5">
+                <Row className="mt-2 mb-5 row-cols-2 row-cols-xl-4">
                     <ProductsItem />
                     <ProductsItem />
                     <ProductsItem />
