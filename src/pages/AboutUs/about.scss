@@ -3,22 +3,23 @@
 // 字級 end ----------------------
 
 
-.session1-bg{
-  height: 508px;
-  background: $main-light;
-}
-.session2-bg{
-  height: 617px;
-  background: #bababa;
-}
 .engText {
   font-family: 'Noto Serif Display', serif;
 }
 
-.session1-bg .vector3 {
-  border-top: 3px solid #f2f2f2;
-  width: 863px;
+.vector1 {
+  border-top: 3px solid $accent-light;
+  border-width: 100%;
 }
+.vector2 {
+  border-top: 3px solid #6a777a;
+  border-width: 100%;
+}
+.vector3 {
+  border-top: 3px solid $gary-light;
+  border-width: 100%;
+}
+
 
 .infotitle {
   background: $main-light;

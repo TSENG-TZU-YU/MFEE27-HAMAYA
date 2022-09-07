@@ -1,4 +1,6 @@
 import React from 'react';
+
+// 樣式
 import './styles/categoryNav.scss';
 
 function CategoryNav() {

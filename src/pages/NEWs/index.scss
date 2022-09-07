@@ -1,0 +1,29 @@
+@import '../../styles/global.scss';
+
+.News-Breadcrumbs{
+  font-size: 1rem;
+  color:#00323d;
+}
+
+.News-word{
+  font-size: 1.5rem;
+  color:#00323d;
+
+}
+
+.News-engText {
+  font-family: 'Noto Serif Display', serif;
+  color: $main;
+}
+.News-cursor-pinter {
+  cursor: pointer;
+}
+
+.News-blank-top{
+  margin-top: 20px;
+}
+
+.News-vector3 {
+  border-top: 3px solid $main-light;
+  width: 65rem;
+}

@@ -70,3 +70,22 @@
     background-color:transparent;
     border: 0;
 } 
+
+.sublist{
+    width: 100%;
+    background-color: #6A777A;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    max-height: 0px;
+    overflow: hidden;
+    transition: 1s;
+    
+    
+}
+.sublist:hover{
+    max-height: 300px;
+}
+.sublist.show{
+    max-height: 300px;
+}
