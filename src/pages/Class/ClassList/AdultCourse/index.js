@@ -69,14 +69,16 @@ function AdultCourse(props) {
                                 </div>
                                 <p className="ms-2 mt-2 "> 2 人評價</p>
                             </div>
-                            <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">
+                            <div className="d-flex justify-content-between align-items-center pt-1">
                                 <h4
                                     className=" fw-bold "
                                     style={{ color: '#5b322f' }}
                                 >
                                     NT $2,500 / 期
                                 </h4>
-                                <Car />
+                                <div className="mb-2">
+                                    <Car />
+                                </div>
                             </div>
                         </div>
                     </div>
