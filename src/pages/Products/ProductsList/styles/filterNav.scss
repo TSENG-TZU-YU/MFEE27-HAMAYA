@@ -71,9 +71,14 @@ button.products-btn-border-none {
   cursor: pointer;
 }
 
-
 .products-sort-menu > ul {
   line-height: 1.5rem;
   padding: 0;
   margin-bottom: 0 !important;
+}
+
+.products-Search-box {
+  left: 110px;
+  top: 43px;
+  z-index: 2;
 }

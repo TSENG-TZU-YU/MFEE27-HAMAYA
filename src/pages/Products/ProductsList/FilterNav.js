@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 // 樣式
 import './styles/filterNav.scss';
 
+// 元件
+import SearchBar from '../../../components/SearchBar';
+
 // 圖檔
 import filterIcon from '../../../assets/ProductsImg/icon/filter_alt.svg';
 import sort from '../../../assets/ProductsImg/icon/sort.svg';
@@ -11,9 +14,35 @@ import search from '../../../assets/ProductsImg/icon/search.svg';
 function FilterNav() {
     // Toggled
     const [filterToggled, setFilterToggled] = useState(false);
-    const toggleFilterToggled = () => setFilterToggled(!filterToggled);
     const [sortToggled, setSortToggled] = useState(false);
-    const toggleSortToggled = () => setSortToggled(!sortToggled);
+    const [searchToggled, setSearchToggled] = useState(false);
+
+    // 篩選 Toggled function
+    const toggleFilterToggled = () => {
+        if (sortToggled || searchToggled) {
+            setSortToggled(false);
+            setSearchToggled(false);
+        }
+        setFilterToggled(!filterToggled);
+    };
+
+    // 排序 Toggled function
+    const toggleSortToggled = () => {
+        if (filterToggled || searchToggled) {
+            setFilterToggled(false);
+            setSearchToggled(false);
+        }
+        setSortToggled(!sortToggled);
+    };
+
+    // 搜尋 Toggled function
+    const toggleSearchToggled = () => {
+        if (sortToggled || filterToggled) {
+            setSortToggled(false);
+            setFilterToggled(false);
+        }
+        setSearchToggled(!searchToggled);
+    };
 
     return (
         <div className="d-none d-md-block">
@@ -145,7 +174,7 @@ function FilterNav() {
                         {/* 商品排序區塊 */}
                         {sortToggled ? (
                             <div className="products-sort-menu position-absolute">
-                                <ul className="p-3">
+                                <ul className="p-2">
                                     <li>價格：低到高</li>
                                     <li>價格：高到低</li>
                                     <li>上架：新到舊</li>
@@ -156,14 +185,23 @@ function FilterNav() {
                             ''
                         )}
                         {/* 商品排序區塊 end */}
-
-                        <button className="products-btn-border-none">
+                        <button
+                            className="products-btn-border-none"
+                            onClick={toggleSearchToggled}
+                        >
                             <img
                                 className="products-icon-img ms-1 mb-1"
                                 src={search}
                                 alt="search"
                             ></img>
                         </button>
+                        {searchToggled ? (
+                            <div className="products-Search-box position-absolute">
+                                <SearchBar />
+                            </div>
+                        ) : (
+                            ''
+                        )}
                     </div>
                 </div>
             </div>

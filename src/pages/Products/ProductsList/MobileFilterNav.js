@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 // 樣式
 import './styles/MobileFilterNav.scss';
 
+// 元件
+import SearchBar from '../../../components/SearchBar';
+
 // 圖檔
 import arrowDown from '../../../assets/ProductsImg/icon/arrow_down.svg';
 import search from '../../../assets/ProductsImg/icon/search.svg';
@@ -10,11 +13,45 @@ import search from '../../../assets/ProductsImg/icon/search.svg';
 function MobileFilterNav() {
     // Toggled
     const [categoryToggled, setCategoryToggled] = useState(false);
-    const toggleCategoryToggled = () => setCategoryToggled(!categoryToggled);
     const [filterToggled, setFilterToggled] = useState(false);
-    const toggleFilterToggled = () => setFilterToggled(!filterToggled);
+    const [searchToggled, setSearchToggled] = useState(false);
     const [sortToggled, setSortToggled] = useState(false);
-    const toggleSortToggled = () => setSortToggled(!sortToggled);
+
+    // 類別 Toggled function
+    const toggleCategoryToggled = () => {
+        if (filterToggled || sortToggled) {
+            setFilterToggled(false);
+            setSortToggled(false);
+        }
+        setCategoryToggled(!categoryToggled);
+    };
+
+    // 篩選 Toggled function
+    const toggleFilterToggled = () => {
+        if (categoryToggled || sortToggled) {
+            setCategoryToggled(false);
+            setSortToggled(false);
+        }
+        setFilterToggled(!filterToggled);
+    };
+
+    // 排序 Toggled function
+    const toggleSortToggled = () => {
+        if (categoryToggled || filterToggled) {
+            setCategoryToggled(false);
+            setFilterToggled(false);
+        }
+        setSortToggled(!sortToggled);
+    };
+
+    // 搜尋 Toggled function
+    const toggleSearchToggled = () => {
+        if (sortToggled || filterToggled) {
+            setSortToggled(false);
+            setFilterToggled(false);
+        }
+        setSearchToggled(!searchToggled);
+    };
 
     return (
         <div className="d-md-none">
@@ -32,15 +69,25 @@ function MobileFilterNav() {
                 {/* 麵包屑 end */}
 
                 {/* 搜尋 */}
-                <button className="products-btn-border-none">
+                <button
+                    className="products-btn-border-none"
+                    onClick={toggleSearchToggled}
+                >
                     <img
                         className="products-icon-img ms-1 mb-1"
                         src={search}
                         alt="search"
                     ></img>
                 </button>
-                {/* 搜尋 end */}
             </div>
+            {searchToggled ? (
+                <div className="products-Search-box">
+                    <SearchBar />
+                </div>
+            ) : (
+                ''
+            )}
+            {/* 搜尋 end */}
 
             {/* 篩選按鈕 */}
             <div className="mobile-products-filter-nav position-relative">

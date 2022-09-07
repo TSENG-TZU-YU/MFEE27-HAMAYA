@@ -25,5 +25,54 @@
 
 .News-vector3 {
   border-top: 3px solid $main-light;
-  width: 65rem;
+  width: 72rem;
+}
+
+.News-music-article {
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $gary-light;
+  color: $accent-light;
+}
+
+.News-cursor-pinter {
+  cursor: pointer;
+}
+
+.News-word2{
+  margin-top: -35px;
+}
+
+.News-music-article2 {
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $main-light;
+  color: $accent-light;
+}
+
+.News-music-article3 {
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $accent;
+  color: $accent-light;
+}
+
+.News-music-article4 {
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $main;
+  color: $accent-light;
+}
+@media screen and (min-width: 1405px) {
+  .News-blank-art-left {
+    margin-left: -35px;
+}
 }
