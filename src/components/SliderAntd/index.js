@@ -1,6 +1,6 @@
 import { Slider } from 'antd';
 import React from 'react';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 
 function SliderAntd(props) {
     const onChange = (value) => {
