@@ -4,6 +4,10 @@ import './MyBucketList.scss';
 import BucketClass from './components/BucketClass';
 import BucketProduct from './components/BucketProduct';
 import { useOutletContext } from 'react-router-dom'; //抓取Outlet的props
+import { ReactComponent as ArrowLeft } from '../../../../assets/svg/arrow-left.svg';
+import { ReactComponent as ArrowRight } from '../../../../assets/svg/arrow-right.svg';
+// import arrowLeft from '../../../../assets/svg/arrow-left.svg';
+// import arrowRight from '../../../../assets/svg/arrow-right.svg';
 
 function MyBucketList(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
@@ -55,6 +59,19 @@ function MyBucketList(props) {
                 </button>
             </div>
             {bucketProduct ? <BucketProduct /> : <BucketClass />}
+            <div className="text-center py-2">
+                <ul className="myBucketPage">
+                    <li className="d-inline">
+                        <ArrowLeft className="pageArrowIcon" />
+                    </li>
+                    <li className="d-inline">1</li>
+                    <li className="d-inline ">2</li>
+                    <li className="d-inline ">3</li>
+                    <li className="d-inline ">
+                        <ArrowRight className="pageArrowIcon" />
+                    </li>
+                </ul>
+            </div>
         </div>
     );
 }

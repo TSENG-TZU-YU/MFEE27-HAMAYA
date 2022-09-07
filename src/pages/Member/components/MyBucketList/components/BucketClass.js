@@ -38,7 +38,7 @@ function BucketClass() {
                         src={classPic}
                         alt=""
                     />
-                    <div className="itemFlex p-2">
+                    <div className="flex-grow-1 p-2">
                         <div className="d-flex justify-content-between">
                             <h6>
                                 <b>藍調與爵士鋼琴的獨奏技巧與應用</b>
@@ -64,7 +64,10 @@ function BucketClass() {
                         </div>
                         <div className="d-flex justify-content-between align-items-center">
                             <p className="d-inline-flex m-0">
-                                <span className="itemPrice">NT: 2500 </span>/期
+                                <span className="accent-color">
+                                    <b>NT: 2500</b>
+                                </span>
+                                /期
                             </p>
                             <div>
                                 <button className="btn border-0 p-0 mx-3">
@@ -85,7 +88,7 @@ function BucketClass() {
                         src={classPic}
                         alt=""
                     />
-                    <div className="itemFlex p-2">
+                    <div className="flex-grow-1 p-2">
                         <div className="d-flex justify-content-between">
                             <h6>
                                 <b>藍調與爵士鋼琴的獨奏技巧與應用</b>
@@ -111,7 +114,10 @@ function BucketClass() {
                         </div>
                         <div className="d-flex justify-content-between align-items-center">
                             <p className="d-inline-flex m-0">
-                                <span className="itemPrice">NT: 2500 </span>/期
+                                <span className="accent-color">
+                                    <b>NT: 2500</b>
+                                </span>
+                                /期
                             </p>
                             <div>
                                 <button className="btn border-0 p-0 mx-3">
@@ -132,7 +138,7 @@ function BucketClass() {
                         src={classPic}
                         alt=""
                     />
-                    <div className="itemFlex p-2">
+                    <div className="flex-grow-1 p-2">
                         <div className="d-flex justify-content-between">
                             <h6>
                                 <b>藍調與爵士鋼琴的獨奏技巧與應用</b>
@@ -158,7 +164,10 @@ function BucketClass() {
                         </div>
                         <div className="d-flex justify-content-between align-items-center">
                             <p className="d-inline-flex m-0">
-                                <span className="itemPrice">NT: 2500 </span>/期
+                                <span className="accent-color">
+                                    <b>NT: 2500</b>
+                                </span>
+                                /期
                             </p>
                             <div>
                                 <button className="btn border-0 p-0 mx-3">
