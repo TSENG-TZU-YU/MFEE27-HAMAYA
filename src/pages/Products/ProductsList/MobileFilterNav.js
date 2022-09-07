@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+
+// 樣式
 import './styles/MobileFilterNav.scss';
 
 // 圖檔
@@ -8,11 +10,29 @@ import search from '../../../assets/ProductsImg/icon/search.svg';
 function MobileFilterNav() {
     // Toggled
     const [categoryToggled, setCategoryToggled] = useState(false);
-    const toggleCategoryToggled = () => setCategoryToggled(!categoryToggled);
+    const toggleCategoryToggled = () => {
+        if (filterToggled || sortToggled) {
+            setFilterToggled(false);
+            setSortToggled(false);
+        }
+        setCategoryToggled(!categoryToggled);
+    };
     const [filterToggled, setFilterToggled] = useState(false);
-    const toggleFilterToggled = () => setFilterToggled(!filterToggled);
+    const toggleFilterToggled = () => {
+        if (categoryToggled || sortToggled) {
+            setCategoryToggled(false);
+            setSortToggled(false);
+        }
+        setFilterToggled(!filterToggled);
+    };
     const [sortToggled, setSortToggled] = useState(false);
-    const toggleSortToggled = () => setSortToggled(!sortToggled);
+    const toggleSortToggled = () => {
+        if (categoryToggled || filterToggled) {
+            setCategoryToggled(false);
+            setFilterToggled(false);
+        }
+        setSortToggled(!sortToggled);
+    };
 
     return (
         <div className="d-md-none">

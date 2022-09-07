@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+
+// 套件
 import { Container, Row, Col } from 'react-bootstrap';
 
+// 樣式
 import './index.scss';
 
 // 元件
@@ -10,13 +13,14 @@ import Compare from '../ProductCompare';
 import Carousel from '../../../components/Carousel/Carousel';
 
 // 圖檔
+import { productImages } from '../../../assets/ProductsImg';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import cartCheck from '../../../assets/ProductsImg/icon/shopping_cart_check.svg';
 import cartCheckout from '../../../assets/ProductsImg/icon/shopping_cart_checkout.svg';
 import compareBtn from '../../../assets/ProductsImg/icon/compare_btn.svg';
 import note from '../../../assets/ProductsImg/icon/product_details_note.svg';
 
-function ProductDetail() {
+function Product() {
     // Toggled
     const [productCompare, setProductCompare] = useState(false);
     const toggleProductCompare = () => setProductCompare(!productCompare);
@@ -38,12 +42,27 @@ function ProductDetail() {
                 </ul>
                 {/* 麵包屑 end */}
 
-                <Row className="mt-5 pt-5">
+                <Row className="mt-5">
                     {/* 商品照片 */}
-                    <Col lg={6} className="pe-3">
-                        <Carousel />
-                        {/* <div className="bg-main-light-color h-100">
-                        </div> */}
+                    <Col lg={6}>
+                        <div
+                            style={{
+                                height: '100%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    padding: '15px',
+                                }}
+                            >
+                                <Carousel images={productImages} />
+                            </div>
+                        </div>
                     </Col>
                     {/* 商品照片 end */}
 
@@ -51,13 +70,13 @@ function ProductDetail() {
                     <Col lg={6}>
                         <div className="d-flex flex-column mb-3 text-start">
                             <div>
-                                <h4 className="mb-2 main-color">
+                                <h4 className="ms-2 mb-2 main-color">
                                     YAMAHA U系列 U1
                                 </h4>
                                 <img
                                     src={note}
                                     alt="note"
-                                    className="productDetail-note position-absolute"
+                                    className="productDetail-note position-absolute d-none d-md-block"
                                 />
                                 <div className="border-top border-secondary border-3 px-3 pt-3">
                                     <h6 className="mb-0 productDetail-line-height fw-400">
@@ -75,7 +94,7 @@ function ProductDetail() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="px-3 pb-3">
+                            <div className="px-3 pb-3 align-items-stretch">
                                 <h6 className="col mb-0 productDetail-line-height fw-400">
                                     運送方式：一般宅配
                                 </h6>
@@ -87,7 +106,6 @@ function ProductDetail() {
                                         <div className="form-check m-2">
                                             <input
                                                 className="form-check-input d-block me-2"
-                                                //  type="radio"
                                                 type="radio"
                                                 value=""
                                                 name="flexRadioDefault"
@@ -154,14 +172,14 @@ function ProductDetail() {
                                         size="30px"
                                         className="gary-dark-color cursor-pointer"
                                     />
-                                    <div className="product-purchase-quantity border border-2 mx-4">
-                                        <h4 className="text-center">0</h4>
+                                    <div className="product-purchase-quantity border border-2 mx-2">
+                                        <h4 className="text-center m-0">0</h4>
                                     </div>
                                     <FiPlus
                                         size="30px"
                                         className="gary-dark-color cursor-pointer"
                                     />
-                                    <p className="mb-0 ms-5 gary-light-color">
+                                    <p className="mb-0 ms-2 gary-light-color">
                                         庫存充足
                                     </p>
                                 </div>
@@ -216,8 +234,7 @@ function ProductDetail() {
                     </h4>
                     <div className="productDetail-vector bg-main-light-color"></div>
                 </div>
-                <Row className="my-5 row-cols-2 row-cols-md-3 row-cols-xl-5">
-                    <ProductsItem />
+                <Row className="mt-2 mb-5 row-cols-2 row-cols-xl-4">
                     <ProductsItem />
                     <ProductsItem />
                     <ProductsItem />
@@ -242,4 +259,4 @@ function ProductDetail() {
     );
 }
 
-export default ProductDetail;
+export default Product;

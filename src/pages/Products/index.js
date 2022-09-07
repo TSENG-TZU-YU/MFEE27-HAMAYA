@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+
+// 樣式
 import './index.scss';
 
 // 元件
@@ -17,7 +19,6 @@ function Products() {
     // Toggled
     const [productCompare, setProductCompare] = useState(false);
     const toggleProductCompare = () => setProductCompare(!productCompare);
-
 
     return (
         <>

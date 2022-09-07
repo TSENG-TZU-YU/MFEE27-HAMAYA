@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+
+// 樣式
 import './styles/filterNav.scss';
 
 // 圖檔
@@ -9,10 +11,19 @@ import search from '../../../assets/ProductsImg/icon/search.svg';
 function FilterNav() {
     // Toggled
     const [filterToggled, setFilterToggled] = useState(false);
-    const toggleFilterToggled = () => setFilterToggled(!filterToggled);
     const [sortToggled, setSortToggled] = useState(false);
-    const toggleSortToggled = () => setSortToggled(!sortToggled);
-
+    const toggleFilterToggled = () => {
+        if (sortToggled) {
+            setSortToggled(!sortToggled);
+        }
+        setFilterToggled(!filterToggled);
+    };
+    const toggleSortToggled = () => {
+        if (filterToggled) {
+            setFilterToggled(!filterToggled);
+        }
+        setSortToggled(!sortToggled);
+    };
     return (
         <div className="d-none d-md-block">
             <div className="d-flex flex-row-reverse">
@@ -143,7 +154,7 @@ function FilterNav() {
                         {/* 商品排序區塊 */}
                         {sortToggled ? (
                             <div className="products-sort-menu position-absolute">
-                                <ul className="p-3">
+                                <ul className="p-2">
                                     <li>價格：低到高</li>
                                     <li>價格：高到低</li>
                                     <li>上架：新到舊</li>

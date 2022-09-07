@@ -1,6 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+// 樣式
 import './styles/productsItem.scss';
+
+// 元件
+import Favorite from '../../../components/Favorite';
 
 // 圖檔
 import product from '../../../assets/ProductsImg/product.png';
@@ -13,19 +18,12 @@ function ProductsItem() {
         <div className="col product">
             <div className="position-relative">
                 {/* 商品照片 */}
-                <Link
-                    to="/Product/ProductDetail"
-                    className="product-img d-block"
-                >
+                <Link to="/products/:productId" className="product-img d-block">
                     <div className="product-img-mask position-absolute"></div>
                     <img src={product} className="card-img-top" alt="product" />
                 </Link>
                 <div className="product-like position-absolute top-0 end-0">
-                    <img
-                        src={favoriteDefault}
-                        alt="favoriteDefault"
-                        className="favorite-icon me-1 icon-img"
-                    />
+                    <Favorite />
                 </div>
                 <div className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-1">
                     <img
@@ -46,7 +44,7 @@ function ProductsItem() {
             </div>
             <div className="product-body">
                 {/* 品名 */}
-                <Link to="ProductDetail" className="product-name">
+                <Link to="/products/:productId" className="product-name">
                     YAMAHA U系列 U1
                 </Link>
                 {/* 價格 */}

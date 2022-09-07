@@ -1,6 +1,10 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+
+// 樣式
 import './index.scss';
+
+// 套件
+import { Container } from 'react-bootstrap';
 
 // 圖檔
 import product from '../../../assets/ProductsImg/product.png';
@@ -12,9 +16,9 @@ function ProductCompare({ setProductCompare }) {
     return (
         <div className="productCompare-popup-bg">
             <Container>
-                <div className="productCompare-box bg-accent-light-color main-color m-3 fw-bold p-5">
+                <div className="productCompare-box bg-accent-light-color main-color m-3 fw-bold p-3 m-4">
                     <div className="d-flex justify-content-between">
-                        <h4>比較結果</h4>
+                        <h4 className="main-color">比較結果</h4>
                         <button
                             className="closeBtn"
                             onClick={() => {
@@ -24,7 +28,7 @@ function ProductCompare({ setProductCompare }) {
                             <img src={Close} alt="close" />
                         </button>
                     </div>
-                    <table className="m-2 table">
+                    <table className="table">
                         <thead>
                             <tr className="productCompare-tr">
                                 <th></th>
@@ -156,8 +160,8 @@ function ProductCompare({ setProductCompare }) {
                                     />
                                     <img
                                         style={{
-                                            width: '25px',
-                                            height: '25px',
+                                            width: '30px',
+                                            height: '30px',
                                         }}
                                         src={Delete}
                                         alt="delete"
@@ -176,8 +180,8 @@ function ProductCompare({ setProductCompare }) {
                                     />
                                     <img
                                         style={{
-                                            width: '25px',
-                                            height: '25px',
+                                            width: '30px',
+                                            height: '30px',
                                         }}
                                         src={Delete}
                                         alt="delete"
@@ -196,8 +200,8 @@ function ProductCompare({ setProductCompare }) {
                                     />
                                     <img
                                         style={{
-                                            width: '25px',
-                                            height: '25px',
+                                            width: '30px',
+                                            height: '30px',
                                         }}
                                         src={Delete}
                                         alt="delete"
@@ -216,8 +220,8 @@ function ProductCompare({ setProductCompare }) {
                                     />
                                     <img
                                         style={{
-                                            width: '25px',
-                                            height: '25px',
+                                            width: '30px',
+                                            height: '30px',
                                         }}
                                         src={Delete}
                                         alt="delete"
@@ -236,8 +240,8 @@ function ProductCompare({ setProductCompare }) {
                                     />
                                     <img
                                         style={{
-                                            width: '25px',
-                                            height: '25px',
+                                            width: '30px',
+                                            height: '30px',
                                         }}
                                         src={Delete}
                                         alt="delete"
@@ -256,8 +260,8 @@ function ProductCompare({ setProductCompare }) {
                                     />
                                     <img
                                         style={{
-                                            width: '25px',
-                                            height: '25px',
+                                            width: '30px',
+                                            height: '30px',
                                         }}
                                         src={Delete}
                                         alt="delete"
