@@ -11,7 +11,6 @@ import Favorite from '../../../components/Favorite';
 import product from '../../../assets/ProductsImg/product.png';
 import cartCheck from '../../../assets/ProductsImg/icon/shopping_cart_check.svg';
 import compare from '../../../assets/ProductsImg/icon/compare.svg';
-import favoriteDefault from '../../../assets/ProductsImg/icon/favorite_default.svg';
 
 function ProductsItem() {
     return (

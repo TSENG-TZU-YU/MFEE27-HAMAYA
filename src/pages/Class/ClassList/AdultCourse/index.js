@@ -10,7 +10,7 @@ import Car from '../../../../components/Car/Car';
 import Favorite from '../../../../components/Favorite';
 
 // 圖檔
-import Adult_img from '../../../../assets/ClassImg/Adult img.png';
+import Adult_img from '../../../../assets/ClassImg/images/成人大提琴課程A2.jpg';
 
 function AdultCourse(props) {
     // const [error, setError] = useState(null);
@@ -36,9 +36,10 @@ function AdultCourse(props) {
         <div>
             <Link to="detailed">
                 <div className="introduce row mx-0 mb-5 class-shadow ">
-                    <div className="d-flex col-lg-6  px-lg-0  position-relative">
+                    <div className="d-flex col-lg-6  px-lg-0  position-relative ">
                         <img
-                            className=" col-12"
+                            className=" col-12 img-fluid "
+                            style={{ height: '300px' }}
                             src={Adult_img}
                             alt="Adult img"
                         />
@@ -52,7 +53,7 @@ function AdultCourse(props) {
                         </h4>
                         <div className="vector2 me-2"></div>
                         <div className=" mt-2">
-                            <p className="text-p mb-3">
+                            <p className="class-text mb-3">
                                 這門課程希望能以我自身的鋼琴學習經驗和逾 20
                                 年的教學心得引導大家進入爵士鋼琴的世界，彈出爵士的節奏、即興與風格，ㄧ起感受爵士音樂的魅力～
                             </p>
@@ -63,13 +64,13 @@ function AdultCourse(props) {
                             <p className="mb-0">
                                 開課時間：2022/10/19 - 2022/12/10
                             </p>
-                            <div className="d-flex mt-2 align-items-center">
+                            <div className="d-flex  align-items-center">
                                 <div className="StarRating">
                                     <StarRating />
                                 </div>
                                 <p className="ms-2 mt-2 "> 2 人評價</p>
                             </div>
-                            <div className="d-flex justify-content-between align-items-center pt-1">
+                            <div className="d-flex justify-content-between align-items-center ">
                                 <h4
                                     className=" fw-bold "
                                     style={{ color: '#5b322f' }}

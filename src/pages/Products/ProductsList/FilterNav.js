@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 // 樣式
 import './styles/filterNav.scss';
 
 // 元件
 import SearchBar from '../../../components/SearchBar';
+import BreadCrumb from '../../../components/BreadCrumb/BreadCrumb';
 
 // 圖檔
 import filterIcon from '../../../assets/ProductsImg/icon/filter_alt.svg';
@@ -49,26 +51,30 @@ function FilterNav() {
             <div className="d-flex flex-row-reverse">
                 <div className="col-10 d-flex justify-content-between align-items-center">
                     {/* 麵包屑 */}
-                    <ul className="breadcrumb products-breadcrumb">
+                    <BreadCrumb />
+                    {/* 麵包屑 end */}
+                    {/* <ul className="breadcrumb products-breadcrumb">
                         <li className="breadcrumb-item">
-                            <a href="/">首頁</a>
+                            <Link to="/">首頁</Link>
                         </li>
                         <li className="breadcrumb-item">
-                            <a href="/">樂器商城 </a>
+                            <Link to="/products">樂器商城</Link>
                         </li>
-                        <li className="breadcrumb-item">琴鍵樂器</li>
-                    </ul>
+                        <Link to="/" className="breadcrumb-item">
+                            琴鍵樂器
+                        </Link>
+                    </ul> */}
                     {/* 麵包屑 end */}
 
                     {/* 進階篩選 */}
                     <div className="filter-nav d-flex position-relative">
                         <button
-                            className="products-btn-border-none main-color me-4"
+                            className="products-btn-border-none main-color me-4 p-0 d-flex"
                             onClick={toggleFilterToggled}
                         >
                             進階篩選
                             <img
-                                className="products-icon-img ms-1 mb-1"
+                                className="products-icon-img ms-1"
                                 src={filterIcon}
                                 alt="filterIcon"
                             ></img>
@@ -161,12 +167,12 @@ function FilterNav() {
                         {/* 進階篩選區塊 end */}
 
                         <button
-                            className="products-btn-border-none main-color me-4 position-relative"
+                            className="products-btn-border-none main-color me-4 position-relative p-0 d-flex"
                             onClick={toggleSortToggled}
                         >
                             商品排序
                             <img
-                                className="products-icon-img ms-1 mb-1"
+                                className="products-icon-img ms-1"
                                 src={sort}
                                 alt="sort"
                             ></img>
@@ -190,7 +196,7 @@ function FilterNav() {
                             onClick={toggleSearchToggled}
                         >
                             <img
-                                className="products-icon-img ms-1 mb-1"
+                                className="products-icon-img ms-1"
                                 src={search}
                                 alt="search"
                             ></img>

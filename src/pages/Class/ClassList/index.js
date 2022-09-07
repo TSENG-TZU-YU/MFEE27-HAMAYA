@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 // 子頁面
 import AdultCourse from './AdultCourse';
 import ChildrenCourse from './ChildrenCourse';
+import SearchBar from '../../../components/SearchBar';
 
 // 圖檔
 import filterIcon from '../../../assets/svg/filter_alt.svg';
@@ -14,19 +15,31 @@ import sort from '../../../assets/svg/sort.svg';
 import search from '../../../assets/svg/search.svg';
 
 function ClassList(props) {
+    // 課程 Toggled
     const [selectCourse, setSelectCourse] = useOutletContext();
-    console.log('classList', selectCourse);
 
-    // Toggled
+    //  篩選 Toggled
     const [filterToggled, setFilterToggled] = useState(false);
     const toggleFilterTrueFalse = () => setFilterToggled(!filterToggled);
     console.log('toggle', toggleFilterTrueFalse);
 
+    // 排序 Toggled
     const [sortToggled, setSortToggled] = useState(false);
     const toggleSortTrueFalse = () => setSortToggled(!sortToggled);
 
+    // 分頁  Toggled
     const [lastPage] = useState(3);
     const [page, setPage] = useState(3);
+
+    // 搜尋 Toggled
+    const [searchToggled, setSearchToggled] = useState(false);
+    const toggleSearchToggled = () => {
+        if (sortToggled || filterToggled) {
+            setSortToggled(false);
+            setFilterToggled(false);
+        }
+        setSearchToggled(!searchToggled);
+    };
 
     // 製作分頁按鈕
     const getPage = () => {
@@ -133,7 +146,19 @@ function ClassList(props) {
                             )}
                         </div>
                     </div>
-                    <img className="ms-5 " src={search} alt="search"></img>
+                    <button
+                        className="border-0 position-relative"
+                        onClick={toggleSearchToggled}
+                    >
+                        <img className="ms-5 " src={search} alt="search"></img>
+                    </button>
+                    {searchToggled ? (
+                        <div className=" position-absolute class-search">
+                            <SearchBar />
+                        </div>
+                    ) : (
+                        ''
+                    )}
                 </nav>
             </div>
             {/* <SliderAntd /> */}
