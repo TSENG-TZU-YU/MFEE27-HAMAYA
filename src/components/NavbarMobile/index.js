@@ -8,6 +8,7 @@ import shopping_cart from './shopping_cart.svg';
 import users from './users.svg';
 import logout from './logout.svg';
 import drop_down_menu from './drop_down_menu.svg';
+import drop_up_menu from './drop_up_menu.svg';
 import ScrollTo from '../ScrollTo';
 
 function NavbarMobile({ shoppingCart, setShoppingCart }) {
@@ -108,22 +109,22 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                                 </Link>
                                 <button
                                     onClick={() => {
-                                        if (
-                                            showSublist ===
-                                            'list-unstyled sublist'
-                                        ) {
-                                            setShowSublist(
-                                                'list-unstyled sublist show'
-                                            );
-                                        } else {
-                                            setShowSublist(
-                                                'list-unstyled sublist'
-                                            );
-                                        }
+                                        showSublist === 'list-unstyled sublist'
+                                            ? setShowSublist(
+                                                  'list-unstyled sublist show'
+                                              )
+                                            : setShowSublist(
+                                                  'list-unstyled sublist'
+                                              );
                                     }}
                                 >
                                     <img
-                                        src={drop_down_menu}
+                                        src={
+                                            showSublist ===
+                                            'list-unstyled sublist'
+                                                ? drop_down_menu
+                                                : drop_up_menu
+                                        }
                                         alt="drop_down_menu"
                                         className="drop_down_menu"
                                     />
@@ -170,22 +171,23 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                                 </Link>
                                 <button
                                     onClick={() => {
-                                        if (
-                                            showSublist02 ===
-                                            'list-unstyled sublist'
-                                        ) {
-                                            setShowSublist02(
-                                                'list-unstyled sublist show'
-                                            );
-                                        } else {
-                                            setShowSublist02(
-                                                'list-unstyled sublist'
-                                            );
-                                        }
+                                        showSublist02 ===
+                                        'list-unstyled sublist'
+                                            ? setShowSublist02(
+                                                  'list-unstyled sublist show'
+                                              )
+                                            : setShowSublist02(
+                                                  'list-unstyled sublist'
+                                              );
                                     }}
                                 >
                                     <img
-                                        src={drop_down_menu}
+                                        src={
+                                            showSublist02 ===
+                                            'list-unstyled sublist'
+                                                ? drop_down_menu
+                                                : drop_up_menu
+                                        }
                                         alt="drop_down_menu"
                                         className="drop_down_menu"
                                     />
@@ -261,22 +263,23 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                                 </Link>
                                 <button
                                     onClick={() => {
-                                        if (
-                                            showSublist03 ===
-                                            'list-unstyled sublist'
-                                        ) {
-                                            setShowSublist03(
-                                                'list-unstyled sublist show'
-                                            );
-                                        } else {
-                                            setShowSublist03(
-                                                'list-unstyled sublist'
-                                            );
-                                        }
+                                        showSublist03 ===
+                                        'list-unstyled sublist'
+                                            ? setShowSublist03(
+                                                  'list-unstyled sublist show'
+                                              )
+                                            : setShowSublist03(
+                                                  'list-unstyled sublist'
+                                              );
                                     }}
                                 >
                                     <img
-                                        src={drop_down_menu}
+                                        src={
+                                            showSublist03 ===
+                                            'list-unstyled sublist'
+                                                ? drop_down_menu
+                                                : drop_up_menu
+                                        }
                                         alt="drop_down_menu"
                                         className="drop_down_menu"
                                     />
