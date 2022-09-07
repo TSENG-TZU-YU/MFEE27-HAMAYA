@@ -71,7 +71,22 @@
     border: 0;
 } 
 
-.sublist{
+.NavbarMobile .sublist{
+    max-height: 0px;
+    overflow: hidden;
+    transition: 1s;
+}
+.NavbarMobile .sublist.show{
+    max-height: 300px;
+    
+}
+.NavbarMobile .drop_down_menu{
+    width: 25px;
+}
+.NavbarMobile .space{
+    margin-right: 35px;
+}
+/* .sublist{
     width: 100%;
     background-color: #6A777A;
     position: absolute;
@@ -88,4 +103,7 @@
 }
 .sublist.show{
     max-height: 300px;
-}
+} */
+
+
+
