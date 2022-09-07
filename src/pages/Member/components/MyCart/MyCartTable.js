@@ -12,7 +12,7 @@ function MyCartTable() {
             <table className="table m-0 myCartTable">
                 <thead>
                     <tr className="text-center accent-light-color bg-main-color">
-                        <th className="tdWidth">樂器商城</th>
+                        <th className="thWidth">樂器商城</th>
                         <th>商品名稱</th>
                         <th>價格</th>
                         <th>數量</th>
@@ -153,7 +153,7 @@ function MyCartTable() {
             <table className="table m-0 myCartTable myCartTableClass">
                 <thead>
                     <tr className="text-center accent-light-color bg-main-color">
-                        <th className="tdWidth">音樂教育</th>
+                        <th className="thWidth">音樂教育</th>
                         <th>商品名稱</th>
                         <th>價格</th>
                         <th>數量</th>

@@ -1,0 +1,15 @@
+@import '../../../../styles/global.scss';
+.myOrderIcon path{
+    fill: $main;
+}
+.myOrderIcon{
+    width: 25px;
+    height: 25px;
+}
+.thWidth{
+    width: 20%;
+}
+.myOrderImg{
+   
+    object-fit: cover;
+}
