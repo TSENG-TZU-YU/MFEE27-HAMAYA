@@ -10,7 +10,7 @@ function SearchBar() {
                 className="form-control"
                 placeholder="關鍵字搜尋"
             />
-            <span className="search-btn position-relative">
+            <span className="search-btn position-relative cursor-pointer">
                 <Search className="search-icon-color position-absolute top-50 start-50 translate-middle" />
             </span>
         </div>

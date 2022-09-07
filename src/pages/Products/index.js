@@ -12,7 +12,6 @@ import Compare from './ProductCompare';
 
 // 圖檔
 import banner from '../../assets/ProductsImg/banner.png';
-import bannerTitle from '../../assets/ProductsImg/icon/banner_title.svg';
 import compareBtn from '../../assets/ProductsImg/icon/compare_btn.svg';
 
 function Products() {
@@ -22,16 +21,7 @@ function Products() {
 
     return (
         <>
-            {/* banner */}
-            <div className="products-banner-img position-relative">
-                <img
-                    src={bannerTitle}
-                    alt="bannerTitle"
-                    className="products-banner-title position-absolute"
-                />
-                <img src={banner} alt="banner" />
-            </div>
-            {/* banner end */}
+            <img className="img-fluid" src={banner} alt="banner" />
 
             <div className="container">
                 {/* 桌機 篩選 */}
