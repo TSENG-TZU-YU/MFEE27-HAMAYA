@@ -13,14 +13,13 @@ import NavbarMobile from '../../components/NavbarMobile';
 function Header(props) {
     const [loginPopup, setLoginPopup] = useState(false);
     const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
-    const [hover, setHover] = useState('test123 main-light-color');
     return (
         <>
             <NavbarMobile
                 shoppingCart={shoppingCart}
                 setShoppingCart={setShoppingCart}
             />
-            <div className="bg-main-gary-light-color d-none d-md-block">
+            <nav className="bg-main-gary-light-color d-none d-md-block">
                 <div className="container">
                     <div className="row header-height ">
                         <div className="col-2 p-0 d-flex justify-content-center align-items-center ">
@@ -32,57 +31,145 @@ function Header(props) {
                                 />
                             </Link>
                         </div>
-                        <div className="col-8 d-flex justify-content-center align-items-center ">
-                            <div>
-                                <div className="row">
-                                    <div className="col p-0 m-1 m-lg-2 text-center header-text position-relative">
-                                        <Link
-                                            className=""
-                                            to="news"
-                                            onMouseEnter={() => {
-                                                setHover('sublist show ');
-                                            }}
-                                            onMouseLeave={() => {
-                                                setHover('sublist');
-                                            }}
-                                        >
+                        <div className="col-8 d-flex justify-content-center align-items-center position-relative">
+                            <div className="row navbar-center">
+                                <div className="col p-0 m-1 m-lg-2 text-center header-text ">
+                                    <div className="navbaritem">
+                                        <Link className="" to="news">
                                             最新消息
                                         </Link>
-                                        <div className={hover}>
-                                            <ul className="list-unstyled ">
-                                                <li><Link to="/">test01</Link></li>
-                                                <li><Link to="/">test01</Link></li>
-                                                <li><Link to="/">test01</Link></li>
-                                                <li><Link to="/">test01</Link></li>
-                                                <li><Link to="/">test01</Link></li>
-                                            </ul>
-                                        </div>
+                                        <ul className="list-unstyled  bg-main-light-color">
+                                            <li>
+                                                <Link
+                                                    to="/"
+                                                    className="accent-light-color fw-light"
+                                                >
+                                                    促銷活動
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    to="/"
+                                                    className="accent-light-color fw-light"
+                                                >
+                                                    活動快訊
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    to="/"
+                                                    className="accent-light-color fw-light"
+                                                >
+                                                    重要通知
+                                                </Link>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <Link
-                                        className="col p-0 m-1 m-lg-2 text-center header-text"
-                                        to="products"
-                                    >
-                                        樂器商城
-                                    </Link>
-                                    <Link
-                                        className="col p-0 m-1 m-lg-2 text-center header-text"
-                                        to="class"
-                                    >
-                                        音樂教育
-                                    </Link>
-                                    <Link
-                                        className="col p-0 m-1 m-lg-2 text-center header-text"
-                                        to="place"
-                                    >
-                                        場地租借
-                                    </Link>
-                                    <Link
-                                        className="p-0 m-1 m-lg-2 col text-center header-text"
-                                        to="aboutus"
-                                    >
-                                        關於我們
-                                    </Link>
                                 </div>
+                                <div className="col  p-0 m-1 m-lg-2 text-center header-text">
+                                    <div className="navbaritem">
+                                        <Link className="" to="products">
+                                            樂器商城
+                                        </Link>
+                                        <ul className="list-unstyled bg-main-light-color">
+                                            <li>
+                                                <Link
+                                                    to="/"
+                                                    className="accent-light-color fw-light"
+                                                >
+                                                    琴鍵樂器
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    to="/"
+                                                    className="accent-light-color fw-light"
+                                                >
+                                                    管樂器
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    to="/"
+                                                    className="accent-light-color fw-light"
+                                                >
+                                                    弓弦樂器
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    to="/"
+                                                    className="accent-light-color fw-light"
+                                                >
+                                                    吉他/
+                                                    <br />
+                                                    烏克麗麗
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    to="/"
+                                                    className="accent-light-color fw-light"
+                                                >
+                                                    打擊樂器
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    to="/"
+                                                    className="accent-light-color fw-light"
+                                                >
+                                                    配件
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div className="col p-0 m-1 m-lg-2 text-center header-text">
+                                    <div className="navbaritem">
+                                        <Link className="" to="class">
+                                            音樂教育
+                                        </Link>
+                                        <ul className="list-unstyled bg-main-light-color">
+                                            <li>
+                                                <Link
+                                                    to="/"
+                                                    className="accent-light-color fw-light"
+                                                >
+                                                    音樂文章
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    to="/"
+                                                    className="accent-light-color fw-light"
+                                                >
+                                                    成人課程
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    to="/"
+                                                    className="accent-light-color fw-light"
+                                                >
+                                                    兒童課程
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <Link
+                                    className="col p-0 m-1 m-lg-2 text-center header-text"
+                                    to="place"
+                                >
+                                    場地租借
+                                </Link>
+                                <Link
+                                    className="p-0 m-1 m-lg-2 col text-center header-text"
+                                    to="aboutus"
+                                >
+                                    關於我們
+                                </Link>
                             </div>
                         </div>
 
@@ -131,7 +218,7 @@ function Header(props) {
                     )}
                     <ScrollTo />
                 </div>
-            </div>
+            </nav>
             {shoppingCart ? <Cart /> : ''}
         </>
     );
