@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 // 樣式
 import './styles/productsItem.scss';
 
+// 元件
+import Favorite from '../../../components/Favorite';
+
 // 圖檔
 import product from '../../../assets/ProductsImg/product.png';
 import cartCheck from '../../../assets/ProductsImg/icon/shopping_cart_check.svg';
@@ -20,11 +23,7 @@ function ProductsItem() {
                     <img src={product} className="card-img-top" alt="product" />
                 </Link>
                 <div className="product-like position-absolute top-0 end-0">
-                    <img
-                        src={favoriteDefault}
-                        alt="favoriteDefault"
-                        className="favorite-icon me-1 icon-img"
-                    />
+                    <Favorite />
                 </div>
                 <div className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-1">
                     <img
