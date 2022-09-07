@@ -7,6 +7,7 @@ import axios from 'axios';
 // 子元件
 import StarRating from '../../../../components/Star/StarRating';
 import Car from '../../../../components/Car/Car';
+import Favorite from '../../../../components/Favorite';
 
 // 圖檔
 import Adult_img from '../../../../assets/ClassImg/Adult img.png';
@@ -34,12 +35,17 @@ function AdultCourse(props) {
     return (
         <div>
             <Link to="detailed">
-                <div className="introduce row me-0 mb-5 class-shadow">
-                    <img
-                        className="col-lg-6  px-lg-0"
-                        src={Adult_img}
-                        alt="Adult img"
-                    />
+                <div className="introduce row mx-0 mb-5 class-shadow ">
+                    <div className="d-flex col-lg-6  px-lg-0  position-relative">
+                        <img
+                            className=" col-12"
+                            src={Adult_img}
+                            alt="Adult img"
+                        />
+                        <div className="class-like px-lg-0">
+                            <Favorite />
+                        </div>
+                    </div>
                     <div className="col-lg-6  mt-3 ">
                         <h4 className="ms-1 mb-2" style={{ color: '#00323d' }}>
                             藍調與爵士鋼琴的獨奏技巧與應用
@@ -63,14 +69,16 @@ function AdultCourse(props) {
                                 </div>
                                 <p className="ms-2 mt-2 "> 2 人評價</p>
                             </div>
-                            <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">
+                            <div className="d-flex justify-content-between align-items-center pt-1">
                                 <h4
                                     className=" fw-bold "
                                     style={{ color: '#5b322f' }}
                                 >
                                     NT $2,500 / 期
                                 </h4>
-                                <Car />
+                                <div className="mb-2">
+                                    <Car />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -80,17 +88,22 @@ function AdultCourse(props) {
             {/* TODO: 圖檔無法讀取*/}
             {/* {data.map((classAdult) => {
                 return (
-                    <div key={classAdult.id} className="d-lg-flex justify-content-lg-center align-items-lg-center  mb-5">
+                    <div
+                        key={classAdult.id}
+                        className="d-lg-flex justify-content-lg-center align-items-lg-center  mb-5"
+                    >
                         <Link to="detailed ">
-                            <div
-                                
-                                className="introduce row me-0 mb-5 class-shadow"
-                            >
-                                <img
-                                    className="col-lg-6  px-lg-0"
-                                    src={Adult_img}
-                                    alt="Adult img"
-                                />
+                            <div className="introduce row mx-0 mb-5 class-shadow">
+                                <div className="d-flex col-lg-6  px-lg-0  position-relative">
+                                    <img
+                                        className=" col-12"
+                                        src={Adult_img}
+                                        alt="Adult img"
+                                    />
+                                    <div className="class-like px-lg-0">
+                                        <Favorite />
+                                    </div>
+                                </div>
                                 <div className="col-lg-6  mt-1 mb-2">
                                     <h4
                                         className="ms-1 mb-2"

@@ -1,10 +1,27 @@
 @import '../../../../styles/global.scss';
-.myCartImg {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    // border: 1px solid #ccc;//測試用記得拿掉
+@media only screen and (max-width: 768px) {
+    .myCartTable thead {
+        display: none;
+    }
+    .myCartTable td {
+        display: block;
+    }
+    .myCartTable td:before {
+        content: attr(data-title);
+        background-color: $main;
+        color: $accent-light;
+        display: block;
+        font-weight: 500;
+    }
+    .myCartTableClass td:before {
+        content: attr(data-title);
+        background-color:$accent;
+    }
 }
+.myCartPriceTitle{
+    margin-right: 20px;
+}
+
 .tdWidth {
     width: 20%;
 }
@@ -42,6 +59,6 @@
     margin-right: 13px;
 }
 
-.orderBottomLine{
+.orderBottomLine {
     border-bottom: 2px solid $accent;
 }

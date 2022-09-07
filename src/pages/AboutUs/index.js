@@ -61,7 +61,7 @@ function About(props) {
                         <h5 style={{ color: '#333333' }}>負責項目</h5>
                         <hr />
                     </div>
-                    <div className="col-md-3 col-6 mb-5">
+                    <div className="col-md-3 col-6">
                         <div className="founder"></div>
                         <h4 style={{ color: '#5b322f' }}>03 黃睿渝 技術長</h4>
                         <h5 style={{ color: '#333333' }}>負責項目</h5>
@@ -80,13 +80,13 @@ function About(props) {
                         <hr />
                     </div>
                     <div className="col-md-3 col-6 d-none d-md-block"></div>
-                    <div className="col-md-3 col-6 mt-5">
+                    <div className="col-md-3 col-6">
                         <div className="founder"></div>
                         <h4 style={{ color: '#5b322f' }}>17 温侑臻</h4>
                         <h5 style={{ color: '#333333' }}>負責項目</h5>
                         <hr />
                     </div>
-                    <div className="col-md-3 col-6 mt-5">
+                    <div className="col-md-3 col-6">
                         <div className="founder"></div>
                         <h4 style={{ color: '#5b322f' }}>27 曾子瑜</h4>
                         <h5 style={{ color: '#333333' }}>負責項目</h5>
@@ -120,10 +120,18 @@ function About(props) {
                                 歡迎來到 HAMAYA MUSIC
                                 ，若您有任何建議與諮詢，歡迎利用下方表單，我們將由專人儘快回覆您，謝謝。
                             </p>
-                            <p className="text-nowrap">*為必填項目</p>
+                            <p className="text-nowrap d-none d-md-block">
+                                *為必填項目
+                            </p>
                         </div>
                         <div className="col-12 col-md-6">
-                            <p>姓名*</p>
+                            <p className="d-flex justify-content-between">
+                                姓名*
+                                <span className="d-block d-md-none">
+                                    *為必填項目
+                                </span>
+                            </p>
+
                             <input
                                 type="text"
                                 id="fullName"

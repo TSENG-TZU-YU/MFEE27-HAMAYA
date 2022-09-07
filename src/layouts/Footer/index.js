@@ -33,14 +33,14 @@ function Footer(props) {
 
                         <div className="col-md pt-3">
                             <Link
-                                className="main-gary-light-color  word-size text-nowrap"
-                                to="product"
+                                className="main-gary-light-color  word-size text-nowrap col-md-1 "
+                                to="products"
                             >
                                 樂器商城
                             </Link>
                             <Link
-                                className="ms-1 main-gary-light-color text-nowrap word-size2 "
-                                to="product"
+                                className="main-gary-light-color text-nowrap word-size2"
+                                to="products"
                             >
                                 最新商品
                             </Link>

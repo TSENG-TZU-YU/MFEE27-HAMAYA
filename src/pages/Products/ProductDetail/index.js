@@ -11,6 +11,7 @@ import ToShareCollect from '../../../components/ToShare';
 import ProductsItem from '../ProductsList/ProductsItem';
 import Compare from '../ProductCompare';
 import Carousel from '../../../components/Carousel/Carousel';
+import BreadCrumb from '../../../components/BreadCrumb/BreadCrumb';
 
 // 圖檔
 import { productImages } from '../../../assets/ProductsImg';
@@ -28,7 +29,9 @@ function Product() {
         <>
             <Container>
                 {/* 麵包屑 */}
-                <ul className="breadcrumb products-breadcrumb">
+                <BreadCrumb />
+                {/* 麵包屑 end */}
+                {/* <ul className="breadcrumb products-breadcrumb">
                     <li className="breadcrumb-item">
                         <a href="/">首頁</a>
                     </li>
@@ -39,7 +42,7 @@ function Product() {
                         <a href="/">琴鍵樂器 </a>
                     </li>
                     <li className="breadcrumb-item">YAMAHA U系列 U1</li>
-                </ul>
+                </ul> */}
                 {/* 麵包屑 end */}
 
                 <Row className="mt-5">

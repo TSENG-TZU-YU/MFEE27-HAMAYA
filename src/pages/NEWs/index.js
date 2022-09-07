@@ -1,12 +1,20 @@
 import React from 'react';
 import './index.scss';
-
 import { Link } from 'react-router-dom';
+
+// 圖檔
 import NewsBanner from '../../assets/NewsImg/news-banner.jpg';
 import NewsImg from '../../assets/NewsImg/news-img.png';
 import NewsImg2 from '../../assets/NewsImg/news-img2.png';
 import NewsImg3 from '../../assets/NewsImg/news-img3.png';
+import arrow from '../../assets/svg/arrow_back_ios_new.svg';
 import NewsImg4 from '../../assets/NewsImg/news-img4.png';
+import NewsImg5 from '../../assets/NewsImg/news-img5.png';
+import NewsImg6 from '../../assets/NewsImg/news-img6.png';
+import NewsImg7 from '../../assets/NewsImg/news-img7.png';
+import NewsImg8 from '../../assets/NewsImg/news-img8.png';
+import NewsImg9 from '../../assets/NewsImg/news-img9.png';
+import NewsImg10 from '../../assets/NewsImg/news-img10.png';
 
 function NEWs(props) {
     return (
@@ -40,7 +48,7 @@ function NEWs(props) {
                                 src={NewsImg}
                                 alt="banner"
                                 width="600"
-                                height="400"
+                                height="100%"
                                 className="img-fluid mt-2"
                             />
                             <p className="gary-dark-color h5 News-cursor-pinter mt-3">
@@ -116,27 +124,159 @@ function NEWs(props) {
                                     </div>
                                 </p>
                             </div>
-                            <div className="border-top border-secondary border-1  mt-4 mb-3"></div>
+                            <div className="border-top border-secondary border-1 mt-4 mb-3"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="container">
-                <div className=" row text-center ">
-                    <p className="col-3">促銷活動</p>
-                    <p className="col-3">活動快訊</p>
-                    <p className="col-3">重要通知</p>
-                    <p className="col-3">音樂文章</p>
+                <div className="container News-more-art ">
+                    <p className="mb-0 me-1 cursor-pinter">看更多音樂文章</p>
+                    <img
+                        className="News-art-arrow"
+                        style={{ width: '15px', height: '15px' }}
+                        src={arrow}
+                        alt="arrow"
+                    />
                 </div>
             </div>
+
             <div className="container">
-                <div className="row ">
-                    <div className="col-md-4 col-12">8</div>
-                    <div className="col-md-4 col-12">5</div>
-                    <div className="col-md-4 col-12">7</div>
-                    <div className="col-md-4 col-12">10</div>
-                    <div className="col-md-4 col-12">11</div>
-                    <div className="col-md-4 col-12">12</div>
+                <div className="row text-center ">
+                    <button className="col-3 News-word3  News-vector5-Btn News-vector5-Btn-active">
+                        促銷活動
+                    </button>
+                    <button className="col-3 News-word3  News-vector5-Btn">
+                        活動快訊
+                    </button>
+                    <button className="col-3 News-word3  News-vector5-Btn">
+                        重要通知
+                    </button>
+                    <button className="col-3 News-word3  News-vector5-Btn">
+                        音樂文章
+                    </button>
+                </div>
+            </div>
+            <div className="container ">
+                <div className="row  News-articles">
+                    <div className="col-12 col-md-4 ">
+                        <div className="mt-2 ">
+                            <img
+                                src={NewsImg5}
+                                alt="art02"
+                                width="100%"
+                                height="100%"
+                                className="News-imgs"
+                            />
+                            <p className="gary-dark-color h6 News-cursor-pinter mt-2">
+                                買樂器就交給最專業的HAMAYA吧！
+                                <div className=" d-flex mt-2 ">
+                                    <p className="News-music-article4 small News-label">
+                                        促銷活動
+                                    </p>
+                                    <p className="ms-2">May － 2022/08/20</p>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-4  ">
+                        <div className="mt-2">
+                            <img
+                                src={NewsImg6}
+                                alt="art02"
+                                width="100%"
+                                height="100%"
+                                className="News-imgs"
+                            />
+                            <p className="gary-dark-color h6 News-cursor-pinter mt-2 ">
+                                樂時代～報名課程拿好康 Let's Music！
+                                <div className="d-flex mt-2 ">
+                                    <p className="News-music-article4 small News-label">
+                                        促銷活動
+                                    </p>
+                                    <p className="ms-2">May － 2022/08/20</p>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-4  ">
+                        <div className="mt-2">
+                            <img
+                                src={NewsImg7}
+                                alt="art02"
+                                width="100%"
+                                height="100%"
+                                className="News-imgs"
+                            />
+                            <p className="gary-dark-color h6 News-cursor-pinter mt-2">
+                                學員專屬生日活動！
+                                <div className="d-flex mt-2 ">
+                                    <p className="News-music-article4 small News-label">
+                                        促銷活動
+                                    </p>
+                                    <p className="ms-2">May － 2022/08/20</p>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div className="col-md-4 col-12">
+                        <div className="mt-2">
+                            <img
+                                src={NewsImg8}
+                                alt="art02"
+                                width="100%"
+                                height="100%"
+                                className="News-imgs"
+                            />
+                            <p className="gary-dark-color h6 News-cursor-pinter me-1 mt-2">
+                                買樂器就交給最專業的HAMAYA吧！
+                                <div className="d-flex mt-2 ">
+                                    <p className="News-music-article4 small">
+                                        促銷活動
+                                    </p>
+                                    <p className="ms-2">May － 2022/08/20</p>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div className="col-md-4 col-12">
+                        <div className="mt-2">
+                            <img
+                                src={NewsImg9}
+                                alt="art02"
+                                width="100%"
+                                height="100%"
+                                className="News-imgs"
+                            />
+                            <p className="gary-dark-color h6 News-cursor-pinter me-1 mt-2 ">
+                                樂時代～報名課程拿好康 Let's Music！
+                                <div className="d-flex mt-2 ">
+                                    <p className="News-music-article4 small">
+                                        促銷活動
+                                    </p>
+                                    <p className="ms-2">May － 2022/08/20</p>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div className="col-md-4 col-12">
+                        <div className="mt-2">
+                            <img
+                                src={NewsImg10}
+                                alt="art02"
+                                width="100%"
+                                height="100%"
+                                className="News-imgs"
+                            />
+                            <p className="gary-dark-color h6 News-cursor-pinter me-1 mt-2 ">
+                                學員專屬生日活動！
+                                <div className="d-flex mt-2 ">
+                                    <p className="News-music-article4 small">
+                                        促銷活動
+                                    </p>
+                                    <p className="ms-2">May － 2022/08/20</p>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
