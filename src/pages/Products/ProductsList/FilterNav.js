@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 // 樣式
 import './styles/filterNav.scss';
 
+// 元件
+import SearchBar from '../../../components/SearchBar';
+
 // 圖檔
 import filterIcon from '../../../assets/ProductsImg/icon/filter_alt.svg';
 import sort from '../../../assets/ProductsImg/icon/sort.svg';
@@ -168,10 +171,11 @@ function FilterNav() {
 
                         <button className="products-btn-border-none">
                             <img
-                                className="products-icon-img ms-1 mb-1"
+                                className="products-icon-img ms-1 mb-1 position-relative"
                                 src={search}
                                 alt="search"
                             ></img>
+                            <SearchBar className="position-absolute" />
                         </button>
                     </div>
                 </div>
