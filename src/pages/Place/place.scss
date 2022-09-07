@@ -6,7 +6,6 @@
 
 
 
-
 .vector3 {
   border-top: 3px solid $gary-light;
   border-width: 100%;
@@ -25,6 +24,7 @@
 }
 .intro1 p {
   color:white;
+  margin: 10px auto;
 }
 .intro1 h6 {
   color:white;
@@ -75,4 +75,149 @@
 }
 .formitem{
   color: $gary-dark;;
+}
+
+
+.studioADIV{
+ min-height: 300px;
+}
+.studioA01{
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  transition: 1s ;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.studioA01.hover{
+  opacity: 1;
+}
+.studioA02{
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: 1s ;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.studioA02.hover{
+  opacity: 1;
+}
+.studioA03{
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: 1s ;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.studioA03.hover{
+  opacity: 1;
+}
+
+
+.studioB{
+  min-height: 300px;
+}
+.studioBDIV{
+  display: flex;
+  justify-content:end;
+}
+
+.studioB01{
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  transition: 1s ;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.studioB01.hover{
+  opacity: 1;
+}
+.studioB02{
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: 1s ;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.studioB02.hover{
+  opacity: 1;
+}
+
+
+.studioCDIV{
+  min-height: 300px;
+}
+.studioC01{
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  transition: 1s ;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.studioC01.hover{
+  opacity: 1;
+}
+.studioC02{
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: 1s ;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.studioC02.hover{
+  opacity: 1;
+}
+
+@media screen and (max-width:1400px) {
+  //xxl
+}
+@media screen and (max-width:1200px) {
+  //xl
+}
+@media screen and (max-width:992px) {
+  //lg
+  .place p{
+    font-size: 14px;
+  }
+  .place h6{
+    font-size: 16px;
+  }
+  .intro1,.intro2,.intro3{
+    padding: 15px;
+  }
+
+}
+@media screen and (max-width:768px) {
+  //md
+  .studioBDIV{
+  display: flex;
+  justify-content:start;
+  }
+  .reservation{
+  font-size: 20px;
+  margin: 0;
+  }
+}
+@media screen and (max-width:576px) {
+  //sm
 }
