@@ -56,10 +56,15 @@ function MyCartTable() {
                                 </div>
                             </div>
                         </td>
-                        <td align="center" valign="middle">
-                            <div className="gary-dark ">NT $100000</div>
+                        <td align="center" className="align-middle">
+                            <div className="gary-dark">
+                                <span className="d-md-none myCartPriceTitle accent-color">
+                                    <b>價錢：</b>
+                                </span>
+                                <span>NT $100000</span>
+                            </div>
                         </td>
-                        <td align="center" valign="middle">
+                        <td align="center" className="align-middle">
                             <div className="d-inline-block">
                                 <button className="btn border-0">
                                     <RiSubtractFill size="20" />
@@ -70,8 +75,13 @@ function MyCartTable() {
                                 </button>
                             </div>
                         </td>
-                        <td align="center" valign="middle">
-                            <div className="gary-dark ">NT $100000</div>
+                        <td align="center" className="align-middle ">
+                            <div className="gary-dark">
+                                <span className="d-md-none myCartPriceTitle accent-color">
+                                    <b>小計：</b>
+                                </span>
+                                <span>NT $100000</span>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -94,8 +104,8 @@ function MyCartTable() {
                                 </div>
                             </div>
                         </td>
-                        <td align="center" data-title="商品名稱">
-                            <div className="d-flex flex-column align-items-md-start pt-2">
+                        <td align="center">
+                            <div className="d-flex flex-column align-items-md-start pt-md-2">
                                 <span className="p main-color">
                                     <b> YAMAHA U系列 U1</b>
                                 </span>
@@ -110,13 +120,16 @@ function MyCartTable() {
                                 </div>
                             </div>
                         </td>
-                        <td align="center" valign="middle" data-title="價錢">
-                            <div className="gary-dark pt-2 pt-md-0">
-                                NT $100000
+                        <td align="center" className="align-middle">
+                            <div className="gary-dark">
+                                <span className="d-md-none myCartPriceTitle accent-color">
+                                    <b>價錢：</b>
+                                </span>
+                                <span>NT $100000</span>
                             </div>
                         </td>
-                        <td align="center" valign="middle" data-title="數量">
-                            <div className="d-inline-block pt-2 pt-md-0">
+                        <td align="center" className="align-middle">
+                            <div className="d-inline-block">
                                 <button className="btn border-0">
                                     <RiSubtractFill size="20" />
                                 </button>
@@ -126,15 +139,18 @@ function MyCartTable() {
                                 </button>
                             </div>
                         </td>
-                        <td align="center" valign="middle" data-title="小計">
-                            <div className="gary-dark pt-2 pt-md-0">
-                                NT $100000
+                        <td align="center" className="align-middle ">
+                            <div className="gary-dark">
+                                <span className="d-md-none myCartPriceTitle accent-color">
+                                    <b>小計：</b>
+                                </span>
+                                <span>NT $100000</span>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <table className="table m-0 myCartTable">
+            <table className="table m-0 myCartTable myCartTableClass">
                 <thead>
                     <tr className="text-center accent-light-color bg-main-color">
                         <th className="tdWidth">音樂教育</th>
@@ -165,8 +181,8 @@ function MyCartTable() {
                                 </div>
                             </div>
                         </td>
-                        <td align="center" data-title="課程名稱">
-                            <div className="d-flex flex-column align-items-md-start pt-2">
+                        <td align="center">
+                            <div className="d-flex flex-column align-items-md-start pt-md-2">
                                 <span className="p main-color">
                                     <b> YAMAHA U系列 U1</b>
                                 </span>
@@ -180,13 +196,16 @@ function MyCartTable() {
                                 </div>
                             </div>
                         </td>
-                        <td align="center" valign="middle" data-title="價錢">
-                            <div className="gary-dark pt-2 pt-md-0">
-                                NT $100000
+                        <td align="center" className="align-middle">
+                            <div className="gary-dark">
+                                <span className="d-md-none myCartPriceTitle accent-color">
+                                    <b>價錢：</b>
+                                </span>
+                                <span>NT $100000</span>
                             </div>
                         </td>
-                        <td align="center" valign="middle" data-title="數量">
-                            <div className="d-inline-block pt-2 pt-md-0">
+                        <td align="center" className="align-middle">
+                            <div className="d-inline-block">
                                 <button className="btn border-0">
                                     <RiSubtractFill size="20" />
                                 </button>
@@ -196,9 +215,12 @@ function MyCartTable() {
                                 </button>
                             </div>
                         </td>
-                        <td align="center" valign="middle" data-title="小計">
-                            <div className="gary-dark pt-2 pt-md-0">
-                                NT $100000
+                        <td align="center" className="align-middle ">
+                            <div className="gary-dark">
+                                <span className="d-md-none myCartPriceTitle accent-color">
+                                    <b>小計：</b>
+                                </span>
+                                <span>NT $100000</span>
                             </div>
                         </td>
                     </tr>
@@ -222,8 +244,8 @@ function MyCartTable() {
                                 </div>
                             </div>
                         </td>
-                        <td align="center" data-title="課程名稱">
-                            <div className="d-flex flex-column align-items-md-start pt-2">
+                        <td align="center">
+                            <div className="d-flex flex-column align-items-md-start pt-md-2">
                                 <span className="p main-color">
                                     <b> YAMAHA U系列 U1</b>
                                 </span>
@@ -237,13 +259,16 @@ function MyCartTable() {
                                 </div>
                             </div>
                         </td>
-                        <td align="center" valign="middle" data-title="價錢">
-                            <div className="gary-dark pt-2 pt-md-0">
-                                NT $100000
+                        <td align="center" className="align-middle">
+                            <div className="gary-dark">
+                                <span className="d-md-none myCartPriceTitle accent-color">
+                                    <b>價錢：</b>
+                                </span>
+                                <span>NT $100000</span>
                             </div>
                         </td>
-                        <td align="center" valign="middle" data-title="數量">
-                            <div className="d-inline-block pt-2 pt-md-0">
+                        <td align="center" className="align-middle">
+                            <div className="d-inline-block">
                                 <button className="btn border-0">
                                     <RiSubtractFill size="20" />
                                 </button>
@@ -253,9 +278,12 @@ function MyCartTable() {
                                 </button>
                             </div>
                         </td>
-                        <td align="center" valign="middle" data-title="小計">
-                            <div className="gary-dark pt-2 pt-md-0">
-                                NT $100000
+                        <td align="center" className="align-middle ">
+                            <div className="gary-dark">
+                                <span className="d-md-none myCartPriceTitle accent-color">
+                                    <b>小計：</b>
+                                </span>
+                                <span>NT $100000</span>
                             </div>
                         </td>
                     </tr>

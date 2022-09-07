@@ -3,10 +3,6 @@
     .myCartTable thead {
         display: none;
     }
-    .myCartTable tr:nth-child(even) td:before {
-        // background: $gary-light;
-        // color: $main;
-    }
     .myCartTable td {
         display: block;
     }
@@ -16,22 +12,16 @@
         color: $accent-light;
         display: block;
         font-weight: 500;
-        // padding: 1px 0;
     }
-    .myCartImg {
-        // width: 200px;
-        height: 100px;
-        // object-fit: contain;
-        // border: 1px solid #ccc;//測試用記得拿掉
+    .myCartTableClass td:before {
+        content: attr(data-title);
+        background-color:$accent;
     }
+}
+.myCartPriceTitle{
+    margin-right: 20px;
 }
 
-.myCartImg {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    // border: 1px solid #ccc;//測試用記得拿掉
-}
 .tdWidth {
     width: 20%;
 }
