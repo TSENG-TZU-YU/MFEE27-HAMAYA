@@ -8,9 +8,6 @@ import { Link } from 'react-router-dom';
 import AdultCourse from './AdultCourse';
 import ChildrenCourse from './ChildrenCourse';
 
-// 元件
-import SliderAntd from '../../../components/SliderAntd';
-
 // 圖檔
 import filterIcon from '../../../assets/svg/filter_alt.svg';
 import sort from '../../../assets/svg/sort.svg';
@@ -103,7 +100,7 @@ function ClassList(props) {
                                     >
                                         價格
                                     </p>
-                                    <SliderAntd />
+
                                     <button className="filter-btn-class mt-3 mb-3">
                                         篩選
                                     </button>

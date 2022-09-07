@@ -9,7 +9,10 @@ import { ReactComponent as HeartFill } from '../../assets/svg/favorite_check.svg
 
 function Favorite() {
     const [favoriteToggled, setFavorite] = useState(false);
-    const toggle = () => setFavorite(!favoriteToggled);
+    const toggle = (e) => {
+        e.preventDefault();
+        setFavorite(!favoriteToggled);
+    };
     return (
         <div className="favorite-box bg-accent-light-color rounded-circle position-relative">
             {favoriteToggled ? (
