@@ -78,121 +78,53 @@
 }
 
 
-.studioADIV{
- min-height: 300px;
+.studioImgDIV{
+  //  min-height: 300px;
+  //  相片比例
+  aspect-ratio: 4 / 3;
 }
-.studioA01{
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 1;
-  transition: 1s ;
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
-}
-.studioA01.hover{
-  opacity: 1;
-}
-.studioA02{
+.studio{
   position: absolute;
   top: 0;
   left: 0;
   opacity: 0;
   transition: 1s ;
-  object-fit: cover;
+  object-fit:cover;
   height: 100%;
   width: 100%;
 }
-.studioA02.hover{
-  opacity: 1;
-}
-.studioA03{
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  transition: 1s ;
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
-}
-.studioA03.hover{
+.studio.hover{
   opacity: 1;
 }
 
-
-.studioB{
-  min-height: 300px;
-}
-.studioBDIV{
+.studioBMinImg{
   display: flex;
   justify-content:end;
 }
 
-.studioB01{
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 1;
-  transition: 1s ;
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
+.studioBtn img{
+  width: 60px;
+  height: 60px;
 }
-.studioB01.hover{
-  opacity: 1;
+.studioBtn{
+  border: 0;
+  // transition: 0.5s;
+  // border-radius: 5px;
+  box-sizing: border-box;
 }
-.studioB02{
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  transition: 1s ;
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
-}
-.studioB02.hover{
-  opacity: 1;
+.studioBtn.hover{
+  border: 4px solid rgb(77, 166, 255)
 }
 
-
-.studioCDIV{
-  min-height: 300px;
-}
-.studioC01{
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 1;
-  transition: 1s ;
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
-}
-.studioC01.hover{
-  opacity: 1;
-}
-.studioC02{
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  transition: 1s ;
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
-}
-.studioC02.hover{
-  opacity: 1;
-}
 
 @media screen and (max-width:1400px) {
   //xxl
 }
 @media screen and (max-width:1200px) {
   //xl
+  .studioImgDIV{
+    aspect-ratio: 1 / 1;
+  }
 }
 @media screen and (max-width:992px) {
   //lg
@@ -209,13 +141,16 @@
 }
 @media screen and (max-width:768px) {
   //md
-  .studioBDIV{
+  .studioBMinImg{
   display: flex;
   justify-content:start;
   }
   .reservation{
   font-size: 20px;
   margin: 0;
+  }
+  .studioImgDIV{
+    aspect-ratio: 4 / 3;
   }
 }
 @media screen and (max-width:576px) {

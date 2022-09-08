@@ -19,13 +19,12 @@ import studioC01min from '../../assets/PlaceImg/studioC01min.jpg';
 import studioC02min from '../../assets/PlaceImg/studioC02min.jpg';
 
 function Place(props) {
-    const [studioA01Hover, setStudioA01Hover] = useState('studioA01');
-    const [studioA02Hover, setStudioA02Hover] = useState('studioA02');
-    const [studioA03Hover, setStudioA03Hover] = useState('studioA03');
-    const [studioB01Hover, setStudioB01Hover] = useState('studioB01');
-    const [studioB02Hover, setStudioB02Hover] = useState('studioB02');
-    const [studioC01Hover, setStudioC01Hover] = useState('studioC01');
-    const [studioC02Hover, setStudioC02Hover] = useState('studioC02');
+    const [studioAImg, setStudioAImg] = useState('studioA01');
+    const [studioBImg, setStudioBImg] = useState('studioB01');
+    const [studioCImg, setStudioCImg] = useState('studioC01');
+    const [studioAImgBtn, setStudioAImgBtn] = useState('studioA01');
+    const [studioBImgBtn, setStudioBImgBtn] = useState('studioB01');
+    const [studioCImgBtn, setStudioCImgBtn] = useState('studioC01');
     return (
         <>
             <div className="p-0">
@@ -64,22 +63,36 @@ function Place(props) {
                                 Studio-A 錄音室
                             </h5>
                         </div>
-                        <div className="col-12 col-md-6 order-1 position-relative studioADIV">
-                            <img
-                                src={studioA01}
-                                alt="studioA01"
-                                className={studioA01Hover}
-                            />
-                            <img
-                                src={studioA02}
-                                alt="studioA02"
-                                className={studioA02Hover}
-                            />
-                            <img
-                                src={studioA03}
-                                alt="studioA03"
-                                className={studioA03Hover}
-                            />
+                        <div className="col-12 col-md-6 order-1 ">
+                            <div className="position-relative p-3 studioImgDIV">
+                                <img
+                                    src={studioA01}
+                                    alt="studioA01"
+                                    className={
+                                        studioAImg === 'studioA01'
+                                            ? 'studio hover'
+                                            : 'studio'
+                                    }
+                                />
+                                <img
+                                    src={studioA02}
+                                    alt="studioA02"
+                                    className={
+                                        studioAImg === 'studioA02'
+                                            ? 'studio hover'
+                                            : 'studio'
+                                    }
+                                />
+                                <img
+                                    src={studioA03}
+                                    alt="studioA03"
+                                    className={
+                                        studioAImg === 'studioA03'
+                                            ? 'studio hover'
+                                            : 'studio'
+                                    }
+                                />
+                            </div>
                         </div>
                         <div className="col-12 col-md-6 order-3 order-md-2">
                             <h4 className="item1 d-flex justify-content-end d-none d-md-block">
@@ -103,36 +116,51 @@ function Place(props) {
                         </div>
                         <div className="col-12 col-md-6 d-none d-md-block order-3"></div>
                         <div className="col-12 col-md-6 order-2 order-md-4">
-                            <button className="border-0 my-2">
+                            <button
+                                className={
+                                    studioAImgBtn === 'studioA01'
+                                        ? 'p-0 m-1 studioBtn hover'
+                                        : 'p-0 m-1 studioBtn '
+                                }
+                            >
                                 <img
                                     src={studioA01min}
                                     alt="studioA01min"
                                     onClick={() => {
-                                        setStudioA01Hover('studioA01 hover');
-                                        setStudioA02Hover('studioA02');
-                                        setStudioA03Hover('studioA03');
+                                        setStudioAImg('studioA01');
+                                        setStudioAImgBtn('studioA01');
                                     }}
                                 />
                             </button>
-                            <button className="border-0 my-2">
+                            <button
+                                className={
+                                    studioAImgBtn === 'studioA02'
+                                        ? 'p-0 m-1 studioBtn hover'
+                                        : 'p-0 m-1 studioBtn '
+                                }
+                            >
                                 <img
                                     src={studioA02min}
                                     alt="studioA02min"
                                     onClick={() => {
-                                        setStudioA01Hover('studioA01');
-                                        setStudioA02Hover('studioA02 hover');
-                                        setStudioA03Hover('studioA03');
+                                        setStudioAImg('studioA02');
+                                        setStudioAImgBtn('studioA02');
                                     }}
                                 />
                             </button>
-                            <button className="border-0 my-2">
+                            <button
+                                className={
+                                    studioAImgBtn === 'studioA03'
+                                        ? 'p-0 m-1 studioBtn hover'
+                                        : 'p-0 m-1 studioBtn'
+                                }
+                            >
                                 <img
                                     src={studioA03min}
                                     alt="studioA03min"
                                     onClick={() => {
-                                        setStudioA01Hover('studioA01');
-                                        setStudioA02Hover('studioA02');
-                                        setStudioA03Hover('studioA03 hover');
+                                        setStudioAImg('studioA03');
+                                        setStudioAImgBtn('studioA03');
                                     }}
                                 />
                             </button>
@@ -167,37 +195,59 @@ function Place(props) {
                             </div>
                         </div>
                         <div></div>
-                        <div className="col-12 col-md-6 order-1 order-md-2 position-relative studioB">
-                            <img
-                                src={studioB01}
-                                alt="studioB01"
-                                className={studioB01Hover}
-                            />
-                            <img
-                                src={studioB02}
-                                alt="studioB02"
-                                className={studioB02Hover}
-                            />
+                        <div className="col-12 col-md-6 order-1 order-md-2 ">
+                            <div className="position-relative p-3 studioImgDIV">
+                                <img
+                                    src={studioB01}
+                                    alt="studioB01"
+                                    className={
+                                        studioBImg === 'studioB01'
+                                            ? 'studio hover'
+                                            : 'studio'
+                                    }
+                                />
+                                <img
+                                    src={studioB02}
+                                    alt="studioB02"
+                                    className={
+                                        studioBImg === 'studioB02'
+                                            ? 'studio hover'
+                                            : 'studio'
+                                    }
+                                />
+                            </div>
                         </div>
                         <div className="col-12 col-md-6 order-md-4 d-none d-md-block"></div>
-                        <div className="col-12 col-md-6 order-md-3 order-2 studioBDIV">
-                            <button className="border-0 my-2">
+                        <div className="col-12 col-md-6 order-md-3 order-2 studioBMinImg">
+                            <button
+                                className={
+                                    studioBImgBtn === 'studioB01'
+                                        ? 'p-0 m-1 studioBtn hover'
+                                        : 'p-0 m-1 studioBtn '
+                                }
+                            >
                                 <img
                                     src={studioB01min}
                                     alt="studioB01min"
                                     onClick={() => {
-                                        setStudioB01Hover('studioB01 hover');
-                                        setStudioB02Hover('studioB02');
+                                        setStudioBImg('studioB01');
+                                        setStudioBImgBtn('studioB01');
                                     }}
                                 />
                             </button>
-                            <button className="border-0 my-2">
+                            <button
+                                className={
+                                    studioBImgBtn === 'studioB02'
+                                        ? 'p-0 m-1 studioBtn hover'
+                                        : 'p-0 m-1 studioBtn '
+                                }
+                            >
                                 <img
                                     src={studioB02min}
                                     alt="studioB02min"
                                     onClick={() => {
-                                        setStudioB01Hover('studioB01');
-                                        setStudioB02Hover('studioB02  hover');
+                                        setStudioBImg('studioB02');
+                                        setStudioBImgBtn('studioB02');
                                     }}
                                 />
                             </button>
@@ -212,17 +262,27 @@ function Place(props) {
                                 Studio-C 小型展演空間
                             </h5>
                         </div>
-                        <div className="col-12 col-md-6 order-1 position-relative studioCDIV">
-                            <img
-                                src={studioC01}
-                                alt="studioC01"
-                                className={studioC01Hover}
-                            />
-                            <img
-                                src={studioC02}
-                                alt="studioC02"
-                                className={studioC02Hover}
-                            />
+                        <div className="col-12 col-md-6 order-1 ">
+                            <div className="position-relative p-3 studioImgDIV">
+                                <img
+                                    src={studioC01}
+                                    alt="studioC01"
+                                    className={
+                                        studioCImg === 'studioC01'
+                                            ? 'studio hover'
+                                            : 'studio'
+                                    }
+                                />
+                                <img
+                                    src={studioC02}
+                                    alt="studioC02"
+                                    className={
+                                        studioCImg === 'studioC02'
+                                            ? 'studio hover'
+                                            : 'studio'
+                                    }
+                                />
+                            </div>
                         </div>
                         <div className=" col-12 col-md-6 order-3 order-md-2">
                             <h4 className="item3 d-flex justify-content-end d-none d-md-block">
@@ -251,23 +311,35 @@ function Place(props) {
                         </div>
                         <div className="col-12 col-md-6 order-3 d-none d-md-block"></div>
                         <div className="col-12 col-md-6 order-2 order-md-4">
-                            <button className="border-0 my-2">
+                            <button
+                                className={
+                                    studioCImgBtn === 'studioC01'
+                                        ? 'p-0 m-1 studioBtn hover'
+                                        : 'p-0 m-1 studioBtn'
+                                }
+                            >
                                 <img
                                     src={studioC01min}
                                     alt="studioC01min"
                                     onClick={() => {
-                                        setStudioC01Hover('studioC01 hover');
-                                        setStudioC02Hover('studioC02');
+                                        setStudioCImg('studioC01');
+                                        setStudioCImgBtn('studioC01');
                                     }}
                                 />
                             </button>
-                            <button className="border-0 my-2">
+                            <button
+                                className={
+                                    studioCImgBtn === 'studioC02'
+                                        ? 'p-0 m-1 studioBtn hover'
+                                        : 'p-0 m-1 studioBtn'
+                                }
+                            >
                                 <img
                                     src={studioC02min}
                                     alt="studioC02min"
                                     onClick={() => {
-                                        setStudioC01Hover('studioC01');
-                                        setStudioC02Hover('studioC02 hover');
+                                        setStudioCImg('studioC02');
+                                        setStudioCImgBtn('studioC02');
                                     }}
                                 />
                             </button>
