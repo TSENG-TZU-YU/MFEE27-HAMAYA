@@ -1,6 +1,7 @@
 import React from 'react';
 import './place.scss';
 import { useState } from 'react';
+import axios from 'axios';
 
 import banner from '../../assets/PlaceImg/banner.png';
 import studioA01 from '../../assets/PlaceImg/studioA01.jpg';
@@ -19,12 +20,32 @@ import studioC01min from '../../assets/PlaceImg/studioC01min.jpg';
 import studioC02min from '../../assets/PlaceImg/studioC02min.jpg';
 
 function Place(props) {
+    // 照片輪播
     const [studioAImg, setStudioAImg] = useState('studioA01');
     const [studioBImg, setStudioBImg] = useState('studioB01');
     const [studioCImg, setStudioCImg] = useState('studioC01');
     const [studioAImgBtn, setStudioAImgBtn] = useState('studioA01');
     const [studioBImgBtn, setStudioBImgBtn] = useState('studioB01');
     const [studioCImgBtn, setStudioCImgBtn] = useState('studioC01');
+
+    // 表單
+    const [rent, setRent] = useState({
+        fullName: '桐谷和人',
+        user_id: '',
+        usedate: '2022-10-05',
+        time: '13:30:00',
+        phone: '0912348763',
+        usercount: '4',
+        email: 'kirito@gmail.com',
+        item: '',
+        comment: 'C8763',
+    });
+    const fieldChange = (e) => {
+        const newRent = { ...rent, [e.target.name]: e.target.value };
+
+        setRent(newRent);
+    };
+
     return (
         <>
             <div className="p-0">
@@ -348,7 +369,7 @@ function Place(props) {
                 </div>
             </div>
             <div className="bg-main-gary-light-color">
-                <div className="container mt-5">
+                <div className="container mt-5 placeform">
                     <div className="d-flex pt-4 align-items-center">
                         <h4
                             className="me-2 text-nowrap"
@@ -370,62 +391,111 @@ function Place(props) {
                             <p>姓名</p>
                             <input
                                 type="text"
-                                id="fullName"
+                                name="fullName"
+                                value={rent.fullName}
                                 placeholder="請輸入姓名"
+                                onChange={fieldChange}
                                 className="w-100"
                             />
                         </div>
                         <div className="col-12 col-md-6">
                             <p>使用日期</p>
-                            <input type="date" id="usedate" className="w-100" />
+                            <input
+                                type="date"
+                                name="usedate"
+                                value={rent.usedate}
+                                onChange={fieldChange}
+                                className="w-100"
+                            />
                         </div>
                         <div className="col-12 col-md-6">
                             <p>聯絡電話</p>
                             <input
-                                type="phone"
-                                id="phone"
+                                type="text"
+                                name="phone"
+                                value={rent.phone}
+                                onChange={fieldChange}
                                 placeholder="請輸入電話/手機"
                                 className="w-100"
                             />
                         </div>
                         <div className="col-12 col-md-6">
                             <p>使用時間</p>
-                            <input type="time" id="usetime" className="w-100" />
+                            <input
+                                type="time"
+                                name="usetime"
+                                value={rent.time}
+                                onChange={fieldChange}
+                                className="w-100"
+                            />
                         </div>
                         <div className="col-12 col-md-6">
                             <p>信箱</p>
                             <input
                                 type="mail"
-                                id="mail"
+                                name="mail"
+                                value={rent.email}
+                                onChange={fieldChange}
                                 placeholder="請輸入信箱"
                                 className="w-100"
                             />
                         </div>
                         <div className="col-12 col-md-6">
                             <p>使用人數</p>
-                            <input type="number" id="users" className="w-100" />
+                            <input
+                                type="number"
+                                name="users"
+                                value={rent.usercount}
+                                onChange={fieldChange}
+                                className="w-100"
+                            />
                             {/* 設定不可為0&負 */}
                         </div>
                         <div className="col-12">
                             <p>租借項目</p>
-                            <select id="cate-select" className="w-100">
-                                <option value="">studio A 錄音室</option>
-                                <option value="">studio B 練團室</option>
-                                <option value="">studio C 小型展演空間</option>
+                            <select
+                                name="cate-select"
+                                className="w-100"
+                                value={rent.item}
+                            >
+                                <option value="">請選擇場地</option>
+                                <option value="studio A">
+                                    studio A 錄音室
+                                </option>
+                                <option value="studio B">
+                                    studio B 練團室
+                                </option>
+                                <option value="studio C">
+                                    studio C 小型展演空間
+                                </option>
                             </select>
                         </div>
                         <div className="col-12">
                             <p>留言</p>
                             <textarea
                                 type="text"
-                                id="comment"
+                                name="comment"
                                 placeholder="留言內容"
+                                value={rent.comment}
+                                onChange={fieldChange}
                                 className="w-100"
+                                rows="4"
                             />
                         </div>
                     </div>
                     <div className="d-flex justify-content-center">
-                        <button className="bg-main-light-color accent-light-color border-0 px-5 py-1 mb-5">
+                        <button
+                            className="bg-main-light-color accent-light-color border-0 px-5 py-1 mb-5"
+                            onClick={() => {
+                                const data = JSON.parse(JSON.stringify(rent));
+                                console.log(data);
+                                axios.post(
+                                    'http://localhost:3001/api/place/rent',
+                                    data
+                                    // { withCredentials: true }
+                                );
+                            }}
+                        >
                             確認送出
                         </button>
                     </div>

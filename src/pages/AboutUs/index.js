@@ -97,7 +97,7 @@ function About(props) {
             </div>
 
             <div className="bg-main-gary-light-color">
-                <div className="container mt-5">
+                <div className="container mt-5 askform">
                     <div className="pt-5 d-flex">
                         <h4
                             className="me-2 text-nowrap"
@@ -160,10 +160,13 @@ function About(props) {
                         <div className="col-12 col-md-6">
                             <p>問題類型*</p>
                             <select id="cate-select" className="w-100">
-                                <option value="">類型1</option>
-                                <option value="">類型1</option>
-                                <option value="">類型1</option>
-                                <option value="">類型1</option>
+                                <option value="">門市相關問題</option>
+                                <option value="">商品問題</option>
+                                <option value="">課程問題</option>
+                                <option value="">師資問題</option>
+                                <option value="">文章問題</option>
+                                <option value="">場地租借問題</option>
+                                <option value="">其他問題</option>
                             </select>
                         </div>
                         <div className="col-12">
@@ -177,11 +180,12 @@ function About(props) {
                         </div>
                         <div className="col-12">
                             <p>提問內容*</p>
-                            <input
+                            <textarea
                                 type="text"
                                 id="comment"
                                 placeholder="問題描述"
                                 className="w-100"
+                                rows="4"
                             />
                         </div>
                     </div>
