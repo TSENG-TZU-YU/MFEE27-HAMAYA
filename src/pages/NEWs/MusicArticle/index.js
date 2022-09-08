@@ -70,7 +70,7 @@ function MusicArticle(props) {
                     </div>
                 </div>
             </div>
-            <Link to="/news/category">123456</Link>
+            <Link to="/news/category">文章詳細</Link>
         </>
     );
 }
