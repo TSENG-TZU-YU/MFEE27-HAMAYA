@@ -1,4 +1,41 @@
 @import '../../../../styles/global.scss';
+@media only screen and (max-width: 768px) {
+    .myOrderTable thead {
+        display: none;
+    }
+    .myOrderTable td:nth-child(1) {
+        display: none;
+    }
+    .myOrderTable td:nth-child(2) {
+        display: block;
+    }
+    .myOrderTable td {
+        display: inline;
+    }
+
+    //訂單編號title
+    .myOrderTable td:nth-child(2)::before {
+        content: attr(data-title);
+        background-color: $main;
+        color: $accent-light;
+        display: block;
+        text-align: start;
+        padding: 5px 15px;
+        // font-weight: 500;
+    }
+   .myOrderTable td::before {
+        content: attr(data-title);
+        // background-color: $main;
+        color: $main;
+        display: block;
+
+        // text-align: start;
+        // padding: 5px 5px;
+        // font-weight: 500;
+    }
+}
+
+
 .myOrderIcon path{
     fill: $main;
 }
@@ -7,9 +44,5 @@
     height: 25px;
 }
 .thWidth{
-    width: 20%;
-}
-.myOrderImg{
-   
-    object-fit: cover;
+    width: 12%;
 }
