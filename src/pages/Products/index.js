@@ -19,7 +19,6 @@ function Products() {
     return (
         <>
             <img className="img-fluid" src={banner} alt="banner" />
-
             <div className="container">
                 <ProductsList />
 
