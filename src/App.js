@@ -1,7 +1,6 @@
 // import Detailed from './constants/Detailed';
 
 import React, { useEffect, useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
 
 // import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -45,8 +44,6 @@ function App() {
     useEffect(() => {
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }, []);
-    // 課程要用的
-    const [selectCourse] = useState(true);
     return (
         <>
             <BrowserRouter>
@@ -57,10 +54,7 @@ function App() {
 
                         <Route path="products" element={<MainOutlet />}>
                             <Route index element={<Products />} />
-                            <Route
-                                path="products/:categoryId"
-                                element={<Products />}
-                            />
+                            <Route path=":categoryId" element={<Products />} />
                             <Route
                                 path=":productId"
                                 element={<ProductDetail />}
@@ -74,12 +68,7 @@ function App() {
                         {/* TODO: 相關課程路徑 */}
                         <Route path="class" element={<MainOutlet />}>
                             <Route index element={<Class />} />
-                            <Route
-                                path={`list/${
-                                    selectCourse ? '成人課程' : '兒童課程'
-                                }`}
-                                element={<SubOutlet />}
-                            >
+                            <Route path="list" element={<SubOutlet />}>
                                 <Route index element={<ClassList />} />
                                 <Route path="detailed" element={<Detailed />} />
                             </Route>
