@@ -22,6 +22,10 @@ import Place from './pages/Place';
 import AboutUs from './pages/AboutUs';
 import Member from './pages/Member';
 
+//News 次頁面
+import MusicArticle from './pages/NEWs/MusicArticle';
+import Article from './pages/NEWs/Article';
+
 // product 次頁面
 import ProductDetail from './pages/Products/ProductDetail';
 
@@ -63,6 +67,8 @@ function App() {
 
                         <Route path="news" element={<MainOutlet />}>
                             <Route index element={<NEWs />} />
+                            <Route path="section" element={<MusicArticle />} />
+                            <Route path="category" element={<Article />} />
                         </Route>
 
                         <Route path="class" element={<MainOutlet />}>

@@ -70,7 +70,7 @@ function NEWs(props) {
                                     height="100"
                                     className=""
                                 />
-                                <p className="gary-dark-color h5 News-cursor-pinter ms-2 ">
+                                <span className="gary-dark-color h5 News-cursor-pinter ms-2 ">
                                     AI執筆完成貝多芬《第十號交響曲》——AI的創作是否享有著作權法的保護？
                                     <div className=" d-flex mt-2 ">
                                         <p className="News-music-article2 small  ">
@@ -80,7 +80,7 @@ function NEWs(props) {
                                             瓦力 － 2022/08/20
                                         </p>
                                     </div>
-                                </p>
+                                </span>
                             </div>
                             <div className="border-top border-secondary border-1 px-3 pt-3 mt-4 mb-3"></div>
                             <div className="d-flex mt-2 ">
@@ -91,7 +91,7 @@ function NEWs(props) {
                                     height="100"
                                     className=""
                                 />
-                                <p className="gary-dark-color h5 News-cursor-pinter ms-2 ">
+                                <span className="gary-dark-color h5 News-cursor-pinter ms-2 ">
                                     廣場上的小提琴手
                                     <div className=" d-flex mt-2 ">
                                         <p className="News-music-article3 small  ">
@@ -101,7 +101,7 @@ function NEWs(props) {
                                             眾博法律事務所 － 2022/08/20
                                         </p>
                                     </div>
-                                </p>
+                                </span>
                             </div>
                             <div className="border-top border-secondary border-1 mt-4 mb-3"></div>
                             <div className="d-flex mt-2 ">
@@ -112,7 +112,7 @@ function NEWs(props) {
                                     height="100"
                                     className=""
                                 />
-                                <p className="gary-dark-color h5 News-cursor-pinter ms-2 ">
+                                <span className="gary-dark-color h5 News-cursor-pinter ms-2 ">
                                     莫札特《費加洛的婚禮》——聰明，反被聰明誤？
                                     <div className=" d-flex mt-2 ">
                                         <p className="News-music-article4 small">
@@ -122,23 +122,14 @@ function NEWs(props) {
                                             邢子青 － 2022/08/20
                                         </p>
                                     </div>
-                                </p>
+                                </span>
                             </div>
                             <div className="border-top border-secondary border-1 mt-4 mb-3"></div>
                         </div>
                     </div>
                 </div>
-                <div className="container News-more-art ">
-                    <p className="mb-0 me-1 cursor-pinter">看更多音樂文章</p>
-                    <img
-                        className="News-art-arrow"
-                        style={{ width: '15px', height: '15px' }}
-                        src={arrow}
-                        alt="arrow"
-                    />
-                </div>
             </div>
-
+            {/* TODO:底線要有距離，還需要再修 */}
             <div className="container">
                 <div className="row text-center ">
                     <button className="col-3 News-word3  News-vector5-Btn News-vector5-Btn-active">
@@ -158,7 +149,7 @@ function NEWs(props) {
             <div className="container ">
                 <div className="row  News-articles">
                     <div className="col-12 col-md-4 ">
-                        <div className="mt-2 ">
+                        <div className="mt-4 ">
                             <img
                                 src={NewsImg5}
                                 alt="art02"
@@ -166,7 +157,7 @@ function NEWs(props) {
                                 height="100%"
                                 className="News-imgs"
                             />
-                            <p className="gary-dark-color h6 News-cursor-pinter mt-2">
+                            <span className="gary-dark-color h6 News-cursor-pinter mt-2">
                                 買樂器就交給最專業的HAMAYA吧！
                                 <div className=" d-flex mt-2 ">
                                     <p className="News-music-article4 small News-label">
@@ -174,11 +165,11 @@ function NEWs(props) {
                                     </p>
                                     <p className="ms-2">May － 2022/08/20</p>
                                 </div>
-                            </p>
+                            </span>
                         </div>
                     </div>
                     <div className="col-12 col-md-4  ">
-                        <div className="mt-2">
+                        <div className="mt-4">
                             <img
                                 src={NewsImg6}
                                 alt="art02"
@@ -186,7 +177,7 @@ function NEWs(props) {
                                 height="100%"
                                 className="News-imgs"
                             />
-                            <p className="gary-dark-color h6 News-cursor-pinter mt-2 ">
+                            <span className="gary-dark-color h6 News-cursor-pinter mt-2 ">
                                 樂時代～報名課程拿好康 Let's Music！
                                 <div className="d-flex mt-2 ">
                                     <p className="News-music-article4 small News-label">
@@ -194,11 +185,11 @@ function NEWs(props) {
                                     </p>
                                     <p className="ms-2">May － 2022/08/20</p>
                                 </div>
-                            </p>
+                            </span>
                         </div>
                     </div>
                     <div className="col-12 col-md-4  ">
-                        <div className="mt-2">
+                        <div className="mt-4">
                             <img
                                 src={NewsImg7}
                                 alt="art02"
@@ -206,7 +197,7 @@ function NEWs(props) {
                                 height="100%"
                                 className="News-imgs"
                             />
-                            <p className="gary-dark-color h6 News-cursor-pinter mt-2">
+                            <span className="gary-dark-color h6 News-cursor-pinter mt-2">
                                 學員專屬生日活動！
                                 <div className="d-flex mt-2 ">
                                     <p className="News-music-article4 small News-label">
@@ -214,7 +205,7 @@ function NEWs(props) {
                                     </p>
                                     <p className="ms-2">May － 2022/08/20</p>
                                 </div>
-                            </p>
+                            </span>
                         </div>
                     </div>
                     <div className="col-md-4 col-12">
@@ -226,7 +217,7 @@ function NEWs(props) {
                                 height="100%"
                                 className="News-imgs"
                             />
-                            <p className="gary-dark-color h6 News-cursor-pinter me-1 mt-2">
+                            <span className="gary-dark-color h6 News-cursor-pinter me-1 mt-2">
                                 買樂器就交給最專業的HAMAYA吧！
                                 <div className="d-flex mt-2 ">
                                     <p className="News-music-article4 small">
@@ -234,7 +225,7 @@ function NEWs(props) {
                                     </p>
                                     <p className="ms-2">May － 2022/08/20</p>
                                 </div>
-                            </p>
+                            </span>
                         </div>
                     </div>
                     <div className="col-md-4 col-12">
@@ -246,7 +237,7 @@ function NEWs(props) {
                                 height="100%"
                                 className="News-imgs"
                             />
-                            <p className="gary-dark-color h6 News-cursor-pinter me-1 mt-2 ">
+                            <span className="gary-dark-color h6 News-cursor-pinter me-1 mt-2 ">
                                 樂時代～報名課程拿好康 Let's Music！
                                 <div className="d-flex mt-2 ">
                                     <p className="News-music-article4 small">
@@ -254,7 +245,7 @@ function NEWs(props) {
                                     </p>
                                     <p className="ms-2">May － 2022/08/20</p>
                                 </div>
-                            </p>
+                            </span>
                         </div>
                     </div>
                     <div className="col-md-4 col-12">
@@ -266,7 +257,7 @@ function NEWs(props) {
                                 height="100%"
                                 className="News-imgs"
                             />
-                            <p className="gary-dark-color h6 News-cursor-pinter me-1 mt-2 ">
+                            <span className="gary-dark-color h6 News-cursor-pinter me-1 mt-2 ">
                                 學員專屬生日活動！
                                 <div className="d-flex mt-2 ">
                                     <p className="News-music-article4 small">
@@ -274,7 +265,21 @@ function NEWs(props) {
                                     </p>
                                     <p className="ms-2">May － 2022/08/20</p>
                                 </div>
-                            </p>
+                            </span>
+                        </div>
+                        <div className="container News-more-art ">
+                            <Link
+                                to="section"
+                                className="mb-0 me-1 cursor-pinter"
+                            >
+                                看更多音樂文章
+                            </Link>
+                            <img
+                                className="News-art-arrow"
+                                style={{ width: '15px', height: '15px' }}
+                                src={arrow}
+                                alt="arrow"
+                            />
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom'; //抓取Outlet的props
 import MyCartTable from './MyCartTable';
+import './MyCart.scss';
 function MyCart(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
     useEffect(() => {
