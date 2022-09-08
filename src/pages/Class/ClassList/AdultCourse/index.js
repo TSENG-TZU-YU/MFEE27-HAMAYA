@@ -21,7 +21,7 @@ function AdultCourse(props) {
         console.log('classAdult', 'useEffect []');
         let getAdultClass = async () => {
             let response = await axios.get(
-                `http://localhost:3001/class/list/Adult`
+                `http://localhost:3001/api/class/list?class=1`
             );
             setData(response.data);
         };
@@ -87,7 +87,7 @@ function AdultCourse(props) {
             </Link>
             {/* 已灌資料庫 */}
             {/* TODO: 圖檔無法讀取*/}
-            {/* {data.map((classAdult) => {
+            {data.map((classAdult) => {
                 return (
                     <div
                         key={classAdult.id}
@@ -150,7 +150,7 @@ function AdultCourse(props) {
                         </Link>
                     </div>
                 );
-            })} */}
+            })}
         </div>
     );
 }

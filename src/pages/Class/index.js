@@ -1,8 +1,10 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import { useOutletContext } from 'react-router-dom';
+// import { useClass } from './UseContext';
 import './index.scss';
 
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 // 元件
 import Teacher from '../../components/Teacher';
@@ -27,11 +29,13 @@ import { teacherImages } from '../../album/teacher';
 // import { useState } from 'react';
 
 function Class(props) {
+    // 把網址上的 :stockId 拿出來
+    // const { category } = useParams();
     const [selectCourse, setSelectCourse] = useOutletContext();
     console.log('class', selectCourse);
     return (
         <>
-            <img className="img-fluid" src={banner} alt="banner" />
+            <img className=" w-100" src={banner} alt="banner" />
             <Container>
                 {/* 麵包屑 */}
                 <div className="d-flex mt-5">
@@ -192,11 +196,7 @@ function Class(props) {
                     </div>
                     <Row className="mt-5 text-center">
                         <Col lg={6} className="pb-5">
-                            <Link
-                                to={`list/${
-                                    selectCourse ? '成人課程' : '兒童課程'
-                                }`}
-                            >
+                            <Link to="list?class=1">
                                 <img
                                     src={Adult_Course}
                                     alt="Adult Course"
@@ -211,11 +211,7 @@ function Class(props) {
                             </Link>
                         </Col>
                         <Col lg={6} className="pb-5">
-                            <Link
-                                to={`list/${
-                                    selectCourse ? '成人課程' : '兒童課程'
-                                }`}
-                            >
+                            <Link to="list?class=2">
                                 <img
                                     className="cursor-pinter img-fluid"
                                     src={Children_Lessons}

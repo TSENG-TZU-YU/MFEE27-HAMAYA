@@ -1,11 +1,10 @@
 // import Detailed from './constants/Detailed';
 
-import React, { useEffect, useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import React, { useEffect } from 'react';
 
 // import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// import { AuthContext } from './pages/Class/UseContext';
+// import { ClassContext } from './pages/Class/UseContext';
 
 // 版面頁面元件
 import MainOutlet from './layouts/MainOutlet';
@@ -45,10 +44,9 @@ function App() {
     useEffect(() => {
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }, []);
-    // 課程要用的
-    const [selectCourse] = useState(true);
     return (
         <>
+            {/* <ClassContext.Provider value={{ selectCourse, setSelectCourse }}> */}
             <BrowserRouter>
                 <Header />
                 <Routes>
@@ -67,17 +65,14 @@ function App() {
                             <Route index element={<NEWs />} />
                         </Route>
 
-                        {/* TODO: 相關課程路徑 */}
                         <Route path="class" element={<MainOutlet />}>
                             <Route index element={<Class />} />
-                            <Route
-                                path={`list/${
-                                    selectCourse ? '成人課程' : '兒童課程'
-                                }`}
-                                element={<SubOutlet />}
-                            >
+                            <Route path="list" element={<SubOutlet />}>
                                 <Route index element={<ClassList />} />
-                                <Route path="detailed" element={<Detailed />} />
+                                <Route
+                                    path=":detailedID"
+                                    element={<Detailed />}
+                                />
                             </Route>
                             <Route path="teacher" element={<Teacher />} />
                         </Route>
@@ -109,6 +104,7 @@ function App() {
                 </Routes>
                 <Footer />
             </BrowserRouter>
+            {/* </ClassContext.Provider> */}
         </>
     );
 }

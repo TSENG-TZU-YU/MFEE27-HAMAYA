@@ -251,12 +251,12 @@ function Detailed() {
                         className=" me-5 text-nowrap fw-bold"
                         style={{ color: '#00323d' }}
                     >
-                        相關課程
+                        推薦課程
                     </h4>
                     {/* border-top border-secondary border-3 px-3 pt-3 me-2 */}
                     <div className=" detailed-vector  mt-3 "></div>
                 </div>
-                {/* 相關課程  */}
+                {/* 推薦課程  */}
                 <Row className="mt-5 mb-5">
                     <Col lg={3}>
                         <div class="card" style={{ width: ' 18rem;' }}>
