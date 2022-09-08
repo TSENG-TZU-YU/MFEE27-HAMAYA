@@ -9,17 +9,19 @@ import StarRating from '../../../components/Star/StarRating';
 import ToShareCollect from '../../../components/ToShare';
 import Information from './Information';
 import Comment from './Comment';
+import Carousel from '../../../components/Carousel/Carousel';
 
 // 圖檔
-import AdultDetailed01 from '../../../assets/ClassImg/AdultDetailed01.png';
-import AdultDetailed02 from '../../../assets/ClassImg/AdultDetailed02.png';
-import AdultDetailed03 from '../../../assets/ClassImg/AdultDetailed03.png';
+// import AdultDetailed01 from '../../../assets/ClassImg/AdultDetailed01.png';
+import { classImages } from '../../../assets/ClassImg';
+// import AdultDetailed02 from '../../../assets/ClassImg/AdultDetailed02.png';
+// import AdultDetailed03 from '../../../assets/ClassImg/AdultDetailed03.png';
 import Adult_img from '../../../assets/ClassImg/Adult img.png';
 
 import note from '../../../assets/ClassImg/Note.png';
 import shop_car from '../../../assets/svg/add_shopping_cart.svg';
-import arrow_right from '../../../assets/svg/arrow-right.svg';
-import arrow_left from '../../../assets/svg/arrow-left.svg';
+// import arrow_right from '../../../assets/svg/arrow-right.svg';
+// import arrow_left from '../../../assets/svg/arrow-left.svg';
 
 function Detailed() {
     const [detailedSelect, setDetailedSelect] = useState(true);
@@ -45,33 +47,23 @@ function Detailed() {
                 <Row className="mt-5 pt-5  text-center ">
                     <Col lg={6}>
                         <div
-                            className="d-flex align-items-center  position-relative img-fluid"
-                            style={{ width: '615px' }}
+                            style={{
+                                height: '100%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
                         >
-                            <img
-                                className="AdultDetailed-img01  "
-                                src={AdultDetailed01}
-                                alt="Adult img"
-                            />
-                            <div className="detailed-arrow-left cursor-pinter">
-                                <img src={arrow_left} alt="arrow_left" />
+                            <div
+                                className="pt-0"
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    padding: '15px',
+                                }}
+                            >
+                                <Carousel images={classImages} />
                             </div>
-                            <div className="detailed-arrow-right  cursor-pinter">
-                                <img src={arrow_right} alt="arrow_right" />
-                            </div>
-                        </div>
-
-                        <div className="d-flex mt-3">
-                            <img
-                                className="AdultDetailed-img02 me-4"
-                                src={AdultDetailed02}
-                                alt="Adult img"
-                            />
-                            <img
-                                className="AdultDetailed-img02"
-                                src={AdultDetailed03}
-                                alt="Adult img"
-                            />
                         </div>
                     </Col>
                     {/* 品名、規格、購買、評價  */}
