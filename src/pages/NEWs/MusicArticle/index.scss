@@ -1,9 +1,23 @@
 @import '../../../styles/global.scss';
 
-.list-word{
+.list-word {
   font-size: 24px;
   font-weight: bold;
 }
+
+// .art{
+//   display: flex;
+
+// }
+
+
+// .art2{
+//  display: inline-table; 
+// }
+
+// .list-word2 {
+// white-space: pre;
+// }
 
 
 .list-vector5-Btn {
@@ -12,7 +26,7 @@
   border-bottom: 3px solid $main-light;
 }
 
-.list-vector5-Btn-active{
+.list-vector5-Btn-active {
   color: $main;
   border: 0px;
   border-bottom: 5px solid $main;
@@ -20,4 +34,70 @@
 
 .list-cursor-pinter {
   cursor: pointer;
+}
+
+.article-img{
+  width:100%;
+  height:100%; 
+}
+
+.article-img2 {
+  width:300px;
+  height:180px;
+}
+
+.list-more-art {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding-right: 45px;
+  margin-bottom: 20px;
+}
+
+.list-more-art2 {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding-left: 45px;
+  margin-bottom: 20px;
+}
+
+.list-arrow {
+  margin-top: 3px;
+}
+
+// .list-blank-art-left {
+//   margin-left: -40px;
+// }
+
+.articles-page > ul > li {
+  color: $main-light;
+  font-size: 1.2rem;
+  margin: 5px;
+  padding: 5px;
+}
+
+.articles-page {
+  color: $main-light;
+}
+
+li.articles-page-active {
+  color: $main;
+}
+@media screen and (max-width: 768px) {
+  // .list-word2 {
+  //   white-space: pre-wrap;
+  // }
+
+  .article-img{
+    width:100%;
+    height: 100%;
+   
+  }
+  // .art {
+  //   display: contents;
+  // }
+  
+
+
 }
