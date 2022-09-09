@@ -68,6 +68,11 @@ li.products-page-active {
 
 .product-img {
   background: #fff;
+  aspect-ratio: 1 / 1;
+}
+
+.product-img:hover {
+  
 }
 
 .product-img > img {
