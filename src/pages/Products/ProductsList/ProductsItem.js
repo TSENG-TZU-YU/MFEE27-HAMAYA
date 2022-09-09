@@ -17,7 +17,7 @@ function ProductsItem() {
         <div className="col product">
             <div className="position-relative">
                 {/* 商品照片 */}
-                <Link to="/products/:productId" className="product-img d-block">
+                <Link to=":productId" className="product-img d-block">
                     <div className="product-img-mask position-absolute"></div>
                     <img src={product} className="card-img-top" alt="product" />
                 </Link>
@@ -43,7 +43,7 @@ function ProductsItem() {
             </div>
             <div className="product-body">
                 {/* 品名 */}
-                <Link to="/products/:productId" className="product-name">
+                <Link to=":productId" className="product-name">
                     YAMAHA U系列 U1
                 </Link>
                 {/* 價格 */}

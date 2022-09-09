@@ -27,3 +27,315 @@
 }
 
 
+// ProductsList index
+ul.products-page {
+  margin: 0;
+  padding: 0;
+}
+
+.products-page > ul > li {
+  color: $main-light;
+  font-size: 1.2rem;
+  margin: 5px;
+  padding: 5px;
+}
+
+.products-page {
+  color: $main-light;
+}
+
+li.products-page-active {
+  color: $main;
+}
+
+.products-banner-title {
+  top: 80px;
+  right: 350px;
+}
+
+
+// productsItem
+.product-price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.product-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.product-img {
+  background: #fff;
+  aspect-ratio: 1 / 1;
+}
+
+.product-img:hover {
+  
+}
+
+.product-img > img {
+  overflow: hidden;
+  object-fit: contain;
+}
+
+.card-img-top{
+  height: 100%;
+}
+
+.product-img-mask {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  transition: .4s;
+}
+
+.product{
+  padding: 5px;
+}
+
+.product:hover .product-img-mask{
+  content:"";
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .3);
+  position:absolute;
+  top: 0;
+  left: 0;
+}
+
+.product-compare {
+  opacity: 0;
+  color: $accent-light;
+  width: 4rem;
+  padding: 1px;
+  background: $main-light;
+  cursor: pointer;
+  transition: .4s;
+}
+
+.product-like {
+  opacity: 0;
+  padding: 1px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.product-cart-check-btn {
+  opacity: 0;
+  line-height: 1rem;
+  letter-spacing: 0.1rem;
+}
+
+.product:hover .product-compare {
+  opacity: 1;
+}
+
+.product:hover .product-like {
+  opacity: 1;
+}
+
+.product:hover .product-cart-check-btn {
+  opacity: 1;
+}
+
+.product-compare:hover {
+  background: lighten($main-light,10%);
+}
+
+.product-name {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+
+// filterNav
+.products-breadcrumb {
+  margin-top: 1rem;
+  color: $main;
+}
+
+.products-icon-img {
+  width: 1.5rem;
+  display: block;
+  padding: auto 0;
+}
+
+.products-filter-menu {
+  background: $main-light;
+  width: 150px;
+  top: 40px;
+  z-index: 1;
+  color: $accent-light;
+}
+
+.products-filter-menu > p {
+  color: $accent-light;
+  margin: 0;
+}
+  
+button.products-btn-border-none {
+  border: none;
+}
+
+.products-form-check {
+  margin: 5px 0;
+}
+
+.products-filter-no-color-box {
+  background:
+  linear-gradient(-45deg, transparent 44%, $main-gary-light 44%, $main-gary-light 50%, transparent 50%);
+  background-color: #fff;
+}
+
+.products-filter-color-box {
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+}
+
+.products-filter-color-box-active{
+  outline: 3px solid $main-gary-light;
+}
+
+.color {
+  background-color: rgb(78, 42, 42);
+}
+
+.products-filter-btn {
+ background: $main-gary-light;
+ color: $main;
+ padding: 5px;
+ letter-spacing: 0.1rem;
+}
+
+.products-sort-menu {
+  background: $main-light;
+  left: 110px;
+  top: 40px;
+  z-index: 1;
+  color: $accent-light;
+}
+
+.products-sort-menu > ul > li {
+  padding: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.products-sort-menu > ul {
+  line-height: 1.5rem;
+  padding: 0;
+  margin-bottom: 0 !important;
+}
+
+.products-Search-box {
+  left: 110px;
+  top: 40px;
+  z-index: 2;
+}
+
+
+// MobileFilterNav
+.mobile-products-filter-nav {
+  margin: 10px 0;
+}
+
+.products-filter-nav-item-name {
+  color: $gary-light;
+  margin-left: 10px;
+  margin-bottom: 0;
+}
+
+.products-filter-nav-item {
+  width: 100%;
+}
+
+.products-filter-nav-btn {
+  font-style: 1.5rem;
+  color: $main;
+}
+
+.products-filter-nav-item.border-end {
+  border-color: $gary-light;
+}
+
+.products-filter-category-select {
+  width: 100%;
+  height: 300px;
+  background: $main-light;
+  color: $accent-light;
+}
+
+.products-filter-category-select:focus {
+  border: none;
+}
+
+.products-filter-category-select > option {
+  font-size: 1rem;
+  padding: 5px;
+}
+
+// 捲軸寬度
+.products-filter-category-scroll-style::-webkit-scrollbar {
+  width: 5px;
+  margin-right: 5px;
+}
+
+// 捲軸本體顏色
+.products-filter-category-scroll-style::-webkit-scrollbar-thumb {
+  background-color: $accent-light;
+}
+
+.products-filter-category-select > option:checked, 
+.products-filter-category-select > option:hover {
+  background-color: $accent-light;
+  color: $main-light;
+}
+
+.mobile-products-filter-menu {
+  width: 100%;
+  background: $main-light;
+}
+
+.products-form-check{
+  color: $accent-light;
+}
+
+
+// categoryNav
+ul.products-category-navbar {
+  padding: 0;
+  list-style: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+ul.products-sub-category {
+  padding-left: 1.2rem;
+  cursor: pointer;
+}
+
+.products-category-navbar {
+  line-height: 2rem;
+}
+
+.products-main-category {
+  color: $accent;
+  font-weight: bold;
+  margin: .5rem 0;
+  padding-left: 1rem;
+  border-left: transparent solid 3px;
+  transition: .3s;
+}
+
+.products-main-category:hover {
+  color: $main;
+  border-left: $main solid 3px;
+}
+
+.products-main-category-active {
+  color: $main;
+  border-left: $main solid 3px;
+}

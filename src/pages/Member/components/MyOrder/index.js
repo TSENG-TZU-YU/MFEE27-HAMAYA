@@ -28,7 +28,7 @@ function MyOrder(props) {
             <table className="table my-2 myOrderTable">
                 <thead>
                     <tr className="text-center accent-light-color bg-main-color">
-                        <th className="thWidth">#</th>
+                        <th className="myOrderThWidth">#</th>
                         <th>訂單編號</th>
                         <th>訂單金額</th>
                         <th>訂單狀態</th>
