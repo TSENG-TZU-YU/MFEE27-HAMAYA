@@ -1,10 +1,10 @@
 // import Detailed from './constants/Detailed';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 // import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// import { AuthContext } from './pages/Class/UseContext';
+// import { ClassContext } from './pages/Class/UseContext';
 
 // 版面頁面元件
 import MainOutlet from './layouts/MainOutlet';
@@ -21,6 +21,10 @@ import Class from './pages/Class';
 import Place from './pages/Place';
 import AboutUs from './pages/AboutUs';
 import Member from './pages/Member';
+
+//News 次頁面
+import MusicArticle from './pages/NEWs/MusicArticle';
+import Article from './pages/NEWs/Article';
 
 // product 次頁面
 import ProductDetail from './pages/Products/ProductDetail';
@@ -46,6 +50,7 @@ function App() {
     }, []);
     return (
         <>
+            {/* <ClassContext.Provider value={{ selectCourse, setSelectCourse }}> */}
             <BrowserRouter>
                 <Header />
                 <Routes>
@@ -66,14 +71,18 @@ function App() {
 
                         <Route path="news" element={<MainOutlet />}>
                             <Route index element={<NEWs />} />
+                            <Route path="section" element={<MusicArticle />} />
+                            <Route path="category" element={<Article />} />
                         </Route>
 
-                        {/* TODO: 相關課程路徑 */}
                         <Route path="class" element={<MainOutlet />}>
                             <Route index element={<Class />} />
                             <Route path="list" element={<SubOutlet />}>
                                 <Route index element={<ClassList />} />
-                                <Route path="detailed" element={<Detailed />} />
+                                <Route
+                                    path=":detailedID"
+                                    element={<Detailed />}
+                                />
                             </Route>
                             <Route path="teacher" element={<Teacher />} />
                         </Route>
@@ -105,6 +114,7 @@ function App() {
                 </Routes>
                 <Footer />
             </BrowserRouter>
+            {/* </ClassContext.Provider> */}
         </>
     );
 }

@@ -1,0 +1,23 @@
+@import '../../../styles/global.scss';
+
+.list-word{
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+.list-vector5-Btn {
+  color: $main-light;
+  border: 0px;
+  border-bottom: 3px solid $main-light;
+}
+
+.list-vector5-Btn-active{
+  color: $main;
+  border: 0px;
+  border-bottom: 5px solid $main;
+}
+
+.list-cursor-pinter {
+  cursor: pointer;
+}

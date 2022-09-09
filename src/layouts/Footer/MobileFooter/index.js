@@ -24,6 +24,9 @@ function MobileFooter(props) {
                             />
                         </div>
                         <div className="col-md-10 d-flex justify-content-evenly mt-4 p">
+                            <Link className="main-gary-light-color" to="news">
+                                最新消息
+                            </Link>
                             <Link
                                 className=" main-gary-light-color"
                                 to="product"
@@ -37,9 +40,7 @@ function MobileFooter(props) {
                             <Link className="main-gary-light-color" to="place">
                                 場地租借
                             </Link>
-                            <Link className="main-gary-light-color" to="news">
-                                最新消息
-                            </Link>
+
                             <Link
                                 className="  main-gary-light-color"
                                 to="aboutus"

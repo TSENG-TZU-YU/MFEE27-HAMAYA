@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './index.scss';
-import { Container } from 'react-bootstrap';
 import Fb from '../../assets/FooterImg/fb-gray.svg';
 import Youtube from '../../assets/FooterImg/youtube-gray.svg';
 import Line from '../../assets/FooterImg/line-gray.svg';
@@ -29,6 +28,38 @@ function Footer(props) {
                                 alt="Logo"
                                 className="footerConnect footer-imgs2"
                             />
+                        </div>
+                        <div className="col-md  pt-3">
+                            <Link
+                                className="main-gary-light-color word-size text-nowrap "
+                                to="news"
+                            >
+                                最新消息
+                            </Link>
+                            <Link
+                                className="ms-1 main-gary-light-color  text-nowrap  word-size2"
+                                to="news"
+                            >
+                                促銷活動
+                            </Link>
+                            <Link
+                                className="ms-1 main-gary-light-color text-nowrap word-size2"
+                                to="news"
+                            >
+                                活動快訊
+                            </Link>
+                            <Link
+                                className="ms-1 main-gary-light-color text-nowrap word-size2"
+                                to="news"
+                            >
+                                重要通知
+                            </Link>
+                            <Link
+                                className="ms-1 main-gary-light-color  text-nowrap word-size2"
+                                to="news"
+                            >
+                                音樂文章
+                            </Link>
                         </div>
 
                         <div className="col-md pt-3">
@@ -80,38 +111,6 @@ function Footer(props) {
                             </Link>
                         </div>
 
-                        <div className="col-md  pt-3">
-                            <Link
-                                className="main-gary-light-color word-size text-nowrap "
-                                to="news"
-                            >
-                                最新消息
-                            </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color  text-nowrap  word-size2"
-                                to="news"
-                            >
-                                促銷活動
-                            </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                to="news"
-                            >
-                                活動快訊
-                            </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                to="news"
-                            >
-                                重要通知
-                            </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color  text-nowrap word-size2"
-                                to="news"
-                            >
-                                音樂文章
-                            </Link>
-                        </div>
                         <div className="col-md pt-3 text-nowrap ">
                             <Link
                                 className="main-gary-light-color word-size"
@@ -150,6 +149,7 @@ function Footer(props) {
                         </div>
                     </div>
                 </div>
+                {/* TODO:拉到某一個尺寸，底邊會跑版需再調整 */}
                 <div>
                     <img
                         src={Lines}

@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { useOutletContext } from 'react-router-dom';
 
 function SubOutlet(props) {
-    const [selectCourse, setSelectCourse] = useOutletContext(null);
+    const [selectCourse, setSelectCourse] = useOutletContext(true);
 
     return <Outlet context={[selectCourse, setSelectCourse]} />;
 }

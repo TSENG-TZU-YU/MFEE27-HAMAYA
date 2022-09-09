@@ -33,3 +33,14 @@
   width: 220px;
   height: 220px;
 }
+
+
+.askform input,.askform select, .askform textarea{
+  border: 2px solid #8f8989;
+  padding: 8px;
+  outline-color:#686868
+}
+
+.askform button:hover{
+  color: #00323d;
+}
