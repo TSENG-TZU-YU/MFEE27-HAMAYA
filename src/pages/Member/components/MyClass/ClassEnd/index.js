@@ -51,7 +51,13 @@ function ClassEnd(props) {
                                         src={message}
                                         alt="message"
                                     />
-                                    <p>評價課程</p>
+                                    <p
+                                        onClick={() => {
+                                            setPopup(true);
+                                        }}
+                                    >
+                                        評價課程
+                                    </p>
                                 </button>
                             </div>
                         </div>
@@ -59,40 +65,60 @@ function ClassEnd(props) {
                 </div>
             </Link>
 
-            <div
-                className="class-popup"
-                onClick={() => {
-                    setPopup(false);
-                }}
-            ></div>
-            <div className="class-popup-inner text-start">
-                <div className="d-flex justify-content-between align-items-center mb-2">
-                    <h6 className="text-start ">評價課程</h6>
-                    <button
-                        className="closeBtn"
+            {popup ? (
+                <>
+                    <div
+                        className="class-popup"
                         onClick={() => {
                             setPopup(false);
                         }}
-                    >
-                        <img src={Close} alt="close" />
-                    </button>
-                </div>
+                    ></div>
+                    <div className="class-popup-inner text-start">
+                        <div className="d-flex justify-content-between align-items-center mb-2">
+                            <h6 className="text-start myClass-h6">評價課程</h6>
+                            <button
+                                className="closeBtn"
+                                onClick={() => {
+                                    setPopup(false);
+                                }}
+                            >
+                                <img src={Close} alt="close" />
+                            </button>
+                        </div>
 
-                <img
-                    src={Adult_img}
-                    alt="Adult img"
-                    style={{ width: '300px' }}
-                />
-                <h6 className="text-start mt-2">
-                    藍調與爵士鋼琴的獨奏技巧與應用
-                </h6>
-                <div className='mt-1'>
-                    <StarRating />
-                </div>
-                <p className='mt-1'>2022/09/05</p>
-                
-            </div>
-            
+                        <img
+                            src={Adult_img}
+                            alt="Adult img"
+                            style={{ width: '300px' }}
+                        />
+                        <h6 className="text-start mt-2 myClass-h6">
+                            藍調與爵士鋼琴的獨奏技巧與應用
+                        </h6>
+                        <div className="mt-1">
+                            <StarRating />
+                        </div>
+                        <p className="mt-1 mb-1">2022/09/05</p>
+
+                        <textarea
+                            class="form-control mt-2 mb-2"
+                            id="exampleFormControlTextarea1"
+                            rows="3"
+                            placeholder="評價內容"
+                            style={{ resize: 'none', height: '120px' }}
+                        ></textarea>
+                        <small>
+                            請勿在此輸入任何聯絡資訊、網址或是個人隱私資料。(字數限制：200字)
+                        </small>
+                        <div className="d-flex justify-content-center">
+                            <button className="btn btn-primary myClass-btn mt-4 ">
+                                送出評價
+                            </button>
+                        </div>
+                    </div>
+                </>
+            ) : (
+                ''
+            )}
         </div>
     );
 }
