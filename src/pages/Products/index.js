@@ -5,7 +5,6 @@ import { API_URL } from '../../utils/config';
 
 // 套件
 import { Container } from 'react-bootstrap';
-import { v4 as uuid } from 'uuid';
 
 // 樣式
 import './index.scss';

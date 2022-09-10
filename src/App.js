@@ -63,15 +63,7 @@ function App() {
                             <Route path="products" element={<MainOutlet />}>
                                 <Route index element={<Products />} />
                                 <Route
-<<<<<<< HEAD
                                     path="productsDetail/:productId"
-=======
-                                    path="products/:categoryId"
-                                    element={<Products />}
-                                />
-                                <Route
-                                    path=":productId"
->>>>>>> 8ff5e15287531a7dc6e7965292c913d075afa3a4
                                     element={<ProductDetail />}
                                 />
                             </Route>
