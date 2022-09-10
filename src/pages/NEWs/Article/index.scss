@@ -1,1 +1,76 @@
 @import '../../../styles/global.scss';
+
+.article-Breadcrumbs {
+  font-size: 1rem;
+  color: #00323d;
+}
+
+.article-word3 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+.article-vector5-Btn {
+  color: $main-light;
+  box-shadow: 0 4px;
+  padding-bottom: 5px
+}
+
+.article-img {
+  width: 879px;
+  height: 586px;
+
+}
+
+
+.article-word {
+  font-size: 1.5rem;
+  color: #00323d;
+
+}
+
+.article-blank-top {
+  margin-top: 20px;
+}
+
+.article-cursor-pinter {
+  cursor: pointer;
+}
+
+.article-music4{
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 25px;
+  background-color: $main;
+  color: $accent-light;
+}
+
+
+.article-vector3 {
+  border-top: 3px solid $main-light;
+  width: 72rem;
+}
+
+@media screen and (max-width: 768px) {
+
+
+  .article-img {
+    width: 100%;
+    height: 100%;
+
+  }
+
+  .article-imgs {
+    width: 100%;
+    height: 100%;
+
+
+
+
+
+
+  }
+}

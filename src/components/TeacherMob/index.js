@@ -14,11 +14,11 @@ import { Pagination, Navigation } from 'swiper';
 
 function Teacher(props) {
     return (
-        <div className="d-none d-lg-block">
+        <div className="d-lg-none">
             <Swiper
-                slidesPerView={5}
+                slidesPerView={1}
                 spaceBetween={30}
-                slidesPerGroup={5}
+                slidesPerGroup={1}
                 loop={true}
                 loopFillGroupWithBlank={true}
                 // 小圓
