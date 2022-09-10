@@ -1,64 +1,62 @@
 @import '../../../index.scss';
 
 .filter-active {
-  position: absolute;
-  width: 130px;
-  // height: 181px;
-  background-color: $main-light;
-  top: 40px;
-  left: -15px;
+    position: absolute;
+    width: 130px;
+    // height: 181px;
+    background-color: $main-light;
+    top: 40px;
+    left: -15px;
 }
 .filter-btn-class {
-  background: $main-gary-light;
-  border: 0;
-  color: $main;
-  padding: 5px;
-  letter-spacing: 0.1rem;
-  width: 100px;
+    background: $main-gary-light;
+    border: 0;
+    color: $main;
+    padding: 5px;
+    letter-spacing: 0.1rem;
+    width: 100px;
 }
-.select-class{
-  width: 100px;
+.select-class {
+    width: 100px;
 }
 .sort-active {
-  position: absolute;
-  width: 130px;
-  background-color: $main-light;
-  top: 40px;
-  left: -8px;
+    position: absolute;
+    width: 130px;
+    background-color: $main-light;
+    top: 40px;
+    left: -8px;
 }
 .sort-menu-class {
-  background: $main-light;
-  left: 110px;
-  top: 40px;
-  z-index: 3;
-  color: $accent-light;
+    background: $main-light;
+    left: 110px;
+    top: 40px;
+    z-index: 3;
+    color: $accent-light;
 }
 ul > li {
-  list-style: none;
-  font-size: 1rem;
+    list-style: none;
+    font-size: 1rem;
 }
 .z-index {
-  z-index: -1;
+    z-index: -1;
 }
 
 .vector5-Btn {
-  color: $main-light;
-  border: 0px;
-  border-bottom: 3px solid $main-light;
+    color: $main-light;
+    border: 0px;
+    border-bottom: 3px solid $main-light;
 }
-.vector5-Btn-active{
-  color: $main;
-  border: 0px;
-  border-bottom: 5px solid $main;
+.vector5-Btn-active {
+    color: $main;
+    border: 0px;
+    border-bottom: 5px solid $main;
 }
-
-
 
 .pages {
-  display: inline-block;
-  margin: 2px;
-  border-width: 1px;
-  width: 28px;
-  height: 28px;
-  text-align: center;
+    display: inline-block;
+    margin: 2px;
+    border-width: 1px;
+    width: 28px;
+    height: 28px;
+    text-align: center;
 }
