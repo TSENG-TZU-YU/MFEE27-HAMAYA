@@ -1,17 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import './index.css';
+import axios from 'axios';
+import { API_URL } from '../../../../utils/config';
+import { useAuth } from '../../../../utils/use_auth';
 function MyProfile(props) {
-    const [user, setUser] = useState({
-        email: 'Emma@gmail.com',
-        fullName: 'Emma',
-        birthday: '1993-11-14',
-        phone: '093008422',
-        address: '桃園市中壢區新生路二段421號',
-        password: '123456789',
-        repassword: '',
-        sub: '1',
-    });
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    // const [user, setUser] = useState({
+    //     email: 'Emma@gmail.com',
+    //     fullName: 'Emma',
+    //     birthday: '1993-11-14',
+    //     phone: '093008422',
+    //     address: '桃園市中壢區新生路二段421號',
+    //     password: '123456789',
+    //     repassword: '',
+    //     sub: '1',
+    // });
 
     const [mainClass, setMainClass] = useState([
         { mainClass: 1, mainName: "台北市" },
@@ -38,9 +42,9 @@ function MyProfile(props) {
 
     const [edit, setEdit] = useState(true);
     const handleFieldChange = (e) => {
-        const newUser = { ...user, [e.target.name]: e.target.value };
+        const newUser = { ...member, [e.target.name]: e.target.value };
 
-        setUser(newUser);
+        setMember(newUser);
     };
     return (
         <div className="col-12 col-md-8 col-lg-9 MyProfile">
@@ -75,7 +79,7 @@ function MyProfile(props) {
                     <tr>
                         <td className="text-primary">會員帳號</td>
                         <td>
-                            <span>{user.email}</span>
+                            <span>{member.email}</span>
                         </td>
                     </tr>
                     <tr>
@@ -83,7 +87,7 @@ function MyProfile(props) {
                         <td>
                             <input
                                 type="text"
-                                value={user.fullName}
+                                value={member.fullName}
                                 name="fullName"
                                 onChange={handleFieldChange}
                                 disabled={edit}
@@ -95,7 +99,7 @@ function MyProfile(props) {
                         <td>
                             <input
                                 type="date"
-                                value={user.birthday}
+                                value={member.birthday}
                                 name="birthday"
                                 onChange={handleFieldChange}
                                 disabled={edit}
@@ -107,7 +111,7 @@ function MyProfile(props) {
                         <td>
                             <input
                                 type="text"
-                                value={user.phone}
+                                value={member.phone}
                                 name="phone"
                                 onChange={handleFieldChange}
                                 disabled={edit}
@@ -119,7 +123,7 @@ function MyProfile(props) {
                         <td>
                             <input
                                 type="text"
-                                value={user.address}
+                                value={member.address}
                                 name="address"
                                 onChange={handleFieldChange}
                                 disabled={edit}
@@ -131,7 +135,7 @@ function MyProfile(props) {
                         <td>
                             <input
                                 type="password"
-                                value={user.password}
+                                value={member.password}
                                 name="password"
                                 onChange={handleFieldChange}
                                 disabled={edit}
@@ -144,7 +148,7 @@ function MyProfile(props) {
                         <td>
                             <input
                                 type="password"
-                                value={user.repassword}
+                                value={member.repassword}
                                 name="repassword"
                                 onChange={handleFieldChange}
                                 disabled={edit}
@@ -162,7 +166,7 @@ function MyProfile(props) {
                         type="radio"
                         id="sub"
                         name="sub"
-                        checked={user.sub === '1'}
+                        checked={member.sub === 1}
                         value={'1'}
                         onChange={handleFieldChange}
                         disabled={edit}
@@ -174,7 +178,7 @@ function MyProfile(props) {
                         type="radio"
                         id="unsub"
                         name="sub"
-                        checked={user.sub === '0'}
+                        checked={member.sub === 0}
                         value={'0'}
                         onChange={handleFieldChange}
                         disabled={edit}

@@ -1,6 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './index.css';
+import { useAuth } from '../../utils/use_auth';
+import axios from 'axios';
+import { API_URL } from '../../utils/config';
 import LogInSignUp from '../LogInSignUp';
 import menubtn from './menubtn.svg';
 import logo from './logo.svg';
@@ -19,10 +22,26 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
     const [showSublist02, setShowSublist02] = useState('list-unstyled sublist');
     const [showSublist03, setShowSublist03] = useState('list-unstyled sublist');
 
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    const navigate = useNavigate();
+
     const closeList = () => {
         setShowMenu('list');
         setShowBackground('background');
     };
+
+    async function logoutSubmit(e) {
+        e.preventDefault();
+        let response = await axios.get(`${API_URL}/auth/logout`, {
+            withCredentials: true,
+        });
+        console.log(response.data);
+        setIsLogin(false);
+        setMember(null);
+
+        navigate('/');
+        alert(response.data.message);
+    }
     return (
         <>
             {loginPopup && <LogInSignUp setLoginPopup={setLoginPopup} />}
@@ -60,7 +79,7 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                         </Link>
                     </div>
                     <div className="">
-                        <button className="">
+                        <button title="購物車" className="">
                             <img
                                 src={shopping_cart}
                                 alt="shopping_cart"
@@ -73,6 +92,7 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                             />
                         </button>
                         <button
+                            title="會員專區登入/註冊"
                             className=""
                             onClick={() => {
                                 setLoginPopup(true);
@@ -80,13 +100,19 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                         >
                             <img src={users} alt="users" className="menubtn" />
                         </button>
-                        <button className="me-2">
-                            <img
-                                src={logout}
-                                alt="logout"
-                                className="menubtn"
-                            />
-                        </button>
+                        {isLogin && (
+                            <button
+                                title="登出"
+                                className="me-2"
+                                onClick={logoutSubmit}
+                            >
+                                <img
+                                    src={logout}
+                                    alt="logout"
+                                    className="menubtn"
+                                />
+                            </button>
+                        )}
                     </div>
                 </div>
                 <div
