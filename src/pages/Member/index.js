@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate ,Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../utils/use_auth';
 import axios from 'axios';
@@ -11,30 +11,29 @@ function Members(props) {
     const [bread, setbread] = useState('');
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!isLogin) {
-            navigate('/');
-            // alert('請先登入');
-            return;
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (!isLogin) {
+    //         navigate('/');
+    //         alert('請先登入');
+    //         return;
+    //     }
+    // }, []);
 
-    // if (!isLogin) {
-    //     navigate('/');
-    //     return;
-    // }
+    if (!isLogin) {
+        return <Navigate to="/" />;
+    }
     return (
         <div className="container">
             <div className="mt-2 d-flex justify-content-between ">
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
+                        <li className="breadcrumb-item">
                             <a href="/">首頁</a>
                         </li>
-                        <li class="breadcrumb-item">
+                        <li className="breadcrumb-item">
                             <a href="member">會員專區</a>
                         </li>
-                        <li class="breadcrumb-item " aria-current="page">
+                        <li className="breadcrumb-item " aria-current="page">
                             {bread}
                         </li>
                     </ol>
