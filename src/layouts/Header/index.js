@@ -1,5 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useAuth } from '../../utils/use_auth';
+import axios from 'axios';
+import { API_URL } from '../../utils/config';
 import Logo from '../../assets/HeaderImg/logo.svg';
 import Users from '../../assets/HeaderImg/users.svg';
 import shopCart from '../../assets/HeaderImg/shopping_cart.svg';
@@ -11,8 +14,24 @@ import ScrollTo from '../../components/ScrollTo';
 import Cart from '../Cart/Cart';
 import NavbarMobile from '../../components/NavbarMobile';
 function Header(props) {
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
     const [loginPopup, setLoginPopup] = useState(false);
     const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
+    const navigate = useNavigate();
+
+    async function logoutSubmit(e) {
+        e.preventDefault();
+        let response = await axios.get(`${API_URL}/auth/logout`, {
+            withCredentials: true,
+        });
+        console.log(response.data);
+        setIsLogin(false);
+        setMember(null);
+
+        navigate('/');
+        alert(response.data.message);
+    }
+
     return (
         <>
             <NavbarMobile
@@ -177,6 +196,7 @@ function Header(props) {
 
                         <div className="col-2 d-flex justify-content-center align-items-center ">
                             <button
+                                title="購物車"
                                 className="header-btn border-0 mx-1 mx-lg-2"
                                 onClick={() => {
                                     shoppingCart
@@ -192,6 +212,7 @@ function Header(props) {
                                 />
                             </button>
                             <button
+                                title="會員專區登入/註冊"
                                 className="header-btn border-0 mx-1 mx-lg-2"
                                 onClick={() => {
                                     setLoginPopup(true);
@@ -204,14 +225,20 @@ function Header(props) {
                                     className=""
                                 />
                             </button>
-                            <button className="header-btn border-0 mx-1 mx-lg-2">
-                                <img
-                                    src={LogoOut}
-                                    width="25"
-                                    alt="Logo"
-                                    className=""
-                                />
-                            </button>
+                            {isLogin && (
+                                <button
+                                    title="登出"
+                                    className="header-btn border-0 mx-1 mx-lg-2"
+                                    onClick={logoutSubmit}
+                                >
+                                    <img
+                                        src={LogoOut}
+                                        width="25"
+                                        alt="Logo"
+                                        className=""
+                                    />
+                                </button>
+                            )}
                         </div>
                     </div>
 

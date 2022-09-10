@@ -1,13 +1,31 @@
 import { Outlet } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useAuth } from '../../utils/use_auth';
+import axios from 'axios';
+import { API_URL } from '../../utils/config';
 import MemberListTable from './components/MemberListTable';
 import MemberListMobile from './components/MemberListMobile';
 function Members(props) {
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
     const [bread, setbread] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!isLogin) {
+            navigate('/');
+            // alert('請先登入');
+            return;
+        }
+    }, []);
+
+    // if (!isLogin) {
+    //     navigate('/');
+    //     return;
+    // }
     return (
         <div className="container">
-            <div className="mt-2">
+            <div className="mt-2 d-flex justify-content-between ">
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
