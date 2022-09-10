@@ -18,9 +18,9 @@ function MyProfile(props) {
     // });
 
     const [mainClass, setMainClass] = useState([
-        { mainClass: 1, mainName: "台北市" },
-        { mainClass: 2, mainName: "桃園市" },
-        { mainClass: 3, mainName: "新竹市" },
+        { mainClass: 1, mainName: '台北市' },
+        { mainClass: 2, mainName: '桃園市' },
+        { mainClass: 3, mainName: '新竹市' },
     ]);
 
     const [secondClass, setSecondClass] = useState([
@@ -166,8 +166,8 @@ function MyProfile(props) {
                         type="radio"
                         id="sub"
                         name="sub"
-                        checked={member.sub === 1}
-                        value={'1'}
+                        checked={member.sub == 1}
+                        value="1"
                         onChange={handleFieldChange}
                         disabled={edit}
                     />
@@ -178,8 +178,9 @@ function MyProfile(props) {
                         type="radio"
                         id="unsub"
                         name="sub"
-                        checked={member.sub === 0}
-                        value={'0'}
+                        //TODO:資料庫修改 數字 字串 待解決
+                        checked={member.sub == 0} 
+                        value="0"
                         onChange={handleFieldChange}
                         disabled={edit}
                     />
