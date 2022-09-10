@@ -27,13 +27,13 @@ function Members(props) {
             <div className="mt-2 d-flex justify-content-between ">
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
+                        <li className="breadcrumb-item">
                             <a href="/">首頁</a>
                         </li>
-                        <li class="breadcrumb-item">
+                        <li className="breadcrumb-item">
                             <a href="member">會員專區</a>
                         </li>
-                        <li class="breadcrumb-item " aria-current="page">
+                        <li className="breadcrumb-item " aria-current="page">
                             {bread}
                         </li>
                     </ol>
