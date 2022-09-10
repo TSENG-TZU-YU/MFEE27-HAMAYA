@@ -1,0 +1,64 @@
+@import '../../../../styles/global.scss';
+@media only screen and (max-width: 768px) {
+    .myCartTable thead {
+        display: none;
+    }
+    .myCartTable td {
+        display: block;
+    }
+    .myCartTable td:before {
+        content: attr(data-title);
+        background-color: $main;
+        color: $accent-light;
+        display: block;
+        font-weight: 500;
+    }
+    .myCartTableClass td:before {
+        content: attr(data-title);
+        background-color:$accent;
+    }
+}
+.myCartPriceTitle{
+    margin-right: 20px;
+}
+
+.myCartThWidth {
+    width: 20%;
+}
+.myCartItemIconFav path {
+    stroke: $gary-dark;
+}
+.myCartItemIconFav,
+.myCartItemIcon {
+    width: 25px;
+    height: 25px;
+}
+.myCartItemIcon path {
+    fill: $gary-dark;
+}
+.countBox {
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 5px 12px;
+}
+.listBottomLine {
+    border-bottom: 5px solid $main;
+}
+//收件人資訊 & 訂購資訊 表單獨立設定
+.titleBg {
+    height: 38px;
+    line-height: 38px;
+}
+.myCartSelectPadding {
+    padding: 0 18px;
+}
+.myCartMarginLeft {
+    margin-left: 37px;
+}
+.myCartMarginRight {
+    margin-right: 13px;
+}
+
+.orderBottomLine {
+    border-bottom: 2px solid $accent;
+}

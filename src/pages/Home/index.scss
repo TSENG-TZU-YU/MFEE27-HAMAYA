@@ -6,12 +6,13 @@
   background: linear-gradient(180deg, #FFFFFF 0%, rgba(500, 500, 500, 0) 65%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 18rem;
-  position:relative;
-  top: -5rem;       
+  font-size: 25rem;
+  // position:relative;
+  // top:-80px;
+      
 }
 
-.img{
+.home-img{
   font-family: 'Noto Serif Malayalam', serif;
   letter-spacing: 1rem;
   font-size: 3rem;
@@ -38,7 +39,7 @@ left: 6rem;
 
 }
 .font4{
-  font-size: 18rem;
+  font-size: 17rem;
   writing-mode: vertical-rl;
 text-orientation: sideways;
  transform: rotate(-180deg);
@@ -46,18 +47,18 @@ font-family: 'Noto Serif Malayalam', serif;
 background: linear-gradient(-90deg, #FFFFFF 0%, rgba(500, 500, 500, 0) 65%);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
-position: relative;
-top: -45rem;
-left:31rem;
+position:relative;
+bottom:55rem;
+left:18rem;
 }
 
-.img2{
+.home-img2{
   position: relative;
   bottom:75rem;
   left:6rem;
   z-index: 1;
 }
-.button{
+.video-button{
   position: relative;
 bottom:75rem;
   right:8rem;
@@ -76,4 +77,38 @@ bottom:75rem;
   z-index: 2;
 
 }
+
+
+
+// @media screen and (max-width:768px) {
+//   .Decorate{
+//     width: 300px;
+//   }
+//   .font{
+//     font-family: 'Noto Serif Malayalam', serif;
+//   background: linear-gradient(180deg, #FFFFFF 0%, rgba(500, 500, 500, 0) 65%);
+//   -webkit-background-clip: text;
+//   -webkit-text-fill-color: transparent;
+//   font-size: 10rem;
+
+//   }
+
+//   .font4{
+//   font-size: 8rem;
+//   writing-mode: vertical-rl;
+//   text-orientation: sideways;
+//    transform: rotate(-180deg);
+//   font-family: 'Noto Serif Malayalam', serif;
+//   background: linear-gradient(-90deg, #FFFFFF 0%, rgba(500, 500, 500, 0) 65%);
+//   -webkit-background-clip: text;
+//   -webkit-text-fill-color: transparent;
+//   position:fixed ;
+//   bottom:30rem;
+//   left:15rem;
+
+ 
+//   }
+
+ 
+// }
 

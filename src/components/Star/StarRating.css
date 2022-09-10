@@ -1,27 +1,29 @@
 .wrapper {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center;
+  align-items: center; */
 }
 
 input[type='radio'] {
-  display: none;
+    display: none;
 }
 
 .text {
-  color: #f4f6ff;
-  font-size: 22px;
-  margin-top: 15px;
+    color: #f4f6ff;
+    font-size: 22px;
+    margin-top: 15px;
 }
 
 .gray {
-  color: #c2c9ca;
+    color: #c2c9ca;
 }
 
 .yellow {
-  color: #00323d;
+    color: #00323d;
 }
 .fa-star {
-  cursor: pointer;
-  transition: color 300ms;
-  font-size: 20px;
+    cursor: pointer;
+    transition: color 300ms;
+    font-size: 20px;
 }

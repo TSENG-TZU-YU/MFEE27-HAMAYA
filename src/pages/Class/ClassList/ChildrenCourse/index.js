@@ -1,8 +1,11 @@
 import React from 'react';
 import './index.scss';
+import { Link } from 'react-router-dom';
+
+// 子元件
 import StarRating from '../../../../components/Star/StarRating';
 import Car from '../../../../components/Car/Car';
-import { Link } from 'react-router-dom';
+import Favorite from '../../../../components/Favorite';
 
 // 圖檔
 import Adult_img from '../../../../assets/ClassImg/Adult img.png';
@@ -10,15 +13,24 @@ import Adult_img from '../../../../assets/ClassImg/Adult img.png';
 function ChildrenCourse(props) {
     return (
         <div>
-            <div className="d-lg-flex justify-content-lg-center align-items-lg-center  mb-5">
-                <img src={Adult_img} alt="Adult img" />
-                <div className="introduce">
-                    <div className="ms-4 mt-3">
+            <Link to="detailed">
+                <div className="introduce row mx-0 mb-5 class-shadow ">
+                    <div className="d-flex col-lg-6  px-lg-0  position-relative">
+                        <img
+                            className=" col-12"
+                            src={Adult_img}
+                            alt="Adult img"
+                        />
+                        <div className="class-like px-lg-0">
+                            <Favorite />
+                        </div>
+                    </div>
+                    <div className="col-lg-6  mt-3 ">
                         <h4 className="ms-1 mb-2" style={{ color: '#00323d' }}>
                             藍調與爵士鋼琴的獨奏技巧與應用
                         </h4>
-                        <div className="vector2"></div>
-                        <div className="ms-2 mt-2">
+                        <div className="vector2 me-2"></div>
+                        <div className=" mt-2">
                             <p className="text-p mb-3">
                                 這門課程希望能以我自身的鋼琴學習經驗和逾 20
                                 年的教學心得引導大家進入爵士鋼琴的世界，彈出爵士的節奏、即興與風格，ㄧ起感受爵士音樂的魅力～
@@ -30,26 +42,25 @@ function ChildrenCourse(props) {
                             <p className="mb-0">
                                 開課時間：2022/10/19 - 2022/12/10
                             </p>
-                            <div className="d-flex mt-1 align-items-center">
+                            <div className="d-flex mt-2 align-items-center">
                                 <div className="StarRating">
                                     <StarRating />
                                 </div>
-                                <p className="ms-2 mt-2"> 2 人評價</p>
+                                <p className="ms-2 mt-2 "> 2 人評價</p>
                             </div>
-                            <div className="d-lg-flex justify-content-lg-between align-items-lg-center">
+                            <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">
                                 <h4
-                                    className=" fw-bold"
+                                    className=" fw-bold "
                                     style={{ color: '#5b322f' }}
                                 >
                                     NT $2,500 / 期
                                 </h4>
-
                                 <Car />
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </Link>
         </div>
     );
 }

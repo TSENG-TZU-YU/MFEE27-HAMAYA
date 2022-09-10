@@ -1,7 +1,61 @@
 @import '../../styles/global.scss';
 
-.height{
+.header-height{
   height:100px;
+}
+.header-logo{
+  width: 100%;
+}
+.header-btn{
+  background-color: transparent;
+}
+.header-text{
+  font-size: 18px;
+}
+
+.navbar-center{
+  position: absolute;
+  top: 28px;
+}
+.navbaritem{
+  max-height: 25px;
+  overflow: hidden;
+  transition: 1s;
+  z-index: 999;
+  
+}
+.navbaritem:hover{
+  max-height: 300px;
+}
+.navbaritem li{
+  color: #F2F2F2;
+  font-size: 14px;
+  margin: 10px 0;
 }
 
 
+@media screen and (max-width:1400px) {
+  //xxl
+}
+@media screen and (max-width:1200px) {
+  //xl
+}
+@media screen and (max-width:992px) {
+  //lg
+  .header-logo{
+    width: 110%;
+  }
+  .header-text{
+    font-size: 16px;
+  }
+  .navbaritem{
+    max-height: 22px;
+  }
+  
+}
+@media screen and (max-width:768px) {
+  //md
+}
+@media screen and (max-width:576px) {
+  //sm
+}

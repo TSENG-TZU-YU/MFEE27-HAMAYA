@@ -1,12 +1,14 @@
 import { Container, Row, Col } from 'react-bootstrap';
-// import { useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
+// import { useClass } from './UseContext';
 import './index.scss';
-// import { Outlet } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
-// 子頁面
-// import ClassList from './ClassList';
+import { useParams } from 'react-router-dom';
+
+// 元件
+import Teacher from '../../components/Teacher';
+import TeacherMob from '../../components/TeacherMob';
 
 // 圖檔
 import banner from '../../assets/ClassImg/banner.png';
@@ -17,22 +19,26 @@ import art04 from '../../assets/ClassImg/Rectangle 346.png';
 import arrow from '../../assets/svg/arrow_back_ios_new.svg';
 import Adult_Course from '../../assets/ClassImg/Adult Course.png';
 import Children_Lessons from '../../assets/ClassImg/Children Lessons.png';
-import arrow_right from '../../assets/svg/arrow-right.svg';
-import arrow_left from '../../assets/svg/arrow-left.svg';
-import teacher01 from '../../assets/ClassImg/teacher01.png';
-import teacher02 from '../../assets/ClassImg/teacher02.png';
-import teacher03 from '../../assets/ClassImg/teacher03.png';
-import teacher04 from '../../assets/ClassImg/teacher04.png';
-import teacher05 from '../../assets/ClassImg/teacher05.png';
-
+// import arrow_right from '../../assets/svg/arrow-right.svg';
+// import arrow_left from '../../assets/svg/arrow-left.svg';
+import { teacherImages } from '../../album/teacher';
+// import teacher01 from '../../assets/ClassImg/teacher01.png';
+// import teacher02 from '../../assets/ClassImg/teacher02.png';
+// import teacher03 from '../../assets/ClassImg/teacher03.png';
+// import teacher04 from '../../assets/ClassImg/teacher04.png';
+// import teacher05 from '../../assets/ClassImg/teacher05.png';
+// import { useState } from 'react';
 
 function Class(props) {
+    // 把網址上的 :stockId 拿出來
+    // const { category } = useParams();
     const [selectCourse, setSelectCourse] = useOutletContext();
     console.log('class', selectCourse);
     return (
         <>
-            <img className="img-fluid" src={banner} alt="banner" />
+            <img className=" w-100" src={banner} alt="banner" />
             <Container>
+                {/* 麵包屑 */}
                 <div className="d-flex mt-5">
                     <Link to="/">
                         <p>首頁</p>
@@ -42,6 +48,7 @@ function Class(props) {
                         <p>音樂教育</p>
                     </Link>
                 </div>
+                {/* 麵包屑 end*/}
                 <div className="d-flex blank-top ">
                     <h4
                         className="me-3 cursor-pinter text-nowrap"
@@ -52,11 +59,11 @@ function Class(props) {
                     <h4 className="engText me-3 text-nowrap">ARTICLE</h4>
                     <div className="vector3 mt-3"></div>
                 </div>
-                <Row className="blank-top-art mt-5">
-                    <Col lg={6}>
+                <Row className=" blank-top-art mt-5">
+                    <Col xl={6}>
                         <img
-                            className="cursor-pinter"
-                            style={{ width: '600px', height: '400px' }}
+                            className="cursor-pinter img-fluid"
+                            style={{ width: '600px', heigh: '400px' }}
                             src={art01}
                             alt="art01"
                         />
@@ -79,7 +86,7 @@ function Class(props) {
                         </div>
                         <div className="d-flex"></div>
                     </Col>
-                    <Col lg={5} className="blank-art-left">
+                    <Col xl={6} className="blank-art-left">
                         <div className="d-flex">
                             <img
                                 className="me-4 cursor-pinter"
@@ -88,11 +95,11 @@ function Class(props) {
                                 alt="art02"
                             />
                             <div>
-                                <h5 className="h5-art02 cursor-pinter">
+                                <h5 className=" cursor-pinter">
                                     AI執筆完成貝多芬《第十號交響曲》——AI的創作是否享有著作權法的保護？
                                 </h5>
 
-                                <div className=" d-flex mt-3 ">
+                                <div className=" d-flex mt-2 ">
                                     <small
                                         className="music-article me-3"
                                         style={{
@@ -105,7 +112,7 @@ function Class(props) {
                                 </div>
                             </div>
                         </div>
-                        <div className="vector1  mt-4 mb-3"></div>
+                        <div className="border-top border-secondary border-1 px-3 pt-3 mt-4 mb-3"></div>
                         <div className="d-flex">
                             <img
                                 className="me-4 cursor-pinter"
@@ -114,11 +121,11 @@ function Class(props) {
                                 alt="art03"
                             />
                             <div>
-                                <h5 className="h5-art02 cursor-pinter">
+                                <h5 className=" cursor-pinter">
                                     廣場上的小提琴手
                                 </h5>
 
-                                <div className=" d-flex mt-3 ">
+                                <div className=" d-flex mt-2 ">
                                     <small
                                         className="important me-3 "
                                         style={{
@@ -131,7 +138,7 @@ function Class(props) {
                                 </div>
                             </div>
                         </div>
-                        <div className="vector1  mt-4 mb-3"></div>
+                        <div className="border-top border-secondary border-1 mt-4 mb-3"></div>
                         <div className="d-flex">
                             <img
                                 className="me-4 cursor-pinter"
@@ -144,7 +151,7 @@ function Class(props) {
                                     莫札特《費加洛的婚禮》——聰明，反被聰明誤？
                                 </h5>
 
-                                <div className=" d-flex mt-3 ">
+                                <div className=" d-flex mt-2 ">
                                     <small
                                         className="Promotions me-3"
                                         style={{
@@ -157,7 +164,7 @@ function Class(props) {
                                 </div>
                             </div>
                         </div>
-                        <div className="vector1  mt-4 mb-3"></div>
+                        <div className="border-top border-secondary border-1  mt-4 mb-3"></div>
                     </Col>
                 </Row>
                 <div className="more-art ">
@@ -171,9 +178,9 @@ function Class(props) {
                 </div>
             </Container>
 
-            <div className="session-bg">
+            <div className="session-bg ">
                 <Container>
-                    <div className="d-flex pt-5">
+                    <div className="d-flex pt-5 ">
                         <h4
                             className="me-3 text-nowrap"
                             style={{ color: '#f2f2f2' }}
@@ -189,12 +196,12 @@ function Class(props) {
                         <div className="vector4 mt-3"></div>
                     </div>
                     <Row className="mt-5 text-center">
-                        <Col>
-                            <Link to="classlist">
+                        <Col lg={6} className="pb-5">
+                            <Link to="list?class=1">
                                 <img
                                     src={Adult_Course}
                                     alt="Adult Course"
-                                    className="cursor-pinter img-fluid"
+                                    className="cursor-pinter img-fluid "
                                     onClick={() => {
                                         setSelectCourse(true);
                                     }}
@@ -204,8 +211,8 @@ function Class(props) {
                                 </h3>
                             </Link>
                         </Col>
-                        <Col>
-                            <Link to="classlist">
+                        <Col lg={6} className="pb-5">
+                            <Link to="list?class=2">
                                 <img
                                     className="cursor-pinter img-fluid"
                                     src={Children_Lessons}
@@ -231,75 +238,20 @@ function Class(props) {
                     >
                         嚴選師資
                     </h4>
-                    <h4 className="engText me-3 text-nowrap">ARTICLE</h4>
+                    <h4 className="engText me-3 text-nowrap">TEACHER</h4>
                     <div className="vector3  mt-3"></div>
                 </div>
-                <div className="d-flex  justify-content-center align-items-center mt-5">
-                    <div className="teacher-arrow me-3 cursor-pinter">
-                        <img src={arrow_left} alt="arrow_left" />
-                    </div>
-                    <Row>
-                        <Col>
-                            <img
-                                className="cursor-pinter"
-                                src={teacher01}
-                                alt="teacher01"
-                            />
-                            <div
-                                className="text-center mt-2 cursor-pinter"
-                                style={{ cursor: 'pointer' }}
-                            >
-                                <h5 className="teacher-h5">蔡侑恬 老師</h5>
-                                <p className="teacher-p">古典鋼琴</p>
-                            </div>
-                        </Col>
-                        <Col>
-                            <img
-                                className="cursor-pinter"
-                                src={teacher02}
-                                alt="teacher02"
-                            />
-                            <div className="text-center mt-2 cursor-pinter">
-                                <h5 className="teacher-h5">鍾秉恩 老師</h5>
-                                <p className="teacher-p">民謠吉他</p>
-                            </div>
-                        </Col>
-                        <Col>
-                            <img
-                                className="cursor-pinter"
-                                src={teacher03}
-                                alt="teacher03"
-                            />
-                            <div className="text-center mt-2 cursor-pinter">
-                                <h5 className="teacher-h5">蔡怡瑩 老師</h5>
-                                <p className="teacher-p">大提琴、鋼琴</p>
-                            </div>
-                        </Col>
-                        <Col>
-                            <img
-                                className="cursor-pinter"
-                                src={teacher04}
-                                alt="teacher04"
-                            />
-                            <div className="text-center mt-2 cursor-pinter">
-                                <h5 className="teacher-h5">蘇浩智 老師</h5>
-                                <p className="teacher-p">吉他、爵士鼓</p>
-                            </div>
-                        </Col>
-                        <Col>
-                            <img
-                                className="cursor-pinter"
-                                src={teacher05}
-                                alt="teacher05"
-                            />
-                            <div className="text-center mt-2 cursor-pinter">
-                                <h5 className="teacher-h5">林瑞祥 老師</h5>
-                                <p className="teacher-p">烏克麗麗</p>
-                            </div>
-                        </Col>
-                    </Row>
-                    <div className="teacher-arrow ms-3 cursor-pinter">
-                        <img src={arrow_right} alt="arrow_right" />
+                <div className="d-flex  justify-content-center align-items-center mt-5 ">
+                    {/*TODO: 手機板 換成 SLIDER  className="d-md-none" */}
+                    <div
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            padding: '15px',
+                        }}
+                    >
+                        <Teacher images={teacherImages} />
+                        <TeacherMob images={teacherImages} />
                     </div>
                 </div>
             </Container>

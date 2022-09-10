@@ -33,7 +33,7 @@ function BucketProduct() {
                 <div className="col-md-6 py-2">
                     <div className="myBucketItem d-flex">
                         <img className="myBucketImg" src={productImg} alt="" />
-                        <div className="itemFlex m-2 d-flex flex-column">
+                        <div className="flex-grow-1 m-2 d-flex flex-column">
                             <div className="d-flex justify-content-between">
                                 <h6>
                                     <b>YAMAHA</b>
@@ -47,8 +47,9 @@ function BucketProduct() {
                             </div>
                             <div className="d-flex justify-content-between align-items-center mt-auto">
                                 <p className="d-inline-flex m-0">
-                                    <span className="itemPrice">NT: 2500</span>
-                                    /期
+                                    <span className="accent-color">
+                                        <b>NT: 2500</b>
+                                    </span>
                                 </p>
                                 <div>
                                     <button className="btn border-0 p-0 mx-3">
@@ -65,7 +66,7 @@ function BucketProduct() {
                 <div className="col-md-6 py-2">
                     <div className="myBucketItem d-flex">
                         <img className="myBucketImg" src={productImg} alt="" />
-                        <div className="itemFlex m-2 d-flex flex-column">
+                        <div className="flex-grow-1 m-2 d-flex flex-column">
                             <div className="d-flex justify-content-between">
                                 <h6>
                                     <b>YAMAHA</b>
@@ -79,8 +80,9 @@ function BucketProduct() {
                             </div>
                             <div className="d-flex justify-content-between align-items-center mt-auto">
                                 <p className="d-inline-flex m-0">
-                                    <span className="itemPrice">NT: 2500</span>
-                                    /期
+                                    <span className="accent-color">
+                                        <b>NT: 2500</b>
+                                    </span>
                                 </p>
                                 <div>
                                     <button className="btn border-0 p-0 mx-3">
@@ -97,7 +99,7 @@ function BucketProduct() {
                 <div className="col-md-6 py-2">
                     <div className="myBucketItem d-flex">
                         <img className="myBucketImg" src={productImg} alt="" />
-                        <div className="itemFlex m-2 d-flex flex-column">
+                        <div className="flex-grow-1 m-2 d-flex flex-column">
                             <div className="d-flex justify-content-between">
                                 <h6>
                                     <b>YAMAHA</b>
@@ -111,8 +113,9 @@ function BucketProduct() {
                             </div>
                             <div className="d-flex justify-content-between align-items-center mt-auto">
                                 <p className="d-inline-flex m-0">
-                                    <span className="itemPrice">NT: 2500</span>
-                                    /期
+                                    <span className="accent-color">
+                                        <b>NT: 2500</b>
+                                    </span>
                                 </p>
                                 <div>
                                     <button className="btn border-0 p-0 mx-3">

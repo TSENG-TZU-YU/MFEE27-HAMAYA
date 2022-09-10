@@ -7,12 +7,14 @@
 
 .products-icon-img {
   width: 1.5rem;
+  display: block;
+  padding: auto 0;
 }
 
 .products-filter-menu {
   background: $main-light;
   width: 150px;
-  top: 43px;
+  top: 40px;
   z-index: 1;
   color: $accent-light;
 }
@@ -40,7 +42,6 @@ button.products-btn-border-none {
   width: 20px;
   height: 20px;
   margin: 0 5px;
-  cursor: pointer;
 }
 
 .products-filter-color-box-active{
@@ -61,7 +62,7 @@ button.products-btn-border-none {
 .products-sort-menu {
   background: $main-light;
   left: 110px;
-  top: 43px;
+  top: 40px;
   z-index: 1;
   color: $accent-light;
 }
@@ -72,9 +73,14 @@ button.products-btn-border-none {
   cursor: pointer;
 }
 
-
 .products-sort-menu > ul {
   line-height: 1.5rem;
   padding: 0;
   margin-bottom: 0 !important;
+}
+
+.products-Search-box {
+  left: 110px;
+  top: 40px;
+  z-index: 2;
 }

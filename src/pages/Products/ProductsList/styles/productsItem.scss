@@ -21,7 +21,7 @@
 }
 
 .card-img-top{
-  height: 240px;
+  height: 100%;
 }
 
 .product-img-mask {
@@ -59,8 +59,6 @@
   opacity: 0;
   padding: 1px;
   margin: 5px;
-  width: 30px;
-  height: 30px;
   cursor: pointer;
 }
 
@@ -90,7 +88,3 @@
   margin-top: 10px;
   margin-bottom: 0;
 }
-
-// .cover-fit{
-//   object-fit: cover;
-// }

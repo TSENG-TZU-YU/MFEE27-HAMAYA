@@ -1,16 +1,12 @@
 @import '../../../../index.scss';
 
 .introduce {
-    width: 665px;
-    height: 298px;
     background-color: #ffffff;
 }
 .vector2 {
     border-top: 3px solid $main-light;
-    width: 614px;
 }
 .class-text {
-    width: 601px;
     margin-bottom: 5px;
     overflow: hidden;
     display: -webkit-box;
@@ -23,4 +19,21 @@ p {
 }
 .StarRating {
     margin-bottom: 6px;
+}
+.class-shadow:hover {
+    box-shadow: 1.8px 1.2px 2.2px rgba(0, 0, 0, 0.02),
+        4.4px 2.8px 5.3px rgba(0, 0, 0, 0.028),
+        8.3px 5.3px 10px rgba(0, 0, 0, 0.035),
+        14.7px 9.4px 17.9px rgba(0, 0, 0, 0.042),
+        27.6px 17.5px 33.4px rgba(0, 0, 0, 0.05),
+        66px 42px 80px rgba(0, 0, 0, 0.07);
+}
+.class-like {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding-right: 12px;
+}
+.classImg{
+    overflow: hidden;
 }

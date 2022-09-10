@@ -13,6 +13,24 @@ function MyProfile(props) {
         sub: '1',
     });
 
+    const [mainClass, setMainClass] = useState([
+        { mainClass: 1, mainName: "台北市" },
+        { mainClass: 2, mainName: "桃園市" },
+        { mainClass: 3, mainName: "新竹市" },
+    ]);
+
+    const [secondClass, setSecondClass] = useState([
+        { mainClass: 1, secondClass: '松山區' },
+        { mainClass: 1, secondClass: '大安區' },
+        { mainClass: 2, secondClass: '桃園區' },
+        { mainClass: 2, secondClass: '中壢區' },
+        { mainClass: 2, secondClass: '八德區' },
+        { mainClass: 3, secondClass: '北區' },
+        { mainClass: 3, secondClass: '東區' },
+    ]);
+
+    const [url, setUrl] = useState(1);
+
     const [setbread] = useOutletContext();
     useEffect(() => {
         setbread('會員資料');
@@ -25,7 +43,26 @@ function MyProfile(props) {
         setUser(newUser);
     };
     return (
-        <div className="col-12 col-md-8 col-lg-9">
+        <div className="col-12 col-md-8 col-lg-9 MyProfile">
+            <select
+                value={url}
+                onChange={(e) => {
+                    setUrl(e.target.value);
+                }}
+            >
+                {mainClass.map((data, index) => {
+                    return (
+                        <option value={data.mainClass}>{data.mainName}</option>
+                    );
+                })}
+            </select>
+            <select>
+                {secondClass.map((data, index) => {
+                    console.log(data.mainClass);
+                    if (data.mainClass === Number(url))
+                        return <option>{data.secondClass}</option>;
+                })}
+            </select>
             <table className="myprofile_table ">
                 <thead>
                     <tr>
@@ -121,7 +158,7 @@ function MyProfile(props) {
                 <h5 className="gary-dark-color mt-4">優惠訊息通知</h5>
                 <div className="d-flex my-3">
                     <input
-                        className="d-block"
+                        className="form-check-input d-block"
                         type="radio"
                         id="sub"
                         name="sub"
@@ -133,7 +170,7 @@ function MyProfile(props) {
                     <label htmlFor="sub">訂閱</label>
                     &nbsp;
                     <input
-                        className="d-block"
+                        className="form-check-input d-block"
                         type="radio"
                         id="unsub"
                         name="sub"

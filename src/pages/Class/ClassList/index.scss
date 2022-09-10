@@ -1,5 +1,6 @@
 @import '../../../index.scss';
 
+// 篩選 pc
 .filter-active {
     position: absolute;
     width: 130px;
@@ -33,6 +34,60 @@
     z-index: 3;
     color: $accent-light;
 }
+.sort-menu-class > ul > li {
+    padding: 2px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+.sort-menu-class > ul {
+    line-height: 0.9rem;
+    padding: 0;
+    margin-bottom: 0 !important;
+}
+//篩選 pc end
+
+// 篩選 mob
+.mobile-class-filter-nav {
+    margin: 10px 0;
+}
+
+.class-filter-nav-item-name {
+    color: $gary-light;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.class-filter-nav-item {
+    width: 100%;
+}
+
+.class-filter-nav-btn {
+    font-style: 1.5rem;
+    color: $main;
+    margin: auto;
+}
+
+.class-filter-nav-item.border-end {
+    border-color: $gary-light;
+}
+
+.class-filter-category-select {
+    width: 100%;
+    height: 300px;
+    background: $main-light;
+    color: $accent-light;
+}
+
+.class-filter-category-select:focus {
+    border: none;
+}
+
+.class-filter-category-select > option {
+    font-size: 1rem;
+    padding: 5px;
+}
+
+//篩選 mob end
 ul > li {
     list-style: none;
     font-size: 1rem;
@@ -60,3 +115,18 @@ ul > li {
     height: 28px;
     text-align: center;
 }
+
+.class-search {
+    margin-top: 40px;
+    margin-left: 10px;
+}
+.class-h4-color {
+    color: $main-light;
+    
+}
+
+.class-h4-color-active {
+    color: $main;
+}
+
+

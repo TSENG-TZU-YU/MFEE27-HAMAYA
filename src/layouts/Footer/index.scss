@@ -1,27 +1,59 @@
 @import '../../styles/global.scss';
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@600&display=swap');
+
 
 .footer-height{
-  height: 230px;
+  height: 240px;
 }
 
-.footer-word{
-  font-family: 'Noto Serif Malayalam', serif;
-  letter-spacing: 0.2rem;
-  font-size:1.5rem ;
+
+.footerLogo{
+  //width: 300px;
+  padding-top: 20px;
  
 }
-.footer-word2{
-  font-family: 'Noto Serif Malayalam', serif;
-  letter-spacing: 0.3rem;
-  font-size: 0.8rem; 
+.footerConnect{
+ padding-top: 30px;
+
 }
-.footer-word3{
-  font-size: 0.6rem;
+
+.word-size{
+  font-size: 18px;
 }
 
 .picture-height{
-  padding-top: 70px;
+  padding-top: 60px;
   width: 230px;
  
 }
+
+@media screen and (max-width:1400px) {
+  .footer-imgs{
+    width: 200px;
+
+  }
+  .footer-imgs2{
+    width: 180px;
+    
+  }
+  .word-size{
+    font-size: 13px;
+  }
+  .word-size2{
+    font-size: 10px;
+     
+  }
+ .FYL{
+  width: 25px;
+}
+.footer-height{
+  height: 180px;
+}
+ 
+  
+}
+
+
+
+
+
+

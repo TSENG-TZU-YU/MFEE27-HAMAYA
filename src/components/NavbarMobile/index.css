@@ -1,0 +1,109 @@
+.space-block{
+    /* 下移區塊 */
+    height: 60px;
+}
+.NavbarMobile .header{
+    position: fixed;
+    top:0px;
+    width: 100vw;
+    height: 60px;
+    background-color: #BABABA;
+    z-index: 997;
+}
+.NavbarMobile .background{
+    display: none;
+    position: fixed;
+    top:60px;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0, 0.5);
+    z-index: 996;
+}
+.NavbarMobile .background.show{
+    display: block;
+}
+.NavbarMobile .list{
+    position: fixed;
+    top:60px;
+    left:0px;
+    width: 0px;
+    height: 100vh;
+    background-color: #6A777A;
+    z-index: 997;
+    transition: 0.5s;
+    overflow: hidden;
+}
+.NavbarMobile .list.show{
+    width: 200px;
+}
+
+/* .NavbarMobile .list.show{
+    display: block;
+    animation: list-animation-show .5s forwards;
+}
+@keyframes list-animation-show{
+    0% {left: -200px;}
+    100% {left: 0px;}
+}
+.NavbarMobile .list.hide{
+    display: block;
+    animation: list-animation-hide .5s forwards;
+}
+@keyframes list-animation-hide{
+    0% {left: 0px;}
+    100% {left: -200px;}
+} */
+
+.NavbarMobile .logo{
+    height: 50px;
+}
+
+.NavbarMobile .menubtn{
+    width: 25px;
+}
+
+.NavbarMobile li{
+    margin: 10px auto;
+}
+.NavbarMobile button{
+    background-color:transparent;
+    border: 0;
+} 
+
+.NavbarMobile .sublist{
+    max-height: 0px;
+    overflow: hidden;
+    transition: 1s;
+}
+.NavbarMobile .sublist.show{
+    max-height: 300px;
+    
+}
+.NavbarMobile .drop_down_menu{
+    width: 25px;
+}
+.NavbarMobile .space{
+    margin-right: 35px;
+}
+/* .sublist{
+    width: 100%;
+    background-color: #6A777A;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    max-height: 0px;
+    overflow: hidden;
+    transition: 1s;
+    
+    
+}
+.sublist:hover{
+    max-height: 300px;
+}
+.sublist.show{
+    max-height: 300px;
+} */
+
+
+

@@ -11,11 +11,8 @@ function ToShareCollect(props) {
     const toggle = () => setPlus(!plusToggled);
     return (
         <div className="d-flex mt-2">
+            {/* 收藏 */}
             <div className="d-flex justify-content-center align-items-center cursor-pinter me-4">
-                <img className="me-2 " src={Share} alt="Share" />
-                <p className="mt-2 share">分享</p>
-            </div>
-            <div className="d-flex justify-content-center align-items-center cursor-pinter">
                 {plusToggled ? (
                     <RiHeartAddFill
                         className="plus-icon-size me-2 plus-icon-color "
@@ -28,6 +25,11 @@ function ToShareCollect(props) {
                     />
                 )}
                 <p className="mt-3 collect">收藏</p>
+            </div>
+            {/* 分享 */}
+            <div className="d-flex justify-content-center align-items-center cursor-pinter ">
+                <img className="me-2 " src={Share} alt="Share" />
+                <p className="mt-3 share">分享</p>
             </div>
         </div>
     );
