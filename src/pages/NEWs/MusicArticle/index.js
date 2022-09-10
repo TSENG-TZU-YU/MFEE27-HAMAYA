@@ -35,16 +35,16 @@ function MusicArticle(props) {
             {/* 麵包屑 end*/}
             <div className="container">
                 <div className="row text-center ">
-                    <button className="col-3 News-word3  News-vector5-Btn ">
+                    <button className="col-3 list-word list-vector5-Btn ">
                         促銷活動
                     </button>
-                    <button className="col-3 News-word3  News-vector5-Btn">
+                    <button className="col-3 list-word  list-vector5-Btn">
                         活動快訊
                     </button>
-                    <button className="col-3 News-word3  News-vector5-Btn">
+                    <button className="col-3 list-word  list-vector5-Btn">
                         重要通知
                     </button>
-                    <button className="col-3 News-word3  News-vector5-Btn News-vector5-Btn-active">
+                    <button className="col-3 list-word  list-vector5-Btn list-vector5-Btn-active">
                         音樂文章
                     </button>
                 </div>
@@ -52,17 +52,13 @@ function MusicArticle(props) {
             <div className="container">
                 <div className="row">
                     <div className="col-12  col-md-6 d-flex mt-3">
-                        <img
-                            src={NewsImg2}
-                            alt="art02"
-                            className="article-img"
-                        />
+                        <img src={NewsImg2} alt="art02" className="list-img" />
                     </div>
                     <div className="col-12 col-md-6  mt-3">
                         <span className="ms-2 gary-dark-color h4 list-cursor-pinter ">
                             AI執筆完成貝多芬《第十號交響曲》——AI的創作是否享有著作權法的保護？
                             <div className="d-flex mt-2 ">
-                                <p className="ms-2 News-music-article2 small  ">
+                                <p className="ms-2 list-music-article2 small  ">
                                     音樂文章
                                 </p>
                                 <p className="ms-2 mt-1 ">瓦力 － 2022/08/20</p>
@@ -100,17 +96,13 @@ function MusicArticle(props) {
             <div className="container">
                 <div className="row">
                     <div className="col-12  col-md-6 d-flex mt-3">
-                        <img
-                            src={NewsImg11}
-                            alt="art02"
-                            className="article-img"
-                        />
+                        <img src={NewsImg11} alt="art02" className="list-img" />
                     </div>
                     <div className="col-12 col-md-6  mt-3">
                         <span className="ms-2 gary-dark-color h4 list-cursor-pinter ">
                             蕭邦模仿秀
                             <div className="d-flex mt-2 ">
-                                <p className="ms-2 News-music-article2 small  ">
+                                <p className="ms-2 list-music-article2 small  ">
                                     音樂文章
                                 </p>
                                 <p className="ms-2 mt-1 ">瓦力 － 2022/08/20</p>
@@ -148,14 +140,14 @@ function MusicArticle(props) {
                             alt="art02"
                             width="300"
                             height="180"
-                            className="article-img"
+                            className="list-img"
                         />
                     </div>
                     <div className="col-md-9  col-sm-12  mt-3">
                         <span className="ms-2 gary-dark-color h4 list-cursor-pinter ">
                             木村拓哉的鋼琴課
                             <div className="d-flex mt-2 ">
-                                <p className="ms-2 News-music-article2 small  ">
+                                <p className="ms-2 list-music-article2 small  ">
                                     音樂文章
                                 </p>
                                 <p className="ms-2 mt-1 ">瓦力 － 2022/08/20</p>
@@ -189,14 +181,14 @@ function MusicArticle(props) {
                             alt="art02"
                             width="300"
                             height="180"
-                            className="article-img"
+                            className="list-img"
                         />
                     </div>
                     <div className="col-md-9  col-sm-12  mt-3">
                         <span className="ms-2 gary-dark-color h4 list-cursor-pinter ">
                             舒曼同意克拉拉將其未出版之作品公諸於世——著作人格權
                             <div className="d-flex mt-2 ">
-                                <p className="ms-2 News-music-article2 small  ">
+                                <p className="ms-2 list-music-article2 small  ">
                                     音樂文章
                                 </p>
                                 <p className="ms-2 mt-1 ">瓦力 － 2022/08/20</p>
@@ -231,14 +223,14 @@ function MusicArticle(props) {
                             alt="art02"
                             width="300"
                             height="180"
-                            className="article-img"
+                            className="list-img"
                         />
                     </div>
                     <div className="col-md-9  col-sm-12  mt-3">
                         <span className="ms-2 gary-dark-color h4 list-cursor-pinter ">
                             將經典音樂劇《歌劇魅影》翻拍成電影
                             <div className="d-flex mt-2 ">
-                                <p className="ms-2 News-music-article2 small  ">
+                                <p className="ms-2 list-music-article2 small  ">
                                     音樂文章
                                 </p>
                                 <p className="ms-2 mt-1 ">瓦力 － 2022/08/20</p>
@@ -277,14 +269,14 @@ function MusicArticle(props) {
                             alt="art02"
                             width="300"
                             height="180"
-                            className="article-img"
+                            className="list-img"
                         />
                     </div>
                     <div className="col-md-9  col-sm-12  mt-3">
                         <span className="ms-2 gary-dark-color h4 list-cursor-pinter ">
                             新寫的舊歌
                             <div className="d-flex mt-2 ">
-                                <p className="ms-2 News-music-article2 small  ">
+                                <p className="ms-2 list-music-article2 small  ">
                                     音樂文章
                                 </p>
                                 <p className="ms-2 mt-1 ">瓦力 － 2022/08/20</p>
@@ -318,14 +310,14 @@ function MusicArticle(props) {
                             alt="art02"
                             width="300"
                             height="180"
-                            className="article-img"
+                            className="list-img"
                         />
                     </div>
                     <div className="col-md-9  col-sm-12  mt-3">
                         <span className="ms-2 gary-dark-color h4 list-cursor-pinter ">
                             舉辦線上直播音樂會、分享音樂會影片會侵害別人的著作權嗎？
                             <div className="d-flex mt-2 ">
-                                <p className="ms-2 News-music-article2 small  ">
+                                <p className="ms-2 list-music-article2 small  ">
                                     音樂文章
                                 </p>
                                 <p className="ms-2 mt-1 ">瓦力 － 2022/08/20</p>
@@ -359,14 +351,14 @@ function MusicArticle(props) {
                             alt="art02"
                             width="300"
                             height="180"
-                            className="article-img"
+                            className="list-img"
                         />
                     </div>
                     <div className="col-md-9  col-sm-12  mt-3">
                         <span className="ms-2 gary-dark-color h4 list-cursor-pinter ">
                             提琴名城甜蜜蜜：義大利三大名琴與牛札糖
                             <div className="d-flex mt-2 ">
-                                <p className="ms-2 News-music-article2 small  ">
+                                <p className="ms-2 list-music-article2 small  ">
                                     音樂文章
                                 </p>
                                 <p className="ms-2 mt-1 ">瓦力 － 2022/08/20</p>
