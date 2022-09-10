@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate ,Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../utils/use_auth';
 import axios from 'axios';
@@ -11,18 +11,17 @@ function Members(props) {
     const [bread, setbread] = useState('');
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!isLogin) {
-            navigate('/');
-            // alert('請先登入');
-            return;
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (!isLogin) {
+    //         navigate('/');
+    //         alert('請先登入');
+    //         return;
+    //     }
+    // }, []);
 
-    // if (!isLogin) {
-    //     navigate('/');
-    //     return;
-    // }
+    if (!isLogin) {
+        return <Navigate to="/" />;
+    }
     return (
         <div className="container">
             <div className="mt-2 d-flex justify-content-between ">
