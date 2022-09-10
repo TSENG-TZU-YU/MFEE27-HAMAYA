@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 
 // 元件
 import Teacher from '../../components/Teacher';
+import TeacherMob from '../../components/TeacherMob';
 
 // 圖檔
 import banner from '../../assets/ClassImg/banner.png';
@@ -240,7 +241,7 @@ function Class(props) {
                     <h4 className="engText me-3 text-nowrap">TEACHER</h4>
                     <div className="vector3  mt-3"></div>
                 </div>
-                <div className="d-flex  justify-content-center align-items-center mt-5">
+                <div className="d-flex  justify-content-center align-items-center mt-5 ">
                     {/*TODO: 手機板 換成 SLIDER  className="d-md-none" */}
                     <div
                         style={{
@@ -250,6 +251,7 @@ function Class(props) {
                         }}
                     >
                         <Teacher images={teacherImages} />
+                        <TeacherMob images={teacherImages} />
                     </div>
                 </div>
             </Container>

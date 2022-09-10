@@ -19,12 +19,10 @@ import arrowDown from '../../../assets/ProductsImg/icon/arrow_down.svg';
 function ClassList(props) {
     // 課程 Toggled
     const [selectCourse, setSelectCourse] = useOutletContext();
-    console.log('classlist', selectCourse);
 
     //  篩選 Toggled
     const [filterToggled, setFilterToggled] = useState(false);
     const toggleFilterTrueFalse = () => setFilterToggled(!filterToggled);
-    console.log('toggle', toggleFilterTrueFalse);
 
     // 排序 Toggled
     const [sortToggled, setSortToggled] = useState(false);
@@ -273,7 +271,20 @@ function ClassList(props) {
                         setSelectCourse(true);
                     }}
                 >
-                    <h4>成人課程</h4>
+                    <Link to="/class/list?class=1">
+                        <h4
+                            className={`${
+                                selectCourse
+                                    ? 'class-h4-color-active'
+                                    : 'class-h4-color'
+                            }`}
+                            onClick={() => {
+                                setSelectCourse(true);
+                            }}
+                        >
+                            成人課程
+                        </h4>
+                    </Link>
                 </button>
 
                 <button
@@ -284,7 +295,20 @@ function ClassList(props) {
                         setSelectCourse(false);
                     }}
                 >
-                    <h4>兒童課程</h4>
+                    <Link to="/class/list?class=2">
+                        <h4
+                            className={`${
+                                selectCourse
+                                    ? 'class-h4-color'
+                                    : 'class-h4-color-active'
+                            }`}
+                            onClick={() => {
+                                setSelectCourse(false);
+                            }}
+                        >
+                            兒童課程
+                        </h4>
+                    </Link>
                 </button>
             </Row>
             {/* 課程選擇 toggle  end*/}

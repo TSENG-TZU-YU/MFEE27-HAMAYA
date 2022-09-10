@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { API_URL } from '../../utils/config';
 
 // 套件
 import { Container } from 'react-bootstrap';
@@ -54,14 +55,13 @@ function Products() {
     // 商品次類別
     const [categorySub, setCategorySub] = useState([]);
 
+    console.log();
     // 所有商品 - 最新商品
     useEffect(() => {
         console.log('Products', 'useEffect []');
         console.log('useEffect[]', data);
         let getProducts = async () => {
-            let response = await axios.get(
-                `http://localhost:3001/api/products?page=${page}`
-            );
+            let response = await axios.get(`${API_URL}/products?page=${page}`);
             setData(response.data.data);
             // 從後端取得總頁數 (lastPage)
             setLastPage(response.data.pagination.lastPage);
@@ -81,12 +81,9 @@ function Products() {
     // }, []);
 
     useEffect(() => {
-        console.log('useEffect[]', data.categoryMain);
-        console.log('useEffect[]', data.categorySub);
+        // console.log('useEffect[]', data.categoryMain)
         let getCategory = async () => {
-            let response = await axios.get(
-                `http://localhost:3001/api/products`
-            );
+            let response = await axios.get(`${API_URL}/products`);
             setCategoryMain(response.data.categoryMain);
             setCategorySub(response.data.categorySub);
         };
@@ -579,37 +576,29 @@ function Products() {
                             </li>
                             {categoryMain.map((value, index) => {
                                 return (
-                                    <>
-                                        <li
-                                            className="products-main-category"
-                                            key={index}
-                                        >
+                                    <div
+                                        key={Math.random()
+                                            .toString(36)
+                                            .replace('0.', '')}
+                                    >
+                                        <li className="products-main-category">
                                             {value.mainName}
                                         </li>
-                                        {/* <ul className="products-sub-category">
-                                            {categorySub.map((item, i) => {
-                                                if (
-                                                    item.mainId === value.mainId
-                                                ) {
-                                                    return (
-                                                        <li>{item.subName}</li>
-                                                    );
-                                                }
-                                            })}
-                                        </ul> */}
-                                    </>
+                                        {categorySub.map((item, i) => {
+                                            if (item.mainId === value.mainId)
+                                                return (
+                                                    <li
+                                                        key={Math.random()
+                                                            .toString(36)
+                                                            .replace('0.', '')}
+                                                    >
+                                                        {item.subName}
+                                                    </li>
+                                                );
+                                        })}
+                                    </div>
                                 );
                             })}
-                            {/* {categorySub.map((value, index) => {
-                                return (
-                                    <li
-                                        className="products-sub-category"
-                                        key={index}
-                                    >
-                                        {value.subName}
-                                    </li>
-                                );
-                            })} */}
                             <li className="products-main-category">琴鍵樂器</li>
                             <ul className="products-sub-category">
                                 <li>直立/平台鋼琴</li>

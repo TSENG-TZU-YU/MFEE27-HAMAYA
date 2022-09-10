@@ -1,13 +1,13 @@
 @import '../../styles/global.scss';
 
-.News-Breadcrumbs{
+.News-Breadcrumbs {
   font-size: 1rem;
-  color:#00323d;
+  color: #00323d;
 }
 
-.News-word{
+.News-word {
   font-size: 1.5rem;
-  color:#00323d;
+  color: #00323d;
 
 }
 
@@ -20,11 +20,12 @@
   font-family: 'Noto Serif Display', serif;
   color: $main;
 }
+
 .News-cursor-pinter {
   cursor: pointer;
 }
 
-.News-blank-top{
+.News-blank-top {
   margin-top: 20px;
 }
 
@@ -40,14 +41,14 @@
   vertical-align: middle;
   background-color: $gary-light;
   color: $accent-light;
-   line-height: 25px;
+  line-height: 25px;
 }
 
 .News-cursor-pinter {
   cursor: pointer;
 }
 
-.News-word2{
+.News-word2 {
   margin-top: -35px;
 }
 
@@ -80,6 +81,7 @@
   background-color: $main;
   color: $accent-light;
 }
+
 .News-more-art {
   display: flex;
   justify-content: end;
@@ -87,23 +89,25 @@
   padding-right: 45px;
   margin-bottom: 20px;
 }
-.News-art-arrow{
+
+.News-art-arrow {
   margin-top: 3px;
 }
+
 @media screen and (min-width: 1405px) {
   .News-blank-art-left {
     margin-left: -35px;
 
-  .News-article-left{
-    margin-left: -30px;
+    .News-article-left {
+      margin-left: -30px;
 
 
+    }
   }
 }
-}
 
 
-.News-word3{
+.News-word3 {
   font-size: 24px;
   font-weight: bold;
 }
@@ -114,7 +118,7 @@
   border-bottom: 3px solid $main-light;
 }
 
-.News-vector5-Btn-active{
+.News-vector5-Btn-active {
   color: $main;
   border: 0px;
   border-bottom: 5px solid $main;
@@ -123,50 +127,14 @@
 
 
 @media screen and (max-width: 768px) {
-  .News-imgs{
-    width:100%;
-    height:100%; 
+  .News-imgs {
+    width: 100%;
+    height: 100%;
   }
-  // .Mobile-News-words{
-  //   font-size: 14px;
-  //   font-weight: 500;
-  // }
-  
-  .News-word3{
+
+  .News-word3 {
     font-size: 18px;
     font-weight: bold;
   }
-  // .News-vector5-Btn{
-  //   color: $main-light;
-  //   border: 0px;
-  //   border-bottom: 3px solid $main-light;
-  // }
-  // .News-vector5-Btn-active{
-  //   color: $main;
-  //   border: 0px;
-  //   border-bottom: 3px solid $main;
-  
-   
-  // }
 
-
-  // .News-articles{
-  //   text-align: center;
-  // }
-  // .News-label{
-  // margin-left: 45px;
-  // }
-  // .News-word5{
-  //   margin-right: 50px;
-  // }
-  // .News-word6{
-  //   margin-right: 10px;
-  // }
-  // .News-word7{
-  //   margin-right:200px;
-  // }
 }
-
-
-  
-  

@@ -46,7 +46,7 @@
     border: none;
 }
 
-.setLogIn,.setSignUp{
+.setLogIn{
     width: 50%;
     border: none;
     border-bottom: solid 3px #6A777A;
@@ -55,16 +55,23 @@
     color: #6A777A;
     padding: 10px;
 }
-.LogInSignUp-active{
+.setLogIn.active{
     color: #00323D;
     border-bottom: solid 5px #00323D;
 }
-
+.loguptBtn{
+    padding: 5px 10px;
+    color: white;
+    border: none;
+    background-color: #810000;
+}
 .subBtn{
     width: 100%;
+    padding: 5px 10px;
     color: white;
     border: none;
     background-color: #00323D;
+    
 }
 .visibiImg{
     background-color:transparent;

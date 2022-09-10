@@ -4,6 +4,8 @@ import React, { useEffect } from 'react';
 
 // import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+// 登入元件
+import { AuthProvider } from './utils/use_auth';
 // import { ClassContext } from './pages/Class/UseContext';
 
 // 版面頁面元件
@@ -52,63 +54,71 @@ function App() {
         <>
             {/* <ClassContext.Provider value={{ selectCourse, setSelectCourse }}> */}
             <BrowserRouter>
-                <Header />
-                <Routes>
-                    <Route path="/" element={<MainOutlet />}>
-                        <Route index element={<Home />} />
+                <AuthProvider>
+                    <Header />
+                    <Routes>
+                        <Route path="/" element={<MainOutlet />}>
+                            <Route index element={<Home />} />
 
-                        <Route path="products" element={<MainOutlet />}>
-                            <Route index element={<Products />} />
-                            <Route
-                                path="productsDetail/:productId"
-                                element={<ProductDetail />}
-                            />
-                        </Route>
-
-                        <Route path="news" element={<MainOutlet />}>
-                            <Route index element={<NEWs />} />
-                            <Route path="section" element={<MusicArticle />} />
-                            <Route path="category" element={<Article />} />
-                        </Route>
-
-                        <Route path="class" element={<MainOutlet />}>
-                            <Route index element={<Class />} />
-                            <Route path="list" element={<SubOutlet />}>
-                                <Route index element={<ClassList />} />
+                            <Route path="products" element={<MainOutlet />}>
+                                <Route index element={<Products />} />
                                 <Route
-                                    path=":detailedID"
-                                    element={<Detailed />}
+                                    path="productsDetail/:productId"
+                                    element={<ProductDetail />}
                                 />
                             </Route>
-                            <Route path="teacher" element={<Teacher />} />
-                        </Route>
 
-                        <Route path="place" element={<MainOutlet />}>
-                            <Route index element={<Place />} />
-                        </Route>
+                            <Route path="news" element={<MainOutlet />}>
+                                <Route index element={<NEWs />} />
+                                <Route
+                                    path="section"
+                                    element={<MusicArticle />}
+                                />
+                                <Route path="category" element={<Article />} />
+                            </Route>
 
-                        <Route path="aboutus" element={<MainOutlet />}>
-                            <Route index element={<AboutUs />} />
-                        </Route>
+                            <Route path="class" element={<MainOutlet />}>
+                                <Route index element={<Class />} />
+                                <Route path="list" element={<SubOutlet />}>
+                                    <Route index element={<ClassList />} />
+                                    <Route
+                                        path=":detailedID"
+                                        element={<Detailed />}
+                                    />
+                                </Route>
+                                <Route path="teacher" element={<Teacher />} />
+                            </Route>
 
-                        <Route path="member" element={<Member />}>
-                            <Route index element={<MyProfile />} />
-                            <Route path="myclass" element={<MyClass />} />
-                            <Route
-                                path="mybucketlist"
-                                element={<MyBucketList />}
-                            />
-                            <Route path="mycart" element={<MyCart />} />
-                            <Route path="myorder" element={<MyOrder />} />
-                            <Route path="mycoupon" element={<MyCoupon />} />
-                            <Route path="myquestion" element={<MyQuestion />} />
-                        </Route>
+                            <Route path="place" element={<MainOutlet />}>
+                                <Route index element={<Place />} />
+                            </Route>
 
-                        {/* 404未找到的頁面路由，需放在最下方 */}
-                        <Route path="*" element={<h1>404 NOT FOUND</h1>} />
-                    </Route>
-                </Routes>
-                <Footer />
+                            <Route path="aboutus" element={<MainOutlet />}>
+                                <Route index element={<AboutUs />} />
+                            </Route>
+
+                            <Route path="member" element={<Member />}>
+                                <Route index element={<MyProfile />} />
+                                <Route path="myclass" element={<MyClass />} />
+                                <Route
+                                    path="mybucketlist"
+                                    element={<MyBucketList />}
+                                />
+                                <Route path="mycart" element={<MyCart />} />
+                                <Route path="myorder" element={<MyOrder />} />
+                                <Route path="mycoupon" element={<MyCoupon />} />
+                                <Route
+                                    path="myquestion"
+                                    element={<MyQuestion />}
+                                />
+                            </Route>
+
+                            {/* 404未找到的頁面路由，需放在最下方 */}
+                            <Route path="*" element={<h1>404 NOT FOUND</h1>} />
+                        </Route>
+                    </Routes>
+                    <Footer />
+                </AuthProvider>
             </BrowserRouter>
             {/* </ClassContext.Provider> */}
         </>
