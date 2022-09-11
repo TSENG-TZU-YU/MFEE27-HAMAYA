@@ -31,7 +31,7 @@ function Members(props) {
                             <a href="/">首頁</a>
                         </li>
                         <li className="breadcrumb-item">
-                            <a href="member">會員專區</a>
+                            <a href="/member">會員專區</a>
                         </li>
                         <li className="breadcrumb-item " aria-current="page">
                             {bread}
