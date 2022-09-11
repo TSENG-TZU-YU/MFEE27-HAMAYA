@@ -1,79 +1,329 @@
 @import '../../styles/global.scss';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@600&display=swap');
 
-.font{
+
+
+.wrap {
+  width: 1200px;
+  margin: auto;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 70px;
+}
+
+
+
+.item .pic {
+  width: 55%;
+  flex-shrink: 0;
+
+}
+
+.item .pic img {
+
+  vertical-align: middle;
+}
+
+.item .txt {
+  width: 55%;
+  flex-shrink: 0;
+
+  padding: 50px 30px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+
+}
+
+.item> :first-child {
+  margin-right: -5%;
+}
+
+.item> :nth-child(1).txt {
+  background-color: rgba(255, 255, 255, 0.168);
+
+}
+
+.item> :nth-child(2).txt {
+  background-color: rgba(255, 255, 255, 0.168);
+
+}
+
+.item> :nth-child(3).txt {
+  background-color: rgba(255, 255, 255, 0.168);
+
+}
+
+.second-img {
+  margin-left: -22%;
+}
+
+.item-word {
+  font-size: 24px;
+  color: $main;
+  position: relative;
+  top: -20px;
+  right: -180px;
+
+}
+
+.item-word2 {
+  font-size: 24px;
+  color: $accent-light;
+  position: relative;
+  top: 23px;
+  left: -30px;
+  white-space: nowrap;
+}
+
+
+.vector25 {
+  position: relative;
+  top: -10px;
+  right: -90px;
+
+
+}
+
+.vector25-2 {
+  position: relative;
+  top: -10px;
+  left: -80px;
+
+}
+
+.item-word3 {
+  font-size: 24px;
+  color: $main;
+  position: relative;
+  top: -20px;
+  left: 10px;
+
+}
+
+.item-word4 {
+  font-size: 24px;
+  color: $accent-light;
+  position: relative;
+  top: 23px;
+  left: -180px;
+  white-space: nowrap;
+}
+
+.home-word {
+  font-size: 24px;
+  color: $accent;
+
+
+}
+
+.home-word2 {
+  font-size: 20px;
+  color: $gary-light;
+}
+
+.home-word3 {
+  font-size: 20px;
+  color: $accent-light;
+  font-weight: bold;
+}
+
+// .home-blank-top {
+//   margin-top: 20px;
+// }
+
+// .home-blank {
+//   margin-top: 300px;
+// }
+
+.home-vector3 {
+  border-top: 3px solid $main-light;
+  width: 72rem;
+}
+
+.home-engText {
+  font-family: 'Noto Serif Display', serif;
+  color: $main;
+}
+
+.home-cursor-pinter {
+  cursor: pointer;
+}
+
+.home-word4 {
+  font-size: 1.5rem;
+  color: #00323d;
+
+}
+
+@media screen and (max-width:768px) {
+  .home-word {
+    font-size: 24px;
+    color: $accent;
+    position: relative;
+    bottom: 0px
+  }
+
+  .item-img {
+    width: 100%;
+  }
+
+  .wrap {
+    width: 100%;
+  }
+
+
+}
+
+
+.font {
   font-family: 'Noto Serif Malayalam', serif;
   background: linear-gradient(180deg, #FFFFFF 0%, rgba(500, 500, 500, 0) 65%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 25rem;
-  // position:relative;
-  // top:-80px;
-      
+  position: relative;
+  top: -80px;
+
 }
 
-.home-img{
+.home-img {
   font-family: 'Noto Serif Malayalam', serif;
   letter-spacing: 1rem;
   font-size: 3rem;
   position: relative;
-top: -10rem;
-left:5rem;
+  top: -10rem;
+  left: 5rem;
 }
 
-.note{
-position: relative;
-top: -12rem;
-left: 6rem;
+.note {
+  position: relative;
+  top: -12rem;
+  left: 6rem;
 }
-.note2{
+
+.note2 {
   position: relative;
   top: -10rem;
-  right:19rem;
-  }
-.font3{
+  right: 19rem;
+}
+
+.font3 {
   font-size: 18px;
   position: relative;
   top: -12rem;
- left:5rem;
+  left: 5rem;
 
 }
-.font4{
+
+.font4 {
   font-size: 17rem;
   writing-mode: vertical-rl;
-text-orientation: sideways;
- transform: rotate(-180deg);
-font-family: 'Noto Serif Malayalam', serif;
-background: linear-gradient(-90deg, #FFFFFF 0%, rgba(500, 500, 500, 0) 65%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-position:relative;
-bottom:55rem;
-left:18rem;
+  text-orientation: sideways;
+  transform: rotate(-180deg);
+  font-family: 'Noto Serif Malayalam', serif;
+  background: linear-gradient(-90deg, #FFFFFF 0%, rgba(500, 500, 500, 0) 65%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  bottom: 15rem;
+  left: 9rem;
 }
 
-.home-img2{
+.home-img2 {
   position: relative;
-  bottom:75rem;
-  left:6rem;
+  bottom: 10rem;
+  left: 3rem;
   z-index: 1;
 }
-.video-button{
-  position: relative;
-bottom:75rem;
-  right:8rem;
-  z-index: 2;
-}
-.note3{
-  position: relative;
-  bottom:65rem;
-  right:7rem;
+
+.home-img3 {
+  position: absolute;
+  bottom: 20rem;
+  right: 20rem;
+  z-index: 1;
 
 }
-.note4{
-  position: relative;
-  bottom:68rem;
-  right:1rem;
+
+.home-img4 {
+  position: absolute;
+  bottom: 23rem;
+  right: 13rem;
+  z-index: 1;
+
+}
+
+.home-img5 {
+  position: absolute;
+  bottom: 10rem;
+  left: 20rem;
+
+}
+
+.home-img6 {
+  position: absolute;
+  bottom: 12rem;
+  left: 42rem;
+
+}
+
+.home-img7 {
+  position: absolute;
+  bottom: 8rem;
+  left: 17rem;
+
+}
+
+.font5 {
+  font-size: 18px;
+  position: absolute;
+  bottom: 6rem;
+  left: 20rem;
+  color: $main-light;
+}
+
+.font6 {
+  font-family: 'Noto Serif Malayalam', serif;
+  background: linear-gradient(180deg, #FFFFFF 0%, rgba(500, 500, 500, 0) 65%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 14rem;
+  position: absolute;
+  bottom: 1rem;
+  right: 25rem;
+
+
+}
+
+.Decorate2 {
+  position: absolute;
+  bottom: -1rem;
+  left: 70rem;
+
+}
+
+
+.video-button {
+  position: absolute;
+  bottom: 38rem;
+  right: 20rem;
+  z-index: 2;
+}
+
+.note3 {
+  position: absolute;
+  bottom: 29rem;
+  right: 14rem;
+
+}
+
+.note4 {
+  position: absolute;
+  bottom: 32rem;
+  right: 10rem;
   z-index: 2;
 
 }
@@ -81,34 +331,4 @@ bottom:75rem;
 
 
 // @media screen and (max-width:768px) {
-//   .Decorate{
-//     width: 300px;
-//   }
-//   .font{
-//     font-family: 'Noto Serif Malayalam', serif;
-//   background: linear-gradient(180deg, #FFFFFF 0%, rgba(500, 500, 500, 0) 65%);
-//   -webkit-background-clip: text;
-//   -webkit-text-fill-color: transparent;
-//   font-size: 10rem;
-
-//   }
-
-//   .font4{
-//   font-size: 8rem;
-//   writing-mode: vertical-rl;
-//   text-orientation: sideways;
-//    transform: rotate(-180deg);
-//   font-family: 'Noto Serif Malayalam', serif;
-//   background: linear-gradient(-90deg, #FFFFFF 0%, rgba(500, 500, 500, 0) 65%);
-//   -webkit-background-clip: text;
-//   -webkit-text-fill-color: transparent;
-//   position:fixed ;
-//   bottom:30rem;
-//   left:15rem;
-
- 
-//   }
-
- 
 // }
-
