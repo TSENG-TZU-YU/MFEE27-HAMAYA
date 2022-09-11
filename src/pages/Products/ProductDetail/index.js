@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import axios from 'axios';
+import { API_URL } from '../../../utils/config';
 
 // 套件
 import { Container, Row, Col } from 'react-bootstrap';
@@ -22,6 +25,21 @@ import compareBtn from '../../../assets/ProductsImg/icon/compare_btn.svg';
 import note from '../../../assets/ProductsImg/icon/product_details_note.svg';
 
 function Product() {
+    // 商品 伺服器來的資料
+    const [product, setProduct] = useState([]);
+
+    // 網址上的商品id
+    const { productId } = useParams();
+
+    // 取得商品 api
+    useEffect(() => {
+        let getProductDetail = async () => {
+            let response = await axios.get(`${API_URL}/products/${productId}`);
+            setProduct(response.data.data);
+        };
+        getProductDetail();
+    }, []);
+
     // Toggled
     const [productCompare, setProductCompare] = useState(false);
     const toggleProductCompare = () => setProductCompare(!productCompare);
@@ -74,7 +92,7 @@ function Product() {
                         <div className="d-flex flex-column mb-3 text-start">
                             <div>
                                 <h4 className="ms-2 mb-2 main-color">
-                                    YAMAHA U系列 U1
+                                    YAMAHA鋼琴
                                 </h4>
                                 <img
                                     src={note}
