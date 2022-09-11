@@ -43,7 +43,7 @@ function ProductsItem() {
             </div>
             <div className="product-body">
                 {/* 品名 */}
-                <Link to=":productId" className="product-name">
+                <Link to="productsDetail/:productId" className="product-name">
                     YAMAHA U系列 U1
                 </Link>
                 {/* 價格 */}

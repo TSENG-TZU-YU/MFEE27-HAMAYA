@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import member_img from '../../../../assets/svg/member_avatar.svg';
 import './index.css';
+import { useAuth } from '../../../../utils/use_auth';
 
 function MemberListMobile(props) {
     const [url, setUrl] = useState('');
     const navigate = useNavigate();
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
     return (
         <div className="d-md-none MemberListMobile">
             <div className="d-flex MemberListBg">
@@ -14,8 +16,8 @@ function MemberListMobile(props) {
                 </div>
                 <div className="d-flex align-items-center">
                     <div className="ms-3" >
-                        <h5 className="main-color">Emma</h5>
-                        <p>Emma@gmail.com</p>
+                        <h5 className="main-color">{member.fullName}</h5>
+                        <p>{member.email}</p>
                     </div>
                 </div>
             </div>

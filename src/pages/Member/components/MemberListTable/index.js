@@ -2,7 +2,9 @@ import { Link } from 'react-router-dom';
 import member_img from '../../../../assets/svg/member_avatar.svg';
 import add_img from '../../../../assets/svg/add.svg';
 import './index.css';
+import { useAuth } from '../../../../utils/use_auth';
 function MemberListTable(props) {
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
     return (
         <>
             <div className="col-3 col-lg-2 d-none d-md-block MemberListTable">
@@ -10,8 +12,8 @@ function MemberListTable(props) {
                     <img className="img-fluid" src={member_img} alt="" />
                 </div>
                 <div className="pt-3 pb-1">
-                    <h5 className="main-color">Emma</h5>
-                    <p>Emma@gmail.com</p>
+                    <h5 className="main-color">{member.fullName}</h5>
+                    <p>{member.email}</p>
                 </div>
                 <ul className="list-unstyled">
                     <li>

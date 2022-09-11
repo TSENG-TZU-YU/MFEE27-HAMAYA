@@ -1,13 +1,42 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './index.css';
 import Close from '../../assets/svg/close.svg';
-
+import { useAuth } from '../../utils/use_auth';
+import axios from 'axios';
+import { API_URL } from '../../utils/config';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
+
 function LogInSignUp({ setLoginPopup }) {
-    const [isLogIn, setIsLogIn] = useState(false);
     const [logInActive, setLogInActive] = useState(true);
-    const [signUpActive, setSignUpActive] = useState(false);
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // const navigate = useNavigate();
+        // 去要要看有沒有會員資料，有要到就是已經登入過
+        let getMember = async () => {
+            try {
+                console.log('檢查是否登入');
+                let response = await axios.get(`${API_URL}/auth`, {
+                    withCredentials: true,
+                });
+                console.log('已登入', response.data);
+                setIsLogin(true);
+                setMember(response.data);
+            } catch (err) {
+                console.log('尚未登入');
+            }
+        };
+        getMember();
+        if (isLogin) {
+            navigate('/member');
+            setLoginPopup(false);
+            return;
+        }
+    }, []);
+
     return (
         <div>
             <div
@@ -29,27 +58,19 @@ function LogInSignUp({ setLoginPopup }) {
                 </div>
                 <div className="d-flex justify-content-center ">
                     <button
-                        className={
-                            logInActive
-                                ? 'setLogIn LogInSignUp-active'
-                                : 'setLogIn'
-                        }
+                        className={logInActive ? 'setLogIn active' : 'setLogIn'}
                         onClick={() => {
                             setLogInActive(true);
-                            setSignUpActive(false);
                         }}
                     >
                         登入
                     </button>
                     <button
                         className={
-                            signUpActive
-                                ? 'setLogIn LogInSignUp-active'
-                                : 'setLogIn'
+                            logInActive ? 'setLogIn ' : 'setLogIn active'
                         }
                         onClick={() => {
                             setLogInActive(false);
-                            setSignUpActive(true);
                         }}
                     >
                         註冊
@@ -59,7 +80,7 @@ function LogInSignUp({ setLoginPopup }) {
                 {logInActive ? (
                     <LogIn setLoginPopup={setLoginPopup} />
                 ) : (
-                    <SignUp />
+                    <SignUp setLoginPopup={setLoginPopup} />
                 )}
             </div>
         </div>

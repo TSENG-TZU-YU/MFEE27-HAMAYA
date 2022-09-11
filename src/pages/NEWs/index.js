@@ -160,7 +160,7 @@ function NEWs(props) {
                             <span className="gary-dark-color h6 News-cursor-pinter mt-2">
                                 買樂器就交給最專業的HAMAYA吧！
                                 <div className=" d-flex mt-2 ">
-                                    <p className="News-music-article4 small News-label">
+                                    <p className="News-music-article4 small">
                                         促銷活動
                                     </p>
                                     <p className="ms-2">May － 2022/08/20</p>

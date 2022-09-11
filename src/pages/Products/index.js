@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { API_URL } from '../../utils/config';
 
 // 套件
 import { Container } from 'react-bootstrap';
@@ -37,21 +38,95 @@ import arrowDown from '../../assets/ProductsImg/icon/arrow_down.svg';
 
 function Products() {
     const [error, setError] = useState(null);
-    const [data, setData] = useState([]);
 
-    // 所有商品
+    // 商品 伺服器來的原始資料
+    const [products, setProducts] = useState([]);
+
+    // 各種處理(排序、搜尋、過濾)後的資料
+    const [displayProducts, setDisplayProducts] = useState([]);
+
+    // 總共有 lastPage 這麼多頁
+    const [lastPage, setLastPage] = useState(1);
+
+    // 目前在第幾頁
+    const [page, setPage] = useState(1);
+
+    // 商品主類別
+    const [categoryMain, setCategoryMain] = useState([]);
+
+    // 商品次類別
+    const [categorySub, setCategorySub] = useState([]);
+
+    // 所有商品 - 最新商品 api
     useEffect(() => {
         console.log('Products', 'useEffect []');
-        console.log('useEffect[]', data);
+        console.log('useEffect[]', products);
         let getProducts = async () => {
-            let response = await axios.get(
-                `http://localhost:3001/api/products`
-            );
-            setData(response.data);
-            console.log('useEffect[] after set', data);
+            let response = await axios.get(`${API_URL}/products?page=${page}`);
+            setProducts(response.data.data);
+            // 從後端取得總頁數 (lastPage)
+            setLastPage(response.data.pagination.lastPage);
         };
         getProducts();
+    }, [page]);
+
+    // 商品類別 api
+    useEffect(() => {
+        // console.log('useEffect[]', data.categoryMain)
+        let getCategory = async () => {
+            let response = await axios.get(`${API_URL}/products`);
+            setCategoryMain(response.data.categoryMain);
+            setCategorySub(response.data.categorySub);
+        };
+        getCategory();
     }, []);
+
+    const location = useLocation();
+
+    useEffect(() => {
+        let params = new URLSearchParams(location.search);
+        let mainId = params.get('main_id');
+        let subId = params.get('sub_id');
+        console.log(mainId);
+        console.log(subId);
+        let getProducts = async () => {
+            let response = await axios.get(
+                `${API_URL}/products/${mainId}&${subId}&page=${page}`
+            );
+            setProducts(response.data.data);
+            setLastPage(response.data.pagination.lastPage);
+        };
+        getProducts();
+    }, [location]);
+
+
+    // 製作頁碼按鈕
+    const getPages = () => {
+        let pages = [];
+        for (let i = 1; i <= lastPage; i++) {
+            pages.push(
+                <li
+                    style={{
+                        margin: '2px',
+                        paddingTop: '1px',
+                        backgroundColor: page === i ? '#00323d' : '',
+                        color: page === i ? '#f2f2f2' : '#6a777a',
+                        borderWidth: '2px',
+                        width: '28px',
+                        height: '28px',
+                        textAlign: 'center',
+                    }}
+                    key={i}
+                    onClick={(e) => {
+                        setPage(i);
+                    }}
+                >
+                    {i}
+                </li>
+            );
+        }
+        return pages;
+    };
 
     // Toggled
     const [productCompare, setProductCompare] = useState(false);
@@ -503,50 +578,50 @@ function Products() {
                     {/* 桌機 商品類別選項 */}
                     <div className="col-2 d-none d-md-block">
                         <ul className="products-category-navbar">
-                            <li className="products-main-category">最新商品</li>
                             <li className="products-main-category products-main-category-active">
-                                琴鍵樂器
+                                最新商品
                             </li>
-                            <ul className="products-sub-category">
-                                <li>直立/平台鋼琴</li>
-                                <li>電子鋼琴</li>
-                                <li>數位鋼琴</li>
-                            </ul>
-                            <li className="products-main-category">管樂器</li>
-                            <ul className="products-sub-category">
-                                <li>長笛</li>
-                                <li>短笛</li>
-                                <li>薩克斯風</li>
-                            </ul>
-                            <li className="products-main-category">弓弦樂器</li>
-                            <ul className="products-sub-category">
-                                <li>小提琴</li>
-                                <li>中提琴</li>
-                                <li>大提琴</li>
-                            </ul>
-                            <li className="products-main-category">
-                                吉他/烏克麗麗
-                            </li>
-                            <ul className="products-sub-category">
-                                <li>木吉他</li>
-                                <li>電吉他</li>
-                                <li>貝斯</li>
-                                <li>烏克麗麗</li>
-                            </ul>
-                            <li className="products-main-category">打擊樂器</li>
-                            <ul className="products-sub-category">
-                                <li>爵士鼓</li>
-                                <li>電子鼓</li>
-                                <li>木箱鼓</li>
-                            </ul>
-                            <li className="products-main-category">配件</li>
-                            <ul className="products-sub-category">
-                                <li>琴鍵樂器</li>
-                                <li>管樂器</li>
-                                <li>弓弦樂器</li>
-                                <li>吉他</li>
-                                <li>打擊樂器</li>
-                            </ul>
+                            {categoryMain.map((value) => {
+                                return (
+                                    <div
+                                        key={Math.random()
+                                            .toString(36)
+                                            .replace('0.', '')}
+                                    >
+                                        <li className="products-main-category">
+                                            <Link
+                                                to={`?main_id=${value.mainId}`}
+                                                className="accent-color"
+                                            >
+                                                {value.mainName}
+                                            </Link>
+                                        </li>
+                                        {categorySub.map((item) => {
+                                            if (
+                                                Number(item.mainId) ===
+                                                value.mainId
+                                            ) {
+                                                return (
+                                                    <ul
+                                                        className="products-sub-category"
+                                                        key={Math.random()
+                                                            .toString(36)
+                                                            .replace('2.', '')}
+                                                    >
+                                                        <li>
+                                                            <Link
+                                                                to={`?main_id=${value.mainId}&sub_id=${item.subId}`}
+                                                            >
+                                                                {item.subName}
+                                                            </Link>
+                                                        </li>
+                                                    </ul>
+                                                );
+                                            }
+                                        })}
+                                    </div>
+                                );
+                            })}
                         </ul>
                     </div>
                     {/* 桌機 商品類別選項 end */}
@@ -555,7 +630,7 @@ function Products() {
                         {/* 商品列 */}
                         <div className=" row row-cols-2 row-cols-md-3 row-cols-xl-4">
                             {error && <div>{error}</div>}
-                            {data.map((product) => {
+                            {products.map((product) => {
                                 return (
                                     <div
                                         className="col product"
@@ -564,7 +639,7 @@ function Products() {
                                         <div className="position-relative">
                                             {/* 商品照片 */}
                                             <Link
-                                                to=":productId"
+                                                to="detail"
                                                 className="product-img d-block"
                                             >
                                                 <div className="product-img-mask position-absolute"></div>
@@ -597,7 +672,7 @@ function Products() {
                                         <div className="product-body">
                                             {/* 品名 */}
                                             <Link
-                                                to=":productId"
+                                                to="detail"
                                                 className="product-name"
                                             >
                                                 {product.name}
@@ -614,15 +689,9 @@ function Products() {
                         {/* 商品列 end */}
 
                         {/* 頁碼 */}
-                        <div className="d-flex justify-content-center align-items-center">
-                            <ul className="products-page d-flex">
-                                <li>&#x3C;</li>
-                                <li className="products-page-active">1</li>
-                                <li>2</li>
-                                <li>3</li>
-                                <li>4</li>
-                                <li>&#x3E;</li>
-                            </ul>
+                        <div className="d-flex justify-content-center align-items-center mt-5">
+                            {/* 頁碼 */}
+                            <ul className="d-flex">{getPages()}</ul>
                         </div>
                         {/* 頁碼 end */}
                     </div>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
 
-// 子元件
+// 元件
 import StarRating from '../../../../components/Star/StarRating';
 import Car from '../../../../components/Car/Car';
 import Favorite from '../../../../components/Favorite';
@@ -98,7 +98,7 @@ function AdultCourse(props) {
                                 <div className="d-flex col-lg-6  px-lg-0  position-relative">
                                     <img
                                         className=" col-12"
-                                        src={Adult_img}
+                                        src={require(`../../../../album/class/${classAdult.image}`)}
                                         alt="Adult img"
                                     />
                                     <div className="class-like px-lg-0">
