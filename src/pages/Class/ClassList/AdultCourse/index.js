@@ -98,7 +98,7 @@ function AdultCourse(props) {
                                 <div className="d-flex col-lg-6  px-lg-0  position-relative">
                                     <img
                                         className=" col-12"
-                                        src={Adult_img}
+                                        src={require(`../../../../album/class/${classAdult.image}`)}
                                         alt="Adult img"
                                     />
                                     <div className="class-like px-lg-0">
