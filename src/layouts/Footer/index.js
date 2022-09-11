@@ -65,7 +65,7 @@ function Footer(props) {
                         <div className="col-md pt-3">
                             <Link
                                 className="main-gary-light-color  word-size text-nowrap col-md-1 "
-                                to="products"
+                                to="/products"
                             >
                                 樂器商城
                             </Link>

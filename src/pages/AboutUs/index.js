@@ -1,10 +1,29 @@
 import React from 'react';
+import { useState } from 'react';
 import './about.scss';
 import banner from '../../assets/AboutImg/banner.png';
 import fb from '../../assets/AboutImg/fb.png';
 import line from '../../assets/AboutImg/line.png';
+import axios from 'axios';
+
 
 function About(props) {
+    // 表單
+const [ask, setAsk] = useState({
+    fullName: '桐谷和人',
+    user_id: '',
+    phone: '0912348763',
+    email: 'kirito@gmail.com',
+    item: '',
+    title:'幫我撐十秒',
+    comment: 'C8763',
+});
+const fieldChange = (e) => {
+    const newAsk = { ...ask, [e.target.name]: e.target.value };
+
+    setAsk(newAsk);
+};
+
     return (
         <>
             <div className="p-0">
@@ -134,8 +153,10 @@ function About(props) {
 
                             <input
                                 type="text"
-                                id="fullName"
+                                name="fullName"
+                                value={ask.fullName}
                                 placeholder="請輸入姓名"
+                                onChange={fieldChange}
                                 className="w-100"
                             />
                         </div>
@@ -143,7 +164,9 @@ function About(props) {
                             <p>聯絡電話*</p>
                             <input
                                 type="phone"
-                                id="phone"
+                                name="phone"
+                                value={ask.phone}
+                                onChange={fieldChange}
                                 placeholder="請輸入電話/手機"
                                 className="w-100"
                             />
@@ -152,14 +175,16 @@ function About(props) {
                             <p>信箱*</p>
                             <input
                                 type="mail"
-                                id="mail"
+                                name="mail"
+                                value={ask.email}
+                                onChange={fieldChange}
                                 placeholder="請輸入信箱"
                                 className="w-100"
                             />
                         </div>
                         <div className="col-12 col-md-6">
                             <p>問題類型*</p>
-                            <select id="cate-select" className="w-100">
+                            <select  name="cate-select" className="w-100" value={ask.item}>
                                 <option value="">門市相關問題</option>
                                 <option value="">商品問題</option>
                                 <option value="">課程問題</option>
@@ -173,7 +198,8 @@ function About(props) {
                             <p>問題主旨*</p>
                             <input
                                 type="text"
-                                id=""
+                                name="title"
+                                value={ask.title}
                                 placeholder="請輸入問題主旨"
                                 className="w-100"
                             />
@@ -182,14 +208,24 @@ function About(props) {
                             <p>提問內容*</p>
                             <textarea
                                 type="text"
-                                id="comment"
+                                name="comment"
+                                value={ask.comment}
+                                onChange={fieldChange}
                                 placeholder="問題描述"
                                 className="w-100"
                                 rows="4"
                             />
                         </div>
                     </div>
-                    <div className="d-flex justify-content-center">
+                    <div className="d-flex justify-content-center"  onClick={() => {
+                                const data = JSON.parse(JSON.stringify(ask));
+                                console.log(data);
+                                axios.post(
+                                    'http://localhost:3001/api/place/rent',
+                                    data
+                                    // { withCredentials: true }
+                                );
+                            }}>
                         <button className="bg-main-light-color accent-light-color border-0 px-5 py-1 mb-5">
                             確認送出
                         </button>
