@@ -39,7 +39,14 @@
 }
 
 .popup-inner input:focus{
-    outline:solid 2px #0099ff
+    outline:solid 2px #0099ff;
+}
+
+.popup-inner input[type="checkbox"]{
+    width: 20px;
+}
+.popup-inner input[type="checkbox"]:focus{
+    outline:none;
 }
 
 .closeBtn{

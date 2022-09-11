@@ -48,175 +48,216 @@ function MyProfile(props) {
 
         setPassword(newPassword);
     };
+
+    async function profileSubmit(e) {
+        e.preventDefault();
+        try {
+            let response = await axios.put(`${API_URL}/auth/profile`, member, {
+                withCredentials: true,
+            });
+            console.log(response.data);
+            alert(response.data.message);
+            setOriginalMember({ ...member });
+            setEditProfile(true);
+            // setMember(response.data);
+        } catch (err) {
+            console.log(err.response.data);
+            alert(err.response.data.message);
+        }
+    }
+    async function passwordSubmit(e) {
+        e.preventDefault();
+        try {
+            let response = await axios.put(
+                `${API_URL}/auth/password`,
+                password,
+                {
+                    withCredentials: true,
+                }
+            );
+            console.log(response.data);
+            alert(response.data.message);
+            setEditPassword(true);
+            // setMember(response.data);
+        } catch (err) {
+            console.log(err.response.data);
+            alert(err.response.data.message);
+        }
+    }
     return (
         <div className="col-12 col-md-8 col-lg-9 MyProfile">
-            <table className="myprofile_table ">
-                <thead>
-                    <tr>
-                        <th colSpan="2">
-                            <h4 className="main-color">會員資料</h4>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td className="text-primary">會員帳號</td>
-                        <td>
-                            <span>{member.email}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="text-primary">會員姓名</td>
-                        <td>
-                            <input
-                                type="text"
-                                value={member.fullName}
-                                name="fullName"
-                                onChange={ProfileChange}
-                                disabled={editProfile}
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="text-primary">出生日期</td>
-                        <td>
-                            <input
-                                type="date"
-                                value={member.birthday}
-                                name="birthday"
-                                onChange={ProfileChange}
-                                disabled={editProfile}
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="text-primary">手機號碼</td>
-                        <td>
-                            <input
-                                type="text"
-                                value={member.phone}
-                                name="phone"
-                                onChange={ProfileChange}
-                                disabled={editProfile}
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="text-primary">居住地址</td>
-                        <td>
-                            城市
-                            <select
-                                className="mx-1"
-                                value={city}
-                                onChange={(e) => {
-                                    setCity(e.target.value);
-                                }}
-                                disabled={editProfile}
-                            >
-                                {cityData.map((data, index) => {
-                                    return (
-                                        <option key={index} value={data.city}>
-                                            {data.city}
-                                        </option>
-                                    );
-                                })}
-                            </select>
-                            鄉鎮市區
-                            <select
-                                className="mx-1"
-                                value={dist}
-                                onChange={(e) => {
-                                    setDist(e.target.value);
-                                }}
-                                disabled={editProfile}
-                            >
-                                {distData.map((data, index) => {
-                                    if (data.city === city)
+            <form>
+                <table className="myprofile_table ">
+                    <thead>
+                        <tr>
+                            <th colSpan="2">
+                                <h4 className="main-color">會員資料</h4>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td className="text-primary">會員帳號</td>
+                            <td>
+                                <span>{member.email}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="text-primary">會員姓名</td>
+                            <td>
+                                <input
+                                    type="text"
+                                    value={member.fullName}
+                                    name="fullName"
+                                    onChange={ProfileChange}
+                                    disabled={editProfile}
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="text-primary">出生日期</td>
+                            <td>
+                                <input
+                                    type="date"
+                                    value={member.birthday}
+                                    name="birthday"
+                                    onChange={ProfileChange}
+                                    disabled={editProfile}
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="text-primary">手機號碼</td>
+                            <td>
+                                <input
+                                    type="text"
+                                    value={member.phone}
+                                    name="phone"
+                                    onChange={ProfileChange}
+                                    disabled={editProfile}
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="text-primary">居住地址</td>
+                            <td>
+                                城市
+                                <select
+                                    className="mx-1"
+                                    name="city"
+                                    value={member.city}
+                                    onChange={ProfileChange}
+                                    disabled={editProfile}
+                                >
+                                    <option value="">選擇城市</option>
+                                    {cityData.map((data, index) => {
                                         return (
                                             <option
                                                 key={index}
-                                                value={data.dist}
+                                                value={data.city}
                                             >
-                                                {data.dist}
+                                                {data.city}
                                             </option>
                                         );
-                                })}
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="text-primary"></td>
-                        <td>
-                            <input
-                                type="text"
-                                value={member.address}
-                                name="address"
-                                onChange={ProfileChange}
-                                disabled={editProfile}
-                            />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div>
-                <h5 className="gary-dark-color mt-4">優惠訊息通知</h5>
-                <div className="d-flex my-3">
-                    <input
-                        className="form-check-input d-block"
-                        type="radio"
-                        id="sub"
-                        name="sub"
-                        checked={member.sub == 1}
-                        value="1"
-                        onChange={ProfileChange}
-                        disabled={editProfile}
-                    />
-                    <label htmlFor="sub">訂閱</label>
-                    &nbsp;
-                    <input
-                        className="form-check-input d-block"
-                        type="radio"
-                        id="unsub"
-                        name="sub"
-                        //TODO:資料庫修改 數字 字串 待解決
-                        checked={member.sub == 0}
-                        value="0"
-                        onChange={ProfileChange}
-                        disabled={editProfile}
-                    />
-                    <label htmlFor="unsub">取消訂閱 </label>
+                                    })}
+                                </select>
+                                鄉鎮市區
+                                <select
+                                    className="mx-1"
+                                    value={member.dist}
+                                    name="dist"
+                                    onChange={ProfileChange}
+                                    disabled={editProfile}
+                                >
+                                    <option value="">選擇地區</option>
+                                    {distData.map((data, index) => {
+                                        if (data.city === member.city)
+                                            return (
+                                                <option
+                                                    key={index}
+                                                    value={data.dist}
+                                                >
+                                                    {data.dist}
+                                                </option>
+                                            );
+                                    })}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="text-primary"></td>
+                            <td>
+                                <input
+                                    type="text"
+                                    value={member.address}
+                                    name="address"
+                                    onChange={ProfileChange}
+                                    disabled={editProfile}
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <h5 className="gary-dark-color mt-4">優惠訊息通知</h5>
+                    <div className="d-flex my-3">
+                        <input
+                            className="form-check-input d-block"
+                            type="radio"
+                            id="sub"
+                            name="sub"
+                            checked={member.sub == 1}
+                            value="1"
+                            onChange={ProfileChange}
+                            disabled={editProfile}
+                        />
+                        <label htmlFor="sub">訂閱</label>
+                        &nbsp;
+                        <input
+                            className="form-check-input d-block"
+                            type="radio"
+                            id="unsub"
+                            name="sub"
+                            //TODO:資料庫修改 數字 字串 待解決
+                            checked={member.sub == 0}
+                            value="0"
+                            onChange={ProfileChange}
+                            disabled={editProfile}
+                        />
+                        <label htmlFor="unsub">取消訂閱 </label>
+                    </div>
                 </div>
-            </div>
-            {editProfile ? (
-                <button
-                    className="myprofile_btn mb-4 accent-light-color bg-main-color border-0 "
-                    onClick={() => {
-                        setEditProfile(false);
-                    }}
-                >
-                    修改會員資料
-                </button>
-            ) : (
-                <>
+                {editProfile ? (
                     <button
-                        className="myprofile_btn2 mb-4 accent-light-color bg-main-color border-0"
+                        className="myprofile_btn mb-4 accent-light-color bg-main-color border-0 "
                         onClick={() => {
-                            setEditProfile(true);
+                            setEditProfile(false);
                         }}
                     >
-                        確定
+                        修改會員資料
                     </button>
-                    <button
-                        className="myprofile_btn2 mb-4 accent-light-color bg-accent-color border-0 mx-1"
-                        onClick={() => {
-                            setEditProfile(true);
-                            setMember({ ...originalmember });
-                        }}
-                    >
-                        取消
-                    </button>
-                </>
-            )}
+                ) : (
+                    <>
+                        <button
+                            className="myprofile_btn2 mb-4 accent-light-color bg-main-color border-0"
+                            onClick={profileSubmit}
+                        >
+                            確定
+                        </button>
+                        <button
+                            className="myprofile_btn2 mb-4 accent-light-color bg-accent-color border-0 mx-1"
+                            onClick={() => {
+                                setEditProfile(true);
+                                setMember({ ...originalmember });
+                                setCity(member.city);
+                                setDist(member.dist);
+                            }}
+                        >
+                            取消
+                        </button>
+                    </>
+                )}
+            </form>
             <h5 className="gary-dark-color mt-4">修改密碼</h5>
             <table className="myprofile_table ">
                 <thead></thead>
@@ -262,9 +303,7 @@ function MyProfile(props) {
                 <>
                     <button
                         className="myprofile_btn2 mb-4 accent-light-color bg-main-color border-0"
-                        onClick={() => {
-                            setEditPassword(true);
-                        }}
+                        onClick={passwordSubmit}
                     >
                         確定
                     </button>

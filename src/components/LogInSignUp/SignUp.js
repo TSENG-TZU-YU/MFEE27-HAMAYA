@@ -6,22 +6,17 @@ import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import { useAuth } from '../../utils/use_auth';
 
-function SignUp({setLoginPopup}) {
-    const [visibility, setVisibility] = useState('password');
-    const [img, setImg] = useState(unVisib);
-    const [visibility2, setVisibility2] = useState('password');
-    const [img2, setImg2] = useState(unVisib);
+function SignUp({ setLoginPopup }) {
+    const [visibility, setVisibility] = useState(false);
+    const [visibility2, setVisibility2] = useState(false);
 
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const [newMember, setNewMember] = useState({
-        email: 'newMember@gmail.com',
-        fullName: 'TestMemberName',
-        birthday: '1996-10-14',
-        phone: '0977777777',
-        address: '',
+        fullName: 'MemberTest',
+        email: 'MemberTest@gmail.com',
         password: '',
         repassword: '',
-        sub: '1',
+        sub: '0',
     });
 
     const profileChange = (e) => {
@@ -48,8 +43,8 @@ function SignUp({setLoginPopup}) {
             setLoginPopup(false);
             alert('註冊成功');
         } catch (err) {
-            console.log(err);
-            
+            console.log(err.response.data);
+            alert(err.response.data.errors[0].msg)
         }
     }
     return (
@@ -83,7 +78,7 @@ function SignUp({setLoginPopup}) {
                 密碼
                 <br />
                 <input
-                    type={visibility}
+                    type={visibility ? 'text' : 'password'}
                     name="password"
                     value={newMember.password}
                     onChange={profileChange}
@@ -94,23 +89,17 @@ function SignUp({setLoginPopup}) {
                     className="visibiImg border-0"
                     onClick={(e) => {
                         e.preventDefault();
-                        if (visibility === 'password') {
-                            setVisibility('text');
-                            setImg(visib);
-                        } else {
-                            setVisibility('password');
-                            setImg(unVisib);
-                        }
+                        setVisibility(!visibility);
                     }}
                 >
-                    <img src={img} alt="" />
+                    <img src={visibility ? visib : unVisib} alt="" />
                 </button>
             </label>
             <label className="position-relative">
                 確認密碼
                 <br />
                 <input
-                    type={visibility2}
+                    type={visibility2 ? 'text' : 'password'}
                     name="repassword"
                     value={newMember.repassword}
                     onChange={profileChange}
@@ -121,29 +110,23 @@ function SignUp({setLoginPopup}) {
                     className="visibiImg border-0"
                     onClick={(e) => {
                         e.preventDefault();
-
-                        if (visibility2 === 'password') {
-                            setVisibility2('text');
-                            setImg2(visib);
-                        } else {
-                            setVisibility2('password');
-                            setImg2(unVisib);
-                        }
+                        setVisibility2(!visibility2);
                     }}
                 >
-                    <img src={img2} alt="" />
+                    <img src={visibility2 ? visib : unVisib} alt="" />
                 </button>
             </label>
-            <label>
-                出生日期
-                <br />
+            <label className="">
                 <input
-                    type="date"
-                    name="birthday"
-                    value={newMember.birthday}
+                    className=""
+                    type="checkbox"
+                    name="sub"
+                    value={newMember.sub === '1' ? '0' : '1'}
                     onChange={profileChange}
                     required
+                    checked={newMember.sub === '1'}
                 />
+                訂閱優惠訊息
             </label>
             <br />
             <br />

@@ -7,8 +7,8 @@ import { API_URL } from '../../utils/config';
 import { useAuth } from '../../utils/use_auth';
 
 function LogIn({ setLoginPopup }) {
-    const [visibility, setVisibility] = useState('password');
-    const [img, setImg] = useState(unVisib);
+    const [visibility, setVisibility] = useState(false);
+   
     const navigate = useNavigate();
 
     function handleChange(e) {
@@ -38,8 +38,8 @@ function LogIn({ setLoginPopup }) {
             setLoginPopup(false);
             alert('登入成功');
         } catch (err) {
-            console.log(err);
-            alert('帳號或密碼錯誤');
+            console.log(err.response.data);
+            alert(err.response.data.message);
         }
     }
 
@@ -61,7 +61,7 @@ function LogIn({ setLoginPopup }) {
                 密碼
                 <br />
                 <input
-                    type={visibility}
+                    type={visibility ? 'text' : 'password'}
                     name="password"
                     value={loginMember.password}
                     onChange={handleChange}
@@ -72,20 +72,13 @@ function LogIn({ setLoginPopup }) {
                     className="visibiImg border-0"
                     onClick={(e) => {
                         e.preventDefault();
-                        if (visibility === 'password') {
-                            setVisibility('text');
-                            setImg(visib);
-                        } else {
-                            setVisibility('password');
-                            setImg(unVisib);
-                        }
+                        setVisibility(!visibility);
                     }}
                 >
-                    <img src={img} alt="" />
+                    <img src={visibility ? visib : unVisib} alt="" />
                 </button>
             </label>
             <a>忘記密碼?</a>
-
             <br />
             <br />
             {/* <Link
