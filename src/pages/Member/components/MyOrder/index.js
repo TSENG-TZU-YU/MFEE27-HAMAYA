@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom'; //抓取Outlet的props
+import { useOutletContext, Link } from 'react-router-dom'; //抓取Outlet的props
 
 import productImg from '../../../../album/products/FP-90-3.png';
 import classPic from '../../../../assets/ClassImg/Adult img.png';
@@ -37,10 +37,10 @@ function MyOrder(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="myOrderTr">
+                    <tr className="">
                         <td>
                             <img
-                                className="img-fluid"
+                                className="myOrder-Img myOrder-contain"
                                 src={productImg}
                                 alt=""
                             />
@@ -48,65 +48,68 @@ function MyOrder(props) {
                         {/* 這一個td 是只會在手機板出現 */}
                         <td
                             align="center"
-                            className="align-middle d-md-none p-0"
+                            className="align-middle d-lg-none p-0"
                             data-title="訂單編號:A1033038"
                         ></td>
-                        <td className="align-middle text-md-center" colSpan={2}>
-                            <div className="row">
-                                <span className="col-3 d-md-none main-color">
+                        <td className="align-middle text-lg-center" colSpan={2}>
+                            <div className="row g-0 px-3 px-lg-0">
+                                <span className="col-3 d-lg-none main-color">
                                     訂單編號
                                 </span>
-                                <span className="col-md-6 col-3 text-md-center text-end">
+                                <span className="col-lg-6 col-3 text-lg-center text-end pe-2 pe-lg-0">
                                     A1033038
                                 </span>
-                                <span className="col-3  d-md-none main-color">
+                                <span className="col-3  d-lg-none main-color ps-2">
                                     訂單價錢
                                 </span>
-                                <span className="col-md-6 col-3 text-md-center text-end">
+                                <span className="col-lg-6 col-3 text-lg-center text-end">
                                     NT $40
                                 </span>
                             </div>
                         </td>
-
-                        <td className="align-middle text-md-center" colSpan={2}>
-                            <div className="row">
-                                <span className="col-3  d-md-none main-color">
+                        <td className="align-middle text-lg-center" colSpan={2}>
+                            <div className="row g-0 px-3 px-lg-0">
+                                <span className="col-3  d-lg-none main-color">
                                     訂單狀態
                                 </span>
-                                <span className="col-md-6 col-3 text-md-center text-end">
+                                <span className="col-lg-6 col-3 text-lg-center text-end pe-2 pe-lg-0">
                                     待出貨
                                 </span>
-                                <span className="col-3  d-md-none main-color">
+                                <span className="col-3  d-lg-none main-color ps-2">
                                     訂單時間
                                 </span>
-                                <span className="col-md-6 col-3 text-md-center text-end">
+                                <span className="col-lg-6 col-3 text-lg-center text-end">
                                     2022/08/12
                                 </span>
                             </div>
                         </td>
-
-                        <td className="align-middle">
-                            <div className="d-flex justify-content-around justify-content-md-between align-items-center">
-                                <div>
+                        <td className="align-middle text-center text-xl-center text-lg-end">
+                            <div className="row justify-content-around align-items-center">
+                                <div className="col-lg-12 col-xl-7 col-7">
                                     <button className="btn border-0 p-0">
-                                        <Message className="myOrderIcon" />{' '}
+                                        <Message className="myOrderIcon" />
                                         訂單詢問
                                     </button>
                                     <span className="small accent-light-color bg-main-color mx-1">
                                         未回覆
                                     </span>
                                 </div>
-                                <button className="btn border-0 p-0">
-                                    <Detailed className="myOrderIcon" />{' '}
-                                    訂單詳細
-                                </button>
+                                <div className="col-lg-12 col-xl-5 col-5">
+                                    <Link
+                                        to="/member/myorder/:orderId"
+                                        className="btn border-0 p-0"
+                                    >
+                                        <Detailed className="myOrderIcon" />
+                                        訂單詳細
+                                    </Link>
+                                </div>
                             </div>
                         </td>
                     </tr>
-                    <tr className="myOrderTr">
+                    <tr className="">
                         <td>
                             <img
-                                className="img-fluid"
+                                className="myOrder-Img myOrder-contain"
                                 src={productImg}
                                 alt=""
                             />
@@ -114,182 +117,193 @@ function MyOrder(props) {
                         {/* 這一個td 是只會在手機板出現 */}
                         <td
                             align="center"
-                            className="align-middle d-md-none"
+                            className="align-middle d-lg-none"
                             data-title="訂單編號:A1033038"
                         ></td>
-                        <td className="align-middle text-md-center" colSpan={2}>
-                            <div className="row">
-                                <span className="col-3 d-md-none main-color">
+                        <td className="align-middle text-lg-center" colSpan={2}>
+                            <div className="row g-0 px-3 px-lg-0">
+                                <span className="col-3 d-lg-none main-color">
                                     訂單編號
                                 </span>
-                                <span className="col-md-6 col-3 text-md-center text-end">
+                                <span className="col-lg-6 col-3 text-lg-center text-end pe-2 pe-lg-0">
                                     A1033038
                                 </span>
-                                <span className="col-3  d-md-none main-color">
+                                <span className="col-3  d-lg-none main-color ps-2">
                                     訂單價錢
                                 </span>
-                                <span className="col-md-6 col-3 text-md-center text-end">
+                                <span className="col-lg-6 col-3 text-lg-center text-end">
                                     NT $40
                                 </span>
                             </div>
                         </td>
-
-                        <td className="align-middle text-md-center" colSpan={2}>
-                            <div className="row">
-                                <span className="col-3  d-md-none main-color">
+                        <td className="align-middle text-lg-center" colSpan={2}>
+                            <div className="row g-0 px-3 px-lg-0">
+                                <span className="col-3  d-lg-none main-color">
                                     訂單狀態
                                 </span>
-                                <span className="col-md-6 col-3 text-md-center text-end">
+                                <span className="col-lg-6 col-3 text-lg-center text-end pe-2 pe-lg-0">
                                     待出貨
                                 </span>
-                                <span className="col-3  d-md-none main-color">
+                                <span className="col-3  d-lg-none main-color ps-2">
                                     訂單時間
                                 </span>
-                                <span className="col-md-6 col-3 text-md-center text-end">
+                                <span className="col-lg-6 col-3 text-lg-center text-end">
                                     2022/08/12
                                 </span>
                             </div>
                         </td>
 
-                        <td className="align-middle">
-                            <div className="d-flex justify-content-around justify-content-md-between align-items-center">
-                                <div>
+                        <td className="align-middle text-center text-xl-center text-lg-end">
+                            <div className="row justify-content-around align-items-center">
+                                <div className="col-lg-12 col-xl-7 col-7">
                                     <button className="btn border-0 p-0">
-                                        <Message className="myOrderIcon" />{' '}
-                                        訂單詢問
-                                    </button>
-                                    <span className="small accent-light-color bg-accent-color mx-1">
-                                        已回覆
-                                    </span>
-                                </div>
-                                <button className="btn border-0 p-0">
-                                    <Detailed className="myOrderIcon" />{' '}
-                                    訂單詳細
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr className="myOrderTr">
-                        <td>
-                            <img className="img-fluid" src={classPic} alt="" />
-                        </td>
-                        {/* 這一個td 是只會在手機板出現 */}
-                        <td
-                            align="center"
-                            className="align-middle d-md-none"
-                            data-title="訂單編號:A1033038"
-                        ></td>
-                        <td className="align-middle text-md-center" colSpan={2}>
-                            <div className="row">
-                                <span className="col-3 d-md-none main-color">
-                                    訂單編號
-                                </span>
-                                <span className="col-md-6 col-3 text-md-center text-end">
-                                    A1033038
-                                </span>
-                                <span className="col-3  d-md-none main-color">
-                                    訂單價錢
-                                </span>
-                                <span className="col-md-6 col-3 text-md-center text-end">
-                                    NT $40
-                                </span>
-                            </div>
-                        </td>
-
-                        <td className="align-middle text-md-center" colSpan={2}>
-                            <div className="row">
-                                <span className="col-3  d-md-none main-color">
-                                    訂單狀態
-                                </span>
-                                <span className="col-md-6 col-3 text-md-center text-end">
-                                    待出貨
-                                </span>
-                                <span className="col-3  d-md-none main-color">
-                                    訂單時間
-                                </span>
-                                <span className="col-md-6 col-3 text-md-center text-end">
-                                    2022/08/12
-                                </span>
-                            </div>
-                        </td>
-
-                        <td className="align-middle">
-                            <div className="d-flex justify-content-around justify-content-md-between align-items-center">
-                                <div>
-                                    <button className="btn border-0 p-0">
-                                        <Message className="myOrderIcon" />{' '}
+                                        <Message className="myOrderIcon" />
                                         訂單詢問
                                     </button>
                                     <span className="small accent-light-color bg-main-color mx-1">
                                         未回覆
                                     </span>
                                 </div>
-                                <button className="btn border-0 p-0">
-                                    <Detailed className="myOrderIcon" />{' '}
-                                    訂單詳細
-                                </button>
+                                <div className="col-lg-12 col-xl-5 col-5">
+                                    <button className="btn border-0 p-0">
+                                        <Detailed className="myOrderIcon" />
+                                        訂單詳細
+                                    </button>
+                                </div>
                             </div>
                         </td>
                     </tr>
-                    <tr className="myOrderTr">
+                    <tr className="">
                         <td>
-                            <img className="img-fluid" src={classPic} alt="" />
+                            <img
+                                className="myOrder-Img myOrder-contain"
+                                src={classPic}
+                                alt=""
+                            />
                         </td>
                         {/* 這一個td 是只會在手機板出現 */}
                         <td
                             align="center"
-                            className="align-middle d-md-none"
+                            className="align-middle d-lg-none"
                             data-title="訂單編號:A1033038"
                         ></td>
-                        <td className="align-middle text-md-center" colSpan={2}>
-                            <div className="row">
-                                <span className="col-3 d-md-none main-color">
+                        <td className="align-middle text-lg-center" colSpan={2}>
+                            <div className="row g-0 px-3 px-lg-0">
+                                <span className="col-3 d-lg-none main-color">
                                     訂單編號
                                 </span>
-                                <span className="col-md-6 col-3 text-md-center text-end">
+                                <span className="col-lg-6 col-3 text-lg-center text-end pe-2 pe-lg-0">
                                     A1033038
                                 </span>
-                                <span className="col-3  d-md-none main-color">
+                                <span className="col-3  d-lg-none main-color ps-2">
                                     訂單價錢
                                 </span>
-                                <span className="col-md-6 col-3 text-md-center text-end">
+                                <span className="col-lg-6 col-3 text-lg-center text-end">
                                     NT $40
                                 </span>
                             </div>
                         </td>
-
-                        <td className="align-middle text-md-center" colSpan={2}>
-                            <div className="row">
-                                <span className="col-3  d-md-none main-color">
+                        <td className="align-middle text-lg-center" colSpan={2}>
+                            <div className="row g-0 px-3 px-lg-0">
+                                <span className="col-3  d-lg-none main-color">
                                     訂單狀態
                                 </span>
-                                <span className="col-md-6 col-3 text-md-center text-end">
+                                <span className="col-lg-6 col-3 text-lg-center text-end pe-2 pe-lg-0">
                                     待出貨
                                 </span>
-                                <span className="col-3  d-md-none main-color">
+                                <span className="col-3  d-lg-none main-color ps-2">
                                     訂單時間
                                 </span>
-                                <span className="col-md-6 col-3 text-md-center text-end">
+                                <span className="col-lg-6 col-3 text-lg-center text-end">
                                     2022/08/12
                                 </span>
                             </div>
                         </td>
 
-                        <td className="align-middle">
-                            <div className="d-flex justify-content-around justify-content-md-between align-items-center">
-                                <div>
+                        <td className="align-middle text-center text-xl-center text-lg-end">
+                            <div className="row justify-content-around align-items-center">
+                                <div className="col-lg-12 col-xl-7 col-7">
                                     <button className="btn border-0 p-0">
-                                        <Message className="myOrderIcon" />{' '}
+                                        <Message className="myOrderIcon" />
                                         訂單詢問
                                     </button>
-                                    <span className="small accent-light-color bg-gary-light-color mx-1">
-                                        未提問
+                                    <span className="small accent-light-color bg-main-color mx-1">
+                                        未回覆
                                     </span>
                                 </div>
-                                <button className="btn border-0 p-0">
-                                    <Detailed className="myOrderIcon" />{' '}
-                                    訂單詳細
-                                </button>
+                                <div className="col-lg-12 col-xl-5 col-5">
+                                    <button className="btn border-0 p-0">
+                                        <Detailed className="myOrderIcon" />
+                                        訂單詳細
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr className="">
+                        <td>
+                            <img
+                                className="myOrder-Img myOrder-contain"
+                                src={classPic}
+                                alt=""
+                            />
+                        </td>
+                        {/* 這一個td 是只會在手機板出現 */}
+                        <td
+                            align="center"
+                            className="align-middle d-lg-none"
+                            data-title="訂單編號:A1033038"
+                        ></td>
+                        <td className="align-middle text-lg-center" colSpan={2}>
+                            <div className="row g-0 px-3 px-lg-0">
+                                <span className="col-3 d-lg-none main-color">
+                                    訂單編號
+                                </span>
+                                <span className="col-lg-6 col-3 text-lg-center text-end pe-2 pe-lg-0">
+                                    A1033038
+                                </span>
+                                <span className="col-3  d-lg-none main-color ps-2">
+                                    訂單價錢
+                                </span>
+                                <span className="col-lg-6 col-3 text-lg-center text-end">
+                                    NT $40
+                                </span>
+                            </div>
+                        </td>
+                        <td className="align-middle text-lg-center" colSpan={2}>
+                            <div className="row g-0 px-3 px-lg-0">
+                                <span className="col-3  d-lg-none main-color">
+                                    訂單狀態
+                                </span>
+                                <span className="col-lg-6 col-3 text-lg-center text-end pe-2 pe-lg-0">
+                                    待出貨
+                                </span>
+                                <span className="col-3  d-lg-none main-color ps-2">
+                                    訂單時間
+                                </span>
+                                <span className="col-lg-6 col-3 text-lg-center text-end">
+                                    2022/08/12
+                                </span>
+                            </div>
+                        </td>
+
+                        <td className="align-middle text-center text-xl-center text-lg-end">
+                            <div className="row justify-content-around align-items-center">
+                                <div className="col-lg-12 col-xl-7 col-7">
+                                    <button className="btn border-0 p-0">
+                                        <Message className="myOrderIcon" />
+                                        訂單詢問
+                                    </button>
+                                    <span className="small accent-light-color bg-main-color mx-1">
+                                        未回覆
+                                    </span>
+                                </div>
+                                <div className="col-lg-12 col-xl-5 col-5">
+                                    <button className="btn border-0 p-0">
+                                        <Detailed className="myOrderIcon" />
+                                        訂單詳細
+                                    </button>
+                                </div>
                             </div>
                         </td>
                     </tr>

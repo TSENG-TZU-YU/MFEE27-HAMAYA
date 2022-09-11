@@ -44,6 +44,7 @@ import MyCart from './pages/Member/components/MyCart';
 import MyOrder from './pages/Member/components/MyOrder';
 import MyCoupon from './pages/Member/components/MyCoupon';
 import MyQuestion from './pages/Member/components/MyQuestion';
+import MyOrderDetail from './pages/Member/components/MyOrder/components/MyOrderDetail';
 
 function App() {
     //page to top 要用的
@@ -63,7 +64,7 @@ function App() {
                             <Route path="products" element={<MainOutlet />}>
                                 <Route index element={<Products />} />
                                 <Route
-                                    path="detail"
+                                    path=":productId"
                                     element={<ProductDetail />}
                                 />
                             </Route>
@@ -106,6 +107,11 @@ function App() {
                                 />
                                 <Route path="mycart" element={<MyCart />} />
                                 <Route path="myorder" element={<MyOrder />} />
+                                <Route
+                                    path="/member/myorder/:orderId"
+                                    element={<MyOrderDetail />}
+                                />
+
                                 <Route path="mycoupon" element={<MyCoupon />} />
                                 <Route
                                     path="myquestion"

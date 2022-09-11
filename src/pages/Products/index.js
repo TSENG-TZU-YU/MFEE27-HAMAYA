@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
 
@@ -37,13 +37,14 @@ import search from '../../assets/ProductsImg/icon/search.svg';
 import arrowDown from '../../assets/ProductsImg/icon/arrow_down.svg';
 
 function Products() {
+    const [url, setUrl] = useState('');
+
+    const navigate = useNavigate();
+
     const [error, setError] = useState(null);
 
     // 商品 伺服器來的原始資料
     const [products, setProducts] = useState([]);
-
-    // 各種處理(排序、搜尋、過濾)後的資料
-    const [displayProducts, setDisplayProducts] = useState([]);
 
     // 總共有 lastPage 這麼多頁
     const [lastPage, setLastPage] = useState(1);
@@ -57,10 +58,10 @@ function Products() {
     // 商品次類別
     const [categorySub, setCategorySub] = useState([]);
 
-    // 所有商品 - 最新商品 api
+    // 取得所有商品 - 最新商品 api
     useEffect(() => {
-        console.log('Products', 'useEffect []');
-        console.log('useEffect[]', products);
+        // console.log('Products', 'useEffect []');
+        // console.log('useEffect[]', products);
         let getProducts = async () => {
             let response = await axios.get(`${API_URL}/products?page=${page}`);
             setProducts(response.data.data);
@@ -70,7 +71,7 @@ function Products() {
         getProducts();
     }, [page]);
 
-    // 商品類別 api
+    // 取得商品類別 api
     useEffect(() => {
         // console.log('useEffect[]', data.categoryMain)
         let getCategory = async () => {
@@ -82,13 +83,13 @@ function Products() {
     }, []);
 
     const location = useLocation();
-
+    // 取得各分類商品 api
     useEffect(() => {
         let params = new URLSearchParams(location.search);
         let mainId = params.get('main_id');
         let subId = params.get('sub_id');
-        console.log(mainId);
-        console.log(subId);
+        // console.log(mainId);
+        // console.log(subId);
         let getProducts = async () => {
             let response = await axios.get(
                 `${API_URL}/products/${mainId}&${subId}&page=${page}`
@@ -98,7 +99,6 @@ function Products() {
         };
         getProducts();
     }, [location]);
-
 
     // 製作頁碼按鈕
     const getPages = () => {
@@ -139,27 +139,30 @@ function Products() {
 
     // 桌機 篩選 Toggled function
     const toggleFilterToggled = () => {
-        if (sortToggled || searchToggled) {
+        if (sortToggled || searchToggled || categoryToggled) {
             setSortToggled(false);
             setSearchToggled(false);
+            setCategoryToggled(false);
         }
         setFilterToggled(!filterToggled);
     };
 
     // 桌機 排序 Toggled function
     const toggleSortToggled = () => {
-        if (filterToggled || searchToggled) {
+        if (filterToggled || searchToggled || categoryToggled) {
             setFilterToggled(false);
             setSearchToggled(false);
+            setCategoryToggled(false);
         }
         setSortToggled(!sortToggled);
     };
 
     // 桌機 搜尋 Toggled function
     const toggleSearchToggled = () => {
-        if (sortToggled || filterToggled) {
+        if (sortToggled || filterToggled || categoryToggled) {
             setSortToggled(false);
             setFilterToggled(false);
+            setCategoryToggled(false);
         }
         setSearchToggled(!searchToggled);
     };
@@ -393,37 +396,38 @@ function Products() {
                                 <p className="products-filter-nav-item-name">
                                     商品分類
                                 </p>
-                                <button
+                                <div
                                     className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center"
                                     onClick={toggleCategoryToggled}
                                 >
-                                    琴鍵樂器
+                                    {/* TODO: 類別選完要改變此類別名稱 */}
+                                    商品類別
                                     <img src={arrowDown} alt="arrowDown" />
-                                </button>
+                                </div>
                             </div>
                             <div className="products-filter-nav-item border-end">
                                 <p className="products-filter-nav-item-name">
                                     進階篩選
                                 </p>
-                                <button
+                                <div
                                     className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center"
                                     onClick={toggleFilterToggled}
                                 >
                                     篩選條件
                                     <img src={arrowDown} alt="arrowDown" />
-                                </button>
+                                </div>
                             </div>
                             <div className="products-filter-nav-item">
                                 <p className="products-filter-nav-item-name">
                                     商品排序
                                 </p>
-                                <button
+                                <div
                                     className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center"
                                     onClick={toggleSortToggled}
                                 >
                                     排序條件
                                     <img src={arrowDown} alt="arrowDown" />
-                                </button>
+                                </div>
                             </div>
                         </div>
                         {/* 篩選按鈕 end */}
@@ -432,35 +436,54 @@ function Products() {
                         {categoryToggled ? (
                             <select
                                 className="products-filter-category-select products-filter-category-scroll-style"
-                                size="2"
+                                value={url}
+                                onChange={(e) => {
+                                    setUrl(e.target.value);
+                                    const newUrl = e.target.value;
+                                    navigate(newUrl);
+                                }}
                             >
-                                <option value="1">最新商品</option>
-                                <option value="2">琴鍵樂器</option>
-                                <option value="3">電子鋼琴</option>
-                                <option value="4">數位鋼琴</option>
-                                <option value="5">管樂器</option>
-                                <option value="6">長笛</option>
-                                <option value="7">短笛</option>
-                                <option value="8">薩克斯風</option>
-                                <option value="9">弓弦樂器</option>
-                                <option value="10">小提琴</option>
-                                <option value="11">中提琴</option>
-                                <option value="12">大提琴</option>
-                                <option value="13">吉他/烏克麗麗</option>
-                                <option value="14">木吉他</option>
-                                <option value="15">電吉他</option>
-                                <option value="16">貝斯</option>
-                                <option value="17">烏克麗麗</option>
-                                <option value="18">打擊樂器</option>
-                                <option value="19">爵士鼓</option>
-                                <option value="20">電子鼓</option>
-                                <option value="21">木箱鼓</option>
-                                <option value="22">配件</option>
-                                <option value="23">琴鍵樂器</option>
-                                <option value="24">管樂器</option>
-                                <option value="25">弓弦樂器</option>
-                                <option value="26">吉他</option>
-                                <option value="27">打擊樂器</option>
+                                <optgroup>
+                                    {/* TODO: 抓不到最新商品資料 */}
+                                    <option value="">最新商品</option>
+                                </optgroup>
+                                {categoryMain.map((value) => {
+                                    return (
+                                        <optgroup
+                                            key={Math.random()
+                                                .toString(36)
+                                                .replace('1.', '')}
+                                        >
+                                            <option
+                                                value={`?main_id=${value.mainId}`}
+                                            >
+                                                {value.mainName}
+                                            </option>
+
+                                            {categorySub.map((item) => {
+                                                if (
+                                                    Number(item.mainId) ===
+                                                    value.mainId
+                                                ) {
+                                                    return (
+                                                        <option
+                                                            className="products-sub-category"
+                                                            key={Math.random()
+                                                                .toString(36)
+                                                                .replace(
+                                                                    '3.',
+                                                                    ''
+                                                                )}
+                                                            value={`?sub_id=${item.subId}`}
+                                                        >
+                                                            {item.subName}
+                                                        </option>
+                                                    );
+                                                }
+                                            })}
+                                        </optgroup>
+                                    );
+                                })}
                             </select>
                         ) : (
                             ''
@@ -579,7 +602,8 @@ function Products() {
                     <div className="col-2 d-none d-md-block">
                         <ul className="products-category-navbar">
                             <li className="products-main-category products-main-category-active">
-                                最新商品
+                                {/* TODO: 抓不到最新商品資料 */}
+                                <Link to="/products">最新商品</Link>
                             </li>
                             {categoryMain.map((value) => {
                                 return (
@@ -610,7 +634,7 @@ function Products() {
                                                     >
                                                         <li>
                                                             <Link
-                                                                to={`?main_id=${value.mainId}&sub_id=${item.subId}`}
+                                                                to={`?sub_id=${item.subId}`}
                                                             >
                                                                 {item.subName}
                                                             </Link>
@@ -639,7 +663,7 @@ function Products() {
                                         <div className="position-relative">
                                             {/* 商品照片 */}
                                             <Link
-                                                to="detail"
+                                                to={`/products/${product.product_id}`}
                                                 className="product-img d-block"
                                             >
                                                 <div className="product-img-mask position-absolute"></div>
@@ -672,7 +696,7 @@ function Products() {
                                         <div className="product-body">
                                             {/* 品名 */}
                                             <Link
-                                                to="detail"
+                                                to={`/products/${product.product_id}`}
                                                 className="product-name"
                                             >
                                                 {product.name}

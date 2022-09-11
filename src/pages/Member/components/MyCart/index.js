@@ -14,8 +14,8 @@ function MyCart(props) {
                 <b> 購物車</b>
             </h4>
             <div className="p-2">
-                <div className="row col-md-5 align-items-center py-2">
-                    <div class="col-3 d-inline-flex justify-content-md-evenly justify-content-around form-check">
+                <div className="row col-lg-5 align-items-center ">
+                    <div class="col-3 d-inline-flex justify-content-evenly form-check">
                         <input
                             className="form-check-input"
                             type="checkbox"
@@ -29,10 +29,10 @@ function MyCart(props) {
                             全選
                         </label>
                     </div>
-                    <button className="btn btn-primary col mx-2 p-0">
-                        移除品項
+                    <button className="btn btn-primary col mx-2 p-0 text-nowrap">
+                        取消收藏
                     </button>
-                    <button className="btn btn-primary col mx-2 p-0">
+                    <button className="btn btn-primary col mx-2 p-0 text-nowrap">
                         加入購物車
                     </button>
                 </div>
@@ -41,7 +41,7 @@ function MyCart(props) {
                 <MyCartTable />
             </div>
             <div className="pb-5 row justify-content-around">
-                <div className="pt-5 col-md-7">
+                <div className="pt-5 col-lg-7">
                     <div className="titleBg bg-main-color">
                         <span className="h6 accent-light-color px-2">
                             <b>收件人資訊</b>
@@ -97,7 +97,7 @@ function MyCart(props) {
                         />
                     </div>
                 </div>
-                <div className="pt-5 pb-2 col-md-5">
+                <div className="pt-5 pb-2 col-lg-5">
                     <div className="titleBg bg-accent-color">
                         <span className="h6 accent-light-color px-2">
                             <b>訂購資訊</b>
@@ -107,7 +107,7 @@ function MyCart(props) {
                         <span className="accent-color px-2">總計</span>
                         <span className="">NT: 100000</span>
                     </div>
-                    <div className="d-flex justify-content-end align-items-center py-md-2">
+                    <div className="d-flex justify-content-end align-items-center py-lg-2">
                         <div className="flex-grow-1 d-flex align-items-center justify-content-between px-2 mx-3">
                             <div className="myCartMarginLeft">
                                 <span className="accent-color">運費</span>
@@ -144,7 +144,7 @@ function MyCart(props) {
                         <span className="text-nowrap">- NT:1000</span>
                     </div>
                 </div>
-                <div className="col-md-3 offset-md-9">
+                <div className="col-lg-3 offset-lg-9">
                     <div className="text-end">
                         <span className="p accent-color">
                             <b>
