@@ -4,7 +4,6 @@ import visib from './visibility.svg';
 import unVisib from './visibility_off.svg';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
-
 import { useAuth } from '../../utils/use_auth';
 
 function LogIn({ setLoginPopup }) {
