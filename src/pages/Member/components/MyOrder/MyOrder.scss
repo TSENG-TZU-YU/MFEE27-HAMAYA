@@ -1,14 +1,18 @@
 @import '../../../../styles/global.scss';
-@media only screen and (max-width: 768px) {
+
+@media only screen and (max-width: 992px) {
     .myOrderTable thead {
         display: none;
     }
+
     .myOrderTable td:nth-child(1) {
         display: none;
     }
+
     .myOrderTable td:nth-child(2) {
         display: block;
     }
+
     .myOrderTable td {
         display: inline;
     }
@@ -23,7 +27,8 @@
         padding: 5px 15px;
         // font-weight: 500;
     }
-   .myOrderTable td::before {
+
+    .myOrderTable td::before {
         content: attr(data-title);
         // background-color: $main;
         color: $main;
@@ -36,13 +41,23 @@
 }
 
 
-.myOrderIcon path{
+.myOrderIcon path {
     fill: $main;
 }
-.myOrderIcon{
+
+.myOrderIcon {
     width: 25px;
     height: 25px;
 }
-.myOrderThWidth{
+
+.myOrderThWidth {
     width: 12%;
+}
+
+.myOrder-Img {
+    width: 90px;
+    height: 90px;
+}
+.myOrder-contain{
+    object-fit: contain;
 }

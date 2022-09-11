@@ -1,17 +1,18 @@
 @import '../../../../styles/global.scss';
 
-@media screen and (max-width: 768px) {
-    .myBucketClassImg {
+@media screen and (max-width: 992px) {
+    .myBucketClass-Img {
         width: 100%;
+        height: 260px;
     }
-    // .myBucketClassItem{
-    //    max-height: 500px;
-    // }
 }
-@media screen and (min-width: 768px) {
-    .myBucketClassItem {
+@media screen and (min-width: 992px) {
+    .myBucketClass-Item {
+        min-height: 130px;
+    }
+    .myBucketClass-Img {
+        min-width: 260px;
         height: 130px;
-        // background-color: white;
     }
 }
 
@@ -27,19 +28,17 @@
     border-bottom: 5px solid $main;
 }
 
-.myBucketItem {
+.myBucketProduct-Item {
     height: 130px;
     background-color: white;
 }
-.myBucketClassItem {
-    // height: 130px;
-    background-color: white;
+.myBucketProduct-Img {
+    width: 130px;
+    height: auto;
+    overflow: hidden;
 }
-
-.myBucketImg {
-    min-height: 130px;
-    object-fit: cover;
-    // border: 1px solid #ccc;//測試用記得拿掉
+.myBucketClass-Item {
+    background-color: white;
 }
 
 .myBucketItemIcon path {

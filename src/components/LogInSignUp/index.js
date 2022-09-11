@@ -19,7 +19,7 @@ function LogInSignUp({ setLoginPopup }) {
         let getMember = async () => {
             try {
                 console.log('檢查是否登入');
-                let response = await axios.get(`${API_URL}/member`, {
+                let response = await axios.get(`${API_URL}/auth`, {
                     withCredentials: true,
                 });
                 console.log('已登入', response.data);

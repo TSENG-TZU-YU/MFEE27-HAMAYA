@@ -1,0 +1,70 @@
+@import '../../../../../styles/global.scss';
+
+@media screen and (max-width: 992px) {
+    .myOrderDetailTable thead {
+        display: none;
+    }
+
+    .myOrderDetailTable td:nth-child(4) {
+        display: none;
+    }
+
+    // .myOrderDetailTable td:nth-child(2) {
+    //     display: block;
+    // }
+
+    .myOrderDetailTable tr:first-child td:nth-child(1)::before {
+        content: attr(data-title);
+        background-color: $main;
+        color: $accent-light;
+        display: block;
+        text-align: start;
+        padding: 5px 15px;
+        // font-weight: 500;
+    }
+
+    .myOrderDetailTable tr:last-child {
+        display: none;
+        // font-weight: 500;
+    }
+
+    //title
+    // .myOrderDetailTable td:nth-child(1)::before {
+    //     content: attr(data-title);
+    //     background-color: $main;
+    //     color: $accent-light;
+    //     display: block;
+    //     text-align: start;
+    //     padding: 5px 15px;
+    //     // font-weight: 500;
+    // }
+    .myOrderDetailTable td {
+        display: inline;
+    }
+}
+
+@media screen and (min-width:992px) {
+    .myOrderDetailTable tr:first-child {
+        display: none;
+        // font-weight: 500;
+    }
+
+    .myOrderDetailTable td:nth-child(1) {
+        display: none;
+        // font-weight: 500;
+    }
+}
+
+.myOrderDetail-Icon {
+    width: 60px;
+    height: 60px;
+}
+
+.detailBorder {
+    border-bottom: 2px solid $main;
+    border-top: 2px solid $main;
+}
+
+.myOrderDetailBtn-Icon path {
+    fill: $accent-light;
+}

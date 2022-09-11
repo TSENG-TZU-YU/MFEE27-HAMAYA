@@ -22,7 +22,7 @@ function MyCartTable() {
                 <tbody>
                     <tr>
                         <td data-title="樂器商城" align="center">
-                            <div className="d-flex justify-content-md-between p-md-0 pt-2">
+                            <div className="d-flex justify-content-lg-between p-lg-0 pt-2">
                                 <div className="align-self-center">
                                     <input
                                         className="form-check-input"
@@ -31,9 +31,9 @@ function MyCartTable() {
                                         id=""
                                     />
                                 </div>
-                                <div className="w-75 m-auto">
+                                <div className="flex-lg-grow-1">
                                     <img
-                                        className="img-fluid"
+                                        className="myCart-Img myCart-contain"
                                         src={productImg}
                                         alt=""
                                     />
@@ -41,12 +41,12 @@ function MyCartTable() {
                             </div>
                         </td>
                         <td align="center">
-                            <div className="d-flex flex-column align-items-md-start pt-md-2">
+                            <div className="d-flex flex-column align-items-lg-start pt-lg-2">
                                 <span className="p main-color">
                                     <b> YAMAHA U系列 U1</b>
                                 </span>
                                 <span className="small">型號：aNueNue-M2</span>
-                                <div className="pt-md-3 d-inline">
+                                <div className="pt-lg-3 d-inline">
                                     <button className="btn border-0 p-0">
                                         <FavDefault className="myCartItemIconFav " />
                                     </button>
@@ -58,7 +58,7 @@ function MyCartTable() {
                         </td>
                         <td align="center" className="align-middle">
                             <div className="gary-dark">
-                                <span className="d-md-none myCartPriceTitle accent-color">
+                                <span className="d-lg-none myCartPriceTitle accent-color">
                                     <b>價錢：</b>
                                 </span>
                                 <span>NT $100000</span>
@@ -77,7 +77,7 @@ function MyCartTable() {
                         </td>
                         <td align="center" className="align-middle ">
                             <div className="gary-dark">
-                                <span className="d-md-none myCartPriceTitle accent-color">
+                                <span className="d-lg-none myCartPriceTitle accent-color">
                                     <b>小計：</b>
                                 </span>
                                 <span>NT $100000</span>
@@ -86,7 +86,7 @@ function MyCartTable() {
                     </tr>
                     <tr>
                         <td data-title="樂器商城" align="center">
-                            <div className="d-flex justify-content-md-between p-md-0 pt-2">
+                            <div className="d-flex justify-content-lg-between p-lg-0 pt-2">
                                 <div className="align-self-center">
                                     <input
                                         className="form-check-input"
@@ -95,9 +95,9 @@ function MyCartTable() {
                                         id=""
                                     />
                                 </div>
-                                <div className="w-75 m-auto">
+                                <div className="flex-lg-grow-1">
                                     <img
-                                        className="img-fluid"
+                                        className="myCart-Img myCart-contain"
                                         src={productImg}
                                         alt=""
                                     />
@@ -105,12 +105,12 @@ function MyCartTable() {
                             </div>
                         </td>
                         <td align="center">
-                            <div className="d-flex flex-column align-items-md-start pt-md-2">
+                            <div className="d-flex flex-column align-items-lg-start pt-lg-2">
                                 <span className="p main-color">
                                     <b> YAMAHA U系列 U1</b>
                                 </span>
                                 <span className="small">型號：aNueNue-M2</span>
-                                <div className="pt-md-3 d-inline">
+                                <div className="pt-lg-3 d-inline">
                                     <button className="btn border-0 p-0">
                                         <FavDefault className="myCartItemIconFav " />
                                     </button>
@@ -122,7 +122,7 @@ function MyCartTable() {
                         </td>
                         <td align="center" className="align-middle">
                             <div className="gary-dark">
-                                <span className="d-md-none myCartPriceTitle accent-color">
+                                <span className="d-lg-none myCartPriceTitle accent-color">
                                     <b>價錢：</b>
                                 </span>
                                 <span>NT $100000</span>
@@ -141,7 +141,7 @@ function MyCartTable() {
                         </td>
                         <td align="center" className="align-middle ">
                             <div className="gary-dark">
-                                <span className="d-md-none myCartPriceTitle accent-color">
+                                <span className="d-lg-none myCartPriceTitle accent-color">
                                     <b>小計：</b>
                                 </span>
                                 <span>NT $100000</span>
@@ -163,7 +163,7 @@ function MyCartTable() {
                 <tbody>
                     <tr>
                         <td data-title="音樂課程" align="center">
-                            <div className="d-flex justify-content-md-between p-md-0 pt-2">
+                            <div className="d-flex justify-content-lg-between p-lg-0 pt-2">
                                 <div className="align-self-center">
                                     <input
                                         className="form-check-input"
@@ -172,9 +172,9 @@ function MyCartTable() {
                                         id=""
                                     />
                                 </div>
-                                <div className="w-75 m-auto">
+                                <div className="flex-lg-grow-1">
                                     <img
-                                        className="img-fluid"
+                                        className="myCart-Img myCart-contain"
                                         src={classPic}
                                         alt=""
                                     />
@@ -182,11 +182,11 @@ function MyCartTable() {
                             </div>
                         </td>
                         <td align="center">
-                            <div className="d-flex flex-column align-items-md-start pt-md-2">
+                            <div className="d-flex flex-column align-items-lg-start pt-lg-2">
                                 <span className="p main-color">
                                     <b> YAMAHA U系列 U1</b>
                                 </span>
-                                <div className="pt-md-3 d-inline">
+                                <div className="pt-lg-3 d-inline">
                                     <button className="btn border-0 p-0">
                                         <FavDefault className="myCartItemIconFav " />
                                     </button>
@@ -198,7 +198,7 @@ function MyCartTable() {
                         </td>
                         <td align="center" className="align-middle">
                             <div className="gary-dark">
-                                <span className="d-md-none myCartPriceTitle accent-color">
+                                <span className="d-lg-none myCartPriceTitle accent-color">
                                     <b>價錢：</b>
                                 </span>
                                 <span>NT $100000</span>
@@ -217,7 +217,7 @@ function MyCartTable() {
                         </td>
                         <td align="center" className="align-middle ">
                             <div className="gary-dark">
-                                <span className="d-md-none myCartPriceTitle accent-color">
+                                <span className="d-lg-none myCartPriceTitle accent-color">
                                     <b>小計：</b>
                                 </span>
                                 <span>NT $100000</span>
@@ -226,7 +226,7 @@ function MyCartTable() {
                     </tr>
                     <tr>
                         <td data-title="音樂課程" align="center">
-                            <div className="d-flex justify-content-md-between p-md-0 pt-2">
+                            <div className="d-flex justify-content-lg-between p-lg-0 pt-2">
                                 <div className="align-self-center">
                                     <input
                                         className="form-check-input"
@@ -235,9 +235,9 @@ function MyCartTable() {
                                         id=""
                                     />
                                 </div>
-                                <div className="w-75 m-auto">
+                                <div className="flex-lg-grow-1">
                                     <img
-                                        className="img-fluid"
+                                        className="myCart-Img myCart-contain"
                                         src={classPic}
                                         alt=""
                                     />
@@ -245,11 +245,11 @@ function MyCartTable() {
                             </div>
                         </td>
                         <td align="center">
-                            <div className="d-flex flex-column align-items-md-start pt-md-2">
+                            <div className="d-flex flex-column align-items-lg-start pt-lg-2">
                                 <span className="p main-color">
                                     <b> YAMAHA U系列 U1</b>
                                 </span>
-                                <div className="pt-md-3 d-inline">
+                                <div className="pt-lg-3 d-inline">
                                     <button className="btn border-0 p-0">
                                         <FavDefault className="myCartItemIconFav " />
                                     </button>
@@ -261,7 +261,7 @@ function MyCartTable() {
                         </td>
                         <td align="center" className="align-middle">
                             <div className="gary-dark">
-                                <span className="d-md-none myCartPriceTitle accent-color">
+                                <span className="d-lg-none myCartPriceTitle accent-color">
                                     <b>價錢：</b>
                                 </span>
                                 <span>NT $100000</span>
@@ -280,7 +280,7 @@ function MyCartTable() {
                         </td>
                         <td align="center" className="align-middle ">
                             <div className="gary-dark">
-                                <span className="d-md-none myCartPriceTitle accent-color">
+                                <span className="d-lg-none myCartPriceTitle accent-color">
                                     <b>小計：</b>
                                 </span>
                                 <span>NT $100000</span>
