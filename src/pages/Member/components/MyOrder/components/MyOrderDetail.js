@@ -49,6 +49,11 @@ function MyOrderDetail() {
                 </p>
             </div>
             <h6 className="main-color py-2">購買列表</h6>
+            <div className="d-lg-none bg-main-color">
+                <h6 className="accent-light-color p-2">
+                    <b>樂器商城</b>
+                </h6>
+            </div>
             <table className="table m-0 myOrderDetailTable">
                 <thead>
                     <tr className="text-center accent-light-color bg-main-color">
@@ -59,72 +64,108 @@ function MyOrderDetail() {
                         <th>小計</th>
                     </tr>
                 </thead>
-                <tbody>
-                    {/* first tr for mobile */}
+                <tbody className="detail-tbody">
                     <tr>
-                        <td data-title="樂器商城">
-                            <div className="row g-0 mx-1">
-                                <div className="col-3 text-center">
+                        <td className="align-middle" align="center">
+                            <div className="detail-Img">
+                                <img
+                                    className="myOrder-Img myOrder-contain"
+                                    src={productImg}
+                                    alt=""
+                                />
+                            </div>
+                            {/* for mobile */}
+                            <div className="row d-lg-none">
+                                <div className="col-3">
                                     <img
                                         className="myOrder-Img myOrder-contain"
                                         src={productImg}
                                         alt=""
                                     />
                                 </div>
-                                <div className="col-9 row">
-                                    <div className="col-12">
-                                        <span className="p main-color">
-                                            <b> YAMAHA U系列 U1</b>
-                                        </span>
+                                <div className="col-9 row g-0 px-2">
+                                    <div className="col-12 text-start">
+                                        <p className="m-0 main-color">
+                                            <b>YAMAHA U系列 U1</b>
+                                        </p>
                                     </div>
-                                    <div className="col-12 row">
-                                        <div className="main-color p col-6">
-                                            數量：1
-                                        </div>
-                                        <div className="gary-dark-color p col-6">
-                                            NT $100000
-                                        </div>
+                                    <div className="gary-dark-color p col-6 gy-2 text-start">
+                                        <span className="main-color">
+                                            價錢：
+                                        </span>{' '}
+                                        1
+                                    </div>
+                                    <div className="gary-dark-color p col-6 gy-2 text-end">
+                                        <span>NT $100000</span>
                                     </div>
                                 </div>
                             </div>
-                            <div className="row g-0 mx-1">
-                                <div className="col-3 text-center">
-                                    <img
-                                        className="myOrder-Img myOrder-contain"
-                                        src={productImg}
-                                        alt=""
-                                    />
-                                </div>
-                                <div className="col-9 row">
-                                    <div className="col-12">
-                                        <span className="p main-color">
-                                            <b> YAMAHA U系列 U1</b>
-                                        </span>
-                                    </div>
-                                    <div className="col-12 row">
-                                        <div className="main-color p col-6">
-                                            數量：1
-                                        </div>
-                                        <div className="gary-dark-color p col-6">
-                                            NT $100000
-                                        </div>
-                                    </div>
-                                </div>
+                            {/* for mobile */}
+                        </td>
+                        <td>
+                            <div className="d-flex flex-column align-items-lg-start pt-lg-2">
+                                <span className="p main-color">
+                                    <b>YAMAHA U系列 U1</b>
+                                </span>
+                                <span className="small">型號：aNueNue-M2</span>
+                            </div>
+                        </td>
+                        <td align="center" className="align-middle">
+                            <div className="gary-dark-color p">
+                                <span>NT $100000</span>
+                            </div>
+                        </td>
+                        <td align="center" className="align-middle">
+                            <div className="gary-dark-color p">1</div>
+                        </td>
+                        <td align="center" className="align-middle ">
+                            <div className="gary-dark-color p">
+                                <span>NT $100000</span>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td className="align-middle" align="center">
-                            <img
-                                className="myOrder-Img myOrder-contain"
-                                src={productImg}
-                                alt=""
-                            />
+                            <div className="detail-Img">
+                                <img
+                                    className="myOrder-Img myOrder-contain"
+                                    src={productImg}
+                                    alt=""
+                                />
+                            </div>
+                            {/* for mobile */}
+                            <div className="row d-lg-none">
+                                <div className="col-3">
+                                    <img
+                                        className="myOrder-Img myOrder-contain"
+                                        src={productImg}
+                                        alt=""
+                                    />
+                                </div>
+
+                                <div className="col-9 row g-0 px-2">
+                                    <div className="col-12 text-start">
+                                        <p className="m-0 main-color">
+                                            <b>YAMAHA U系列 U1</b>
+                                        </p>
+                                    </div>
+                                    <div className="gary-dark-color p col-6 gy-2 text-start">
+                                        <span className="main-color">
+                                            價錢：
+                                        </span>{' '}
+                                        1
+                                    </div>
+                                    <div className="gary-dark-color p col-6 gy-2 text-end">
+                                        <span>NT $100000</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* for mobile */}
                         </td>
                         <td>
                             <div className="d-flex flex-column align-items-lg-start pt-lg-2">
                                 <span className="p main-color">
-                                    <b> YAMAHA U系列 U1</b>
+                                    <b>YAMAHA U系列 U1</b>
                                 </span>
                                 <span className="small">型號：aNueNue-M2</span>
                             </div>
@@ -145,6 +186,11 @@ function MyOrderDetail() {
                     </tr>
                 </tbody>
             </table>
+            <div className="d-lg-none bg-main-color">
+                <h6 className="accent-light-color p-2">
+                    <b>音樂課程</b>
+                </h6>
+            </div>
             <table className="table m-0 myOrderDetailTable py-2">
                 <thead>
                     <tr className="text-center accent-light-color bg-main-color">
@@ -155,21 +201,108 @@ function MyOrderDetail() {
                         <th>小計</th>
                     </tr>
                 </thead>
-                <tbody>
-                    {/* first tr for mobile */}
+                <tbody className="detail-tbody">
                     <tr>
-                        <td data-title="音樂課程"></td>
+                        <td className="align-middle" align="center">
+                            <div className="detail-Img">
+                                <img
+                                    className="myOrder-Img myOrder-contain"
+                                    src={classPic}
+                                    alt=""
+                                />
+                            </div>
+                            {/* for mobile */}
+                            <div className="row d-lg-none">
+                                <div className="col-3">
+                                    <img
+                                        className="myOrder-Img myOrder-contain"
+                                        src={classPic}
+                                        alt=""
+                                    />
+                                </div>
+                                <div className="col-9 row g-0 px-2">
+                                    <div className="col-12 text-start">
+                                        <p className="m-0 main-color">
+                                            <b>
+                                                藍調與爵士鋼琴的獨奏技巧與應用哩哩哩哩哩拉拉
+                                            </b>
+                                        </p>
+                                    </div>
+                                    <div className="gary-dark-color p col-6 gy-2 text-start">
+                                        <span className="main-color">
+                                            價錢：
+                                        </span>{' '}
+                                        1
+                                    </div>
+                                    <div className="gary-dark-color p col-6 gy-2 text-end">
+                                        <span>NT $100000</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* for mobile */}
+                        </td>
+                        <td>
+                            <div className="align-items-lg-start pt-lg-2">
+                                <span className="p main-color">
+                                    <b>藍調與爵士鋼琴的獨奏技巧與應用</b>
+                                </span>
+                            </div>
+                        </td>
+                        <td align="center" className="align-middle">
+                            <div className="gary-dark-color p">
+                                <span>NT $100000</span>
+                            </div>
+                        </td>
+                        <td align="center" className="align-middle">
+                            <div className="gary-dark-color p">1</div>
+                        </td>
+                        <td align="center" className="align-middle ">
+                            <div className="gary-dark-color p">
+                                <span>NT $100000</span>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td className="align-middle" align="center">
-                            <img
-                                className="myOrder-Img myOrder-contain"
-                                src={classPic}
-                                alt=""
-                            />
+                            <div className="detail-Img">
+                                <img
+                                    className="myOrder-Img myOrder-contain"
+                                    src={classPic}
+                                    alt=""
+                                />
+                            </div>
+                            {/* for mobile */}
+                            <div className="row d-lg-none">
+                                <div className="col-3">
+                                    <img
+                                        className="myOrder-Img myOrder-contain"
+                                        src={classPic}
+                                        alt=""
+                                    />
+                                </div>
+                                <div className="col-9 row g-0 px-2">
+                                    <div className="col-12 text-start">
+                                        <p className="m-0 main-color">
+                                            <b>
+                                                藍調與爵士鋼琴的獨奏技巧與應用哩哩哩哩哩拉拉
+                                            </b>
+                                        </p>
+                                    </div>
+                                    <div className="gary-dark-color p col-6 gy-2 text-start">
+                                        <span className="main-color">
+                                            價錢：
+                                        </span>{' '}
+                                        1
+                                    </div>
+                                    <div className="gary-dark-color p col-6 gy-2 text-end">
+                                        <span>NT $100000</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* for mobile */}
                         </td>
                         <td>
-                            <div className="d-flex flex-column align-items-lg-start pt-lg-2">
+                            <div className="align-items-lg-start pt-lg-2">
                                 <span className="p main-color">
                                     <b>藍調與爵士鋼琴的獨奏技巧與應用</b>
                                 </span>

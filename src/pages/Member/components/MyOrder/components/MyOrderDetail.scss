@@ -1,60 +1,17 @@
 @import '../../../../../styles/global.scss';
 
-@media screen and (max-width: 992px) {
+@media only screen and (max-width: 992px) {
+    //表頭none
     .myOrderDetailTable thead {
         display: none;
     }
-
-    .myOrderDetailTable td:nth-child(4) {
+    .detail-tbody tr td:nth-child(2), .detail-tbody tr td:nth-child(3),.detail-tbody tr td:nth-child(4), .detail-tbody tr td:nth-child(5){
         display: none;
     }
-
-    // .myOrderDetailTable td:nth-child(2) {
-    //     display: block;
-    // }
-
-    .myOrderDetailTable tr:first-child td:nth-child(1)::before {
-        content: attr(data-title);
-        background-color: $main;
-        color: $accent-light;
-        display: block;
-        text-align: start;
-        padding: 5px 15px;
-        // font-weight: 500;
-    }
-
-    .myOrderDetailTable tr:last-child {
+    .detail-Img {
         display: none;
-        // font-weight: 500;
-    }
-
-    //title
-    // .myOrderDetailTable td:nth-child(1)::before {
-    //     content: attr(data-title);
-    //     background-color: $main;
-    //     color: $accent-light;
-    //     display: block;
-    //     text-align: start;
-    //     padding: 5px 15px;
-    //     // font-weight: 500;
-    // }
-    .myOrderDetailTable td {
-        display: inline;
     }
 }
-
-@media screen and (min-width:992px) {
-    .myOrderDetailTable tr:first-child {
-        display: none;
-        // font-weight: 500;
-    }
-
-    .myOrderDetailTable td:nth-child(1) {
-        display: none;
-        // font-weight: 500;
-    }
-}
-
 .myOrderDetail-Icon {
     width: 60px;
     height: 60px;

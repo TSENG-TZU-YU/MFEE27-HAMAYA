@@ -37,7 +37,7 @@ function MyOrder(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="">
+                    <tr>
                         <td>
                             <img
                                 className="myOrder-Img myOrder-contain"
@@ -106,7 +106,7 @@ function MyOrder(props) {
                             </div>
                         </td>
                     </tr>
-                    <tr className="">
+                    <tr>
                         <td>
                             <img
                                 className="myOrder-Img myOrder-contain"
@@ -165,15 +165,18 @@ function MyOrder(props) {
                                     </span>
                                 </div>
                                 <div className="col-lg-12 col-xl-5 col-5">
-                                    <button className="btn border-0 p-0">
+                                    <Link
+                                        to="/member/myorder/:orderId"
+                                        className="btn border-0 p-0"
+                                    >
                                         <Detailed className="myOrderIcon" />
                                         訂單詳細
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </td>
                     </tr>
-                    <tr className="">
+                    <tr>
                         <td>
                             <img
                                 className="myOrder-Img myOrder-contain"
@@ -232,15 +235,18 @@ function MyOrder(props) {
                                     </span>
                                 </div>
                                 <div className="col-lg-12 col-xl-5 col-5">
-                                    <button className="btn border-0 p-0">
+                                    <Link
+                                        to="/member/myorder/:orderId"
+                                        className="btn border-0 p-0"
+                                    >
                                         <Detailed className="myOrderIcon" />
                                         訂單詳細
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </td>
                     </tr>
-                    <tr className="">
+                    <tr>
                         <td>
                             <img
                                 className="myOrder-Img myOrder-contain"
@@ -299,10 +305,13 @@ function MyOrder(props) {
                                     </span>
                                 </div>
                                 <div className="col-lg-12 col-xl-5 col-5">
-                                    <button className="btn border-0 p-0">
+                                    <Link
+                                        to="/member/myorder/:orderId"
+                                        className="btn border-0 p-0"
+                                    >
                                         <Detailed className="myOrderIcon" />
                                         訂單詳細
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </td>
