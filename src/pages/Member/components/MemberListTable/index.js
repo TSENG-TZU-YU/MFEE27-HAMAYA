@@ -30,20 +30,24 @@ function MemberListTable(props) {
                 }
             );
             console.log(response.data);
+            console.log(response.data.photo);
+            setMember({ ...member, photo: response.data.photo });
             alert(response.data.message);
         } catch (err) {
             console.log(err.response.data);
             alert(err.response.data.message);
         }
     }
-    console.log(IMAGE_URL + member.photo);
+    // console.log(IMAGE_URL + member.photo);
     return (
         <>
             <div className="col-3 col-lg-2 d-none d-md-block MemberListTable">
                 <div className="my-1">
                     <img
                         className="img-fluid"
-                        src={IMAGE_URL + member.photo}
+                        src={
+                            member.photo ? IMAGE_URL + member.photo : member_img
+                        }
                         alt=""
                     />
                 </div>
