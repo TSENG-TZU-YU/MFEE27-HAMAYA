@@ -1,7 +1,9 @@
 import React from 'react';
 import './place.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useAuth } from '../../utils/use_auth';
+import { API_URL } from '../../utils/config';
 
 import banner from '../../assets/PlaceImg/banner.png';
 import studioA01 from '../../assets/PlaceImg/studioA01.jpg';
@@ -20,15 +22,32 @@ import studioC01min from '../../assets/PlaceImg/studioC01min.jpg';
 import studioC02min from '../../assets/PlaceImg/studioC02min.jpg';
 
 function Place(props) {
-    // 照片輪播
-    const [studioAImg, setStudioAImg] = useState('studioA01');
-    const [studioBImg, setStudioBImg] = useState('studioB01');
-    const [studioCImg, setStudioCImg] = useState('studioC01');
-    const [studioAImgBtn, setStudioAImgBtn] = useState('studioA01');
-    const [studioBImgBtn, setStudioBImgBtn] = useState('studioB01');
-    const [studioCImgBtn, setStudioCImgBtn] = useState('studioC01');
+    // 會員登入狀態判斷
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    useEffect(() => {
+        let getMember = async () => {
+            console.log('檢查是否登入');
+            let response = await axios.get(`${API_URL}/auth`, {
+                withCredentials: true,
+            });
+            console.log('已登入', response.data);
+            setIsLogin(true);
+            setMember(response.data);
+            const newRent = {
+                ...rent,
+                name: member.fullName,
+                phone: member.phone,
+                email: member.email,
+            };
+            setMemberLogin(true);
+            setRent(newRent);
+        };
+        getMember();
+    }, []);
 
     // 表單
+    const [memberLogin, setMemberLogin] = useState(false);
+
     const [datetime, setDatetime] = useState({
         date: '2022-10-05',
         time: '13:30:00',
@@ -54,6 +73,14 @@ function Place(props) {
 
         setDatetime(newRent);
     };
+
+    // 照片輪播
+    const [studioAImg, setStudioAImg] = useState('studioA01');
+    const [studioBImg, setStudioBImg] = useState('studioB01');
+    const [studioCImg, setStudioCImg] = useState('studioC01');
+    const [studioAImgBtn, setStudioAImgBtn] = useState('studioA01');
+    const [studioBImgBtn, setStudioBImgBtn] = useState('studioB01');
+    const [studioCImgBtn, setStudioCImgBtn] = useState('studioC01');
 
     return (
         <>
@@ -401,10 +428,11 @@ function Place(props) {
                             <input
                                 type="text"
                                 name="fullName"
-                                value={rent.fullName}
+                                value={rent.name}
                                 placeholder="請輸入姓名"
                                 onChange={fieldChange}
                                 className="w-100"
+                                disabled={memberLogin}
                             />
                         </div>
                         <div className="col-12 col-md-6">
@@ -426,6 +454,7 @@ function Place(props) {
                                 onChange={fieldChange}
                                 placeholder="請輸入電話/手機"
                                 className="w-100"
+                                disabled={memberLogin}
                             />
                         </div>
                         <div className="col-12 col-md-6">
@@ -447,16 +476,18 @@ function Place(props) {
                                 onChange={fieldChange}
                                 placeholder="請輸入信箱"
                                 className="w-100"
+                                disabled={memberLogin}
                             />
                         </div>
                         <div className="col-12 col-md-6">
                             <p>使用人數</p>
                             <input
                                 type="number"
-                                name="users"
+                                name="usercount"
                                 value={rent.usercount}
                                 onChange={fieldChange}
                                 className="w-100"
+                                min="1"
                             />
                             {/* 設定不可為0&負 */}
                         </div>

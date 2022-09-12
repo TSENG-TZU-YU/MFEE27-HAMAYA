@@ -4,3 +4,8 @@
 .MemberListTable-line{
     background: linear-gradient(to right,#ffffff00 0%,#ffffff00 48%,#BABABA 48%,#BABABA 51%,#ffffff00 51%,#ffffff00 100%);
 }
+.MemberListTable-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
