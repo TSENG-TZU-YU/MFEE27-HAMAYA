@@ -231,7 +231,6 @@ function Class(props) {
                     <div className="vector3  mt-3"></div>
                 </div>
                 <div className="d-flex  justify-content-center align-items-center mt-5 ">
-                    {/*TODO: 手機板 換成 SLIDER  className="d-md-none" */}
                     <div
                         style={{
                             width: '100%',
