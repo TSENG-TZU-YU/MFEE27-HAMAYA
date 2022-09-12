@@ -140,21 +140,20 @@ function Home(props) {
                         />
                     </div>
                 </div>
-
+{/* 
                 <div className="container  d-none d-md-block ">
                     <div className="row">
                         <div className="col"></div>
                     </div>
                 </div>
-                <HomeScroll images={homeImages} />
-                {/* 
                 <div
                     className=""
                     style={{
                         width: '100%',
-                        height: '100%',
+                        height: '50%',
                     }}
                 ></div> */}
+                <HomeScroll images={homeImages} />
 
                 <div className="container">
                     <span className="home-word">
