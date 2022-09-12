@@ -1,58 +1,51 @@
 @import '../../index.scss';
 
-// .scroll-blank-top{
-//   padding-bottom: 80%;
-// }
-// 大圖
-.home-images-slider {
+:root {
+  position: relative;
+  height: 100%;
+}
 
-  // 容器
-  .swiper-slide {
-    padding-top: 40%;
-    overflow: hidden;
-    position: relative;
-    // bottom: 100px;
+:root {
+  background: #eee;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
 
-    // 圖片
-    img {
-      max-height: 100%;
-      max-width: 100%;
-      width: auto;
-      height: 'auto';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin: auto;
-      transition: .3s;
-    }
-  }
+.swiper {
+  width:100%;
+  height: 350px;
+}
 
-  .swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 40%;
-    // height: 100%;
-    object-fit: cover;
-  }
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
 
-  @media screen and (max-width:768px) {
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
 
-    .swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-  }
-
-  .swiper-slide:hover {
-    img {
-      transform: scale(1.2);
-    }
-  }
 
   //   按鈕樣式 上一張
   .swiper-button-prev {
@@ -73,13 +66,27 @@
     background-color: #33333372;
     margin: 0;
   }
-}
 
 
 
-.swiper-button-next:after,
-.swiper-button-prev:after {
-  font-size: 1.5rem;
-}
+  .swiper-pagination-bullet{
+    border-radius: 0%;
+    width: 30px;
+    height: 8px;
+    background-color:white;
 
-@import '../../../node_modules/swiper/swiper.scss';
+
+  }
+
+.swiper-pagination-bullet-active{
+    background-color: $accent;
+  
+  }
+  
+
+  .swiper-pagination.swiper-pagination-1{
+    position: relative;
+    bottom: -2rem;
+
+    
+  }

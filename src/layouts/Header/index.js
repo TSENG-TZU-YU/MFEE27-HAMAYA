@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../../utils/use_auth';
 import { useCart } from '../../utils/use_cart';
+import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import Logo from '../../assets/HeaderImg/logo.svg';
@@ -20,6 +21,8 @@ function Header(props) {
     // const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
     const { shopItemCart, setShopItemCart } = useCart();
     const navigate = useNavigate();
+    // 課程 Toggled
+    // const [setSelectCourse] = useOutletContext();
 
     async function logoutSubmit(e) {
         e.preventDefault();
@@ -162,16 +165,22 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/class/list?class=1"
                                                     className="accent-light-color fw-light"
+                                                    // onClick={() => {
+                                                    //     setSelectCourse(true);
+                                                    // }}
                                                 >
                                                     成人課程
                                                 </Link>
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/class/list?class=2"
                                                     className="accent-light-color fw-light"
+                                                    // onClick={() => {
+                                                    //     setSelectCourse(false);
+                                                    // }}
                                                 >
                                                     兒童課程
                                                 </Link>

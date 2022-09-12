@@ -44,7 +44,7 @@ function MemberListTable(props) {
             <div className="col-3 col-lg-2 d-none d-md-block MemberListTable">
                 <div className="my-1">
                     <img
-                        className="img-fluid"
+                        className="MemberListTable-img"
                         src={
                             member.photo ? IMAGE_URL + member.photo : member_img
                         }

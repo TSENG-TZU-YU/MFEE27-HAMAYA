@@ -17,13 +17,41 @@ function AdultCourse(props) {
     const [data, setData] = useState([]);
     // const [active, setActive] = useState(null);
 
+    // 分頁  Toggled
+    const [lastPage] = useState(3);
+    const [page, setPage] = useState(3);
+    // 製作分頁按鈕
+    const getPage = () => {
+        let pages = [];
+        for (let i = 1; i < lastPage; i++) {
+            //要從陣列後面依序放頁數
+            pages.push(
+                <li
+                    className="pages"
+                    style={{
+                        backgroundColor: page === i ? '#00323d' : '',
+                        color: page === i ? '#f2f2f2' : '#6a777a',
+                    }}
+                    key={i}
+                    onClick={(e) => {
+                        setPage(i);
+                    }}
+                >
+                    {i}
+                </li>
+            );
+        }
+        return pages;
+    };
+
     useEffect(() => {
         console.log('classAdult', 'useEffect []');
         let getAdultClass = async () => {
             let response = await axios.get(
+                // page=${page}
                 `http://localhost:3001/api/class/list?class=1`
             );
-            setData(response.data);
+            setData(response.data.data);
         };
         getAdultClass();
     }, []);
@@ -34,70 +62,19 @@ function AdultCourse(props) {
 
     return (
         <div>
-            <Link to="detailed">
-                <div className="introduce row mx-0 mb-5 class-shadow ">
-                    <div className="d-flex col-lg-6  px-lg-0  position-relative ">
-                        <img
-                            className=" col-12 img-fluid "
-                            style={{ height: '300px' }}
-                            src={Adult_img}
-                            alt="Adult img"
-                        />
-                        <div className="class-like px-lg-0">
-                            <Favorite />
-                        </div>
-                    </div>
-                    <div className="col-lg-6  mt-3 ">
-                        <h4 className="ms-1 mb-2" style={{ color: '#00323d' }}>
-                            藍調與爵士鋼琴的獨奏技巧與應用
-                        </h4>
-                        <div className="vector2 me-2"></div>
-                        <div className=" mt-2">
-                            <p className="class-text mb-3">
-                                這門課程希望能以我自身的鋼琴學習經驗和逾 20
-                                年的教學心得引導大家進入爵士鋼琴的世界，彈出爵士的節奏、即興與風格，ㄧ起感受爵士音樂的魅力～
-                            </p>
-                            <p className="mb-0">名額：10 人 </p>
-                            <p className="mb-0">
-                                報名時間：2022/09/20 - 2022/10/01
-                            </p>
-                            <p className="mb-0">
-                                開課時間：2022/10/19 - 2022/12/10
-                            </p>
-                            <div className="d-flex  align-items-center">
-                                <div className="StarRating">
-                                    <StarRating />
-                                </div>
-                                <p className="ms-2 mt-2 "> 2 人評價</p>
-                            </div>
-                            <div className="d-flex justify-content-between align-items-center ">
-                                <h4
-                                    className=" fw-bold "
-                                    style={{ color: '#5b322f' }}
-                                >
-                                    NT $2,500 / 期
-                                </h4>
-                                <div className="mb-2">
-                                    <Car />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Link>
             {/* 已灌資料庫 */}
-            {/* TODO: 圖檔無法讀取*/}
-            {data.map((classAdult) => {
+            {data.map((classAdult, index) => {
                 return (
                     <div
-                        key={classAdult.id}
+                        key={index}
                         className="d-lg-flex justify-content-lg-center align-items-lg-center  mb-5"
                     >
-                        <Link to="detailed ">
+                        <Link to={`${classAdult.id}`}>
                             <div className="introduce row mx-0 mb-5 class-shadow">
                                 <div className="d-flex col-lg-6  px-lg-0  position-relative">
                                     <img
-                                        className=" col-12"
+                                        className=" col-12 class-course-image"
+                                        // require(`../../../../album/class/${classAdult.image}`)
                                         src={require(`../../../../album/class/${classAdult.image}`)}
                                         alt="Adult img"
                                     />
@@ -151,6 +128,9 @@ function AdultCourse(props) {
                     </div>
                 );
             })}
+            {/* 分頁 */}
+            <ul className="text-center">{getPage()}</ul>
+            {/* 分頁 end*/}
         </div>
     );
 }

@@ -1,28 +1,29 @@
 import React from 'react';
 import { useState } from 'react';
 import './about.scss';
+
 import banner from '../../assets/AboutImg/banner.png';
 import fb from '../../assets/AboutImg/fb.png';
 import line from '../../assets/AboutImg/line.png';
+import cat from '../../assets/AboutImg/cat.jpg';
 import axios from 'axios';
-
 
 function About(props) {
     // 表單
-const [ask, setAsk] = useState({
-    fullName: '桐谷和人',
-    user_id: '',
-    phone: '0912348763',
-    email: 'kirito@gmail.com',
-    item: '',
-    title:'幫我撐十秒',
-    comment: 'C8763',
-});
-const fieldChange = (e) => {
-    const newAsk = { ...ask, [e.target.name]: e.target.value };
+    const [ask, setAsk] = useState({
+        fullName: '桐谷和人',
+        user_id: '',
+        phone: '0912348763',
+        email: 'kirito@gmail.com',
+        q_category: '2',
+        title: '幫我撐十秒',
+        comment: 'C8763',
+    });
+    const fieldChange = (e) => {
+        const newAsk = { ...ask, [e.target.name]: e.target.value };
 
-    setAsk(newAsk);
-};
+        setAsk(newAsk);
+    };
 
     return (
         <>
@@ -75,38 +76,55 @@ const fieldChange = (e) => {
 
                 <div className="row mt-5 p-4">
                     <div className="col-md-3 col-6">
-                        <div className="founder"></div>
+                        <div className="founder">
+                            <img src={cat} alt="cat" className="" />
+                        </div>
                         <h4 style={{ color: '#5b322f' }}>33 范家寧 組長</h4>
                         <h5 style={{ color: '#333333' }}>負責項目</h5>
                         <hr />
                     </div>
                     <div className="col-md-3 col-6">
-                        <div className="founder"></div>
+                        <div className="founder">
+                            {' '}
+                            <img src={cat} alt="cat" className="" />
+                        </div>
                         <h4 style={{ color: '#5b322f' }}>03 黃睿渝 技術長</h4>
                         <h5 style={{ color: '#333333' }}>負責項目</h5>
                         <hr />
                     </div>
                     <div className="col-md-3 col-6">
-                        <div className="founder"></div>
+                        <div className="founder">
+                            {' '}
+                            <img src={cat} alt="cat" className="" />
+                        </div>
                         <h4 style={{ color: '#5b322f' }}>09 黃秀莉</h4>
                         <h5 style={{ color: '#333333' }}>負責項目</h5>
                         <hr />
                     </div>
                     <div className="col-md-3 col-6">
-                        <div className="founder"></div>
+                        <div className="founder">
+                            {' '}
+                            <img src={cat} alt="cat" className="" />
+                        </div>
                         <h4 style={{ color: '#5b322f' }}>15 劉光育</h4>
                         <h5 style={{ color: '#333333' }}>負責項目</h5>
                         <hr />
                     </div>
                     <div className="col-md-3 col-6 d-none d-md-block"></div>
                     <div className="col-md-3 col-6">
-                        <div className="founder"></div>
+                        <div className="founder">
+                            {' '}
+                            <img src={cat} alt="cat" className="" />
+                        </div>
                         <h4 style={{ color: '#5b322f' }}>17 温侑臻</h4>
                         <h5 style={{ color: '#333333' }}>負責項目</h5>
                         <hr />
                     </div>
                     <div className="col-md-3 col-6">
-                        <div className="founder"></div>
+                        <div className="founder">
+                            {' '}
+                            <img src={cat} alt="cat" className="" />
+                        </div>
                         <h4 style={{ color: '#5b322f' }}>27 曾子瑜</h4>
                         <h5 style={{ color: '#333333' }}>負責項目</h5>
                         <hr />
@@ -184,14 +202,20 @@ const fieldChange = (e) => {
                         </div>
                         <div className="col-12 col-md-6">
                             <p>問題類型*</p>
-                            <select  name="cate-select" className="w-100" value={ask.item}>
-                                <option value="">門市相關問題</option>
-                                <option value="">商品問題</option>
-                                <option value="">課程問題</option>
-                                <option value="">師資問題</option>
-                                <option value="">文章問題</option>
-                                <option value="">場地租借問題</option>
-                                <option value="">其他問題</option>
+                            <select
+                                name="q_category"
+                                className="w-100"
+                                value={ask.q_category}
+                                onChange={fieldChange}
+                            >
+                                <option value="0">請選擇問題類型</option>
+                                <option value="1">門市相關問題</option>
+                                <option value="2">商品問題</option>
+                                <option value="3">課程問題</option>
+                                <option value="4">師資問題</option>
+                                <option value="5">文章問題</option>
+                                <option value="6">場地租借問題</option>
+                                <option value="7">其他問題</option>
                             </select>
                         </div>
                         <div className="col-12">
@@ -202,6 +226,7 @@ const fieldChange = (e) => {
                                 value={ask.title}
                                 placeholder="請輸入問題主旨"
                                 className="w-100"
+                                onChange={fieldChange}
                             />
                         </div>
                         <div className="col-12">
@@ -217,16 +242,19 @@ const fieldChange = (e) => {
                             />
                         </div>
                     </div>
-                    <div className="d-flex justify-content-center"  onClick={() => {
+                    <div className="d-flex justify-content-center">
+                        <button
+                            className="bg-main-light-color accent-light-color border-0 px-5 py-1 mb-5"
+                            onClick={() => {
                                 const data = JSON.parse(JSON.stringify(ask));
                                 console.log(data);
-                                axios.post(
-                                    'http://localhost:3001/api/place/rent',
+                                axios.put(
+                                    'http://localhost:3001/api/aboutus/ask',
                                     data
                                     // { withCredentials: true }
                                 );
-                            }}>
-                        <button className="bg-main-light-color accent-light-color border-0 px-5 py-1 mb-5">
+                            }}
+                        >
                             確認送出
                         </button>
                     </div>
@@ -296,11 +324,12 @@ const fieldChange = (e) => {
                         </div>
                         <div className="col-12 col-md-6 p-5">
                             <iframe
+                                title="location"
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.4376576930626!2d121.21998631524635!3d24.985240346397703!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34682183e7b783c3%3A0xf0ebfba2069b6158!2z6IGW5b635Z-6552j5a246Zmi!5e0!3m2!1szh-TW!2stw!4v1662354472718!5m2!1szh-TW!2stw"
                                 style={{ border: 0 }}
-                                allowfullscreen=""
+                                allowFullScreen=""
                                 loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"
+                                referrerPolicy="no-referrer-when-downgrade"
                                 className="w-100 h-100"
                             ></iframe>
                         </div>

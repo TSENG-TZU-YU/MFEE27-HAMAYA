@@ -55,7 +55,6 @@ function App() {
     }, []);
     return (
         <>
-            {/* <ClassContext.Provider value={{ selectCourse, setSelectCourse }}> */}
             <BrowserRouter>
                 <AuthProvider>
                     <CartProvider>
@@ -148,7 +147,6 @@ function App() {
                     </CartProvider>
                 </AuthProvider>
             </BrowserRouter>
-            {/* </ClassContext.Provider> */}
         </>
     );
 }

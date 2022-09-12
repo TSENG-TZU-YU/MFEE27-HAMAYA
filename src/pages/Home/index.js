@@ -50,7 +50,7 @@ function Home(props) {
                         className="Decorate"
                     />
                 </div>
-                <div class="container d-none d-md-block text-center">
+                <div className="container d-none d-md-block text-center">
                     <div className="row">
                         <div className="col-4">
                             <span className="font">HA</span>
@@ -140,21 +140,20 @@ function Home(props) {
                         />
                     </div>
                 </div>
-
+                {/* 
                 <div className="container  d-none d-md-block ">
                     <div className="row">
                         <div className="col"></div>
                     </div>
                 </div>
-                <HomeScroll images={homeImages} />
-                {/* 
                 <div
                     className=""
                     style={{
                         width: '100%',
-                        height: '100%',
+                        height: '50%',
                     }}
                 ></div> */}
+                <HomeScroll images={homeImages} />
 
                 <div className="container">
                     <span className="home-word">
@@ -264,14 +263,14 @@ function Home(props) {
                     />
                 </div>
 
-                <div className="container d-flex home-blank-top bg-main-gary-light-color">
+                <div className="container d-flex home-blank-top">
                     <p className="home-word4 fw-bold home-cursor-pinter me-3 text-nowrap">
-                        音樂文章
+                        音樂文章{' '}
                     </p>
                     <p className="home-word4 fw-bold home-engText me-3">
                         ARTICLE
                     </p>
-                    <div className=" mt-3 News-vector3"></div>
+                    <div className=" mt-3 home-vector3"></div>
                 </div>
 
                 <div className="container bg-main-gary-light-color ">

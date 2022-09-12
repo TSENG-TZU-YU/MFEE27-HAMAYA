@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { useOutletContext } from 'react-router-dom';
 // import { useClass } from '../UseContext';
 import { Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
 // 子頁面
 import AdultCourse from './AdultCourse';
@@ -28,10 +30,6 @@ function ClassList(props) {
     const [sortToggled, setSortToggled] = useState(false);
     const toggleSortTrueFalse = () => setSortToggled(!sortToggled);
 
-    // 分頁  Toggled
-    const [lastPage] = useState(3);
-    const [page, setPage] = useState(3);
-
     // 搜尋 Toggled
     const [searchToggled, setSearchToggled] = useState(false);
     const toggleSearchToggled = () => {
@@ -40,30 +38,6 @@ function ClassList(props) {
             setFilterToggled(false);
         }
         setSearchToggled(!searchToggled);
-    };
-
-    // 製作分頁按鈕
-    const getPage = () => {
-        let pages = [];
-        for (let i = 1; i < lastPage; i++) {
-            //要從陣列後面依序放頁數
-            pages.push(
-                <li
-                    className="pages"
-                    style={{
-                        backgroundColor: page === i ? '#00323d' : '',
-                        color: page === i ? '#f2f2f2' : '#6a777a',
-                    }}
-                    key={i}
-                    onClick={(e) => {
-                        setPage(i);
-                    }}
-                >
-                    {i}
-                </li>
-            );
-        }
-        return pages;
     };
 
     return (
@@ -315,10 +289,6 @@ function ClassList(props) {
             {/* 課程選擇 頁面*/}
             {selectCourse ? <AdultCourse /> : <ChildrenCourse />}
             {/* 課程選擇 頁面 end*/}
-
-            {/* 分頁 */}
-            <ul className="text-center">{getPage()}</ul>
-            {/* 分頁 end*/}
         </Container>
     );
 }
