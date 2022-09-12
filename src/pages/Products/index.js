@@ -36,6 +36,10 @@ import search from '../../assets/ProductsImg/icon/search.svg';
 // 圖檔 MobileFilterNav
 import arrowDown from '../../assets/ProductsImg/icon/arrow_down.svg';
 
+//購物車
+import { useCart } from '../../utils/use_cart';
+import Cart from '../../layouts/Cart/Cart';
+
 function Products() {
     const [url, setUrl] = useState('');
 
@@ -178,6 +182,9 @@ function Products() {
         }
         setCategoryToggled(!categoryToggled);
     };
+
+    //購物車
+    const { shopItemCart, setShopItemCart } = useCart();
 
     return (
         <>
@@ -684,7 +691,12 @@ function Products() {
                                                 />
                                                 比較
                                             </div>
-                                            <button className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0">
+                                            <button
+                                                className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
+                                                onClick={() => {
+                                                    setShopItemCart(true);
+                                                }}
+                                            >
                                                 <img
                                                     src={cartCheck}
                                                     alt="cartCheck"

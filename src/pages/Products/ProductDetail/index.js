@@ -24,6 +24,9 @@ import cartCheckout from '../../../assets/ProductsImg/icon/shopping_cart_checkou
 import compareBtn from '../../../assets/ProductsImg/icon/compare_btn.svg';
 import note from '../../../assets/ProductsImg/icon/product_details_note.svg';
 
+//購物車
+import { useCart } from '../../../utils/use_cart';
+
 function Product() {
     // 商品 伺服器來的資料
     const [product, setProduct] = useState([]);
@@ -43,6 +46,8 @@ function Product() {
     // Toggled
     const [productCompare, setProductCompare] = useState(false);
     const toggleProductCompare = () => setProductCompare(!productCompare);
+    //購物車
+    const { shopItemCart, setShopItemCart } = useCart();
     return (
         <>
             <Container>
@@ -219,7 +224,12 @@ function Product() {
                                             立即購買
                                         </h6>
                                     </button>
-                                    <button className="col m-2 btn btn-secondary productDetail-btn d-flex justify-content-center align-items-center">
+                                    <button
+                                        className="col m-2 btn btn-secondary productDetail-btn d-flex justify-content-center align-items-center"
+                                        onClick={() => {
+                                            setShopItemCart(true);
+                                        }}
+                                    >
                                         <img
                                             style={{
                                                 width: '30px',
