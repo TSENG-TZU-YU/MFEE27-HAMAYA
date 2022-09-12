@@ -36,11 +36,16 @@ function MemberListTable(props) {
             alert(err.response.data.message);
         }
     }
+    console.log(IMAGE_URL + member.photo);
     return (
         <>
             <div className="col-3 col-lg-2 d-none d-md-block MemberListTable">
                 <div className="my-1">
-                    <img className="img-fluid" src={member_img} alt="" />
+                    <img
+                        className="img-fluid"
+                        src={IMAGE_URL + member.photo}
+                        alt=""
+                    />
                 </div>
                 <div>
                     <form>
