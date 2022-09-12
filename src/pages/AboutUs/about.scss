@@ -27,11 +27,11 @@
 }
 
 .founder {
-  background: rgb(107, 99, 99);
-  // max-width: 220px;
-  // max-height: 220px;
-  width: 220px;
-  height: 220px;
+  aspect-ratio: 1 / 1;
+}
+.founder img{
+  width: 100%;
+  height: 100%;
 }
 
 

@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 import './index.scss';
 
@@ -24,10 +26,33 @@ import shop_car from '../../../assets/svg/add_shopping_cart.svg';
 // import arrow_left from '../../../assets/svg/arrow-left.svg';
 
 function Detailed() {
+    // 課程 Toggle
     const [detailedSelect, setDetailedSelect] = useState(true);
+
+    const [data, setData] = useState([]);
+
+    // 把網址上的 :stockId 拿出來
+    const { classDetailID } = useParams();
+    console.log('classDetailID', classDetailID);
+    useEffect(() => {
+        let getAdultClass = async () => {
+            let response = await axios.get(
+                `http://localhost:3001/api/class/list/${classDetailID}`
+            );
+            setData(response.data);
+            console.log('data', response.data);
+        };
+        getAdultClass();
+    }, []);
+
+    useEffect(() => {
+        // console.log('useEffect[data]', data);
+    }, [data]);
+
     return (
         <div>
             <Container>
+                {/* 麵包屑 */}
                 <nav className="d-flex mt-5 ">
                     <Link to="/">
                         <p className="mb-0">首頁</p>
@@ -44,180 +69,190 @@ function Detailed() {
                         <p className="mb-0 ">藍調與爵士鋼琴的獨奏技巧與應用</p>
                     </Link>
                 </nav>
-                <Row className="mt-5 pt-5  text-center ">
-                    <Col lg={6}>
-                        <div
-                            style={{
-                                height: '100%',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                        >
-                            <div
-                                className="pt-0"
-                                style={{
-                                    width: '100%',
-                                    height: '100%',
-                                    padding: '15px',
-                                }}
-                            >
-                                <Carousel images={classImages} />
-                            </div>
-                        </div>
-                    </Col>
-                    {/* 品名、規格、購買、評價  */}
-                    <Col lg={6}>
-                        <div className="d-flex flex-column mb-3 text-start ">
-                            <div className="text-start  position-relative">
-                                <h4
-                                    className="ms-1 mb-2 "
-                                    style={{ color: '#00323d' }}
-                                >
-                                    藍調與爵士鋼琴的獨奏技巧與應用
-                                </h4>
-                                <div className="border-top border-secondary border-3 px-3 pt-3 "></div>
-                                <img
-                                    src={note}
-                                    alt="note"
-                                    className="position-absolute classDetail-note "
-                                />
-                                <h6 className=" AdultDetailed-line-height mt-4">
-                                    課程會教到的爵士和聲、變奏、切分音、Comping、Swing、藍調、Boogie
-                                    Woogie
-                                    舞曲風格聽起來如何？會彈哪些爵士經典名曲？試聽一下！
-                                    你可以學到 ： 1.
-                                    看單行的旋律譜即能彈出雙手的變化 2.
-                                    學會爵士和聲的應用，讓音樂擁有豐富的色彩 3.
-                                    彈出爵士的搖擺與藍調的經典風格 4.
-                                    擁有基本的變奏、即興與編曲能力 5.
-                                    進化彈奏能力， 感受爵士魅力！
-                                </h6>
-                                <p className="mb-0 AdultDetailed-line-height mt-3">
-                                    名額：10 人{' '}
-                                </p>
-                                <p className="mb-0 AdultDetailed-line-height">
-                                    報名時間：2022/09/20 - 2022/10/01
-                                </p>
-                                <p className="mb-0 AdultDetailed-line-height">
-                                    開課時間：2022/10/19 - 2022/12/10
-                                </p>
-                                <p className="mb-0 AdultDetailed-line-height">
-                                    師資：林宣樣 老師
-                                </p>
-                                <div className="AdultDetailed-line-height d-flex">
-                                    <p className="me-3">付款方式：</p>
-
-                                    <div className=" mt-1 ">
-                                        <div class="form-check d-flex align-items-center">
-                                            <input
-                                                className="form-check-input d-block me-2"
-                                                type="radio"
-                                                value=""
-                                                name="flexRadioDefault"
-                                                id="flexRadioDefault1"
-                                            />
-                                            <label
-                                                class="form-check-label"
-                                                for="flexRadioDefault1"
-                                            >
-                                                <h6 className="fw-400">
-                                                    轉帳匯款
-                                                </h6>
-                                            </label>
-                                        </div>
-                                        <div class="form-check  d-flex align-items-center mt-3">
-                                            <input
-                                                className="form-check-input d-block me-2"
-                                                //  type="radio"
-                                                type="radio"
-                                                value=""
-                                                name="flexRadioDefault"
-                                                id="flexRadioDefault1"
-                                            />
-                                            <label
-                                                class="form-check-label"
-                                                for="flexRadioDefault1"
-                                            >
-                                                <h6 className="fw-400">
-                                                    {' '}
-                                                    信用卡
-                                                </h6>
-                                            </label>
-                                        </div>
-                                        <div class="form-check  d-flex align-items-center mt-3">
-                                            <input
-                                                className="form-check-input d-block me-2"
-                                                //  type="radio"
-                                                type="radio"
-                                                value=""
-                                                name="flexRadioDefault"
-                                                id="flexRadioDefault1"
-                                            />
-                                            <label
-                                                class="form-check-label"
-                                                for="flexRadioDefault1"
-                                            >
-                                                <h6 className="fw-400">
-                                                    LINE Pay
-                                                </h6>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="d-flex mt-4 justify-content-between ">
-                                    <div className="d-flex">
-                                        <h3 className="AdultDetailed-price0">
-                                            NT $3,500
-                                        </h3>
-                                        <h6 className="AdultDetailed-price me-1">
-                                            / 期
-                                        </h6>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <div className="StarRating">
-                                            <StarRating />
-                                        </div>
-                                        <p className="ms-2 mt-2"> 2 人評價</p>
-                                    </div>
-                                </div>
-                                <Row className=" mt-4">
-                                    <button className="col m-2 btn btn-primary AdultDetailed-btn d-flex justify-content-center align-items-center border-0">
-                                        <img
+                {/* 麵包屑 end */}
+                {data.map((classDetailed) => {
+                    return (
+                        <div key={classDetailed.id}>
+                            <Row className="mt-5 pt-5  text-center ">
+                                {/* 圖檔 */}
+                                <Col lg={6}>
+                                    <div
+                                        style={{
+                                            height: '100%',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                        }}
+                                    >
+                                        <div
+                                            className="pt-0"
                                             style={{
-                                                width: '30px',
-                                                height: '30px',
+                                                width: '100%',
+                                                height: '100%',
+                                                padding: '15px',
                                             }}
-                                            className="d-block product-icon me-1"
-                                            src={shop_car}
-                                            alt="shop_car"
-                                        />
-                                        <h6 className="AdultDetailed-car-text-color text-center">
-                                            立即報名
-                                        </h6>
-                                    </button>
+                                        >
+                                            <Carousel images={classImages} />
+                                        </div>
+                                    </div>
+                                </Col>
+                                {/* 品名、規格、購買、評價  */}
+                                <Col lg={6}>
+                                    <div className="d-flex flex-column mb-3 text-start ">
+                                        <div className="text-start  position-relative">
+                                            <h4
+                                                className="ms-1 mb-2 "
+                                                style={{ color: '#00323d' }}
+                                            >
+                                                {classDetailed.name}
+                                            </h4>
+                                            <div className="border-top border-secondary border-3 px-3 pt-3 "></div>
+                                            <img
+                                                src={note}
+                                                alt="note"
+                                                className="position-absolute classDetail-note "
+                                            />
+                                            <h6 className=" AdultDetailed-line-height mt-4">
+                                                {classDetailed.course_intro}
+                                            </h6>
+                                            <p className="mb-0 AdultDetailed-line-height mt-3">
+                                                名額：10 人{' '}
+                                            </p>
+                                            <p className="mb-0 AdultDetailed-line-height">
+                                                報名截止：
+                                                {classDetailed.deadline}
+                                            </p>
+                                            <p className="mb-0 AdultDetailed-line-height">
+                                                開課時間：{' '}
+                                                {classDetailed.start_date} ~
+                                                {classDetailed.end_date}
+                                            </p>
+                                            <p className="mb-0 AdultDetailed-line-height">
+                                                師資：林宣樣 老師
+                                            </p>
+                                            <div className="AdultDetailed-line-height d-flex">
+                                                <p className="me-3">
+                                                    付款方式：
+                                                </p>
 
-                                    <button className="col m-2 btn btn-primary AdultDetailed-btn d-flex justify-content-center align-items-center border-0">
-                                        <img
-                                            style={{
-                                                width: '30px',
-                                                height: '30px',
-                                            }}
-                                            className="d-block product-icon me-1"
-                                            src={shop_car}
-                                            alt="shop_car"
-                                        />
-                                        <h6 className="AdultDetailed-car-text-color d-block">
-                                            加入購物車
-                                        </h6>
-                                    </button>
-                                </Row>
+                                                <div className=" mt-1 ">
+                                                    <div class="form-check d-flex align-items-center">
+                                                        <input
+                                                            className="form-check-input d-block me-2"
+                                                            type="radio"
+                                                            value=""
+                                                            name="flexRadioDefault"
+                                                            id="flexRadioDefault1"
+                                                        />
+                                                        <label
+                                                            class="form-check-label"
+                                                            for="flexRadioDefault1"
+                                                        >
+                                                            <h6 className="fw-400">
+                                                                轉帳匯款
+                                                            </h6>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check  d-flex align-items-center mt-3">
+                                                        <input
+                                                            className="form-check-input d-block me-2"
+                                                            //  type="radio"
+                                                            type="radio"
+                                                            value=""
+                                                            name="flexRadioDefault"
+                                                            id="flexRadioDefault1"
+                                                        />
+                                                        <label
+                                                            class="form-check-label"
+                                                            for="flexRadioDefault1"
+                                                        >
+                                                            <h6 className="fw-400">
+                                                                {' '}
+                                                                信用卡
+                                                            </h6>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check  d-flex align-items-center mt-3">
+                                                        <input
+                                                            className="form-check-input d-block me-2"
+                                                            //  type="radio"
+                                                            type="radio"
+                                                            value=""
+                                                            name="flexRadioDefault"
+                                                            id="flexRadioDefault1"
+                                                        />
+                                                        <label
+                                                            class="form-check-label"
+                                                            for="flexRadioDefault1"
+                                                        >
+                                                            <h6 className="fw-400">
+                                                                LINE Pay
+                                                            </h6>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="d-flex mt-4 justify-content-between ">
+                                                <div className="d-flex">
+                                                    <h3 className="AdultDetailed-price0">
+                                                        NT $
+                                                        {classDetailed.price}
+                                                    </h3>
+                                                    <h6 className="AdultDetailed-price me-1">
+                                                        / 期
+                                                    </h6>
+                                                </div>
+                                                <div className="d-flex align-items-center">
+                                                    <div className="StarRating">
+                                                        <StarRating />
+                                                    </div>
+                                                    <p className="ms-2 mt-2">
+                                                        {' '}
+                                                        2 人評價
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <Row className=" mt-4">
+                                                <button className="col m-2 btn btn-primary AdultDetailed-btn d-flex justify-content-center align-items-center border-0">
+                                                    <img
+                                                        style={{
+                                                            width: '30px',
+                                                            height: '30px',
+                                                        }}
+                                                        className="d-block product-icon me-1"
+                                                        src={shop_car}
+                                                        alt="shop_car"
+                                                    />
+                                                    <h6 className="AdultDetailed-car-text-color text-center">
+                                                        立即報名
+                                                    </h6>
+                                                </button>
 
-                                <ToShareCollect />
-                            </div>
+                                                <button className="col m-2 btn btn-primary AdultDetailed-btn d-flex justify-content-center align-items-center border-0">
+                                                    <img
+                                                        style={{
+                                                            width: '30px',
+                                                            height: '30px',
+                                                        }}
+                                                        className="d-block product-icon me-1"
+                                                        src={shop_car}
+                                                        alt="shop_car"
+                                                    />
+                                                    <h6 className="AdultDetailed-car-text-color d-block">
+                                                        加入購物車
+                                                    </h6>
+                                                </button>
+                                            </Row>
+
+                                            <ToShareCollect />
+                                        </div>
+                                    </div>
+                                </Col>
+                            </Row>
                         </div>
-                    </Col>
-                </Row>
+                    );
+                })}
+
                 <Row className="text-center mt-5 pt-5 mb-5 px-2">
                     <button
                         className={`cursor-pinter col-6 fw-bold ${

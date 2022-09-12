@@ -46,87 +46,204 @@ function Products() {
     // 商品 伺服器來的原始資料
     const [products, setProducts] = useState([]);
 
-    // 總共有 lastPage 這麼多頁
-    const [lastPage, setLastPage] = useState(1);
-
-    // 目前在第幾頁
-    const [page, setPage] = useState(1);
+    // 用於網頁上經過各種處理(排序、搜尋、過濾)後的資料
+    const [displayProducts, setDisplayProducts] = useState([]);
 
     // 商品主類別
-    const [categoryMain, setCategoryMain] = useState([]);
+    const [categoryMain, setCategoryMain] = useState([
+        { id: 1, mainName: '琴鍵樂器' },
+        { id: 2, mainName: '管樂器' },
+        { id: 3, mainName: '弓弦樂器' },
+        { id: 4, mainName: '吉他/烏克麗麗' },
+        { id: 5, mainName: '打擊樂器' },
+        { id: 6, mainName: '配件' },
+    ]);
 
-    // 商品次類別
+    // 商品次類別 從資料庫撈
     const [categorySub, setCategorySub] = useState([]);
 
-    // 取得所有商品 - 最新商品 api
-    useEffect(() => {
-        // console.log('Products', 'useEffect []');
-        // console.log('useEffect[]', products);
-        let getProducts = async () => {
-            let response = await axios.get(`${API_URL}/products?page=${page}`);
-            setProducts(response.data.data);
-            // 從後端取得總頁數 (lastPage)
-            setLastPage(response.data.pagination.lastPage);
-        };
-        getProducts();
-    }, [page]);
+    // 搜尋
+    const [searchWord, setSearchWord] = useState('');
 
-    // 取得商品類別 api
+    // 排序
+    const [sortBy, setSortBy] = useState('');
+
+    // checkbox
+    // 品牌
+    const [brandTags, setBrandTags] = useState('所有品牌');
+    const branTagwTypes = [
+        { id: 1, name: 'YAMAHA' },
+        { id: 2, name: 'Roland' },
+        { id: 3, name: 'AZUMI' },
+        { id: 4, name: 'Jupiter' },
+    ];
+
+    // 顏色
+    const [color, setColor] = useState('');
+    const colorTypes = ['#c0c0c0', '#ffd700', '#B5A642', '#802A2A'];
+
+    // 價格
+    const [priceHighest, setPriceHighest] = useState(7380000);
+    const [pricelowest, setPricelowest] = useState(0);
+
+    // api
+    // useEffect(() => {
+    //     let getProducts = async () => {
+    //         let response = await axios.get(`${API_URL}/products?page=${page}`);
+    //         setProducts(response.data.data);
+    //         // 從後端取得總頁數 (lastPage)
+    //         setLastPage(response.data.pagination.lastPage);
+    //         setCategoryMain(response.data.categoryMain);
+    //         setCategorySub(response.data.categorySub);
+    //     };
+    //     getProducts();
+    // }, [page]);
+
+    // 取得商品次類別 api
     useEffect(() => {
-        // console.log('useEffect[]', data.categoryMain)
         let getCategory = async () => {
-            let response = await axios.get(`${API_URL}/products`);
-            setCategoryMain(response.data.categoryMain);
+            let response = await axios.get(`${API_URL}/products/category`);
             setCategorySub(response.data.categorySub);
         };
         getCategory();
     }, []);
 
     const location = useLocation();
-    // 取得各分類商品 api
+    // 取得商品 api
     useEffect(() => {
         let params = new URLSearchParams(location.search);
         let mainId = params.get('main_id');
         let subId = params.get('sub_id');
-        // console.log(mainId);
-        // console.log(subId);
         let getProducts = async () => {
             let response = await axios.get(
-                `${API_URL}/products/${mainId}&${subId}&page=${page}`
+                `${API_URL}/products?mainId=${mainId}&subId=${subId}`
             );
             setProducts(response.data.data);
-            setLastPage(response.data.pagination.lastPage);
+            setDisplayProducts(response.data.data);
         };
         getProducts();
     }, [location]);
 
     // 製作頁碼按鈕
-    const getPages = () => {
-        let pages = [];
-        for (let i = 1; i <= lastPage; i++) {
-            pages.push(
-                <li
-                    style={{
-                        margin: '2px',
-                        paddingTop: '1px',
-                        backgroundColor: page === i ? '#00323d' : '',
-                        color: page === i ? '#f2f2f2' : '#6a777a',
-                        borderWidth: '2px',
-                        width: '28px',
-                        height: '28px',
-                        textAlign: 'center',
-                    }}
-                    key={i}
-                    onClick={(e) => {
-                        setPage(i);
-                    }}
-                >
-                    {i}
-                </li>
+    // const getPages = () => {
+    //     let pages = [];
+    //     for (let i = 1; i <= lastPage; i++) {
+    //         pages.push(
+    //             <li
+    //                 style={{
+    //                     margin: '2px',
+    //                     paddingTop: '1px',
+    //                     backgroundColor: page === i ? '#00323d' : '',
+    //                     color: page === i ? '#f2f2f2' : '#6a777a',
+    //                     borderWidth: '2px',
+    //                     width: '28px',
+    //                     height: '28px',
+    //                     textAlign: 'center',
+    //                 }}
+    //                 key={i}
+    //                 onClick={(e) => {
+    //                     setPage(i);
+    //                 }}
+    //             >
+    //                 {i}
+    //             </li>
+    //         );
+    //     }
+    //     return pages;
+    // };
+
+    // 篩選處理方式
+    // 搜尋
+    const handleSearch = (products, searchWord) => {
+        let newProducts = [...products];
+        if (searchWord.length) {
+            newProducts = products.filter((product) => {
+                return product.name.includes(searchWord);
+            });
+        }
+        return newProducts;
+    };
+
+    // 排序
+    const handleSort = (products, sortBy) => {
+        let newProducts = [...products];
+
+        // 預設用id-小至大
+        if (sortBy === '' && newProducts.length > 0) {
+            newProducts = [...newProducts].sort(
+                (value, index) => value.id - index.id
             );
         }
-        return pages;
+
+        // 以價格排序-由少至多
+        if (sortBy === '1') {
+            newProducts = [...newProducts].sort(
+                (value, index) => value.price - index.price
+            );
+        }
+
+        if (sortBy === '2') {
+            newProducts = [...newProducts].sort(
+                (value, index) => index.price - value.price
+            );
+        }
+
+        // TODO: 時間排序 新>舊
+        // TODO: 時間排序 舊>新
+
+        return newProducts;
     };
+
+    const handleBrandTags = (products, brandTags) => {
+        let newProducts = [...products];
+
+        // tags = 代表使用者目前勾選的標籤陣列
+        //console.log(tags)
+
+        // 處理勾選標記
+        // if (brandTags.length > 0) {
+        //     newProducts = [...newProducts].filter((product) => {
+        //         let isFound = false;
+
+        //         // 原本資料裡的tags字串轉為陣列
+        //         const productTags = product.brandTags.split(',');
+
+        //         // 用目前使用者勾選的標籤用迴圈找，有找到就回傳true
+        //         for (let i = 0; i < brandTags.length; i++) {
+        //             // includes -> Array api
+        //             if (productTags.includes(brandTags[i])) {
+        //                 isFound = true; // 找到設為true
+        //                 break; // 找到一個就可以，中斷迴圈
+        //             }
+        //         }
+
+        //         return isFound;
+        //     });
+        // }
+
+        return newProducts;
+    };
+
+    // TODO: 價格區間處理方式
+
+    // 當四個過濾表單元素有更動時
+    useEffect(() => {
+        // 搜尋字串太少不需要搜尋
+        if (searchWord.length < 3 && searchWord.length !== 0) return;
+
+        let newProducts = [];
+
+        // 處理搜尋
+        newProducts = handleSearch(products, searchWord);
+
+        // 處理排序
+        newProducts = handleSort(newProducts, sortBy);
+
+        // 處理勾選標記
+        newProducts = handleBrandTags(newProducts, brandTags);
+
+        setDisplayProducts(newProducts);
+    }, [searchWord, products, sortBy, brandTags]);
 
     // Toggled
     const [productCompare, setProductCompare] = useState(false);
@@ -357,7 +474,8 @@ function Products() {
                 <div className="d-md-none">
                     <div className="d-flex justify-content-between align-items-center">
                         {/* 麵包屑 */}
-                        <ul className="breadcrumb products-breadcrumb">
+                        <BreadCrumb />
+                        {/* <ul className="breadcrumb products-breadcrumb">
                             <li className="breadcrumb-item">
                                 <a href="/">首頁</a>
                             </li>
@@ -365,7 +483,7 @@ function Products() {
                                 <a href="/">樂器商城 </a>
                             </li>
                             <li className="breadcrumb-item">琴鍵樂器</li>
-                        </ul>
+                        </ul> */}
                         {/* 麵包屑 end */}
 
                         {/* 搜尋 */}
@@ -444,8 +562,7 @@ function Products() {
                                 }}
                             >
                                 <optgroup>
-                                    {/* TODO: 抓不到最新商品資料 */}
-                                    <option value="">最新商品</option>
+                                    <option value="/products">最新商品</option>
                                 </optgroup>
                                 {categoryMain.map((value) => {
                                     return (
@@ -455,7 +572,7 @@ function Products() {
                                                 .replace('1.', '')}
                                         >
                                             <option
-                                                value={`?main_id=${value.mainId}`}
+                                                value={`/products?main_id=${value.id}`}
                                             >
                                                 {value.mainName}
                                             </option>
@@ -463,7 +580,7 @@ function Products() {
                                             {categorySub.map((item) => {
                                                 if (
                                                     Number(item.mainId) ===
-                                                    value.mainId
+                                                    value.id
                                                 ) {
                                                     return (
                                                         <option
@@ -474,7 +591,7 @@ function Products() {
                                                                     '3.',
                                                                     ''
                                                                 )}
-                                                            value={`?sub_id=${item.subId}`}
+                                                            value={`/products?sub_id=${item.subId}`}
                                                         >
                                                             {item.subName}
                                                         </option>
@@ -601,9 +718,10 @@ function Products() {
                     {/* 桌機 商品類別選項 */}
                     <div className="col-2 d-none d-md-block">
                         <ul className="products-category-navbar">
-                            <li className="products-main-category products-main-category-active">
-                                {/* TODO: 抓不到最新商品資料 */}
-                                <Link to="/products">最新商品</Link>
+                            <li className="products-main-category">
+                                <Link to="/products" className="accent-color">
+                                    最新商品
+                                </Link>
                             </li>
                             {categoryMain.map((value) => {
                                 return (
@@ -614,7 +732,7 @@ function Products() {
                                     >
                                         <li className="products-main-category">
                                             <Link
-                                                to={`?main_id=${value.mainId}`}
+                                                to={`/products?main_id=${value.id}`}
                                                 className="accent-color"
                                             >
                                                 {value.mainName}
@@ -622,8 +740,7 @@ function Products() {
                                         </li>
                                         {categorySub.map((item) => {
                                             if (
-                                                Number(item.mainId) ===
-                                                value.mainId
+                                                Number(item.mainId) === value.id
                                             ) {
                                                 return (
                                                     <ul
@@ -634,7 +751,7 @@ function Products() {
                                                     >
                                                         <li>
                                                             <Link
-                                                                to={`?sub_id=${item.subId}`}
+                                                                to={`/products?sub_id=${item.subId}`}
                                                             >
                                                                 {item.subName}
                                                             </Link>
@@ -715,7 +832,7 @@ function Products() {
                         {/* 頁碼 */}
                         <div className="d-flex justify-content-center align-items-center mt-5">
                             {/* 頁碼 */}
-                            <ul className="d-flex">{getPages()}</ul>
+                            {/* <ul className="d-flex">{getPages()}</ul> */}
                         </div>
                         {/* 頁碼 end */}
                     </div>
