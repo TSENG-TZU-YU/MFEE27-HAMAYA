@@ -138,25 +138,6 @@ function Product() {
                                         </h6>
                                     </div>
 
-                                    <button
-                                        className="col m-2 btn btn-secondary productDetail-btn d-flex justify-content-center align-items-center"
-                                        onClick={() => {
-                                            setShopItemCart(true);
-                                        }}
-                                    >
-                                        <img
-                                            style={{
-                                                width: '30px',
-                                                height: '30px',
-                                            }}
-                                            src={cartCheck}
-                                            alt="cartCheck"
-                                            className="d-block product-icon me-1"
-                                        />
-                                        <h6 className="d-block accent-light-color text-center">
-                                            加入購物車
-                                        </h6>
-                                    </button>
                                     <div className=" d-flex">
                                         <h6 className="mb-0 productDetail-line-height fw-400">
                                             付款方式：
@@ -259,7 +240,12 @@ function Product() {
                                                 立即購買
                                             </h6>
                                         </button>
-                                        <button className="col m-2 btn btn-secondary productDetail-btn d-flex justify-content-center align-items-center">
+                                        <button
+                                            className="col m-2 btn btn-secondary productDetail-btn d-flex justify-content-center align-items-center"
+                                            onClick={() => {
+                                                setShopItemCart(true);
+                                            }}
+                                        >
                                             <img
                                                 style={{
                                                     width: '30px',
