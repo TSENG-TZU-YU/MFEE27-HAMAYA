@@ -23,20 +23,16 @@ function LogInSignUp({ setLoginPopup }) {
                     withCredentials: true,
                 });
                 console.log('已登入', response.data);
-                setIsLogin(true);
+                await setIsLogin(true);
                 setMember(response.data);
+                setLoginPopup(false);
+                navigate('/member');
             } catch (err) {
                 console.log('尚未登入');
             }
         };
         getMember();
-        if (isLogin) {
-            navigate('/member');
-            setLoginPopup(false);
-            return;
-        }
     }, []);
-
     return (
         <div>
             <div

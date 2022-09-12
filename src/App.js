@@ -53,7 +53,6 @@ function App() {
     }, []);
     return (
         <>
-            {/* <ClassContext.Provider value={{ selectCourse, setSelectCourse }}> */}
             <BrowserRouter>
                 <AuthProvider>
                     <Header />
@@ -83,7 +82,7 @@ function App() {
                                 <Route path="list" element={<SubOutlet />}>
                                     <Route index element={<ClassList />} />
                                     <Route
-                                        path=":detailedID"
+                                        path=":classDetailID"
                                         element={<Detailed />}
                                     />
                                 </Route>
@@ -126,7 +125,6 @@ function App() {
                     <Footer />
                 </AuthProvider>
             </BrowserRouter>
-            {/* </ClassContext.Provider> */}
         </>
     );
 }

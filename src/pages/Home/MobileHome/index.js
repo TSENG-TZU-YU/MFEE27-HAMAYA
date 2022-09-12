@@ -21,7 +21,7 @@ function MobileHome(props) {
                     alt="Logo"
                     className="Mobile-Decorate"
                 />
-                <div className="d-md-none d-block container d-sm-none ">
+                {/* <div className="d-md-none d-block container d-sm-none ">
                     <div className="row position-relative ">
                         <div className="col">
                             <p className="Mobile-font ">HA</p>
@@ -93,7 +93,7 @@ function MobileHome(props) {
                             />
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </>
     );

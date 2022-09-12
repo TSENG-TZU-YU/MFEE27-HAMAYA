@@ -29,21 +29,30 @@ function Place(props) {
     const [studioCImgBtn, setStudioCImgBtn] = useState('studioC01');
 
     // 表單
+    const [datetime, setDatetime] = useState({
+        date: '2022-10-05',
+        time: '13:30:00',
+    });
     const [rent, setRent] = useState({
         fullName: '桐谷和人',
         user_id: '',
-        usedate: '2022-10-05',
-        time: '13:30:00',
+        usedate: `${datetime.date} ${datetime.time}`,
         phone: '0912348763',
         usercount: '4',
         email: 'kirito@gmail.com',
-        item: '',
+        item: 'studio B',
         comment: 'C8763',
     });
+
     const fieldChange = (e) => {
         const newRent = { ...rent, [e.target.name]: e.target.value };
 
         setRent(newRent);
+    };
+    const timeChange = (e) => {
+        const newRent = { ...datetime, [e.target.name]: e.target.value };
+
+        setDatetime(newRent);
     };
 
     return (
@@ -402,9 +411,9 @@ function Place(props) {
                             <p>使用日期</p>
                             <input
                                 type="date"
-                                name="usedate"
-                                value={rent.usedate}
-                                onChange={fieldChange}
+                                name="date"
+                                value={datetime.date}
+                                onChange={timeChange}
                                 className="w-100"
                             />
                         </div>
@@ -423,9 +432,9 @@ function Place(props) {
                             <p>使用時間</p>
                             <input
                                 type="time"
-                                name="usetime"
-                                value={rent.time}
-                                onChange={fieldChange}
+                                name="time"
+                                value={datetime.time}
+                                onChange={timeChange}
                                 className="w-100"
                             />
                         </div>
@@ -454,9 +463,10 @@ function Place(props) {
                         <div className="col-12">
                             <p>租借項目</p>
                             <select
-                                name="cate-select"
+                                name="item"
                                 className="w-100"
                                 value={rent.item}
+                                onChange={fieldChange}
                             >
                                 <option value="">請選擇場地</option>
                                 <option value="studio A">
@@ -489,7 +499,7 @@ function Place(props) {
                             onClick={() => {
                                 const data = JSON.parse(JSON.stringify(rent));
                                 console.log(data);
-                                axios.post(
+                                axios.put(
                                     'http://localhost:3001/api/place/rent',
                                     data
                                     // { withCredentials: true }
