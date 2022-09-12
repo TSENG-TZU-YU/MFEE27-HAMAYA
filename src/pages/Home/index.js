@@ -50,7 +50,7 @@ function Home(props) {
                         className="Decorate"
                     />
                 </div>
-                <div class="container d-none d-md-block text-center">
+                <div className="container d-none d-md-block text-center">
                     <div className="row">
                         <div className="col-4">
                             <span className="font">HA</span>
