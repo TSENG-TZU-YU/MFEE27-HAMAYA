@@ -15,12 +15,12 @@ import Adult_img from '../../../../assets/ClassImg/Adult img.png';
 function ChildrenCourse(props) {
     const [data, setData] = useState([]);
     // 分頁  Toggled
-    const [lastPage] = useState(3);
-    const [page, setPage] = useState(3);
+    const [lastPage, setLastPage] = useState(1);
+    const [page, setPage] = useState(1);
     // 製作分頁按鈕
     const getPage = () => {
         let pages = [];
-        for (let i = 1; i < lastPage; i++) {
+        for (let i = 1; i <= lastPage; i++) {
             //要從陣列後面依序放頁數
             pages.push(
                 <li
@@ -43,16 +43,13 @@ function ChildrenCourse(props) {
     useEffect(() => {
         let getAdultClass = async () => {
             let response = await axios.get(
-                `http://localhost:3001/api/class/list?class=2`
+                `http://localhost:3001/api/class/list?class=2&page=${page}`
             );
             setData(response.data.data);
+            setLastPage(response.data.pagination.lastPage);
         };
         getAdultClass();
-    }, []);
-
-    useEffect(() => {
-        console.log('useEffect[data]', data);
-    }, [data]);
+    }, [page]);
 
     return (
         <div>

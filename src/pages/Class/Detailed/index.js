@@ -28,7 +28,11 @@ import shop_car from '../../../assets/svg/add_shopping_cart.svg';
 function Detailed() {
     // 課程 Toggle
     const [detailedSelect, setDetailedSelect] = useState(true);
-
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'auto',
+    });
     const [data, setData] = useState([]);
 
     // 把網址上的 :stockId 拿出來
@@ -136,7 +140,7 @@ function Detailed() {
                                                 </p>
 
                                                 <div className=" mt-1 ">
-                                                    <div class="form-check d-flex align-items-center">
+                                                    <div className="form-check d-flex align-items-center">
                                                         <input
                                                             className="form-check-input d-block me-2"
                                                             type="radio"
