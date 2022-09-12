@@ -4,7 +4,6 @@ import { useOutletContext } from 'react-router-dom';
 import './index.scss';
 
 import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 
 // 元件
 import Teacher from '../../components/Teacher';
@@ -19,21 +18,11 @@ import art04 from '../../assets/ClassImg/Rectangle 346.png';
 import arrow from '../../assets/svg/arrow_back_ios_new.svg';
 import Adult_Course from '../../assets/ClassImg/Adult Course.png';
 import Children_Lessons from '../../assets/ClassImg/Children Lessons.png';
-// import arrow_right from '../../assets/svg/arrow-right.svg';
-// import arrow_left from '../../assets/svg/arrow-left.svg';
 import { teacherImages } from '../../album/teacher';
-// import teacher01 from '../../assets/ClassImg/teacher01.png';
-// import teacher02 from '../../assets/ClassImg/teacher02.png';
-// import teacher03 from '../../assets/ClassImg/teacher03.png';
-// import teacher04 from '../../assets/ClassImg/teacher04.png';
-// import teacher05 from '../../assets/ClassImg/teacher05.png';
-// import { useState } from 'react';
 
 function Class(props) {
-    // 把網址上的 :stockId 拿出來
-    // const { category } = useParams();
     const [selectCourse, setSelectCourse] = useOutletContext();
-    console.log('class', selectCourse);
+
     return (
         <>
             <img className=" w-100" src={banner} alt="banner" />
