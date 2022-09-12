@@ -24,6 +24,9 @@ import cartCheckout from '../../../assets/ProductsImg/icon/shopping_cart_checkou
 import compareBtn from '../../../assets/ProductsImg/icon/compare_btn.svg';
 import note from '../../../assets/ProductsImg/icon/product_details_note.svg';
 
+//購物車
+import { useCart } from '../../../utils/use_cart';
+
 function Product() {
     // 商品 伺服器來的資料
     const [product, setProduct] = useState([]);
@@ -45,6 +48,8 @@ function Product() {
     // Toggled
     const [productCompare, setProductCompare] = useState(false);
     const toggleProductCompare = () => setProductCompare(!productCompare);
+    //購物車
+    const { shopItemCart, setShopItemCart } = useCart();
     return (
         <>
             <Container>
@@ -131,125 +136,145 @@ function Product() {
                                         <h6 className="col mb-0 productDetail-line-height fw-400">
                                             運送方式：{value.shipmentName}
                                         </h6>
-                                        <div className=" d-flex">
-                                            <h6 className="mb-0 productDetail-line-height fw-400">
-                                                付款方式：
-                                            </h6>
-                                            <div className="ms-2">
-                                                <div className="form-check m-2">
-                                                    <input
-                                                        className="form-check-input d-block me-2"
-                                                        type="radio"
-                                                        value=""
-                                                        name="flexRadioDefault"
-                                                        id="flexRadioDefault1"
-                                                    />
-                                                    <label
-                                                        className="form-check-label"
-                                                        htmlFor="flexRadioDefault1"
-                                                    >
-                                                        <h6 className="fw-400">
-                                                            轉帳匯款
-                                                        </h6>
-                                                    </label>
-                                                </div>
-                                                <div className="form-check m-2">
-                                                    <input
-                                                        className="form-check-input d-block me-2"
-                                                        type="radio"
-                                                        value=""
-                                                        name="flexRadioDefault"
-                                                        id="flexRadioDefault1"
-                                                    />
-                                                    <label
-                                                        className="form-check-label"
-                                                        htmlFor="flexRadioDefault1"
-                                                    >
-                                                        <h6 className="fw-400">
-                                                            信用卡
-                                                        </h6>
-                                                    </label>
-                                                </div>
-                                                <div className="form-check m-2">
-                                                    <input
-                                                        className="form-check-input d-block me-2"
-                                                        type="radio"
-                                                        value=""
-                                                        name="flexRadioDefault"
-                                                        id="flexRadioDefault1"
-                                                    />
-                                                    <label
-                                                        className="form-check-label"
-                                                        htmlFor="flexRadioDefault1"
-                                                    >
-                                                        <h6 className="fw-400">
-                                                            LINE Pay
-                                                        </h6>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex align-items-center">
-                                            <h3 className="accent-color fw-bold productDetail-price-letter-spacing my-3">
-                                                NT $ {value.price}
-                                            </h3>
-                                            <p className="gary-light-color mb-0 ms-3">
-                                                / 售出1件
-                                            </p>
-                                        </div>
-                                        <div className="d-flex align-items-center mt-2">
-                                            <h6 className="mb-0 me-2 productDetail-line-height fw-400">
-                                                數量：
-                                            </h6>
-                                            <FiMinus
-                                                size="30px"
-                                                className="gary-dark-color cursor-pointer"
-                                            />
-                                            <div className="product-purchase-quantity border border-2 mx-2">
-                                                <h4 className="text-center m-0">
-                                                    0
-                                                </h4>
-                                            </div>
-                                            <FiPlus
-                                                size="30px"
-                                                className="gary-dark-color cursor-pointer"
-                                            />
-                                            <p className="mb-0 ms-2 gary-light-color">
-                                                庫存充足
-                                            </p>
-                                        </div>
-                                        <div className="row mt-4">
-                                            <button className="col m-2 btn btn-primary productDetail-btn d-flex justify-content-center align-items-center">
-                                                <img
-                                                    style={{
-                                                        width: '30px',
-                                                        height: '30px',
-                                                    }}
-                                                    src={cartCheckout}
-                                                    alt="cartCheckout"
-                                                    className="d-block product-icon me-1"
-                                                />
-                                                <h6 className="accent-light-color text-center">
-                                                    立即購買
-                                                </h6>
-                                            </button>
-                                            <button className="col m-2 btn btn-secondary productDetail-btn d-flex justify-content-center align-items-center">
-                                                <img
-                                                    style={{
-                                                        width: '30px',
-                                                        height: '30px',
-                                                    }}
-                                                    src={cartCheck}
-                                                    alt="cartCheck"
-                                                    className="d-block product-icon me-1"
-                                                />
-                                                <h6 className="d-block accent-light-color text-center">
-                                                    加入購物車
-                                                </h6>
-                                            </button>
-                                        </div>
-                                        <ToShareCollect />
                                     </div>
+
+                                    <button
+                                        className="col m-2 btn btn-secondary productDetail-btn d-flex justify-content-center align-items-center"
+                                        onClick={() => {
+                                            setShopItemCart(true);
+                                        }}
+                                    >
+                                        <img
+                                            style={{
+                                                width: '30px',
+                                                height: '30px',
+                                            }}
+                                            src={cartCheck}
+                                            alt="cartCheck"
+                                            className="d-block product-icon me-1"
+                                        />
+                                        <h6 className="d-block accent-light-color text-center">
+                                            加入購物車
+                                        </h6>
+                                    </button>
+                                    <div className=" d-flex">
+                                        <h6 className="mb-0 productDetail-line-height fw-400">
+                                            付款方式：
+                                        </h6>
+                                        <div className="ms-2">
+                                            <div className="form-check m-2">
+                                                <input
+                                                    className="form-check-input d-block me-2"
+                                                    type="radio"
+                                                    value=""
+                                                    name="flexRadioDefault"
+                                                    id="flexRadioDefault1"
+                                                />
+                                                <label
+                                                    className="form-check-label"
+                                                    htmlFor="flexRadioDefault1"
+                                                >
+                                                    <h6 className="fw-400">
+                                                        轉帳匯款
+                                                    </h6>
+                                                </label>
+                                            </div>
+                                            <div className="form-check m-2">
+                                                <input
+                                                    className="form-check-input d-block me-2"
+                                                    type="radio"
+                                                    value=""
+                                                    name="flexRadioDefault"
+                                                    id="flexRadioDefault1"
+                                                />
+                                                <label
+                                                    className="form-check-label"
+                                                    htmlFor="flexRadioDefault1"
+                                                >
+                                                    <h6 className="fw-400">
+                                                        信用卡
+                                                    </h6>
+                                                </label>
+                                            </div>
+                                            <div className="form-check m-2">
+                                                <input
+                                                    className="form-check-input d-block me-2"
+                                                    type="radio"
+                                                    value=""
+                                                    name="flexRadioDefault"
+                                                    id="flexRadioDefault1"
+                                                />
+                                                <label
+                                                    className="form-check-label"
+                                                    htmlFor="flexRadioDefault1"
+                                                >
+                                                    <h6 className="fw-400">
+                                                        LINE Pay
+                                                    </h6>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="d-flex align-items-center">
+                                        <h3 className="accent-color fw-bold productDetail-price-letter-spacing my-3">
+                                            NT $ {value.price}
+                                        </h3>
+                                        <p className="gary-light-color mb-0 ms-3">
+                                            / 售出1件
+                                        </p>
+                                    </div>
+                                    <div className="d-flex align-items-center mt-2">
+                                        <h6 className="mb-0 me-2 productDetail-line-height fw-400">
+                                            數量：
+                                        </h6>
+                                        <FiMinus
+                                            size="30px"
+                                            className="gary-dark-color cursor-pointer"
+                                        />
+                                        <div className="product-purchase-quantity border border-2 mx-2">
+                                            <h4 className="text-center m-0">
+                                                0
+                                            </h4>
+                                        </div>
+                                        <FiPlus
+                                            size="30px"
+                                            className="gary-dark-color cursor-pointer"
+                                        />
+                                        <p className="mb-0 ms-2 gary-light-color">
+                                            庫存充足
+                                        </p>
+                                    </div>
+                                    <div className="row mt-4">
+                                        <button className="col m-2 btn btn-primary productDetail-btn d-flex justify-content-center align-items-center">
+                                            <img
+                                                style={{
+                                                    width: '30px',
+                                                    height: '30px',
+                                                }}
+                                                src={cartCheckout}
+                                                alt="cartCheckout"
+                                                className="d-block product-icon me-1"
+                                            />
+                                            <h6 className="accent-light-color text-center">
+                                                立即購買
+                                            </h6>
+                                        </button>
+                                        <button className="col m-2 btn btn-secondary productDetail-btn d-flex justify-content-center align-items-center">
+                                            <img
+                                                style={{
+                                                    width: '30px',
+                                                    height: '30px',
+                                                }}
+                                                src={cartCheck}
+                                                alt="cartCheck"
+                                                className="d-block product-icon me-1"
+                                            />
+                                            <h6 className="d-block accent-light-color text-center">
+                                                加入購物車
+                                            </h6>
+                                        </button>
+                                    </div>
+                                    <ToShareCollect />
                                 </div>
                             );
                         })}

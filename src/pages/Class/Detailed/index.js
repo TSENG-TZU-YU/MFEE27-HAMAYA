@@ -28,7 +28,11 @@ import shop_car from '../../../assets/svg/add_shopping_cart.svg';
 function Detailed() {
     // 課程 Toggle
     const [detailedSelect, setDetailedSelect] = useState(true);
-
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'auto',
+    });
     const [data, setData] = useState([]);
 
     // 把網址上的 :stockId 拿出來
@@ -136,7 +140,7 @@ function Detailed() {
                                                 </p>
 
                                                 <div className=" mt-1 ">
-                                                    <div class="form-check d-flex align-items-center">
+                                                    <div className="form-check d-flex align-items-center">
                                                         <input
                                                             className="form-check-input d-block me-2"
                                                             type="radio"
@@ -145,15 +149,15 @@ function Detailed() {
                                                             id="flexRadioDefault1"
                                                         />
                                                         <label
-                                                            class="form-check-label"
-                                                            for="flexRadioDefault1"
+                                                            className="form-check-label"
+                                                            htmlFor="flexRadioDefault1"
                                                         >
                                                             <h6 className="fw-400">
                                                                 轉帳匯款
                                                             </h6>
                                                         </label>
                                                     </div>
-                                                    <div class="form-check  d-flex align-items-center mt-3">
+                                                    <div className="form-check  d-flex align-items-center mt-3">
                                                         <input
                                                             className="form-check-input d-block me-2"
                                                             //  type="radio"
@@ -163,8 +167,8 @@ function Detailed() {
                                                             id="flexRadioDefault1"
                                                         />
                                                         <label
-                                                            class="form-check-label"
-                                                            for="flexRadioDefault1"
+                                                            className="form-check-label"
+                                                            htmlFor="flexRadioDefault1"
                                                         >
                                                             <h6 className="fw-400">
                                                                 {' '}
@@ -172,7 +176,7 @@ function Detailed() {
                                                             </h6>
                                                         </label>
                                                     </div>
-                                                    <div class="form-check  d-flex align-items-center mt-3">
+                                                    <div className="form-check  d-flex align-items-center mt-3">
                                                         <input
                                                             className="form-check-input d-block me-2"
                                                             //  type="radio"
@@ -182,8 +186,8 @@ function Detailed() {
                                                             id="flexRadioDefault1"
                                                         />
                                                         <label
-                                                            class="form-check-label"
-                                                            for="flexRadioDefault1"
+                                                            className="form-check-label"
+                                                            htmlFor="flexRadioDefault1"
                                                         >
                                                             <h6 className="fw-400">
                                                                 LINE Pay
@@ -294,13 +298,13 @@ function Detailed() {
                 {/* 推薦課程  */}
                 <Row className="mt-5 mb-5">
                     <Col lg={3}>
-                        <div class="card" style={{ width: ' 18rem;' }}>
+                        <div className="card" style={{ width: ' 18rem' }}>
                             <img
                                 className="card-img-top img-fluid"
                                 src={Adult_img}
                                 alt="Adult img"
                             />
-                            <div class="card-body">
+                            <div className="card-body">
                                 <div className=" mt-3 ">
                                     <p
                                         className="ms-1 mb-2"
@@ -337,57 +341,13 @@ function Detailed() {
                         </div>
                     </Col>
                     <Col lg={3}>
-                        <div class="card" style={{ width: ' 18rem;' }}>
+                        <div className="card" style={{ width: ' 18rem' }}>
                             <img
                                 className="card-img-top img-fluid"
                                 src={Adult_img}
                                 alt="Adult img"
                             />
-                            <div class="card-body">
-                                <div className=" mt-3 ">
-                                    <p
-                                        className="ms-1 mb-2"
-                                        style={{ color: '#00323d' }}
-                                    >
-                                        藍調與爵士鋼琴的獨奏技巧與應用
-                                    </p>
-                                    <div className="vector2 me-2"></div>
-                                    <div className=" mt-2">
-                                        <small className="mb-0">
-                                            開課時間：2022/10/19 - 2022/12/10
-                                        </small>
-                                        <p className="mb-0">名額：10 人 </p>
-
-                                        <div className="d-flex mt-2 align-items-center">
-                                            <div className="StarRating">
-                                                <StarRating />
-                                            </div>
-                                            <small className="ms-2 mt-2 ">
-                                                {' '}
-                                                2 人評價
-                                            </small>
-                                        </div>
-                                        <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">
-                                            <h4
-                                                className=" fw-bold "
-                                                style={{ color: '#5b322f' }}
-                                            >
-                                                NT $2,500 / 期
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </Col>
-                    <Col lg={3}>
-                        <div class="card" style={{ width: ' 18rem;' }}>
-                            <img
-                                className="card-img-top img-fluid"
-                                src={Adult_img}
-                                alt="Adult img"
-                            />
-                            <div class="card-body">
+                            <div className="card-body">
                                 <div className=" mt-3 ">
                                     <p
                                         className="ms-1 mb-2"
@@ -425,13 +385,57 @@ function Detailed() {
                         </div>
                     </Col>
                     <Col lg={3}>
-                        <div class="card" style={{ width: ' 18rem;' }}>
+                        <div className="card" style={{ width: ' 18rem' }}>
                             <img
                                 className="card-img-top img-fluid"
                                 src={Adult_img}
                                 alt="Adult img"
                             />
-                            <div class="card-body">
+                            <div className="card-body">
+                                <div className=" mt-3 ">
+                                    <p
+                                        className="ms-1 mb-2"
+                                        style={{ color: '#00323d' }}
+                                    >
+                                        藍調與爵士鋼琴的獨奏技巧與應用
+                                    </p>
+                                    <div className="vector2 me-2"></div>
+                                    <div className=" mt-2">
+                                        <small className="mb-0">
+                                            開課時間：2022/10/19 - 2022/12/10
+                                        </small>
+                                        <p className="mb-0">名額：10 人 </p>
+
+                                        <div className="d-flex mt-2 align-items-center">
+                                            <div className="StarRating">
+                                                <StarRating />
+                                            </div>
+                                            <small className="ms-2 mt-2 ">
+                                                {' '}
+                                                2 人評價
+                                            </small>
+                                        </div>
+                                        <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">
+                                            <h4
+                                                className=" fw-bold "
+                                                style={{ color: '#5b322f' }}
+                                            >
+                                                NT $2,500 / 期
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Col>
+                    <Col lg={3}>
+                        <div className="card" style={{ width: ' 18rem' }}>
+                            <img
+                                className="card-img-top img-fluid"
+                                src={Adult_img}
+                                alt="Adult img"
+                            />
+                            <div className="card-body">
                                 <div className=" mt-3 ">
                                     <p
                                         className="ms-1 mb-2"

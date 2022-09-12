@@ -12,7 +12,14 @@ import product from '../../../assets/ProductsImg/product.png';
 import cartCheck from '../../../assets/ProductsImg/icon/shopping_cart_check.svg';
 import compare from '../../../assets/ProductsImg/icon/compare.svg';
 
+
+//購物車
+import { useCart } from '../../../utils/use_cart';
+
 function ProductsItem() {
+
+    //購物車
+    const { shopItemCart, setShopItemCart } = useCart();
     return (
         <div className="col product">
             <div className="position-relative">
@@ -32,7 +39,12 @@ function ProductsItem() {
                     />
                     比較
                 </div>
-                <button className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0">
+                <button
+                    className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
+                    onClick={() => {
+                        setShopItemCart(true);
+                    }}
+                >
                     <img
                         src={cartCheck}
                         alt="cartCheck"
