@@ -226,6 +226,7 @@ function About(props) {
                                 value={ask.title}
                                 placeholder="請輸入問題主旨"
                                 className="w-100"
+                                onChange={fieldChange}
                             />
                         </div>
                         <div className="col-12">
@@ -323,11 +324,12 @@ function About(props) {
                         </div>
                         <div className="col-12 col-md-6 p-5">
                             <iframe
+                                title="location"
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.4376576930626!2d121.21998631524635!3d24.985240346397703!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34682183e7b783c3%3A0xf0ebfba2069b6158!2z6IGW5b635Z-6552j5a246Zmi!5e0!3m2!1szh-TW!2stw!4v1662354472718!5m2!1szh-TW!2stw"
                                 style={{ border: 0 }}
-                                allowfullscreen=""
+                                allowFullScreen=""
                                 loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"
+                                referrerPolicy="no-referrer-when-downgrade"
                                 className="w-100 h-100"
                             ></iframe>
                         </div>
