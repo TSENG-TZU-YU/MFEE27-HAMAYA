@@ -294,7 +294,7 @@ function Detailed() {
                 {/* 推薦課程  */}
                 <Row className="mt-5 mb-5">
                     <Col lg={3}>
-                        <div class="card" style={{ width: ' 18rem;' }}>
+                        <div className="card" style={{ width: ' 18rem' }}>
                             <img
                                 className="card-img-top img-fluid"
                                 src={Adult_img}
