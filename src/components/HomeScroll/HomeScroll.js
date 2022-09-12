@@ -1,49 +1,46 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-
-// 樣式
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/thumbs';
-import './HomeScroll.scss';
-// Swiper
+import React, { useRef, useState } from 'react';
+// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Thumbs } from 'swiper';
+import PropTypes from 'prop-types';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import './HomeScroll.scss';
+
+// import required modules
+import { Autoplay, Pagination, Navigation } from 'swiper';
 
 function HomeScroll(props) {
-    const [activeThumb, setActiveThumb] = useState();
-
     return (
         <>
             <Swiper
-                loop={true}
-                spaceBetween={5}
+                spaceBetween={10}
+                centeredSlides={true}
+                autoplay={{
+                    delay: 3500,
+                    disableOnInteraction: false,
+                }}
+                pagination={{
+                    el: '.swiper-pagination',
+                    clickable: true,
+                }}
                 navigation={true}
-                modules={[Navigation, Thumbs]}
-                grabCursor={true}
-                thumbs={{ swiper: activeThumb }}
-                className="home-images-slider scroll-blank-top"
+                modules={[Autoplay, Pagination, Navigation]}
+                className="mySwiper"
             >
-                {/* 上方圖片 */}
                 {props.images.map((item, index) => (
                     <SwiperSlide key={index}>
                         <img src={item} alt="home images" />
                     </SwiperSlide>
                 ))}
             </Swiper>
-            <Swiper
-                onSwiper={setActiveThumb}
-                loop={true}
-                spaceBetween={5}
-                slidesPerView={4}
-                modules={[Navigation, Thumbs]}
-                className="home-images-slider"
-            ></Swiper>
+            <div class="container d-flex justify-content-end swiper-pagination swiper-pagination-1"></div>
         </>
     );
 }
 
-/* 要傳進去的圖片資料 */ HomeScroll.propTypes = {
+HomeScroll.propTypes = {
     images: PropTypes.array.isRequired,
 };
 
