@@ -12,7 +12,7 @@ function Members(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        let getMember = async () => {
+        async function getMember() {
             try {
                 console.log('檢查是否登入');
                 let response = await axios.get(`${API_URL}/auth`, {
@@ -23,9 +23,9 @@ function Members(props) {
                 setMember(response.data);
             } catch (err) {
                 navigate('/');
-                console.log('尚未登入');
+                console.log(err.response.data.message);
             }
-        };
+        }
         getMember();
     }, []);
 
