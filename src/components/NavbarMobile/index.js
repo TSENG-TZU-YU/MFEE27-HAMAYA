@@ -24,7 +24,7 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
     const [showSublist03, setShowSublist03] = useState('list-unstyled sublist');
 
     const { member, setMember, isLogin, setIsLogin } = useAuth();
-    const { shopItemCart, setShopItemCart } = useCart();
+    const { shopCartState, setShopCartState } = useCart();
     const navigate = useNavigate();
 
     const closeList = () => {
@@ -87,9 +87,9 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                                 alt="shopping_cart"
                                 className="menubtn"
                                 onClick={() => {
-                                    shopItemCart
-                                        ? setShopItemCart(false)
-                                        : setShopItemCart(true);
+                                    shopCartState
+                                        ? setShopCartState(false)
+                                        : setShopCartState(true);
                                 }}
                             />
                         </button>

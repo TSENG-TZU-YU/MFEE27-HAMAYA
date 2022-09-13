@@ -19,22 +19,41 @@ function Header(props) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const [loginPopup, setLoginPopup] = useState(false);
     // const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
-    const { shopItemCart, setShopItemCart } = useCart();
+    const { shopCartState, setShopCartState } = useCart();
     const navigate = useNavigate();
     // 課程 Toggled
     // const [setSelectCourse] = useOutletContext();
 
-    async function logoutSubmit(e) {
-        e.preventDefault();
-        let response = await axios.get(`${API_URL}/auth/logout`, {
-            withCredentials: true,
-        });
-        console.log(response.data);
-        setIsLogin(false);
-        setMember(null);
-
-        navigate('/');
-        alert(response.data.message);
+    async function getMember() {
+        try {
+            console.log('檢查是否登入');
+            let response = await axios.get(`${API_URL}/auth`, {
+                withCredentials: true,
+            });
+            console.log('已登入', response.data);
+            await setIsLogin(true);
+            setMember(response.data);
+            setLoginPopup(false);
+            navigate('/member');
+        } catch (err) {
+            setLoginPopup(true);
+            console.log(err.response.data.message);
+        }
+    }
+    async function logoutSubmit() {
+        try {
+            let response = await axios.get(`${API_URL}/auth/logout`, {
+                withCredentials: true,
+            });
+            console.log(response.data.message);
+            setIsLogin(false);
+            setMember(null);
+            navigate('/');
+            alert(response.data.message);
+        } catch (err) {
+            console.log(err.response.data.message);
+            alert(err.response.data.message);
+        }
     }
 
     return (
@@ -57,8 +76,8 @@ function Header(props) {
                         </div>
                         <div className="col-8 d-flex justify-content-center align-items-center position-relative">
                             <div className="row navbar-center">
-                                <div className="col p-0 m-1 m-lg-2 text-center header-text ">
-                                    <div className="navbaritem">
+                                <div className="col p-0 m-1 m-lg-2 text-center header-text">
+                                    <div className="navbaritem fw-bold">
                                         <Link className="" to="news">
                                             最新消息
                                         </Link>
@@ -91,7 +110,7 @@ function Header(props) {
                                     </div>
                                 </div>
                                 <div className="col  p-0 m-1 m-lg-2 text-center header-text">
-                                    <div className="navbaritem">
+                                    <div className="navbaritem fw-bold">
                                         <Link className="" to="products">
                                             樂器商城
                                         </Link>
@@ -150,7 +169,7 @@ function Header(props) {
                                     </div>
                                 </div>
                                 <div className="col p-0 m-1 m-lg-2 text-center header-text">
-                                    <div className="navbaritem">
+                                    <div className="navbaritem fw-bold">
                                         <Link className="" to="class">
                                             音樂教育
                                         </Link>
@@ -189,14 +208,14 @@ function Header(props) {
                                     </div>
                                 </div>
                                 <div className="col p-0 m-1 m-lg-2 text-center header-text">
-                                    <div className="navbaritem">
+                                    <div className="navbaritem fw-bold">
                                         <Link className="" to="place">
                                             場地租借
                                         </Link>
                                     </div>
                                 </div>
                                 <div className="col p-0 m-1 m-lg-2 text-center header-text">
-                                    <div className="navbaritem">
+                                    <div className="navbaritem fw-bold">
                                         <Link className="" to="aboutus">
                                             關於我們
                                         </Link>
@@ -211,9 +230,9 @@ function Header(props) {
                                 className="header-btn border-0 mx-1 mx-lg-2"
                                 onClick={() => {
                                     console.log('click');
-                                    shopItemCart
-                                        ? setShopItemCart(false)
-                                        : setShopItemCart(true);
+                                    shopCartState
+                                        ? setShopCartState(false)
+                                        : setShopCartState(true);
                                     // shoppingCart
                                     //     ? setShoppingCart(false)
                                     //     : setShoppingCart(true);
@@ -229,9 +248,7 @@ function Header(props) {
                             <button
                                 title="會員專區登入/註冊"
                                 className="header-btn border-0 mx-1 mx-lg-2"
-                                onClick={() => {
-                                    setLoginPopup(true);
-                                }}
+                                onClick={getMember}
                             >
                                 <img
                                     src={Users}
@@ -263,7 +280,7 @@ function Header(props) {
                     <ScrollTo />
                 </div>
             </nav>
-            {shopItemCart ? <Cart /> : ''}
+            {shopCartState ? <Cart /> : ''}
         </>
     );
 }

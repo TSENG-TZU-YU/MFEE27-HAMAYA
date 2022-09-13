@@ -15,8 +15,6 @@ import HomeScroll from '../../components/HomeScroll/HomeScroll';
 
 //圖檔
 import MobileHome from './MobileHome';
-import Decorate from '../../assets/HomeImg/decorate.svg';
-import Decorate2 from '../../assets/HomeImg/decorate-2.svg';
 import ServiceItem from '../../assets/HomeImg/service-item.jpg';
 import ServiceItem2 from '../../assets/HomeImg/service-item2.jpg';
 import ServiceItem3 from '../../assets/HomeImg/service-item3.jpg';
@@ -25,144 +23,31 @@ import NewsImg5 from '../../assets/NewsImg/news-img5.png';
 import NewsImg6 from '../../assets/NewsImg/news-img6.png';
 import NewsImg7 from '../../assets/NewsImg/news-img7.png';
 import Vector25 from '../../assets/HomeImg/Vector25.svg';
-import BrandWord from '../../assets/HomeImg/brandword.svg';
-import Note from '../../assets/HomeImg/note.svg';
-import Note2 from '../../assets/HomeImg/note-2.svg';
+
+import Note6 from '../../assets/HomeImg/note-6.svg';
 import Note3 from '../../assets/HomeImg/note-3.svg';
 import Note4 from '../../assets/HomeImg/note-4.svg';
-import Img from '../../assets/HomeImg/homeimg.jpg';
-import Img2 from '../../assets/HomeImg/homeimg-2.jpg';
-import Play from '../../assets/HomeImg/smart-display.svg';
+import Note8 from '../../assets/HomeImg/note-8.svg';
+import Note9 from '../../assets/HomeImg/note-9.svg';
 
-import Smart from '../../assets/HomeImg/smart-display-2.svg';
+import HomeAnimation from './HomeAnimation/HomeAnimation';
 
 function Home(props) {
     return (
         <>
             <MobileHome />
-            {/* TODO:for下面的className d-none d-md-block  */}
-            <div className=" bg-main-gary-light-color  ">
-                <div className=" d-none d-md-block">
-                    <img
-                        src={Decorate}
-                        width="800"
-                        alt="Logo"
-                        className="Decorate"
-                    />
-                </div>
-                <div className="container d-none d-md-block text-center">
-                    <div className="row">
-                        <div className="col-4">
-                            <span className="font">HA</span>
-                            <img
-                                src={BrandWord}
-                                alt="Logo"
-                                height="100"
-                                width=""
-                                className="home-img5"
-                            />
-                            <img
-                                src={Note}
-                                alt="Logo"
-                                height="50"
-                                width=""
-                                className="home-img6"
-                            />
-                            <img
-                                src={Note2}
-                                alt="Logo"
-                                height="50"
-                                width=""
-                                className="home-img7"
-                            />
-                            <span className="font5">
-                                將光亮從人心靈的深沈中釋放出來，是音樂的神聖使命。
-                                ——羅伯特·亞歷山大·舒曼
-                            </span>
-                        </div>
-                        <div className="col-4">
-                            <span className="font4">MA</span>
-                        </div>
-                        <div className="col-4">
-                            <img
-                                src={Img}
-                                alt="Logo"
-                                height="247"
-                                width=""
-                                className="home-img2"
-                            />
 
-                            <img
-                                src={Smart}
-                                alt="Logo"
-                                height="50"
-                                width=""
-                                className="video-button"
-                            />
-                            <img
-                                src={Note4}
-                                alt="Logo"
-                                height=""
-                                width=""
-                                className="note4"
-                            />
-                            <img
-                                src={Note3}
-                                alt="Logo"
-                                height=""
-                                width=""
-                                className="note3"
-                            />
-                            <img
-                                src={Img2}
-                                alt="Logo"
-                                height="150"
-                                width=""
-                                className="home-img3"
-                            />
-                            <img
-                                src={Play}
-                                alt="Logo"
-                                height="50"
-                                width=""
-                                className="home-img4"
-                            />
-                            <span className="font6">YA</span>
-                        </div>
-                    </div>
-                    <div className="">
-                        <img
-                            src={Decorate2}
-                            alt="Logo"
-                            height="150"
-                            width=""
-                            className="Decorate2 "
-                        />
-                    </div>
-                </div>
-                {/* 
-                <div className="container  d-none d-md-block ">
-                    <div className="row">
-                        <div className="col"></div>
-                    </div>
-                </div>
-                <div
-                    className=""
-                    style={{
-                        width: '100%',
-                        height: '50%',
-                    }}
-                ></div> */}
+            <HomeAnimation />
+
+            <div className="bg-main-gary-light-color">
                 <HomeScroll images={homeImages} />
-
-                <div className="container">
+                <div className="container bg-main-gary-light-color ">
                     <span className="home-word">
                         NEW &ensp;
                         <span className="home-word2">2022.08.25&ensp;</span>
                         <span className="home-word3">九月琴房租借優惠中</span>
                     </span>
                 </div>
-
                 <div className="container d-flex home-blank-top">
                     <p className="home-word4 fw-bold home-cursor-pinter me-3 text-nowrap">
                         服務項目
@@ -172,7 +57,6 @@ function Home(props) {
                     </p>
                     <div className=" mt-3 home-vector3"></div>
                 </div>
-
                 <div className="container bg-main-gary-light-color">
                     <div className="wrap  bg-main-gary-light-color">
                         {/* 第一塊 */}
@@ -180,7 +64,7 @@ function Home(props) {
                             <div className="pic">
                                 <img
                                     src={ServiceItem}
-                                    width="800"
+                                    width="700"
                                     alt="Logo"
                                     className="item-img"
                                 />
@@ -190,25 +74,24 @@ function Home(props) {
                                     <span className="item-word">樂器商城</span>
                                     <img
                                         src={Vector25}
-                                        width="180"
+                                        width="150"
                                         alt="Logo"
                                         className="vector25"
                                     />
-                                    <span className="item-word2 ">
+                                    <span className="item-word2">
                                         Instrumental Store
                                     </span>
                                 </Link>
                             </div>
                         </div>
-
                         {/* 第二塊 */}
                         <div className="item">
                             <div className="txt">
-                                <Link to="products">
+                                <Link to="class">
                                     <span className="item-word3">音樂教育</span>
                                     <img
                                         src={Vector25}
-                                        width="180"
+                                        width="150"
                                         alt="Logo"
                                         className="vector25-2"
                                     />
@@ -220,29 +103,28 @@ function Home(props) {
                             <div className="pic">
                                 <img
                                     src={ServiceItem2}
-                                    width="800"
+                                    width="700"
                                     alt="Logo"
                                     className="item-img second-img"
                                 />
                             </div>
                         </div>
-
                         {/* 第三塊 */}
                         <div className="item">
                             <div className="pic">
                                 <img
                                     src={ServiceItem3}
-                                    width="800"
+                                    width="700"
                                     alt="Logo"
                                     className="item-img"
                                 />
                             </div>
                             <div className="txt">
-                                <Link to="products">
-                                    <span className="item-word">場地租借</span>
+                                <Link to="place">
+                                    <span className="item-word ">場地租借</span>
                                     <img
                                         src={Vector25}
-                                        width="180"
+                                        width="150"
                                         alt="Logo"
                                         className="vector25"
                                     />
@@ -262,17 +144,23 @@ function Home(props) {
                         className=""
                     />
                 </div>
+                <div className="container d-none d-md-block ">
+                    <img src={Note3} width="30" alt="Logo" className="note3" />
+                    <img src={Note6} width="50" alt="Logo" className="note6" />
+                    <img src={Note4} width="30" alt="Logo" className="note4" />
+                    <img src={Note8} width="40" alt="Logo" className="note8" />
+                    <img src={Note9} width="15" alt="Logo" className="note9" />
+                </div>
 
-                <div className="container d-flex home-blank-top">
+                <div className="container d-flex ">
                     <p className="home-word4 fw-bold home-cursor-pinter me-3 text-nowrap">
-                        音樂文章{' '}
+                        音樂文章
                     </p>
                     <p className="home-word4 fw-bold home-engText me-3">
                         ARTICLE
                     </p>
                     <div className=" mt-3 home-vector3"></div>
                 </div>
-
                 <div className="container bg-main-gary-light-color ">
                     <div className="row  News-articles">
                         <div className="col-12 col-md-4 ">

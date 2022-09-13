@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext } from 'react';
+import React, { useState, useEffect, useContext, createContext } from 'react';
 
 // 建立新的認証用的context
 const AuthContext = createContext();
@@ -8,9 +8,22 @@ export const AuthProvider = ({ children }) => {
     //是否登入
     const [isLogin, setIsLogin] = useState(false);
     //會員資料
-    const [member, setMember] = useState(null);
+    const [member, setMember] = useState({
+        id: '',
+        fullName: '',
+        email: '',
+        phone: '',
+        city: '',
+        dist: '',
+        address: '',
+        birthday: '',
+        photo: '',
+        sub: '',
+        loginDt: '',
+    });
     //會員圖片
     const [originalPhotoURL, setOriginalPhotoURL] = useState(null);
+
     return (
         <AuthContext.Provider
             value={{

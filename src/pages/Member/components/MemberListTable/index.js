@@ -23,7 +23,7 @@ function MemberListTable(props) {
     return (
         <>
             <div className="col-3 col-lg-2 d-none d-md-block MemberListTable">
-                <div className="my-1">
+                <div className="my-1 MemberListTable-imgDIV">
                     <img
                         className="MemberListTable-img"
                         src={

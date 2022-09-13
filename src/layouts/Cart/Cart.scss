@@ -1,5 +1,6 @@
 @import '../../styles/global.scss';
 .shoppingCart {
+    width: 350px;
     background-color: #fff;
     position: absolute;
     right: 0;
@@ -36,7 +37,7 @@
 
 .scrollStyle {
     /* height 可以自行修改 只為了產生卷軸加的 */
-    max-height: 300px;
+    max-height: 500px;
 }
 
 /* 捲軸底色 */

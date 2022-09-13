@@ -1,18 +1,22 @@
 import { Outlet } from 'react-router-dom';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '../../utils/use_auth';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import MemberListTable from './components/MemberListTable';
 import MemberListMobile from './components/MemberListMobile';
 function Members(props) {
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    const { member, setMember, isLogin, setIsLogin, setOriginalPhotoURL } =
+        useAuth();
     const [bread, setbread] = useState('');
     const navigate = useNavigate();
 
+    // useEffect(() => {
+    //     getMember();
+    //   }, []);
     useEffect(() => {
-        let getMember = async () => {
+        async function getMember() {
             try {
                 console.log('檢查是否登入');
                 let response = await axios.get(`${API_URL}/auth`, {
@@ -21,11 +25,12 @@ function Members(props) {
                 console.log('已登入', response.data);
                 setIsLogin(true);
                 setMember(response.data);
+                setOriginalPhotoURL(response.data.photo);
             } catch (err) {
                 navigate('/');
-                console.log('尚未登入');
+                console.log(err.response.data.message);
             }
-        };
+        }
         getMember();
     }, []);
 
