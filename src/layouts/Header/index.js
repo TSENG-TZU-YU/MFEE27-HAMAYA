@@ -19,7 +19,7 @@ function Header(props) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const [loginPopup, setLoginPopup] = useState(false);
     // const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
-    const { shopItemCart, setShopItemCart } = useCart();
+    const { shopCartState, setShopCartState } = useCart();
     const navigate = useNavigate();
     // 課程 Toggled
     // const [setSelectCourse] = useOutletContext();
@@ -230,9 +230,9 @@ function Header(props) {
                                 className="header-btn border-0 mx-1 mx-lg-2"
                                 onClick={() => {
                                     console.log('click');
-                                    shopItemCart
-                                        ? setShopItemCart(false)
-                                        : setShopItemCart(true);
+                                    shopCartState
+                                        ? setShopCartState(false)
+                                        : setShopCartState(true);
                                     // shoppingCart
                                     //     ? setShoppingCart(false)
                                     //     : setShoppingCart(true);
@@ -280,7 +280,7 @@ function Header(props) {
                     <ScrollTo />
                 </div>
             </nav>
-            {shopItemCart ? <Cart /> : ''}
+            {shopCartState ? <Cart /> : ''}
         </>
     );
 }

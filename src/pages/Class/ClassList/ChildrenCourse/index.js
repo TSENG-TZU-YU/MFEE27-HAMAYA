@@ -10,10 +10,10 @@ import Car from '../../../../components/Car/Car';
 import Favorite from '../../../../components/Favorite';
 
 // 圖檔
-import Adult_img from '../../../../assets/ClassImg/Adult img.png';
+// import Adult_img from '../../../../assets/ClassImg/Adult img.png';
 
-function ChildrenCourse(props) {
-    const [data, setData] = useState([]);
+function ChildrenCourse({ products, setProducts, setDisplayProducts }) {
+    // const [data, setData] = useState([]);
     // 分頁  Toggled
     const [lastPage, setLastPage] = useState(1);
     const [page, setPage] = useState(1);
@@ -45,19 +45,25 @@ function ChildrenCourse(props) {
             let response = await axios.get(
                 `http://localhost:3001/api/class/list?class=2&page=${page}`
             );
-            setData(response.data.data);
+            setProducts(response.data.data);
+            setDisplayProducts(response.data.data);
+
             setLastPage(response.data.pagination.lastPage);
         };
         getAdultClass();
     }, [page]);
 
+    useEffect(() => {
+        console.log('products', products);
+    }, [products]);
+
     return (
         <div>
             {/* 已灌資料庫 */}
-            {data.map((classChild, index) => {
+            {products.map((classChild) => {
                 return (
                     <div
-                        key={index}
+                        key={classChild.id}
                         className="d-lg-flex justify-content-lg-center align-items-lg-center  mb-5"
                     >
                         <Link to={`${classChild.id}`}>
