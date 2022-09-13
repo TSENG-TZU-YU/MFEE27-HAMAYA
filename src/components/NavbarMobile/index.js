@@ -13,6 +13,7 @@ import logout from './logout.svg';
 import drop_down_menu from './drop_down_menu.svg';
 import drop_up_menu from './drop_up_menu.svg';
 import ScrollTo from '../ScrollTo';
+import { useCart } from '../../utils/use_cart';
 
 function NavbarMobile({ shoppingCart, setShoppingCart }) {
     const [loginPopup, setLoginPopup] = useState(false);
@@ -23,6 +24,7 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
     const [showSublist03, setShowSublist03] = useState('list-unstyled sublist');
 
     const { member, setMember, isLogin, setIsLogin } = useAuth();
+    const { shopItemCart, setShopItemCart } = useCart();
     const navigate = useNavigate();
 
     const closeList = () => {
@@ -85,9 +87,9 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                                 alt="shopping_cart"
                                 className="menubtn"
                                 onClick={() => {
-                                    shoppingCart
-                                        ? setShoppingCart(false)
-                                        : setShoppingCart(true);
+                                    shopItemCart
+                                        ? setShopItemCart(false)
+                                        : setShopItemCart(true);
                                 }}
                             />
                         </button>

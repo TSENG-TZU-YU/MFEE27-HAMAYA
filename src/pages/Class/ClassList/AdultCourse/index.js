@@ -9,21 +9,18 @@ import StarRating from '../../../../components/Star/StarRating';
 import Car from '../../../../components/Car/Car';
 import Favorite from '../../../../components/Favorite';
 
-// 圖檔
-import Adult_img from '../../../../assets/ClassImg/images/成人大提琴課程A2.jpg';
-
 function AdultCourse(props) {
     // const [error, setError] = useState(null);
     const [data, setData] = useState([]);
     // const [active, setActive] = useState(null);
 
     // 分頁  Toggled
-    const [lastPage] = useState(3);
-    const [page, setPage] = useState(3);
+    const [lastPage, setLastPage] = useState(1);
+    const [page, setPage] = useState(1);
     // 製作分頁按鈕
     const getPage = () => {
         let pages = [];
-        for (let i = 1; i < lastPage; i++) {
+        for (let i = 1; i <= lastPage; i++) {
             //要從陣列後面依序放頁數
             pages.push(
                 <li
@@ -48,17 +45,18 @@ function AdultCourse(props) {
         console.log('classAdult', 'useEffect []');
         let getAdultClass = async () => {
             let response = await axios.get(
-                // page=${page}
-                `http://localhost:3001/api/class/list?class=1`
+                `http://localhost:3001/api/class/list?class=1&page=${page}`
             );
             setData(response.data.data);
+            // 從後端取得總頁數 (lastPage)
+            setLastPage(response.data.pagination.lastPage);
+            // console.log(response.data.pagination.lastPage);
         };
         getAdultClass();
-    }, []);
-
-    useEffect(() => {
-        console.log('useEffect[data]', data);
-    }, [data]);
+    }, [page]);
+    // useEffect(() => {
+    //     console.log('useEffect[data]', data);
+    // }, [data]);
 
     return (
         <div>
@@ -130,6 +128,7 @@ function AdultCourse(props) {
             })}
             {/* 分頁 */}
             <ul className="text-center">{getPage()}</ul>
+
             {/* 分頁 end*/}
         </div>
     );

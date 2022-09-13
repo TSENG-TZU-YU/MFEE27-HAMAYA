@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../../utils/use_auth';
+import { useCart } from '../../utils/use_cart';
 import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
@@ -17,7 +18,8 @@ import NavbarMobile from '../../components/NavbarMobile';
 function Header(props) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const [loginPopup, setLoginPopup] = useState(false);
-    const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
+    // const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
+    const { shopItemCart, setShopItemCart } = useCart();
     const navigate = useNavigate();
     // 課程 Toggled
     // const [setSelectCourse] = useOutletContext();
@@ -38,8 +40,8 @@ function Header(props) {
     return (
         <>
             <NavbarMobile
-                shoppingCart={shoppingCart}
-                setShoppingCart={setShoppingCart}
+            // shoppingCart={shoppingCart}
+            // setShoppingCart={setShoppingCart}
             />
             <nav className="bg-main-gary-light-color d-none d-md-block">
                 <div className="container">
@@ -208,9 +210,13 @@ function Header(props) {
                                 title="購物車"
                                 className="header-btn border-0 mx-1 mx-lg-2"
                                 onClick={() => {
-                                    shoppingCart
-                                        ? setShoppingCart(false)
-                                        : setShoppingCart(true);
+                                    console.log('click');
+                                    shopItemCart
+                                        ? setShopItemCart(false)
+                                        : setShopItemCart(true);
+                                    // shoppingCart
+                                    //     ? setShoppingCart(false)
+                                    //     : setShoppingCart(true);
                                 }}
                             >
                                 <img
@@ -257,7 +263,7 @@ function Header(props) {
                     <ScrollTo />
                 </div>
             </nav>
-            {shoppingCart ? <Cart /> : ''}
+            {shopItemCart ? <Cart /> : ''}
         </>
     );
 }

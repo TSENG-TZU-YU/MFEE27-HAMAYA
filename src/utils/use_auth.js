@@ -9,7 +9,8 @@ export const AuthProvider = ({ children }) => {
     const [isLogin, setIsLogin] = useState(false);
     //會員資料
     const [member, setMember] = useState(null);
-
+    //會員圖片
+    const [originalPhotoURL, setOriginalPhotoURL] = useState(null);
     return (
         <AuthContext.Provider
             value={{
@@ -17,6 +18,8 @@ export const AuthProvider = ({ children }) => {
                 setMember,
                 isLogin,
                 setIsLogin,
+                originalPhotoURL,
+                setOriginalPhotoURL,
             }}
         >
             {children}

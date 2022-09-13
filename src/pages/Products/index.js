@@ -11,6 +11,10 @@ import './index.scss';
 
 // 元件
 import ProductCompare from './ProductCompare';
+import CategoryNav from './components/CategoryNav';
+import MobileCategoryNav from './components/MobileCategoryNav';
+import SortBar from './components/SortBar';
+import MobileSortBar from './components/MobileSortBar';
 
 // 元件 FilterNav
 import SearchBar from '../../components/SearchBar';
@@ -24,7 +28,6 @@ import banner from '../../assets/ProductsImg/banner.png';
 import compareBtn from '../../assets/ProductsImg/icon/compare_btn.svg';
 
 // 圖檔 ProductsItem
-import product from '../../assets/ProductsImg/product.png';
 import cartCheck from '../../assets/ProductsImg/icon/shopping_cart_check.svg';
 import compare from '../../assets/ProductsImg/icon/compare.svg';
 
@@ -35,6 +38,10 @@ import search from '../../assets/ProductsImg/icon/search.svg';
 
 // 圖檔 MobileFilterNav
 import arrowDown from '../../assets/ProductsImg/icon/arrow_down.svg';
+
+//購物車
+import { useCart } from '../../utils/use_cart';
+import Cart from '../../layouts/Cart/Cart';
 
 function Products() {
     const [url, setUrl] = useState('');
@@ -50,14 +57,15 @@ function Products() {
     const [displayProducts, setDisplayProducts] = useState([]);
 
     // 商品主類別
-    const [categoryMain, setCategoryMain] = useState([
+    const [categoryMain, setCategoryMain] = useState([]);
+    const categoryMainTypes = [
         { id: 1, mainName: '琴鍵樂器' },
         { id: 2, mainName: '管樂器' },
         { id: 3, mainName: '弓弦樂器' },
         { id: 4, mainName: '吉他/烏克麗麗' },
         { id: 5, mainName: '打擊樂器' },
         { id: 6, mainName: '配件' },
-    ]);
+    ];
 
     // 商品次類別 從資料庫撈
     const [categorySub, setCategorySub] = useState([]);
@@ -70,13 +78,20 @@ function Products() {
 
     // checkbox
     // 品牌
-    const [brandTags, setBrandTags] = useState('所有品牌');
-    const branTagwTypes = [
+    const [brandTags, setBrandTags] = useState([
+        { name: '所有品牌' },
         { id: 1, name: 'YAMAHA' },
         { id: 2, name: 'Roland' },
         { id: 3, name: 'AZUMI' },
         { id: 4, name: 'Jupiter' },
-    ];
+    ]);
+    // const brandTagsTypes = [
+    //     { name: '所有品牌' },
+    //     { id: 1, name: 'YAMAHA' },
+    //     { id: 2, name: 'Roland' },
+    //     { id: 3, name: 'AZUMI' },
+    //     { id: 4, name: 'Jupiter' },
+    // ];
 
     // 顏色
     const [color, setColor] = useState('');
@@ -85,19 +100,6 @@ function Products() {
     // 價格
     const [priceHighest, setPriceHighest] = useState(7380000);
     const [pricelowest, setPricelowest] = useState(0);
-
-    // api
-    // useEffect(() => {
-    //     let getProducts = async () => {
-    //         let response = await axios.get(`${API_URL}/products?page=${page}`);
-    //         setProducts(response.data.data);
-    //         // 從後端取得總頁數 (lastPage)
-    //         setLastPage(response.data.pagination.lastPage);
-    //         setCategoryMain(response.data.categoryMain);
-    //         setCategorySub(response.data.categorySub);
-    //     };
-    //     getProducts();
-    // }, [page]);
 
     // 取得商品次類別 api
     useEffect(() => {
@@ -198,7 +200,7 @@ function Products() {
         let newProducts = [...products];
 
         // tags = 代表使用者目前勾選的標籤陣列
-        //console.log(tags)
+        //console.log(brandTags)
 
         // 處理勾選標記
         // if (brandTags.length > 0) {
@@ -296,6 +298,9 @@ function Products() {
         setCategoryToggled(!categoryToggled);
     };
 
+    //購物車
+    const { shopItemCart, setShopItemCart } = useCart();
+
     return (
         <>
             <img className="img-fluid" src={banner} alt="banner" />
@@ -343,56 +348,23 @@ function Products() {
                                             <p className="mb-0 accent-light-color">
                                                 品牌
                                             </p>
-                                            <div className="form-check products-form-check">
-                                                <input
-                                                    className="form-check-input"
-                                                    type="checkbox"
-                                                    defaultValue
-                                                />
-                                                <label className="form-check-label">
-                                                    所有品牌
-                                                </label>
-                                            </div>
-                                            <div className="form-check products-form-check">
-                                                <input
-                                                    className="form-check-input"
-                                                    type="checkbox"
-                                                    defaultValue
-                                                />
-                                                <label className="form-check-label">
-                                                    CASIO
-                                                </label>
-                                            </div>
-                                            <div className="form-check products-form-check">
-                                                <input
-                                                    className="form-check-input"
-                                                    type="checkbox"
-                                                    defaultValue
-                                                />
-                                                <label className="form-check-label">
-                                                    KORG
-                                                </label>
-                                            </div>
-                                            <div className="form-check products-form-check">
-                                                <input
-                                                    className="form-check-input"
-                                                    type="checkbox"
-                                                    defaultValue
-                                                />
-                                                <label className="form-check-label">
-                                                    ROLAND
-                                                </label>
-                                            </div>
-                                            <div className="form-check products-form-check">
-                                                <input
-                                                    className="form-check-input"
-                                                    type="checkbox"
-                                                    defaultValue
-                                                />
-                                                <label className="form-check-label">
-                                                    YAMAHA
-                                                </label>
-                                            </div>
+                                            {brandTags.map((value, index) => {
+                                                return (
+                                                    <div
+                                                        className="form-check products-form-check"
+                                                        key={index}
+                                                    >
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            defaultValue
+                                                        />
+                                                        <label className="form-check-label">
+                                                            {value.name}
+                                                        </label>
+                                                    </div>
+                                                );
+                                            })}
                                             <p className="mt-4 mb-0 accent-light-color">
                                                 顏色
                                             </p>
@@ -435,14 +407,10 @@ function Products() {
                                 </button>
                                 {/* 商品排序區塊 */}
                                 {sortToggled ? (
-                                    <div className="products-sort-menu position-absolute">
-                                        <ul className="p-2">
-                                            <li>價格：低到高</li>
-                                            <li>價格：高到低</li>
-                                            <li>上架：新到舊</li>
-                                            <li>上架：舊到新</li>
-                                        </ul>
-                                    </div>
+                                    <MobileSortBar
+                                        sortBy={sortBy}
+                                        setSortBy={setSortBy}
+                                    />
                                 ) : (
                                     ''
                                 )}
@@ -518,7 +486,6 @@ function Products() {
                                     className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center"
                                     onClick={toggleCategoryToggled}
                                 >
-                                    {/* TODO: 類別選完要改變此類別名稱 */}
                                     商品類別
                                     <img src={arrowDown} alt="arrowDown" />
                                 </div>
@@ -552,56 +519,13 @@ function Products() {
 
                         {/* 商品類別選項 */}
                         {categoryToggled ? (
-                            <select
-                                className="products-filter-category-select products-filter-category-scroll-style"
-                                value={url}
-                                onChange={(e) => {
-                                    setUrl(e.target.value);
-                                    const newUrl = e.target.value;
-                                    navigate(newUrl);
-                                }}
-                            >
-                                <optgroup>
-                                    <option value="/products">最新商品</option>
-                                </optgroup>
-                                {categoryMain.map((value) => {
-                                    return (
-                                        <optgroup
-                                            key={Math.random()
-                                                .toString(36)
-                                                .replace('1.', '')}
-                                        >
-                                            <option
-                                                value={`/products?main_id=${value.id}`}
-                                            >
-                                                {value.mainName}
-                                            </option>
-
-                                            {categorySub.map((item) => {
-                                                if (
-                                                    Number(item.mainId) ===
-                                                    value.id
-                                                ) {
-                                                    return (
-                                                        <option
-                                                            className="products-sub-category"
-                                                            key={Math.random()
-                                                                .toString(36)
-                                                                .replace(
-                                                                    '3.',
-                                                                    ''
-                                                                )}
-                                                            value={`/products?sub_id=${item.subId}`}
-                                                        >
-                                                            {item.subName}
-                                                        </option>
-                                                    );
-                                                }
-                                            })}
-                                        </optgroup>
-                                    );
-                                })}
-                            </select>
+                            <MobileCategoryNav
+                                categoryMain={categoryMainTypes}
+                                categorySub={categorySub}
+                                navigate={navigate}
+                                url={url}
+                                setUrl={setUrl}
+                            />
                         ) : (
                             ''
                         )}
@@ -615,56 +539,23 @@ function Products() {
                                         品牌
                                     </p>
                                     <div className="row g-1 ">
-                                        <div className="col-6 form-check products-form-check">
-                                            <input
-                                                className="form-check-input"
-                                                type="checkbox"
-                                                defaultValue
-                                            />
-                                            <label className="form-check-label">
-                                                所有品牌
-                                            </label>
-                                        </div>
-                                        <div className="col-6 form-check products-form-check">
-                                            <input
-                                                className="form-check-input"
-                                                type="checkbox"
-                                                defaultValue
-                                            />
-                                            <label className="form-check-label">
-                                                CASIO
-                                            </label>
-                                        </div>
-                                        <div className="col-6 form-check products-form-check">
-                                            <input
-                                                className="form-check-input"
-                                                type="checkbox"
-                                                defaultValue
-                                            />
-                                            <label className="form-check-label">
-                                                KORG
-                                            </label>
-                                        </div>
-                                        <div className="col-6 form-check products-form-check">
-                                            <input
-                                                className="form-check-input"
-                                                type="checkbox"
-                                                defaultValue
-                                            />
-                                            <label className="form-check-label">
-                                                ROLAND
-                                            </label>
-                                        </div>
-                                        <div className="col-6 form-check products-form-check">
-                                            <input
-                                                className="form-check-input"
-                                                type="checkbox"
-                                                defaultValue
-                                            />
-                                            <label className="form-check-label">
-                                                YAMAHA
-                                            </label>
-                                        </div>
+                                        {brandTags.map((value, index) => {
+                                            return (
+                                                <div
+                                                    className="col-6 form-check products-form-check"
+                                                    key={index}
+                                                >
+                                                    <input
+                                                        className="form-check-input"
+                                                        type="checkbox"
+                                                        defaultValue
+                                                    />
+                                                    <label className="form-check-label">
+                                                        {value.name}
+                                                    </label>
+                                                </div>
+                                            );
+                                        })}
                                     </div>
                                     <p className="mt-4 mb-0 accent-light-color">
                                         顏色
@@ -697,14 +588,7 @@ function Products() {
 
                         {/* 商品排序區塊 */}
                         {sortToggled ? (
-                            <div className="products-sort-menu">
-                                <ul className="p-3">
-                                    <li>價格：低到高</li>
-                                    <li>價格：高到低</li>
-                                    <li>上架：新到舊</li>
-                                    <li>上架：舊到新</li>
-                                </ul>
-                            </div>
+                            <SortBar sortBy={sortBy} setSortBy={setSortBy} />
                         ) : (
                             ''
                         )}
@@ -716,61 +600,22 @@ function Products() {
 
                 <div className="row">
                     {/* 桌機 商品類別選項 */}
-                    <div className="col-2 d-none d-md-block">
-                        <ul className="products-category-navbar">
-                            <li className="products-main-category">
-                                <Link to="/products" className="accent-color">
-                                    最新商品
-                                </Link>
-                            </li>
-                            {categoryMain.map((value) => {
-                                return (
-                                    <div
-                                        key={Math.random()
-                                            .toString(36)
-                                            .replace('0.', '')}
-                                    >
-                                        <li className="products-main-category">
-                                            <Link
-                                                to={`/products?main_id=${value.id}`}
-                                                className="accent-color"
-                                            >
-                                                {value.mainName}
-                                            </Link>
-                                        </li>
-                                        {categorySub.map((item) => {
-                                            if (
-                                                Number(item.mainId) === value.id
-                                            ) {
-                                                return (
-                                                    <ul
-                                                        className="products-sub-category"
-                                                        key={Math.random()
-                                                            .toString(36)
-                                                            .replace('2.', '')}
-                                                    >
-                                                        <li>
-                                                            <Link
-                                                                to={`/products?sub_id=${item.subId}`}
-                                                            >
-                                                                {item.subName}
-                                                            </Link>
-                                                        </li>
-                                                    </ul>
-                                                );
-                                            }
-                                        })}
-                                    </div>
-                                );
-                            })}
-                        </ul>
-                    </div>
+                    <CategoryNav
+                        categoryMain={categoryMainTypes}
+                        categorySub={categorySub}
+                        navigate={navigate}
+                        url={url}
+                        setUrl={setUrl}
+                    />
                     {/* 桌機 商品類別選項 end */}
 
                     <div className="col-12 col-md-10">
                         {/* 商品列 */}
+                        {/* TODO: 拆掉:hover樣式就不見了 */}
+                        {/* <ProductItem products={products} /> */}
                         <div className=" row row-cols-2 row-cols-md-3 row-cols-xl-4">
                             {error && <div>{error}</div>}
+
                             {products.map((product) => {
                                 return (
                                     <div
@@ -801,7 +646,12 @@ function Products() {
                                                 />
                                                 比較
                                             </div>
-                                            <button className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0">
+                                            <button
+                                                className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
+                                                onClick={() => {
+                                                    setShopItemCart(true);
+                                                }}
+                                            >
                                                 <img
                                                     src={cartCheck}
                                                     alt="cartCheck"
@@ -828,7 +678,6 @@ function Products() {
                             })}
                         </div>
                         {/* 商品列 end */}
-
                         {/* 頁碼 */}
                         <div className="d-flex justify-content-center align-items-center mt-5">
                             {/* 頁碼 */}
