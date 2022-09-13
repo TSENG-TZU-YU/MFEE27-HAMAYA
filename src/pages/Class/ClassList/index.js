@@ -89,8 +89,6 @@ function ClassList(props) {
             );
         }
 
-        console.log(newProducts, products, sortBy);
-
         return newProducts;
     };
 

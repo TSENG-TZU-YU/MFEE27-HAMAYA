@@ -35,13 +35,13 @@ function Detailed() {
     });
     const [data, setData] = useState([]);
 
-    // 把網址上的 :stockId 拿出來
-    const { classDetailID } = useParams();
-    console.log('classDetailID', classDetailID);
+    // 把網址上的 :detailedID 拿出來
+    const { detailedID } = useParams();
+    console.log('classDetailID', detailedID);
     useEffect(() => {
         let getAdultClass = async () => {
             let response = await axios.get(
-                `http://localhost:3001/api/class/list/${classDetailID}`
+                `http://localhost:3001/api/class/list/${detailedID}`
             );
             setData(response.data);
             console.log('data', response.data);
