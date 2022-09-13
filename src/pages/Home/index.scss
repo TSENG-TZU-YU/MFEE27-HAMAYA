@@ -10,7 +10,8 @@
 }
 
 .item {
-  // float: left;
+  float: left;
+  width: 100px;
   display: flex;
   align-items: center;
   margin-bottom: 70px;
@@ -19,7 +20,8 @@
 }
 
 .txt{
-  // float: right;
+  float: left;
+  width: 300px;
   z-index: 3;
 }
 

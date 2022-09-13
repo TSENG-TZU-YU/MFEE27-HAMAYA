@@ -7,9 +7,9 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 import { homeImages } from '../../album/home';
 
-//TODO:會空一大格需要處理
 //TODO:首頁ＲＷＤ要再排版
-//TODO:首頁的音樂文章裝飾音符要用上去
+
+//TODO:點擊輪播時會跑版要修
 
 import HomeScroll from '../../components/HomeScroll/HomeScroll';
 

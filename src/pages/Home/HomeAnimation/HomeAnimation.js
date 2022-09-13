@@ -7,7 +7,9 @@ import Note4 from '../../../assets/HomeImg/note-4.svg';
 import Note5 from '../../../assets/HomeImg/note-5.svg';
 import Note6 from '../../../assets/HomeImg/note-6.svg';
 import Note7 from '../../../assets/HomeImg/note-7.svg';
-import HomeVideo from '../../../assets/HomeImg/home-video.mp4';
+import HomeVideo2 from '../../../assets/HomeImg/home-video2.mp4';
+
+//TODO:影片跟header間距有一點大要修
 
 function HomeAnimation(props) {
     return (
@@ -33,14 +35,15 @@ function HomeAnimation(props) {
                     {/* <img src={ServerImg} alt="ServerImg" /> */}
                     <video
                         muted
-                        src={HomeVideo}
-                        height="900"
+                        src={HomeVideo2}
+                        height=""
                         autoPlay
                         loop
-                        style={{
-                            width: '100%',
-                            height: '50%',
-                        }}
+
+                        // style={{
+                        //     width: '100%',
+                        //     height: '100vh',
+                        // }}
                     />
                 </div>
                 <div className="muzieknootjes">
