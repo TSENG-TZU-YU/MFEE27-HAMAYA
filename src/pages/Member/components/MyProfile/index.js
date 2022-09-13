@@ -7,7 +7,14 @@ import { useAuth } from '../../../../utils/use_auth';
 import { cityData, distData } from './location';
 
 function MyProfile(props) {
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    const {
+        member,
+        setMember,
+        isLogin,
+        setIsLogin,
+        originalPhotoURL,
+        setOriginalPhotoURL,
+    } = useAuth();
     const [originalmember, setOriginalMember] = useState();
     const [password, setPassword] = useState({
         password: '********',
@@ -32,34 +39,49 @@ function MyProfile(props) {
     //     sub: member.sub,
     //     loginDt: new Date().toISOString(),
     // };
-
     const [city, setCity] = useState(member.city);
     const [dist, setDist] = useState(member.dist);
     const [editProfile, setEditProfile] = useState(true);
     const [editPassword, setEditPassword] = useState(true);
 
     const ProfileChange = (e) => {
-        const newUser = { ...member, [e.target.name]: e.target.value };
-
-        setMember(newUser);
+        setMember({ ...member, [e.target.name]: e.target.value });
+    };
+    const photoChange = (e) => {
+        // type=file 的 input
+        // 選好的檔案是放在 e.target.files[0]
+        // seAddimg(URL.createObjectURL(e.target.files[0]));
+        setMember({ ...member, photo: e.target.files[0] });
     };
     const passwordChange = (e) => {
-        const newPassword = { ...password, [e.target.name]: e.target.value };
-
-        setPassword(newPassword);
+        setPassword({ ...password, [e.target.name]: e.target.value });
     };
 
     async function profileSubmit(e) {
         e.preventDefault();
         try {
-            let response = await axios.put(`${API_URL}/auth/profile`, member, {
-                withCredentials: true,
-            });
+            let formData = new FormData();
+            formData.append('id', member.id);
+            formData.append('fullName', member.fullName);
+            formData.append('phone', member.phone);
+            formData.append('city', member.city);
+            formData.append('dist', member.dist);
+            formData.append('address', member.address);
+            formData.append('birthday', member.birthday);
+            formData.append('photo', member.photo);
+            formData.append('sub', member.sub);
+            let response = await axios.patch(
+                `${API_URL}/auth/profile`,
+                formData,
+                {
+                    withCredentials: true,
+                }
+            );
             console.log(response.data);
-            alert(response.data.message);
-            setOriginalMember({ ...member });
             setEditProfile(true);
-            // setMember(response.data);
+            alert(response.data.message);
+            setMember({ ...member, photo: response.data.photo });
+            setOriginalPhotoURL(response.data.photo);
         } catch (err) {
             console.log(err.response.data);
             alert(err.response.data.message);
@@ -68,7 +90,7 @@ function MyProfile(props) {
     async function passwordSubmit(e) {
         e.preventDefault();
         try {
-            let response = await axios.put(
+            let response = await axios.patch(
                 `${API_URL}/auth/password`,
                 password,
                 {
@@ -76,9 +98,8 @@ function MyProfile(props) {
                 }
             );
             console.log(response.data);
-            alert(response.data.message);
             setEditPassword(true);
-            // setMember(response.data);
+            alert(response.data.message);
         } catch (err) {
             console.log(err.response.data);
             alert(err.response.data.message);
@@ -100,6 +121,19 @@ function MyProfile(props) {
                             <td className="text-primary">會員帳號</td>
                             <td>
                                 <span>{member.email}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="text-primary">大頭貼照</td>
+                            <td>
+                                <div></div>
+                                <input
+                                    type="file"
+                                    name="photo"
+                                    onChange={photoChange}
+                                    disabled={editProfile}
+                                />
+                                {/* <img id="frame" src={addimg} width="100px" height="100px"/> */}
                             </td>
                         </tr>
                         <tr>
@@ -247,8 +281,8 @@ function MyProfile(props) {
                         <button
                             className="myprofile_btn2 mb-4 accent-light-color bg-accent-color border-0 mx-1"
                             onClick={() => {
-                                setEditProfile(true);
                                 setMember({ ...originalmember });
+                                setEditProfile(true);
                                 setCity(member.city);
                                 setDist(member.dist);
                             }}

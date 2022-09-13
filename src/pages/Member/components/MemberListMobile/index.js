@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import member_img from '../../../../assets/svg/member_avatar.svg';
 import './index.css';
@@ -9,47 +9,64 @@ import { useAuth } from '../../../../utils/use_auth';
 function MemberListMobile(props) {
     const [url, setUrl] = useState('');
     const navigate = useNavigate();
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
-    const [photo, setPhoto] = useState({ photo: '' });
+    const {
+        member,
+        setMember,
+        isLogin,
+        setIsLogin,
+        originalPhotoURL,
+        setOriginalPhotoURL,
+    } = useAuth();
 
-    function handleUpload(e) {
-        // type=file 的 input
-        // 選好的檔案是放在 e.target.files[0]
-        console.log(e.target.files);
-        setPhoto({ ...photo, photo: e.target.files[0] });
-    }
+    useEffect(() => {
+        setOriginalPhotoURL(member.photo);
+    }, []);
+    // const [photo, setPhoto] = useState({ photo: '' });
 
-    async function photoSubmit(e) {
-        e.preventDefault();
-        try {
-            let photoData = new FormData();
-            photoData.append('photo', photo.photo);
-            let response = await axios.post(
-                `${API_URL}/auth/photo`,
-                photoData,
-                {
-                    withCredentials: true,
-                }
-            );
-            console.log(response.data);
-            console.log(response.data.photo);
-            setMember({ ...member, photo: response.data.photo });
-            alert(response.data.message);
-        } catch (err) {
-            console.log(err.response.data);
-            alert(err.response.data.message);
-        }
-    }
+    // function handleUpload(e) {
+    //     // type=file 的 input
+    //     // 選好的檔案是放在 e.target.files[0]
+    //     console.log(e.target.files);
+    //     setPhoto({ ...photo, photo: e.target.files[0] });
+    // }
+
+    // async function photoSubmit(e) {
+    //     e.preventDefault();
+    //     try {
+    //         let photoData = new FormData();
+    //         photoData.append('photo', photo.photo);
+    //         let response = await axios.post(
+    //             `${API_URL}/auth/photo`,
+    //             photoData,
+    //             {
+    //                 withCredentials: true,
+    //             }
+    //         );
+    //         console.log(response.data);
+    //         console.log(response.data.photo);
+    //         setMember({ ...member, photo: response.data.photo });
+    //         alert(response.data.message);
+    //     } catch (err) {
+    //         console.log(err.response.data);
+    //         alert(err.response.data.message);
+    //     }
+    // }
     return (
         <div className="d-md-none MemberListMobile">
             <div className="d-flex MemberListBg">
                 <div>
-                    <img className="MemberListMobile-img" src={
-                            member.photo ? IMAGE_URL + member.photo : member_img
-                        } alt="" />
+                    <img
+                        className="MemberListMobile-img"
+                        src={
+                            member.photo
+                                ? IMAGE_URL + originalPhotoURL
+                                : member_img
+                        }
+                        alt=""
+                    />
                 </div>
                 <div className="d-flex align-items-center">
-                    <div className="ms-3" >
+                    <div className="ms-3">
                         <h5 className="main-color">{member.fullName}</h5>
                         <p>{member.email}</p>
                     </div>
