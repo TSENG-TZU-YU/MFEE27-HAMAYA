@@ -54,7 +54,7 @@ function MemberListMobile(props) {
     return (
         <div className="d-md-none MemberListMobile">
             <div className="d-flex MemberListBg">
-                <div>
+                <div className='MemberListMobile-imgDIV' >
                     <img
                         className="MemberListMobile-img"
                         src={

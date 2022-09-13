@@ -49,7 +49,11 @@ function Product() {
     const [productCompare, setProductCompare] = useState(false);
     const toggleProductCompare = () => setProductCompare(!productCompare);
     //購物車
-    const { shopItemCart, setShopItemCart } = useCart();
+    const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
+        useCart();
+
+    const [test, setTest] = useState([]);
+
     return (
         <>
             <Container>
@@ -98,6 +102,7 @@ function Product() {
                     {/* 品名、規格、數量、購買 */}
                     <Col lg={6}>
                         {product.map((value, index) => {
+                            console.log('詳細頁裡的product', product);
                             return (
                                 <div
                                     className="d-flex flex-column mb-3 text-start"
@@ -243,7 +248,22 @@ function Product() {
                                         <button
                                             className="col m-2 btn btn-secondary productDetail-btn d-flex justify-content-center align-items-center"
                                             onClick={() => {
-                                                setShopItemCart(true);
+                                                setShopCartState(true);
+                                                setShoppingCart([
+                                                    ...shoppingCart,
+                                                    {
+                                                        product_id:
+                                                            value.product_id,
+                                                        category_id:
+                                                            value.category_id,
+                                                        image: value.image,
+                                                        name: value.name,
+                                                        price: value.price,
+                                                        spec: value.spec,
+                                                        shipment:
+                                                            value.shipment,
+                                                    },
+                                                ]);
                                             }}
                                         >
                                             <img
