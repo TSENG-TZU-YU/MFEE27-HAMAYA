@@ -1,0 +1,265 @@
+@import '../../../styles/global.scss';
+// * {
+//   position: relative;
+//   box-sizing: border-box;
+// }
+
+//首頁動畫
+.iframely-embed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  background-color: $main-gary-light;
+}
+
+#app {
+  // opacity: 0 !important;
+  // visibility: hidden;
+  z-index: 100;
+
+  // &:hover {
+  //   opacity: 0.5;
+  // }
+}
+
+#app {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
+  padding-bottom: 1vmin;
+  height: 100vh;
+  width: 100%;
+  background-color: $main-gary-light;
+  color: $main-light;
+  
+}
+
+// body {
+//   display: grid;
+//   padding: 1vmin;
+//   background-color: $main-gary-light;
+// }
+
+@import url("https://fonts.googleapis.com/css2?family=Prata&display=swap");
+
+.title {
+  padding-left: 1em;
+  grid-column: 1 / -1;
+  grid-row: 1;
+
+  font-family: "Prata", serif;
+  font-size: 8vw;
+  width: 100%;
+  z-index: 2;
+
+
+  // start
+
+  > .title-inner {
+    display: inline-block;
+  }
+}
+
+@keyframes text-clip {
+  from {
+    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes outer-left {
+  from {
+    transform: translateX(50%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes inner-left {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.cafe,
+.mozart {
+  animation: outer-left 1s 1s cubic-bezier(0.5, 0, 0.1, 1) both;
+  // outline: 1px solid red;
+  letter-spacing:30px;
+}
+
+// [class*='inner'] {
+//   outline: 1px solid blue;
+// }
+
+.title-inner {
+  display: inline-block;
+  animation: inner-left 1s 1s ease both;
+}
+
+.cafe-inner {
+  display: inline-block;
+  animation: inner-left 1s 1s ease both,
+    text-clip 1s 0s cubic-bezier(0.5, 0, 0.1, 1) both;
+    letter-spacing:30px;
+}
+
+.mozart-inner {
+  animation: text-clip 1s 0s cubic-bezier(0.5, 0, 0.1, 1) both;
+  letter-spacing:30px;
+}
+
+.title {
+  animation: outer-left 1s 1s ease both;
+}
+
+.cafe {
+  // start
+  > .cafe-inner {
+    display: inline-block;
+  }
+}
+
+.mozart {
+  display: inline-block;
+}
+
+.image {
+  grid-row: 1;
+  grid-column: 2;
+  margin-left: -2rem;
+  // opacity: 0.8;
+
+  animation: image-in 1s cubic-bezier(0.5, 0, 0.1, 1) 2s backwards;
+
+  @keyframes image-in {
+    from {
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+    to {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+  }
+
+video {
+    // display: block;
+    width: 100%;
+    height: 60vh;
+  }
+}
+
+// Replay animation!
+:root:active * {
+  animation: none !important;
+}
+
+
+.font5 {
+  font-size: 18px;
+  position: absolute;
+  bottom: -14rem;
+  left: 1rem;
+  color: $main;
+  font-weight: bold;
+}
+// .font {
+//   // font-family: 'Noto Serif Malayalam', serif;
+//   background: linear-gradient(180deg, #FFFFFF 0%, rgba(500, 500, 500, 0));
+//   -webkit-background-clip: text;
+//   -webkit-text-fill-color: transparent;
+//   font-size: 15rem;
+//   // position: relative;
+//   // top: -80px;
+
+// }
+
+// body {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   min-height: 100vh;
+//   background-color: black;
+//   color: white;
+// }
+
+//音符動畫
+.muzieknootjes {
+  // display: block;
+  // margin: auto;
+  // position: relative;
+  // width: 100%;
+  // min-width: 300px;
+  // height: 200px;
+  // border: 0px solid #000;
+}
+
+.noot-1,
+.noot-2,
+.noot-3,
+.noot-4,
+.noot-5{
+  position: absolute;
+  animation: notes 5s infinite linear;
+  font-size: 35px;
+  opacity: 0;
+}
+
+.noot-1 {
+ bottom: 630px;
+  left: 3%;
+  animation-delay: 7s;
+}
+
+.noot-2 {
+  bottom: 100px;
+  left: 20%;
+  animation-delay: 4s;
+}
+
+.noot-3 {
+ bottom:300px;
+  left: 45%;
+
+  animation-delay: 3s;
+}
+
+.noot-4 {
+  bottom:500px;
+  left: 60%;
+  animation-delay: 4s;
+}
+.noot-5{
+ top:90px;
+  left:70%;
+  animation-delay: 6s;
+}
+
+
+@keyframes notes {
+  0% {
+    transform: scale(1) translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5) translate(50%, -50%);
+  }
+  80% {
+    opacity: 0;
+    transform: scale(1.5) translate(100%, -100%);
+  }
+  100% {
+    transform: scale(1.5) translate(100%, -100%);
+    opacity: 0;
+  }
+}
+
