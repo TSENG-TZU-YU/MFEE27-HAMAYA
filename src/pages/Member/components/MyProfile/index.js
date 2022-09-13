@@ -15,7 +15,7 @@ function MyProfile(props) {
         originalPhotoURL,
         setOriginalPhotoURL,
     } = useAuth();
-    const [originalmember, setOriginalMember] = useState();
+    const [originalmember, setOriginalMember] = useState(null);
     const [password, setPassword] = useState({
         password: '********',
         repassword: '',

@@ -10,26 +10,6 @@ import SignUp from './SignUp';
 function LogInSignUp({ setLoginPopup }) {
     const [logInActive, setLogInActive] = useState(true);
 
-    // useEffect(() => {
-    //     // const navigate = useNavigate();
-    //     // 去要要看有沒有會員資料，有要到就是已經登入過
-    //     let getMember = async () => {
-    //         try {
-    //             console.log('檢查是否登入');
-    //             let response = await axios.get(`${API_URL}/auth`, {
-    //                 withCredentials: true,
-    //             });
-    //             console.log('已登入', response.data);
-    //             await setIsLogin(true);
-    //             setMember(response.data);
-    //             setLoginPopup(false);
-    //             navigate('/member');
-    //         } catch (err) {
-    //             console.log('尚未登入');
-    //         }
-    //     };
-    //     getMember();
-    // }, []);
     return (
         <div>
             <div

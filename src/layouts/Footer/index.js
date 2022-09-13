@@ -29,40 +29,42 @@ function Footer(props) {
                                 className="footerConnect footer-imgs2"
                             />
                         </div>
-                        <div className="col-md  pt-3">
+                        <div className="col-md  pt-3 ">
                             <Link
                                 className="main-gary-light-color word-size text-nowrap "
                                 to="news"
                             >
                                 最新消息
                             </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color  text-nowrap  word-size2"
-                                to="news"
-                            >
-                                促銷活動
-                            </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                to="news"
-                            >
-                                活動快訊
-                            </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                to="news"
-                            >
-                                重要通知
-                            </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color  text-nowrap word-size2"
-                                to="news"
-                            >
-                                音樂文章
-                            </Link>
+                            <div className="d-flex  align-items-start flex-column ">
+                                <Link
+                                    className="ms-1 main-gary-light-color  text-nowrap  word-size2"
+                                    to="news"
+                                >
+                                    促銷活動
+                                </Link>
+                                <Link
+                                    className="ms-1 main-gary-light-color text-nowrap word-size2"
+                                    to="news"
+                                >
+                                    活動快訊
+                                </Link>
+                                <Link
+                                    className="ms-1 main-gary-light-color text-nowrap word-size2"
+                                    to="news"
+                                >
+                                    重要通知
+                                </Link>
+                                <Link
+                                    className="ms-1 main-gary-light-color  text-nowrap word-size2"
+                                    to="news"
+                                >
+                                    音樂文章
+                                </Link>
+                            </div>
                         </div>
 
-                        <div className="col-md pt-3">
+                        <div className="col-md pt-3 d-flex  align-items-start flex-column">
                             <Link
                                 className="main-gary-light-color  word-size text-nowrap col-md-1 "
                                 to="/products"
@@ -70,7 +72,7 @@ function Footer(props) {
                                 樂器商城
                             </Link>
                             <Link
-                                className="main-gary-light-color text-nowrap word-size2"
+                                className="ms-1 main-gary-light-color text-nowrap word-size2"
                                 to="products"
                             >
                                 最新商品
@@ -83,24 +85,26 @@ function Footer(props) {
                             >
                                 音樂教育
                             </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color text-nowrap word-size2 "
-                                to="class"
-                            >
-                                成人課程
-                            </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                to="class"
-                            >
-                                兒童課程
-                            </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                to="class"
-                            >
-                                師資介紹
-                            </Link>
+                            <div className="d-flex  align-items-start flex-column ">
+                                <Link
+                                    className="ms-1 main-gary-light-color text-nowrap word-size2 "
+                                    to="class"
+                                >
+                                    成人課程
+                                </Link>
+                                <Link
+                                    className="ms-1 main-gary-light-color text-nowrap word-size2"
+                                    to="class"
+                                >
+                                    兒童課程
+                                </Link>
+                                <Link
+                                    className="ms-1 main-gary-light-color text-nowrap word-size2"
+                                    to="class"
+                                >
+                                    師資介紹
+                                </Link>
+                            </div>
                         </div>
                         <div className="col-md   pt-3 text-nowrap">
                             <Link

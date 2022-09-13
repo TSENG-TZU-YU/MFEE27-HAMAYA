@@ -2,8 +2,6 @@ import React from 'react';
 import './place.scss';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useAuth } from '../../utils/use_auth';
-import { API_URL } from '../../utils/config';
 
 import banner from '../../assets/PlaceImg/banner.png';
 import studioA01 from '../../assets/PlaceImg/studioA01.jpg';
@@ -22,56 +20,61 @@ import studioC01min from '../../assets/PlaceImg/studioC01min.jpg';
 import studioC02min from '../../assets/PlaceImg/studioC02min.jpg';
 
 function Place(props) {
-    // 會員登入狀態判斷
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
-    useEffect(() => {
-        let getMember = async () => {
-            console.log('檢查是否登入');
-            let response = await axios.get(`${API_URL}/auth`, {
-                withCredentials: true,
-            });
-            console.log('已登入', response.data);
-            setIsLogin(true);
-            setMember(response.data);
-            const newRent = {
-                ...rent,
-                name: member.fullName,
-                phone: member.phone,
-                email: member.email,
-            };
-            setMemberLogin(true);
-            setRent(newRent);
-        };
-        getMember();
-    }, []);
-
     // 表單
-    const [memberLogin, setMemberLogin] = useState(false);
-
-    const [datetime, setDatetime] = useState({
-        date: '2022-10-05',
-        time: '13:30:00',
-    });
     const [rent, setRent] = useState({
-        fullName: '桐谷和人',
+        fullName: '',
         user_id: '',
-        usedate: `${datetime.date} ${datetime.time}`,
-        phone: '0912348763',
-        usercount: '4',
-        email: 'kirito@gmail.com',
-        item: 'studio B',
-        comment: 'C8763',
+        date: '',
+        phone: '',
+        time: '',
+        usercount: '0',
+        email: '',
+        item: '0',
+        comment: '',
     });
+
+    // 錯誤訊息狀態
+    const [renterros, setAskErros] = useState({
+        fullName: '',
+        date: '',
+        user_id: '',
+        phone: '',
+        time: '',
+        email: '',
+        usercount: '',
+        item: '',
+    });
+
+    // 送出表單
+    async function rentsubmit(e) {
+        e.preventDefault();
+        try {
+            const response = await axios.put(
+                'http://localhost:3001/api/place/rent',
+                rent,
+                { withCredentials: true }
+            );
+            console.log(response.data);
+        } catch (err) {
+            console.log(err.response.data);
+
+            setAskErros({
+                fullName: err.response.data.fullName,
+                date: err.response.data.date,
+                user_id: err.response.data.user_id,
+                phone: err.response.data.phone,
+                time: err.response.data.time,
+                email: err.response.data.email,
+                usercount: err.response.data.usercount,
+                item: err.response.data.item,
+            });
+        }
+    }
 
     const fieldChange = (e) => {
         const newRent = { ...rent, [e.target.name]: e.target.value };
 
         setRent(newRent);
-    };
-    const timeChange = (e) => {
-        const newRent = { ...datetime, [e.target.name]: e.target.value };
-
-        setDatetime(newRent);
     };
 
     // 照片輪播
@@ -95,7 +98,6 @@ function Place(props) {
                         </a>
                         /
                         <a href="/">
-                            {' '}
                             <p>場地租借</p>
                         </a>
                     </div>
@@ -405,7 +407,7 @@ function Place(props) {
                 </div>
             </div>
             <div className="bg-main-gary-light-color">
-                <div className="container mt-5 placeform">
+                <form className="container mt-5 placeform">
                     <div className="d-flex pt-4 align-items-center">
                         <h4
                             className="me-2 text-nowrap"
@@ -423,8 +425,13 @@ function Place(props) {
                     </div>
 
                     <div className="row p-5">
-                        <div className="col-12 col-md-6">
-                            <p>姓名</p>
+                        <div className="col-12 col-md-6 my-2">
+                            <p className="d-flex m-0">
+                                姓名*
+                                <span className="error">
+                                    {renterros.fullName}
+                                </span>
+                            </p>
                             <input
                                 type="text"
                                 name="fullName"
@@ -432,21 +439,26 @@ function Place(props) {
                                 placeholder="請輸入姓名"
                                 onChange={fieldChange}
                                 className="w-100"
-                                disabled={memberLogin}
                             />
                         </div>
-                        <div className="col-12 col-md-6">
-                            <p>使用日期</p>
+                        <div className="col-12 col-md-6 my-2">
+                            <p className="d-flex m-0">
+                                使用日期*
+                                <span className="error">{renterros.date}</span>
+                            </p>
                             <input
                                 type="date"
                                 name="date"
-                                value={datetime.date}
-                                onChange={timeChange}
+                                value={rent.date}
+                                onChange={fieldChange}
                                 className="w-100"
                             />
                         </div>
-                        <div className="col-12 col-md-6">
-                            <p>聯絡電話</p>
+                        <div className="col-12 col-md-6 my-2">
+                            <p className="d-flex m-0">
+                                聯絡電話*
+                                <span className="error">{renterros.phone}</span>
+                            </p>
                             <input
                                 type="text"
                                 name="phone"
@@ -454,52 +466,64 @@ function Place(props) {
                                 onChange={fieldChange}
                                 placeholder="請輸入電話/手機"
                                 className="w-100"
-                                disabled={memberLogin}
                             />
                         </div>
-                        <div className="col-12 col-md-6">
-                            <p>使用時間</p>
+                        <div className="col-12 col-md-6 my-2">
+                            <p className="d-flex m-0">
+                                使用時間*
+                                <span className="error">{renterros.time}</span>
+                            </p>
                             <input
                                 type="time"
                                 name="time"
-                                value={datetime.time}
-                                onChange={timeChange}
+                                value={rent.time}
+                                onChange={fieldChange}
                                 className="w-100"
                             />
                         </div>
-                        <div className="col-12 col-md-6">
-                            <p>信箱</p>
+                        <div className="col-12 col-md-6 my-2">
+                            <p className="d-flex m-0">
+                                信箱*
+                                <span className="error">{renterros.email}</span>
+                            </p>
                             <input
                                 type="mail"
-                                name="mail"
+                                name="email"
                                 value={rent.email}
                                 onChange={fieldChange}
                                 placeholder="請輸入信箱"
                                 className="w-100"
-                                disabled={memberLogin}
                             />
                         </div>
-                        <div className="col-12 col-md-6">
-                            <p>使用人數</p>
+                        <div className="col-12 col-md-6 my-2">
+                            <p className="d-flex m-0">
+                                使用人數*
+                                <span className="error">
+                                    {renterros.usercount}
+                                </span>
+                            </p>
                             <input
                                 type="number"
                                 name="usercount"
                                 value={rent.usercount}
                                 onChange={fieldChange}
                                 className="w-100"
-                                min="1"
+                                min="0"
                             />
                             {/* 設定不可為0&負 */}
                         </div>
-                        <div className="col-12">
-                            <p>租借項目</p>
+                        <div className="col-12 my-2">
+                            <p className="d-flex m-0">
+                                租借項目*
+                                <span className="error">{renterros.item}</span>
+                            </p>
                             <select
                                 name="item"
                                 className="w-100"
                                 value={rent.item}
                                 onChange={fieldChange}
                             >
-                                <option value="">請選擇場地</option>
+                                <option value="0">請選擇場地</option>
                                 <option value="studio A">
                                     studio A 錄音室
                                 </option>
@@ -511,8 +535,13 @@ function Place(props) {
                                 </option>
                             </select>
                         </div>
-                        <div className="col-12">
-                            <p>留言</p>
+                        <div className="col-12 my-2">
+                            <p className="d-flex m-0">
+                                留言
+                                <span className="error">
+                                    {renterros.comment}
+                                </span>
+                            </p>
                             <textarea
                                 type="text"
                                 name="comment"
@@ -527,20 +556,12 @@ function Place(props) {
                     <div className="d-flex justify-content-center">
                         <button
                             className="bg-main-light-color accent-light-color border-0 px-5 py-1 mb-5"
-                            onClick={() => {
-                                const data = JSON.parse(JSON.stringify(rent));
-                                console.log(data);
-                                axios.put(
-                                    'http://localhost:3001/api/place/rent',
-                                    data
-                                    // { withCredentials: true }
-                                );
-                            }}
+                            onClick={rentsubmit}
                         >
                             確認送出
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
         </>
     );

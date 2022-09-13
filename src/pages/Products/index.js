@@ -13,8 +13,9 @@ import './index.scss';
 import ProductCompare from './ProductCompare';
 import CategoryNav from './components/CategoryNav';
 import MobileCategoryNav from './components/MobileCategoryNav';
-import SortBar from './components/SortBar';
-import MobileSortBar from './components/MobileSortBar';
+import SortBar from './components/MobileSortBar';
+import MobileSortBar from './components/SortBar';
+import FilterBar from './components/FilterBar';
 
 // 元件 FilterNav
 import SearchBar from '../../components/SearchBar';
@@ -58,7 +59,6 @@ function Products() {
     const [displayProducts, setDisplayProducts] = useState([]);
 
     // 商品主類別
-    const [categoryMain, setCategoryMain] = useState([]);
     const categoryMainTypes = [
         { id: 1, mainName: '琴鍵樂器' },
         { id: 2, mainName: '管樂器' },
@@ -76,27 +76,67 @@ function Products() {
 
     // 排序
     const [sortBy, setSortBy] = useState('');
+    const sortByTypes = [
+        { id: '1', name: '價格：低到高' },
+        { id: '2', name: '價格：高到低' },
+        { id: '3', name: '上架：新到舊' },
+        { id: '4', name: '上架：舊到新' },
+    ];
+    const sortByTitle = (sortBy) => {
+        if (sortBy === '') {
+            return '排序條件';
+        }
+        if (sortBy === '1') {
+            return '價格 低>高';
+        }
+        if (sortBy === '2') {
+            return '價格 高>低';
+        }
+        if (sortBy === '3') {
+            return '上架 新>舊';
+        }
+        if (sortBy === '4') {
+            return '上架 舊>新';
+        }
+    };
 
     // checkbox
     // 品牌
-    const [brandTags, setBrandTags] = useState([
-        { name: '所有品牌' },
+    const [brandTags, setBrandTags] = useState([]);
+    const brandTagsTypes = [
+        { id: 0, name: '所有品牌' },
         { id: 1, name: 'YAMAHA' },
         { id: 2, name: 'Roland' },
         { id: 3, name: 'AZUMI' },
         { id: 4, name: 'Jupiter' },
-    ]);
-    // const brandTagsTypes = [
-    //     { name: '所有品牌' },
-    //     { id: 1, name: 'YAMAHA' },
-    //     { id: 2, name: 'Roland' },
-    //     { id: 3, name: 'AZUMI' },
-    //     { id: 4, name: 'Jupiter' },
-    // ];
+        { id: 5, name: 'SELMER' },
+        { id: 6, name: 'HEL' },
+        { id: 7, name: 'OTTO' },
+        { id: 8, name: 'Joylink' },
+        { id: 9, name: 'BREEDLOVE' },
+        { id: 10, name: 'SUSTAIN' },
+    ];
 
     // 顏色
-    const [color, setColor] = useState('');
-    const colorTypes = ['#c0c0c0', '#ffd700', '#B5A642', '#802A2A'];
+    const [colorTags, setColorTags] = useState('');
+    const colorTagsTypes = [
+        '#000000',
+        '#c0c0c0',
+        '#B5A642',
+        '#ffffff',
+        '#4d2f2f',
+        '#8B4513',
+        '#802A2A',
+        '#872c07',
+        '#cc0000',
+        '#f29a25',
+        '#ffa500',
+        '#ffd700',
+        '#efd7b3',
+        '#ea9999',
+        '#9ddfca',
+        '#18ebeb',
+    ];
 
     // 價格
     const [priceHighest, setPriceHighest] = useState(7380000);
@@ -112,6 +152,7 @@ function Products() {
     }, []);
 
     const location = useLocation();
+
     // 取得商品 api
     useEffect(() => {
         let params = new URLSearchParams(location.search);
@@ -128,126 +169,77 @@ function Products() {
         getProducts();
     }, [location]);
 
-    // 製作頁碼按鈕
-    // const getPages = () => {
-    //     let pages = [];
-    //     for (let i = 1; i <= lastPage; i++) {
-    //         pages.push(
-    //             <li
-    //                 style={{
-    //                     margin: '2px',
-    //                     paddingTop: '1px',
-    //                     backgroundColor: page === i ? '#00323d' : '',
-    //                     color: page === i ? '#f2f2f2' : '#6a777a',
-    //                     borderWidth: '2px',
-    //                     width: '28px',
-    //                     height: '28px',
-    //                     textAlign: 'center',
-    //                 }}
-    //                 key={i}
-    //                 onClick={(e) => {
-    //                     setPage(i);
-    //                 }}
-    //             >
-    //                 {i}
-    //             </li>
-    //         );
-    //     }
-    //     return pages;
-    // };
+    // TODO: 製作頁碼按鈕
 
-    // 篩選處理方式
-    // 搜尋
+    // 搜尋：處理方法
     const handleSearch = (products, searchWord) => {
         let newProducts = [...products];
         if (searchWord.length) {
             newProducts = products.filter((product) => {
                 return product.name.includes(searchWord);
             });
+            console.log('handleSearch', newProducts);
         }
         return newProducts;
     };
 
-    // 排序
+    // 排序：處理方法
     const handleSort = (products, sortBy) => {
         let newProducts = [...products];
 
-        // 預設用id-小至大
-        if (sortBy === '' && newProducts.length > 0) {
-            newProducts = [...newProducts].sort(
-                (value, index) => value.id - index.id
-            );
-        }
-
-        // 以價格排序-由少至多
+        // 價格排序 低 > 高
         if (sortBy === '1') {
-            newProducts = [...newProducts].sort(
-                (value, index) => value.price - index.price
-            );
+            newProducts = [...newProducts].sort((a, b) => a.price - b.price);
         }
 
+        // 價格排序 高 > 低
         if (sortBy === '2') {
-            newProducts = [...newProducts].sort(
-                (value, index) => index.price - value.price
+            newProducts = [...newProducts].sort((a, b) => b.price - a.price);
+        }
+
+        // 時間排序 新 > 舊
+        if (sortBy === '3') {
+            newProducts = [...newProducts].sort((a, b) =>
+                b.create_time.localeCompare(a.create_time)
             );
         }
 
-        // TODO: 時間排序 新>舊
-        // TODO: 時間排序 舊>新
-
-        return newProducts;
-    };
-
-    const handleBrandTags = (products, brandTags) => {
-        let newProducts = [...products];
-
-        // tags = 代表使用者目前勾選的標籤陣列
-        //console.log(brandTags)
-
-        // 處理勾選標記
-        // if (brandTags.length > 0) {
-        //     newProducts = [...newProducts].filter((product) => {
-        //         let isFound = false;
-
-        //         // 原本資料裡的tags字串轉為陣列
-        //         const productTags = product.brandTags.split(',');
-
-        //         // 用目前使用者勾選的標籤用迴圈找，有找到就回傳true
-        //         for (let i = 0; i < brandTags.length; i++) {
-        //             // includes -> Array api
-        //             if (productTags.includes(brandTags[i])) {
-        //                 isFound = true; // 找到設為true
-        //                 break; // 找到一個就可以，中斷迴圈
-        //             }
-        //         }
-
-        //         return isFound;
-        //     });
-        // }
+        // 時間排序 舊 > 新
+        if (sortBy === '4') {
+            newProducts = [...newProducts].sort((a, b) =>
+                a.create_time.localeCompare(b.create_time)
+            );
+        }
 
         return newProducts;
     };
 
     // TODO: 價格區間處理方式
 
-    // 當四個過濾表單元素有更動時
+    // 當過濾表單元素有更動時
     useEffect(() => {
-        // 搜尋字串太少不需要搜尋
-        if (searchWord.length < 3 && searchWord.length !== 0) return;
-
         let newProducts = [];
 
         // 處理搜尋
         newProducts = handleSearch(products, searchWord);
 
         // 處理排序
-        newProducts = handleSort(newProducts, sortBy);
-
-        // 處理勾選標記
-        newProducts = handleBrandTags(newProducts, brandTags);
+        // newProducts = handleSort(products, sortBy);
 
         setDisplayProducts(newProducts);
-    }, [searchWord, products, sortBy, brandTags]);
+    }, [products, searchWord]);
+
+    useEffect(() => {
+        let newProducts = [];
+
+        // 處理搜尋
+        // newProducts = handleSearch(products, searchWord);
+
+        // 處理排序
+        newProducts = handleSort(products, sortBy);
+
+        setDisplayProducts(newProducts);
+    }, [products, sortBy]);
 
     // Toggled
     const [productCompare, setProductCompare] = useState(false);
@@ -365,52 +357,12 @@ function Products() {
 
                                 {/* 進階篩選區塊 */}
                                 {filterToggled ? (
-                                    <div className="products-filter-menu position-absolute">
-                                        <div className="p-3">
-                                            <p className="mb-0 accent-light-color">
-                                                品牌
-                                            </p>
-                                            {brandTags.map((value, index) => {
-                                                return (
-                                                    <div
-                                                        className="form-check products-form-check"
-                                                        key={index}
-                                                    >
-                                                        <input
-                                                            className="form-check-input"
-                                                            type="checkbox"
-                                                            defaultValue
-                                                        />
-                                                        <label className="form-check-label">
-                                                            {value.name}
-                                                        </label>
-                                                    </div>
-                                                );
-                                            })}
-                                            <p className="mt-4 mb-0 accent-light-color">
-                                                顏色
-                                            </p>
-                                            <div className="d-flex mt-2">
-                                                <div className="cursor-pointer products-filter-color-box products-filter-no-color-box products-filter-color-box-active"></div>
-                                                <div className="cursor-pointer products-filter-color-box color"></div>
-                                            </div>
-                                            <p className="mt-4 mb-0 accent-light-color">
-                                                價格
-                                            </p>
-                                            <input
-                                                className="form-range"
-                                                type="range"
-                                                max="100"
-                                                min="0"
-                                            />
-                                            <p className="accent-light-color small m-0">
-                                                NT$0 ~ 190,000
-                                            </p>
-                                            <button className="products-btn-border-none products-filter-btn mt-3 w-100">
-                                                篩選
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <FilterBar
+                                        brandTags={brandTagsTypes}
+                                        setBrandTags={setBrandTags}
+                                        colorTags={colorTagsTypes}
+                                        setColorTags={setColorTags}
+                                    />
                                 ) : (
                                     ''
                                 )}
@@ -429,9 +381,11 @@ function Products() {
                                 </button>
                                 {/* 商品排序區塊 */}
                                 {sortToggled ? (
-                                    <MobileSortBar
+                                    <SortBar
+                                        sortByTypes={sortByTypes}
                                         sortBy={sortBy}
                                         setSortBy={setSortBy}
+                                        setSortToggled={setSortToggled}
                                     />
                                 ) : (
                                     ''
@@ -449,7 +403,10 @@ function Products() {
                                 </button>
                                 {searchToggled ? (
                                     <div className="products-Search-box position-absolute">
-                                        <SearchBar />
+                                        <SearchBar
+                                            searchWord={searchWord}
+                                            setSearchWord={setSearchWord}
+                                        />
                                     </div>
                                 ) : (
                                     ''
@@ -458,7 +415,7 @@ function Products() {
                         </div>
                     </div>
                 </div>
-                {/* 桌機 end */}
+                {/* 桌機 篩選 end */}
 
                 {/* 手機 篩選 */}
                 <div className="d-md-none">
@@ -490,7 +447,10 @@ function Products() {
                     </div>
                     {searchToggled ? (
                         <div className="products-Search-box">
-                            <SearchBar />
+                            <SearchBar
+                                searchWord={searchWord}
+                                setSearchWord={setSearchWord}
+                            />
                         </div>
                     ) : (
                         ''
@@ -509,7 +469,11 @@ function Products() {
                                     onClick={toggleCategoryToggled}
                                 >
                                     商品類別
-                                    <img src={arrowDown} alt="arrowDown" />
+                                    <img
+                                        src={arrowDown}
+                                        alt="arrowDown"
+                                        className="products-mobile-arrowDown-img"
+                                    />
                                 </div>
                             </div>
                             <div className="products-filter-nav-item border-end">
@@ -521,7 +485,11 @@ function Products() {
                                     onClick={toggleFilterToggled}
                                 >
                                     篩選條件
-                                    <img src={arrowDown} alt="arrowDown" />
+                                    <img
+                                        src={arrowDown}
+                                        alt="arrowDown"
+                                        className="products-mobile-arrowDown-img"
+                                    />
                                 </div>
                             </div>
                             <div className="products-filter-nav-item">
@@ -532,8 +500,12 @@ function Products() {
                                     className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center"
                                     onClick={toggleSortToggled}
                                 >
-                                    排序條件
-                                    <img src={arrowDown} alt="arrowDown" />
+                                    {sortByTitle(sortBy)}
+                                    <img
+                                        src={arrowDown}
+                                        alt="arrowDown"
+                                        className="products-mobile-arrowDown-img"
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -610,7 +582,12 @@ function Products() {
 
                         {/* 商品排序區塊 */}
                         {sortToggled ? (
-                            <SortBar sortBy={sortBy} setSortBy={setSortBy} />
+                            <MobileSortBar
+                                sortByTypes={sortByTypes}
+                                sortBy={sortBy}
+                                setSortBy={setSortBy}
+                                setSortToggled={setSortToggled}
+                            />
                         ) : (
                             ''
                         )}
@@ -633,12 +610,9 @@ function Products() {
 
                     <div className="col-12 col-md-10">
                         {/* 商品列 */}
-                        {/* TODO: 拆掉:hover樣式就不見了 */}
-                        {/* <ProductItem products={products} /> */}
                         <div className=" row row-cols-2 row-cols-md-3 row-cols-xl-4">
                             {error && <div>{error}</div>}
-
-                            {products.map((product) => {
+                            {displayProducts.map((product) => {
                                 return (
                                     <div
                                         className="col product"
@@ -713,6 +687,7 @@ function Products() {
                             })}
                         </div>
                         {/* 商品列 end */}
+
                         {/* 頁碼 */}
                         <div className="d-flex justify-content-center align-items-center mt-5">
                             {/* 頁碼 */}

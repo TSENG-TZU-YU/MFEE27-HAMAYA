@@ -192,10 +192,10 @@ button.products-btn-border-none {
 .products-filter-color-box {
   width: 20px;
   height: 20px;
-  margin: 0 5px;
+  margin: 4px;
 }
 
-.products-filter-color-box-active{
+.products-filter-color-box:active{
   outline: 3px solid $main-gary-light;
 }
 
@@ -339,4 +339,9 @@ ul.products-sub-category {
 .products-main-category-active {
   color: $main;
   border-left: $main solid 3px;
+}
+
+.products-mobile-arrowDown-img {
+  width: 25px;
+  height: 25px;
 }
