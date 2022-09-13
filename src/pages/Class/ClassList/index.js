@@ -24,11 +24,22 @@ function ClassList(props) {
 
     //  篩選 Toggled
     const [filterToggled, setFilterToggled] = useState(false);
-    const toggleFilterTrueFalse = () => setFilterToggled(!filterToggled);
+    const toggleFilterTrueFalse = () => {
+        if (filterToggled || searchToggled || sortToggled) {
+            setSortToggled(false);
+        }
+        setFilterToggled(!filterToggled);
+    };
 
     // 排序 Toggled
     const [sortToggled, setSortToggled] = useState(false);
-    const toggleSortTrueFalse = () => setSortToggled(!sortToggled);
+    const toggleSortTrueFalse = () => {
+        if (sortToggled || filterToggled || searchToggled) {
+            setFilterToggled(false);
+            setSearchToggled(false);
+        }
+        setSortToggled(!sortToggled);
+    };
 
     // 搜尋 Toggled
     const [searchToggled, setSearchToggled] = useState(false);
