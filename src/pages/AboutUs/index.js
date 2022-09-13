@@ -11,14 +11,51 @@ import axios from 'axios';
 function About(props) {
     // 表單
     const [ask, setAsk] = useState({
-        fullName: '桐谷和人',
+        fullName: '',
         user_id: '',
-        phone: '0912348763',
-        email: 'kirito@gmail.com',
-        q_category: '2',
-        title: '幫我撐十秒',
-        comment: 'C8763',
+        phone: '',
+        email: '',
+        q_category: '0',
+        title: '',
+        comment: '',
     });
+
+    // 錯誤訊息狀態
+    const [askerros, setAskErros] = useState({
+        fullName: '',
+        user_id: '',
+        phone: '',
+        email: '',
+        q_category: '',
+        title: '',
+        comment: '',
+    });
+
+    // 送出表單
+    async function asksubmit(e) {
+        e.preventDefault();
+        try {
+            const response = await axios.put(
+                'http://localhost:3001/api/aboutus/ask',
+                ask,
+                { withCredentials: true }
+            );
+            console.log(response.data);
+        } catch (err) {
+            console.log(err.response.data);
+
+            setAskErros({
+                fullName: err.response.data.fullName,
+                user_id: err.response.data.user_id,
+                phone: err.response.data.phone,
+                email: err.response.data.email,
+                q_category: err.response.data.q_category,
+                title: err.response.data.title,
+                comment: err.response.data.comment,
+            });
+        }
+    }
+
     const fieldChange = (e) => {
         const newAsk = { ...ask, [e.target.name]: e.target.value };
 
@@ -134,7 +171,7 @@ function About(props) {
             </div>
 
             <div className="bg-main-gary-light-color">
-                <div className="container mt-5 askform">
+                <form className="container mt-5 askform">
                     <div className="pt-5 d-flex">
                         <h4
                             className="me-2 text-nowrap"
@@ -153,7 +190,7 @@ function About(props) {
 
                     <div className="row p-5">
                         <div className="d-flex justify-content-between">
-                            <p className="">
+                            <p>
                                 歡迎來到 HAMAYA MUSIC
                                 ，若您有任何建議與諮詢，歡迎利用下方表單，我們將由專人儘快回覆您，謝謝。
                             </p>
@@ -161,11 +198,14 @@ function About(props) {
                                 *為必填項目
                             </p>
                         </div>
-                        <div className="col-12 col-md-6">
-                            <p className="d-flex justify-content-between">
+                        <div className="col-12 col-md-6 my-2">
+                            <div className="d-block d-md-none text-end">
+                                *為必填項目
+                            </div>
+                            <p className="d-flex m-0">
                                 姓名*
-                                <span className="d-block d-md-none">
-                                    *為必填項目
+                                <span className="error">
+                                    {askerros.fullName}
                                 </span>
                             </p>
 
@@ -178,8 +218,12 @@ function About(props) {
                                 className="w-100"
                             />
                         </div>
-                        <div className="col-12 col-md-6">
-                            <p>聯絡電話*</p>
+                        <div className="col-12 col-md-6 my-2">
+                            <p className="d-flex m-0">
+                                聯絡電話*
+                                <span className="error">{askerros.phone}</span>
+                            </p>
+
                             <input
                                 type="phone"
                                 name="phone"
@@ -189,19 +233,27 @@ function About(props) {
                                 className="w-100"
                             />
                         </div>
-                        <div className="col-12 col-md-6">
-                            <p>信箱*</p>
+                        <div className="col-12 col-md-6 my-2">
+                            <p className="d-flex m-0">
+                                信箱*
+                                <span className="error">{askerros.email}</span>
+                            </p>
                             <input
                                 type="mail"
-                                name="mail"
+                                name="email"
                                 value={ask.email}
                                 onChange={fieldChange}
                                 placeholder="請輸入信箱"
                                 className="w-100"
                             />
                         </div>
-                        <div className="col-12 col-md-6">
-                            <p>問題類型*</p>
+                        <div className="col-12 col-md-6 my-2">
+                            <p className="d-flex m-0">
+                                問題類型*
+                                <span className="error">
+                                    {askerros.q_category}
+                                </span>
+                            </p>
                             <select
                                 name="q_category"
                                 className="w-100"
@@ -218,8 +270,11 @@ function About(props) {
                                 <option value="7">其他問題</option>
                             </select>
                         </div>
-                        <div className="col-12">
-                            <p>問題主旨*</p>
+                        <div className="col-12 my-2">
+                            <p className="d-flex m-0">
+                                問題主旨*{' '}
+                                <span className="error">{askerros.title}</span>
+                            </p>
                             <input
                                 type="text"
                                 name="title"
@@ -229,8 +284,13 @@ function About(props) {
                                 onChange={fieldChange}
                             />
                         </div>
-                        <div className="col-12">
-                            <p>提問內容*</p>
+                        <div className="col-12 my-2">
+                            <p className="d-flex m-0">
+                                提問內容*{' '}
+                                <span className="error">
+                                    {askerros.comment}
+                                </span>
+                            </p>
                             <textarea
                                 type="text"
                                 name="comment"
@@ -244,21 +304,13 @@ function About(props) {
                     </div>
                     <div className="d-flex justify-content-center">
                         <button
+                            onClick={asksubmit}
                             className="bg-main-light-color accent-light-color border-0 px-5 py-1 mb-5"
-                            onClick={() => {
-                                const data = JSON.parse(JSON.stringify(ask));
-                                console.log(data);
-                                axios.put(
-                                    'http://localhost:3001/api/aboutus/ask',
-                                    data
-                                    // { withCredentials: true }
-                                );
-                            }}
                         >
                             確認送出
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
 
             <div className="container mt-5">
