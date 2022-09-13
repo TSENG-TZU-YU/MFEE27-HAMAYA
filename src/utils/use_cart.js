@@ -5,17 +5,29 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
     //臨時購物車開關
     const [shopCartState, setShopCartState] = useState(false);
-    //
-    // const [shopProductItem, setShopProductItem] = useState({
-    //     category_id: '',
-    //     product_id: '',
-    //     name: '',
-    //     image: '',
-    //     shipment: '',
-    //     price: '',
-    //     spec: '',
-    // });
-    //
+    //測試用
+    // const testShoppingCart = [
+    //     {
+    //         amount: 1,
+    //         category_id: 'A',
+    //         image: 'StageCustomBirch-01.webp',
+    //         name: 'Stage-Custom-Birch A345',
+    //         price: 42000,
+    //         product_id: 'A345',
+    //         shipment: 1,
+    //         spec: '材質:樺木',
+    //     },
+    //     {
+    //         amount: 1,
+    //         category_id: 'A',
+    //         image: 'mars.jpeg',
+    //         name: 'Stage-Custom-Birch A310',
+    //         price: 42000,
+    //         product_id: 'A310',
+    //         shipment: 1,
+    //         spec: '材質:樺木',
+    //     },
+    // ];
     const [productArr, setProductArr] = useState([]);
     const [shoppingCart, setShoppingCart] = useState([]);
     return (

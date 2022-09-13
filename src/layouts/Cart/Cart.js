@@ -10,7 +10,10 @@ function Cart() {
     // const { productArr } = useCart();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
+    console.log('shoppingCart in Cart', shoppingCart);
 
+    // console.log(testShoppingCart);
+    // let newShoppingCart = testShoppingCart.index
     // category_id:"A"
     // image:"StageCustomBirch-01.webp"
     // name:"Stage-Custom-Birch"
@@ -18,11 +21,24 @@ function Cart() {
     // product_id:"A345"
     // shipment:1
     // spec:"材質:樺木"
-    function getRemoveItem(itemId) {
-        let removeItem = shoppingCart.filter((item) => {
+
+    // let newShoppingCart = testShoppingCart.find((item, index, arr) => {
+
+    // });
+    // console.log('test newShoppingCart', newShoppingCart);
+
+    function handleRemoveItem(itemId) {
+        //取得localStorage內容
+        let shoppingCartLocal = JSON.parse(
+            localStorage.getItem('shoppingCart')
+        );
+        // console.log('shoppingCart', shoppingCartLocal);
+        //移除
+        let removeItem = shoppingCartLocal.filter((item) => {
             return item.product_id !== itemId;
         });
-        // console.log('removeItem', removeItem);
+        //存回localStorage
+        localStorage.setItem('shoppingCart', JSON.stringify(removeItem));
         setShoppingCart(removeItem);
     }
     //如果臨時購物車商品為0 則關閉
@@ -46,7 +62,9 @@ function Cart() {
                         return (
                             <div
                                 className="shoppingCartItem d-flex py-2"
-                                key={item.product_id}
+                                key={Math.random()
+                                    .toString(36)
+                                    .replace('3.', '')}
                             >
                                 {/* <img
                                     className="shoppingCartItemImg mx-3"
@@ -68,7 +86,7 @@ function Cart() {
                                     className="border-0 btn ms-auto"
                                     onClick={() => {
                                         // console.log(item.product_id);
-                                        getRemoveItem(item.product_id);
+                                        handleRemoveItem(item.product_id);
                                     }}
                                 >
                                     <img src={ashBin} alt="" />
