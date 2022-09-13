@@ -1,20 +1,16 @@
 import { Outlet } from 'react-router-dom';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../../utils/use_auth';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import MemberListTable from './components/MemberListTable';
 import MemberListMobile from './components/MemberListMobile';
 function Members(props) {
-    const { member, setMember, isLogin, setIsLogin, setOriginalPhotoURL } =
-        useAuth();
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
     const [bread, setbread] = useState('');
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     getMember();
-    //   }, []);
     useEffect(() => {
         async function getMember() {
             try {
@@ -25,7 +21,6 @@ function Members(props) {
                 console.log('已登入', response.data);
                 setIsLogin(true);
                 setMember(response.data);
-                setOriginalPhotoURL(response.data.photo);
             } catch (err) {
                 navigate('/');
                 console.log(err.response.data.message);

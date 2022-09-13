@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import member_img from '../../../../assets/svg/member_avatar.svg';
-import add_img from '../../../../assets/svg/add.svg';
 import './index.css';
-import axios from 'axios';
-import { API_URL, IMAGE_URL } from '../../../../utils/config';
+import { IMAGE_URL } from '../../../../utils/config';
 import { useAuth } from '../../../../utils/use_auth';
 function MemberListTable(props) {
     const {
@@ -12,13 +10,13 @@ function MemberListTable(props) {
         setMember,
         isLogin,
         setIsLogin,
-        originalPhotoURL,
-        setOriginalPhotoURL,
+        uploadPhotoURL,
+        setUploadPhotoURL,
     } = useAuth();
-    
-    useEffect(() => {
-        setOriginalPhotoURL(member.photo);
-    }, []);
+
+    // useEffect(() => {
+    //     setOriginalPhotoURL(member.photo);
+    // }, []);
 
     return (
         <>
@@ -27,8 +25,10 @@ function MemberListTable(props) {
                     <img
                         className="MemberListTable-img"
                         src={
-                            member.photo
-                                ? IMAGE_URL + originalPhotoURL
+                            uploadPhotoURL !== ''
+                                ? uploadPhotoURL
+                                : member.photo
+                                ? IMAGE_URL + member.photo
                                 : member_img
                         }
                         alt=""
