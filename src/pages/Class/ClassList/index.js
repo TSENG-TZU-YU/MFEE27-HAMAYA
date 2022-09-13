@@ -40,6 +40,57 @@ function ClassList(props) {
         setSearchToggled(!searchToggled);
     };
 
+    // 產品用的資料
+    // 1. 從伺服器來的原始資料
+    const [products, setProducts] = useState([]);
+    // 2. 用於網頁上經過各種處理(排序、搜尋、過濾)後的資料
+    const [displayProducts, setDisplayProducts] = useState([]);
+    console.log('displayProducts', displayProducts);
+    const [sortBy, setSortBy] = useState('');
+    console.log('sortBy', sortBy);
+
+    const handleSort = (products, sortBy) => {
+        let newProducts = [...products];
+
+        // 預設用id 小至大
+        if (sortBy === '' && newProducts.length > 0) {
+            newProducts = [...newProducts].sort((a, b) => a.id - b.id);
+        }
+
+        // 以價格排序-低到高
+        if (sortBy === '1') {
+            newProducts = [...newProducts].sort((a, b) => a.price - b.price);
+        }
+        // 以價格排序-高到低
+        if (sortBy === '2') {
+            newProducts = [...newProducts].sort((a, b) => b.price - a.price);
+        }
+        // 以時間排序-新到舊
+        if (sortBy === '3') {
+            newProducts = [...newProducts].sort(
+                (a, b) => a.start_date - b.start_date
+            );
+        }
+        // 以時間排序-新到舊
+        if (sortBy === '4') {
+            newProducts = [...newProducts].sort(
+                (a, b) => b.start_date - a.start_date
+            );
+        }
+
+        console.log(newProducts, products, sortBy);
+
+        return newProducts;
+    };
+
+    useEffect(() => {
+        let newProducts = [];
+
+        // 處理排序
+        newProducts = handleSort(products, sortBy);
+        setDisplayProducts(newProducts);
+    }, [products, sortBy]);
+
     return (
         <Container>
             <div className="d-flex mt-5 justify-content-between align-items-center">
@@ -91,6 +142,18 @@ function ClassList(props) {
                                                 吉他/烏克麗麗
                                             </option>
                                             <option value="6">打擊樂器</option>
+                                            {selectCourse ? (
+                                                ''
+                                            ) : (
+                                                <>
+                                                    <option value="6">
+                                                        音樂啟蒙
+                                                    </option>{' '}
+                                                    <option value="6">
+                                                        音樂體驗
+                                                    </option>
+                                                </>
+                                            )}
                                         </select>
                                         <p
                                             className="toggled-p mb-0  mt-1 mb-1"
@@ -120,10 +183,18 @@ function ClassList(props) {
                                 {sortToggled ? (
                                     <div className="sort-menu-class text-center">
                                         <ul className="p-2">
-                                            <li>價格：低到高</li>
-                                            <li>價格：高到低</li>
-                                            <li>上架：新到舊</li>
-                                            <li>上架：舊到新</li>
+                                            <li onClick={(e) => setSortBy('1')}>
+                                                價格：低到高
+                                            </li>
+                                            <li onClick={(e) => setSortBy('2')}>
+                                                價格：高到低
+                                            </li>
+                                            <li onClick={(e) => setSortBy('3')}>
+                                                上架：新到舊
+                                            </li>
+                                            <li onClick={(e) => setSortBy('4')}>
+                                                上架：舊到新
+                                            </li>
                                         </ul>
                                     </div>
                                 ) : (
@@ -287,7 +358,20 @@ function ClassList(props) {
             </Row>
             {/* 課程選擇 toggle  end*/}
             {/* 課程選擇 頁面*/}
-            {selectCourse ? <AdultCourse /> : <ChildrenCourse />}
+            {selectCourse ? (
+                <AdultCourse
+                    products={displayProducts}
+                    // 原始資料 跟 改動資料都要傳入子層
+                    setProducts={setProducts}
+                    setDisplayProducts={setDisplayProducts}
+                />
+            ) : (
+                <ChildrenCourse
+                    products={displayProducts}
+                    setProducts={setProducts}
+                    setDisplayProducts={setDisplayProducts}
+                />
+            )}
             {/* 課程選擇 頁面 end*/}
         </Container>
     );

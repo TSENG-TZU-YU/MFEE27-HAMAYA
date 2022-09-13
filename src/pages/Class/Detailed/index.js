@@ -49,9 +49,7 @@ function Detailed() {
         getAdultClass();
     }, []);
 
-    useEffect(() => {
-        // console.log('useEffect[data]', data);
-    }, [data]);
+    useEffect(() => {}, [data]);
 
     return (
         <div>

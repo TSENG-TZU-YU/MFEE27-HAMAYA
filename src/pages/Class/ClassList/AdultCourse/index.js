@@ -9,9 +9,10 @@ import StarRating from '../../../../components/Star/StarRating';
 import Car from '../../../../components/Car/Car';
 import Favorite from '../../../../components/Favorite';
 
-function AdultCourse(props) {
+function AdultCourse({ products, setProducts, setDisplayProducts }) {
     // const [error, setError] = useState(null);
-    const [data, setData] = useState([]);
+    //撈原始資料
+    // const [data, setData] = useState([]);
     // const [active, setActive] = useState(null);
 
     // 分頁  Toggled
@@ -42,29 +43,31 @@ function AdultCourse(props) {
     };
 
     useEffect(() => {
-        console.log('classAdult', 'useEffect []');
         let getAdultClass = async () => {
             let response = await axios.get(
                 `http://localhost:3001/api/class/list?class=1&page=${page}`
             );
-            setData(response.data.data);
+            setProducts(response.data.data);
+            setDisplayProducts(response.data.data);
+
             // 從後端取得總頁數 (lastPage)
             setLastPage(response.data.pagination.lastPage);
             // console.log(response.data.pagination.lastPage);
         };
         getAdultClass();
     }, [page]);
-    // useEffect(() => {
-    //     console.log('useEffect[data]', data);
-    // }, [data]);
+
+    useEffect(() => {
+        console.log('products', products);
+    }, [products]);
 
     return (
         <div>
             {/* 已灌資料庫 */}
-            {data.map((classAdult, index) => {
+            {products.map((classAdult) => {
                 return (
                     <div
-                        key={index}
+                        key={classAdult.id}
                         className="d-lg-flex justify-content-lg-center align-items-lg-center  mb-5"
                     >
                         <Link to={`${classAdult.id}`}>
