@@ -35,7 +35,7 @@ function HomeScroll(props) {
                     </SwiperSlide>
                 ))}
             </Swiper>
-            <div class="container d-flex justify-content-end swiper-pagination swiper-pagination-1"></div>
+            <div className="container d-flex justify-content-end swiper-pagination swiper-pagination-1"></div>
         </>
     );
 }
