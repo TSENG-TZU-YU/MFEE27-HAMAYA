@@ -3,8 +3,16 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
 function FilterBar(props) {
-    const { brandTags, setBrandTags, colorTags, setColorTags } = props;
-    console.log(colorTags);
+    const {
+        brandTags,
+        setBrandTags,
+        colorTags,
+        setColorTags,
+        priceMax,
+        setPriceMax,
+        priceMin,
+        setPriceMin,
+    } = props;
     return (
         <div className="products-filter-menu position-absolute">
             <div className="p-3">
@@ -41,11 +49,18 @@ function FilterBar(props) {
                     })}
                 </div>
                 <p className="mt-4 mb-0 accent-light-color">價格</p>
-                {/* <input className="form-range" type="range" max="100" min="0" /> */}
                 <div className="products-slider">
-                    <Slider className="slider" range min={0} max={20} defaultValue={[3, 10]} />
+                    <Slider
+                        className="slider"
+                        range
+                        min={priceMin}
+                        max={priceMax}
+                        defaultValue={[3, 10]}
+                    />
                 </div>
-                <p className="accent-light-color small m-0">NT$0 ~ 190,000</p>
+                <p className="accent-light-color small m-0">
+                    NT${priceMin} ~ {priceMax}
+                </p>
                 <button className="products-btn-border-none products-filter-btn mt-3 w-100">
                     篩選
                 </button>
