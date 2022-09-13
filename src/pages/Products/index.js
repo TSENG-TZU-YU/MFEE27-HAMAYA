@@ -41,7 +41,8 @@ import arrowDown from '../../assets/ProductsImg/icon/arrow_down.svg';
 
 //購物車
 import { useCart } from '../../utils/use_cart';
-import Cart from '../../layouts/Cart/Cart';
+// import Cart from '../../layouts/Cart/Cart';
+import { RiContactsBookLine } from 'react-icons/ri';
 
 function Products() {
     const [url, setUrl] = useState('');
@@ -121,6 +122,7 @@ function Products() {
                 `${API_URL}/products?mainId=${mainId}&subId=${subId}`
             );
             setProducts(response.data.data);
+            console.log('所有產品', response.data.data);
             setDisplayProducts(response.data.data);
         };
         getProducts();
@@ -299,7 +301,9 @@ function Products() {
     };
 
     //購物車
-    const { shopItemCart, setShopItemCart } = useCart();
+    const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
+        useCart();
+
 
     return (
         <>
@@ -648,8 +652,24 @@ function Products() {
                                             </div>
                                             <button
                                                 className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
-                                                onClick={() => {
-                                                    setShopItemCart(true);
+                                                onClick={(e) => {
+                                                    setShopCartState(true);
+
+                                                    setShoppingCart([
+                                                        ...shoppingCart,
+                                                        {
+                                                            product_id:
+                                                                product.product_id,
+                                                            category_id:
+                                                                product.category_id,
+                                                            image: product.image,
+                                                            name: product.name,
+                                                            price: product.price,
+                                                            spec: product.spec,
+                                                            shipment:
+                                                                product.shipment,
+                                                        },
+                                                    ]);
                                                 }}
                                             >
                                                 <img
