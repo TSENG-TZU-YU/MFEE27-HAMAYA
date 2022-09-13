@@ -58,7 +58,7 @@ function ClassList(props) {
     const [displayProducts, setDisplayProducts] = useState([]);
     console.log('displayProducts', displayProducts);
     const [sortBy, setSortBy] = useState('');
-    console.log('sortBy', sortBy);
+    const [filterBy, setFilterBy] = useState('');
 
     const handleSort = (products, sortBy) => {
         let newProducts = [...products];
@@ -88,7 +88,10 @@ function ClassList(props) {
                 (a, b) => b.start_date - a.start_date
             );
         }
-
+        if (filterBy === '2') {
+            newProducts = [...newProducts].sort((a) => (a.ins_sub_id = '1'));
+            console.log('filterBy', filterBy);
+        }
         return newProducts;
     };
 
@@ -98,7 +101,7 @@ function ClassList(props) {
         // 處理排序
         newProducts = handleSort(products, sortBy);
         setDisplayProducts(newProducts);
-    }, [products, sortBy]);
+    }, [products, sortBy, filterBy]);
 
     return (
         <Container>
@@ -142,7 +145,13 @@ function ClassList(props) {
                                         >
                                             樂器類型
                                         </p>
-                                        <select className="select-class mt-1 border-0">
+                                        <select
+                                            className="select-class mt-1 border-0"
+                                            value={filterBy}
+                                            onChange={(e) =>
+                                                setFilterBy(e.target.value)
+                                            }
+                                        >
                                             <option value="1">所有樂器</option>
                                             <option value="2">琴鍵樂器</option>
                                             <option value="3">管樂器</option>

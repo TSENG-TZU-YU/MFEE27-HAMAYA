@@ -28,11 +28,7 @@ import shop_car from '../../../assets/svg/add_shopping_cart.svg';
 function Detailed() {
     // 課程 Toggle
     const [detailedSelect, setDetailedSelect] = useState(true);
-    window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'auto',
-    });
+
     const [data, setData] = useState([]);
 
     // 把網址上的 :detailedID 拿出來
@@ -44,7 +40,12 @@ function Detailed() {
                 `http://localhost:3001/api/class/list/${detailedID}`
             );
             setData(response.data);
-            console.log('data', response.data);
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'auto',
+            });
+            // console.log('data', response.data);
         };
         getAdultClass();
     }, []);
@@ -282,7 +283,7 @@ function Detailed() {
                         <h4>課程評價</h4>
                     </button>
                 </Row>
-                {detailedSelect ? <Information /> : <Comment />}
+                {detailedSelect ? <Information data={data} /> : <Comment />}
                 <div className="  d-flex mt-5  px-0">
                     <h4
                         className=" me-5 text-nowrap fw-bold"

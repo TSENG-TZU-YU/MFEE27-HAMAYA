@@ -1,6 +1,7 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import { useOutletContext } from 'react-router-dom';
-// import { useClass } from './UseContext';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import './index.scss';
 
 import { Link } from 'react-router-dom';
@@ -18,10 +19,25 @@ import art04 from '../../assets/ClassImg/Rectangle 346.png';
 import arrow from '../../assets/svg/arrow_back_ios_new.svg';
 import Adult_Course from '../../assets/ClassImg/Adult Course.png';
 import Children_Lessons from '../../assets/ClassImg/Children Lessons.png';
-import { teacherImages } from '../../album/teacher';
+import decorate1 from '../../assets/ClassImg/音樂裝飾1.png';
+import decorate2 from '../../assets/ClassImg/音樂裝飾2.png';
+import decorate3 from '../../assets/ClassImg/音樂裝飾3.png';
 
 function Class(props) {
     const [selectCourse, setSelectCourse] = useOutletContext();
+
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        let getAdultClass = async () => {
+            let response = await axios.get(`http://localhost:3001/api/class`);
+            setData(response.data);
+            console.log(response.data);
+        };
+        getAdultClass();
+    }, []);
+
+    useEffect(() => {}, [data]);
 
     return (
         <>
@@ -168,6 +184,21 @@ function Class(props) {
             </Container>
 
             <div className="session-bg ">
+                <img
+                    className="decorate1 d-none d-lg-block  img-fluid"
+                    src={decorate1}
+                    alt="decorate1"
+                />
+                <img
+                    className="decorate2  img-fluid"
+                    src={decorate2}
+                    alt="decorate2"
+                />
+                <img
+                    className="decorate3 d-none d-lg-block "
+                    src={decorate3}
+                    alt="decorate3"
+                />
                 <Container>
                     <div className="d-flex pt-5 ">
                         <h4
@@ -184,8 +215,8 @@ function Class(props) {
                         </h4>
                         <div className="vector4 mt-3"></div>
                     </div>
-                    <Row className="mt-5 text-center">
-                        <Col lg={6} className="pb-5">
+                    <Row className="mt-5 text-center pb-md-5 ">
+                        <Col lg={6} className="pb-5 mb-md-5 ">
                             <Link to="list?class=1">
                                 <img
                                     src={Adult_Course}
@@ -200,7 +231,7 @@ function Class(props) {
                                 </h3>
                             </Link>
                         </Col>
-                        <Col lg={6} className="pb-5">
+                        <Col lg={6} className="pb-5 ">
                             <Link to="list?class=2">
                                 <img
                                     className="cursor-pinter img-fluid"
@@ -230,7 +261,7 @@ function Class(props) {
                     <h4 className="engText me-3 text-nowrap">TEACHER</h4>
                     <div className="vector3  mt-3"></div>
                 </div>
-                <div className="d-flex  justify-content-center align-items-center mt-5 ">
+                <div className="d-flex  justify-content-center align-items-center mt-5 mb-5">
                     <div
                         style={{
                             width: '100%',
@@ -238,8 +269,9 @@ function Class(props) {
                             padding: '15px',
                         }}
                     >
-                        <Teacher images={teacherImages} />
-                        <TeacherMob images={teacherImages} />
+                        {/* images={teacherImages} */}
+                        <Teacher data={data} />
+                        <TeacherMob data={data} />
                     </div>
                 </div>
             </Container>
