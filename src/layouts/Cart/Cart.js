@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useAuth } from '../../utils/use_auth';
 import { useCart } from '../../utils/use_cart';
+import axios from 'axios';
+import { API_URL } from '../../utils/config';
 import './Cart.scss';
 import ashBin from '../../assets/svg/delete.svg';
 //修改 CheckOut 顏色
 import { ReactComponent as CheckOut } from '../../assets/svg/shopping_cart_checkout.svg';
-import img from '../../album/products/mars.jpeg';
 
 function Cart() {
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
     console.log('shoppingCart in Cart', shoppingCart);
@@ -20,6 +23,18 @@ function Cart() {
         let shoppingCartLocal = JSON.parse(
             localStorage.getItem('shoppingCart')
         );
+        if (member !== null && member.id !== '') {
+            console.log('hey member here in shoppingCart', member);
+            //TODO:讀資料庫 進行刪除(未完)
+            let getCart = async () => {
+                let response = await axios.get(
+                    `${API_URL}/cart?user_id=${member.id}&product_id=${itemId}`
+                );
+                console.log(response.data);
+                alert(response.data.message);
+            };
+            getCart();
+        }
         //移除
         let removeItem = shoppingCartLocal.filter((item) => {
             return item.product_id !== itemId;
@@ -28,6 +43,12 @@ function Cart() {
         localStorage.setItem('shoppingCart', JSON.stringify(removeItem));
         setShoppingCart(removeItem);
     }
+
+    // async function setItemDelete(itemsData) {
+    //     let response = await axios.post(`${API_URL}/cart/:itemData`, itemsData);
+    //     // console.log(response.data);
+    //     alert(response.data.message);
+    // }
 
     return (
         <div className="position-relative">
