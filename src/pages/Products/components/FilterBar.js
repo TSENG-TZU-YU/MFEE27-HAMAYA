@@ -6,30 +6,32 @@ import { brandTagsTypes } from '../constants';
 function FilterBar(props) {
     const [activeColorTags, setActiveColorTags] = useState('');
     const {
-        setBrandTags,
         colorTags,
         setColorTags,
         selectedPrice,
-        changePrice,
         setSelectedPrice,
+        maxPrice,
+        changeChecked,
+        brandTags,
     } = props;
     return (
         <div className="products-filter-menu position-absolute">
             <div className="p-3">
                 <p className="mb-0 accent-light-color">品牌</p>
-                {brandTagsTypes.map((value, index) => {
+                {brandTags.map((value, index) => {
                     return (
                         <div
                             className="form-check products-form-check"
-                            key={index}
+                            key={Math.random().toString(36).replace('4.', '')}
                         >
                             <input
                                 className="form-check-input"
                                 type="checkbox"
-                                defaultValue
+                                checked={value.checked}
+                                onChange={() => changeChecked(value.id)}
                             />
                             <label className="form-check-label">
-                                {value.name}
+                                {value.brandName}
                             </label>
                         </div>
                     );
@@ -79,7 +81,7 @@ function FilterBar(props) {
                             onChange={(value) => setSelectedPrice(value)}
                             value={selectedPrice}
                             min={0}
-                            max={7380000}
+                            max={maxPrice}
                         />
                     </div>
                 </div>
