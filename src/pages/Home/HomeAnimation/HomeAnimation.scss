@@ -29,7 +29,7 @@
   display: grid;
   grid-template-columns: 1fr 2fr;
   align-items: center;
-  padding-bottom: 1vmin;
+  // padding-bottom: 2vmin;
   height: 100vh;
   width: 100%;
   background-color: $main-gary-light;
@@ -53,8 +53,9 @@
   font-size: 8vw;
   width: 100%;
   z-index: 2;
-  padding-top: 8rem;
-  z-index: 50;
+  //字的大小
+  // padding-top: 8rem;
+  // z-index: 50;
 
 
   // start
@@ -63,6 +64,8 @@
     display: inline-block;
   }
 }
+
+
 
 @keyframes text-clip {
   from {
@@ -90,6 +93,8 @@
     transform: none;
   }
 }
+
+
 
 .cafe,
 .mozart {
@@ -136,15 +141,16 @@
   display: inline-block;
 }
 
-.image {
+.home-video{
   grid-row: 1;
   grid-column: 2;
   margin-left: -2rem;
   opacity: 0.7;
+ 
 
-  animation: image-in 1s cubic-bezier(0.5, 0, 0.1, 1) 2s backwards;
+  animation: home-video-in 1s cubic-bezier(0.5, 0, 0.1, 1) 3s backwards;
 
-  @keyframes image-in {
+  @keyframes home-video-in {
     from {
       clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
     }
@@ -153,18 +159,18 @@
     }
   }
 
-video  {
-    display: block;
-  
-    width: 100%;
-    // height: 100%;
-  }
+}
+
+video {
+  display: block;
+  width: 100%;
+  // height: 100%;
 }
 
 // Replay animation!
-:root:active * {
-  animation: none !important;
-}
+// :root:active * {
+//   animation: none !important;
+// }
 
 
 .font5 {
@@ -269,3 +275,49 @@ video  {
   }
 }
 
+@media screen and (max-width:768px) {
+
+  #app{
+    height: 40vh;
+  }
+
+
+  
+video{
+display: none;
+width: 100%;
+// position:absolute;
+// top:50px;
+// right:100px;
+
+
+  }
+
+  .title{
+  text-align: center;
+
+  }
+
+  .font5{
+    font-size: 15px;
+    position:relative;
+    // bottom: -2rem;
+    right: 1rem;
+    color: $main;
+    font-weight: bold;
+    text-align: center;
+
+  }
+  
+  .title2{
+    padding-left: 1em;
+    grid-column: 1 / -1;
+    grid-row: 1;
+    font-family: "Prata", serif;
+    font-size: 3vw;
+    width: 100%;
+    z-index: 2;
+  }
+}
+
+  

@@ -5,6 +5,7 @@ import { useCart } from '../utils/use_cart';
 function MainOutlet(props) {
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
+    //TODO:cart 寫在這裡有問題
     //判斷localStorage是否有東西
     // useEffect(() => {
     //     let shoppingCartLocalCheck = JSON.parse(
