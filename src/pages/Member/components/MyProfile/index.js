@@ -12,46 +12,46 @@ function MyProfile(props) {
         setMember,
         isLogin,
         setIsLogin,
-        originalPhotoURL,
-        setOriginalPhotoURL,
+        uploadPhotoURL,
+        setUploadPhotoURL,
     } = useAuth();
-    const [originalmember, setOriginalMember] = useState(null);
+    // const [originalmember, setOriginalMember] = useState(null);
     const [password, setPassword] = useState({
         password: '********',
         repassword: '',
     });
+
     const [setbread] = useOutletContext();
+
+    const [saveMember, setSaveMember] = useState({
+        id: '',
+        fullName: '',
+        email: '',
+        phone: '',
+        city: '',
+        dist: '',
+        address: '',
+        birthday: '',
+        photo: '',
+        sub: '',
+        loginDt: '',
+    });
     useEffect(() => {
         setbread('會員資料');
-        setOriginalMember({ ...member });
-    }, []);
+        setSaveMember({ ...member });
+    }, [member]);
 
-    // let saveMember = {
-    //     id: member.id,
-    //     fullName: member.name,
-    //     email: member.email,
-    //     phone: member.phone,
-    //     city: member.city,
-    //     dist: member.dist,
-    //     address: member.address,
-    //     birthday: member.birthday,
-    //     photo: member.photo,
-    //     sub: member.sub,
-    //     loginDt: new Date().toISOString(),
-    // };
-    const [city, setCity] = useState(member.city);
-    const [dist, setDist] = useState(member.dist);
     const [editProfile, setEditProfile] = useState(true);
     const [editPassword, setEditPassword] = useState(true);
 
     const ProfileChange = (e) => {
-        setMember({ ...member, [e.target.name]: e.target.value });
+        setSaveMember({ ...saveMember, [e.target.name]: e.target.value });
     };
     const photoChange = (e) => {
         // type=file 的 input
         // 選好的檔案是放在 e.target.files[0]
-        // seAddimg(URL.createObjectURL(e.target.files[0]));
-        setMember({ ...member, photo: e.target.files[0] });
+        setUploadPhotoURL(URL.createObjectURL(e.target.files[0]));
+        setSaveMember({ ...saveMember, photo: e.target.files[0] });
     };
     const passwordChange = (e) => {
         setPassword({ ...password, [e.target.name]: e.target.value });
@@ -61,15 +61,15 @@ function MyProfile(props) {
         e.preventDefault();
         try {
             let formData = new FormData();
-            formData.append('id', member.id);
-            formData.append('fullName', member.fullName);
-            formData.append('phone', member.phone);
-            formData.append('city', member.city);
-            formData.append('dist', member.dist);
-            formData.append('address', member.address);
-            formData.append('birthday', member.birthday);
-            formData.append('photo', member.photo);
-            formData.append('sub', member.sub);
+            formData.append('id', saveMember.id);
+            formData.append('fullName', saveMember.fullName);
+            formData.append('phone', saveMember.phone);
+            formData.append('city', saveMember.city);
+            formData.append('dist', saveMember.dist);
+            formData.append('address', saveMember.address);
+            formData.append('birthday', saveMember.birthday);
+            formData.append('photo', saveMember.photo);
+            formData.append('sub', saveMember.sub);
             let response = await axios.patch(
                 `${API_URL}/auth/profile`,
                 formData,
@@ -77,11 +77,10 @@ function MyProfile(props) {
                     withCredentials: true,
                 }
             );
-            console.log(response.data);
+            console.log(response.data[0]);
             setEditProfile(true);
-            alert(response.data.message);
-            setMember({ ...member, photo: response.data.photo });
-            setOriginalPhotoURL(response.data.photo);
+            alert(response.data[1]);
+            setMember(response.data[0]);
         } catch (err) {
             console.log(err.response.data);
             alert(err.response.data.message);
@@ -120,7 +119,7 @@ function MyProfile(props) {
                         <tr>
                             <td className="text-primary">會員帳號</td>
                             <td>
-                                <span>{member.email}</span>
+                                <span>{saveMember.email}</span>
                             </td>
                         </tr>
                         <tr>
@@ -141,7 +140,7 @@ function MyProfile(props) {
                             <td>
                                 <input
                                     type="text"
-                                    value={member.fullName}
+                                    value={saveMember.fullName}
                                     name="fullName"
                                     onChange={ProfileChange}
                                     disabled={editProfile}
@@ -153,7 +152,7 @@ function MyProfile(props) {
                             <td>
                                 <input
                                     type="date"
-                                    value={member.birthday}
+                                    value={saveMember.birthday}
                                     name="birthday"
                                     onChange={ProfileChange}
                                     disabled={editProfile}
@@ -165,7 +164,7 @@ function MyProfile(props) {
                             <td>
                                 <input
                                     type="text"
-                                    value={member.phone}
+                                    value={saveMember.phone}
                                     name="phone"
                                     onChange={ProfileChange}
                                     disabled={editProfile}
@@ -179,7 +178,7 @@ function MyProfile(props) {
                                 <select
                                     className="mx-1"
                                     name="city"
-                                    value={member.city}
+                                    value={saveMember.city}
                                     onChange={ProfileChange}
                                     disabled={editProfile}
                                 >
@@ -198,14 +197,14 @@ function MyProfile(props) {
                                 鄉鎮市區
                                 <select
                                     className="mx-1"
-                                    value={member.dist}
+                                    value={saveMember.dist}
                                     name="dist"
                                     onChange={ProfileChange}
                                     disabled={editProfile}
                                 >
                                     <option value="">選擇地區</option>
                                     {distData.map((data, index) => {
-                                        if (data.city === member.city)
+                                        if (data.city === saveMember.city)
                                             return (
                                                 <option
                                                     key={index}
@@ -223,7 +222,7 @@ function MyProfile(props) {
                             <td>
                                 <input
                                     type="text"
-                                    value={member.address}
+                                    value={saveMember.address}
                                     name="address"
                                     onChange={ProfileChange}
                                     disabled={editProfile}
@@ -240,7 +239,7 @@ function MyProfile(props) {
                             type="radio"
                             id="sub"
                             name="sub"
-                            checked={member.sub == 1}
+                            checked={saveMember.sub == 1}
                             value="1"
                             onChange={ProfileChange}
                             disabled={editProfile}
@@ -253,7 +252,7 @@ function MyProfile(props) {
                             id="unsub"
                             name="sub"
                             //TODO:資料庫修改 數字 字串 待解決
-                            checked={member.sub == 0}
+                            checked={saveMember.sub == 0}
                             value="0"
                             onChange={ProfileChange}
                             disabled={editProfile}
@@ -282,10 +281,12 @@ function MyProfile(props) {
                         <button
                             className="myprofile_btn2 mb-4 accent-light-color bg-accent-color border-0 mx-1"
                             onClick={() => {
-                                setMember({ ...originalmember });
+                                setSaveMember({ ...member });
+                                setUploadPhotoURL('');
+                                // setMember({ ...originalmember });
                                 setEditProfile(true);
-                                setCity(member.city);
-                                setDist(member.dist);
+                                // setCity(member.city);
+                                // setDist(member.dist);
                             }}
                         >
                             取消
@@ -294,37 +295,39 @@ function MyProfile(props) {
                 )}
             </form>
             <h5 className="gary-dark-color mt-4">修改密碼</h5>
-            <table className="myprofile_table ">
-                <thead></thead>
-                <tbody>
-                    <tr>
-                        <td className="text-primary">新密碼</td>
-                        <td>
-                            <input
-                                type="password"
-                                value={password.password}
-                                name="password"
-                                onChange={passwordChange}
-                                disabled={editPassword}
-                                placeholder="請輸入新密碼"
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="text-primary">確認新密碼</td>
-                        <td>
-                            <input
-                                type="password"
-                                value={password.repassword}
-                                name="repassword"
-                                onChange={passwordChange}
-                                disabled={editPassword}
-                                placeholder="再次輸入新密碼"
-                            />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <form>
+                <table className="myprofile_table ">
+                    <thead></thead>
+                    <tbody>
+                        <tr>
+                            <td className="text-primary">新密碼</td>
+                            <td>
+                                <input
+                                    type="password"
+                                    value={password.password}
+                                    name="password"
+                                    onChange={passwordChange}
+                                    disabled={editPassword}
+                                    placeholder="請輸入新密碼"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="text-primary">確認新密碼</td>
+                            <td>
+                                <input
+                                    type="password"
+                                    value={password.repassword}
+                                    name="repassword"
+                                    onChange={passwordChange}
+                                    disabled={editPassword}
+                                    placeholder="再次輸入新密碼"
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
             {editPassword ? (
                 <button
                     className="myprofile_btn mb-4 accent-light-color bg-main-color border-0 "

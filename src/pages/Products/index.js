@@ -265,6 +265,25 @@ function Products() {
     //購物車
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
+    console.log('shoppingCart in products', shoppingCart);
+    //存localStorage
+    const setNewLocal = (newLocal) => {
+        //塞資料進去
+        localStorage.setItem('shoppingCart', JSON.stringify(newLocal));
+    };
+    //
+    function getCheck(itemInfo) {
+        let newItemInfo = shoppingCart.find((v) => {
+            return v.product_id === itemInfo.product_id;
+        });
+        // console.log('newItemInfo', newItemInfo); //newItemInfo ['A345', 'A345', 'A310']
+        if (!newItemInfo) {
+            //臨時購物車
+            setShoppingCart([...shoppingCart, { ...itemInfo }]);
+            //localStorage
+            setNewLocal([...shoppingCart, { ...itemInfo }]);
+        }
+    }
 
     return (
         <>
@@ -594,22 +613,19 @@ function Products() {
                                                 className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
                                                 onClick={(e) => {
                                                     setShopCartState(true);
-
-                                                    setShoppingCart([
-                                                        ...shoppingCart,
-                                                        {
-                                                            product_id:
-                                                                product.product_id,
-                                                            category_id:
-                                                                product.category_id,
-                                                            image: product.image,
-                                                            name: product.name,
-                                                            price: product.price,
-                                                            spec: product.spec,
-                                                            shipment:
-                                                                product.shipment,
-                                                        },
-                                                    ]);
+                                                    getCheck({
+                                                        product_id:
+                                                            product.product_id,
+                                                        category_id:
+                                                            product.category_id,
+                                                        image: product.image,
+                                                        name: product.name,
+                                                        amount: 1,
+                                                        price: product.price,
+                                                        spec: product.spec,
+                                                        shipment:
+                                                            product.shipment,
+                                                    });
                                                 }}
                                             >
                                                 <img

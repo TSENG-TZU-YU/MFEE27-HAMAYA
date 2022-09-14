@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, createContext } from 'react';
+import React, { useState, useContext, createContext } from 'react';
 
 // 建立新的認証用的context
 const AuthContext = createContext();
@@ -21,8 +21,8 @@ export const AuthProvider = ({ children }) => {
         sub: '',
         loginDt: '',
     });
-    //會員圖片
-    const [originalPhotoURL, setOriginalPhotoURL] = useState(null);
+    //暫時新增圖片
+    const [uploadPhotoURL, setUploadPhotoURL] = useState('');
 
     return (
         <AuthContext.Provider
@@ -31,8 +31,8 @@ export const AuthProvider = ({ children }) => {
                 setMember,
                 isLogin,
                 setIsLogin,
-                originalPhotoURL,
-                setOriginalPhotoURL,
+                uploadPhotoURL,
+                setUploadPhotoURL,
             }}
         >
             {children}
