@@ -24,16 +24,18 @@ function Cart() {
             localStorage.getItem('shoppingCart')
         );
         if (member !== null && member.id !== '') {
-            console.log('hey member here in shoppingCart', member);
-            //TODO:讀資料庫 進行刪除(未完)
-            let getCart = async () => {
-                let response = await axios.get(
-                    `${API_URL}/cart?user_id=${member.id}&product_id=${itemId}`
-                );
-                console.log(response.data);
+            //讀資料庫 進行刪除
+            let setItemDataDelete = async () => {
+                let response = await axios.delete(`${API_URL}/cart`, {
+                    data: {
+                        user_id: member.id,
+                        product_id: itemId,
+                    },
+                });
+                // console.log(response.data);
                 alert(response.data.message);
             };
-            getCart();
+            setItemDataDelete();
         }
         //移除
         let removeItem = shoppingCartLocal.filter((item) => {
@@ -99,27 +101,6 @@ function Cart() {
                             </div>
                         );
                     })}
-                    {/* <div className="shoppingCartItem d-flex py-2">
-                        <img
-                            className="shoppingCartItemImg mx-3"
-                            src={img}
-                            alt=""
-                        />
-                        <div className="d-flex flex-column">
-                            <span className="small main-color mb-5">
-                                YAMAHA U系列 U1...
-                            </span>
-                            <span className="small gary-dark-color">
-                                數量:1
-                            </span>
-                            <span className="small gary-dark-color">
-                                價錢:5000
-                            </span>
-                        </div>
-                        <button className="border-0 btn">
-                            <img src={ashBin} alt="" />
-                        </button>
-                    </div> */}
                 </div>
                 <div className="pt-2">
                     <button className="border-0 bg-main-color checkOutBtn py-2">
