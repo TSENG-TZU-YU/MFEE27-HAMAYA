@@ -79,9 +79,7 @@ function Products() {
     const [colorTagsTypes, setColorTagsTypes] = useState([]);
 
     // 價格
-    // const [priceMax, setPriceMax] = useState(7380000);
-    // const [priceMin, setPriceMin] = useState(0);
-    const [selectedPrice, setSelectedPrice] = useState([1000, 5000]);
+    const [selectedPrice, setSelectedPrice] = useState([0, 7380000]);
 
     // 取得商品次類別 api
     useEffect(() => {
@@ -157,14 +155,11 @@ function Products() {
         return newProducts;
     };
 
-    // 判斷是否有選取顏色篩選 有就改變 selectedRating
-    const handleColorTags = (event, value) =>
-        !value ? '' : setColorTags(value);
-
     // 進階篩選方法
     const applyFilters = () => {
         let newProducts = [...products];
 
+        // 顏色：處理方法
         if (colorTags) {
             newProducts = newProducts.filter((product) =>
                 product.color.includes(colorTags)
@@ -181,12 +176,14 @@ function Products() {
         //     );
         // }
 
-        // const minPrice = selectedPrice[0];
-        // const maxPrice = selectedPrice[1];
+        // 價格區間
+        const minPrice = selectedPrice[0];
+        const maxPrice = selectedPrice[1];
 
-        // updatedList = updatedList.filter(
-        //     (item) => item.price >= minPrice && item.price <= maxPrice
-        // );
+        // 價格：篩選方法
+        newProducts = newProducts.filter(
+            (product) => product.price >= minPrice && product.price <= maxPrice
+        );
 
         setDisplayProducts(newProducts);
     };
@@ -194,7 +191,7 @@ function Products() {
     // 當過濾表單元素有更動時
     useEffect(() => {
         applyFilters();
-    }, [products, colorTags]);
+    }, [products, colorTags, selectedPrice]);
 
     useEffect(() => {
         let newProducts = [];
@@ -315,7 +312,8 @@ function Products() {
                                         setBrandTags={setBrandTags}
                                         colorTags={colorTagsTypes}
                                         setColorTags={setColorTags}
-                                        selectColorTags={handleColorTags}
+                                        selectedPrice={selectedPrice}
+                                        setSelectedPrice={setSelectedPrice}
                                     />
                                 ) : (
                                     ''

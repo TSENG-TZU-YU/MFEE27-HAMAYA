@@ -5,7 +5,14 @@ import { brandTagsTypes } from '../constants';
 
 function FilterBar(props) {
     const [activeColorTags, setActiveColorTags] = useState('');
-    const { setBrandTags, colorTags, setColorTags, selectColorTags } = props;
+    const {
+        setBrandTags,
+        colorTags,
+        setColorTags,
+        selectedPrice,
+        changePrice,
+        setSelectedPrice,
+    } = props;
     return (
         <div className="products-filter-menu position-absolute">
             <div className="p-3">
@@ -65,18 +72,23 @@ function FilterBar(props) {
                 </div>
                 <p className="mt-4 mb-2 accent-light-color">價格</p>
                 <div className="products-slider mb-1">
-                    <Slider
-                        className="slider"
-                        range
-                        min={0}
-                        max={1000}
-                        defaultValue={[3, 10]}
-                    />
+                    <div className="input-group">
+                        <Slider
+                            className="slider"
+                            range
+                            onChange={(value) => setSelectedPrice(value)}
+                            value={selectedPrice}
+                            min={0}
+                            max={7380000}
+                        />
+                    </div>
                 </div>
-                <p className="accent-light-color small m-0">NT $0 ~ 1000</p>
-                <button className="products-btn-border-none products-filter-btn mt-3 w-100">
+                <p className="accent-light-color small m-0">
+                    NT ${String(selectedPrice[0])} ~ {String(selectedPrice[1])}
+                </p>
+                {/* <button className="products-btn-border-none products-filter-btn mt-3 w-100">
                     篩選
-                </button>
+                </button> */}
             </div>
         </div>
     );
