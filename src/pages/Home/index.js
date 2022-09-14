@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 
 import { homeImages } from '../../album/home';
 
-//TODO:首頁ＲＷＤ要再排版,能否讓動畫引入時卷軸消失
-
+//TODO:首頁ＲＷＤ要再排版
+//TODO:卷軸要做
 //TODO:點擊輪播時會跑版要修
 
 import HomeScroll from '../../components/HomeScroll/HomeScroll';
@@ -76,9 +76,9 @@ function Home(props) {
                                 alt="Logo"
                                 className="vector25"
                             />
-                            <span className="item-word2">
+                            {/* <span className="item-word2">
                                 Instrumental Store
-                            </span>
+                            </span> */}
                         </Link>
                     </div>
                 </div>
@@ -129,9 +129,9 @@ function Home(props) {
                                 alt="Logo"
                                 className="vector25"
                             />
-                            <span className="item-word2">
+                            {/* <span className="item-word2">
                                 Facility Rental Services
-                            </span>
+                            </span> */}
                         </Link>
                     </div>
                 </div>

@@ -23,7 +23,7 @@ function HomeAnimation(props) {
                         <div className="mozart">
                             <div className="mozart-inner ">MUSIC</div>
                         </div>
-                        <div>
+                        <div className="title2">
                             <span className="font5">
                                 將光亮從人心靈的深沈中釋放出來，是音樂的神聖使命。
                                 ——羅伯特·亞歷山大·舒曼
@@ -31,21 +31,18 @@ function HomeAnimation(props) {
                         </div>
                     </div>
                 </div>
-                <div className="image">
-                    {/* <img src={ServerImg} alt="ServerImg" /> */}
+
+                <div className="home-video home-video2">
                     <video
                         muted
                         src={HomeVideo2}
                         height=""
                         autoPlay
                         loop
-
-                        // style={{
-                        //     width: '100%',
-                        //     height: '100vh',
-                        // }}
+                        className=""
                     />
                 </div>
+
                 <div className="muzieknootjes">
                     <div className="noot-1">
                         <img src={Note5} alt="" />
@@ -64,14 +61,6 @@ function HomeAnimation(props) {
                     </div>
                 </div>
             </div>
-
-            {/* <a
-                    href="https://youtu.be/mBY62jtbMYM"
-                    target="_blank"
-                    data-keyframers-credit=""
-                    style={{ color: '#000' }}
-                    rel="noreferrer"
-                /> */}
         </>
     );
 }
