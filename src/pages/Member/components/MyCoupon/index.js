@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom'; //抓取Outlet的props
 import './index.css';
+import add_img2 from '../../../../assets/svg/add2.svg';
 
 function MyCoupon(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
@@ -111,35 +112,37 @@ function MyCoupon(props) {
         },
     ]);
     return (
-        <div className="col-12 col-md-8 col-lg-9">
+        <div className="col-12 col-md-8 col-lg-9 MyCoupon">
             <h4 className="main-color ">我的優惠券</h4>
-            <div className='d-flex justify-content-between'>
-                <div >
-                    <input />
-                    <button>新增優惠券</button>
+            <div className="d-flex justify-content-between ">
+                <div className="d-flex align-items-center">
+                    <input type="text " placeholder="請輸入您的優惠券領取碼"/>
+                    <button className="btn1  ">
+                        <img src={add_img2} />
+                        新增優惠券
+                    </button>
                 </div>
                 <div>
-                    <button>去商城逛逛</button>
+                    <button className="btn2  ">去商城逛逛</button>
                 </div>
             </div>
             <div className="row">
-                {myCoupon.map((data)=>{
-                    return(
+                {myCoupon.map((data) => {
+                    return (
                         <div className="col-12 col-lg-6">
-                            <div className='row p-2'>
-                                <div className='col-5 accent-light-color bg-accent-color coupon-card'>
-                                    NT${data.discount}商品折價券
-                                    消費滿${data.minmum}可使用
+                            <div className="row p-2">
+                                <div className="col-5 accent-light-color bg-accent-color coupon-card">
+                                    NT${data.discount}商品折價券 消費滿$
+                                    {data.minmum}可使用
                                 </div>
-                                <div className='col-7 bg-light'>
-                                    適用樂器商城、音樂教育
-                                    有效期限{data.start_time}~{data.end_time}
+                                <div className="col-7 bg-light">
+                                    適用樂器商城、音樂教育 有效期限
+                                    {data.start_time}~{data.end_time}
                                 </div>
                             </div>
                         </div>
-                        ) 
+                    );
                 })}
-                
             </div>
         </div>
     );
