@@ -47,7 +47,19 @@ function Header(props) {
             });
             console.log(response.data.message);
             setIsLogin(false);
-            setMember(null);
+            setMember({
+                id: '',
+                fullName: '',
+                email: '',
+                phone: '',
+                city: '',
+                dist: '',
+                address: '',
+                birthday: '',
+                photo: '',
+                sub: '',
+                loginDt: '',
+            });
             navigate('/');
             alert(response.data.message);
         } catch (err) {

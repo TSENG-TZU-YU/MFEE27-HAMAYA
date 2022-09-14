@@ -1,0 +1,35 @@
+.MyQuestion .Qtitle{
+    min-width: 120px;
+}
+.MyQuestion .time{
+    font-size: 10px;
+    font-weight: 300;
+    text-align: center;
+}
+.MyQuestion .time2{
+
+    text-align: right;
+}
+.MyQuestion .ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* max-width: 200px;  */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+
+  }
+.cssTable td 
+{
+    text-align: center; 
+    /*垂直置中*/
+    vertical-align: middle;
+}
+.MyQuestion .addbtn{
+    padding: 0 10px;
+    margin: 0 10px ;
+    font-size: 14px;
+    font-weight: 500;
+    /* vertical-align: middle;
+    display: inline-block; */
+}
