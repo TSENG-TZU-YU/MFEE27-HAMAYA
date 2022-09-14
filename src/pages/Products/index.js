@@ -76,10 +76,12 @@ function Products() {
 
     // 顏色
     const [colorTags, setColorTags] = useState('');
+    const [colorTagsTypes, setColorTagsTypes] = useState([]);
 
     // 價格
-    const [priceMax, setPriceMax] = useState(7380000);
-    const [priceMin, setPriceMin] = useState(0);
+    // const [priceMax, setPriceMax] = useState(7380000);
+    // const [priceMin, setPriceMin] = useState(0);
+    const [selectedPrice, setSelectedPrice] = useState([1000, 5000]);
 
     // 取得商品次類別 api
     useEffect(() => {
@@ -101,7 +103,10 @@ function Products() {
             let response = await axios.get(
                 `${API_URL}/products?mainId=${mainId}&subId=${subId}`
             );
+            response.data.color.unshift({ color: '' });
             setProducts(response.data.data);
+            setColorTagsTypes(response.data.color);
+            console.log('顏色', response.data.color);
             console.log('所有產品', response.data.data);
             setDisplayProducts(response.data.data);
         };
@@ -117,7 +122,6 @@ function Products() {
             newProducts = products.filter((product) => {
                 return product.name.includes(searchWord);
             });
-            console.log('handleSearch', newProducts);
         }
         return newProducts;
     };
@@ -153,26 +157,56 @@ function Products() {
         return newProducts;
     };
 
-    // TODO: 價格區間處理方式
+    // 判斷是否有選取顏色篩選 有就改變 selectedRating
+    const handleColorTags = (event, value) =>
+        !value ? '' : setColorTags(value);
+
+    // 進階篩選方法
+    const applyFilters = () => {
+        let newProducts = [...products];
+
+        if (colorTags) {
+            newProducts = newProducts.filter((product) =>
+                product.color.includes(colorTags)
+            );
+        }
+
+        // const cuisinesChecked = cuisines
+        //     .filter((item) => item.checked)
+        //     .map((item) => item.label.toLowerCase());
+
+        // if (cuisinesChecked.length) {
+        //     updatedList = updatedList.filter((item) =>
+        //         cuisinesChecked.includes(item.cuisine)
+        //     );
+        // }
+
+        // const minPrice = selectedPrice[0];
+        // const maxPrice = selectedPrice[1];
+
+        // updatedList = updatedList.filter(
+        //     (item) => item.price >= minPrice && item.price <= maxPrice
+        // );
+
+        setDisplayProducts(newProducts);
+    };
 
     // 當過濾表單元素有更動時
+    useEffect(() => {
+        applyFilters();
+    }, [products, colorTags]);
+
     useEffect(() => {
         let newProducts = [];
 
         // 處理搜尋
         newProducts = handleSearch(products, searchWord);
 
-        // 處理排序
-        // newProducts = handleSort(products, sortBy);
-
         setDisplayProducts(newProducts);
     }, [products, searchWord]);
 
     useEffect(() => {
         let newProducts = [];
-
-        // 處理搜尋
-        // newProducts = handleSearch(products, searchWord);
 
         // 處理排序
         newProducts = handleSort(products, sortBy);
@@ -278,14 +312,10 @@ function Products() {
                                 {/* 進階篩選區塊 */}
                                 {filterToggled ? (
                                     <FilterBar
-                                        brandTags={brandTags}
                                         setBrandTags={setBrandTags}
-                                        colorTags={colorTags}
+                                        colorTags={colorTagsTypes}
                                         setColorTags={setColorTags}
-                                        priceMax={priceMax}
-                                        setPriceMax={setPriceMax}
-                                        priceMin={priceMin}
-                                        setPriceMin={setPriceMin}
+                                        selectColorTags={handleColorTags}
                                     />
                                 ) : (
                                     ''

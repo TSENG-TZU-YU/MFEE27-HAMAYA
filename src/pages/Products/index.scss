@@ -195,7 +195,10 @@ button.products-btn-border-none {
   margin: 4px;
 }
 
-.products-filter-color-box:active{
+.products-filter-color-box:hover {
+  outline: 3px solid $main-gary-light;
+}
+.products-filter-color-box-active {
   outline: 3px solid $main-gary-light;
 }
 
