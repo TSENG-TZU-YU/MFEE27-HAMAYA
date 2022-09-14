@@ -45,8 +45,8 @@ function ChildrenCourse({ products, setProducts, setDisplayProducts }) {
             let response = await axios.get(
                 `http://localhost:3001/api/class/list?class=2&page=${page}`
             );
-            setProducts(response.data.data);
-            setDisplayProducts(response.data.data);
+            setProducts(response.data);
+            setDisplayProducts(response.data);
 
             setLastPage(response.data.pagination.lastPage);
         };
