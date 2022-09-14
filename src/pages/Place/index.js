@@ -1,6 +1,6 @@
 import React from 'react';
 import './place.scss';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 import banner from '../../assets/PlaceImg/banner.png';
@@ -44,6 +44,14 @@ function Place(props) {
         usercount: '',
         item: '',
     });
+
+    // 整個表單用，用於當使用者輸入時，暫時先清空某欄位的錯誤訊息
+    const handleFormChange = (e) => {
+        setAskErros({
+            ...renterros,
+            [e.target.name]: '',
+        });
+    };
 
     // 送出表單
     async function rentsubmit(e) {
@@ -406,8 +414,13 @@ function Place(props) {
                     </div>
                 </div>
             </div>
+
+            {/* 表單 */}
             <div className="bg-main-gary-light-color">
-                <form className="container mt-5 placeform">
+                <form
+                    className="container mt-5 placeform"
+                    onChange={handleFormChange}
+                >
                     <div className="d-flex pt-4 align-items-center">
                         <h4
                             className="me-2 text-nowrap"

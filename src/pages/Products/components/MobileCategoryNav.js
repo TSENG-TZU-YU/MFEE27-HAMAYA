@@ -1,7 +1,8 @@
 import React from 'react';
+import { categoryMainTypes as categoryMain } from '../constants';
 
 function MobileCategoryNav(props) {
-    const { categoryMain, categorySub, navigate, url, setUrl } = props;
+    const { categorySub, navigate, url, setUrl } = props;
     return (
         <>
             {/* 商品類別選項 */}
