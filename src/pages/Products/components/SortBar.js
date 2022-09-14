@@ -1,7 +1,8 @@
 import React from 'react';
+import { sortByTypes } from '../constants';
 
 function SortBar(props) {
-    const { sortByTypes, sortBy, setSortBy, setSortToggled } = props;
+    const { sortBy, setSortBy, setSortToggled } = props;
     return (
         <div className="products-sort-menu">
             <ul className="p-3">

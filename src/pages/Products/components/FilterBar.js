@@ -1,18 +1,13 @@
 import React from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import {
+    brandTagsTypes as brandTags,
+    colorTagsTypes as colorTags,
+} from '../constants';
 
 function FilterBar(props) {
-    const {
-        brandTags,
-        setBrandTags,
-        colorTags,
-        setColorTags,
-        priceMax,
-        setPriceMax,
-        priceMin,
-        setPriceMin,
-    } = props;
+    const { priceMax, setPriceMax, priceMin, setPriceMin } = props;
     return (
         <div className="products-filter-menu position-absolute">
             <div className="p-3">
@@ -48,8 +43,8 @@ function FilterBar(props) {
                         );
                     })}
                 </div>
-                <p className="mt-4 mb-0 accent-light-color">價格</p>
-                <div className="products-slider">
+                <p className="mt-4 mb-2 accent-light-color">價格</p>
+                <div className="products-slider mb-1">
                     <Slider
                         className="slider"
                         range

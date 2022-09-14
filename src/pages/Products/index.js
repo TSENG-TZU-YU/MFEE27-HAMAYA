@@ -9,6 +9,9 @@ import { Container } from 'react-bootstrap';
 // 樣式
 import './index.scss';
 
+// 項目資料
+import { sortByTitle } from './constants';
+
 // 元件
 import ProductCompare from './ProductCompare';
 import CategoryNav from './components/CategoryNav';
@@ -58,16 +61,6 @@ function Products() {
     // 用於網頁上經過各種處理(排序、搜尋、過濾)後的資料
     const [displayProducts, setDisplayProducts] = useState([]);
 
-    // 商品主類別
-    const categoryMainTypes = [
-        { id: 1, mainName: '琴鍵樂器' },
-        { id: 2, mainName: '管樂器' },
-        { id: 3, mainName: '弓弦樂器' },
-        { id: 4, mainName: '吉他/烏克麗麗' },
-        { id: 5, mainName: '打擊樂器' },
-        { id: 6, mainName: '配件' },
-    ];
-
     // 商品次類別 從資料庫撈
     const [categorySub, setCategorySub] = useState([]);
 
@@ -76,67 +69,13 @@ function Products() {
 
     // 排序
     const [sortBy, setSortBy] = useState('');
-    const sortByTypes = [
-        { id: '1', name: '價格：低到高' },
-        { id: '2', name: '價格：高到低' },
-        { id: '3', name: '上架：新到舊' },
-        { id: '4', name: '上架：舊到新' },
-    ];
-    const sortByTitle = (sortBy) => {
-        if (sortBy === '') {
-            return '排序條件';
-        }
-        if (sortBy === '1') {
-            return '價格 低>高';
-        }
-        if (sortBy === '2') {
-            return '價格 高>低';
-        }
-        if (sortBy === '3') {
-            return '上架 新>舊';
-        }
-        if (sortBy === '4') {
-            return '上架 舊>新';
-        }
-    };
 
     // checkbox
     // 品牌
     const [brandTags, setBrandTags] = useState([]);
-    const brandTagsTypes = [
-        { id: 0, name: '所有品牌' },
-        { id: 1, name: 'YAMAHA' },
-        { id: 2, name: 'Roland' },
-        { id: 3, name: 'AZUMI' },
-        { id: 4, name: 'Jupiter' },
-        { id: 5, name: 'SELMER' },
-        { id: 6, name: 'HEL' },
-        { id: 7, name: 'OTTO' },
-        { id: 8, name: 'Joylink' },
-        { id: 9, name: 'BREEDLOVE' },
-        { id: 10, name: 'SUSTAIN' },
-    ];
 
     // 顏色
     const [colorTags, setColorTags] = useState('');
-    const colorTagsTypes = [
-        '#000000',
-        '#c0c0c0',
-        '#B5A642',
-        '#ffffff',
-        '#4d2f2f',
-        '#8B4513',
-        '#802A2A',
-        '#872c07',
-        '#cc0000',
-        '#f29a25',
-        '#ffa500',
-        '#ffd700',
-        '#efd7b3',
-        '#ea9999',
-        '#9ddfca',
-        '#18ebeb',
-    ];
 
     // 價格
     const [priceMax, setPriceMax] = useState(7380000);
@@ -339,9 +278,9 @@ function Products() {
                                 {/* 進階篩選區塊 */}
                                 {filterToggled ? (
                                     <FilterBar
-                                        brandTags={brandTagsTypes}
+                                        brandTags={brandTags}
                                         setBrandTags={setBrandTags}
-                                        colorTags={colorTagsTypes}
+                                        colorTags={colorTags}
                                         setColorTags={setColorTags}
                                         priceMax={priceMax}
                                         setPriceMax={setPriceMax}
@@ -367,7 +306,6 @@ function Products() {
                                 {/* 商品排序區塊 */}
                                 {sortToggled ? (
                                     <SortBar
-                                        sortByTypes={sortByTypes}
                                         sortBy={sortBy}
                                         setSortBy={setSortBy}
                                         setSortToggled={setSortToggled}
@@ -499,7 +437,6 @@ function Products() {
                         {/* 商品類別選項 */}
                         {categoryToggled ? (
                             <MobileCategoryNav
-                                categoryMain={categoryMainTypes}
                                 categorySub={categorySub}
                                 navigate={navigate}
                                 url={url}
@@ -568,7 +505,6 @@ function Products() {
                         {/* 商品排序區塊 */}
                         {sortToggled ? (
                             <MobileSortBar
-                                sortByTypes={sortByTypes}
                                 sortBy={sortBy}
                                 setSortBy={setSortBy}
                                 setSortToggled={setSortToggled}
@@ -585,7 +521,6 @@ function Products() {
                 <div className="row">
                     {/* 桌機 商品類別選項 */}
                     <CategoryNav
-                        categoryMain={categoryMainTypes}
                         categorySub={categorySub}
                         navigate={navigate}
                         url={url}
