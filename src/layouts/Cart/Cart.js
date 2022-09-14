@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCart } from '../../utils/use_cart';
 import './Cart.scss';
 import ashBin from '../../assets/svg/delete.svg';
@@ -7,32 +7,19 @@ import { ReactComponent as CheckOut } from '../../assets/svg/shopping_cart_check
 import img from '../../album/products/mars.jpeg';
 
 function Cart() {
-    // const { productArr } = useCart();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
     console.log('shoppingCart in Cart', shoppingCart);
-
-    // console.log(testShoppingCart);
-    // let newShoppingCart = testShoppingCart.index
-    // category_id:"A"
-    // image:"StageCustomBirch-01.webp"
-    // name:"Stage-Custom-Birch"
-    // price:42000
-    // product_id:"A345"
-    // shipment:1
-    // spec:"材質:樺木"
-
-    // let newShoppingCart = testShoppingCart.find((item, index, arr) => {
-
-    // });
-    // console.log('test newShoppingCart', newShoppingCart);
+    //如果臨時購物車商品為0 則關閉
+    if (shoppingCart.length === 0) {
+        setShopCartState(false);
+    }
 
     function handleRemoveItem(itemId) {
         //取得localStorage內容
         let shoppingCartLocal = JSON.parse(
             localStorage.getItem('shoppingCart')
         );
-        // console.log('shoppingCart', shoppingCartLocal);
         //移除
         let removeItem = shoppingCartLocal.filter((item) => {
             return item.product_id !== itemId;
@@ -41,10 +28,7 @@ function Cart() {
         localStorage.setItem('shoppingCart', JSON.stringify(removeItem));
         setShoppingCart(removeItem);
     }
-    //如果臨時購物車商品為0 則關閉
-    if (shoppingCart.length === 0) {
-        setShopCartState(false);
-    }
+
     return (
         <div className="position-relative">
             <div className="shoppingCart p-2">
@@ -73,7 +57,7 @@ function Cart() {
                                 /> */}
                                 <div className="d-flex flex-column">
                                     <span className="small main-color mb-5">
-                                        {item.name}
+                                        {item.name + ' & ' + item.product_id}
                                     </span>
                                     <span className="small gary-dark-color">
                                         數量:{1}
