@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
 
+// 分頁
+import _ from 'lodash';
+
 // 元件
 import StarRating from '../../../../components/Star/StarRating';
 import Car from '../../../../components/Car/Car';
@@ -16,23 +19,27 @@ function AdultCourse({ products, setProducts, setDisplayProducts }) {
     // const [active, setActive] = useState(null);
 
     // 分頁  Toggled
-    const [lastPage, setLastPage] = useState(1);
-    const [page, setPage] = useState(1);
+    // const [lastPage, setLastPage] = useState(1);
+    // const [page, setPage] = useState(1);
+    // 分頁用
+    const [pageNow, setPageNow] = useState(1); // 目前頁號
+    const [perPage, setPerPage] = useState(6); // 每頁多少筆資料
+    const [pageTotal, setPageTotal] = useState(3); //總共幾頁，在didMount時要決定
     // 製作分頁按鈕
     const getPage = () => {
         let pages = [];
-        for (let i = 1; i <= lastPage; i++) {
+        for (let i = 1; i <= pageTotal; i++) {
             //要從陣列後面依序放頁數
             pages.push(
                 <li
                     className="pages"
                     style={{
-                        backgroundColor: page === i ? '#00323d' : '',
-                        color: page === i ? '#f2f2f2' : '#6a777a',
+                        backgroundColor: pageNow === i ? '#00323d' : '',
+                        color: pageNow === i ? '#f2f2f2' : '#6a777a',
                     }}
                     key={i}
                     onClick={(e) => {
-                        setPage(i);
+                        setPageNow(i);
                     }}
                 >
                     {i}
@@ -45,22 +52,79 @@ function AdultCourse({ products, setProducts, setDisplayProducts }) {
     useEffect(() => {
         let getAdultClass = async () => {
             let response = await axios.get(
-                `http://localhost:3001/api/class/list?class=1&page=${page}`
+                //&page=${page}
+                `http://localhost:3001/api/class/list?class=1`
             );
-            setProducts(response.data.data);
-            setDisplayProducts(response.data.data);
+            setProducts(response.data);
+            setDisplayProducts(response.data);
 
             // 從後端取得總頁數 (lastPage)
-            setLastPage(response.data.pagination.lastPage);
-            // console.log(response.data.pagination.lastPage);
+            // setLastPage(response.data.pagination.lastPage);
+            // 剖析為js資料類型
+            // const data = await response.data.json();
+
+            // console.log('data', data);
+            // 從前端取得總頁數 (lastPage)
+            // const pageList = _.chunk(response, perPage);
+
+            if (products > 0) {
+                setPageTotal(products.length);
+                // 設定到state中
+                setDisplayProducts(products);
+
+                setProducts(response.data);
+                console.log(response);
+            }
+            console.log('pageList', products);
         };
         getAdultClass();
-    }, [page]);
+    }, []);
+    console.log('perPage', perPage);
+    console.log('pageNow', pageNow);
+    console.log('pageTotal', pageTotal);
 
     useEffect(() => {
         console.log('products', products);
     }, [products]);
 
+    // const paginationBar = (
+    //     <>
+    //         <div className="pagination">
+    //             <a
+    //                 href="#/"
+    //                 onClick={() => {
+    //                     setPageNow(1);
+    //                 }}
+    //             >
+    //                 &laquo;
+    //             </a>
+    //             {Array(pageTotal)
+    //                 .fill(1)
+    //                 .map((v, i) => {
+    //                     return (
+    //                         <a
+    //                             key={i}
+    //                             href="#/"
+    //                             className={i + 1 === pageNow ? 'active' : ''}
+    //                             onClick={() => {
+    //                                 setPageNow(i + 1);
+    //                             }}
+    //                         >
+    //                             {i + 1}
+    //                         </a>
+    //                     );
+    //                 })}
+    //             <a
+    //                 href="#/"
+    //                 onClick={() => {
+    //                     setPageNow(pageTotal);
+    //                 }}
+    //             >
+    //                 &raquo;
+    //             </a>
+    //         </div>
+    //     </>
+    // );
     return (
         <div>
             {/* 已灌資料庫 */}
@@ -131,6 +195,7 @@ function AdultCourse({ products, setProducts, setDisplayProducts }) {
             })}
             {/* 分頁 */}
             <ul className="text-center">{getPage()}</ul>
+            {/* {paginationBar} */}
 
             {/* 分頁 end*/}
         </div>

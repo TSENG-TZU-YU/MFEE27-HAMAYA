@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { useOutletContext } from 'react-router-dom';
-// import { useClass } from '../UseContext';
 import { Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-// import { useParams } from 'react-router-dom';
-// import { useLocation } from 'react-router-dom';
+import Slider from 'rc-slider';
+
+// 項目資料
+import { sortByTitle } from '../constants';
 
 // 子頁面
 import AdultCourse from './AdultCourse';
 import ChildrenCourse from './ChildrenCourse';
+
+// 元件
 import SearchBar from '../../../components/SearchBar';
+import { sortByTypes } from '../constants';
 
 // 圖檔
 import filterIcon from '../../../assets/svg/filter_alt.svg';
@@ -27,6 +31,7 @@ function ClassList(props) {
     const toggleFilterTrueFalse = () => {
         if (filterToggled || searchToggled || sortToggled) {
             setSortToggled(false);
+            setSearchToggled(false);
         }
         setFilterToggled(!filterToggled);
     };
@@ -50,20 +55,31 @@ function ClassList(props) {
         }
         setSearchToggled(!searchToggled);
     };
+    // 搜尋
+    const [searchWord, setSearchWord] = useState('');
+
+    // 價格
+    const [selectedPrice, setSelectedPrice] = useState([2600, 2600]);
+
+    // 樂器
+    const [subIns, setSubIns] = useState('');
 
     // 產品用的資料
     // 1. 從伺服器來的原始資料
     const [products, setProducts] = useState([]);
     // 2. 用於網頁上經過各種處理(排序、搜尋、過濾)後的資料
     const [displayProducts, setDisplayProducts] = useState([]);
-    console.log('displayProducts', displayProducts);
-    const [sortBy, setSortBy] = useState('');
-    const [filterBy, setFilterBy] = useState('');
 
+    const [sortBy, setSortBy] = useState('');
+    // const [filterBy, setFilterBy] = useState('');
+
+    // TODO: 評價塞選
+
+    // 排序：處理方法
     const handleSort = (products, sortBy) => {
         let newProducts = [...products];
 
-        // 預設用id 小至大
+        // TODO: 預設用id 大至小
         if (sortBy === '' && newProducts.length > 0) {
             newProducts = [...newProducts].sort((a, b) => a.id - b.id);
         }
@@ -78,30 +94,118 @@ function ClassList(props) {
         }
         // 以時間排序-新到舊
         if (sortBy === '3') {
-            newProducts = [...newProducts].sort(
-                (a, b) => a.start_date - b.start_date
+            newProducts = [...newProducts].sort((a, b) =>
+                b.start_date.localeCompare(a.start_date)
             );
         }
         // 以時間排序-新到舊
         if (sortBy === '4') {
-            newProducts = [...newProducts].sort(
-                (a, b) => b.start_date - a.start_date
+            newProducts = [...newProducts].sort((a, b) =>
+                a.start_date.localeCompare(b.start_date)
             );
         }
-        if (filterBy === '2') {
-            newProducts = [...newProducts].sort((a) => (a.ins_sub_id = '1'));
-            console.log('filterBy', filterBy);
+
+        return newProducts;
+    };
+
+    // 搜尋：處理方法
+    const handleSearch = (products, searchWord) => {
+        let newProducts = [...products];
+        if (searchWord.length) {
+            newProducts = products.filter((product) => {
+                return product.name.includes(searchWord);
+            });
         }
         return newProducts;
     };
 
+    // 樂器:處理方法
+    const handleSubIns = (products, subIns) => {
+        let newProducts = [...products];
+        if (subIns === '1') {
+            newProducts = [...newProducts].filter(
+                (product) => product.ins_sub_id === 1
+            );
+        }
+        if (subIns === '2') {
+            newProducts = [...newProducts].filter(
+                (product) => product.ins_sub_id === 2
+            );
+        }
+        if (subIns === '3') {
+            newProducts = [...newProducts].filter(
+                (product) => product.ins_sub_id === 3
+            );
+        }
+        if (subIns === '4') {
+            newProducts = [...newProducts].filter(
+                (product) => product.ins_sub_id === 4
+            );
+        }
+        if (subIns === '5') {
+            newProducts = [...newProducts].filter(
+                (product) => product.ins_sub_id === 5
+            );
+        }
+        if (subIns === '6') {
+            newProducts = [...newProducts].filter(
+                (product) => product.ins_sub_id === 6
+            );
+        }
+        if (subIns === '7') {
+            newProducts = [...newProducts].filter(
+                (product) => product.ins_sub_id === 7
+            );
+        }
+        return newProducts;
+    };
+
+    // 價格:處理方法
+    const applyFilters = () => {
+        let newProducts = [...products];
+
+        // 價格區間
+        const minPrice = selectedPrice[0];
+        const maxPrice = selectedPrice[1];
+
+        // 價格：篩選方法
+        newProducts = newProducts.filter(
+            (product) => product.price >= minPrice && product.price <= maxPrice
+        );
+
+        setDisplayProducts(newProducts);
+    };
+
+    // 當過濾表單元素有更動時
     useEffect(() => {
         let newProducts = [];
 
         // 處理排序
         newProducts = handleSort(products, sortBy);
         setDisplayProducts(newProducts);
-    }, [products, sortBy, filterBy]);
+    }, [products, sortBy]);
+
+    useEffect(() => {
+        let newProducts = [];
+
+        // 處理搜尋
+        newProducts = handleSearch(products, searchWord);
+
+        setDisplayProducts(newProducts);
+    }, [products, searchWord]);
+
+    useEffect(() => {
+        let newProducts = [];
+
+        // 處理樂器
+        newProducts = handleSubIns(products, subIns);
+
+        setDisplayProducts(newProducts);
+    }, [products, subIns]);
+
+    useEffect(() => {
+        applyFilters();
+    }, [products, selectedPrice]);
 
     return (
         <Container>
@@ -138,7 +242,7 @@ function ClassList(props) {
                                 className={filterToggled ? 'filter-active' : ''}
                             >
                                 {filterToggled ? (
-                                    <div className=" ms-3 mt-1 ">
+                                    <div className=" mx-3 mt-1 ">
                                         <p
                                             className="toggled-p mb-0 "
                                             style={{ color: '#f2f2f2' }}
@@ -147,19 +251,19 @@ function ClassList(props) {
                                         </p>
                                         <select
                                             className="select-class mt-1 border-0"
-                                            value={filterBy}
+                                            value={subIns}
                                             onChange={(e) =>
-                                                setFilterBy(e.target.value)
+                                                setSubIns(e.target.value)
                                             }
                                         >
-                                            <option value="1">所有樂器</option>
-                                            <option value="2">琴鍵樂器</option>
-                                            <option value="3">管樂器</option>
-                                            <option value="4">弓弦樂器</option>
-                                            <option value="5">
+                                            <option value="0">所有樂器</option>
+                                            <option value="1">琴鍵樂器</option>
+                                            <option value="2">管樂器</option>
+                                            <option value="3">弓弦樂器</option>
+                                            <option value="4">
                                                 吉他/烏克麗麗
                                             </option>
-                                            <option value="6">打擊樂器</option>
+                                            <option value="5">打擊樂器</option>
                                             {selectCourse ? (
                                                 ''
                                             ) : (
@@ -167,7 +271,7 @@ function ClassList(props) {
                                                     <option value="6">
                                                         音樂啟蒙
                                                     </option>{' '}
-                                                    <option value="6">
+                                                    <option value="7">
                                                         音樂體驗
                                                     </option>
                                                 </>
@@ -179,10 +283,32 @@ function ClassList(props) {
                                         >
                                             價格
                                         </p>
-
-                                        <button className="filter-btn-class mt-3 mb-3">
-                                            篩選
-                                        </button>
+                                        <div className=" mb-1">
+                                            <div className="input-group">
+                                                <Slider
+                                                    className="slider"
+                                                    range
+                                                    onChange={(value) =>
+                                                        setSelectedPrice(value)
+                                                    }
+                                                    value={selectedPrice}
+                                                    // TODO: 從資料庫讀取最低最高價錢
+                                                    min={2600}
+                                                    max={2800}
+                                                />
+                                            </div>
+                                        </div>
+                                        <p className="accent-light-color small m-0">
+                                            NT ${String(selectedPrice[0])} ~{' '}
+                                            {String(selectedPrice[1])}
+                                        </p>
+                                        <p
+                                            className=" mt-2 mb-3"
+                                            style={{ color: '#f2f2f2' }}
+                                        >
+                                            {/* TODO: 評價塞選 */}
+                                            課程評價
+                                        </p>
                                     </div>
                                 ) : (
                                     ''
@@ -196,23 +322,27 @@ function ClassList(props) {
                                 src={sort}
                                 alt="Sort"
                                 onClick={toggleSortTrueFalse}
-                            ></img>
+                            />
                             <div className={sortToggled ? 'sort-active' : ''}>
                                 {sortToggled ? (
-                                    <div className="sort-menu-class text-center">
+                                    <div className="sort-menu-class text-center ">
                                         <ul className="p-2">
-                                            <li onClick={(e) => setSortBy('1')}>
-                                                價格：低到高
-                                            </li>
-                                            <li onClick={(e) => setSortBy('2')}>
-                                                價格：高到低
-                                            </li>
-                                            <li onClick={(e) => setSortBy('3')}>
-                                                上架：新到舊
-                                            </li>
-                                            <li onClick={(e) => setSortBy('4')}>
-                                                上架：舊到新
-                                            </li>
+                                            {sortByTypes.map((item, index) => {
+                                                return (
+                                                    <li
+                                                        className="py-1"
+                                                        key={index}
+                                                        onClick={(e) => {
+                                                            setSortBy(item.id);
+                                                            setSortToggled(
+                                                                false
+                                                            );
+                                                        }}
+                                                    >
+                                                        {item.name}
+                                                    </li>
+                                                );
+                                            })}
                                         </ul>
                                     </div>
                                 ) : (
@@ -232,7 +362,10 @@ function ClassList(props) {
                         </button>
                         {searchToggled ? (
                             <div className=" position-absolute class-search ">
-                                <SearchBar />
+                                <SearchBar
+                                    searchWord={searchWord}
+                                    setSearchWord={setSearchWord}
+                                />
                             </div>
                         ) : (
                             ''
@@ -264,7 +397,7 @@ function ClassList(props) {
                                 className="border-0 class-filter-nav-btn p-2 d-flex align-items-center"
                                 onClick={toggleSortTrueFalse}
                             >
-                                排序條件
+                                {sortByTitle(sortBy)}
                                 <img src={arrowDown} alt="arrowDown" />
                             </button>
                         </div>
@@ -276,13 +409,26 @@ function ClassList(props) {
                         <div className="p-3">
                             <p className="mb-2 accent-light-color"> 樂器類型</p>
                             <div className="row g-1 ">
-                                <select className="select-class mt-1 border-0">
+                                <select
+                                    className="select-class mt-1 border-0"
+                                    value={subIns}
+                                    onChange={(e) => setSubIns(e.target.value)}
+                                >
                                     <option value="1">所有樂器</option>
                                     <option value="2">琴鍵樂器</option>
                                     <option value="3">管樂器</option>
                                     <option value="4">弓弦樂器</option>
                                     <option value="5">吉他/烏克麗麗</option>
                                     <option value="6">打擊樂器</option>
+                                    {selectCourse ? (
+                                        ''
+                                    ) : (
+                                        <>
+                                            <option value="6">音樂啟蒙</option>{' '}
+                                            <option value="7">音樂體驗</option>
+                                        </>
+                                    )}
+                                    s
                                 </select>
                             </div>
 
@@ -296,9 +442,13 @@ function ClassList(props) {
                             <p className="accent-light-color m-0">
                                 NT$0 ~ 190,000
                             </p>
-                            <button className="products-btn-border-none products-filter-btn mt-3 w-100">
-                                篩選
-                            </button>
+                            <p
+                                className=" mt-2 mb-3"
+                                style={{ color: '#f2f2f2' }}
+                            >
+                                {/* TODO: 評價塞選 */}
+                                課程評價
+                            </p>
                         </div>
                     </div>
                 ) : (
@@ -309,10 +459,19 @@ function ClassList(props) {
                 {sortToggled ? (
                     <div className="products-sort-menu">
                         <ul className="p-3">
-                            <li>價格：低到高</li>
-                            <li>價格：高到低</li>
-                            <li>上架：新到舊</li>
-                            <li>上架：舊到新</li>
+                            {sortByTypes.map((item, index) => {
+                                return (
+                                    <li
+                                        key={index}
+                                        onClick={(e) => {
+                                            setSortBy(item.id);
+                                            setSortToggled(false);
+                                        }}
+                                    >
+                                        {item.name}
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
                 ) : (
