@@ -31,6 +31,14 @@ function About(props) {
         comment: '',
     });
 
+    // 整個表單用，用於當使用者輸入時，暫時先清空某欄位的錯誤訊息
+    const handleFormChange = (e) => {
+        setAskErros({
+            ...askerros,
+            [e.target.name]: '',
+        });
+    };
+
     // 送出表單
     async function asksubmit(e) {
         e.preventDefault();
@@ -69,7 +77,7 @@ function About(props) {
             </div>
             <div className="bg-main-light-color">
                 <div className="container">
-                    <div className="d-flex" style={{ color: '#f2f2f2' }}>
+                    <div className="d-flex pt-3" style={{ color: '#f2f2f2' }}>
                         <a href="/">
                             <p style={{ color: '#f2f2f2' }}>首頁</p>
                         </a>
@@ -95,6 +103,33 @@ function About(props) {
                             </h4>
                             <div className="vector1 mt-3"></div>
                         </div>
+                    </div>
+                    <div className="brand">
+                        <h6
+                            className="text-center"
+                            style={{ color: '#f2f2f2' }}
+                        >
+                            演奏樂器或欣賞音樂時，心動的時刻就在聲音和音樂中流竄。
+                        </h6>
+                        <h6
+                            className="text-center"
+                            style={{ color: '#f2f2f2' }}
+                        >
+                            HAMAYA樂器
+                            希望激發人們的熱情，並助他們一臂之力，表達自我個性、情感和創造力。
+                        </h6>
+                        <h6
+                            className="text-center"
+                            style={{ color: '#f2f2f2' }}
+                        >
+                            「享受演奏樂器的靈魂」概念是我們對於音樂熱情的追求，亦即，表現自我並發揮影響力、身為聆聽者和樂手，再創輝煌並與他人一起與時俱進。
+                        </h6>
+                        <h6
+                            className="text-center"
+                            style={{ color: '#f2f2f2' }}
+                        >
+                            HAMAYA樂器 期望讓人們利用樂器來享受音樂及演奏。
+                        </h6>
                     </div>
                 </div>
             </div>
@@ -171,7 +206,10 @@ function About(props) {
             </div>
 
             <div className="bg-main-gary-light-color">
-                <form className="container mt-5 askform">
+                <form
+                    className="container mt-5 askform"
+                    onChange={handleFormChange}
+                >
                     <div className="pt-5 d-flex">
                         <h4
                             className="me-2 text-nowrap"

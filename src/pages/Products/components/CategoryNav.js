@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { categoryMainTypes as categoryMain } from '../constants';
 
 function CategoryNav(props) {
-    const { categoryMain, categorySub } = props;
+    const { categorySub } = props;
     return (
         <>
             {/* 桌機 商品類別選項 */}

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
 export const CartContext = createContext();
 
@@ -28,15 +28,12 @@ export const CartProvider = ({ children }) => {
     //         spec: '材質:樺木',
     //     },
     // ];
-    const [productArr, setProductArr] = useState([]);
     const [shoppingCart, setShoppingCart] = useState([]);
     return (
         <CartContext.Provider
             value={{
                 shopCartState,
                 setShopCartState,
-                productArr,
-                setProductArr,
                 shoppingCart,
                 setShoppingCart,
             }}

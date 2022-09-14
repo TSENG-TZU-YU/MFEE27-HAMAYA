@@ -74,7 +74,7 @@ function Product() {
                 </ul> */}
                 {/* 麵包屑 end */}
 
-                <Row className="mt-5">
+                <Row>
                     {/* 商品照片 */}
                     <Col lg={6}>
                         <div
@@ -105,7 +105,7 @@ function Product() {
                             console.log('詳細頁裡的product', product);
                             return (
                                 <div
-                                    className="d-flex flex-column mb-3 text-start"
+                                    className="d-flex flex-column m-3 text-start"
                                     key={index}
                                 >
                                     <div>
@@ -117,7 +117,7 @@ function Product() {
                                             alt="note"
                                             className="productDetail-note position-absolute d-none d-md-block"
                                         />
-                                        <div className="border-top border-secondary border-3 px-3 pt-3">
+                                        <div className="border-top border-secondary border-3 pt-3">
                                             <h6 className="mb-0 productDetail-line-height fw-400">
                                                 品牌：{value.brandName}
                                             </h6>
@@ -137,7 +137,7 @@ function Product() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="px-3 pb-3 align-items-stretch">
+                                    <div className="pb-3 align-items-stretch">
                                         <h6 className="col mb-0 productDetail-line-height fw-400">
                                             運送方式：{value.shipmentName}
                                         </h6>
