@@ -139,8 +139,8 @@ function Products() {
     ];
 
     // 價格
-    const [priceHighest, setPriceHighest] = useState(7380000);
-    const [pricelowest, setPricelowest] = useState(0);
+    const [priceMax, setPriceMax] = useState(7380000);
+    const [priceMin, setPriceMin] = useState(0);
 
     // 取得商品次類別 api
     useEffect(() => {
@@ -362,6 +362,10 @@ function Products() {
                                         setBrandTags={setBrandTags}
                                         colorTags={colorTagsTypes}
                                         setColorTags={setColorTags}
+                                        priceMax={priceMax}
+                                        setPriceMax={setPriceMax}
+                                        priceMin={priceMin}
+                                        setPriceMin={setPriceMin}
                                     />
                                 ) : (
                                     ''

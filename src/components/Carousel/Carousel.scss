@@ -7,20 +7,20 @@
         position: relative;
         background: #fff;
         margin-bottom: 20px;
-        
+
         // 圖片
         img {
-            max-height: 100%;  
-            max-width: 100%; 
+            max-height: 100%;
+            max-width: 100%;
             width: auto;
-            height: auto;
-            position: absolute;  
-            top: 0;  
-            bottom: 0;  
-            left: 0;  
-            right: 0;  
+            // height: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
             margin: auto;
-            transition: .3s;
+            transition: 0.3s;
         }
     }
     .swiper-slide:hover {
@@ -29,7 +29,7 @@
         }
     }
 
-//   按鈕樣式 上一張
+    //   按鈕樣式 上一張
     .swiper-button-prev {
         left: 0;
         color: #f2f2f2;
@@ -39,7 +39,7 @@
         margin: 0;
     }
 
-//   按鈕樣式 下一張
+    //   按鈕樣式 下一張
     .swiper-button-next {
         right: 0;
         color: #f2f2f2;
@@ -49,7 +49,7 @@
         margin: 0;
     }
     // 位置
-    .swiper-button-next, 
+    .swiper-button-next,
     .swiper-button-prev {
         top: 45%;
     }
@@ -66,32 +66,35 @@
             border-color: #cce1e4;
         }
     }
-// 外框樣式
+    // 外框樣式
     &-wrapper {
         width: 100%;
         padding-top: 100%;
         overflow: hidden;
         position: relative;
         background: #fff;
-        
+
         // 圖片
         img {
-            max-height: 100%;  
-            max-width: 100%; 
+            max-height: 100%;
+            max-width: 100%;
             width: auto;
-            height: auto;
-            position: absolute;  
-            top: 0;  
-            bottom: 0;  
-            left: 0;  
-            right: 0;  
+            // height: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
             margin: auto;
         }
     }
 }
 
-.swiper-button-next:after, .swiper-button-prev:after {
+.swiper-button-next:after,
+.swiper-button-prev:after {
     font-size: 1.5rem;
 }
+
+
 
 @import '../../../node_modules/swiper/swiper.scss';

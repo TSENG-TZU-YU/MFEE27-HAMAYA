@@ -53,9 +53,7 @@ function ChildrenCourse({ products, setProducts, setDisplayProducts }) {
         getAdultClass();
     }, [page]);
 
-    useEffect(() => {
-        console.log('products', products);
-    }, [products]);
+    useEffect(() => {}, [products]);
 
     return (
         <div>
@@ -71,7 +69,6 @@ function ChildrenCourse({ products, setProducts, setDisplayProducts }) {
                                 <div className="d-flex col-lg-6  px-lg-0  position-relative">
                                     <img
                                         className=" col-12 class-course-image"
-                                        // require(`../../../../album/class/${classAdult.image}`)
                                         src={require(`../../../../album/class/${classChild.image}`)}
                                         alt="Adult img"
                                     />

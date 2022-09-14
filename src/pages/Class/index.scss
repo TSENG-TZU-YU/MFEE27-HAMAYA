@@ -81,6 +81,7 @@
 .session-bg {
     // height: 498px;
     background-color: $main-light;
+    position: relative;
 }
 .session-bg .vector3 {
     border-top: 3px solid $main-gary-light;
@@ -98,5 +99,36 @@
     margin-left: 45px;
     color: $accent-light;
 }
+.decorate1 {
+    position: absolute;
+    bottom: 0;
+    left: -10px;
+    object-fit: cover;
+}
+.decorate2 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    object-fit: cover;
+}
+.decorate3 {
+    position: absolute;
+    bottom: 0;
+    right: 280px;
+    object-fit: cover;
+}
 
-
+@media screen and (max-width: 768px) {
+    .adult-course {
+        position: absolute;
+        margin-top: -45px;
+        margin-left: 20px;
+        color: $accent-light;
+    }
+    .children-lessons {
+        position: absolute;
+        margin-top: -45px;
+        margin-left: 20px;
+        color: $accent-light;
+    }
+}
