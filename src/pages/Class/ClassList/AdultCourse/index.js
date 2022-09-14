@@ -65,15 +65,15 @@ function AdultCourse({ products, setProducts, setDisplayProducts }) {
 
             // console.log('data', data);
             // 從前端取得總頁數 (lastPage)
-            // const pageList = _.chunk(response, perPage);
+            const pageList = _.chunk(response.data.data, perPage);
 
-            if (products > 0) {
+            if (pageList > 0) {
                 setPageTotal(products.length);
                 // 設定到state中
-                setDisplayProducts(products);
+                setDisplayProducts(pageList);
 
                 setProducts(response.data);
-                console.log(response);
+                console.log(response.data);
             }
             console.log('pageList', products);
         };
