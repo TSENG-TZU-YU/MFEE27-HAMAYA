@@ -71,9 +71,6 @@ li.products-page-active {
   aspect-ratio: 1 / 1;
 }
 
-.product-img:hover {
-  
-}
 
 .product-img > img {
   overflow: hidden;
@@ -314,6 +311,8 @@ ul.products-category-navbar {
   list-style: none;
   font-size: 1rem;
   cursor: pointer;
+  // 讓api還未打到資料時畫面高度不過於太矮
+  min-height: 60vh;
 }
 
 ul.products-sub-category {
@@ -348,3 +347,10 @@ ul.products-sub-category {
   width: 25px;
   height: 25px;
 }
+
+.products-min-height {
+    // 讓api還未打到資料時畫面高度不過於太矮
+    min-height: 55vh;
+}
+
+

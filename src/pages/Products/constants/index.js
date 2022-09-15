@@ -36,29 +36,29 @@ export const sortByTypes = [
 ];
 
 // 品牌篩選選項
-export const brandTagsTypes = [
-    // { id: 0, checked: true, name: '所有品牌' },
-    { id: 1, checked: false, name: 'YAMAHA' },
-    { id: 2, checked: false, name: 'Roland' },
-    { id: 3, checked: false, name: 'AZUMI' },
-    { id: 4, checked: false, name: 'Jupiter' },
-    { id: 5, checked: false, name: 'SELMER' },
-    { id: 6, checked: false, name: 'HEL' },
-    { id: 7, checked: false, name: 'OTTO' },
-    { id: 8, checked: false, name: 'Joylink' },
-    { id: 9, checked: false, name: 'BREEDLOVE' },
-    { id: 10, checked: false, name: 'SUSTAIN' },
-    { id: 11, checked: false, name: 'CORONA' },
-    { id: 12, checked: false, name: 'MAPEX' },
-    { id: 13, checked: false, name: 'NUX' },
-    { id: 14, checked: false, name: 'CASIO' },
-    { id: 15, checked: false, name: 'KORG' },
-    { id: 16, checked: false, name: 'Others' },
-    { id: 17, checked: false, name: 'aNueNue' },
-    { id: 18, checked: false, name: 'NOMAD' },
-    { id: 19, checked: false, name: 'HERCULES' },
-    { id: 20, checked: false, name: 'Vic-Firth' },
-];
+// export const brandTagsTypes = [
+//     { id: 0, checked: true, name: '所有品牌' },
+//     { id: 1, checked: false, name: 'YAMAHA' },
+//     { id: 2, checked: false, name: 'Roland' },
+//     { id: 3, checked: false, name: 'AZUMI' },
+//     { id: 4, checked: false, name: 'Jupiter' },
+//     { id: 5, checked: false, name: 'SELMER' },
+//     { id: 6, checked: false, name: 'HEL' },
+//     { id: 7, checked: false, name: 'OTTO' },
+//     { id: 8, checked: false, name: 'Joylink' },
+//     { id: 9, checked: false, name: 'BREEDLOVE' },
+//     { id: 10, checked: false, name: 'SUSTAIN' },
+//     { id: 11, checked: false, name: 'CORONA' },
+//     { id: 12, checked: false, name: 'MAPEX' },
+//     { id: 13, checked: false, name: 'NUX' },
+//     { id: 14, checked: false, name: 'CASIO' },
+//     { id: 15, checked: false, name: 'KORG' },
+//     { id: 16, checked: false, name: 'Others' },
+//     { id: 17, checked: false, name: 'aNueNue' },
+//     { id: 18, checked: false, name: 'NOMAD' },
+//     { id: 19, checked: false, name: 'HERCULES' },
+//     { id: 20, checked: false, name: 'Vic-Firth' },
+// ];
 
 // 顏色篩選選項
 // export const colorTagsTypes = [
