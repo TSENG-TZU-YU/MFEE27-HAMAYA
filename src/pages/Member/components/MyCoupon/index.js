@@ -129,7 +129,7 @@ function MyCoupon(props) {
                 <div className="d-flex align-items-center">
                     <input type="text " placeholder="請輸入您的優惠券領取碼" />
                     <button className="btn1  ">
-                        <img src={add_img2} />
+                        <img alt="add_img" src={add_img2} />
                         新增優惠券
                     </button>
                 </div>
@@ -162,7 +162,6 @@ function MyCoupon(props) {
                                     ) : (
                                         ''
                                     )}
-                                    {/* <div className="card_bg"></div> */}
                                     <h5 className="fst-italic">{data.name}</h5>
                                     <h3>
                                         <span>NT</span>${data.discount}
@@ -186,20 +185,6 @@ function MyCoupon(props) {
                                     ) : (
                                         ''
                                     )}
-
-                                    {console.log(
-                                        '123',
-                                        today,
-                                        new Date(data.end_time).getTime()
-                                    )}
-                                    {/* {data.valid == 0 && (
-                                        <div className="card_bg_right">
-                                            <div className="font">已使用</div>
-                                        </div>
-                                    )} */}
-                                    {/* <div className="card_bg_right">
-                                        <div className="font">已兌換</div>
-                                    </div> */}
                                     <h6>適用樂器商城、音樂教育 </h6>
                                     <p className=" p02">
                                         有效期限{data.start_time}~
