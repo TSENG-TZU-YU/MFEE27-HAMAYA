@@ -94,6 +94,7 @@
 
 
 
+
 .home-vector3 {
   border-top: 3px solid $main-light;
   width: 100%;
@@ -126,9 +127,7 @@
     width: 100%;
   }
 
-  // .wrap {
-  //   width: 100%;
-  // }
+
 
   .item-word, .item-word2{
     font-size: 20px;
@@ -137,7 +136,6 @@
 
 
 }
-
 
 
 .note3{
@@ -189,14 +187,7 @@ bottom:-60px;
  
 }
 
-.right-bottom {
-	position: absolute;
-	bottom: 15px;
-	right: 15px;
-}
-.pushed-header {
-	padding: 0px 15px;
-}	
+
 
 .pushed-box{
   position: absolute;
@@ -250,6 +241,26 @@ bottom:-60px;
   
 }
 
+
+.parallax{
+  background: url('../../assets/HomeImg/service-item4-2.jpg') repeat fixed 100%;
+  background-size: cover;
+  color: aliceblue;
+  height:300px; 
+}
+
+.parallax-inner{
+  padding-top:6%;
+  // padding-bottom: 60%;
+}
+
+.scroll-word{
+  font-size: 25px;
+  text-align: center;
+  
+}
+
+
 @media (max-width: 768px) {
 
 	.pushed-box3{
@@ -277,10 +288,21 @@ bottom:-60px;
     
   }
 
+  .parallax2{
+    background: url('../../assets/HomeImg/service-item4-2.jpg') repeat fixed 100%;
+    background-size: cover;
+    color: aliceblue;
+    height:180px; 
+  }
   
 
-
-  
-
-
-}
+  .scroll-word2{
+    font-size: 15px;
+    text-align: center;
+    margin: 30px 50px;
+  }
+  .home-blank-top4{
+      margin-top: 30px;
+    }
+    
+  }

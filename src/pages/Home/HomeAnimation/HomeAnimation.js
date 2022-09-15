@@ -15,7 +15,7 @@ function HomeAnimation(props) {
     return (
         <>
             <div id="app">
-                <div className="title">
+                <div className="title title2">
                     <div className="title-inner">
                         <div className="cafe">
                             <div className="cafe-inner ">HAMAYA</div>
@@ -23,8 +23,8 @@ function HomeAnimation(props) {
                         <div className="mozart">
                             <div className="mozart-inner ">MUSIC</div>
                         </div>
-                        <div className="title2">
-                            <span className="font5">
+                        <div className="font5 ">
+                            <span className="">
                                 將光亮從人心靈的深沈中釋放出來，是音樂的神聖使命。
                                 ——羅伯特·亞歷山大·舒曼
                             </span>
@@ -32,14 +32,14 @@ function HomeAnimation(props) {
                     </div>
                 </div>
 
-                <div className="home-video home-video2">
+                <div className=" home-video home-video2">
                     <video
                         muted
                         src={HomeVideo2}
-                        height=""
+                        width=""
                         autoPlay
                         loop
-                        className=""
+                        className="home-video3 "
                     />
                 </div>
 

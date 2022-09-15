@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 
 // 分頁
-import _ from 'lodash';
+// import _ from 'lodash';
 
 // 元件
 import StarRating from '../../../../components/Star/StarRating';
@@ -21,33 +21,41 @@ function AdultCourse({ products, setProducts, setDisplayProducts }) {
     // 分頁  Toggled
     // const [lastPage, setLastPage] = useState(1);
     // const [page, setPage] = useState(1);
+
+    // 只記錄第一次didMount時和伺服器要資料的狀態
+    // const [usersRaw, setUsersRaw] = useState([]);
+
+    // 畫面上目前呈現用狀態
+    // const [usersDisplay, setUsersDisplay] = useState([]);
+
     // 分頁用
+
     const [pageNow, setPageNow] = useState(1); // 目前頁號
     const [perPage, setPerPage] = useState(6); // 每頁多少筆資料
-    const [pageTotal, setPageTotal] = useState(3); //總共幾頁，在didMount時要決定
+    const [pageTotal, setPageTotal] = useState(0); //總共幾頁，在didMount時要決定
     // 製作分頁按鈕
-    const getPage = () => {
-        let pages = [];
-        for (let i = 1; i <= pageTotal; i++) {
-            //要從陣列後面依序放頁數
-            pages.push(
-                <li
-                    className="pages"
-                    style={{
-                        backgroundColor: pageNow === i ? '#00323d' : '',
-                        color: pageNow === i ? '#f2f2f2' : '#6a777a',
-                    }}
-                    key={i}
-                    onClick={(e) => {
-                        setPageNow(i);
-                    }}
-                >
-                    {i}
-                </li>
-            );
-        }
-        return pages;
-    };
+    // const getPage = () => {
+    //     let pages = [];
+    //     for (let i = 1; i <= pageTotal; i++) {
+    //         //要從陣列後面依序放頁數
+    //         pages.push(
+    //             <li
+    //                 className="pages"
+    //                 style={{
+    //                     backgroundColor: pageNow === i ? '#00323d' : '',
+    //                     color: pageNow === i ? '#f2f2f2' : '#6a777a',
+    //                 }}
+    //                 key={i}
+    //                 onClick={(e) => {
+    //                     setPageNow(i);
+    //                 }}
+    //             >
+    //                 {i}
+    //             </li>
+    //         );
+    //     }
+    //     return pages;
+    // };
 
     useEffect(() => {
         let getAdultClass = async () => {
@@ -60,28 +68,30 @@ function AdultCourse({ products, setProducts, setDisplayProducts }) {
 
             // 從後端取得總頁數 (lastPage)
             // setLastPage(response.data.pagination.lastPage);
-            // 剖析為js資料類型
-            // const data = await response.data.json();
 
-            // console.log('data', data);
+            console.log('response.data', response.data);
             // 從前端取得總頁數 (lastPage)
-            const pageList = _.chunk(response.data.data, perPage);
+            // const pageList = _.chunk(response.data, perPage);
 
-            if (pageList > 0) {
-                setPageTotal(products.length);
-                // 設定到state中
-                setDisplayProducts(pageList);
+            // console.log('pageList', pageList);
+            // console.log('displayProducts', displayProducts);
+            // if (pageList.length > 0) {
+            //     setPageTotal(pageList.length);
+            //     // 設定到state中
+            //     setDisplayProducts(pageList);
 
-                setProducts(response.data);
-                console.log(response.data);
-            }
-            console.log('pageList', products);
+            //     setProducts(response.data);
+            //     console.log('pageList > 0', pageList);
+            // }
         };
+
+        // console.log('L-93', 123);
         getAdultClass();
     }, []);
-    console.log('perPage', perPage);
-    console.log('pageNow', pageNow);
-    console.log('pageTotal', pageTotal);
+
+    // console.log('perPage', perPage);
+    // console.log('pageNow', pageNow);
+    // console.log('pageTotal', pageTotal);
 
     useEffect(() => {
         console.log('products', products);
@@ -90,14 +100,14 @@ function AdultCourse({ products, setProducts, setDisplayProducts }) {
     // const paginationBar = (
     //     <>
     //         <div className="pagination">
-    //             <a
-    //                 href="#/"
-    //                 onClick={() => {
-    //                     setPageNow(1);
-    //                 }}
+    //             {/* <a
+    //             // href="#/"
+    //             // onClick={() => {
+    //             //     setPageNow(1);
+    //             // }}
     //             >
     //                 &laquo;
-    //             </a>
+    //             </a> */}
     //             {Array(pageTotal)
     //                 .fill(1)
     //                 .map((v, i) => {
@@ -114,20 +124,26 @@ function AdultCourse({ products, setProducts, setDisplayProducts }) {
     //                         </a>
     //                     );
     //                 })}
-    //             <a
-    //                 href="#/"
+    //             {/* <a
+    //                 // href="#/"
     //                 onClick={() => {
     //                     setPageNow(pageTotal);
     //                 }}
     //             >
     //                 &raquo;
-    //             </a>
+    //             </a> */}
     //         </div>
     //     </>
     // );
+
+    // console.log('', products);
+
     return (
         <div>
+            {/* 分頁 */}
+            {/* {paginationBar} */}
             {/* 已灌資料庫 */}
+            {/* displayProducts[pageNow - 1] */}
             {products.map((classAdult) => {
                 return (
                     <div
@@ -184,7 +200,7 @@ function AdultCourse({ products, setProducts, setDisplayProducts }) {
                                                 NT ${classAdult.price} / 期
                                             </h4>
 
-                                            <Car />
+                                            <Car classAdult={classAdult} />
                                         </div>
                                     </div>
                                 </div>
@@ -194,8 +210,7 @@ function AdultCourse({ products, setProducts, setDisplayProducts }) {
                 );
             })}
             {/* 分頁 */}
-            <ul className="text-center">{getPage()}</ul>
-            {/* {paginationBar} */}
+            {/* <ul className="text-center">{getPage()}</ul> */}
 
             {/* 分頁 end*/}
         </div>

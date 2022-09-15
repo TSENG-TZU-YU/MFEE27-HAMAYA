@@ -10,6 +10,7 @@ import { homeImages } from '../../album/home';
 //TODO:卷軸要做
 //TODO:點擊輪播時會跑版要修
 
+// import MobileHome from './MobileHome';
 import HomeScroll from '../../components/HomeScroll/HomeScroll';
 
 //圖檔
@@ -38,8 +39,11 @@ function Home(props) {
 
             <HomeAnimation />
 
-            <div className="bg-main-gary-light-color">
-                <HomeScroll images={homeImages} />
+            <div className="bg-main-gary-light-color ">
+                <div className="">
+                    <HomeScroll images={homeImages} />
+                </div>
+
                 <div className="container bg-main-gary-light-color ">
                     <span className="home-word">
                         NEW &ensp;
@@ -83,7 +87,7 @@ function Home(props) {
                     </div>
                 </div>
 
-                <div className="container pushed-wrapper home-blank-top ">
+                <div className="container pushed-wrapper home-blank-top2">
                     <div className="row pushed-box4 pushed-box5">
                         <Link to="products">
                             <span className="item-word3">音樂教育</span>
@@ -120,7 +124,7 @@ function Home(props) {
                             />
                         </div>
                     </div>
-                    <div className=" pushed-content pushed-box  pushed-box">
+                    <div className=" pushed-content pushed-box  ">
                         <Link to="products">
                             <span className="item-word">場地租借</span>
                             <img
@@ -135,14 +139,18 @@ function Home(props) {
                         </Link>
                     </div>
                 </div>
-                <div className="">
-                    <img
-                        src={ServiceItem4}
-                        width="100%"
-                        alt="Logo"
-                        className="home-blank-top2"
-                    />
+
+                <div className="parallax parallax2  home-blank-top2">
+                    <div className="parallax-inner parallax-inner ">
+                        <br />
+                        <h1 className="scroll-word scroll-word2">
+                            音樂之目的有二，一是以純淨之和聲愉悅人的感官，二是令人感動或激發人的熱情。—羅傑·諾斯
+                        </h1>
+                        <br />
+                    </div>
                 </div>
+
+                {/* 音符裝飾 */}
                 <div className="container d-none d-md-block ">
                     <img src={Note3} width="30" alt="Logo" className="note3" />
                     <img src={Note6} width="50" alt="Logo" className="note6" />
@@ -151,7 +159,7 @@ function Home(props) {
                     <img src={Note9} width="15" alt="Logo" className="note9" />
                 </div>
 
-                <div className="container d-flex ">
+                <div className="container d-flex home-blank-top4">
                     <p className="home-word4 fw-bold home-cursor-pinter me-3 text-nowrap">
                         音樂文章
                     </p>

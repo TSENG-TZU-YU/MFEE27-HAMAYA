@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom'; //抓取Outlet的props
-import MyCartTable from './MyCartTable';
+import MyCartTable from './components/MyCartTable';
 import './MyCart.scss';
 function MyCart(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
@@ -30,14 +30,14 @@ function MyCart(props) {
                         </label>
                     </div>
                     <button className="btn btn-primary col mx-2 p-0 text-nowrap">
-                        取消收藏
+                        移除品項
                     </button>
                     <button className="btn btn-primary col mx-2 p-0 text-nowrap">
-                        加入購物車
+                        加入收藏
                     </button>
                 </div>
             </div>
-            <div className="listBottomLine">
+            <div className="">
                 <MyCartTable />
             </div>
             <div className="pb-5 row justify-content-around">

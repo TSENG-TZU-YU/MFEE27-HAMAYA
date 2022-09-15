@@ -59,7 +59,7 @@ function ClassList(props) {
     const [searchWord, setSearchWord] = useState('');
 
     // 價格
-    const [selectedPrice, setSelectedPrice] = useState([2600, 2600]);
+    const [selectedPrice, setSelectedPrice] = useState([2600, 2800]);
 
     // 樂器
     const [subIns, setSubIns] = useState('');
@@ -80,9 +80,9 @@ function ClassList(props) {
         let newProducts = [...products];
 
         // TODO: 預設用id 大至小
-        if (sortBy === '' && newProducts.length > 0) {
-            newProducts = [...newProducts].sort((a, b) => a.id - b.id);
-        }
+        // if (sortBy === '' && newProducts.length > 0) {
+        //     newProducts = [...newProducts].sort((a, b) => a.id - b.id);
+        // }
 
         // 以價格排序-低到高
         if (sortBy === '1') {
@@ -109,19 +109,20 @@ function ClassList(props) {
     };
 
     // 搜尋：處理方法
-    const handleSearch = (products, searchWord) => {
-        let newProducts = [...products];
-        if (searchWord.length) {
-            newProducts = products.filter((product) => {
-                return product.name.includes(searchWord);
-            });
-        }
-        return newProducts;
-    };
+    // const handleSearch = (products, searchWord) => {
+    //     let newProducts = [...products];
+    //     if (searchWord.length) {
+    //         newProducts = products.filter((product) => {
+    //             return product.name.includes(searchWord);
+    //         });
+    //     }
+    //     return newProducts;
+    // };
 
     // 樂器:處理方法
     const handleSubIns = (products, subIns) => {
         let newProducts = [...products];
+
         if (subIns === '1') {
             newProducts = [...newProducts].filter(
                 (product) => product.ins_sub_id === 1
@@ -160,9 +161,15 @@ function ClassList(props) {
         return newProducts;
     };
 
-    // 價格:處理方法
+    // 篩選方法
     const applyFilters = () => {
-        let newProducts = [...products];
+        let newProducts = [];
+
+        // 處理排序
+        // newProducts = handleSort(products, sortBy);
+
+        // 處理樂器
+        newProducts = handleSubIns(products, subIns);
 
         // 價格區間
         const minPrice = selectedPrice[0];
@@ -172,6 +179,10 @@ function ClassList(props) {
         newProducts = newProducts.filter(
             (product) => product.price >= minPrice && product.price <= maxPrice
         );
+
+        console.log('sortBy', sortBy);
+        // [[page1],[page2]]
+        // need chunk to display
 
         setDisplayProducts(newProducts);
     };
@@ -185,27 +196,27 @@ function ClassList(props) {
         setDisplayProducts(newProducts);
     }, [products, sortBy]);
 
-    useEffect(() => {
-        let newProducts = [];
+    // useEffect(() => {
+    //     let newProducts = [];
 
-        // 處理搜尋
-        newProducts = handleSearch(products, searchWord);
+    //     // 處理搜尋
+    //     newProducts = handleSearch(products, searchWord);
 
-        setDisplayProducts(newProducts);
-    }, [products, searchWord]);
+    //    // setDisplayProducts(newProducts);
+    // }, [products, searchWord]);
 
-    useEffect(() => {
-        let newProducts = [];
+    // useEffect(() => {
+    //     let newProducts = [];
 
-        // 處理樂器
-        newProducts = handleSubIns(products, subIns);
+    //     // 處理樂器
+    //     newProducts = handleSubIns(products, subIns);
 
-        setDisplayProducts(newProducts);
-    }, [products, subIns]);
+    //     //setDisplayProducts(newProducts);
+    // }, [products, subIns]);
 
     useEffect(() => {
         applyFilters();
-    }, [products, selectedPrice]);
+    }, [products, selectedPrice, searchWord, subIns]);
 
     return (
         <Container>

@@ -5,6 +5,7 @@ import add_img2 from '../../../../assets/svg/add2.svg';
 
 function MyCoupon(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
+    const today = new Date().getTime();
     useEffect(() => {
         setbread('我的優惠券'); //載入頁面時 設定麵包削
     }, []);
@@ -19,6 +20,7 @@ function MyCoupon(props) {
             discount: '50',
             start_time: '2022-09-05',
             end_time: '2022-09-30',
+            valid: 1,
         },
         {
             coupon_id: '6',
@@ -29,6 +31,7 @@ function MyCoupon(props) {
             discount: '250',
             start_time: '2022-10-1',
             end_time: '2022-10-15',
+            valid: 1,
         },
         {
             coupon_id: '7',
@@ -39,6 +42,7 @@ function MyCoupon(props) {
             discount: '550',
             start_time: '2022-10-1',
             end_time: '2022-10-30',
+            valid: 1,
         },
         {
             coupon_id: '12',
@@ -49,6 +53,7 @@ function MyCoupon(props) {
             discount: '150',
             start_time: '2022-09-05',
             end_time: '2022-09-30',
+            valid: 1,
         },
         {
             coupon_id: '11',
@@ -57,8 +62,9 @@ function MyCoupon(props) {
             sn: 'test8888',
             minmum: '2500',
             discount: '250',
-            start_time: '2022-10-1',
-            end_time: '2022-10-15',
+            start_time: '2022-8-1',
+            end_time: '2022-8-15',
+            valid: 1,
         },
         {
             coupon_id: '10',
@@ -69,6 +75,7 @@ function MyCoupon(props) {
             discount: '1000',
             start_time: '2022-10-1',
             end_time: '2022-10-30',
+            valid: 0,
         },
         {
             coupon_id: '9',
@@ -79,6 +86,7 @@ function MyCoupon(props) {
             discount: '50',
             start_time: '2022-09-05',
             end_time: '2022-09-30',
+            valid: 0,
         },
         {
             coupon_id: '13',
@@ -89,6 +97,7 @@ function MyCoupon(props) {
             discount: '250',
             start_time: '2022-10-1',
             end_time: '2022-10-15',
+            valid: 0,
         },
         {
             coupon_id: '14',
@@ -99,6 +108,7 @@ function MyCoupon(props) {
             discount: '200',
             start_time: '2022-10-1',
             end_time: '2022-10-30',
+            valid: 0,
         },
         {
             coupon_id: '15',
@@ -108,7 +118,8 @@ function MyCoupon(props) {
             minmum: '3000',
             discount: '150',
             start_time: '2022-10-1',
-            end_time: '2022-10-30',
+            end_time: '2022-09-14',
+            valid: 1,
         },
     ]);
     return (
@@ -118,7 +129,7 @@ function MyCoupon(props) {
                 <div className="d-flex align-items-center">
                     <input type="text " placeholder="請輸入您的優惠券領取碼" />
                     <button className="btn1  ">
-                        <img src={add_img2} />
+                        <img alt="add_img" src={add_img2} />
                         新增優惠券
                     </button>
                 </div>
@@ -130,26 +141,55 @@ function MyCoupon(props) {
                 {myCoupon.map((data) => {
                     return (
                         <div className="col-12 col-lg-6 coupon-card">
-                            <div className="row p-1">
+                            <div className="row m-1 ">
                                 <div
                                     className={
                                         data.discount >= 550
-                                            ? 'col-5 coupon-card01'
+                                            ? 'col-5 coupon-card01 position-relative'
                                             : data.discount >= 250
-                                            ? 'col-5 coupon-card02'
+                                            ? 'col-5 coupon-card02 position-relative'
                                             : data.discount >= 150
-                                            ? 'col-5 coupon-card03'
-                                            : 'col-5 coupon-card04'
+                                            ? 'col-5 coupon-card03 position-relative'
+                                            : 'col-5 coupon-card04 position-relative'
                                     }
-                                >   
-                                    <h5 className='fst-italic'>{data.name}</h5>
-                                    <h3><span>NT</span>${data.discount}</h3>
+                                >
+                                    {data.valid == 0 ? (
+                                        <div className="card_bg"></div>
+                                    ) : today -
+                                          new Date(data.end_time).getTime() >=
+                                      0 ? (
+                                        <div className="card_bg"></div>
+                                    ) : (
+                                        ''
+                                    )}
+                                    <h5 className="fst-italic">{data.name}</h5>
+                                    <h3>
+                                        <span>NT</span>${data.discount}
+                                    </h3>
                                     <h6>商品折價券</h6>
-                                    <p className='text-nowrap p01'>消費滿${data.minmum}可使用</p>
+                                    <p className="text-nowrap p01">
+                                        消費滿${data.minmum}可使用
+                                    </p>
                                 </div>
-                                <div className="col-7 bg-light p-2 d-flex flex-column justify-content-around">
+                                <div className="col-7 bg-light p-2 d-flex flex-column justify-content-around position-relative">
+                                    {data.valid == 0 ? (
+                                        <div className="card_bg_right">
+                                            <div className="font">已使用</div>
+                                        </div>
+                                    ) : today -
+                                          new Date(data.end_time).getTime() >=
+                                      0 ? (
+                                        <div className="card_bg_right">
+                                            <div className="font">已過期</div>
+                                        </div>
+                                    ) : (
+                                        ''
+                                    )}
                                     <h6>適用樂器商城、音樂教育 </h6>
-                                    <p className=' p02'>有效期限{data.start_time}~{data.end_time}</p>
+                                    <p className=" p02">
+                                        有效期限{data.start_time}~
+                                        {data.end_time}
+                                    </p>
                                 </div>
                             </div>
                         </div>
