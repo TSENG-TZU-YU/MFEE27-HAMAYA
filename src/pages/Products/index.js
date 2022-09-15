@@ -277,14 +277,16 @@ function Products() {
         });
         if (!newItemInfo) {
             //臨時購物車
-            setShoppingCart([...shoppingCart, { ...itemInfo }]);
+            setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
             //localStorage
-            setNewLocal([...shoppingCart, { ...itemInfo }]);
+            setNewLocal([{ ...itemInfo }, ...shoppingCart]);
             //判斷是否為登入
             if (member !== null && member.id !== '') {
                 let getNewLocal = JSON.parse(
                     localStorage.getItem('shoppingCart')
                 );
+                console.log('getNewLocal', getNewLocal);
+
                 const itemsData = getNewLocal.map((item) => {
                     return {
                         user_id: member.id,
@@ -301,7 +303,7 @@ function Products() {
     }
 
     async function setItemsData(itemsData) {
-        //TODO:要做後端資料庫裡是否重複 重複則去購物車修改數量
+        //TODO:要做後端資料庫裡是否重複 重複則去購物車修改數量 目前只拿一個加入購物車
         try {
             let response = await axios.post(`${API_URL}/cart`, itemsData);
             alert(response.data.message);

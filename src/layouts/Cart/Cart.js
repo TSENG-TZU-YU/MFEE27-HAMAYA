@@ -12,7 +12,7 @@ function Cart() {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
-    console.log('shoppingCart in Cart', shoppingCart);
+    // console.log('shoppingCart in Cart', shoppingCart);
     //如果臨時購物車商品為0 則關閉
     if (shoppingCart.length === 0) {
         setShopCartState(false);

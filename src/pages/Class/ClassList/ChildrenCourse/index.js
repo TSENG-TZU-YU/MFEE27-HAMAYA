@@ -13,6 +13,7 @@ import Favorite from '../../../../components/Favorite';
 // import Adult_img from '../../../../assets/ClassImg/Adult img.png';
 
 function ChildrenCourse({ products, setProducts, setDisplayProducts }) {
+    const [itemId, setItemId] = useState();
     // const [data, setData] = useState([]);
     // 分頁  Toggled
     const [lastPage, setLastPage] = useState(1);
@@ -114,7 +115,7 @@ function ChildrenCourse({ products, setProducts, setDisplayProducts }) {
                                                 NT ${classChild.price} / 期
                                             </h4>
 
-                                            <Car />
+                                            <Car itemsCart={classChild} />
                                         </div>
                                     </div>
                                 </div>
