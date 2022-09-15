@@ -541,6 +541,7 @@ function ClassList(props) {
                     // 原始資料 跟 改動資料都要傳入子層
                     setProducts={setProducts}
                     setDisplayProducts={setDisplayProducts}
+               
                 />
             ) : (
                 <ChildrenCourse
