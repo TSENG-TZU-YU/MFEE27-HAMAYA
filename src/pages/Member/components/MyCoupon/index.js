@@ -1,16 +1,68 @@
 import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom'; //抓取Outlet的props
 import './index.css';
+import axios from 'axios';
+import { API_URL } from '../../../../utils/config';
 import add_img2 from '../../../../assets/svg/add2.svg';
 
 function MyCoupon(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
     const today = new Date().getTime();
+    const [couponSn, setCouponSn] = useState({ sn: '' });
+    const [myCoupon, setMyCoupon] = useState([
+        {
+            coupon_id: '',
+            user_id: '',
+            name: '',
+            sn: '',
+            minimum: '',
+            discount: '',
+            start_time: '',
+            end_time: '',
+            use: '',
+        },
+    ]);
+
     useEffect(() => {
         setbread('我的優惠券'); //載入頁面時 設定麵包削
+        loadingMyCoupon();
     }, []);
 
-    const [myCoupon, setMyCoupon] = useState([
+    async function loadingMyCoupon() {
+        try {
+            let response = await axios.get(`${API_URL}/member/mycoupon`, {
+                withCredentials: true,
+            });
+            console.log(response.data);
+            setMyCoupon(response.data);
+
+            // alert(response.data.message);
+        } catch (err) {
+            console.log(err.response.data);
+            alert(err.response.data.message);
+        }
+    }
+
+    async function addCouponSubmit(e) {
+        e.preventDefault();
+        try {
+            let response = await axios.post(
+                `${API_URL}/member/addcoupon`,
+                couponSn,
+                {
+                    withCredentials: true,
+                }
+            );
+            console.log(response.data);
+            setCouponSn({ sn: '' });
+            alert(response.data.message);
+        } catch (err) {
+            console.log(err.response.data);
+            alert(err.response.data.message);
+        }
+    }
+
+    const [myCoupon2, setMyCoupon2] = useState([
         {
             coupon_id: '5',
             user_id: '2',
@@ -127,8 +179,15 @@ function MyCoupon(props) {
             <h4 className="main-color ">我的優惠券</h4>
             <div className="d-flex justify-content-between ">
                 <div className="d-flex align-items-center">
-                    <input type="text " placeholder="請輸入您的優惠券領取碼" />
-                    <button className="btn1  ">
+                    <input
+                        type="text "
+                        value={couponSn.sn}
+                        onChange={(e) => {
+                            setCouponSn({ sn: e.target.value });
+                        }}
+                        placeholder="請輸入您的優惠券領取碼"
+                    />
+                    <button className="btn1 " onClick={addCouponSubmit}>
                         <img alt="add_img" src={add_img2} />
                         新增優惠券
                     </button>
@@ -153,7 +212,7 @@ function MyCoupon(props) {
                                             : 'col-5 coupon-card04 position-relative'
                                     }
                                 >
-                                    {data.valid == 0 ? (
+                                    {data.use == 0 ? (
                                         <div className="card_bg"></div>
                                     ) : today -
                                           new Date(data.end_time).getTime() >=
@@ -168,11 +227,11 @@ function MyCoupon(props) {
                                     </h3>
                                     <h6>商品折價券</h6>
                                     <p className="text-nowrap p01">
-                                        消費滿${data.minmum}可使用
+                                        消費滿${data.minimum}可使用
                                     </p>
                                 </div>
                                 <div className="col-7 bg-light p-2 d-flex flex-column justify-content-around position-relative">
-                                    {data.valid == 0 ? (
+                                    {data.use == 0 ? (
                                         <div className="card_bg_right">
                                             <div className="font">已使用</div>
                                         </div>
