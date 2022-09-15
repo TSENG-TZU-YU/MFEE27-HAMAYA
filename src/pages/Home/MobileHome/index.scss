@@ -1,11 +1,62 @@
+
 @import '../../../styles/global.scss';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@600&display=swap');
 
 
+@media screen and (max-width:768px) {
+  .mobile-blank-top {
+    margin-top: 30px;
+  }
+  
+  .mobile-engText {
+    font-family: 'Noto Serif Display', serif;
+    color: $main;
+  }
+  
+  .mobile-cursor-pinter {
+    cursor: pointer;
+  }
+  
+  .mobile-word4{
+    font-size: 1.5rem;
+    color: #00323d;
+  }
 
+  .mobile-pushed-wrapper {
+    position: relative;
+  }
+  .mobile-vector3 {
+    border-top: 3px solid $main-light;
+    width: 100%;
+  }
+  
+  
+  .item-img {
+    width:100%;
+    
+  }
+  .item-img2{
+    width: 100%;
+  }
 
+  // .mobile-pushed-content {
+  //   position: relative;
+  //   padding: 15px 15px 40px 15px;
+  
+   
+  // }
 
+  // .mobile-pushed-box{
+  //   position: absolute;
+  //   left: 10%;
+  //   top: 60%;
+  //   max-width: 50%;
+  //   // transform: translateY(-50%);
+  //   background:  #f2f2f244;
+  //   height: 90px;
+  //   width:100%
+    
+  // }
 
-
-
-
+  
+}
