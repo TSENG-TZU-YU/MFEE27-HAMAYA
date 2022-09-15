@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
+import _ from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
 
 // 套件
 import { Container } from 'react-bootstrap';
@@ -10,7 +12,8 @@ import { Container } from 'react-bootstrap';
 import './index.scss';
 
 // 項目資料
-import { sortByTitle, brandTagsTypes } from './constants';
+import { sortByTitle } from './constants';
+import MobileFilterBar from './components/MobileFilterBar';
 
 // 元件
 import ProductCompare from './ProductCompare';
@@ -19,6 +22,7 @@ import MobileCategoryNav from './components/MobileCategoryNav';
 import SortBar from './components/MobileSortBar';
 import MobileSortBar from './components/SortBar';
 import FilterBar from './components/FilterBar';
+import PaginationBar from '../../components/PaginationBar/PaginationBar';
 
 // 元件 FilterNav
 import SearchBar from '../../components/SearchBar';
@@ -71,13 +75,15 @@ function Products() {
     // 排序
     const [sortBy, setSortBy] = useState('');
 
-    // checkbox
-    // 品牌
+    // 品牌 checkbox 複選
     const [brandTags, setBrandTags] = useState([]);
 
-    // 顏色
+    // 顏色 單選
     const [colorTags, setColorTags] = useState('');
+    // 顏色項目
     const [colorTagsTypes, setColorTagsTypes] = useState([]);
+    // 顏色選取樣式
+    const [activeColorTags, setActiveColorTags] = useState('');
 
     // 價格
     const [selectedPrice, setSelectedPrice] = useState([0, 7380000]);
@@ -92,32 +98,43 @@ function Products() {
         getCategory();
     }, []);
 
-    const location = useLocation();
+    // TODO: 製作頁碼按鈕
+    // 分頁用
+    const [pageNow, setPageNow] = useState(1); // 目前頁號
+    const [perPage, setPerPage] = useState(8); // 每頁多少筆資料
+    const [pageTotal, setPageTotal] = useState(0); //總共幾頁，在didMount時要決定
+    const [pageProducts, setPageProducts] = useState([]);
 
+    const location = useLocation();
     // 取得商品 api
     useEffect(() => {
         let params = new URLSearchParams(location.search);
         let mainId = params.get('main_id');
         let subId = params.get('sub_id');
+        clearState();
         let getProducts = async () => {
             let response = await axios.get(
                 `${API_URL}/products?mainId=${mainId}&subId=${subId}`
             );
+            // TODO: 再撈品牌資料product item中顯示
             response.data.color.unshift({ color: '' });
-            response.data.brand.forEach((el) => (el.checked = false));
+            response.data.brand.forEach((e) => (e.checked = false));
             setBrandTags(response.data.brand);
-            console.log(response.data.brand);
-            setProducts(response.data.data);
             setColorTagsTypes(response.data.color);
             setMaxPrice(response.data.maxPrice[0].maxPrice);
             setSelectedPrice([0, response.data.maxPrice[0].maxPrice]);
-            // console.log('所有產品', response.data.data);
+            setProducts(response.data.data);
             setDisplayProducts(response.data.data);
+            // console.log('所有產品', response.data.data);
+            const pageList = _.chunk(response.data.data, perPage);
+            if (pageList.length > 0) {
+                setPageTotal(pageList.length);
+                // 設定到state中
+                setPageProducts(pageList);
+            }
         };
         getProducts();
     }, [location]);
-
-    // TODO: 製作頁碼按鈕
 
     // 品牌篩選 選取陣列
     const handleBrandTagsChecked = (id) => {
@@ -168,7 +185,7 @@ function Products() {
 
         // 搜尋：處理方法
         if (searchWord.length) {
-            newProducts = products.filter((product) =>
+            newProducts = newProducts.filter((product) =>
                 product.name.includes(searchWord)
             );
         }
@@ -199,14 +216,32 @@ function Products() {
         newProducts = newProducts.filter(
             (product) => product.price >= minPrice && product.price <= maxPrice
         );
-
+        const newPageProducts = _.chunk(newProducts, perPage);
+        setPageProducts(newPageProducts);
         setDisplayProducts(newProducts);
+
+    };
+
+    // 當類別重選時篩選條件回初始值
+    const clearState = () => {
+        setColorTags('');
+        setBrandTags([]);
+        setSearchWord('');
+        setSortBy('');
+        setActiveColorTags('');
+        setPageNow(1);
     };
 
     // 當篩選區塊元素有更動時
     useEffect(() => {
         applyFilters();
     }, [products, colorTags, selectedPrice, brandTags, searchWord, sortBy]);
+
+    console.log('pageTotal', pageTotal);
+    console.log('displayProducts', displayProducts);
+    console.log('products', products);
+    console.log('pageProducts', pageProducts);
+    console.log('colorTags', colorTags);
 
     // Toggled
     const [productCompare, setProductCompare] = useState(false);
@@ -260,6 +295,7 @@ function Products() {
     };
 
     const { member, setMember, isLogin, setIsLogin } = useAuth();
+
     //購物車
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
@@ -317,7 +353,7 @@ function Products() {
             <img className="img-fluid" src={banner} alt="banner" />
 
             {/* 主要內容 */}
-            <Container>
+            <Container className="products-min-height">
                 {/* 桌機 篩選 */}
                 <div className="d-none d-md-block">
                     <div className="d-flex flex-row-reverse">
@@ -363,6 +399,8 @@ function Products() {
                                         maxPrice={maxPrice}
                                         changeChecked={handleBrandTagsChecked}
                                         brandTags={brandTags}
+                                        activeColorTags={activeColorTags}
+                                        setActiveColorTags={setActiveColorTags}
                                     />
                                 ) : (
                                     ''
@@ -526,54 +564,18 @@ function Products() {
 
                         {/* 進階篩選區塊 */}
                         {filterToggled ? (
-                            <div className="mobile-products-filter-menu">
-                                <div className="p-3">
-                                    <p className="mb-2 accent-light-color">
-                                        品牌
-                                    </p>
-                                    <div className="row g-1 ">
-                                        {brandTags.map((value, index) => {
-                                            return (
-                                                <div
-                                                    className="col-6 form-check products-form-check"
-                                                    key={index}
-                                                >
-                                                    <input
-                                                        className="form-check-input"
-                                                        type="checkbox"
-                                                        defaultValue
-                                                    />
-                                                    <label className="form-check-label">
-                                                        {value.name}
-                                                    </label>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-                                    <p className="mt-4 mb-0 accent-light-color">
-                                        顏色
-                                    </p>
-                                    <div className="d-flex mt-2">
-                                        <div className="cursor-pointer products-filter-color-box products-filter-no-color-box products-filter-color-box-active"></div>
-                                        <div className="cursor-pointer products-filter-color-box color"></div>
-                                    </div>
-                                    <p className="mt-4 mb-0 accent-light-color">
-                                        價格
-                                    </p>
-                                    <input
-                                        className="form-range"
-                                        type="range"
-                                        max="100"
-                                        min="0"
-                                    />
-                                    <p className="accent-light-color m-0">
-                                        NT$0 ~ 190,000
-                                    </p>
-                                    <button className="products-btn-border-none products-filter-btn mt-3 w-100">
-                                        篩選
-                                    </button>
-                                </div>
-                            </div>
+                            <MobileFilterBar
+                                setBrandTags={setBrandTags}
+                                colorTags={colorTagsTypes}
+                                setColorTags={setColorTags}
+                                selectedPrice={selectedPrice}
+                                setSelectedPrice={setSelectedPrice}
+                                maxPrice={maxPrice}
+                                changeChecked={handleBrandTagsChecked}
+                                brandTags={brandTags}
+                                activeColorTags={activeColorTags}
+                                setActiveColorTags={setActiveColorTags}
+                            />
                         ) : (
                             ''
                         )}
@@ -605,103 +607,113 @@ function Products() {
                     />
                     {/* 桌機 商品類別選項 end */}
 
-                    <div className="col-12 col-md-10">
+                    <div className="col-12 col-md-10 d-flex flex-column justify-content-between">
                         {/* 商品列 */}
                         <div className=" row row-cols-2 row-cols-md-3 row-cols-xl-4">
                             {error && <div>{error}</div>}
-                            {displayProducts.map((product) => {
-                                return (
-                                    <div
-                                        className="col product"
-                                        key={product.id}
-                                    >
-                                        <div className="position-relative">
-                                            {/* 商品照片 */}
-                                            <Link
-                                                to={`/products/${product.product_id}`}
-                                                className="product-img d-block"
-                                            >
-                                                <div className="product-img-mask position-absolute"></div>
-                                                <img
-                                                    src={require(`../../album/products/${product.image}`)}
-                                                    className="card-img-top"
-                                                    alt="product"
-                                                />
-                                            </Link>
-                                            <div className="product-like position-absolute top-0 end-0">
-                                                <Favorite />
-                                            </div>
-                                            <div className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-1">
-                                                <img
-                                                    src={compare}
-                                                    alt="compare"
-                                                    className="product-icon me-1"
-                                                />
-                                                比較
-                                            </div>
-                                            <button
-                                                className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
-                                                onClick={(e) => {
-                                                    setShopCartState(true);
-                                                    getCheck({
-                                                        product_id:
-                                                            product.product_id,
-                                                        category_id:
-                                                            product.category_id,
-                                                        image: product.image,
-                                                        name: product.name,
-                                                        amount: 1,
-                                                        price: product.price,
-                                                        spec: product.spec,
-                                                        shipment:
-                                                            product.shipment,
-                                                    });
-                                                }}
-                                            >
-                                                <img
-                                                    src={cartCheck}
-                                                    alt="cartCheck"
-                                                    className="product-icon me-1"
-                                                />
-                                                加入購物車
-                                            </button>
-                                        </div>
-                                        <div className="product-body py-2">
-                                            {/* 品名 */}
-                                            <div className="d-flex justify-content-between">
-                                                <div>
-                                                    <Link
-                                                        to={`/products/${product.product_id}`}
-                                                        className="product-name"
-                                                    >
-                                                        {product.name}
-                                                    </Link>
-                                                    {/* 價格 */}
-                                                    <h1 className="product-price accent-color">
-                                                        NT ${product.price}
-                                                    </h1>
+                            {/* {displayProducts.map((product) => { */}
+                            {pageProducts.length > 0 &&
+                                pageProducts[pageNow - 1].map((product) => {
+                                    return (
+                                        <div
+                                            className="col product"
+                                            key={uuidv4()}
+                                        >
+                                            <div className="position-relative">
+                                                {/* 商品照片 */}
+                                                <Link
+                                                    to={`/products/${product.product_id}`}
+                                                    className="product-img d-block"
+                                                >
+                                                    <div className="product-img-mask position-absolute"></div>
+                                                    <img
+                                                        src={require(`../../album/products/${product.image}`)}
+                                                        className="card-img-top"
+                                                        alt="product"
+                                                    />
+                                                </Link>
+                                                <div className="product-like position-absolute top-0 end-0">
+                                                    <Favorite />
                                                 </div>
-                                                <div
-                                                    className="products-filter-color-box"
-                                                    style={{
-                                                        backgroundColor: `${product.color}`,
+                                                <div className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-1">
+                                                    <img
+                                                        src={compare}
+                                                        alt="compare"
+                                                        className="product-icon me-1"
+                                                    />
+                                                    比較
+                                                </div>
+                                                <button
+                                                    className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
+                                                    onClick={(e) => {
+                                                        setShopCartState(true);
+                                                        getCheck({
+                                                            product_id:
+                                                                product.product_id,
+                                                            category_id:
+                                                                product.category_id,
+                                                            image: product.image,
+                                                            name: product.name,
+                                                            amount: 1,
+                                                            price: product.price,
+                                                            spec: product.spec,
+                                                            shipment:
+                                                                product.shipment,
+                                                        });
                                                     }}
-                                                ></div>
+                                                >
+                                                    <img
+                                                        src={cartCheck}
+                                                        alt="cartCheck"
+                                                        className="product-icon me-1"
+                                                    />
+                                                    加入購物車
+                                                </button>
                                             </div>
-                                            <p className="product-name border-top pt-2">
-                                                上架日期：{product.create_time}
-                                            </p>
+                                            <div className="product-body py-2">
+                                                {/* 品名 */}
+                                                <div className="d-flex justify-content-between">
+                                                    <div>
+                                                        <Link
+                                                            to={`/products/${product.product_id}`}
+                                                            className="product-name"
+                                                        >
+                                                            {product.name}
+                                                        </Link>
+                                                        {/* 價格 */}
+                                                        <h1 className="product-price accent-color">
+                                                            NT ${product.price}
+                                                        </h1>
+                                                    </div>
+                                                    <div
+                                                        className="products-filter-color-box"
+                                                        style={{
+                                                            backgroundColor: `${product.color}`,
+                                                        }}
+                                                    ></div>
+                                                </div>
+                                                <p className="product-name border-top pt-2">
+                                                    上架日期：
+                                                    {product.create_time}
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                );
-                            })}
+                                    );
+                                })}
                         </div>
                         {/* 商品列 end */}
 
                         {/* 頁碼 */}
-                        <div className="d-flex justify-content-center align-items-center mt-5">
-                            {/* 頁碼 */}
-                            {/* <ul className="d-flex">{getPages()}</ul> */}
+                        <div className="d-flex justify-content-center align-items-center my-5">
+                            {displayProducts.length > perPage ? (
+                                <PaginationBar
+                                    pageNow={pageNow}
+                                    setPageNow={setPageNow}
+                                    pageTotal={pageTotal}
+                                />
+                            ) : (
+                                ''
+                            )}
                         </div>
                         {/* 頁碼 end */}
                     </div>

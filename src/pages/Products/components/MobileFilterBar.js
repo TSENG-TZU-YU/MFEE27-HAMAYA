@@ -1,9 +1,8 @@
 import React from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import { v4 as uuidv4 } from 'uuid';
 
-function FilterBar(props) {
+function MobileFilterBar(props) {
     const {
         colorTags,
         setColorTags,
@@ -13,30 +12,34 @@ function FilterBar(props) {
         changeChecked,
         brandTags,
         activeColorTags,
-        setActiveColorTags
+        setActiveColorTags,
     } = props;
     return (
-        <div className="products-filter-menu position-absolute">
+        <div className="mobile-products-filter-menu">
             <div className="p-3">
-                <p className="mb-0 accent-light-color">品牌</p>
-                {brandTags.map((value, index) => {
-                    return (
-                        <div
-                            className="form-check products-form-check"
-                            key={Math.random().toString(36).replace('4.', '')}
-                        >
-                            <input
-                                className="form-check-input"
-                                type="checkbox"
-                                checked={value.checked}
-                                onChange={() => changeChecked(value.id)}
-                            />
-                            <label className="form-check-label">
-                                {value.brandName}
-                            </label>
-                        </div>
-                    );
-                })}
+                <p className="mb-2 accent-light-color">品牌</p>
+                <div className="row g-1 ">
+                    {brandTags.map((value, index) => {
+                        return (
+                            <div
+                                className="col-6 form-check products-form-check"
+                                key={Math.random()
+                                    .toString(36)
+                                    .replace('4.', '')}
+                            >
+                                <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    checked={value.checked}
+                                    onChange={() => changeChecked(value.id)}
+                                />
+                                <label className="form-check-label">
+                                    {value.brandName}
+                                </label>
+                            </div>
+                        );
+                    })}
+                </div>
                 <p className="mt-4 mb-0 accent-light-color">顏色</p>
                 <div className="d-flex flex-wrap mt-2">
                     {colorTags.map((value, index) => {
@@ -73,7 +76,7 @@ function FilterBar(props) {
                         );
                     })}
                 </div>
-                <p className="mt-4 mb-2 accent-light-color">價格</p>
+                <p className="mt-4 mb-0 accent-light-color">價格</p>
                 <div className="products-slider mb-1">
                     <div className="input-group">
                         <Slider
@@ -94,4 +97,4 @@ function FilterBar(props) {
     );
 }
 
-export default FilterBar;
+export default MobileFilterBar;
