@@ -75,6 +75,11 @@ function MemberListTable(props) {
                             我的詢問
                         </Link>
                     </li>
+                    <li>
+                        <Link className="" to="myplace">
+                            租借場地
+                        </Link>
+                    </li>
                 </ul>
             </div>
             <div className="col-1 py-3 d-none d-md-block">

@@ -1,5 +1,7 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useAuth } from '../../utils/use_auth';
+import { API_URL } from '../../utils/config';
 import './about.scss';
 
 import banner from '../../assets/AboutImg/banner.png';
@@ -9,7 +11,9 @@ import cat from '../../assets/AboutImg/cat.jpg';
 import axios from 'axios';
 
 function About(props) {
-    // 表單
+    // 表單狀態
+    const [memberLogin, setMemberLogin] = useState(false);
+
     const [ask, setAsk] = useState({
         fullName: '',
         user_id: '',
@@ -31,6 +35,33 @@ function About(props) {
         comment: '',
     });
 
+    //會員登入狀態判斷
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    useEffect(() => {
+        async function getMember() {
+            try {
+                console.log('檢查是否登入');
+                let response = await axios.get(`${API_URL}/auth`, {
+                    withCredentials: true,
+                });
+                console.log('已登入', response.data);
+                setIsLogin(true);
+                setMember(response.data);
+                setMemberLogin(true);
+                setAsk({
+                    ...ask,
+                    fullName: response.data.fullName,
+                    phone: response.data.phone,
+                    email: response.data.email,
+                });
+            } catch (err) {
+                // navigate('/');
+                console.log(err.response.data.message);
+            }
+        }
+        getMember();
+    }, []);
+
     // 整個表單用，用於當使用者輸入時，暫時先清空某欄位的錯誤訊息
     const handleFormChange = (e) => {
         setAskErros({
@@ -49,6 +80,16 @@ function About(props) {
                 { withCredentials: true }
             );
             console.log(response.data);
+            setAsk({
+                fullName: '',
+                user_id: '',
+                phone: '',
+                email: '',
+                q_category: '',
+                title: '',
+                comment: '',
+            });
+            alert('表單已送出');
         } catch (err) {
             console.log(err.response.data);
 
