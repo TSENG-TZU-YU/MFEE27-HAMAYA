@@ -37,7 +37,7 @@ export const sortByTypes = [
 
 // 品牌篩選選項
 export const brandTagsTypes = [
-    { id: 0, checked: true, name: '所有品牌' },
+    // { id: 0, checked: true, name: '所有品牌' },
     { id: 1, checked: false, name: 'YAMAHA' },
     { id: 2, checked: false, name: 'Roland' },
     { id: 3, checked: false, name: 'AZUMI' },

@@ -10,7 +10,7 @@ import { Container } from 'react-bootstrap';
 import './index.scss';
 
 // 項目資料
-import { sortByTitle } from './constants';
+import { sortByTitle, brandTagsTypes } from './constants';
 
 // 元件
 import ProductCompare from './ProductCompare';
@@ -81,6 +81,7 @@ function Products() {
 
     // 價格
     const [selectedPrice, setSelectedPrice] = useState([0, 7380000]);
+    const [maxPrice, setMaxPrice] = useState(7380000);
 
     // 取得商品次類別 api
     useEffect(() => {
@@ -103,10 +104,14 @@ function Products() {
                 `${API_URL}/products?mainId=${mainId}&subId=${subId}`
             );
             response.data.color.unshift({ color: '' });
+            response.data.brand.forEach((el) => (el.checked = false));
+            setBrandTags(response.data.brand);
+            console.log(response.data.brand);
             setProducts(response.data.data);
             setColorTagsTypes(response.data.color);
-            console.log('顏色', response.data.color);
-            console.log('所有產品', response.data.data);
+            setMaxPrice(response.data.maxPrice[0].maxPrice);
+            setSelectedPrice([0, response.data.maxPrice[0].maxPrice]);
+            // console.log('所有產品', response.data.data);
             setDisplayProducts(response.data.data);
         };
         getProducts();
@@ -114,15 +119,13 @@ function Products() {
 
     // TODO: 製作頁碼按鈕
 
-    // 搜尋：處理方法
-    const handleSearch = (products, searchWord) => {
-        let newProducts = [...products];
-        if (searchWord.length) {
-            newProducts = products.filter((product) => {
-                return product.name.includes(searchWord);
-            });
-        }
-        return newProducts;
+    // 品牌篩選 選取陣列
+    const handleBrandTagsChecked = (id) => {
+        const brandTagsStateList = brandTags;
+        const changeCheckedBrandTags = brandTagsStateList.map((item) =>
+            item.id === id ? { ...item, checked: !item.checked } : item
+        );
+        setBrandTags(changeCheckedBrandTags);
     };
 
     // 排序：處理方法
@@ -156,9 +159,19 @@ function Products() {
         return newProducts;
     };
 
-    // 進階篩選方法
+    // 篩選方法
     const applyFilters = () => {
         let newProducts = [...products];
+
+        // 排序：處理方法
+        newProducts = handleSort(products, sortBy);
+
+        // 搜尋：處理方法
+        if (searchWord.length) {
+            newProducts = products.filter((product) =>
+                product.name.includes(searchWord)
+            );
+        }
 
         // 顏色：處理方法
         if (colorTags) {
@@ -167,15 +180,16 @@ function Products() {
             );
         }
 
-        // const cuisinesChecked = cuisines
-        //     .filter((item) => item.checked)
-        //     .map((item) => item.label.toLowerCase());
+        // 品牌：處理方法
+        const brandTagsChecked = brandTags
+            .filter((value) => value.checked)
+            .map((value) => value.id);
 
-        // if (cuisinesChecked.length) {
-        //     updatedList = updatedList.filter((item) =>
-        //         cuisinesChecked.includes(item.cuisine)
-        //     );
-        // }
+        if (brandTagsChecked.length) {
+            newProducts = newProducts.filter((value) => {
+                return brandTagsChecked.indexOf(value.ins_brand) > -1;
+            });
+        }
 
         // 價格區間
         const minPrice = selectedPrice[0];
@@ -189,28 +203,10 @@ function Products() {
         setDisplayProducts(newProducts);
     };
 
-    // 當過濾表單元素有更動時
+    // 當篩選區塊元素有更動時
     useEffect(() => {
         applyFilters();
-    }, [products, colorTags, selectedPrice]);
-
-    useEffect(() => {
-        let newProducts = [];
-
-        // 處理搜尋
-        newProducts = handleSearch(products, searchWord);
-
-        setDisplayProducts(newProducts);
-    }, [products, searchWord]);
-
-    useEffect(() => {
-        let newProducts = [];
-
-        // 處理排序
-        newProducts = handleSort(products, sortBy);
-
-        setDisplayProducts(newProducts);
-    }, [products, sortBy]);
+    }, [products, colorTags, selectedPrice, brandTags, searchWord, sortBy]);
 
     // Toggled
     const [productCompare, setProductCompare] = useState(false);
@@ -362,6 +358,9 @@ function Products() {
                                         setColorTags={setColorTags}
                                         selectedPrice={selectedPrice}
                                         setSelectedPrice={setSelectedPrice}
+                                        maxPrice={maxPrice}
+                                        changeChecked={handleBrandTagsChecked}
+                                        brandTags={brandTags}
                                     />
                                 ) : (
                                     ''
@@ -665,17 +664,30 @@ function Products() {
                                                 加入購物車
                                             </button>
                                         </div>
-                                        <div className="product-body">
+                                        <div className="product-body py-2">
                                             {/* 品名 */}
-                                            <Link
-                                                to={`/products/${product.product_id}`}
-                                                className="product-name"
-                                            >
-                                                {product.name}
-                                            </Link>
-                                            {/* 價格 */}
-                                            <p className="product-price accent-color">
-                                                NT ${product.price}
+                                            <div className="d-flex justify-content-between">
+                                                <div>
+                                                    <Link
+                                                        to={`/products/${product.product_id}`}
+                                                        className="product-name"
+                                                    >
+                                                        {product.name}
+                                                    </Link>
+                                                    {/* 價格 */}
+                                                    <h1 className="product-price accent-color">
+                                                        NT ${product.price}
+                                                    </h1>
+                                                </div>
+                                                <div
+                                                    className="products-filter-color-box"
+                                                    style={{
+                                                        backgroundColor: `${product.color}`,
+                                                    }}
+                                                ></div>
+                                            </div>
+                                            <p className="product-name border-top pt-2">
+                                                上架日期：{product.create_time}
                                             </p>
                                         </div>
                                     </div>
