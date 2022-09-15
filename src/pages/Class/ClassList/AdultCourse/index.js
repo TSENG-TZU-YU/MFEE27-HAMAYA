@@ -200,7 +200,7 @@ function AdultCourse({ products, setProducts, setDisplayProducts }) {
                                                 NT ${classAdult.price} / 期
                                             </h4>
 
-                                            <Car classAdult={classAdult} />
+                                            <Car itemsCart={classAdult} />
                                         </div>
                                     </div>
                                 </div>

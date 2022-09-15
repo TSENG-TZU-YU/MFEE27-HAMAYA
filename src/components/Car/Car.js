@@ -50,7 +50,7 @@ function Car({ itemsCart }) {
                         user_id: member.id,
                         product_id: item.product_id,
                         category_id: item.category_id,
-                        amount: item.amount,
+                        amount: 1,
                     };
                 });
                 // console.log('itemsData', itemsData);
@@ -73,6 +73,7 @@ function Car({ itemsCart }) {
         <button
             className="add-car d-flex justify-content-center align-items-center border-0"
             onClick={(e) => {
+                setShopCartState(true);
                 e.preventDefault();
                 handleAddShop();
                 getCheck(itemsCart);

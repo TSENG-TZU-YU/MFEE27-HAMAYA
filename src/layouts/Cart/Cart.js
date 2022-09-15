@@ -12,7 +12,7 @@ function Cart() {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
-    // console.log('shoppingCart in Cart', shoppingCart);
+
     //如果臨時購物車商品為0 則關閉
     if (shoppingCart.length === 0) {
         setShopCartState(false);
@@ -32,7 +32,7 @@ function Cart() {
                         product_id: itemId,
                     },
                 });
-                // console.log(response.data);
+
                 alert(response.data.message);
             };
             setItemDataDelete();
@@ -45,13 +45,6 @@ function Cart() {
         localStorage.setItem('shoppingCart', JSON.stringify(removeItem));
         setShoppingCart(removeItem);
     }
-
-    // async function setItemDelete(itemsData) {
-    //     let response = await axios.post(`${API_URL}/cart/:itemData`, itemsData);
-    //     // console.log(response.data);
-    //     alert(response.data.message);
-    // }
-
     return (
         <div className="position-relative">
             <div className="shoppingCart p-2">
@@ -92,7 +85,6 @@ function Cart() {
                                 <button
                                     className="border-0 btn ms-auto"
                                     onClick={() => {
-                                        // console.log(item.product_id);
                                         handleRemoveItem(item.product_id);
                                     }}
                                 >
@@ -103,6 +95,7 @@ function Cart() {
                     })}
                 </div>
                 <div className="pt-2">
+                    {/* TODO:訂單結帳 如果未登入要要求登入 已登入要把資料送到後台重複的不寫入 沒有則寫入 清空localStorage*/}
                     <button className="border-0 bg-main-color checkOutBtn py-2">
                         <CheckOut className="checkOutIcon" />
                         <span className="px-2">訂單結帳</span>
