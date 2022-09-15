@@ -73,3 +73,31 @@
     
   }
 
+  @media screen and (max-width:768px)
+   {
+    .mySwiper {
+      width:100%;
+      height: 100%;
+    }
+    .swiper-pagination.swiper-pagination-1{
+      position: relative;
+      bottom: -3.5rem;
+      right: 100rem;
+
+      // position: relative;
+      // bottom: -3rem;
+      // left:-12rem;
+    //  position: absolute;
+    //  left:-10rem;
+    // bottom:15rem;
+
+    }
+     
+    }
+
+   
+
+  
+
+
+
