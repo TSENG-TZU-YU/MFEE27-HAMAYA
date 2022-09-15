@@ -43,6 +43,7 @@ import search from '../../assets/ProductsImg/icon/search.svg';
 // 圖檔 MobileFilterNav
 import arrowDown from '../../assets/ProductsImg/icon/arrow_down.svg';
 
+import { useAuth } from '../../utils/use_auth';
 //購物車
 import { useCart } from '../../utils/use_cart';
 // import Cart from '../../layouts/Cart/Cart';
@@ -258,26 +259,55 @@ function Products() {
         setCategoryToggled(!categoryToggled);
     };
 
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
     //購物車
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
-    // console.log('shoppingCart in products', shoppingCart);
     //存localStorage
     const setNewLocal = (newLocal) => {
         //塞資料進去
         localStorage.setItem('shoppingCart', JSON.stringify(newLocal));
     };
-    //
+
     function getCheck(itemInfo) {
+        console.log('get Member', member);
+        //確認有沒有重複
         let newItemInfo = shoppingCart.find((v) => {
             return v.product_id === itemInfo.product_id;
         });
-        // console.log('newItemInfo', newItemInfo); //newItemInfo ['A345', 'A345', 'A310']
         if (!newItemInfo) {
             //臨時購物車
             setShoppingCart([...shoppingCart, { ...itemInfo }]);
             //localStorage
             setNewLocal([...shoppingCart, { ...itemInfo }]);
+            //判斷是否為登入
+            if (member !== null && member.id !== '') {
+                let getNewLocal = JSON.parse(
+                    localStorage.getItem('shoppingCart')
+                );
+                const itemsData = getNewLocal.map((item) => {
+                    return {
+                        user_id: member.id,
+                        product_id: item.product_id,
+                        category_id: item.category_id,
+                        amount: item.amount,
+                    };
+                });
+                console.log('itemsData', itemsData);
+                //寫進資料庫
+                setItemsData(itemsData);
+            }
+        }
+    }
+
+    async function setItemsData(itemsData) {
+        //TODO:要做資料庫裡是否重複 重複則去購物車修改數量
+        try {
+            let response = await axios.post(`${API_URL}/cart`, itemsData);
+            console.log(response.data.insertId);
+            alert(response.data.message);
+        } catch (err) {
+            console.log(err.response.data.message);
         }
     }
 

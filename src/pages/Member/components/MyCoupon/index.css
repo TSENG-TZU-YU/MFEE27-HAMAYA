@@ -1,4 +1,95 @@
 .coupon-card{
-    height: 150px;
+    aspect-ratio: 5 / 1
+}
+.coupon-card01{
+    /* height: 150px; */
+    color: white;
+    background-image:url("./coupon01.svg") ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    padding: 15px 0;
+    
+}
+.coupon-card02{
+    /* height: 150px; */
+    color: white;
+    background-image:url("./coupon02.svg") ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    padding: 15px 0;
+}
+.coupon-card03{
+    /* height: 150px; */
+    color: white;
+    background-image:url("./coupon03.svg") ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    padding: 15px 0;
+}
+.coupon-card04{
+    /* height: 150px; */
+    color: white;
+    background-image:url("./coupon04.svg") ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    padding: 15px 0;
+}
+.MyCoupon span{
+    font-size: 10px;
+}
+.MyCoupon .p01{
+    color: white;
+    font-size: 10px;
+    font-weight: 200;
+    margin: 5px 0 0;  
+}
+.MyCoupon .p02{
+    color: gray;
+    font-size: 10px;
+    font-weight: 200;
+    margin: 5px 0 0;  
+    /* text-align: end; */
+    text-decoration:underline;
+}
+.MyCoupon input{
+    height: 34px;
+    border: 2px solid #00323d;
+}
+.MyCoupon input:focus{
+    border-radius: 0;
+    outline: 0;
+}
+.MyCoupon .btn1{
+    font-size: 14px;
+    color: #ffff;
+    margin: 0 ;
+    padding: 0 10px;
+    background-color: #00323d;
+    border: 2px solid #00323d;
+    display: flex;
+    align-items: center;
+}
+.MyCoupon .btn2{
+    font-size: 14px;
+    color: #ffff;
+    margin: 0 ;
+    padding: 0 15px;
+    height: 34px;
+    background-color: #767676;
+    border: 0;
+    display: flex;
+    align-items: center;
+}
+.coupon_img path{
+    
+    fill: #00323d
+}
+
+.coupon_img {
+    width: 100px;
     
 }

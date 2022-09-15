@@ -3,129 +3,60 @@
 
 
 
-//end //
-.wrap {
-  width: 1200px;
-  margin: auto;
-}
-
-.item {
-  float: left;
-  width: 100px;
-  display: flex;
-  align-items: center;
-  margin-bottom: 70px;
-  z-index: 0;
-
-}
-
-.txt{
-  float: left;
-  width: 300px;
-  z-index: 3;
-}
-
-
-.item .pic {
-  width: 55%;
-  flex-shrink: 0;
-
-}
-
-.item .pic img {
-
-  vertical-align: middle;
-}
-
-.item .txt {
-  // float:left;
-  width: 55%;
-  flex-shrink: 0;
-  width: 500px;
-  height: 80px;
-  padding: 50px 30px;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 3;
-
-}
-
-.item> :first-child {
-  margin-right: -5%;
-}
-
-.item> :nth-child(1).txt {
-  background-color: rgba(255, 255, 255, 0.168);
-
-
-}
-
-.item> :nth-child(2).txt {
-  background-color: rgba(255, 255, 255, 0.168);
-
-}
-
-.item> :nth-child(3).txt {
-  background-color: rgba(255, 255, 255, 0.168);
-
-}
-
-.second-img {
-  margin-left: -6%;
-}
 
 .item-word {
   font-size: 24px;
   color: $main;
-  position: relative;
-  top: -40px;
-  right: -80px;
+  position: absolute;
+  top: 5px;
+ left: 130px;
 
 }
 
 .item-word2 {
   font-size: 24px;
   color: $accent-light;
-  position: relative;
-  top: -60px;
-  left: 170px;
+  position: absolute;
+  top: 50px;
+  left: 175px;
   white-space: nowrap;
 }
 
 
 .vector25 {
- 
-  position: relative;
-  top: -30px;
-  right: -5px;
+  position: absolute;
+  top: 20px;
+  left: 130px;
 
 
 }
 
-.vector25-2 {
 
-  position: relative;
-  top: -30px;
-  left: -80px;
-
-}
 
 .item-word3 {
   font-size: 24px;
   color: $main;
-  position: relative;
-  top: -40px;
-  left: 10px;
+  position: absolute;
+  top: 5px;
+ left: 20px;
 
 }
 
 .item-word4 {
   font-size: 24px;
   color: $accent-light;
-  position: relative;
-  top: -50px;
-  left: 50px;
+  position: absolute;
+  top: 50px;
+  left: 75px;
   white-space: nowrap;
+}
+
+.vector25-2 {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+
+
 }
 
 .home-word {
@@ -149,12 +80,19 @@
 
 
 .home-blank-top {
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
-// .home-blank {
-//   margin-top: 300px;
-// }
+
+.home-blank-top2 {
+  margin-top: 60px;
+}
+
+.home-blank-top3 {
+  margin-top: 110px;
+}
+
+
 
 .home-vector3 {
   border-top: 3px solid $main-light;
@@ -188,9 +126,14 @@
     width: 100%;
   }
 
-  .wrap {
-    width: 100%;
+  // .wrap {
+  //   width: 100%;
+  // }
+
+  .item-word, .item-word2{
+    font-size: 20px;
   }
+
 
 
 }
@@ -229,5 +172,115 @@ bottom:-60px;
   position:relative;
   right:80px;
   bottom:-10px;
+
+}
+
+
+//測試
+
+.pushed-wrapper {
+	position: relative;
+}
+
+.pushed-content {
+	position: relative;
+	padding: 15px 15px 40px 15px;
+
+ 
+}
+
+.right-bottom {
+	position: absolute;
+	bottom: 15px;
+	right: 15px;
+}
+.pushed-header {
+	padding: 0px 15px;
+}	
+
+.pushed-box{
+  position: absolute;
+  left: 45%;
+  top: 50%;
+  // max-width: 50%;
+  transform: translateY(-50%);
+  background:  #f2f2f244;
+  height: 90px;
+  width: 700px;
+  
+}
+
+@media (max-width: 768px) {
+
+	.pushed-box {
+		position: absolute;
+		left: 5%;
+		top: 50%;
+		width: 80%;
+		transform: translateY(-50%);
+    background:  #f2f2f244;
+    height: 90px;
+   
+    
+	}
+}
+
+
+//測試2
+.pushed-box2 {
+  position: absolute;
+  right: 1%;
+  top: 30%;
+  transform: translateY(-50%);
+  height: 90px;
+  width: 700px;
+  
+}
+
+.pushed-box4 {
+  position: relative;
+  right: -1%;
+  bottom: 30%;
+  // max-width: 50%;
+  transform: translateY(50%);
+  height: 90px;
+  width: 700px;
+  background:  #f2f2f244;
+  z-index:10;
+  
+}
+
+@media (max-width: 768px) {
+
+	.pushed-box3{
+		position: absolute;
+		left: 5%;
+		top: 50%;
+		width: 100%;
+		transform: translateY(-50%);
+    background:  #f2f2f244;
+    height: 90px;
+   
+   
+	}
+
+  .pushed-box5 {
+    position: relative;
+    right: -1%;
+    bottom: 30%;
+    // max-width: 50%;
+    transform: translateY(50%);
+    height: 90px;
+    width:100%;
+    background:  #f2f2f244;
+    
+    
+  }
+
+  
+
+
+  
+
 
 }

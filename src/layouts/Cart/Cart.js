@@ -1,38 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '../../utils/use_auth';
 import { useCart } from '../../utils/use_cart';
+import axios from 'axios';
+import { API_URL } from '../../utils/config';
 import './Cart.scss';
 import ashBin from '../../assets/svg/delete.svg';
 //修改 CheckOut 顏色
 import { ReactComponent as CheckOut } from '../../assets/svg/shopping_cart_checkout.svg';
-import img from '../../album/products/mars.jpeg';
 
 function Cart() {
-    // const { productArr } = useCart();
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
     console.log('shoppingCart in Cart', shoppingCart);
-
-    // console.log(testShoppingCart);
-    // let newShoppingCart = testShoppingCart.index
-    // category_id:"A"
-    // image:"StageCustomBirch-01.webp"
-    // name:"Stage-Custom-Birch"
-    // price:42000
-    // product_id:"A345"
-    // shipment:1
-    // spec:"材質:樺木"
-
-    // let newShoppingCart = testShoppingCart.find((item, index, arr) => {
-
-    // });
-    // console.log('test newShoppingCart', newShoppingCart);
+    //如果臨時購物車商品為0 則關閉
+    if (shoppingCart.length === 0) {
+        setShopCartState(false);
+    }
 
     function handleRemoveItem(itemId) {
         //取得localStorage內容
         let shoppingCartLocal = JSON.parse(
             localStorage.getItem('shoppingCart')
         );
-        // console.log('shoppingCart', shoppingCartLocal);
+        if (member !== null && member.id !== '') {
+            //讀資料庫 進行刪除
+            let setItemDataDelete = async () => {
+                let response = await axios.delete(`${API_URL}/cart`, {
+                    data: {
+                        user_id: member.id,
+                        product_id: itemId,
+                    },
+                });
+                // console.log(response.data);
+                alert(response.data.message);
+            };
+            setItemDataDelete();
+        }
         //移除
         let removeItem = shoppingCartLocal.filter((item) => {
             return item.product_id !== itemId;
@@ -41,10 +45,13 @@ function Cart() {
         localStorage.setItem('shoppingCart', JSON.stringify(removeItem));
         setShoppingCart(removeItem);
     }
-    //如果臨時購物車商品為0 則關閉
-    if (shoppingCart.length === 0) {
-        setShopCartState(false);
-    }
+
+    // async function setItemDelete(itemsData) {
+    //     let response = await axios.post(`${API_URL}/cart/:itemData`, itemsData);
+    //     // console.log(response.data);
+    //     alert(response.data.message);
+    // }
+
     return (
         <div className="position-relative">
             <div className="shoppingCart p-2">
@@ -73,7 +80,7 @@ function Cart() {
                                 /> */}
                                 <div className="d-flex flex-column">
                                     <span className="small main-color mb-5">
-                                        {item.name}
+                                        {item.name + ' & ' + item.product_id}
                                     </span>
                                     <span className="small gary-dark-color">
                                         數量:{1}
@@ -94,27 +101,6 @@ function Cart() {
                             </div>
                         );
                     })}
-                    {/* <div className="shoppingCartItem d-flex py-2">
-                        <img
-                            className="shoppingCartItemImg mx-3"
-                            src={img}
-                            alt=""
-                        />
-                        <div className="d-flex flex-column">
-                            <span className="small main-color mb-5">
-                                YAMAHA U系列 U1...
-                            </span>
-                            <span className="small gary-dark-color">
-                                數量:1
-                            </span>
-                            <span className="small gary-dark-color">
-                                價錢:5000
-                            </span>
-                        </div>
-                        <button className="border-0 btn">
-                            <img src={ashBin} alt="" />
-                        </button>
-                    </div> */}
                 </div>
                 <div className="pt-2">
                     <button className="border-0 bg-main-color checkOutBtn py-2">

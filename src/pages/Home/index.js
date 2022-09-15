@@ -3,18 +3,17 @@ import './index.scss';
 import { Link } from 'react-router-dom';
 
 // 套件
-import { Container, Row, Col } from 'react-bootstrap';
 
 import { homeImages } from '../../album/home';
 
 //TODO:首頁ＲＷＤ要再排版
-
+//TODO:卷軸要做
 //TODO:點擊輪播時會跑版要修
 
 import HomeScroll from '../../components/HomeScroll/HomeScroll';
 
 //圖檔
-import MobileHome from './MobileHome';
+// import MobileHome from './MobileHome';
 import ServiceItem from '../../assets/HomeImg/service-item.jpg';
 import ServiceItem2 from '../../assets/HomeImg/service-item2.jpg';
 import ServiceItem3 from '../../assets/HomeImg/service-item3.jpg';
@@ -35,7 +34,7 @@ import HomeAnimation from './HomeAnimation/HomeAnimation';
 function Home(props) {
     return (
         <>
-            <MobileHome />
+            {/* <MobileHome /> */}
 
             <HomeAnimation />
 
@@ -57,83 +56,83 @@ function Home(props) {
                     </p>
                     <div className=" mt-3 home-vector3"></div>
                 </div>
-                <div className="container bg-main-gary-light-color">
-                    <div className="wrap  bg-main-gary-light-color">
-                        {/* 第一塊 */}
-                        <div className="item">
-                            <div className="pic">
-                                <img
-                                    src={ServiceItem}
-                                    width="700"
-                                    alt="Logo"
-                                    className="item-img"
-                                />
-                            </div>
-                            <div className="txt">
-                                <Link to="products">
-                                    <span className="item-word">樂器商城</span>
-                                    <img
-                                        src={Vector25}
-                                        width="150"
-                                        alt="Logo"
-                                        className="vector25"
-                                    />
-                                    <span className="item-word2">
-                                        Instrumental Store
-                                    </span>
-                                </Link>
-                            </div>
+                <div className="container pushed-wrapper home-blank-top ">
+                    <div className="row">
+                        <div className="">
+                            <img
+                                src={ServiceItem}
+                                width="700"
+                                alt="Logo"
+                                className="item-img"
+                            />
                         </div>
-                        {/* 第二塊 */}
-                        <div className="item">
-                            <div className="txt">
-                                <Link to="class">
-                                    <span className="item-word3">音樂教育</span>
-                                    <img
-                                        src={Vector25}
-                                        width="150"
-                                        alt="Logo"
-                                        className="vector25-2"
-                                    />
-                                    <span className="item-word4">
-                                        Musical Education
-                                    </span>
-                                </Link>
-                            </div>
-                            <div className="pic">
-                                <img
-                                    src={ServiceItem2}
-                                    width="700"
-                                    alt="Logo"
-                                    className="item-img second-img"
-                                />
-                            </div>
+                    </div>
+                    <div className=" pushed-content pushed-box  pushed-box">
+                        <Link to="products">
+                            <span className="item-word">樂器商城</span>
+                            <img
+                                src={Vector25}
+                                width="150"
+                                alt="Logo"
+                                className="vector25"
+                            />
+                            {/* <span className="item-word2">
+                                Instrumental Store
+                            </span> */}
+                        </Link>
+                    </div>
+                </div>
+
+                <div className="container pushed-wrapper home-blank-top ">
+                    <div className="row pushed-box4 pushed-box5">
+                        <Link to="products">
+                            <span className="item-word3">音樂教育</span>
+                            <img
+                                src={Vector25}
+                                width="150"
+                                alt="Logo"
+                                className="vector25-2"
+                            />
+                            <span className="item-word4">
+                                Musical Education
+                            </span>
+                        </Link>
+                    </div>
+                    <div className="pushed-box2  home-blank-top ">
+                        <div className="">
+                            <img
+                                src={ServiceItem2}
+                                width="700"
+                                alt="Logo"
+                                className="item-img"
+                            />
                         </div>
-                        {/* 第三塊 */}
-                        <div className="item">
-                            <div className="pic">
-                                <img
-                                    src={ServiceItem3}
-                                    width="700"
-                                    alt="Logo"
-                                    className="item-img"
-                                />
-                            </div>
-                            <div className="txt">
-                                <Link to="place">
-                                    <span className="item-word ">場地租借</span>
-                                    <img
-                                        src={Vector25}
-                                        width="150"
-                                        alt="Logo"
-                                        className="vector25"
-                                    />
-                                    <span className="item-word2">
-                                        Facility Rental Services
-                                    </span>
-                                </Link>
-                            </div>
+                    </div>
+                </div>
+                <div className="container pushed-wrapper home-blank-top3 ">
+                    <div className="row">
+                        <div className="">
+                            <img
+                                src={ServiceItem3}
+                                width="700"
+                                alt="Logo"
+                                className="item-img"
+                            />
                         </div>
+                    </div>
+                    <div className=" pushed-content pushed-box  pushed-box">
+                        <Link to="products">
+                            <span className="item-word">場地租借</span>
+                            <img
+                                src={Vector25}
+                                width="150"
+                                alt="Logo"
+                                className="vector25"
+                            />
+                            {/* <span className="item-word2">
+                                Facility Rental Services
+                            </span> */}
+                        </Link>
                     </div>
                 </div>
                 <div className="">
@@ -141,7 +140,7 @@ function Home(props) {
                         src={ServiceItem4}
                         width="100%"
                         alt="Logo"
-                        className=""
+                        className="home-blank-top2"
                     />
                 </div>
                 <div className="container d-none d-md-block ">
