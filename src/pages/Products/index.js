@@ -293,7 +293,7 @@ function Products() {
                         amount: item.amount,
                     };
                 });
-                console.log('itemsData', itemsData);
+                // console.log('itemsData', itemsData);
                 //寫進資料庫
                 setItemsData(itemsData);
             }
@@ -301,10 +301,9 @@ function Products() {
     }
 
     async function setItemsData(itemsData) {
-        //TODO:要做資料庫裡是否重複 重複則去購物車修改數量
+        //TODO:要做後端資料庫裡是否重複 重複則去購物車修改數量
         try {
             let response = await axios.post(`${API_URL}/cart`, itemsData);
-            console.log(response.data.insertId);
             alert(response.data.message);
         } catch (err) {
             console.log(err.response.data.message);
