@@ -4,10 +4,12 @@ import './Car.scss';
 // 圖檔
 import shop_car from '../../assets/svg/add_shopping_cart.svg';
 
-function Car(props) {
+function Car({ classAdult }) {
     function handleAddShop(e) {
-        console.log('加入購物車');
+        // console.log('加入購物車');
+        console.log(classAdult.id);
     }
+
     return (
         <button
             className="add-car d-flex justify-content-center align-items-center border-0"

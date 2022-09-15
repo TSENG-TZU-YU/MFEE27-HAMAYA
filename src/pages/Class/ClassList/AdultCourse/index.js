@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 
 // 分頁
-import _ from 'lodash';
+// import _ from 'lodash';
 
 // 元件
 import StarRating from '../../../../components/Star/StarRating';
@@ -21,10 +21,18 @@ function AdultCourse({ products, setProducts, setDisplayProducts }) {
     // 分頁  Toggled
     // const [lastPage, setLastPage] = useState(1);
     // const [page, setPage] = useState(1);
+
+    // 只記錄第一次didMount時和伺服器要資料的狀態
+    // const [usersRaw, setUsersRaw] = useState([]);
+
+    // 畫面上目前呈現用狀態
+    // const [usersDisplay, setUsersDisplay] = useState([]);
+
     // 分頁用
+
     const [pageNow, setPageNow] = useState(1); // 目前頁號
     const [perPage, setPerPage] = useState(6); // 每頁多少筆資料
-    const [pageTotal, setPageTotal] = useState(1); //總共幾頁，在didMount時要決定
+    const [pageTotal, setPageTotal] = useState(0); //總共幾頁，在didMount時要決定
     // 製作分頁按鈕
     // const getPage = () => {
     //     let pages = [];
@@ -61,74 +69,81 @@ function AdultCourse({ products, setProducts, setDisplayProducts }) {
             // 從後端取得總頁數 (lastPage)
             // setLastPage(response.data.pagination.lastPage);
 
-            // console.log('data', data);
+            console.log('response.data', response.data);
             // 從前端取得總頁數 (lastPage)
-            const pageList = _.chunk(response.data, perPage);
-            console.log('pageList', pageList);
-            // console.log('displayProducts', displayProducts);
-            if (pageList.length > 0) {
-                setPageTotal(pageList.length);
-                // 設定到state中
-                setDisplayProducts(pageList);
+            // const pageList = _.chunk(response.data, perPage);
 
-                setProducts(response.data);
-                console.log('pageList > 0', pageList);
-            }
+            // console.log('pageList', pageList);
+            // console.log('displayProducts', displayProducts);
+            // if (pageList.length > 0) {
+            //     setPageTotal(pageList.length);
+            //     // 設定到state中
+            //     setDisplayProducts(pageList);
+
+            //     setProducts(response.data);
+            //     console.log('pageList > 0', pageList);
+            // }
         };
+
+        // console.log('L-93', 123);
         getAdultClass();
     }, []);
-    console.log('perPage', perPage);
-    console.log('pageNow', pageNow);
-    console.log('pageTotal', pageTotal);
+
+    // console.log('perPage', perPage);
+    // console.log('pageNow', pageNow);
+    // console.log('pageTotal', pageTotal);
 
     useEffect(() => {
         console.log('products', products);
     }, [products]);
 
-    const paginationBar = (
-        <>
-            <div className="pagination">
-                <a
-                    // href="#/"
-                    onClick={() => {
-                        setPageNow(1);
-                    }}
-                >
-                    &laquo;
-                </a>
-                {Array(pageTotal)
-                    .fill(1)
-                    .map((v, i) => {
-                        return (
-                            <a
-                                key={i}
-                                href="#/"
-                                className={i + 1 === pageNow ? 'active' : ''}
-                                onClick={() => {
-                                    setPageNow(i + 1);
-                                }}
-                            >
-                                {i + 1}
-                            </a>
-                        );
-                    })}
-                <a
-                    // href="#/"
-                    onClick={() => {
-                        setPageNow(pageTotal);
-                    }}
-                >
-                    &raquo;
-                </a>
-            </div>
-        </>
-    );
+    // const paginationBar = (
+    //     <>
+    //         <div className="pagination">
+    //             {/* <a
+    //             // href="#/"
+    //             // onClick={() => {
+    //             //     setPageNow(1);
+    //             // }}
+    //             >
+    //                 &laquo;
+    //             </a> */}
+    //             {Array(pageTotal)
+    //                 .fill(1)
+    //                 .map((v, i) => {
+    //                     return (
+    //                         <a
+    //                             key={i}
+    //                             href="#/"
+    //                             className={i + 1 === pageNow ? 'active' : ''}
+    //                             onClick={() => {
+    //                                 setPageNow(i + 1);
+    //                             }}
+    //                         >
+    //                             {i + 1}
+    //                         </a>
+    //                     );
+    //                 })}
+    //             {/* <a
+    //                 // href="#/"
+    //                 onClick={() => {
+    //                     setPageNow(pageTotal);
+    //                 }}
+    //             >
+    //                 &raquo;
+    //             </a> */}
+    //         </div>
+    //     </>
+    // );
+
+    // console.log('', products);
+
     return (
         <div>
             {/* 分頁 */}
-            {paginationBar}
+            {/* {paginationBar} */}
             {/* 已灌資料庫 */}
-            {/* setDisplayProducts[pageNow - 1] */}
+            {/* displayProducts[pageNow - 1] */}
             {products.map((classAdult) => {
                 return (
                     <div
@@ -185,7 +200,7 @@ function AdultCourse({ products, setProducts, setDisplayProducts }) {
                                                 NT ${classAdult.price} / 期
                                             </h4>
 
-                                            <Car />
+                                            <Car classAdult={classAdult} />
                                         </div>
                                     </div>
                                 </div>
