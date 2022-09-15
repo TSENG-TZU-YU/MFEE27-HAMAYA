@@ -1,12 +1,50 @@
 .coupon-card{
-    aspect-ratio: 5 / 1
+    /* aspect-ratio: 5 / 1;
+    position: relative; */
+    /* position: absolute; */
 }
+
+.card_bg{
+    position: absolute;
+    top:0 ;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background: rgba(0, 0, 0, 0.5); */
+    background-image:url("./couponBG01.svg") ;
+    background-repeat: no-repeat;
+    background-size:cover;
+    
+}
+.card_bg_right .font{
+    color: white;
+    font-size: 32px;
+    position: absolute;
+    left: 0;
+    /* word-wrap: break-word; */
+}
+.card_bg_right{
+    position: absolute;
+    top:0 ;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-image:url("./couponBG01.svg") ;
+    background-repeat: no-repeat;
+    background-size:cover; */
+}
+
 .coupon-card01{
     /* height: 150px; */
     color: white;
     background-image:url("./coupon01.svg") ;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: auto 100%;
     text-align: center;
     padding: 15px 0;
     
@@ -16,7 +54,7 @@
     color: white;
     background-image:url("./coupon02.svg") ;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: auto 100%;
     text-align: center;
     padding: 15px 0;
 }
@@ -25,7 +63,7 @@
     color: white;
     background-image:url("./coupon03.svg") ;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: auto 100%;
     text-align: center;
     padding: 15px 0;
 }
@@ -34,7 +72,7 @@
     color: white;
     background-image:url("./coupon04.svg") ;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: auto 100%;
     text-align: center;
     padding: 15px 0;
 }

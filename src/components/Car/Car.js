@@ -16,7 +16,8 @@ function Car({ itemsCart }) {
         useCart();
 
     function handleAddShop(e) {
-        console.log('加入購物車');
+        // console.log('加入購物車');
+        console.log(classAdult.id);
     }
 
     //存localStorage
