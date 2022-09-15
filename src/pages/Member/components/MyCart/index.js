@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom'; //抓取Outlet的props
-import MyCartTable from './MyCartTable';
+import MyCartTable from './components/MyCartTable';
 import './MyCart.scss';
 function MyCart(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
@@ -37,7 +37,7 @@ function MyCart(props) {
                     </button>
                 </div>
             </div>
-            <div className="listBottomLine">
+            <div className="">
                 <MyCartTable />
             </div>
             <div className="pb-5 row justify-content-around">

@@ -1,22 +1,63 @@
 import React from 'react';
-import './MyCart.scss';
-import { ReactComponent as AshBin } from '../../../../assets/svg/delete.svg';
-import { ReactComponent as FavDefault } from '../../../../assets/svg/favorite_defaut.svg';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { API_URL } from '../../../../../utils/config';
+import { useAuth } from '../../../../../utils/use_auth';
+import { useCart } from '../../../../../utils/use_cart';
+
+import '../MyCart.scss';
+import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
+import { ReactComponent as FavDefault } from '../../../../../assets/svg/favorite_defaut.svg';
 import { RiAddFill } from 'react-icons/ri';
 import { RiSubtractFill } from 'react-icons/ri';
 
-function MyCartProduct({ myCart }) {
+function MyCartClass({ myCart, setItemsCateB }) {
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
+        useCart();
+
     const myCartList = myCart.myCart;
-    const myCart_cateA = myCartList.filter((v) => {
-        return v.category_id === 'A';
+    // const items_amount = myCart.items_amount;
+    const myCart_cateB = myCartList.filter((v) => {
+        return v.category_id === 'B';
     });
-    console.log(myCart_cateA);
+    // console.log('myCart_cateB.length', myCart_cateB.length);
+    //TODO:進行刪除沒辦法及時更新
+    function handleRemoveItem(itemId) {
+        console.log('click');
+        //取得localStorage內容
+        let shoppingCartLocal = JSON.parse(
+            localStorage.getItem('shoppingCart')
+        );
+        if (member !== null && member.id !== '') {
+            //讀資料庫 進行刪除 還必須確認資料庫有無東西
+            let setItemDataDelete = async () => {
+                let response = await axios.delete(`${API_URL}/cart`, {
+                    data: {
+                        user_id: member.id,
+                        product_id: itemId,
+                    },
+                });
+                // console.log(response.data);
+                alert(response.data.message);
+            };
+            setItemDataDelete();
+        }
+        //移除
+        let removeItem = shoppingCartLocal.filter((item) => {
+            return item.product_id !== itemId;
+        });
+        //存回localStorage
+        localStorage.setItem('shoppingCart', JSON.stringify(removeItem));
+        setShoppingCart(removeItem);
+    }
+
     return (
         <>
-            {myCart_cateA.map((item) => {
+            {myCart_cateB.map((item) => {
                 return (
                     <tr key={item.product_id}>
-                        <td data-title="樂器商城" align="center">
+                        <td data-title="音樂課程" align="center">
                             <div className="d-flex justify-content-lg-between p-lg-0 pt-2">
                                 <div className="align-self-center">
                                     <input
@@ -27,9 +68,10 @@ function MyCartProduct({ myCart }) {
                                     />
                                 </div>
                                 <div className="flex-lg-grow-1">
+                                    {/* TODO:課程也能加入購物車的時候圖片改成class */}
                                     <img
                                         className="myCart-Img myCart-contain"
-                                        src={require(`../../../../album/products/${item.image}`)}
+                                        src={require(`../../../../../album/products/${item.image}`)}
                                         alt=""
                                     />
                                 </div>
@@ -40,12 +82,16 @@ function MyCartProduct({ myCart }) {
                                 <span className="p main-color">
                                     <b>{item.name}</b>
                                 </span>
-                                <span className="small">型號：aNueNue-M2</span>
                                 <div className="pt-lg-3 d-inline">
                                     <button className="btn border-0 p-0">
                                         <FavDefault className="myCartItemIconFav " />
                                     </button>
-                                    <button className="btn border-0 p-0 ms-3">
+                                    <button
+                                        className="btn border-0 p-0 ms-3"
+                                        onClick={() => {
+                                            handleRemoveItem(item.product_id);
+                                        }}
+                                    >
                                         <AshBin className="myCartItemIcon" />
                                     </button>
                                 </div>
@@ -85,4 +131,4 @@ function MyCartProduct({ myCart }) {
     );
 }
 
-export default MyCartProduct;
+export default MyCartClass;

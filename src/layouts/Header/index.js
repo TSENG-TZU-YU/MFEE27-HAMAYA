@@ -88,7 +88,7 @@ function Header(props) {
                         </div>
                         <div className="col-8 d-flex justify-content-center align-items-center position-relative">
                             <div className="row navbar-center">
-                                <div className="col p-0 m-1 m-lg-2 text-center header-text">
+                                <div className="col p-0 m-2 m-lg-3 text-center header-text">
                                     <div className="navbaritem fw-bold">
                                         <Link className="" to="news">
                                             最新消息
@@ -121,7 +121,7 @@ function Header(props) {
                                         </ul>
                                     </div>
                                 </div>
-                                <div className="col  p-0 m-1 m-lg-2 text-center header-text">
+                                <div className="col p-0 m-2 m-lg-3 text-center header-text">
                                     <div className="navbaritem fw-bold">
                                         <Link className="" to="products">
                                             樂器商城
@@ -180,7 +180,7 @@ function Header(props) {
                                         </ul>
                                     </div>
                                 </div>
-                                <div className="col p-0 m-1 m-lg-2 text-center header-text">
+                                <div className="col p-0 m-2 m-lg-3 text-center header-text">
                                     <div className="navbaritem fw-bold">
                                         <Link className="" to="class">
                                             音樂教育
@@ -219,14 +219,14 @@ function Header(props) {
                                         </ul>
                                     </div>
                                 </div>
-                                <div className="col p-0 m-1 m-lg-2 text-center header-text">
+                                <div className="col p-0 m-2 m-lg-3 text-center header-text">
                                     <div className="navbaritem fw-bold">
                                         <Link className="" to="place">
                                             場地租借
                                         </Link>
                                     </div>
                                 </div>
-                                <div className="col p-0 m-1 m-lg-2 text-center header-text">
+                                <div className="col p-0 m-2 m-lg-3 text-center header-text">
                                     <div className="navbaritem fw-bold">
                                         <Link className="" to="aboutus">
                                             關於我們
