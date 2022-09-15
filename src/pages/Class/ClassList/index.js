@@ -4,6 +4,7 @@ import { useOutletContext } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Slider from 'rc-slider';
+import _ from 'lodash';
 
 // 項目資料
 import { sortByTitle } from '../constants';
@@ -73,6 +74,12 @@ function ClassList(props) {
     const [sortBy, setSortBy] = useState('');
     // const [filterBy, setFilterBy] = useState('');
 
+    // 設定 page_.chunk
+    const [pageProducts, setPageProducts] = useState([]);
+    const [pageNow, setPageNow] = useState(1); // 目前頁號
+    const [perPage] = useState(6); // 每頁多少筆資料
+    const [pageTotal, setPageTotal] = useState(0); //總共幾頁
+
     // TODO: 評價塞選
 
     // 排序：處理方法
@@ -104,20 +111,20 @@ function ClassList(props) {
                 a.start_date.localeCompare(b.start_date)
             );
         }
-
+        console.log('sortBy', newProducts);
         return newProducts;
     };
 
     // 搜尋：處理方法
-    // const handleSearch = (products, searchWord) => {
-    //     let newProducts = [...products];
-    //     if (searchWord.length) {
-    //         newProducts = products.filter((product) => {
-    //             return product.name.includes(searchWord);
-    //         });
-    //     }
-    //     return newProducts;
-    // };
+    const handleSearch = (products, searchWord) => {
+        let newProducts = [...products];
+        if (searchWord.length) {
+            newProducts = products.filter((product) => {
+                return product.name.includes(searchWord);
+            });
+        }
+        return newProducts;
+    };
 
     // 樂器:處理方法
     const handleSubIns = (products, subIns) => {
@@ -161,15 +168,9 @@ function ClassList(props) {
         return newProducts;
     };
 
-    // 篩選方法
-    const applyFilters = () => {
-        let newProducts = [];
-
-        // 處理排序
-        // newProducts = handleSort(products, sortBy);
-
-        // 處理樂器
-        newProducts = handleSubIns(products, subIns);
+    // 價格：篩選方法
+    const applyFilters = (products, selectedPrice) => {
+        let newProducts = [...products];
 
         // 價格區間
         const minPrice = selectedPrice[0];
@@ -180,21 +181,20 @@ function ClassList(props) {
             (product) => product.price >= minPrice && product.price <= maxPrice
         );
 
-        console.log('sortBy', sortBy);
         // [[page1],[page2]]
         // need chunk to display
 
-        setDisplayProducts(newProducts);
+        return newProducts;
     };
 
     // 當過濾表單元素有更動時
-    useEffect(() => {
-        let newProducts = [];
+    // useEffect(() => {
+    //     let newProducts = [];
 
-        // 處理排序
-        newProducts = handleSort(products, sortBy);
-        setDisplayProducts(newProducts);
-    }, [products, sortBy]);
+    //     // 處理排序
+    //     newProducts = handleSort(products, sortBy);
+    //     setDisplayProducts(newProducts);
+    // }, [products, sortBy]);
 
     // useEffect(() => {
     //     let newProducts = [];
@@ -215,8 +215,28 @@ function ClassList(props) {
     // }, [products, subIns]);
 
     useEffect(() => {
-        applyFilters();
-    }, [products, selectedPrice, searchWord, subIns]);
+        // applyFilters();
+        let newProducts = [];
+
+        // TODO: 處理搜尋
+        newProducts = handleSearch(products, searchWord);
+
+        // 處理樂器
+        newProducts = handleSubIns(products, subIns);
+
+        // 處理排序
+        newProducts = handleSort(newProducts, sortBy);
+
+        // 處理價格區間選項
+        newProducts = applyFilters(newProducts, selectedPrice);
+
+        const newPageProducts = _.chunk(newProducts, perPage);
+
+        setPageProducts(newPageProducts);
+        setPageTotal(pageProducts.length);
+        // console.log('pageProducts', pageProducts);
+        setDisplayProducts(newProducts);
+    }, [products, selectedPrice, sortBy, searchWord, subIns]);
 
     return (
         <Container>
@@ -551,7 +571,14 @@ function ClassList(props) {
                     products={displayProducts}
                     // 原始資料 跟 改動資料都要傳入子層
                     setProducts={setProducts}
+                    pageProducts={pageProducts}
+                    setPageProducts={setPageProducts}
                     setDisplayProducts={setDisplayProducts}
+                    perPage={perPage}
+                    setPageTotal={setPageTotal}
+                    setPageNow={setPageNow}
+                    pageTotal={pageTotal}
+                    pageNow={pageNow}
                 />
             ) : (
                 <ChildrenCourse
