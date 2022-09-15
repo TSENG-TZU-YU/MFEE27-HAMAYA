@@ -27,9 +27,10 @@
 
 #app {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 2fr 3fr;
   align-items: center;
   // padding-bottom: 2vmin;
+  // height: 100vh;
   height: 100vh;
   width: 100%;
   background-color: $main-gary-light;
@@ -50,11 +51,11 @@
   grid-column: 1 / -1;
   grid-row: 1;
   font-family: "Prata", serif;
-  font-size: 8vw;
+  font-size: 15vmin;
   width: 100%;
   z-index: 2;
   //字的大小
-  // padding-top: 8rem;
+margin-bottom: 3rem;
   // z-index: 50;
 
 
@@ -141,31 +142,44 @@
   display: inline-block;
 }
 
-.home-video{
-  grid-row: 1;
-  grid-column: 2;
-  margin-left: -2rem;
-  opacity: 0.7;
- 
 
-  animation: home-video-in 1s cubic-bezier(0.5, 0, 0.1, 1) 3s backwards;
+  
+video{
+  // display: block;
+  // width: 100%;
+  // position:absolute;
+  // top:50px;
+  // right:100px;
+  
+  
+  }
 
-  @keyframes home-video-in {
-    from {
-      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  .home-video {
+    grid-row: 1;
+    grid-column: 2;
+    margin-left: -1rem;
+    opacity: 0.7;
+    aspect-ratio:  16/9;
+    animation: image-in 1s cubic-bezier(0.5, 0, 0.1, 1) 2s backwards;
+  
+    @keyframes image-in {
+      from {
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+      }
+      to {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
     }
-    to {
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  
+   .home-video3 {
+      display: inline-block;
+      width: 100%;
+      height: 88vh;
+      object-fit: cover
     }
   }
 
-}
 
-video {
-  display: block;
-  width: 100%;
-  // height: 100%;
-}
 
 // Replay animation!
 // :root:active * {
@@ -174,34 +188,18 @@ video {
 
 
 .font5 {
-  font-size: 18px;
+  font-size: 2vmin;
   position:relative;
-  bottom: -2rem;
-  right: 9rem;
+  bottom: -5rem;
+  right: 2rem;
   color: $main;
   font-weight: bold;
 }
 
 
-// .font {
-//   // font-family: 'Noto Serif Malayalam', serif;
-//   background: linear-gradient(180deg, #FFFFFF 0%, rgba(500, 500, 500, 0));
-//   -webkit-background-clip: text;
-//   -webkit-text-fill-color: transparent;
-//   font-size: 15rem;
-//   // position: relative;
-//   // top: -80px;
 
-// }
 
-// body {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   min-height: 100vh;
-//   background-color: black;
-//   color: white;
-// }
+
 
 //音符動畫
 .muzieknootjes {
@@ -282,17 +280,6 @@ video {
   }
 
 
-  
-video{
-display: none;
-width: 100%;
-// position:absolute;
-// top:50px;
-// right:100px;
-
-
-  }
-
   .title{
   text-align: center;
 
@@ -301,22 +288,30 @@ width: 100%;
   .font5{
     font-size: 15px;
     position:relative;
-    // bottom: -2rem;
+    bottom: -3rem;
     right: 1rem;
     color: $main;
     font-weight: bold;
     text-align: center;
 
   }
-  
+
   .title2{
     padding-left: 1em;
-    grid-column: 1 / -1;
-    grid-row: 1;
+    // grid-column: 1 / -1;
+    // grid-row: 1;
     font-family: "Prata", serif;
-    font-size: 3vw;
+    font-size: 10vmin;
     width: 100%;
     z-index: 2;
+    position:relative;
+    bottom: -2rem;
+    right: 1rem;
+  }
+
+
+  .home-video2{
+    display: none;
   }
 }
 
