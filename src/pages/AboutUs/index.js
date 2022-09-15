@@ -9,7 +9,7 @@ import cat from '../../assets/AboutImg/cat.jpg';
 import axios from 'axios';
 
 function About(props) {
-    // 表單
+    // 表單狀態
     const [ask, setAsk] = useState({
         fullName: '',
         user_id: '',
@@ -49,6 +49,16 @@ function About(props) {
                 { withCredentials: true }
             );
             console.log(response.data);
+            setAsk({
+                fullName: '',
+                user_id: '',
+                phone: '',
+                email: '',
+                q_category: '',
+                title: '',
+                comment: '',
+            });
+            alert('表單已送出');
         } catch (err) {
             console.log(err.response.data);
 
