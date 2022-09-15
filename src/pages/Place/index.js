@@ -20,7 +20,7 @@ import studioC01min from '../../assets/PlaceImg/studioC01min.jpg';
 import studioC02min from '../../assets/PlaceImg/studioC02min.jpg';
 
 function Place(props) {
-    // 表單
+    // 表單狀態
     const [rent, setRent] = useState({
         fullName: '',
         user_id: '',
@@ -63,6 +63,18 @@ function Place(props) {
                 { withCredentials: true }
             );
             console.log(response.data);
+            setRent({
+                fullName: '',
+                user_id: '',
+                date: '',
+                phone: '',
+                time: '',
+                usercount: '0',
+                email: '',
+                item: '0',
+                comment: '',
+            });
+            alert('表單已送出');
         } catch (err) {
             console.log(err.response.data);
 
@@ -415,11 +427,178 @@ function Place(props) {
                 </div>
             </div>
 
+            {/* test 輪播 */}
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 col-md-6">
+                        <div className="d-block d-md-none">
+                            <h5 className="text-center main-color py-3">
+                                Studio-A 錄音室
+                            </h5>
+                        </div>
+                        <div className="">
+                            <div className="position-relative p-3 studioImgDIV">
+                                <img
+                                    src={studioA01}
+                                    alt="studioA01"
+                                    className={
+                                        studioAImg === 'studioA01'
+                                            ? 'studio hover'
+                                            : 'studio'
+                                    }
+                                />
+                                <img
+                                    src={studioA02}
+                                    alt="studioA02"
+                                    className={
+                                        studioAImg === 'studioA02'
+                                            ? 'studio hover'
+                                            : 'studio'
+                                    }
+                                />
+                                <img
+                                    src={studioA03}
+                                    alt="studioA03"
+                                    className={
+                                        studioAImg === 'studioA03'
+                                            ? 'studio hover'
+                                            : 'studio'
+                                    }
+                                />
+                            </div>
+                            <div className="">
+                                <button
+                                    className={
+                                        studioAImgBtn === 'studioA01'
+                                            ? 'p-0 m-1 studioBtn hover'
+                                            : 'p-0 m-1 studioBtn '
+                                    }
+                                >
+                                    <img
+                                        src={studioA01min}
+                                        alt="studioA01min"
+                                        onClick={() => {
+                                            setStudioAImg('studioA01');
+                                            setStudioAImgBtn('studioA01');
+                                        }}
+                                    />
+                                </button>
+                                <button
+                                    className={
+                                        studioAImgBtn === 'studioA02'
+                                            ? 'p-0 m-1 studioBtn hover'
+                                            : 'p-0 m-1 studioBtn '
+                                    }
+                                >
+                                    <img
+                                        src={studioA02min}
+                                        alt="studioA02min"
+                                        onClick={() => {
+                                            setStudioAImg('studioA02');
+                                            setStudioAImgBtn('studioA02');
+                                        }}
+                                    />
+                                </button>
+                                <button
+                                    className={
+                                        studioAImgBtn === 'studioA03'
+                                            ? 'p-0 m-1 studioBtn hover'
+                                            : 'p-0 m-1 studioBtn'
+                                    }
+                                >
+                                    <img
+                                        src={studioA03min}
+                                        alt="studioA03min"
+                                        onClick={() => {
+                                            setStudioAImg('studioA03');
+                                            setStudioAImgBtn('studioA03');
+                                        }}
+                                    />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-12 col-md-6">
+                        <div className="text-end d-none d-md-block p-3">
+                            <h4 className="item1">Studio-A 錄音室</h4>
+                        </div>
+
+                        <div className="intro1">
+                            <p>
+                                Studio-A
+                                錄音室，深知每個音樂人都有成名夢，這裡提供給音樂人一個專業錄音空間，將自己的作品完美的輸出成輯。
+                            </p>
+                            <h6>設備介紹</h6>
+                            <p> 8軌A類等級的麥克風前極放大器 </p>
+                            <p>3軌A類等級的Di </p>
+                            <p>4軌B類等級的麥克風放大器</p>
+                            <p>ADAD類比數位轉換器</p>
+                            <h6>
+                                時段 08:00 - 21:00　平日 NT $2,000　假日 NT
+                                $2,500
+                            </h6>
+                        </div>
+                        <div className="">
+                            <button
+                                className={
+                                    studioAImgBtn === 'studioA01'
+                                        ? 'p-0 m-1 studioBtn hover'
+                                        : 'p-0 m-1 studioBtn '
+                                }
+                            >
+                                <img
+                                    src={studioA01min}
+                                    alt="studioA01min"
+                                    onClick={() => {
+                                        setStudioAImg('studioA01');
+                                        setStudioAImgBtn('studioA01');
+                                    }}
+                                />
+                            </button>
+                            <button
+                                className={
+                                    studioAImgBtn === 'studioA02'
+                                        ? 'p-0 m-1 studioBtn hover'
+                                        : 'p-0 m-1 studioBtn '
+                                }
+                            >
+                                <img
+                                    src={studioA02min}
+                                    alt="studioA02min"
+                                    onClick={() => {
+                                        setStudioAImg('studioA02');
+                                        setStudioAImgBtn('studioA02');
+                                    }}
+                                />
+                            </button>
+                            <button
+                                className={
+                                    studioAImgBtn === 'studioA03'
+                                        ? 'p-0 m-1 studioBtn hover'
+                                        : 'p-0 m-1 studioBtn'
+                                }
+                            >
+                                <img
+                                    src={studioA03min}
+                                    alt="studioA03min"
+                                    onClick={() => {
+                                        setStudioAImg('studioA03');
+                                        setStudioAImgBtn('studioA03');
+                                    }}
+                                />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {/* 表單 */}
             <div className="bg-main-gary-light-color">
                 <form
                     className="container mt-5 placeform"
                     onChange={handleFormChange}
+                    id="rent"
                 >
                     <div className="d-flex pt-4 align-items-center">
                         <h4
@@ -448,7 +627,7 @@ function Place(props) {
                             <input
                                 type="text"
                                 name="fullName"
-                                value={rent.name}
+                                value={rent.fullName}
                                 placeholder="請輸入姓名"
                                 onChange={fieldChange}
                                 className="w-100"
