@@ -63,7 +63,10 @@ function Car({ itemsCart }) {
                             itemsData
                         );
                         alert(response.data.message);
-                        setShoppingCart([...shoppingCart]);
+                        if (response.data.duplicate === 1) {
+                            setShoppingCart([...shoppingCart]);
+                            return;
+                        }
                         return;
                     } catch (err) {
                         console.log(err.response.data.message);

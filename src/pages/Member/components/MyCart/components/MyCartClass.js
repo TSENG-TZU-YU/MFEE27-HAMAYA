@@ -11,7 +11,7 @@ import { ReactComponent as FavDefault } from '../../../../../assets/svg/favorite
 import { RiAddFill } from 'react-icons/ri';
 import { RiSubtractFill } from 'react-icons/ri';
 
-function MyCartClass({ myCart, setMyCart, setShoppingCartPriceB }) {
+function MyCartClass({ myCart, setMyCart }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
@@ -21,12 +21,18 @@ function MyCartClass({ myCart, setMyCart, setShoppingCartPriceB }) {
     const myCart_cateB = myCartList.filter((v) => {
         return v.category_id === 'B';
     });
-    let itemsPriceTotal = myCart_cateB
-        .map((item) => {
-            return item.price;
-        })
-        .reduce((prev, curr) => prev + curr);
-    setShoppingCartPriceB(itemsPriceTotal);
+    console.log('myCart_cateB', myCart_cateB);
+
+    // if (myCart_cateB.length !== 0) {
+    //     let itemsPriceTotal = myCart_cateB.map((item) => {
+    //         return item.price;
+    //     });
+    //     if (itemsPriceTotal !== 0) {
+    //         itemsPriceTotal.reduce((prev, curr) => prev + curr);
+    //         setShoppingCartPriceB(itemsPriceTotal);
+    //     }
+    // }
+
     // console.log(myCart_cateB);
     //進行刪除沒辦法及時更新
     function handleRemoveItem(itemId) {

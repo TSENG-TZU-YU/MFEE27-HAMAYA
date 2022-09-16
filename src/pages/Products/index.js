@@ -340,9 +340,9 @@ function Products() {
                             `${API_URL}/cart`,
                             itemsData
                         );
-                        console.log('repeat', response.data.repeat);
+                        // console.log('duplicate', response.data.duplicate);
                         alert(response.data.message);
-                        if (response.data.repeat === 1) {
+                        if (response.data.duplicate === 1) {
                             setShoppingCart([...shoppingCart]);
                             return;
                         }

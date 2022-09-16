@@ -7,7 +7,7 @@ import '../MyCart.scss';
 import MyCartProduct from './MyCartProduct';
 import MyCartClass from './MyCartClass';
 
-function MyCartTable({ setShoppingCartPriceA, setShoppingCartPriceB }) {
+function MyCartTable() {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const [myCart, setMyCart] = useState(null);
     const id = member.id;
@@ -38,11 +38,7 @@ function MyCartTable({ setShoppingCartPriceA, setShoppingCartPriceB }) {
                 </thead>
                 <tbody>
                     {myCart ? (
-                        <MyCartProduct
-                            myCart={myCart}
-                            setMyCart={setMyCart}
-                            setShoppingCartPriceA={setShoppingCartPriceA}
-                        />
+                        <MyCartProduct myCart={myCart} setMyCart={setMyCart} />
                     ) : (
                         '目前沒有資料'
                     )}
@@ -60,11 +56,7 @@ function MyCartTable({ setShoppingCartPriceA, setShoppingCartPriceB }) {
                 </thead>
                 <tbody>
                     {myCart ? (
-                        <MyCartClass
-                            myCart={myCart}
-                            setMyCart={setMyCart}
-                            setShoppingCartPriceB={setShoppingCartPriceB}
-                        />
+                        <MyCartClass myCart={myCart} setMyCart={setMyCart} />
                     ) : (
                         '目前沒有資料'
                     )}
