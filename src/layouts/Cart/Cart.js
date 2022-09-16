@@ -12,11 +12,17 @@ function Cart() {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
-
-    //如果臨時購物車商品為0 則關閉
     if (shoppingCart.length === 0) {
         setShopCartState(false);
     }
+    //金額
+    let shoppingCartPrice = shoppingCart
+        .map((item) => {
+            return item.price;
+        })
+        .reduce((prev, curr) => prev + curr);
+    // console.log('shoppingCartPrice', shoppingCartPrice);
+    //如果臨時購物車商品為0 則關閉
 
     function handleRemoveItem(itemId) {
         //取得localStorage內容
@@ -45,11 +51,11 @@ function Cart() {
         localStorage.setItem('shoppingCart', JSON.stringify(removeItem));
         setShoppingCart(removeItem);
     }
+    //多筆加入購物車 訂單結帳
     function getMultipleCheck() {
         let shoppingCartLocal = JSON.parse(
             localStorage.getItem('shoppingCart')
         );
-        // console.log('shoppingCartLocal in getMultipleCheck', shoppingCartLocal);
         if (member === null || member.id === '') {
             alert('請先登入');
             return;
@@ -58,11 +64,8 @@ function Cart() {
         let multipleCart = shoppingCartLocal.map((item) => {
             return [member.id, item.product_id, item.category_id, item.amount];
         });
-        // console.log('multipleCart', multipleCart);
-
         //寫進資料庫
         async function setItemsData(itemsData) {
-            //要做後端資料庫裡是否重複 重複則去購物車修改數量 目前只拿一個加入購物車
             try {
                 let response = await axios.post(
                     `${API_URL}/cart/multi`,
@@ -89,7 +92,9 @@ function Cart() {
                     <span className="minimum main-gary-light-color">
                         共有{shoppingCart.length}件商品
                     </span>
-                    <span className="minimum">總金額:NT $000000</span>
+                    <span className="minimum">
+                        總金額:NT ${shoppingCartPrice}
+                    </span>
                 </div>
                 <div className="scrollStyle overflow-auto pb-2">
                     {shoppingCart.map((item, index) => {
@@ -129,7 +134,7 @@ function Cart() {
                     })}
                 </div>
                 <div className="pt-2">
-                    {/* TODO:訂單結帳 如果未登入要要求登入 已登入要把資料送到後台重複的不寫入 沒有則寫入 清空localStorage*/}
+                    {/* 訂單結帳 如果未登入要要求登入 已登入要把資料送到後台重複的不寫入 沒有則寫入 清空localStorage*/}
                     <button
                         className="border-0 bg-main-color checkOutBtn py-2"
                         onClick={() => {

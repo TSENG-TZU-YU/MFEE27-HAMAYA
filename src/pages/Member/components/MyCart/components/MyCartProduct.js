@@ -9,18 +9,21 @@ import { ReactComponent as FavDefault } from '../../../../../assets/svg/favorite
 import { RiAddFill } from 'react-icons/ri';
 import { RiSubtractFill } from 'react-icons/ri';
 
-function MyCartProduct({ myCart, setMyCart }) {
+function MyCartProduct({ myCart, setMyCart, setShoppingCartPriceA }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
 
     const myCartList = myCart.myCart;
-    console.log('myCartList product', myCartList);
     const myCart_cateA = myCartList.filter((v) => {
         return v.category_id === 'A';
     });
-    // console.log(myCart_cateA);
-
+    let itemsPriceTotal = myCart_cateA
+        .map((item) => {
+            return item.price;
+        })
+        .reduce((prev, curr) => prev + curr);
+    setShoppingCartPriceA(itemsPriceTotal);
     //進行刪除及時更新
     function handleRemoveItem(itemId) {
         console.log('click');
@@ -55,6 +58,7 @@ function MyCartProduct({ myCart, setMyCart }) {
     return (
         <>
             {myCart_cateA.map((item) => {
+                let itemPriceTotal = item.amount * item.price;
                 return (
                     <tr key={item.product_id}>
                         <td data-title="樂器商城" align="center">
@@ -121,7 +125,7 @@ function MyCartProduct({ myCart, setMyCart }) {
                                 <span className="d-lg-none myCartPriceTitle accent-color">
                                     <b>小計：</b>
                                 </span>
-                                <span>NT $100000</span>
+                                <span>NT ${itemPriceTotal}</span>
                             </div>
                         </td>
                     </tr>

@@ -11,16 +11,22 @@ import { ReactComponent as FavDefault } from '../../../../../assets/svg/favorite
 import { RiAddFill } from 'react-icons/ri';
 import { RiSubtractFill } from 'react-icons/ri';
 
-function MyCartClass({ myCart, setMyCart }) {
+function MyCartClass({ myCart, setMyCart, setShoppingCartPriceB }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
 
     const myCartList = myCart.myCart;
-    console.log('myCartList class', myCartList);
+    // console.log('myCartList class', myCartList);
     const myCart_cateB = myCartList.filter((v) => {
         return v.category_id === 'B';
     });
+    let itemsPriceTotal = myCart_cateB
+        .map((item) => {
+            return item.price;
+        })
+        .reduce((prev, curr) => prev + curr);
+    setShoppingCartPriceB(itemsPriceTotal);
     // console.log(myCart_cateB);
     //進行刪除沒辦法及時更新
     function handleRemoveItem(itemId) {
@@ -56,6 +62,7 @@ function MyCartClass({ myCart, setMyCart }) {
     return (
         <>
             {myCart_cateB.map((item) => {
+                let itemPriceTotal = item.amount * item.price;
                 return (
                     <tr key={item.product_id}>
                         <td data-title="音樂課程" align="center">
@@ -121,7 +128,7 @@ function MyCartClass({ myCart, setMyCart }) {
                                 <span className="d-lg-none myCartPriceTitle accent-color">
                                     <b>小計：</b>
                                 </span>
-                                <span>NT $100000</span>
+                                <span>NT ${itemPriceTotal}</span>
                             </div>
                         </td>
                     </tr>
