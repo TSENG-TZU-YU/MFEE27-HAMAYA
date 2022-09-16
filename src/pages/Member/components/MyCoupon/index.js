@@ -4,6 +4,9 @@ import './index.css';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import add_img2 from '../../../../assets/svg/add2.svg';
+import { FaBeer  } from 'react-icons/fa';
+import { AiOutlineSend } from "react-icons/ai";
+
 
 function MyCoupon(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
@@ -28,6 +31,7 @@ function MyCoupon(props) {
         loadingMyCoupon();
     }, []);
 
+    //讀取優惠券
     async function loadingMyCoupon() {
         try {
             let response = await axios.get(`${API_URL}/member/mycoupon`, {
@@ -43,6 +47,7 @@ function MyCoupon(props) {
         }
     }
 
+    //新增優惠券
     async function addCouponSubmit(e) {
         e.preventDefault();
         try {
@@ -62,122 +67,10 @@ function MyCoupon(props) {
         }
     }
 
-    const [myCoupon2, setMyCoupon2] = useState([
-        {
-            coupon_id: '5',
-            user_id: '2',
-            name: '夏日特賣',
-            sn: 'test7777',
-            minmum: '500',
-            discount: '50',
-            start_time: '2022-09-05',
-            end_time: '2022-09-30',
-            valid: 1,
-        },
-        {
-            coupon_id: '6',
-            user_id: '2',
-            name: '秋冬特賣',
-            sn: 'test8888',
-            minmum: '2500',
-            discount: '250',
-            start_time: '2022-10-1',
-            end_time: '2022-10-15',
-            valid: 1,
-        },
-        {
-            coupon_id: '7',
-            user_id: '2',
-            name: '限時優惠',
-            sn: 'test6666',
-            minmum: '10000',
-            discount: '550',
-            start_time: '2022-10-1',
-            end_time: '2022-10-30',
-            valid: 1,
-        },
-        {
-            coupon_id: '12',
-            user_id: '2',
-            name: '海洋音樂祭',
-            sn: 'test7777',
-            minmum: '1500',
-            discount: '150',
-            start_time: '2022-09-05',
-            end_time: '2022-09-30',
-            valid: 1,
-        },
-        {
-            coupon_id: '11',
-            user_id: '2',
-            name: '秋冬特賣',
-            sn: 'test8888',
-            minmum: '2500',
-            discount: '250',
-            start_time: '2022-8-1',
-            end_time: '2022-8-15',
-            valid: 1,
-        },
-        {
-            coupon_id: '10',
-            user_id: '2',
-            name: '10周年慶',
-            sn: 'test6666',
-            minmum: '10000',
-            discount: '1000',
-            start_time: '2022-10-1',
-            end_time: '2022-10-30',
-            valid: 0,
-        },
-        {
-            coupon_id: '9',
-            user_id: '2',
-            name: '夏日特賣',
-            sn: 'test7777',
-            minmum: '500',
-            discount: '50',
-            start_time: '2022-09-05',
-            end_time: '2022-09-30',
-            valid: 0,
-        },
-        {
-            coupon_id: '13',
-            user_id: '2',
-            name: '秋冬特賣',
-            sn: 'test8888',
-            minmum: '2500',
-            discount: '250',
-            start_time: '2022-10-1',
-            end_time: '2022-10-15',
-            valid: 0,
-        },
-        {
-            coupon_id: '14',
-            user_id: '2',
-            name: '限時優惠',
-            sn: 'test6666',
-            minmum: '2000',
-            discount: '200',
-            start_time: '2022-10-1',
-            end_time: '2022-10-30',
-            valid: 0,
-        },
-        {
-            coupon_id: '15',
-            user_id: '2',
-            name: '限時優惠',
-            sn: 'test6666',
-            minmum: '3000',
-            discount: '150',
-            start_time: '2022-10-1',
-            end_time: '2022-09-14',
-            valid: 1,
-        },
-    ]);
     return (
         <div className="col-12 col-md-8 col-lg-9 MyCoupon">
-            <h4 className="main-color ">我的優惠券</h4>
-            <div className="d-flex justify-content-between ">
+            <h4 className="main-color m-1">我的優惠券</h4>
+            <div className="d-flex justify-content-between m-1 mt-2">
                 <div className="d-flex align-items-center">
                     <input
                         type="text "
@@ -187,13 +80,13 @@ function MyCoupon(props) {
                         }}
                         placeholder="請輸入您的優惠券領取碼"
                     />
-                    <button className="btn1 " onClick={addCouponSubmit}>
+                    <button className="btn1" onClick={addCouponSubmit}>
                         <img alt="add_img" src={add_img2} />
                         新增優惠券
                     </button>
                 </div>
                 <div>
-                    <button className="btn2  ">去商城逛逛</button>
+                    <button className="btn2">去商城逛逛&nbsp;<AiOutlineSend size='20'/></button>
                 </div>
             </div>
             <div className="row">
@@ -213,41 +106,52 @@ function MyCoupon(props) {
                                     }
                                 >
                                     {data.use == 0 ? (
-                                        <div className="card_bg"></div>
+                                        <div className="card_bg_left"></div>
                                     ) : today -
                                           new Date(data.end_time).getTime() >=
                                       0 ? (
-                                        <div className="card_bg"></div>
+                                        <div className="card_bg_left"></div>
                                     ) : (
                                         ''
                                     )}
-                                    <h5 className="fst-italic">{data.name}</h5>
                                     <h3>
-                                        <span>NT</span>${data.discount}
+                                        <span className='NT'>NT</span>${data.discount}
                                     </h3>
                                     <h6>商品折價券</h6>
                                     <p className="text-nowrap p01">
                                         消費滿${data.minimum}可使用
                                     </p>
                                 </div>
-                                <div className="col-7 bg-light p-2 d-flex flex-column justify-content-around position-relative">
+                                <div className="col-7 p-2 card_right">
                                     {data.use == 0 ? (
                                         <div className="card_bg_right">
-                                            <div className="font">已使用</div>
+                                            <div className="font">已兌換</div>
                                         </div>
                                     ) : today -
                                           new Date(data.end_time).getTime() >=
                                       0 ? (
                                         <div className="card_bg_right">
-                                            <div className="font">已過期</div>
+                                            <div className="font">已到期</div>
                                         </div>
                                     ) : (
                                         ''
                                     )}
-                                    <h6>適用樂器商城、音樂教育 </h6>
-                                    <p className=" p02">
-                                        有效期限{data.start_time}~
-                                        {data.end_time}
+                                    <h6 className="main-light-color">
+                                        {data.name}
+                                    </h6>
+                                    <p className="main-light-color m-0 pt-2">
+                                        適用樂器商城、音樂教育
+                                    </p>
+                                    <p className="p02">
+                                        有效期限
+                                        <span className='text-nowrap'>
+                                        {new Date(
+                                            data.start_time
+                                        ).toLocaleDateString()}
+                                        -
+                                        {new Date(
+                                            data.end_time
+                                        ).toLocaleDateString()}</span>
                                     </p>
                                 </div>
                             </div>

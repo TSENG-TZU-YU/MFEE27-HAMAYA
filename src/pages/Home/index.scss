@@ -123,21 +123,29 @@
     bottom: 0px
   }
 
+  .home-word2 {
+    font-size: 16px;
+    color: $gary-light;
+  }
+  
+  .home-word3 {
+    font-size: 16px;
+    color: $accent-light;
+    font-weight: bold;
+  }
+  
+  
+
   .item-img {
     width:100%;
-    // height: 200%;
-  }
-
-
-
-  .item-word, .item-word2{
-    font-size: 20px;
-  }
- .home-word2,.home-word3{
-  font-size: 16px;
- }
  
-  
+  }
+
+
+
+ .home-blank-top2 {
+  margin-top: 20px;
+}
 
 }
 
@@ -178,7 +186,7 @@ bottom:-60px;
 }
 
 
-//測試
+//視差捲動
 
 .pushed-wrapper {
 	position: relative;
@@ -206,7 +214,7 @@ bottom:-60px;
 }
 
 
-//測試2
+
 .pushed-box2 {
   position: absolute;
   right: 1%;

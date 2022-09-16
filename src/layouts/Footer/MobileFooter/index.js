@@ -29,7 +29,7 @@ function MobileFooter(props) {
                             </Link>
                             <Link
                                 className=" main-gary-light-color"
-                                to="product"
+                                to="products"
                             >
                                 樂器商城
                             </Link>

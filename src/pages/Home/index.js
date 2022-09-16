@@ -89,7 +89,7 @@ function Home(props) {
 
                 <div className="container pushed-wrapper home-blank-top2 d-none d-md-block">
                     <div className="row pushed-box4 pushed-box5">
-                        <Link to="products">
+                        <Link Link className="" to="class">
                             <span className="item-word3">音樂教育</span>
                             <img
                                 src={Vector25}
@@ -125,7 +125,7 @@ function Home(props) {
                         </div>
                     </div>
                     <div className=" pushed-content pushed-box  ">
-                        <Link to="products">
+                        <Link to="place">
                             <span className="item-word">場地租借</span>
                             <img
                                 src={Vector25}
