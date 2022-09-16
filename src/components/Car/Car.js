@@ -27,7 +27,6 @@ function Car({ itemsCart }) {
     };
 
     function getCheck(itemInfo) {
-        //TODO:確定是否為product_id 再進行下一步
         console.log('get Member', member);
         //確認有沒有重複
         let newItemInfo = shoppingCart.find((v) => {
@@ -35,7 +34,7 @@ function Car({ itemsCart }) {
         });
         if (!newItemInfo) {
             //臨時購物車
-            setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            // setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
             //localStorage
             setNewLocal([{ ...itemInfo }, ...shoppingCart]);
             //判斷是否為登入
@@ -56,19 +55,26 @@ function Car({ itemsCart }) {
                 // console.log('itemsData', itemsData);
                 //寫進資料庫
                 setItemsData(itemsData);
+                async function setItemsData(itemsData) {
+                    //要做後端資料庫裡是否重複 重複則去購物車修改數量 目前只拿一個加入購物車
+                    try {
+                        let response = await axios.post(
+                            `${API_URL}/cart`,
+                            itemsData
+                        );
+                        alert(response.data.message);
+                        setShoppingCart([...shoppingCart]);
+                        return;
+                    } catch (err) {
+                        console.log(err.response.data.message);
+                    }
+                }
             }
+            //臨時購物車
+            setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
         }
     }
 
-    async function setItemsData(itemsData) {
-        //TODO:要做後端資料庫裡是否重複 重複則去購物車修改數量 目前只拿一個加入購物車
-        try {
-            let response = await axios.post(`${API_URL}/cart`, itemsData);
-            alert(response.data.message);
-        } catch (err) {
-            console.log(err.response.data.message);
-        }
-    }
     return (
         <button
             className="add-car d-flex justify-content-center align-items-center border-0"

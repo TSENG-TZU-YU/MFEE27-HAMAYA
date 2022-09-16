@@ -39,8 +39,9 @@ function Teacher({ data }) {
                         style={{ width: '200px', height: '100%' }}
                     >
                         <Link
-                            to="teacher"
+                            to={`teacher/${item.id}`}
                             style={{ width: '230px', height: '360px' }}
+                            data={data}
                         >
                             <img
                                 src={require(`../../album/teacher/images/${item.image}`)}

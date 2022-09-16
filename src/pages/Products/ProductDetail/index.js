@@ -24,6 +24,7 @@ import cartCheckout from '../../../assets/ProductsImg/icon/shopping_cart_checkou
 import compareBtn from '../../../assets/ProductsImg/icon/compare_btn.svg';
 import note from '../../../assets/ProductsImg/icon/product_details_note.svg';
 
+import { useAuth } from '../../../utils/use_auth';
 //購物車
 import { useCart } from '../../../utils/use_cart';
 
@@ -48,11 +49,70 @@ function Product() {
     // Toggled
     const [productCompare, setProductCompare] = useState(false);
     const toggleProductCompare = () => setProductCompare(!productCompare);
+    //會員
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+
     //購物車
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
+    //存localStorage
+    const setNewLocal = (newLocal) => {
+        //塞資料進去
+        localStorage.setItem('shoppingCart', JSON.stringify(newLocal));
+    };
 
-    const [test, setTest] = useState([]);
+    function getCheck(itemInfo) {
+        console.log('get Member', member);
+        //確認有沒有重複
+        let newItemInfo = shoppingCart.find((v) => {
+            return v.product_id === itemInfo.product_id;
+        });
+        if (!newItemInfo) {
+            // //臨時購物車
+            // setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            //localStorage
+            setNewLocal([{ ...itemInfo }, ...shoppingCart]);
+            //判斷是否為登入
+            if (member !== null && member.id !== '') {
+                let getNewLocal = JSON.parse(
+                    localStorage.getItem('shoppingCart')
+                );
+                // console.log('getNewLocal', getNewLocal);
+
+                const itemsData = getNewLocal.map((item) => {
+                    return {
+                        user_id: member.id,
+                        product_id: item.product_id,
+                        category_id: item.category_id,
+                        amount: item.amount,
+                    };
+                });
+                // console.log('itemsData', itemsData);
+                //寫進資料庫
+                setItemsData(itemsData);
+                async function setItemsData(itemsData) {
+                    console.log('進來這裡了~');
+                    //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
+                    try {
+                        let response = await axios.post(
+                            `${API_URL}/cart`,
+                            itemsData
+                        );
+                        console.log('repeat', response.data.repeat);
+                        alert(response.data.message);
+                        if (response.data.repeat === 1) {
+                            setShoppingCart([...shoppingCart]);
+                            return;
+                        }
+                    } catch (err) {
+                        console.log(err.response.data.message);
+                    }
+                }
+            }
+            //臨時購物車
+            setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+        }
+    }
 
     return (
         <>
@@ -249,21 +309,18 @@ function Product() {
                                             className="col m-2 btn btn-secondary productDetail-btn d-flex justify-content-center align-items-center"
                                             onClick={() => {
                                                 setShopCartState(true);
-                                                setShoppingCart([
-                                                    ...shoppingCart,
-                                                    {
-                                                        product_id:
-                                                            value.product_id,
-                                                        category_id:
-                                                            value.category_id,
-                                                        image: value.image,
-                                                        name: value.name,
-                                                        price: value.price,
-                                                        spec: value.spec,
-                                                        shipment:
-                                                            value.shipment,
-                                                    },
-                                                ]);
+                                                getCheck({
+                                                    product_id:
+                                                        value.product_id,
+                                                    category_id:
+                                                        value.category_id,
+                                                    image: value.image,
+                                                    name: value.name,
+                                                    amount: 1,
+                                                    price: value.price,
+                                                    spec: value.spec,
+                                                    shipment: value.shipment,
+                                                });
                                             }}
                                         >
                                             <img

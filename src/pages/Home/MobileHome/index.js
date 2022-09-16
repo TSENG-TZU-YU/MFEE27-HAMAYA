@@ -32,32 +32,38 @@ function MobileHome(props) {
                 </div>
                 <div className="mobile-pushed-content mobile-pushed-box ">
                     <Link to="products">
-                        <span className="item-word">樂器商城</span>
+                        <span className="mobile-word">樂器商城</span>
                         <img
                             src={Vector25}
-                            width="150"
+                            width="200"
                             alt="Logo"
-                            className="vector25"
+                            className="mobile-vector25"
                         />
-                        {/* <span className="item-word2">Instrumental Store</span> */}
+                        <span className="mobile-word2">Instrumental Store</span>
                     </Link>
+                    <span className="mobile-word6">
+                        各項高品質鋼琴、電子琴、各種管樂器、弦樂器、打擊樂器及數位樂器之銷售。
+                    </span>
                 </div>
             </div>
 
             <div className="container pushed-wrapper home-blank-top2 d-md-none d-block">
-                <div className="row pushed-box4 pushed-box5">
-                    <Link to="products">
-                        <span className="item-word3">音樂教育</span>
+                <div className="row mobile-pushed-content mobile-pushed-box2">
+                    <Link to="class">
+                        <span className="mobile-word">音樂教育</span>
                         <img
                             src={Vector25}
-                            width="150"
+                            width="200"
                             alt="Logo"
-                            className="vector25-2"
+                            className="mobile-vector25"
                         />
-                        <span className="item-word4">Musical Education</span>
+                        <span className="mobile-word2">Musical Education</span>
                     </Link>
+                    <span className="mobile-word6">
+                        教材、指導法經歷50年以上的研究，世界通用，在全國教室皆可銜接課程。
+                    </span>
                 </div>
-                <div className="  home-blank-top ">
+                <div className="">
                     <div className="">
                         <img
                             src={MobileImg2}
@@ -68,7 +74,7 @@ function MobileHome(props) {
                     </div>
                 </div>
             </div>
-            <div className="container pushed-wrapper home-blank-top3 d-md-none d-block ">
+            <div className="container pushed-wrapper mobile-blank-top3 d-md-none d-block ">
                 <div className="row">
                     <div className="">
                         <img
@@ -79,19 +85,22 @@ function MobileHome(props) {
                         />
                     </div>
                 </div>
-                <div className=" pushed-content pushed-box  ">
-                    <Link to="products">
-                        <span className="item-word">場地租借</span>
+                <div className=" mobile-pushed-content  mobile-pushed-box  ">
+                    <Link to="place">
+                        <span className="mobile-word">場地租借</span>
                         <img
                             src={Vector25}
-                            width="150"
+                            width="200"
                             alt="Logo"
-                            className="vector25"
+                            className="mobile-vector25"
                         />
-                        {/* <span className="item-word2">
+                        <span className="mobile-word5">
                             Facility Rental Services
-                        </span> */}
+                        </span>
                     </Link>
+                    <span className="mobile-word6">
+                        提供表演場所供學員租借使用，家中不方便練習的學員也可以租借練習室，盡情沉浸在音樂中。
+                    </span>
                 </div>
             </div>
         </>

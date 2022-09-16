@@ -35,18 +35,30 @@ function MusicArticle(props) {
             {/* 麵包屑 end*/}
             <div className="container">
                 <div className="row text-center ">
-                    <button className="col-3 list-word list-vector5-Btn ">
-                        促銷活動
-                    </button>
-                    <button className="col-3 list-word  list-vector5-Btn">
-                        活動快訊
-                    </button>
-                    <button className="col-3 list-word  list-vector5-Btn">
-                        重要通知
-                    </button>
-                    <button className="col-3 list-word  list-vector5-Btn list-vector5-Btn-active">
-                        音樂文章
-                    </button>
+                    <Link
+                        to="section"
+                        className="col-3 News-word3  News-vector5-Btn"
+                    >
+                        <span>促銷活動</span>
+                    </Link>
+                    <Link
+                        to="section"
+                        className="col-3 News-word3  News-vector5-Btn"
+                    >
+                        <span>活動快訊</span>
+                    </Link>
+                    <Link
+                        to="section"
+                        className="col-3 News-word3  News-vector5-Btn"
+                    >
+                        <span> 重要通知</span>
+                    </Link>
+                    <Link
+                        to="section"
+                        className="col-3 News-word3  News-vector5-Btn-active"
+                    >
+                        <span>音樂文章</span>
+                    </Link>
                 </div>
             </div>
             <div className="container">
