@@ -3,7 +3,9 @@
     position: relative; */
     /* position: absolute; */
 }
-
+.couponitem{
+    /* min-height: 300px; */
+}
 .card_bg_left{
     position: absolute;
     top:0 ;
@@ -41,6 +43,14 @@
     position: absolute;
     left: 0;
 
+}
+.coupon-cardvip{
+    color: white;
+    background-image:url("./coupongold.svg") ;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    text-align: center;
+    padding: 15px 0; 
 }
 .coupon-card01{
     color: white;
@@ -100,7 +110,7 @@
     border-radius: 0;
     outline: 0;
 }
-.MyCoupon .btn1{
+.MyCoupon .btn{
     font-size: 14px;
     color: #ffff;
     margin: 0 ;
@@ -109,6 +119,21 @@
     border: 2px solid #00323d;
     display: flex;
     align-items: center;
+
+}
+.MyCoupon .btn:hover{
+    color: #ffff;
+    background-color: #004352;
+    border: 2px solid #004352;
+}
+.MyCoupon .link01{
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.MyCoupon .link01:hover{
+    border-bottom: 2px solid #00323d;
 }
 .MyCoupon .btn2{
     font-size: 14px;
@@ -129,5 +154,22 @@
 
 .coupon_img {
     width: 100px;
-    
+}
+.MyCoupon{
+    position: relative;
+    margin-bottom: 40px;
+}
+.MyCoupon .pagination{
+    position: absolute;
+    bottom: -30px;
+    width: 100%;
+}
+.MyCoupon .pagination .page_number{
+    color: #6A777A;
+    font-size: 16px;
+}
+.MyCoupon .pagination .active{
+    color: #00323d;
+    font-weight: 800;
+    border: 0;
 }
