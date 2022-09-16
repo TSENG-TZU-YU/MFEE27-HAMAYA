@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.scss';
 import { Link } from 'react-router-dom';
+import { ususeState } from 'react';
 
 // 圖檔
 import NewsBanner from '../../assets/NewsImg/news-banner.jpg';
@@ -15,8 +16,13 @@ import NewsImg7 from '../../assets/NewsImg/news-img7.png';
 import NewsImg8 from '../../assets/NewsImg/news-img8.png';
 import NewsImg9 from '../../assets/NewsImg/news-img9.png';
 import NewsImg10 from '../../assets/NewsImg/news-img10.png';
+import NewsPromotion from './MusicArticle/components/NewsPromotion';
+import NewsActivity from './MusicArticle/components/NewsActivity';
 
 function NEWs(props) {
+    const [setArticle, setSelectArticle] = useState(true);
+    const [setArticle2, setSelectArticle2] = useState(false);
+
     return (
         <>
             <div className="">
@@ -132,12 +138,34 @@ function NEWs(props) {
             {/* TODO:底線要有距離，還需要再修 */}
             <div className="container">
                 <div className="row text-center ">
-                    <button className="col-3 News-word3  News-vector5-Btn News-vector5-Btn-active">
-                        促銷活動
+                    <button
+                        className={`col-3 ${
+                            setArticle
+                                ? 'News-vector5-Btn-active'
+                                : 'News-vector5-Btn'
+                        }`}
+                        onClick={() => {
+                            setSelectArticle(true);
+                            setSelectArticle2(false);
+                        }}
+                    >
+                        <span className=" News-word3 ">促銷活動</span>
                     </button>
-                    <button className="col-3 News-word3  News-vector5-Btn">
-                        活動快訊
+
+                    <button
+                        className={`col-3 ${
+                            setArticle2
+                                ? 'News-vector5-Btn-active'
+                                : 'News-vector5-Btn'
+                        }`}
+                        onClick={() => {
+                            setSelectArticle(false);
+                            setSelectArticle2(true);
+                        }}
+                    >
+                        <span className=" News-word3 ">活動快訊</span>
                     </button>
+
                     <button className="col-3 News-word3  News-vector5-Btn">
                         重要通知
                     </button>
@@ -145,8 +173,9 @@ function NEWs(props) {
                         音樂文章
                     </button>
                 </div>
+                {setArticle ? <NewsPromotion /> : <NewsActivity />}
             </div>
-            <div className="container ">
+            {/* <div className="container ">
                 <div className="row  News-articles">
                     <div className="col-12 col-md-4 ">
                         <div className="mt-4 ">
@@ -266,24 +295,21 @@ function NEWs(props) {
                                     <p className="ms-2">May － 2022/08/20</p>
                                 </div>
                             </span>
-                        </div>
-                        <div className="container News-more-art ">
-                            <Link
-                                to="section"
-                                className="mb-0 me-1 cursor-pinter"
-                            >
-                                看更多音樂文章
-                            </Link>
-                            <img
-                                className="News-art-arrow"
-                                style={{ width: '15px', height: '15px' }}
-                                src={arrow}
-                                alt="arrow"
-                            />
-                        </div>
-                    </div>
-                </div>
+                        </div> */}
+            <div className="container News-more-art ">
+                <Link to="section" className="mb-0 me-1 cursor-pinter">
+                    看更多音樂文章
+                </Link>
+                <img
+                    className="News-art-arrow"
+                    style={{ width: '15px', height: '15px' }}
+                    src={arrow}
+                    alt="arrow"
+                />
             </div>
+            {/* </div>
+                </div>
+            </div> */}
         </>
     );
 }
