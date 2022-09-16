@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './index.scss';
 import { Link } from 'react-router-dom';
-import { ususeState } from 'react';
+// import { useState } from 'react';
 
 // 圖檔
 import NewsBanner from '../../assets/NewsImg/news-banner.jpg';
@@ -10,12 +10,12 @@ import NewsImg2 from '../../assets/NewsImg/news-img2.png';
 import NewsImg3 from '../../assets/NewsImg/news-img3.png';
 import arrow from '../../assets/svg/arrow_back_ios_new.svg';
 import NewsImg4 from '../../assets/NewsImg/news-img4.png';
-import NewsImg5 from '../../assets/NewsImg/news-img5.png';
-import NewsImg6 from '../../assets/NewsImg/news-img6.png';
-import NewsImg7 from '../../assets/NewsImg/news-img7.png';
-import NewsImg8 from '../../assets/NewsImg/news-img8.png';
-import NewsImg9 from '../../assets/NewsImg/news-img9.png';
-import NewsImg10 from '../../assets/NewsImg/news-img10.png';
+// import NewsImg5 from '../../assets/NewsImg/news-img5.png';
+// import NewsImg6 from '../../assets/NewsImg/news-img6.png';
+// import NewsImg7 from '../../assets/NewsImg/news-img7.png';
+// import NewsImg8 from '../../assets/NewsImg/news-img8.png';
+// import NewsImg9 from '../../assets/NewsImg/news-img9.png';
+// import NewsImg10 from '../../assets/NewsImg/news-img10.png';
 import NewsPromotion from './MusicArticle/components/NewsPromotion';
 import NewsActivity from './MusicArticle/components/NewsActivity';
 
