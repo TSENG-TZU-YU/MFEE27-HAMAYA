@@ -10,7 +10,7 @@ import { homeImages } from '../../album/home';
 //TODO:卷軸要做
 //TODO:點擊輪播時會跑版要修
 
-// import MobileHome from './MobileHome';
+import MobileHome from './MobileHome';
 import HomeScroll from '../../components/HomeScroll/HomeScroll';
 
 //圖檔
@@ -18,7 +18,7 @@ import HomeScroll from '../../components/HomeScroll/HomeScroll';
 import ServiceItem from '../../assets/HomeImg/service-item.jpg';
 import ServiceItem2 from '../../assets/HomeImg/service-item2.jpg';
 import ServiceItem3 from '../../assets/HomeImg/service-item3.jpg';
-import ServiceItem4 from '../../assets/HomeImg/service-item4.jpg';
+
 import NewsImg5 from '../../assets/NewsImg/news-img5.png';
 import NewsImg6 from '../../assets/NewsImg/news-img6.png';
 import NewsImg7 from '../../assets/NewsImg/news-img7.png';
@@ -35,8 +35,6 @@ import HomeAnimation from './HomeAnimation/HomeAnimation';
 function Home(props) {
     return (
         <>
-            {/* <MobileHome /> */}
-
             <HomeAnimation />
 
             <div className="bg-main-gary-light-color ">
@@ -51,16 +49,18 @@ function Home(props) {
                         <span className="home-word3">九月琴房租借優惠中</span>
                     </span>
                 </div>
+                <MobileHome />
                 <div className="container d-flex home-blank-top">
-                    <p className="home-word4 fw-bold home-cursor-pinter me-3 text-nowrap">
+                    <p className=" d-none d-md-block home-word4 fw-bold home-cursor-pinter me-3 text-nowrap">
                         服務項目
                     </p>
-                    <p className="home-word4 fw-bold home-engText me-3">
+                    <p className="d-none d-md-block home-word4 fw-bold home-engText me-3">
                         SERVICE
                     </p>
-                    <div className=" mt-3 home-vector3"></div>
+
+                    <div className=" d-none d-md-block mt-3 home-vector3"></div>
                 </div>
-                <div className="container pushed-wrapper home-blank-top ">
+                <div className="container pushed-wrapper home-blank-top d-none d-md-block ">
                     <div className="row">
                         <div className="">
                             <img
@@ -71,7 +71,7 @@ function Home(props) {
                             />
                         </div>
                     </div>
-                    <div className=" pushed-content pushed-box  pushed-box">
+                    <div className=" pushed-content pushed-box  ">
                         <Link to="products">
                             <span className="item-word">樂器商城</span>
                             <img
@@ -80,16 +80,16 @@ function Home(props) {
                                 alt="Logo"
                                 className="vector25"
                             />
-                            {/* <span className="item-word2">
+                            <span className="item-word2">
                                 Instrumental Store
-                            </span> */}
+                            </span>
                         </Link>
                     </div>
                 </div>
 
-                <div className="container pushed-wrapper home-blank-top2">
+                <div className="container pushed-wrapper home-blank-top2 d-none d-md-block">
                     <div className="row pushed-box4 pushed-box5">
-                        <Link to="products">
+                        <Link Link className="" to="class">
                             <span className="item-word3">音樂教育</span>
                             <img
                                 src={Vector25}
@@ -113,7 +113,7 @@ function Home(props) {
                         </div>
                     </div>
                 </div>
-                <div className="container pushed-wrapper home-blank-top3 ">
+                <div className="container pushed-wrapper home-blank-top3 d-none d-md-block ">
                     <div className="row">
                         <div className="">
                             <img
@@ -125,7 +125,7 @@ function Home(props) {
                         </div>
                     </div>
                     <div className=" pushed-content pushed-box  ">
-                        <Link to="products">
+                        <Link to="place">
                             <span className="item-word">場地租借</span>
                             <img
                                 src={Vector25}
@@ -133,9 +133,9 @@ function Home(props) {
                                 alt="Logo"
                                 className="vector25"
                             />
-                            {/* <span className="item-word2">
+                            <span className="item-word2">
                                 Facility Rental Services
-                            </span> */}
+                            </span>
                         </Link>
                     </div>
                 </div>
@@ -151,7 +151,7 @@ function Home(props) {
                 </div>
 
                 {/* 音符裝飾 */}
-                <div className="container d-none d-md-block ">
+                <div className="container  d-none d-xxl-block ">
                     <img src={Note3} width="30" alt="Logo" className="note3" />
                     <img src={Note6} width="50" alt="Logo" className="note6" />
                     <img src={Note4} width="30" alt="Logo" className="note4" />
@@ -159,7 +159,7 @@ function Home(props) {
                     <img src={Note9} width="15" alt="Logo" className="note9" />
                 </div>
 
-                <div className="container d-flex home-blank-top4">
+                <div className="container d-flex home-blank-top4 ">
                     <p className="home-word4 fw-bold home-cursor-pinter me-3 text-nowrap">
                         音樂文章
                     </p>
@@ -185,7 +185,7 @@ function Home(props) {
                                         <p className="News-music-article4 small">
                                             促銷活動
                                         </p>
-                                        <p className="ms-2">
+                                        <p className="ms-2 mt-1">
                                             May － 2022/08/20
                                         </p>
                                     </div>
@@ -201,13 +201,13 @@ function Home(props) {
                                     height="100%"
                                     className="News-imgs"
                                 />
-                                <span className="gary-dark-color h6 News-cursor-pinter mt-2 ">
+                                <span className="gary-dark-color h6 News-cursor-pinter ">
                                     樂時代～報名課程拿好康 Let's Music！
                                     <div className="d-flex mt-2 ">
                                         <p className="News-music-article4 small News-label">
                                             促銷活動
                                         </p>
-                                        <p className="ms-2">
+                                        <p className="ms-2 mt-1">
                                             May － 2022/08/20
                                         </p>
                                     </div>
@@ -229,7 +229,7 @@ function Home(props) {
                                         <p className="News-music-article4 small News-label">
                                             促銷活動
                                         </p>
-                                        <p className="ms-2">
+                                        <p className="ms-2 mt-1">
                                             May － 2022/08/20
                                         </p>
                                     </div>

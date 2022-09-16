@@ -4,6 +4,7 @@ import { useOutletContext } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Slider from 'rc-slider';
+import _ from 'lodash';
 
 // 項目資料
 import { sortByTitle } from '../constants';
@@ -59,7 +60,7 @@ function ClassList(props) {
     const [searchWord, setSearchWord] = useState('');
 
     // 價格
-    const [selectedPrice, setSelectedPrice] = useState([2600, 2800]);
+    const [selectedPrice, setSelectedPrice] = useState([2500, 2800]);
 
     // 樂器
     const [subIns, setSubIns] = useState('');
@@ -72,6 +73,13 @@ function ClassList(props) {
 
     const [sortBy, setSortBy] = useState('');
     // const [filterBy, setFilterBy] = useState('');
+
+    // 設定 page_.chunk
+    const [pageProducts, setPageProducts] = useState([]);
+    // 分頁
+    const [pageNow, setPageNow] = useState(1); // 目前頁號
+    const [perPage] = useState(6); // 每頁多少筆資料
+    const [pageTotal, setPageTotal] = useState(0); //總共幾頁
 
     // TODO: 評價塞選
 
@@ -104,20 +112,20 @@ function ClassList(props) {
                 a.start_date.localeCompare(b.start_date)
             );
         }
-
+        console.log('sortBy', newProducts);
         return newProducts;
     };
 
     // 搜尋：處理方法
-    // const handleSearch = (products, searchWord) => {
-    //     let newProducts = [...products];
-    //     if (searchWord.length) {
-    //         newProducts = products.filter((product) => {
-    //             return product.name.includes(searchWord);
-    //         });
-    //     }
-    //     return newProducts;
-    // };
+    const handleSearch = (products, searchWord) => {
+        let newProducts = [...products];
+        if (searchWord.length) {
+            newProducts = products.filter((product) => {
+                return product.name.includes(searchWord);
+            });
+        }
+        return newProducts;
+    };
 
     // 樂器:處理方法
     const handleSubIns = (products, subIns) => {
@@ -161,15 +169,9 @@ function ClassList(props) {
         return newProducts;
     };
 
-    // 篩選方法
-    const applyFilters = () => {
-        let newProducts = [];
-
-        // 處理排序
-        // newProducts = handleSort(products, sortBy);
-
-        // 處理樂器
-        newProducts = handleSubIns(products, subIns);
+    // 價格：篩選方法
+    const applyFilters = (products, selectedPrice) => {
+        let newProducts = [...products];
 
         // 價格區間
         const minPrice = selectedPrice[0];
@@ -180,21 +182,20 @@ function ClassList(props) {
             (product) => product.price >= minPrice && product.price <= maxPrice
         );
 
-        console.log('sortBy', sortBy);
         // [[page1],[page2]]
         // need chunk to display
 
-        setDisplayProducts(newProducts);
+        return newProducts;
     };
 
     // 當過濾表單元素有更動時
-    useEffect(() => {
-        let newProducts = [];
+    // useEffect(() => {
+    //     let newProducts = [];
 
-        // 處理排序
-        newProducts = handleSort(products, sortBy);
-        setDisplayProducts(newProducts);
-    }, [products, sortBy]);
+    //     // 處理排序
+    //     newProducts = handleSort(products, sortBy);
+    //     setDisplayProducts(newProducts);
+    // }, [products, sortBy]);
 
     // useEffect(() => {
     //     let newProducts = [];
@@ -215,8 +216,28 @@ function ClassList(props) {
     // }, [products, subIns]);
 
     useEffect(() => {
-        applyFilters();
-    }, [products, selectedPrice, searchWord, subIns]);
+        // applyFilters();
+        let newProducts = [];
+
+        // TODO: 處理搜尋
+        newProducts = handleSearch(products, searchWord);
+
+        // 處理樂器
+        newProducts = handleSubIns(products, subIns);
+
+        // 處理排序
+        newProducts = handleSort(newProducts, sortBy);
+
+        // 處理價格區間選項
+        newProducts = applyFilters(newProducts, selectedPrice);
+
+        const newPageProducts = _.chunk(newProducts, perPage);
+
+        setPageProducts(newPageProducts);
+        setPageTotal(pageProducts.length);
+        // console.log('pageProducts', pageProducts);
+        setDisplayProducts(newProducts);
+    }, [products, selectedPrice, sortBy, searchWord, subIns]);
 
     return (
         <Container>
@@ -425,12 +446,12 @@ function ClassList(props) {
                                     value={subIns}
                                     onChange={(e) => setSubIns(e.target.value)}
                                 >
-                                    <option value="1">所有樂器</option>
-                                    <option value="2">琴鍵樂器</option>
-                                    <option value="3">管樂器</option>
-                                    <option value="4">弓弦樂器</option>
-                                    <option value="5">吉他/烏克麗麗</option>
-                                    <option value="6">打擊樂器</option>
+                                    <option value="0">所有樂器</option>
+                                    <option value="1">琴鍵樂器</option>
+                                    <option value="2">管樂器</option>
+                                    <option value="3">弓弦樂器</option>
+                                    <option value="4">吉他/烏克麗麗</option>
+                                    <option value="5">打擊樂器</option>
                                     {selectCourse ? (
                                         ''
                                     ) : (
@@ -439,19 +460,28 @@ function ClassList(props) {
                                             <option value="7">音樂體驗</option>
                                         </>
                                     )}
-                                    s
                                 </select>
                             </div>
 
                             <p className="mt-4 mb-0 accent-light-color">價格</p>
-                            <input
-                                className="form-range"
-                                type="range"
-                                max="100"
-                                min="0"
-                            />
-                            <p className="accent-light-color m-0">
-                                NT$0 ~ 190,000
+                            <div className=" mb-1">
+                                <div className="input-group">
+                                    <Slider
+                                        className="slider"
+                                        range
+                                        onChange={(value) =>
+                                            setSelectedPrice(value)
+                                        }
+                                        value={selectedPrice}
+                                        // TODO: 從資料庫讀取最低最高價錢
+                                        min={2600}
+                                        max={2800}
+                                    />
+                                </div>
+                            </div>
+                            <p className="accent-light-color small m-0">
+                                NT ${String(selectedPrice[0])} ~{' '}
+                                {String(selectedPrice[1])}
                             </p>
                             <p
                                 className=" mt-2 mb-3"
@@ -551,13 +581,27 @@ function ClassList(props) {
                     products={displayProducts}
                     // 原始資料 跟 改動資料都要傳入子層
                     setProducts={setProducts}
+                    pageProducts={pageProducts}
+                    setPageProducts={setPageProducts}
                     setDisplayProducts={setDisplayProducts}
+                    perPage={perPage}
+                    setPageTotal={setPageTotal}
+                    setPageNow={setPageNow}
+                    pageTotal={pageTotal}
+                    pageNow={pageNow}
                 />
             ) : (
                 <ChildrenCourse
                     products={displayProducts}
                     setProducts={setProducts}
+                    pageProducts={pageProducts}
+                    setPageProducts={setPageProducts}
                     setDisplayProducts={setDisplayProducts}
+                    perPage={perPage}
+                    setPageTotal={setPageTotal}
+                    setPageNow={setPageNow}
+                    pageTotal={pageTotal}
+                    pageNow={pageNow}
                 />
             )}
             {/* 課程選擇 頁面 end*/}

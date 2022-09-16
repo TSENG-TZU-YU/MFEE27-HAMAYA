@@ -57,7 +57,7 @@ function Footer(props) {
                                 </Link>
                                 <Link
                                     className="ms-1 main-gary-light-color  text-nowrap word-size2"
-                                    to="news"
+                                    to="news/section"
                                 >
                                     音樂文章
                                 </Link>
@@ -67,7 +67,7 @@ function Footer(props) {
                         <div className="col-md pt-3 d-flex  align-items-start flex-column">
                             <Link
                                 className="main-gary-light-color  word-size text-nowrap col-md-1 "
-                                to="/products"
+                                to="products"
                             >
                                 樂器商城
                             </Link>
@@ -88,7 +88,7 @@ function Footer(props) {
                             <div className="d-flex  align-items-start flex-column ">
                                 <Link
                                     className="ms-1 main-gary-light-color text-nowrap word-size2 "
-                                    to="class"
+                                    to="class/list"
                                 >
                                     成人課程
                                 </Link>
@@ -118,7 +118,7 @@ function Footer(props) {
                         <div className="col-md pt-3 text-nowrap ">
                             <Link
                                 className="main-gary-light-color word-size"
-                                to="product"
+                                to="aboutus"
                             >
                                 關於我們
                             </Link>

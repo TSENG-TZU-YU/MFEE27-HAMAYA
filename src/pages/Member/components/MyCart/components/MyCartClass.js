@@ -11,18 +11,24 @@ import { ReactComponent as FavDefault } from '../../../../../assets/svg/favorite
 import { RiAddFill } from 'react-icons/ri';
 import { RiSubtractFill } from 'react-icons/ri';
 
-function MyCartClass({ myCart, setItemsCateB }) {
+function MyCartClass({ myCart, setMyCart, setShoppingCartPriceB }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
 
     const myCartList = myCart.myCart;
-    // const items_amount = myCart.items_amount;
+    // console.log('myCartList class', myCartList);
     const myCart_cateB = myCartList.filter((v) => {
         return v.category_id === 'B';
     });
-    // console.log('myCart_cateB.length', myCart_cateB.length);
-    //TODO:進行刪除沒辦法及時更新
+    let itemsPriceTotal = myCart_cateB
+        .map((item) => {
+            return item.price;
+        })
+        .reduce((prev, curr) => prev + curr);
+    setShoppingCartPriceB(itemsPriceTotal);
+    // console.log(myCart_cateB);
+    //進行刪除沒辦法及時更新
     function handleRemoveItem(itemId) {
         console.log('click');
         //取得localStorage內容
@@ -38,8 +44,9 @@ function MyCartClass({ myCart, setItemsCateB }) {
                         product_id: itemId,
                     },
                 });
-                // console.log(response.data);
+                console.log('刪除response.data', response.data);
                 alert(response.data.message);
+                setMyCart(response.data);
             };
             setItemDataDelete();
         }
@@ -55,6 +62,7 @@ function MyCartClass({ myCart, setItemsCateB }) {
     return (
         <>
             {myCart_cateB.map((item) => {
+                let itemPriceTotal = item.amount * item.price;
                 return (
                     <tr key={item.product_id}>
                         <td data-title="音樂課程" align="center">
@@ -68,10 +76,9 @@ function MyCartClass({ myCart, setItemsCateB }) {
                                     />
                                 </div>
                                 <div className="flex-lg-grow-1">
-                                    {/* TODO:課程也能加入購物車的時候圖片改成class */}
                                     <img
                                         className="myCart-Img myCart-contain"
-                                        src={require(`../../../../../album/products/${item.image}`)}
+                                        src={require(`../../../../../album/class/${item.image_1}`)}
                                         alt=""
                                     />
                                 </div>
@@ -121,7 +128,7 @@ function MyCartClass({ myCart, setItemsCateB }) {
                                 <span className="d-lg-none myCartPriceTitle accent-color">
                                     <b>小計：</b>
                                 </span>
-                                <span>NT $100000</span>
+                                <span>NT ${itemPriceTotal}</span>
                             </div>
                         </td>
                     </tr>

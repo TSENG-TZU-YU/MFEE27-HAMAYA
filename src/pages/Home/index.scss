@@ -117,23 +117,35 @@
 
 @media screen and (max-width:768px) {
   .home-word {
-    font-size: 24px;
+    font-size: 16px;
     color: $accent;
     position: relative;
     bottom: 0px
   }
 
+  .home-word2 {
+    font-size: 16px;
+    color: $gary-light;
+  }
+  
+  .home-word3 {
+    font-size: 16px;
+    color: $accent-light;
+    font-weight: bold;
+  }
+  
+  
+
   .item-img {
-    width: 100%;
+    width:100%;
+ 
   }
 
 
 
-  .item-word, .item-word2{
-    font-size: 20px;
-  }
-
-
+ .home-blank-top2 {
+  margin-top: 20px;
+}
 
 }
 
@@ -174,7 +186,7 @@ bottom:-60px;
 }
 
 
-//測試
+//視差捲動
 
 .pushed-wrapper {
 	position: relative;
@@ -201,23 +213,8 @@ bottom:-60px;
   
 }
 
-@media (max-width: 768px) {
-
-	.pushed-box {
-		position: absolute;
-		left: 5%;
-		top: 50%;
-		width: 80%;
-		transform: translateY(-50%);
-    background:  #f2f2f244;
-    height: 90px;
-   
-    
-	}
-}
 
 
-//測試2
 .pushed-box2 {
   position: absolute;
   right: 1%;
@@ -260,8 +257,42 @@ bottom:-60px;
   
 }
 
+//1400px縮放調整
+@media (max-width: 1400px) {
+  .pushed-box {
+		position: absolute;
+		left: 5%;
+		top: 50%;
+		width: 80%;
+		// transform: translateY(-50%);
+    background:  #f2f2f244;
+    height: 90px;
+   
+ 
+    
+	}
+  .home-blank-top4{
+    margin-top: 30px;
+  }
+  
+
+
+    
+  }
+
 
 @media (max-width: 768px) {
+  .pushed-box {
+		position: absolute;
+		left: 5%;
+		top: 50%;
+		width: 80%;
+		transform: translateY(-50%);
+    background:  #f2f2f244;
+    height: 90px;
+   
+    
+	}
 
 	.pushed-box3{
 		position: absolute;
@@ -301,6 +332,7 @@ bottom:-60px;
     text-align: center;
     margin: 30px 50px;
   }
+
   .home-blank-top4{
       margin-top: 30px;
     }

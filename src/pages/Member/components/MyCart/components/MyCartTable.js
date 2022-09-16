@@ -7,18 +7,15 @@ import '../MyCart.scss';
 import MyCartProduct from './MyCartProduct';
 import MyCartClass from './MyCartClass';
 
-function MyCartTable() {
+function MyCartTable({ setShoppingCartPriceA, setShoppingCartPriceB }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const [myCart, setMyCart] = useState(null);
-    // const [itemsCateA, setItemsCateA] = useState('');
-    // const [itemsCateB, setItemsCateB] = useState('');
     const id = member.id;
     useEffect(() => {
         async function getMyCart() {
             try {
                 let response = await axios.get(`${API_URL}/cart/${id}`);
-                console.log('mycart', response.data);
-
+                // console.log('mycart', response.data);
                 setMyCart(response.data);
             } catch (err) {
                 console.log('錯誤', err.response.data.message);
@@ -26,6 +23,7 @@ function MyCartTable() {
         }
         getMyCart();
     }, []);
+    console.log('myCart response', myCart);
     return (
         <>
             <table className="table m-0 myCartTable">
@@ -40,7 +38,11 @@ function MyCartTable() {
                 </thead>
                 <tbody>
                     {myCart ? (
-                        <MyCartProduct myCart={myCart} />
+                        <MyCartProduct
+                            myCart={myCart}
+                            setMyCart={setMyCart}
+                            setShoppingCartPriceA={setShoppingCartPriceA}
+                        />
                     ) : (
                         '目前沒有資料'
                     )}
@@ -57,7 +59,15 @@ function MyCartTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {myCart ? <MyCartClass myCart={myCart} /> : '目前沒有資料'}
+                    {myCart ? (
+                        <MyCartClass
+                            myCart={myCart}
+                            setMyCart={setMyCart}
+                            setShoppingCartPriceB={setShoppingCartPriceB}
+                        />
+                    ) : (
+                        '目前沒有資料'
+                    )}
                 </tbody>
             </table>
         </>

@@ -7,6 +7,10 @@ function MyCart(props) {
     useEffect(() => {
         setbread('購物車'); //載入頁面時 設定麵包削
     }, []);
+
+    const [shoppingCartPriceA, setShoppingCartPriceA] = useState(0);
+    const [shoppingCartPriceB, setShoppingCartPriceB] = useState(0);
+    const orderTotalPrice = shoppingCartPriceA + shoppingCartPriceB;
     return (
         <div className="col-12 col-md-8 col-lg-9">
             {/*此className為RWD設定請勿更動*/}
@@ -38,7 +42,10 @@ function MyCart(props) {
                 </div>
             </div>
             <div className="">
-                <MyCartTable />
+                <MyCartTable
+                    setShoppingCartPriceA={setShoppingCartPriceA}
+                    setShoppingCartPriceB={setShoppingCartPriceB}
+                />
             </div>
             <div className="pb-5 row justify-content-around">
                 <div className="pt-5 col-lg-7">
@@ -105,7 +112,7 @@ function MyCart(props) {
                     </div>
                     <div className="d-flex justify-content-end py-2">
                         <span className="accent-color px-2">總計</span>
-                        <span className="">NT: 100000</span>
+                        <span className="">NT: {orderTotalPrice}</span>
                     </div>
                     <div className="d-flex justify-content-end align-items-center py-lg-2">
                         <div className="flex-grow-1 d-flex align-items-center justify-content-between px-2 mx-3">

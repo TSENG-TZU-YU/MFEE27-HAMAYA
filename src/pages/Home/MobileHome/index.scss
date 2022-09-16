@@ -1,11 +1,133 @@
+
 @import '../../../styles/global.scss';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@600&display=swap');
 
 
+@media screen and (max-width:768px) {
+  .mobile-blank-top {
+    margin-top: 30px;
+  }
+  
+  .mobile-engText {
+    font-family: 'Noto Serif Display', serif;
+    color: $main;
+  }
+  
+  .mobile-cursor-pinter {
+    cursor: pointer;
+  }
+  
+  .mobile-word4{
+    font-size: 1.5rem;
+    color: #00323d;
+  }
+
+  .mobile-pushed-wrapper {
+    position: relative;
+  }
+  .mobile-vector3 {
+    border-top: 3px solid $main-light;
+    width: 100%;
+  }
+  
+  
+  .item-img {
+    width:100%;
+    
+  }
+  .item-img2{
+    width: 100%;
+  }
+
+  .mobile-word {
+    font-size: 24px;
+    color: $accent-light;
+    position: absolute;
+    top: 20px;
+   left: 20px;
+  
+  }
+
+  .mobile-pushed-content {
+    position: relative;
+    padding: 15px 15px 40px 15px;
+  }
+  .mobile-pushed-box{
+    position: absolute;
+    left: 10%;
+    top: 10%;
+    max-width: 80%;
+    // transform: translateY(-50%);
+    background:  #f2f2f244;
+    height: 120px;
+    width:100%
+    
+  }
+
+  .mobile-pushed-box2{
+    position: absolute;
+    left: 13%;
+    top: 10%;
+    max-width: 80%;
+    // transform: translateY(-50%);
+    background:  #f2f2f244;
+    height: 120px;
+    width:100%
+    
+  }
+  .mobile-vector25 {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  
+  
+  }
+
+  .mobile-word2 {
+    font-size: 20px;
+    color: $accent-light;
+    position: absolute;
+    top: 70px;
+    left: 80px;
+    white-space: nowrap;
+  }
+  
+  .mobile-word5 {
+    font-size: 18px;
+    color: $accent-light;
+    position: absolute;
+    top: 70px;
+    left: 80px;
+    white-space: nowrap;
+  }
+  
+  .mobile-word6{
+    color:white;
+    font-size: 16px;
+    position: absolute;
+    top: 150px;
 
 
+  } 
+
+  .mobile-blank-top3 {
+    margin-top: 60px;
+  }
+  
 
 
+  }
 
 
+  @media screen and (max-width:400px){
+      
+  .mobile-word6{
+    color:white;
+    font-size: 5px;
+    position: absolute;
+    top: 130px;
 
+
+  } 
+
+  }

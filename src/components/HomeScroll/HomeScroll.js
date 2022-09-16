@@ -2,20 +2,23 @@ import React, { useRef, useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import PropTypes from 'prop-types';
+
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './HomeScroll.scss';
 
+//TODO:輪播按鈕沒有置中需要再調
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper';
 
 function HomeScroll(props) {
+
     return (
         <>
             <Swiper
-                spaceBetween={10}
+                spaceBetween={30}
                 centeredSlides={true}
                 autoplay={{
                     delay: 3500,

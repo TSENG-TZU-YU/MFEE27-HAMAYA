@@ -30,6 +30,7 @@ function Detailed() {
     const [detailedSelect, setDetailedSelect] = useState(true);
 
     const [data, setData] = useState([]);
+    const [dataAll, setDataAll] = useState([]);
 
     // 把網址上的 :detailedID 拿出來
     const { detailedID } = useParams();
@@ -39,7 +40,8 @@ function Detailed() {
             let response = await axios.get(
                 `http://localhost:3001/api/class/list/${detailedID}`
             );
-            setData(response.data);
+            setData(response.data.data);
+            setDataAll(response.data.dataAll.data2.data);
             window.scrollTo({
                 top: 0,
                 left: 0,
@@ -95,6 +97,8 @@ function Detailed() {
                                                 padding: '15px',
                                             }}
                                         >
+                                            {/* data={data}  */}
+                                            {/* images={classImages} */}
                                             <Carousel images={classImages} />
                                         </div>
                                     </div>
@@ -119,7 +123,7 @@ function Detailed() {
                                                 {classDetailed.course_intro}
                                             </h6>
                                             <p className="mb-0 AdultDetailed-line-height mt-3">
-                                                名額：10 人{' '}
+                                                名額：10 人
                                             </p>
                                             <p className="mb-0 AdultDetailed-line-height">
                                                 報名截止：
@@ -294,97 +298,70 @@ function Detailed() {
                     {/* border-top border-secondary border-3 px-3 pt-3 me-2 */}
                     <div className=" detailed-vector  mt-3 "></div>
                 </div>
-                {/* 推薦課程  */}
-                <Row className="mt-5 mb-5">
-                    <Col lg={3}>
-                        <div className="card" style={{ width: ' 18rem' }}>
-                            <img
-                                className="card-img-top img-fluid"
-                                src={Adult_img}
-                                alt="Adult img"
-                            />
-                            <div className="card-body">
-                                <div className=" mt-3 ">
-                                    <p
-                                        className="ms-1 mb-2"
-                                        style={{ color: '#00323d' }}
+                {/* TODO:  推薦課程  從後端GET 隨機4個課程 */}
+                {dataAll.map((recommend) => {
+                    return (
+                        <div key={recommend.id}>
+                            <Row className="mt-5 mb-5 row-cols-xl-4  row-cols-md-2 ">
+                                <Col lg={3}>
+                                    <div
+                                        className="card mb-4 mx-auto"
+                                        style={{ width: ' 18rem' }}
                                     >
-                                        藍調與爵士鋼琴的獨奏技巧與應用
-                                    </p>
-                                    <div className="vector2 me-2"></div>
-                                    <div className=" mt-2">
-                                        <small className="mb-0">
-                                            開課時間：2022/10/19 - 2022/12/10
-                                        </small>
-                                        <p className="mb-0">名額：10 人 </p>
+                                        <img
+                                            className="card-img-top img-fluid"
+                                            src={Adult_img}
+                                            alt="Adult img"
+                                        />
+                                        <div className="card-body">
+                                            <div className=" mt-3 ">
+                                                <p
+                                                    className="ms-1 mb-2"
+                                                    style={{ color: '#00323d' }}
+                                                >
+                                                    {recommend.name}
+                                                </p>
+                                                <div className="vector2 me-2"></div>
+                                                <div className=" mt-2">
+                                                    <small className="mb-0">
+                                                        開課時間：
+                                                        {recommend.start_date} ~
+                                                        {recommend.end_date}
+                                                    </small>
+                                                    <p className="mb-0">
+                                                        名額：10 人
+                                                    </p>
 
-                                        <div className="d-flex mt-2 align-items-center">
-                                            <div className="StarRating">
-                                                <StarRating />
+                                                    <div className="d-flex mt-2 align-items-center">
+                                                        <div className="StarRating">
+                                                            <StarRating />
+                                                        </div>
+                                                        <small className="ms-2 mt-2 ">
+                                                            2 人評價
+                                                        </small>
+                                                    </div>
+                                                    <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">
+                                                        <h4
+                                                            className=" fw-bold "
+                                                            style={{
+                                                                color: '#5b322f',
+                                                            }}
+                                                        >
+                                                            NT $
+                                                            {recommend.price} /
+                                                            期
+                                                        </h4>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <small className="ms-2 mt-2 ">
-                                                2 人評價
-                                            </small>
-                                        </div>
-                                        <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">
-                                            <h4
-                                                className=" fw-bold "
-                                                style={{ color: '#5b322f' }}
-                                            >
-                                                NT $2,500 / 期
-                                            </h4>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </Col>
-                    <Col lg={3}>
-                        <div className="card" style={{ width: ' 18rem' }}>
-                            <img
-                                className="card-img-top img-fluid"
-                                src={Adult_img}
-                                alt="Adult img"
-                            />
-                            <div className="card-body">
-                                <div className=" mt-3 ">
-                                    <p
-                                        className="ms-1 mb-2"
-                                        style={{ color: '#00323d' }}
-                                    >
-                                        藍調與爵士鋼琴的獨奏技巧與應用
-                                    </p>
-                                    <div className="vector2 me-2"></div>
-                                    <div className=" mt-2">
-                                        <small className="mb-0">
-                                            開課時間：2022/10/19 - 2022/12/10
-                                        </small>
-                                        <p className="mb-0">名額：10 人 </p>
-
-                                        <div className="d-flex mt-2 align-items-center">
-                                            <div className="StarRating">
-                                                <StarRating />
-                                            </div>
-                                            <small className="ms-2 mt-2 ">
-                                                {' '}
-                                                2 人評價
-                                            </small>
-                                        </div>
-                                        <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">
-                                            <h4
-                                                className=" fw-bold "
-                                                style={{ color: '#5b322f' }}
-                                            >
-                                                NT $2,500 / 期
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </Col>
-                    <Col lg={3}>
-                        <div className="card" style={{ width: ' 18rem' }}>
+                                </Col>
+                                {/* <Col lg={3}>
+                        <div
+                            className="card mx-auto"
+                            style={{ width: ' 18rem' }}
+                        >
                             <img
                                 className="card-img-top img-fluid"
                                 src={Adult_img}
@@ -471,7 +448,54 @@ function Detailed() {
                             </div>
                         </div>
                     </Col>
-                </Row>
+                    <Col lg={3}>
+                        <div className="card" style={{ width: ' 18rem' }}>
+                            <img
+                                className="card-img-top img-fluid"
+                                src={Adult_img}
+                                alt="Adult img"
+                            />
+                            <div className="card-body">
+                                <div className=" mt-3 ">
+                                    <p
+                                        className="ms-1 mb-2"
+                                        style={{ color: '#00323d' }}
+                                    >
+                                        藍調與爵士鋼琴的獨奏技巧與應用
+                                    </p>
+                                    <div className="vector2 me-2"></div>
+                                    <div className=" mt-2">
+                                        <small className="mb-0">
+                                            開課時間：2022/10/19 - 2022/12/10
+                                        </small>
+                                        <p className="mb-0">名額：10 人 </p>
+
+                                        <div className="d-flex mt-2 align-items-center">
+                                            <div className="StarRating">
+                                                <StarRating />
+                                            </div>
+                                            <small className="ms-2 mt-2 ">
+                                                {' '}
+                                                2 人評價
+                                            </small>
+                                        </div>
+                                        <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">
+                                            <h4
+                                                className=" fw-bold "
+                                                style={{ color: '#5b322f' }}
+                                            >
+                                                NT $2,500 / 期
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Col> */}
+                            </Row>
+                        </div>
+                    );
+                })}
                 {/* 相關課程 end */}
             </Container>
         </div>

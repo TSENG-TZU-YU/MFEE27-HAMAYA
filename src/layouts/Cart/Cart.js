@@ -12,11 +12,17 @@ function Cart() {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
-    // console.log('shoppingCart in Cart', shoppingCart);
-    //如果臨時購物車商品為0 則關閉
     if (shoppingCart.length === 0) {
         setShopCartState(false);
     }
+    //金額
+    let shoppingCartPrice = shoppingCart
+        .map((item) => {
+            return item.price;
+        })
+        .reduce((prev, curr) => prev + curr);
+    // console.log('shoppingCartPrice', shoppingCartPrice);
+    //如果臨時購物車商品為0 則關閉
 
     function handleRemoveItem(itemId) {
         //取得localStorage內容
@@ -32,7 +38,7 @@ function Cart() {
                         product_id: itemId,
                     },
                 });
-                // console.log(response.data);
+
                 alert(response.data.message);
             };
             setItemDataDelete();
@@ -45,13 +51,37 @@ function Cart() {
         localStorage.setItem('shoppingCart', JSON.stringify(removeItem));
         setShoppingCart(removeItem);
     }
-
-    // async function setItemDelete(itemsData) {
-    //     let response = await axios.post(`${API_URL}/cart/:itemData`, itemsData);
-    //     // console.log(response.data);
-    //     alert(response.data.message);
-    // }
-
+    //多筆加入購物車 訂單結帳
+    function getMultipleCheck() {
+        let shoppingCartLocal = JSON.parse(
+            localStorage.getItem('shoppingCart')
+        );
+        if (member === null || member.id === '') {
+            alert('請先登入');
+            return;
+        }
+        //把資料組成陣列
+        let multipleCart = shoppingCartLocal.map((item) => {
+            return [member.id, item.product_id, item.category_id, item.amount];
+        });
+        //寫進資料庫
+        async function setItemsData(itemsData) {
+            try {
+                let response = await axios.post(
+                    `${API_URL}/cart/multi`,
+                    itemsData
+                );
+                alert(response.data.message);
+            } catch (err) {
+                console.log(err.response.data.message);
+            }
+        }
+        setItemsData(multipleCart);
+        //清掉localStorage
+        localStorage.removeItem('shoppingCart');
+        //清空臨時購物車
+        setShoppingCart([]);
+    }
     return (
         <div className="position-relative">
             <div className="shoppingCart p-2">
@@ -62,7 +92,9 @@ function Cart() {
                     <span className="minimum main-gary-light-color">
                         共有{shoppingCart.length}件商品
                     </span>
-                    <span className="minimum">總金額:NT $000000</span>
+                    <span className="minimum">
+                        總金額:NT ${shoppingCartPrice}
+                    </span>
                 </div>
                 <div className="scrollStyle overflow-auto pb-2">
                     {shoppingCart.map((item, index) => {
@@ -92,7 +124,6 @@ function Cart() {
                                 <button
                                     className="border-0 btn ms-auto"
                                     onClick={() => {
-                                        // console.log(item.product_id);
                                         handleRemoveItem(item.product_id);
                                     }}
                                 >
@@ -103,7 +134,13 @@ function Cart() {
                     })}
                 </div>
                 <div className="pt-2">
-                    <button className="border-0 bg-main-color checkOutBtn py-2">
+                    {/* 訂單結帳 如果未登入要要求登入 已登入要把資料送到後台重複的不寫入 沒有則寫入 清空localStorage*/}
+                    <button
+                        className="border-0 bg-main-color checkOutBtn py-2"
+                        onClick={() => {
+                            getMultipleCheck();
+                        }}
+                    >
                         <CheckOut className="checkOutIcon" />
                         <span className="px-2">訂單結帳</span>
                     </button>
