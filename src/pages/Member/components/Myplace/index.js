@@ -4,7 +4,7 @@ import { useOutletContext } from 'react-router-dom';
 import add_img from '../../../../assets/svg/add.svg';
 import detail_img from '../../../../assets/svg/detailed.svg';
 
-function Myplace() {
+function MyPlace() {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
     useEffect(() => {
         setbread('場地租借'); //載入頁面時 設定麵包削
@@ -87,4 +87,4 @@ function Myplace() {
     );
 }
 
-export default Myplace;
+export default MyPlace;
