@@ -45,6 +45,40 @@ function Cart() {
         localStorage.setItem('shoppingCart', JSON.stringify(removeItem));
         setShoppingCart(removeItem);
     }
+    function getMultipleCheck() {
+        let shoppingCartLocal = JSON.parse(
+            localStorage.getItem('shoppingCart')
+        );
+        // console.log('shoppingCartLocal in getMultipleCheck', shoppingCartLocal);
+        if (member === null || member.id === '') {
+            alert('請先登入');
+            return;
+        }
+        //把資料組成陣列
+        let multipleCart = shoppingCartLocal.map((item) => {
+            return [member.id, item.product_id, item.category_id, item.amount];
+        });
+        // console.log('multipleCart', multipleCart);
+
+        //寫進資料庫
+        async function setItemsData(itemsData) {
+            //要做後端資料庫裡是否重複 重複則去購物車修改數量 目前只拿一個加入購物車
+            try {
+                let response = await axios.post(
+                    `${API_URL}/cart/multi`,
+                    itemsData
+                );
+                alert(response.data.message);
+            } catch (err) {
+                console.log(err.response.data.message);
+            }
+        }
+        setItemsData(multipleCart);
+        //清掉localStorage
+        localStorage.removeItem('shoppingCart');
+        //清空臨時購物車
+        setShoppingCart([]);
+    }
     return (
         <div className="position-relative">
             <div className="shoppingCart p-2">
@@ -96,7 +130,12 @@ function Cart() {
                 </div>
                 <div className="pt-2">
                     {/* TODO:訂單結帳 如果未登入要要求登入 已登入要把資料送到後台重複的不寫入 沒有則寫入 清空localStorage*/}
-                    <button className="border-0 bg-main-color checkOutBtn py-2">
+                    <button
+                        className="border-0 bg-main-color checkOutBtn py-2"
+                        onClick={() => {
+                            getMultipleCheck();
+                        }}
+                    >
                         <CheckOut className="checkOutIcon" />
                         <span className="px-2">訂單結帳</span>
                     </button>

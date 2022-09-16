@@ -15,6 +15,7 @@ function MyCartProduct({ myCart, setMyCart }) {
         useCart();
 
     const myCartList = myCart.myCart;
+    console.log('myCartList product', myCartList);
     const myCart_cateA = myCartList.filter((v) => {
         return v.category_id === 'A';
     });
