@@ -11,18 +11,18 @@ import { ReactComponent as FavDefault } from '../../../../../assets/svg/favorite
 import { RiAddFill } from 'react-icons/ri';
 import { RiSubtractFill } from 'react-icons/ri';
 
-function MyCartClass({ myCart, setItemsCateB }) {
+function MyCartClass({ myCart, setMyCart }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
 
     const myCartList = myCart.myCart;
-    // const items_amount = myCart.items_amount;
+    console.log('myCartList', myCartList);
     const myCart_cateB = myCartList.filter((v) => {
         return v.category_id === 'B';
     });
-    // console.log('myCart_cateB.length', myCart_cateB.length);
-    //TODO:進行刪除沒辦法及時更新
+    // console.log(myCart_cateB);
+    //進行刪除沒辦法及時更新
     function handleRemoveItem(itemId) {
         console.log('click');
         //取得localStorage內容
@@ -38,8 +38,9 @@ function MyCartClass({ myCart, setItemsCateB }) {
                         product_id: itemId,
                     },
                 });
-                // console.log(response.data);
+                console.log('刪除response.data', response.data);
                 alert(response.data.message);
+                setMyCart(response.data);
             };
             setItemDataDelete();
         }

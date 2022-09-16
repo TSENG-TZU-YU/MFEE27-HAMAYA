@@ -24,39 +24,6 @@ function AdultCourse({
     pageTotal,
     pageNow,
 }) {
-    // const [error, setError] = useState(null);
-    //撈原始資料
-    // const [data, setData] = useState([]);
-    // const [active, setActive] = useState(null);
-
-    // 分頁  Toggled
-    // const [lastPage, setLastPage] = useState(1);
-    // const [page, setPage] = useState(1);
-
-    // 製作分頁按鈕
-    // const getPage = () => {
-    //     let pages = [];
-    //     for (let i = 1; i <= pageTotal; i++) {
-    //         //要從陣列後面依序放頁數
-    //         pages.push(
-    //             <li
-    //                 className="pages"
-    //                 style={{
-    //                     backgroundColor: pageNow === i ? '#00323d' : '',
-    //                     color: pageNow === i ? '#f2f2f2' : '#6a777a',
-    //                 }}
-    //                 key={i}
-    //                 onClick={(e) => {
-    //                     setPageNow(i);
-    //                 }}
-    //             >
-    //                 {i}
-    //             </li>
-    //         );
-    //     }
-    //     return pages;
-    // };
-
     useEffect(() => {
         let getAdultClass = async () => {
             let response = await axios.get(
@@ -82,12 +49,9 @@ function AdultCourse({
                 console.log('pageProducts', pageProducts);
             }
         };
-        console.log(' pageTotal', pageTotal);
-        // console.log('L-93', 123);
+
         getAdultClass();
     }, []);
-
-    console.log('pageProducts', pageProducts);
 
     useEffect(() => {
         console.log('products', products);
@@ -132,14 +96,33 @@ function AdultCourse({
         </>
     );
 
-    // console.log('', products);
+    // 製作分頁按鈕
+    const getPage = () => {
+        let pages = [];
+        for (let i = 1; i <= pageTotal; i++) {
+            //要從陣列後面依序放頁數
+            pages.push(
+                <li
+                    className="pages"
+                    style={{
+                        backgroundColor: pageNow === i ? '#00323d' : '',
+                        color: pageNow === i ? '#f2f2f2' : '#6a777a',
+                    }}
+                    key={i}
+                    onClick={(e) => {
+                        setPageNow(i);
+                    }}
+                >
+                    {i}
+                </li>
+            );
+        }
+        return pages;
+    };
 
     return (
         <div>
-            {/* 分頁 */}
-            {paginationBar}
             {/* 已灌資料庫 */}
-            {/* displayProducts[pageNow - 1] */}
             {pageProducts.length > 0 &&
                 pageProducts[pageNow - 1].map((classAdult) => {
                     return (
@@ -153,7 +136,7 @@ function AdultCourse({
                                         <img
                                             className=" col-12 class-course-image"
                                             // require(`../../../../album/class/${classAdult.image}`)
-                                            src={require(`../../../../album/class/${classAdult.image}`)}
+                                            src={require(`../../../../album/class/${classAdult.image_1}`)}
                                             alt="Adult img"
                                         />
                                         <div className="class-like px-lg-0">
@@ -198,7 +181,7 @@ function AdultCourse({
                                                     NT ${classAdult.price} / 期
                                                 </h4>
 
-                                                <Car classAdult={classAdult} />
+                                                <Car itemsCart={classAdult} />
                                             </div>
                                         </div>
                                     </div>
@@ -208,7 +191,7 @@ function AdultCourse({
                     );
                 })}
             {/* 分頁 */}
-            {/* <ul className="text-center">{getPage()}</ul> */}
+            <ul className="text-center">{getPage()}</ul>
 
             {/* 分頁 end*/}
         </div>

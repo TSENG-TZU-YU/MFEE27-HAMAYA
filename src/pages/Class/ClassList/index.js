@@ -60,7 +60,7 @@ function ClassList(props) {
     const [searchWord, setSearchWord] = useState('');
 
     // 價格
-    const [selectedPrice, setSelectedPrice] = useState([2600, 2800]);
+    const [selectedPrice, setSelectedPrice] = useState([2500, 2800]);
 
     // 樂器
     const [subIns, setSubIns] = useState('');
@@ -76,6 +76,7 @@ function ClassList(props) {
 
     // 設定 page_.chunk
     const [pageProducts, setPageProducts] = useState([]);
+    // 分頁
     const [pageNow, setPageNow] = useState(1); // 目前頁號
     const [perPage] = useState(6); // 每頁多少筆資料
     const [pageTotal, setPageTotal] = useState(0); //總共幾頁
@@ -584,7 +585,14 @@ function ClassList(props) {
                 <ChildrenCourse
                     products={displayProducts}
                     setProducts={setProducts}
+                    pageProducts={pageProducts}
+                    setPageProducts={setPageProducts}
                     setDisplayProducts={setDisplayProducts}
+                    perPage={perPage}
+                    setPageTotal={setPageTotal}
+                    setPageNow={setPageNow}
+                    pageTotal={pageTotal}
+                    pageNow={pageNow}
                 />
             )}
             {/* 課程選擇 頁面 end*/}
