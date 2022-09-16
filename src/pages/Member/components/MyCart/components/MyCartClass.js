@@ -11,17 +11,17 @@ import { ReactComponent as FavDefault } from '../../../../../assets/svg/favorite
 import { RiAddFill } from 'react-icons/ri';
 import { RiSubtractFill } from 'react-icons/ri';
 
-function MyCartClass({ myCart, setMyCart }) {
+function MyCartClass({ myCart, setMyCart, myCartB, setMyCartB }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
-
-    const myCartList = myCart.myCart;
-    // console.log('myCartList class', myCartList);
-    const myCart_cateB = myCartList.filter((v) => {
-        return v.category_id === 'B';
-    });
-    console.log('myCart_cateB', myCart_cateB);
+    // console.log('myCartB', myCartB);
+    // const myCartList = myCart.myCart;
+    // // console.log('myCartList class', myCartList);
+    // const myCart_cateB = myCartList.filter((v) => {
+    //     return v.category_id === 'B';
+    // });
+    // console.log('myCart_cateB', myCart_cateB);
 
     // if (myCart_cateB.length !== 0) {
     //     let itemsPriceTotal = myCart_cateB.map((item) => {
@@ -52,6 +52,11 @@ function MyCartClass({ myCart, setMyCart }) {
                 });
                 console.log('刪除response.data', response.data);
                 alert(response.data.message);
+                let myCartList = response.data.myCart;
+                const myCart_cateB = myCartList.filter((v) => {
+                    return v.category_id === 'B';
+                });
+                setMyCartB(myCart_cateB);
                 setMyCart(response.data);
             };
             setItemDataDelete();
@@ -67,7 +72,7 @@ function MyCartClass({ myCart, setMyCart }) {
 
     return (
         <>
-            {myCart_cateB.map((item) => {
+            {myCartB.map((item) => {
                 let itemPriceTotal = item.amount * item.price;
                 return (
                     <tr key={item.product_id}>
