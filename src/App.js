@@ -47,7 +47,7 @@ import MyOrder from './pages/Member/components/MyOrder';
 import MyCoupon from './pages/Member/components/MyCoupon';
 import MyQuestion from './pages/Member/components/MyQuestion';
 import MyOrderDetail from './pages/Member/components/MyOrder/components/MyOrderDetail';
-import MyPlace from './pages/Member/components/Myplace';
+import MyPlace from './pages/Member/components/MyPlace';
 
 function App() {
     //page to top 要用的
@@ -94,7 +94,7 @@ function App() {
                                         />
                                     </Route>
                                     <Route
-                                        path="teacher"
+                                        path="teacher/:detailedID"
                                         element={<Teacher />}
                                     />
                                 </Route>

@@ -446,12 +446,12 @@ function ClassList(props) {
                                     value={subIns}
                                     onChange={(e) => setSubIns(e.target.value)}
                                 >
-                                    <option value="1">所有樂器</option>
-                                    <option value="2">琴鍵樂器</option>
-                                    <option value="3">管樂器</option>
-                                    <option value="4">弓弦樂器</option>
-                                    <option value="5">吉他/烏克麗麗</option>
-                                    <option value="6">打擊樂器</option>
+                                    <option value="0">所有樂器</option>
+                                    <option value="1">琴鍵樂器</option>
+                                    <option value="2">管樂器</option>
+                                    <option value="3">弓弦樂器</option>
+                                    <option value="4">吉他/烏克麗麗</option>
+                                    <option value="5">打擊樂器</option>
                                     {selectCourse ? (
                                         ''
                                     ) : (
@@ -460,19 +460,28 @@ function ClassList(props) {
                                             <option value="7">音樂體驗</option>
                                         </>
                                     )}
-                                    s
                                 </select>
                             </div>
 
                             <p className="mt-4 mb-0 accent-light-color">價格</p>
-                            <input
-                                className="form-range"
-                                type="range"
-                                max="100"
-                                min="0"
-                            />
-                            <p className="accent-light-color m-0">
-                                NT$0 ~ 190,000
+                            <div className=" mb-1">
+                                <div className="input-group">
+                                    <Slider
+                                        className="slider"
+                                        range
+                                        onChange={(value) =>
+                                            setSelectedPrice(value)
+                                        }
+                                        value={selectedPrice}
+                                        // TODO: 從資料庫讀取最低最高價錢
+                                        min={2600}
+                                        max={2800}
+                                    />
+                                </div>
+                            </div>
+                            <p className="accent-light-color small m-0">
+                                NT ${String(selectedPrice[0])} ~{' '}
+                                {String(selectedPrice[1])}
                             </p>
                             <p
                                 className=" mt-2 mb-3"
