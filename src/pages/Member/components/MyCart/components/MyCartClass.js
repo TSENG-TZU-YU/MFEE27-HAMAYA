@@ -17,7 +17,7 @@ function MyCartClass({ myCart, setMyCart }) {
         useCart();
 
     const myCartList = myCart.myCart;
-    console.log('myCartList', myCartList);
+    console.log('myCartList class', myCartList);
     const myCart_cateB = myCartList.filter((v) => {
         return v.category_id === 'B';
     });
@@ -69,10 +69,9 @@ function MyCartClass({ myCart, setMyCart }) {
                                     />
                                 </div>
                                 <div className="flex-lg-grow-1">
-                                    {/* TODO:課程也能加入購物車的時候圖片改成class */}
                                     <img
                                         className="myCart-Img myCart-contain"
-                                        src={require(`../../../../../album/products/${item.image}`)}
+                                        src={require(`../../../../../album/class/${item.image_1}`)}
                                         alt=""
                                     />
                                 </div>
