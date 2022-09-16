@@ -94,7 +94,7 @@ function App() {
                                         />
                                     </Route>
                                     <Route
-                                        path="teacher"
+                                        path="teacher/:detailedID"
                                         element={<Teacher />}
                                     />
                                 </Route>
