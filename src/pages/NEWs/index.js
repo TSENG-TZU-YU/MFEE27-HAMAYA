@@ -20,6 +20,7 @@ import NewsPromotion from './MusicArticle/components/NewsPromotion';
 import NewsActivity from './MusicArticle/components/NewsActivity';
 
 function NEWs(props) {
+    //TODO: 狀態設定1234
     const [setArticle, setSelectArticle] = useState(true);
     const [setArticle2, setSelectArticle2] = useState(false);
 
