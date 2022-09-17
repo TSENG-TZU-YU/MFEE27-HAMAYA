@@ -41,7 +41,11 @@ function Detailed() {
                 `http://localhost:3001/api/class/list/${detailedID}`
             );
             setData(response.data.data);
-            setDataImg(response.data.dataImg);
+            let imgData = response.data.dataImg[0];
+            imgData = Object.keys(imgData).map((key) => {
+                return imgData[key];
+            });
+            setDataImg(imgData);
             window.scrollTo({
                 top: 0,
                 left: 0,

@@ -29,7 +29,7 @@ function Carousel({ dataImg }) {
                 {dataImg.map((item, index) => (
                     <SwiperSlide key={index}>
                         <img
-                            src={require(`../../album/class/${item.dataImg}`)}
+                            src={require(`../../album/class/${item}`)}
                             alt="product images"
                         />
                     </SwiperSlide>
@@ -47,7 +47,10 @@ function Carousel({ dataImg }) {
                 {dataImg.map((item, index) => (
                     <SwiperSlide key={index}>
                         <div className="product-images-slider-thumbs-wrapper">
-                            <img src={item} alt="product images" />
+                            <img
+                                src={require(`../../album/class/${item}`)}
+                                alt="product images"
+                            />
                         </div>
                     </SwiperSlide>
                 ))}
