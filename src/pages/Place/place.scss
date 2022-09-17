@@ -4,7 +4,9 @@
   font-family: 'Noto Serif Display', serif;
 }
 
-
+input:disabled {
+  background: rgb(206, 206, 206);
+}
 
 .vector3 {
   border-top: 3px solid $gary-light;
