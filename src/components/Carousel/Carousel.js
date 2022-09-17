@@ -11,7 +11,7 @@ import './Carousel.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Thumbs } from 'swiper';
 
-function Carousel(props) {
+function Carousel({ dataImg }) {
     const [activeThumb, setActiveThumb] = useState();
 
     return (
@@ -26,9 +26,15 @@ function Carousel(props) {
                 className="product-images-slider"
             >
                 {/* 上方圖片 */}
-                {props.images.map((item, index) => (
-                    <SwiperSlide key={index}>
-                        <img src={item} alt="product images" />
+                {dataImg.map((item, index) => (
+                    <SwiperSlide
+                        key={index}
+                        style={{ width: '610px', height: '500px' }}
+                    >
+                        <img
+                            src={require(`../../album/class/${item}`)}
+                            alt="product images"
+                        />
                     </SwiperSlide>
                 ))}
             </Swiper>
@@ -41,10 +47,13 @@ function Carousel(props) {
                 className="product-images-slider-thumbs"
             >
                 {/* 下方圖片按鈕 */}
-                {props.images.map((item, index) => (
+                {dataImg.map((item, index) => (
                     <SwiperSlide key={index}>
                         <div className="product-images-slider-thumbs-wrapper">
-                            <img src={item} alt="product images" />
+                            <img
+                                src={require(`../../album/class/${item}`)}
+                                alt="product images"
+                            />
                         </div>
                     </SwiperSlide>
                 ))}
@@ -54,8 +63,8 @@ function Carousel(props) {
 }
 
 /* 要傳進去的圖片資料 */
-Carousel.propTypes = {
-    images: PropTypes.array.isRequired,
-};
+// Carousel.propTypes = {
+//     images: PropTypes.array.isRequired,
+// };
 
 export default Carousel;

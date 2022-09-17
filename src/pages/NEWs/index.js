@@ -10,20 +10,35 @@ import NewsImg2 from '../../assets/NewsImg/news-img2.png';
 import NewsImg3 from '../../assets/NewsImg/news-img3.png';
 import arrow from '../../assets/svg/arrow_back_ios_new.svg';
 import NewsImg4 from '../../assets/NewsImg/news-img4.png';
-// import NewsImg5 from '../../assets/NewsImg/news-img5.png';
-// import NewsImg6 from '../../assets/NewsImg/news-img6.png';
-// import NewsImg7 from '../../assets/NewsImg/news-img7.png';
-// import NewsImg8 from '../../assets/NewsImg/news-img8.png';
-// import NewsImg9 from '../../assets/NewsImg/news-img9.png';
-// import NewsImg10 from '../../assets/NewsImg/news-img10.png';
-import NewsPromotion from './MusicArticle/components/NewsPromotion';
-import NewsActivity from './MusicArticle/components/NewsActivity';
+import NewsImg5 from '../../assets/NewsImg/news-img5.png';
+import NewsImg6 from '../../assets/NewsImg/news-img6.png';
+import NewsImg7 from '../../assets/NewsImg/news-img7.png';
+import NewsImg8 from '../../assets/NewsImg/news-img8.png';
+import NewsImg9 from '../../assets/NewsImg/news-img9.png';
+import NewsImg10 from '../../assets/NewsImg/news-img10.png';
 
 function NEWs(props) {
-    //TODO: 狀態設定1234
-    const [setArticle, setSelectArticle] = useState(true);
-    const [setArticle2, setSelectArticle2] = useState(false);
-
+    //只是在設定avtive的狀態
+    const [activeText, setActiveText] = useState(1);
+    //使用抓取id來顯示名字
+    const menuItems = [
+        {
+            id: 1,
+            name: '促銷活動',
+        },
+        {
+            id: 2,
+            name: '活動快訊',
+        },
+        {
+            id: 3,
+            name: '重要通知',
+        },
+        {
+            id: 4,
+            name: '音樂文章',
+        },
+    ];
     return (
         <>
             <div className="">
@@ -137,33 +152,35 @@ function NEWs(props) {
                 </div>
             </div>
             {/* TODO:底線要有距離，還需要再修 */}
+
             <div className="container">
                 <div className="row text-center ">
-                    <button
-                        className={`col-3 ${
-                            setArticle
-                                ? 'News-vector5-Btn-active'
-                                : 'News-vector5-Btn'
-                        }`}
-                        onClick={() => {
-                            setSelectArticle(true);
-                            setSelectArticle2(false);
-                        }}
-                    >
+                    {menuItems.map((value) => {
+                        return (
+                            <button
+                                className={
+                                    activeText === value.id
+                                        ? 'col-3 News-word3  News-vector5-Btn-active'
+                                        : 'col-3 News-word3  News-vector5-Btn'
+                                }
+                                key={Math.random()
+                                    .toString(36)
+                                    .replace('0.', '')}
+                                onClick={() => {
+                                    setActiveText(value.id);
+                                }}
+                            >
+                                <span className=" News-word3 ">
+                                    {value.name}
+                                </span>
+                            </button>
+                        );
+                    })}
+                    {/* <button className="">
                         <span className=" News-word3 ">促銷活動</span>
-                    </button>
+                    </button> */}
 
-                    <button
-                        className={`col-3 ${
-                            setArticle2
-                                ? 'News-vector5-Btn-active'
-                                : 'News-vector5-Btn'
-                        }`}
-                        onClick={() => {
-                            setSelectArticle(false);
-                            setSelectArticle2(true);
-                        }}
-                    >
+                    {/* <button className="">
                         <span className=" News-word3 ">活動快訊</span>
                     </button>
 
@@ -172,11 +189,10 @@ function NEWs(props) {
                     </button>
                     <button className="col-3 News-word3  News-vector5-Btn">
                         音樂文章
-                    </button>
+                    </button> */}
                 </div>
-                {setArticle ? <NewsPromotion /> : <NewsActivity />}
             </div>
-            {/* <div className="container ">
+            <div className="container ">
                 <div className="row  News-articles">
                     <div className="col-12 col-md-4 ">
                         <div className="mt-4 ">
@@ -296,21 +312,24 @@ function NEWs(props) {
                                     <p className="ms-2">May － 2022/08/20</p>
                                 </div>
                             </span>
-                        </div> */}
-            <div className="container News-more-art ">
-                <Link to="section" className="mb-0 me-1 cursor-pinter">
-                    看更多音樂文章
-                </Link>
-                <img
-                    className="News-art-arrow"
-                    style={{ width: '15px', height: '15px' }}
-                    src={arrow}
-                    alt="arrow"
-                />
-            </div>
-            {/* </div>
+                        </div>
+                        <div className="container News-more-art ">
+                            <Link
+                                to="section"
+                                className="mb-0 me-1 cursor-pinter"
+                            >
+                                看更多音樂文章
+                            </Link>
+                            <img
+                                className="News-art-arrow"
+                                style={{ width: '15px', height: '15px' }}
+                                src={arrow}
+                                alt="arrow"
+                            />
+                        </div>
+                    </div>
                 </div>
-            </div> */}
+            </div>
         </>
     );
 }

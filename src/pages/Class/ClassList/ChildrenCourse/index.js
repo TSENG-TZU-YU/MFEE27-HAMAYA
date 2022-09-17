@@ -11,6 +11,7 @@ import _ from 'lodash';
 import StarRating from '../../../../components/Star/StarRating';
 import Car from '../../../../components/Car/Car';
 import Favorite from '../../../../components/Favorite';
+import PaginationBar from '../../../../components/PaginationBar/PaginationBar';
 
 // 圖檔
 // import Adult_img from '../../../../assets/ClassImg/Adult img.png';
@@ -26,23 +27,20 @@ function ChildrenCourse({
     setPageNow,
     pageTotal,
     pageNow,
+    displayProducts,
 }) {
     const [itemId, setItemId] = useState();
-    // const [data, setData] = useState([]);
-    // 分頁  Toggled
-    const [lastPage, setLastPage] = useState(1);
-    const [page, setPage] = useState(1);
 
     useEffect(() => {
         let getAdultClass = async () => {
             let response = await axios.get(
-                `http://localhost:3001/api/class/list?class=2&page=${page}`
+                `http://localhost:3001/api/class/list?class=2`
             );
             setProducts(response.data);
             setDisplayProducts(response.data);
             // 從前端取得總頁數 (lastPage)
             const pageList = _.chunk(response.data, perPage);
-
+            setPageNow(1);
             if (pageList.length > 0) {
                 setPageTotal(pageList.length);
 
@@ -50,11 +48,9 @@ function ChildrenCourse({
                 setPageProducts(pageList);
                 console.log('pageProducts', pageProducts);
             }
-
-            setLastPage(response.data.pagination.lastPage);
         };
         getAdultClass();
-    }, [page]);
+    }, []);
 
     useEffect(() => {}, [products]);
     // 製作分頁按鈕
@@ -91,7 +87,9 @@ function ChildrenCourse({
                             key={classChild.id}
                             className="d-lg-flex justify-content-lg-center align-items-lg-center  mb-5"
                         >
-                            <Link to={`${classChild.id}`}>
+                            <Link
+                                to={`${classChild.id}?class=${classChild.ins_main_id}`}
+                            >
                                 <div className="introduce row mx-0 mb-5 class-shadow">
                                     <div className="d-flex col-lg-6  px-lg-0  position-relative">
                                         <img
@@ -150,9 +148,19 @@ function ChildrenCourse({
                         </div>
                     );
                 })}
-            {/* 分頁 */}
-            <ul className="text-center">{getPage()}</ul>
-            {/* 分頁 end*/}
+            {/* 頁碼 */}
+            <div className="d-flex justify-content-center align-items-center my-5">
+                {displayProducts.length > perPage ? (
+                    <PaginationBar
+                        pageNow={pageNow}
+                        setPageNow={setPageNow}
+                        pageTotal={pageTotal}
+                    />
+                ) : (
+                    ''
+                )}
+            </div>
+            {/* 頁碼 end */}
         </div>
     );
 }

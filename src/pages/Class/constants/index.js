@@ -1,13 +1,3 @@
-// 商品主類別
-export const categoryMainTypes = [
-    { id: 1, mainName: '琴鍵樂器' },
-    { id: 2, mainName: '管樂器' },
-    { id: 3, mainName: '弓弦樂器' },
-    { id: 4, mainName: '吉他/烏克麗麗' },
-    { id: 5, mainName: '打擊樂器' },
-    { id: 6, mainName: '配件' },
-];
-
 // 手機版 排序狀態標題
 export const sortByTitle = (sortBy) => {
     if (sortBy === '') {

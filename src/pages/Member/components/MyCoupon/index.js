@@ -7,14 +7,14 @@ import add_img2 from '../../../../assets/svg/add2.svg';
 import { AiOutlineSend } from 'react-icons/ai';
 import { BiLinkExternal } from 'react-icons/bi';
 import _ from 'lodash';
-import { ReactComponent as PrevPageIcon } from './prev_page_btn.svg';
-import { ReactComponent as NextPageIcon } from './next_page_btn.svg';
+import { ReactComponent as PrevPageIcon } from '../../../../assets/svg/prev_page_btn.svg';
+import { ReactComponent as NextPageIcon } from '../../../../assets/svg/next_page_btn.svg';
 // import next_page_icon from './next_page_btn.svg';
 
 function MyCoupon(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
     const today = new Date().getTime();
-    const [haveCoupon, setHaveCoupon] = useState(1); //是否擁有優惠券
+    const [haveCoupon, setHaveCoupon] = useState(0); //是否擁有優惠券
     const [couponSn, setCouponSn] = useState({ sn: '' });
     const [myCoupon, setMyCoupon] = useState([
         [
@@ -45,9 +45,12 @@ function MyCoupon(props) {
     //讀取優惠券
     async function loadingMyCoupon() {
         try {
-            let response = await axios.get(`${API_URL}/member/mycoupon`, {
-                withCredentials: true,
-            });
+            let response = await axios.get(
+                `${API_URL}/member/mycoupon/loading`,
+                {
+                    withCredentials: true,
+                }
+            );
             console.log(response.data);
 
             //判斷是否擁有優惠券
@@ -62,6 +65,7 @@ function MyCoupon(props) {
             if (pageList.length > 0) {
                 setPageTotal(pageList.length);
                 setMyCoupon(pageList);
+                setHaveCoupon(1);
             }
         } catch (err) {
             console.log(err.response.data);
@@ -74,7 +78,7 @@ function MyCoupon(props) {
         e.preventDefault();
         try {
             let response = await axios.post(
-                `${API_URL}/member/addcoupon`,
+                `${API_URL}/member/mycoupon/add`,
                 couponSn,
                 {
                     withCredentials: true,
@@ -83,7 +87,7 @@ function MyCoupon(props) {
             console.log(response.data);
             setCouponSn({ sn: '' });
             alert(response.data.message);
-            await loadingMyCoupon();
+            loadingMyCoupon(); //TODO:TEST
             setHaveCoupon(1);
         } catch (err) {
             console.log(err.response.data);
@@ -93,7 +97,7 @@ function MyCoupon(props) {
 
     //頁碼
     const paginationBar = (
-        <div className="pagination d-flex justify-content-center align-items-center">
+        <div className="member_pagination d-flex justify-content-center align-items-center">
             <Link
                 className="mx-2"
                 to=""
@@ -147,7 +151,7 @@ function MyCoupon(props) {
                         }}
                         placeholder="請輸入您的優惠券領取碼"
                     />
-                    <button className="btn" onClick={addCouponSubmit}>
+                    <button className="btn1" onClick={addCouponSubmit}>
                         <img alt="add_img" src={add_img2} />
                         新增優惠券
                     </button>
@@ -246,7 +250,7 @@ function MyCoupon(props) {
                     })}
                 </div>
             ) : (
-                <div className='m-2'>
+                <div className="m-2">
                     <h6>
                         您還沒有優惠券~快去訂閱
                         <Link to="/member">

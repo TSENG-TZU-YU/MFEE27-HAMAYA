@@ -11,6 +11,7 @@ import cat from '../../assets/AboutImg/cat.jpg';
 import axios from 'axios';
 
 function About(props) {
+    const [editAsk, setEditAsk] = useState(false);
     // 表單狀態
     const [memberLogin, setMemberLogin] = useState(false);
 
@@ -48,9 +49,11 @@ function About(props) {
                 setIsLogin(true);
                 setMember(response.data);
                 setMemberLogin(true);
+                setEditAsk(true);
                 setAsk({
                     ...ask,
                     fullName: response.data.fullName,
+                    user_id: response.data.id,
                     phone: response.data.phone,
                     email: response.data.email,
                 });
@@ -74,7 +77,7 @@ function About(props) {
     async function asksubmit(e) {
         e.preventDefault();
         try {
-            const response = await axios.put(
+            const response = await axios.post(
                 'http://localhost:3001/api/aboutus/ask',
                 ask,
                 { withCredentials: true }
@@ -295,6 +298,7 @@ function About(props) {
                                 placeholder="請輸入姓名"
                                 onChange={fieldChange}
                                 className="w-100"
+                                disabled={editAsk}
                             />
                         </div>
                         <div className="col-12 col-md-6 my-2">
@@ -310,6 +314,7 @@ function About(props) {
                                 onChange={fieldChange}
                                 placeholder="請輸入電話/手機"
                                 className="w-100"
+                                disabled={editAsk}
                             />
                         </div>
                         <div className="col-12 col-md-6 my-2">
@@ -324,6 +329,7 @@ function About(props) {
                                 onChange={fieldChange}
                                 placeholder="請輸入信箱"
                                 className="w-100"
+                                disabled={editAsk}
                             />
                         </div>
                         <div className="col-12 col-md-6 my-2">
