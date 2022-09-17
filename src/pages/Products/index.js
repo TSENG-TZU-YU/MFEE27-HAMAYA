@@ -235,6 +235,8 @@ function Products() {
         setPageNow(1);
     };
 
+    console.log(pageTotal);
+
     // 當篩選區塊元素有更動時
     useEffect(() => {
         applyFilters();
