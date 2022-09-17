@@ -1,9 +1,29 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../../../../../utils/use_auth';
 import { cityData, distData } from '../../MyProfile/location';
-function MyCartToCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
+function MyCartDoCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
-    console.log('get member in tocheckout', member);
+
+    const [myCartInfo, setMyCartInfo] = useState({
+        fullName: member.fullName,
+        phone: member.phone,
+        city: member.city,
+        dist: member.dist,
+        address: member.address,
+        freight: 0,
+        coupon: 0,
+    });
+
+    function getMyCartInfo(e) {
+        setMyCartInfo({ ...myCartInfo, [e.target.name]: e.target.value });
+    }
+
+    function setSaveOrder(saveOrderInfo) {
+        console.log('click in to Checkout', saveOrderInfo);
+        console.log('order product Detail', myCart);
+    }
+
 
     return (
         <>
@@ -23,8 +43,10 @@ function MyCartToCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                         <input
                             type="text"
                             id=""
+                            name="fullName"
                             className="form-control"
-                            value={member.fullName}
+                            onChange={getMyCartInfo}
+                            value={myCartInfo.fullName}
                         />
                     </div>
                     <div className="col-auto px-2">
@@ -34,10 +56,13 @@ function MyCartToCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                     </div>
                     <div>
                         <input
-                            type="text"
+                            type="phone"
                             id=""
+                            name="phone"
                             className="form-control"
-                            value={member.phone}
+                            maxLength={10}
+                            onChange={getMyCartInfo}
+                            value={myCartInfo.phone}
                         />
                     </div>
                 </div>
@@ -47,7 +72,13 @@ function MyCartToCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                     </div>
                     <div className="flex-grow-1 d-flex">
                         <div className="myCartSelectPadding">
-                            <select class="form-select" id="">
+                            <select
+                                class="form-select"
+                                id=""
+                                name="city"
+                                value={myCartInfo.city}
+                                onChange={getMyCartInfo}
+                            >
                                 <option>請選擇縣市</option>
                                 {cityData.map((data, index) => {
                                     return (
@@ -59,14 +90,25 @@ function MyCartToCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                             </select>
                         </div>
                         <div>
-                            <select class="form-select" id="">
+                            <select
+                                class="form-select"
+                                id=""
+                                name="dist"
+                                value={myCartInfo.dist}
+                                onChange={getMyCartInfo}
+                            >
                                 <option>請選擇地區</option>
                                 {distData.map((data, index) => {
-                                    return (
-                                        <option key={index} value={data.dist}>
-                                            {data.dist}
-                                        </option>
-                                    );
+                                    if (data.city === myCartInfo.city) {
+                                        return (
+                                            <option
+                                                key={index}
+                                                value={data.dist}
+                                            >
+                                                {data.dist}
+                                            </option>
+                                        );
+                                    }
                                 })}
                             </select>
                         </div>
@@ -76,7 +118,9 @@ function MyCartToCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                     <input
                         type="text"
                         id=""
-                        value={member.address}
+                        name="address"
+                        value={myCartInfo.address}
+                        onChange={getMyCartInfo}
                         className="form-control"
                     />
                 </div>
@@ -97,16 +141,21 @@ function MyCartToCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                             <span className="accent-color">運費</span>
                         </div>
                         <div className="">
-                            <select className="form-select" name="" id="">
-                                <option>請選擇運費</option>
-                                <option>2000</option>
-                                <option>5000</option>
-                                <option>3000</option>
+                            <select
+                                className="form-select"
+                                name="freight"
+                                id=""
+                                onChange={getMyCartInfo}
+                            >
+                                <option value="">請選擇運費</option>
+                                <option value="2000">2000</option>
+                                <option value="5000">5000</option>
+                                <option value="3000">3000</option>
                             </select>
                         </div>
                     </div>
                     <div className="ps-2">
-                        <span className="">NT:1000</span>
+                        <span className="">NT:{myCartInfo.freight}</span>
                     </div>
                 </div>
                 <div className="d-flex align-items-center justify-content-end py-2 orderBottomLine">
@@ -117,27 +166,52 @@ function MyCartToCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                             </span>
                         </div>
                         <div className="myCartMarginRight">
-                            <select className="form-select" name="" id="">
-                                <option>請選擇折扣</option>
-                                <option>50</option>
-                                <option>100</option>
-                                <option>2000</option>
+                            <select
+                                className="form-select"
+                                name="coupon"
+                                id=""
+                                onChange={getMyCartInfo}
+                            >
+                                <option value="">請選擇折扣</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="200">200</option>
                             </select>
                         </div>
                     </div>
-                    <span className="text-nowrap">- NT:1000</span>
+                    <span className="text-nowrap">
+                        - NT:{myCartInfo.coupon}
+                    </span>
                 </div>
             </div>
             <div className="col-lg-3 offset-lg-9">
                 <div className="text-end">
                     <span className="p accent-color">
                         <b>
-                            訂單金額 <span>NT: 100000</span>
+                            訂單金額{' '}
+                            <span>
+                                NT:{' '}
+                                {myCartPrice +
+                                    Number(myCartInfo.freight) -
+                                    Number(myCartInfo.coupon)}
+                            </span>
                         </b>
                     </span>
                 </div>
                 <div>
-                    <button className="w-100 btn btn-primary p-0 mt-2">
+                    <button
+                        className="w-100 btn btn-primary p-0 mt-2"
+                        onClick={() => {
+                            //TODO:要送order資料庫
+                            setSaveOrder({
+                                myCartInfo: myCartInfo,
+                                myCartTotal:
+                                    myCartPrice +
+                                    Number(myCartInfo.freight) -
+                                    Number(myCartInfo.coupon),
+                            });
+                        }}
+                    >
                         前往付款
                     </button>
                 </div>
@@ -146,4 +220,4 @@ function MyCartToCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
     );
 }
 
-export default MyCartToCheckout;
+export default MyCartDoCheckout;

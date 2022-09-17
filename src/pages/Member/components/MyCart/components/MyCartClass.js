@@ -30,12 +30,20 @@ function MyCartClass({ myCart, setMyCart, myCartB, setMyCartB }) {
                 });
                 // console.log('刪除response.data', response.data);
                 alert(response.data.message);
-                let myCartList = response.data.myCart;
-                const myCart_cateB = myCartList.filter((v) => {
+                //copy另一個myCart
+                let newMyCart = myCart.map((item) => {
+                    return { ...item };
+                });
+                //前端刪除狀態
+                let newMyCartAfterDelete = newMyCart.filter((item) => {
+                    return item.product_id !== itemId;
+                });
+                //set狀態回去 TODO:AB再調整
+                const myCart_cateB = newMyCartAfterDelete.filter((v) => {
                     return v.category_id === 'B';
                 });
                 setMyCartB(myCart_cateB);
-                setMyCart(response.data);
+                setMyCart(newMyCartAfterDelete);
             };
             setItemDataDelete();
         }
