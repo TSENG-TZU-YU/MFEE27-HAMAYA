@@ -12,17 +12,15 @@ function Cart() {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
+    //如果臨時購物車商品為0 則關閉
     if (shoppingCart.length === 0) {
         setShopCartState(false);
     }
-    //金額
-    let shoppingCartPrice = shoppingCart
-        .map((item) => {
-            return item.price;
-        })
-        .reduce((prev, curr) => prev + curr);
+    let newShoppingCart = shoppingCart.map((item) => {
+        return { ...item };
+    });
+
     // console.log('shoppingCartPrice', shoppingCartPrice);
-    //如果臨時購物車商品為0 則關閉
 
     function handleRemoveItem(itemId) {
         //取得localStorage內容
@@ -82,6 +80,13 @@ function Cart() {
         //清空臨時購物車
         setShoppingCart([]);
     }
+    //金額
+    let shoppingCartPrice = [];
+    shoppingCartPrice = newShoppingCart
+        .map((item) => {
+            return item.price;
+        })
+        .reduce((prev, curr) => prev + curr, 0);
     return (
         <div className="position-relative">
             <div className="shoppingCart p-2">
