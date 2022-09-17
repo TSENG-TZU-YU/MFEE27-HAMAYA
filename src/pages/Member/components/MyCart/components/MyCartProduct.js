@@ -11,8 +11,6 @@ import { RiSubtractFill } from 'react-icons/ri';
 
 function MyCartProduct({ myCart, setMyCart, myCartA, setMyCartA }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
-    const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
-        useCart();
 
     //進行刪除及時更新
     async function handleRemoveItem(itemId) {

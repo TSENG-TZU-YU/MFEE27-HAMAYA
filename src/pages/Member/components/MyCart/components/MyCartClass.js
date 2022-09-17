@@ -13,8 +13,6 @@ import { RiSubtractFill } from 'react-icons/ri';
 
 function MyCartClass({ myCart, setMyCart, myCartB, setMyCartB }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
-    const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
-        useCart();
 
     //進行刪除及時更新
     async function handleRemoveItem(itemId) {
@@ -30,7 +28,7 @@ function MyCartClass({ myCart, setMyCart, myCartB, setMyCartB }) {
                 });
                 // console.log('刪除response.data', response.data);
                 alert(response.data.message);
-                //copy另一個myCart
+                //copy myCart
                 let newMyCart = myCart.map((item) => {
                     return { ...item };
                 });
