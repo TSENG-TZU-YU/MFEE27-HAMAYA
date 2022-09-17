@@ -15,7 +15,7 @@ import Carousel from '../../../components/Carousel/Carousel';
 
 // 圖檔
 // import AdultDetailed01 from '../../../assets/ClassImg/AdultDetailed01.png';
-import { classImages } from '../../../assets/ClassImg';
+// import { classImages } from '../../../assets/ClassImg';
 // import AdultDetailed02 from '../../../assets/ClassImg/AdultDetailed02.png';
 // import AdultDetailed03 from '../../../assets/ClassImg/AdultDetailed03.png';
 import Adult_img from '../../../assets/ClassImg/Adult img.png';
@@ -25,7 +25,7 @@ import shop_car from '../../../assets/svg/add_shopping_cart.svg';
 // import arrow_right from '../../../assets/svg/arrow-right.svg';
 // import arrow_left from '../../../assets/svg/arrow-left.svg';
 
-function Detailed() {
+function Detailed({ ins_main_id }) {
     // 課程 Toggle
     const [detailedSelect, setDetailedSelect] = useState(true);
 
@@ -34,14 +34,16 @@ function Detailed() {
 
     // 把網址上的 :detailedID 拿出來
     const { detailedID } = useParams();
-    console.log('classDetailID', detailedID);
+
     useEffect(() => {
         let getClassDetail = async () => {
             let response = await axios.get(
                 `http://localhost:3001/api/class/list/${detailedID}`
             );
             setData(response.data.data);
+
             let imgData = response.data.dataImg[0];
+            // 圖片拆陣列
             imgData = Object.keys(imgData).map((key) => {
                 return imgData[key];
             });
@@ -51,11 +53,9 @@ function Detailed() {
                 left: 0,
                 behavior: 'auto',
             });
-            // console.log('data', response.data);
         };
         getClassDetail();
     }, []);
-    console.log(dataImg);
 
     useEffect(() => {}, [data]);
 

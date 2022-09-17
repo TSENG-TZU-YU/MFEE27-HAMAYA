@@ -11,6 +11,7 @@ import _ from 'lodash';
 import StarRating from '../../../../components/Star/StarRating';
 import Car from '../../../../components/Car/Car';
 import Favorite from '../../../../components/Favorite';
+import PaginationBar from '../../../../components/PaginationBar/PaginationBar';
 
 function AdultCourse({
     products,
@@ -23,6 +24,7 @@ function AdultCourse({
     setPageNow,
     pageTotal,
     pageNow,
+    displayProducts,
 }) {
     useEffect(() => {
         let getAdultClass = async () => {
@@ -33,14 +35,10 @@ function AdultCourse({
             setProducts(response.data);
             setDisplayProducts(response.data);
 
-            // 從後端取得總頁數 (lastPage)
-            // setLastPage(response.data.pagination.lastPage);
-
             // 從前端取得總頁數 (lastPage)
             const pageList = _.chunk(response.data, perPage);
-
-            // console.log('pageList', pageList);
-            // console.log('displayProducts', displayProducts);
+            // 預設1頁
+            setPageNow(1);
             if (pageList.length > 0) {
                 setPageTotal(pageList.length);
 
@@ -57,69 +55,6 @@ function AdultCourse({
         console.log('products', products);
     }, [products]);
 
-    const paginationBar = (
-        <>
-            <div className="pagination">
-                {/* <a
-                // href="#/"
-                // onClick={() => {
-                //     setPageNow(1);
-                // }}
-                >
-                    &laquo;
-                </a> */}
-                {Array(pageTotal)
-                    .fill(1)
-                    .map((v, i) => {
-                        return (
-                            <a
-                                key={i}
-                                href="#/"
-                                className={i + 1 === pageNow ? 'active' : ''}
-                                onClick={() => {
-                                    setPageNow(i + 1);
-                                }}
-                            >
-                                {i + 1}
-                            </a>
-                        );
-                    })}
-                {/* <a
-                    // href="#/"
-                    onClick={() => {
-                        setPageNow(pageTotal);
-                    }}
-                >
-                    &raquo;
-                </a> */}
-            </div>
-        </>
-    );
-
-    // 製作分頁按鈕
-    const getPage = () => {
-        let pages = [];
-        for (let i = 1; i <= pageTotal; i++) {
-            //要從陣列後面依序放頁數
-            pages.push(
-                <li
-                    className="pages"
-                    style={{
-                        backgroundColor: pageNow === i ? '#00323d' : '',
-                        color: pageNow === i ? '#f2f2f2' : '#6a777a',
-                    }}
-                    key={i}
-                    onClick={(e) => {
-                        setPageNow(i);
-                    }}
-                >
-                    {i}
-                </li>
-            );
-        }
-        return pages;
-    };
-
     return (
         <div>
             {/* 已灌資料庫 */}
@@ -130,7 +65,9 @@ function AdultCourse({
                             key={classAdult.id}
                             className="d-lg-flex justify-content-lg-center align-items-lg-center  mb-5"
                         >
-                            <Link to={`${classAdult.id}`}>
+                            <Link
+                                to={`${classAdult.id}?class=${classAdult.ins_main_id}`}
+                            >
                                 <div className="introduce row mx-0 mb-5 class-shadow">
                                     <div className="d-flex col-lg-6  px-lg-0  position-relative">
                                         <img
@@ -190,10 +127,20 @@ function AdultCourse({
                         </div>
                     );
                 })}
-            {/* 分頁 */}
-            <ul className="text-center">{getPage()}</ul>
 
-            {/* 分頁 end*/}
+            {/* 頁碼 */}
+            <div className="d-flex justify-content-center align-items-center my-5">
+                {displayProducts.length > perPage ? (
+                    <PaginationBar
+                        pageNow={pageNow}
+                        setPageNow={setPageNow}
+                        pageTotal={pageTotal}
+                    />
+                ) : (
+                    ''
+                )}
+            </div>
+            {/* 頁碼 end */}
         </div>
     );
 }
