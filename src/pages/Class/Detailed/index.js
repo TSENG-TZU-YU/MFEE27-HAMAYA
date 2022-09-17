@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import './index.scss';
 
@@ -13,35 +13,35 @@ import Information from './Information';
 import Comment from './Comment';
 import Carousel from '../../../components/Carousel/Carousel';
 
-// 圖檔
-// import AdultDetailed01 from '../../../assets/ClassImg/AdultDetailed01.png';
-import { classImages } from '../../../assets/ClassImg';
-// import AdultDetailed02 from '../../../assets/ClassImg/AdultDetailed02.png';
-// import AdultDetailed03 from '../../../assets/ClassImg/AdultDetailed03.png';
-import Adult_img from '../../../assets/ClassImg/Adult img.png';
-
+// 元件
 import note from '../../../assets/ClassImg/Note.png';
 import shop_car from '../../../assets/svg/add_shopping_cart.svg';
 // import arrow_right from '../../../assets/svg/arrow-right.svg';
 // import arrow_left from '../../../assets/svg/arrow-left.svg';
 
-function Detailed() {
+function Detailed({ ins_main_id }) {
     // 課程 Toggle
     const [detailedSelect, setDetailedSelect] = useState(true);
 
     const [data, setData] = useState([]);
     const [dataImg, setDataImg] = useState([]);
+    const [recommendClass, setRecommendClass] = useState([]);
 
     // 把網址上的 :detailedID 拿出來
     const { detailedID } = useParams();
-    console.log('classDetailID', detailedID);
+    const location = useLocation();
     useEffect(() => {
+        let params = new URLSearchParams(location.search);
+        let selectClass = params.get('class');
         let getClassDetail = async () => {
             let response = await axios.get(
-                `http://localhost:3001/api/class/list/${detailedID}`
+                `http://localhost:3001/api/class/list/${detailedID}?class=${selectClass}`
             );
             setData(response.data.data);
+            setRecommendClass(response.data.recommendClass);
+
             let imgData = response.data.dataImg[0];
+            // 圖片拆陣列
             imgData = Object.keys(imgData).map((key) => {
                 return imgData[key];
             });
@@ -51,11 +51,9 @@ function Detailed() {
                 left: 0,
                 behavior: 'auto',
             });
-            // console.log('data', response.data);
         };
         getClassDetail();
-    }, []);
-    console.log(dataImg);
+    }, [location]);
 
     useEffect(() => {}, [data]);
 
@@ -303,19 +301,26 @@ function Detailed() {
                     {/* border-top border-secondary border-3 px-3 pt-3 me-2 */}
                     <div className=" detailed-vector  mt-3 "></div>
                 </div>
-                {/* TODO:  推薦課程  從後端GET 隨機4個課程 */}
-                {data.map((recommend) => {
-                    return (
-                        <div key={recommend.id}>
-                            <Row className="mt-5 mb-5 row-cols-xl-4  row-cols-md-2 ">
-                                <Col lg={3}>
+
+                <Row className="mt-5 mb-5 row-cols-1 row-cols-md-2  row-cols-xl-4 ">
+                    {recommendClass.map((recommend) => {
+                        return (
+                            <Link
+                                to={`/class/list/${recommend.id}?class=${recommend.ins_main_id}`}
+                            >
+                                <Col>
                                     <div
                                         className="card mb-4 mx-auto"
-                                        style={{ width: ' 18rem' }}
+                                        style={{ width: ' 19rem' }}
+                                        key={recommend.id}
                                     >
                                         <img
                                             className="card-img-top img-fluid"
-                                            src={Adult_img}
+                                            style={{
+                                                width: '280px',
+                                                height: '175px',
+                                            }}
+                                            src={require(`../../../album/class/${recommend.image_1}`)}
                                             alt="Adult img"
                                         />
                                         <div className="card-body">
@@ -341,7 +346,7 @@ function Detailed() {
                                                         <div className="StarRating">
                                                             <StarRating />
                                                         </div>
-                                                        <small className="ms-2 mt-2 ">
+                                                        <small className="ms-2  ">
                                                             2 人評價
                                                         </small>
                                                     </div>
@@ -362,145 +367,11 @@ function Detailed() {
                                         </div>
                                     </div>
                                 </Col>
-                                {/* <Col lg={3}>
-                        <div
-                            className="card mx-auto"
-                            style={{ width: ' 18rem' }}
-                        >
-                            <img
-                                className="card-img-top img-fluid"
-                                src={Adult_img}
-                                alt="Adult img"
-                            />
-                            <div className="card-body">
-                                <div className=" mt-3 ">
-                                    <p
-                                        className="ms-1 mb-2"
-                                        style={{ color: '#00323d' }}
-                                    >
-                                        藍調與爵士鋼琴的獨奏技巧與應用
-                                    </p>
-                                    <div className="vector2 me-2"></div>
-                                    <div className=" mt-2">
-                                        <small className="mb-0">
-                                            開課時間：2022/10/19 - 2022/12/10
-                                        </small>
-                                        <p className="mb-0">名額：10 人 </p>
+                            </Link>
+                        );
+                    })}
+                </Row>
 
-                                        <div className="d-flex mt-2 align-items-center">
-                                            <div className="StarRating">
-                                                <StarRating />
-                                            </div>
-                                            <small className="ms-2 mt-2 ">
-                                                {' '}
-                                                2 人評價
-                                            </small>
-                                        </div>
-                                        <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">
-                                            <h4
-                                                className=" fw-bold "
-                                                style={{ color: '#5b322f' }}
-                                            >
-                                                NT $2,500 / 期
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </Col>
-                    <Col lg={3}>
-                        <div className="card" style={{ width: ' 18rem' }}>
-                            <img
-                                className="card-img-top img-fluid"
-                                src={Adult_img}
-                                alt="Adult img"
-                            />
-                            <div className="card-body">
-                                <div className=" mt-3 ">
-                                    <p
-                                        className="ms-1 mb-2"
-                                        style={{ color: '#00323d' }}
-                                    >
-                                        藍調與爵士鋼琴的獨奏技巧與應用
-                                    </p>
-                                    <div className="vector2 me-2"></div>
-                                    <div className=" mt-2">
-                                        <small className="mb-0">
-                                            開課時間：2022/10/19 - 2022/12/10
-                                        </small>
-                                        <p className="mb-0">名額：10 人 </p>
-
-                                        <div className="d-flex mt-2 align-items-center">
-                                            <div className="StarRating">
-                                                <StarRating />
-                                            </div>
-                                            <small className="ms-2 mt-2 ">
-                                                {' '}
-                                                2 人評價
-                                            </small>
-                                        </div>
-                                        <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">
-                                            <h4
-                                                className=" fw-bold "
-                                                style={{ color: '#5b322f' }}
-                                            >
-                                                NT $2,500 / 期
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </Col>
-                    <Col lg={3}>
-                        <div className="card" style={{ width: ' 18rem' }}>
-                            <img
-                                className="card-img-top img-fluid"
-                                src={Adult_img}
-                                alt="Adult img"
-                            />
-                            <div className="card-body">
-                                <div className=" mt-3 ">
-                                    <p
-                                        className="ms-1 mb-2"
-                                        style={{ color: '#00323d' }}
-                                    >
-                                        藍調與爵士鋼琴的獨奏技巧與應用
-                                    </p>
-                                    <div className="vector2 me-2"></div>
-                                    <div className=" mt-2">
-                                        <small className="mb-0">
-                                            開課時間：2022/10/19 - 2022/12/10
-                                        </small>
-                                        <p className="mb-0">名額：10 人 </p>
-
-                                        <div className="d-flex mt-2 align-items-center">
-                                            <div className="StarRating">
-                                                <StarRating />
-                                            </div>
-                                            <small className="ms-2 mt-2 ">
-                                                {' '}
-                                                2 人評價
-                                            </small>
-                                        </div>
-                                        <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">
-                                            <h4
-                                                className=" fw-bold "
-                                                style={{ color: '#5b322f' }}
-                                            >
-                                                NT $2,500 / 期
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </Col> */}
-                            </Row>
-                        </div>
-                    );
-                })}
                 {/* 相關課程 end */}
             </Container>
         </div>

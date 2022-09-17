@@ -578,7 +578,7 @@ function ClassList(props) {
             {/* 課程選擇 頁面*/}
             {selectCourse ? (
                 <AdultCourse
-                    products={displayProducts}
+                    products={products}
                     // 原始資料 跟 改動資料都要傳入子層
                     setProducts={setProducts}
                     pageProducts={pageProducts}
@@ -589,10 +589,11 @@ function ClassList(props) {
                     setPageNow={setPageNow}
                     pageTotal={pageTotal}
                     pageNow={pageNow}
+                    displayProducts={displayProducts}
                 />
             ) : (
                 <ChildrenCourse
-                    products={displayProducts}
+                    products={products}
                     setProducts={setProducts}
                     pageProducts={pageProducts}
                     setPageProducts={setPageProducts}
@@ -602,6 +603,7 @@ function ClassList(props) {
                     setPageNow={setPageNow}
                     pageTotal={pageTotal}
                     pageNow={pageNow}
+                    displayProducts={displayProducts}
                 />
             )}
             {/* 課程選擇 頁面 end*/}
