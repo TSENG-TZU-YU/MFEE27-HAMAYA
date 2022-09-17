@@ -51,6 +51,7 @@ function About(props) {
                 setAsk({
                     ...ask,
                     fullName: response.data.fullName,
+                    user_id: response.data.id,
                     phone: response.data.phone,
                     email: response.data.email,
                 });

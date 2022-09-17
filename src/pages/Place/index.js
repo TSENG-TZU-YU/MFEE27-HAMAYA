@@ -65,6 +65,7 @@ function Place(props) {
                 setRent({
                     ...rent,
                     fullName: response.data.fullName,
+                    user_id: response.data.id,
                     phone: response.data.phone,
                     email: response.data.email,
                 });

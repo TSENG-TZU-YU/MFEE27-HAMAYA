@@ -150,7 +150,7 @@ function MyCoupon(props) {
                         }}
                         placeholder="請輸入您的優惠券領取碼"
                     />
-                    <button className="btn" onClick={addCouponSubmit}>
+                    <button className="btn1" onClick={addCouponSubmit}>
                         <img alt="add_img" src={add_img2} />
                         新增優惠券
                     </button>
