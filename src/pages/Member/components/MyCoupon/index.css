@@ -159,16 +159,17 @@
     position: relative;
     margin-bottom: 40px;
 }
-.MyCoupon .pagination{
+
+.member_pagination{
     position: absolute;
     bottom: -30px;
     width: 100%;
 }
-.MyCoupon .pagination .page_number{
+.member_pagination .page_number{
     color: #6A777A;
     font-size: 16px;
 }
-.MyCoupon .pagination .active{
+.member_pagination .active{
     color: #00323d;
     font-weight: 800;
     border: 0;

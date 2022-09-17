@@ -72,7 +72,7 @@ function MemberListTable(props) {
                     </li>
                     <li>
                         <Link className="" to="myquestion">
-                            我的詢問
+                            客服問答
                         </Link>
                     </li>
                     <li>
