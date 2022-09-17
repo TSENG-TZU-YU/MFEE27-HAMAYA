@@ -27,7 +27,10 @@ function Carousel({ dataImg }) {
             >
                 {/* 上方圖片 */}
                 {dataImg.map((item, index) => (
-                    <SwiperSlide key={index}>
+                    <SwiperSlide
+                        key={index}
+                        style={{ width: '610px', height: '500px' }}
+                    >
                         <img
                             src={require(`../../album/class/${item}`)}
                             alt="product images"

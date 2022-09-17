@@ -7,6 +7,7 @@ import StarRating from '../../../../components/Star/StarRating';
 function Comment(props) {
     return (
         <>
+        {/* TODO: 選擇課程 /幾筆資料 */}
             <div className="d-md-flex ">
                 <div className="d-flex me-lg-5 ">
                     <h1 className="me-3">3.0</h1>

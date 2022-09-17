@@ -29,7 +29,7 @@ function Detailed({ ins_main_id }) {
 
     // 把網址上的 :detailedID 拿出來
     const { detailedID } = useParams();
-    // 刷新頁面
+    // 當 URL 網址改變時useState()會返回一個新的包含有關目前URL的狀態和位置的物件函數。每當URL網址有變更，則 useLocation 資訊也將更新
     const location = useLocation();
     useEffect(() => {
         // 從網址上抓到關鍵字

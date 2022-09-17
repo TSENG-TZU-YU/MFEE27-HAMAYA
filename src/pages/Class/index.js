@@ -27,12 +27,15 @@ function Class(props) {
     const [selectCourse, setSelectCourse] = useOutletContext();
 
     const [data, setData] = useState([]);
+    const [article, setArticle] = useState([]);
+    const [article1, setArticle1] = useState([]);
 
     useEffect(() => {
         let getAdultClass = async () => {
             let response = await axios.get(`http://localhost:3001/api/class`);
-            setData(response.data);
-            console.log(response.data);
+            setData(response.data.teacher);
+            setArticle(response.data.article);
+            setArticle1(response.data.article1);
         };
         getAdultClass();
     }, []);
@@ -66,110 +69,82 @@ function Class(props) {
                 </div>
                 <Row className=" blank-top-art mt-5">
                     <Col xl={6}>
-                        <img
-                            className="cursor-pinter img-fluid"
-                            style={{ width: '600px', heigh: '400px' }}
-                            src={art01}
-                            alt="art01"
-                        />
-                        <h5
-                            className="mt-3 cursor-pinter"
-                            style={{ color: '#333333' }}
-                        >
-                            【親子點唱機】孟德爾頌《無言歌》為什麼沒有歌詞？
-                        </h5>
-                        <div className=" d-flex mt-3 ">
-                            <small
-                                className="Event me-3"
-                                style={{
-                                    color: '#f2f2f2',
-                                }}
-                            >
-                                活動快訊
-                            </small>
-                            <p>李明蒨 － 2022/08/20 </p>
-                        </div>
-                        <div className="d-flex"></div>
+                        {article1.map((article1, index) => {
+                            return (
+                                <div key={index}>
+                                    <img
+                                        className="cursor-pinter img-fluid"
+                                        style={{
+                                            width: '600px',
+                                            heigh: '400px',
+                                        }}
+                                        src={require(`../../album/article/${article1.image}`)}
+                                        alt="art01"
+                                    />
+                                    <h5
+                                        className="mt-3 cursor-pinter"
+                                        style={{ color: '#333333' }}
+                                    >
+                                        {article1.title}
+                                    </h5>
+                                    <div className=" d-flex mt-3 ">
+                                        <small
+                                            className="Event me-3"
+                                            style={{
+                                                color: '#f2f2f2',
+                                            }}
+                                        >
+                                            {article1.name}
+                                        </small>
+                                        <p>
+                                            {article1.auther} －
+                                            {article1.creation_date}
+                                        </p>
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </Col>
-                    <Col xl={6} className="blank-art-left">
-                        <div className="d-flex">
-                            <img
-                                className="me-4 cursor-pinter"
-                                style={{ width: '150px', height: '100px' }}
-                                src={art02}
-                                alt="art02"
-                            />
-                            <div>
-                                <h5 className=" cursor-pinter">
-                                    AI執筆完成貝多芬《第十號交響曲》——AI的創作是否享有著作權法的保護？
-                                </h5>
+                    <Col xl={6}>
+                        {article.map((article, index) => {
+                            return (
+                                <div key={index}>
+                                    <div className="d-flex">
+                                        <img
+                                            className="me-4 cursor-pinter"
+                                            style={{
+                                                width: '150px',
+                                                height: '100px',
+                                            }}
+                                            src={require(`../../album/article/${article.image}`)}
+                                            alt="art02"
+                                        />
+                                        <div>
+                                            <h5 className=" cursor-pinter">
+                                                {article.title}
+                                            </h5>
 
-                                <div className=" d-flex mt-2 ">
-                                    <small
-                                        className="music-article me-3"
-                                        style={{
-                                            color: '#f2f2f2',
-                                        }}
-                                    >
-                                        音樂文章
-                                    </small>
-                                    <p>瓦力 － 2022/08/20</p>
+                                            <div className=" d-flex mt-2 ">
+                                                <small
+                                                    className="music-article me-3"
+                                                    style={{
+                                                        color: '#f2f2f2',
+                                                    }}
+                                                >
+                                                    {article.name}
+                                                </small>
+                                                <p>
+                                                    {' '}
+                                                    {article.auther} －
+                                                    {article.creation_date}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="border-top border-secondary border-1  pt-3 mt-4 mb-3"></div>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="border-top border-secondary border-1 px-3 pt-3 mt-4 mb-3"></div>
-                        <div className="d-flex">
-                            <img
-                                className="me-4 cursor-pinter"
-                                style={{ width: '150px', height: '100px' }}
-                                src={art03}
-                                alt="art03"
-                            />
-                            <div>
-                                <h5 className=" cursor-pinter">
-                                    廣場上的小提琴手
-                                </h5>
-
-                                <div className=" d-flex mt-2 ">
-                                    <small
-                                        className="important me-3 "
-                                        style={{
-                                            color: '#f2f2f2',
-                                        }}
-                                    >
-                                        重要通知
-                                    </small>
-                                    <p>眾博法律事務所 － 2022/08/20</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="border-top border-secondary border-1 mt-4 mb-3"></div>
-                        <div className="d-flex">
-                            <img
-                                className="me-4 cursor-pinter"
-                                style={{ width: '150px', height: '100px' }}
-                                src={art04}
-                                alt="art04"
-                            />
-                            <div>
-                                <h5 className="h5-art02 cursor-pinter">
-                                    莫札特《費加洛的婚禮》——聰明，反被聰明誤？
-                                </h5>
-
-                                <div className=" d-flex mt-2 ">
-                                    <small
-                                        className="Promotions me-3"
-                                        style={{
-                                            color: '#f2f2f2',
-                                        }}
-                                    >
-                                        促銷活動
-                                    </small>
-                                    <p>邢子青 － 2022/08/20</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="border-top border-secondary border-1  mt-4 mb-3"></div>
+                            );
+                        })}
                     </Col>
                 </Row>
                 <div className="more-art ">
