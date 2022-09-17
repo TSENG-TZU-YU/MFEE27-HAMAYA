@@ -112,7 +112,6 @@ function Product() {
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
         }
     }
-    console.log(productImg);
 
     return (
         <>
