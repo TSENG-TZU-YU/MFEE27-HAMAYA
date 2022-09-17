@@ -32,7 +32,7 @@ function Cart() {
         if (member !== null && member.id !== '') {
             //讀資料庫 進行刪除
             let setItemDataDelete = async () => {
-                let response = await axios.delete(`${API_URL}/cart`, {
+                let response = await axios.delete(`${API_URL}/member/mycart`, {
                     data: {
                         user_id: member.id,
                         product_id: itemId,
@@ -68,7 +68,7 @@ function Cart() {
         async function setItemsData(itemsData) {
             try {
                 let response = await axios.post(
-                    `${API_URL}/cart/multi`,
+                    `${API_URL}/member/mycart/multi`,
                     itemsData
                 );
                 alert(response.data.message);

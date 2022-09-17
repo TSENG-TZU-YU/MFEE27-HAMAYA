@@ -13,39 +13,20 @@ function MyCartProduct({ myCart, setMyCart, myCartA, setMyCartA }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
-    // console.log('myCartA', myCartA);
-    // const myCartList = myCart.myCart;
-    // const myCart_cateA = myCartList.filter((v) => {
-    //     return v.category_id === 'A';
-    // });
-    // console.log('myCart_cateA', myCart_cateA);
-    // if (myCart_cateA !== 0) {
-    //     let itemsPriceTotal = myCart_cateA.map((item) => {
-    //         return item.price;
-    //     });
-    //     if (itemsPriceTotal !== 0) {
-    //         itemsPriceTotal.reduce((prev, curr) => prev + curr);
-    //         setShoppingCartPriceA(itemsPriceTotal);
-    //     }
-    // }
 
     //進行刪除及時更新
-    function handleRemoveItem(itemId) {
+    async function handleRemoveItem(itemId) {
         console.log('click');
-        //取得localStorage內容
-        let shoppingCartLocal = JSON.parse(
-            localStorage.getItem('shoppingCart')
-        );
         if (member !== null && member.id !== '') {
             //讀資料庫 進行刪除 還必須確認資料庫有無東西
             let setItemDataDelete = async () => {
-                let response = await axios.delete(`${API_URL}/cart`, {
+                let response = await axios.delete(`${API_URL}/member/mycart`, {
                     data: {
                         user_id: member.id,
                         product_id: itemId,
                     },
                 });
-                console.log('刪除response.data', response.data);
+                // console.log('刪除response.data', response.data);
                 alert(response.data.message);
                 //set狀態回去
                 let myCartList = response.data.myCart;
@@ -57,13 +38,6 @@ function MyCartProduct({ myCart, setMyCart, myCartA, setMyCartA }) {
             };
             setItemDataDelete();
         }
-        //移除
-        let removeItem = shoppingCartLocal.filter((item) => {
-            return item.product_id !== itemId;
-        });
-        //存回localStorage
-        localStorage.setItem('shoppingCart', JSON.stringify(removeItem));
-        setShoppingCart(removeItem);
     }
     return (
         <>

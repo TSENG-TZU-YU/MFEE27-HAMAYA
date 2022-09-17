@@ -1,6 +1,10 @@
 import React from 'react';
+import { useAuth } from '../../../../../utils/use_auth';
+import { cityData, distData } from '../../MyProfile/location';
+function MyCartToCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    console.log('get member in tocheckout', member);
 
-function MyCartToCheckout() {
     return (
         <>
             <div className="pt-5 col-lg-7">
@@ -16,7 +20,12 @@ function MyCartToCheckout() {
                         </label>
                     </div>
                     <div>
-                        <input type="text" id="" className="form-control" />
+                        <input
+                            type="text"
+                            id=""
+                            className="form-control"
+                            value={member.fullName}
+                        />
                     </div>
                     <div className="col-auto px-2">
                         <label for="" className="main-color col-form-label">
@@ -24,7 +33,12 @@ function MyCartToCheckout() {
                         </label>
                     </div>
                     <div>
-                        <input type="text" id="" className="form-control" />
+                        <input
+                            type="text"
+                            id=""
+                            className="form-control"
+                            value={member.phone}
+                        />
                     </div>
                 </div>
                 <div className="d-flex align-items-center pb-2">
@@ -35,17 +49,25 @@ function MyCartToCheckout() {
                         <div className="myCartSelectPadding">
                             <select class="form-select" id="">
                                 <option>請選擇縣市</option>
-                                <option>桃園市</option>
-                                <option>桃園市</option>
-                                <option>桃園市</option>
+                                {cityData.map((data, index) => {
+                                    return (
+                                        <option key={index} value={data.city}>
+                                            {data.city}
+                                        </option>
+                                    );
+                                })}
                             </select>
                         </div>
                         <div>
                             <select class="form-select" id="">
                                 <option>請選擇地區</option>
-                                <option>中壢區</option>
-                                <option>中壢區</option>
-                                <option>中壢區</option>
+                                {distData.map((data, index) => {
+                                    return (
+                                        <option key={index} value={data.dist}>
+                                            {data.dist}
+                                        </option>
+                                    );
+                                })}
                             </select>
                         </div>
                     </div>
@@ -54,7 +76,7 @@ function MyCartToCheckout() {
                     <input
                         type="text"
                         id=""
-                        value="請輸入地址"
+                        value={member.address}
                         className="form-control"
                     />
                 </div>
@@ -67,7 +89,7 @@ function MyCartToCheckout() {
                 </div>
                 <div className="d-flex justify-content-end py-2">
                     <span className="accent-color px-2">總計</span>
-                    <span className="">NT: 0</span>
+                    <span className="">NT: {myCartPrice}</span>
                 </div>
                 <div className="d-flex justify-content-end align-items-center py-lg-2">
                     <div className="flex-grow-1 d-flex align-items-center justify-content-between px-2 mx-3">

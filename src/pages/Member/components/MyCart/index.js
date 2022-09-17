@@ -6,6 +6,7 @@ import MyCartToCheckout from './components/MyCartToCheckout';
 function MyCart(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
     const [myCart, setMyCart] = useState();
+    const [myCartPrice, setMyCartPrice] = useState(0);
 
     useEffect(() => {
         setbread('購物車'); //載入頁面時 設定麵包削
@@ -41,10 +42,18 @@ function MyCart(props) {
                 </div>
             </div>
             <div className="">
-                <MyCartTable myCart={myCart} setMyCart={setMyCart} />
+                <MyCartTable
+                    myCart={myCart}
+                    setMyCart={setMyCart}
+                    myCartPrice={myCartPrice}
+                    setMyCartPrice={setMyCartPrice}
+                />
             </div>
             <div className="pb-5 row justify-content-around">
-                <MyCartToCheckout />
+                <MyCartToCheckout
+                    myCartPrice={myCartPrice}
+                    setMyCartPrice={setMyCartPrice}
+                />
             </div>
         </div>
     );

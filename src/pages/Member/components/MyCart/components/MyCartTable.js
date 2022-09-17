@@ -7,7 +7,7 @@ import '../MyCart.scss';
 import MyCartProduct from './MyCartProduct';
 import MyCartClass from './MyCartClass';
 
-function MyCartTable({ myCart, setMyCart }) {
+function MyCartTable({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     // const [myCart, setMyCart] = useState(null);
     const [myCartA, setMyCartA] = useState();
@@ -16,12 +16,10 @@ function MyCartTable({ myCart, setMyCart }) {
     useEffect(() => {
         async function getMyCart() {
             try {
-                let response = await axios.get(`${API_URL}/cart/${id}`);
-                // console.log('mycart table', response.data);
-                // console.log(
-                //     'mycart response mycart',
-                //     response.data.myCart.length
-                // );
+                let response = await axios.get(
+                    `${API_URL}/member/mycart/${id}`
+                );
+
                 let items_amount = response.data.myCart.length;
                 if (items_amount) {
                     setMyCart(response.data.myCart);
@@ -31,13 +29,20 @@ function MyCartTable({ myCart, setMyCart }) {
                     const myCart_cateA = myCartList.filter((v) => {
                         return v.category_id === 'A';
                     });
-                    // console.log('myCartA in table filter', myCart_cateA);
                     setMyCartA(myCart_cateA);
                     const myCart_cateB = myCartList.filter((v) => {
                         return v.category_id === 'B';
                     });
                     setMyCartB(myCart_cateB);
 
+                    //TODO:金額無法即時更新
+                    let myCartListPrice = myCartList
+                        .map((v) => {
+                            return v.price;
+                        })
+                        .reduce((prev, curr) => prev + curr);
+                    setMyCartPrice(myCartListPrice);
+                    console.log('myCartListPrice', myCartListPrice);
                     return;
                 }
             } catch (err) {

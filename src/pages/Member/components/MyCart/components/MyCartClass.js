@@ -15,42 +15,20 @@ function MyCartClass({ myCart, setMyCart, myCartB, setMyCartB }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
-    // console.log('myCartB', myCartB);
-    // const myCartList = myCart.myCart;
-    // // console.log('myCartList class', myCartList);
-    // const myCart_cateB = myCartList.filter((v) => {
-    //     return v.category_id === 'B';
-    // });
-    // console.log('myCart_cateB', myCart_cateB);
 
-    // if (myCart_cateB.length !== 0) {
-    //     let itemsPriceTotal = myCart_cateB.map((item) => {
-    //         return item.price;
-    //     });
-    //     if (itemsPriceTotal !== 0) {
-    //         itemsPriceTotal.reduce((prev, curr) => prev + curr);
-    //         setShoppingCartPriceB(itemsPriceTotal);
-    //     }
-    // }
-
-    // console.log(myCart_cateB);
-    //進行刪除沒辦法及時更新
-    function handleRemoveItem(itemId) {
+    //進行刪除及時更新
+    async function handleRemoveItem(itemId) {
         console.log('click');
-        //取得localStorage內容
-        let shoppingCartLocal = JSON.parse(
-            localStorage.getItem('shoppingCart')
-        );
         if (member !== null && member.id !== '') {
             //讀資料庫 進行刪除 還必須確認資料庫有無東西
             let setItemDataDelete = async () => {
-                let response = await axios.delete(`${API_URL}/cart`, {
+                let response = await axios.delete(`${API_URL}/member/mycart`, {
                     data: {
                         user_id: member.id,
                         product_id: itemId,
                     },
                 });
-                console.log('刪除response.data', response.data);
+                // console.log('刪除response.data', response.data);
                 alert(response.data.message);
                 let myCartList = response.data.myCart;
                 const myCart_cateB = myCartList.filter((v) => {
@@ -61,13 +39,6 @@ function MyCartClass({ myCart, setMyCart, myCartB, setMyCartB }) {
             };
             setItemDataDelete();
         }
-        //移除
-        let removeItem = shoppingCartLocal.filter((item) => {
-            return item.product_id !== itemId;
-        });
-        //存回localStorage
-        localStorage.setItem('shoppingCart', JSON.stringify(removeItem));
-        setShoppingCart(removeItem);
     }
 
     return (

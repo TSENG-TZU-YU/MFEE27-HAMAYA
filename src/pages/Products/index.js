@@ -337,7 +337,7 @@ function Products() {
                     //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
                     try {
                         let response = await axios.post(
-                            `${API_URL}/cart`,
+                            `${API_URL}/member/mycart`,
                             itemsData
                         );
                         // console.log('duplicate', response.data.duplicate);
