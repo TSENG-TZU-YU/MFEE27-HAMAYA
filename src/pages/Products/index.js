@@ -34,6 +34,7 @@ import Favorite from '../../components/Favorite';
 // 圖檔
 import banner from '../../assets/ProductsImg/banner.png';
 import compareBtn from '../../assets/ProductsImg/icon/compare_btn.svg';
+import { TbMusicOff } from 'react-icons/tb';
 
 // 圖檔 ProductsItem
 import cartCheck from '../../assets/ProductsImg/icon/shopping_cart_check.svg';
@@ -98,10 +99,9 @@ function Products() {
         getCategory();
     }, []);
 
-    // TODO: 製作頁碼按鈕
     // 分頁用
     const [pageNow, setPageNow] = useState(1); // 目前頁號
-    const [perPage, setPerPage] = useState(8); // 每頁多少筆資料
+    const [perPage, setPerPage] = useState(24); // 每頁多少筆資料
     const [pageTotal, setPageTotal] = useState(0); //總共幾頁，在didMount時要決定
     const [pageProducts, setPageProducts] = useState([]);
 
@@ -186,7 +186,9 @@ function Products() {
         // 搜尋：處理方法
         if (searchWord.length) {
             newProducts = newProducts.filter((product) =>
-                product.name.includes(searchWord)
+                product.name
+                    .toLowerCase()
+                    .includes(searchWord.toLowerCase().trim())
             );
         }
 
@@ -216,9 +218,11 @@ function Products() {
         newProducts = newProducts.filter(
             (product) => product.price >= minPrice && product.price <= maxPrice
         );
-        const newPageProducts = _.chunk(newProducts, perPage);
-        setPageProducts(newPageProducts);
+        setPageNow(1);
         setDisplayProducts(newProducts);
+        const newPageProducts = _.chunk(newProducts, perPage);
+        setPageTotal(newPageProducts.length);
+        setPageProducts(newPageProducts);
     };
 
     // 當類別重選時篩選條件回初始值
@@ -231,16 +235,12 @@ function Products() {
         setPageNow(1);
     };
 
+    console.log(pageTotal);
+
     // 當篩選區塊元素有更動時
     useEffect(() => {
         applyFilters();
     }, [products, colorTags, selectedPrice, brandTags, searchWord, sortBy]);
-
-    console.log('pageTotal', pageTotal);
-    console.log('displayProducts', displayProducts);
-    console.log('products', products);
-    console.log('pageProducts', pageProducts);
-    console.log('colorTags', colorTags);
 
     // Toggled
     const [productCompare, setProductCompare] = useState(false);
@@ -293,6 +293,10 @@ function Products() {
         setCategoryToggled(!categoryToggled);
     };
 
+    // 比較
+    const [compareCount, setCompareCount] = useState(0);
+
+    // 登入狀態
     const { member, setMember, isLogin, setIsLogin } = useAuth();
 
     //購物車
@@ -368,18 +372,6 @@ function Products() {
                         <div className="col-10 d-flex justify-content-between align-items-center">
                             {/* 麵包屑 */}
                             <BreadCrumb />
-                            {/* 麵包屑 end */}
-                            {/* <ul className="breadcrumb products-breadcrumb">
-                                    <li className="breadcrumb-item">
-                                        <Link to="/">首頁</Link>
-                                    </li>
-                                    <li className="breadcrumb-item">
-                                        <Link to="/products">樂器商城</Link>
-                                    </li>
-                                    <Link to="/" className="breadcrumb-item">
-                                        琴鍵樂器
-                                    </Link>
-                                </ul> */}
                             {/* 麵包屑 end */}
 
                             {/* 進階篩選 */}
@@ -468,15 +460,6 @@ function Products() {
                     <div className="d-flex justify-content-between align-items-center">
                         {/* 麵包屑 */}
                         <BreadCrumb />
-                        {/* <ul className="breadcrumb products-breadcrumb">
-                            <li className="breadcrumb-item">
-                                <a href="/">首頁</a>
-                            </li>
-                            <li className="breadcrumb-item">
-                                <a href="/">樂器商城 </a>
-                            </li>
-                            <li className="breadcrumb-item">琴鍵樂器</li>
-                        </ul> */}
                         {/* 麵包屑 end */}
 
                         {/* 搜尋 */}
@@ -619,7 +602,19 @@ function Products() {
                         {/* 商品列 */}
                         <div className=" row row-cols-2 row-cols-md-3 row-cols-xl-4">
                             {error && <div>{error}</div>}
-                            {/* {displayProducts.map((product) => { */}
+                            {pageProducts.length === 0 ? (
+                                <h4 className="mt-5 d-flex w-100 main-gary-light-color text-center justify-content-center align-items-center">
+                                    <TbMusicOff
+                                        style={{
+                                            width: '30px',
+                                            height: '30px',
+                                        }}
+                                    />
+                                    無符合條件商品
+                                </h4>
+                            ) : (
+                                ''
+                            )}
                             {pageProducts.length > 0 &&
                                 pageProducts[pageNow - 1].map((product) => {
                                     return (
@@ -630,7 +625,7 @@ function Products() {
                                             <div className="position-relative">
                                                 {/* 商品照片 */}
                                                 <Link
-                                                    to={`/products/${product.product_id}`}
+                                                    to={`/products/${product.product_id}?main_id=${product.ins_main_id}`}
                                                     className="product-img d-block"
                                                 >
                                                     <div className="product-img-mask position-absolute"></div>
@@ -643,7 +638,14 @@ function Products() {
                                                 <div className="product-like position-absolute top-0 end-0">
                                                     <Favorite />
                                                 </div>
-                                                <div className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-1">
+                                                <div
+                                                    className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-1"
+                                                    onClick={() =>
+                                                        setCompareCount(
+                                                            compareCount + 1
+                                                        )
+                                                    }
+                                                >
                                                     <img
                                                         src={compare}
                                                         alt="compare"
@@ -683,7 +685,7 @@ function Products() {
                                                 <div className="d-flex justify-content-between">
                                                     <div>
                                                         <Link
-                                                            to={`/products/${product.product_id}`}
+                                                            to={`/products/${product.product_id}?main_id=${product.ins_main_id}`}
                                                             className="product-name"
                                                         >
                                                             {product.name}
@@ -734,7 +736,7 @@ function Products() {
                     className="d-blok compare-btn m-4 cursor-pointer"
                     onClick={toggleProductCompare}
                 />
-                <div className="compare-quantity">0</div>
+                <div className="compare-quantity">{compareCount}</div>
                 {/* 商品比較 btn end */}
             </Container>
 
