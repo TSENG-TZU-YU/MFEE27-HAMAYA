@@ -7,8 +7,8 @@ import add_img2 from '../../../../assets/svg/add2.svg';
 import { AiOutlineSend } from 'react-icons/ai';
 import { BiLinkExternal } from 'react-icons/bi';
 import _ from 'lodash';
-import { ReactComponent as PrevPageIcon } from './prev_page_btn.svg';
-import { ReactComponent as NextPageIcon } from './next_page_btn.svg';
+import { ReactComponent as PrevPageIcon } from '../../../../assets/svg/prev_page_btn.svg';
+import { ReactComponent as NextPageIcon } from '../../../../assets/svg/next_page_btn.svg';
 // import next_page_icon from './next_page_btn.svg';
 
 function MyCoupon(props) {
@@ -45,9 +45,12 @@ function MyCoupon(props) {
     //讀取優惠券
     async function loadingMyCoupon() {
         try {
-            let response = await axios.get(`${API_URL}/member/mycoupon`, {
-                withCredentials: true,
-            });
+            let response = await axios.get(
+                `${API_URL}/member/mycoupon/loading`,
+                {
+                    withCredentials: true,
+                }
+            );
             console.log(response.data);
 
             //判斷是否擁有優惠券
@@ -74,7 +77,7 @@ function MyCoupon(props) {
         e.preventDefault();
         try {
             let response = await axios.post(
-                `${API_URL}/member/addcoupon`,
+                `${API_URL}/member/mycoupon/add`,
                 couponSn,
                 {
                     withCredentials: true,
@@ -246,7 +249,7 @@ function MyCoupon(props) {
                     })}
                 </div>
             ) : (
-                <div className='m-2'>
+                <div className="m-2">
                     <h6>
                         您還沒有優惠券~快去訂閱
                         <Link to="/member">
