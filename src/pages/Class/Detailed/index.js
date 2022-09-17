@@ -29,8 +29,10 @@ function Detailed({ ins_main_id }) {
 
     // 把網址上的 :detailedID 拿出來
     const { detailedID } = useParams();
+    // 刷新頁面
     const location = useLocation();
     useEffect(() => {
+        // 從網址上抓到關鍵字
         let params = new URLSearchParams(location.search);
         let selectClass = params.get('class');
         let getClassDetail = async () => {
@@ -307,12 +309,12 @@ function Detailed({ ins_main_id }) {
                         return (
                             <Link
                                 to={`/class/list/${recommend.id}?class=${recommend.ins_main_id}`}
+                                key={recommend.id}
                             >
                                 <Col>
                                     <div
                                         className="card mb-4 mx-auto"
                                         style={{ width: ' 19rem' }}
-                                        key={recommend.id}
                                     >
                                         <img
                                             className="card-img-top img-fluid"
