@@ -87,7 +87,7 @@ function MyCoupon(props) {
             console.log(response.data);
             setCouponSn({ sn: '' });
             alert(response.data.message);
-            await loadingMyCoupon();
+            loadingMyCoupon(); //TODO:TEST
             setHaveCoupon(1);
         } catch (err) {
             console.log(err.response.data);
