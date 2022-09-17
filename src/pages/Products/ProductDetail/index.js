@@ -149,16 +149,15 @@ function Product() {
                 //寫進資料庫
                 setItemsData(itemsData);
                 async function setItemsData(itemsData) {
-                    console.log('進來這裡了~');
                     //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
                     try {
                         let response = await axios.post(
                             `${API_URL}/cart`,
                             itemsData
                         );
-                        console.log('repeat', response.data.repeat);
+                        // console.log('duplicate', response.data.duplicate);
                         alert(response.data.message);
-                        if (response.data.repeat === 1) {
+                        if (response.data.duplicate === 1) {
                             setShoppingCart([...shoppingCart]);
                             return;
                         }

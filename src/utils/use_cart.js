@@ -28,6 +28,7 @@ export const CartProvider = ({ children }) => {
     //         spec: '材質:樺木',
     //     },
     // ];
+    //臨時購物車的狀態
     const [shoppingCart, setShoppingCart] = useState([]);
     return (
         <CartContext.Provider

@@ -47,7 +47,7 @@ import MyOrder from './pages/Member/components/MyOrder';
 import MyCoupon from './pages/Member/components/MyCoupon';
 import MyQuestion from './pages/Member/components/MyQuestion';
 import MyOrderDetail from './pages/Member/components/MyOrder/components/MyOrderDetail';
-import MyPlace from './pages/Member/components/MyPlace';
+import MyPlace from './pages/Member/components/Myplace';
 
 function App() {
     //page to top 要用的

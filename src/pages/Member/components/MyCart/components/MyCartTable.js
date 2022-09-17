@@ -7,23 +7,46 @@ import '../MyCart.scss';
 import MyCartProduct from './MyCartProduct';
 import MyCartClass from './MyCartClass';
 
-function MyCartTable({ setShoppingCartPriceA, setShoppingCartPriceB }) {
+function MyCartTable({ myCart, setMyCart }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
-    const [myCart, setMyCart] = useState(null);
+    // const [myCart, setMyCart] = useState(null);
+    const [myCartA, setMyCartA] = useState();
+    const [myCartB, setMyCartB] = useState();
     const id = member.id;
     useEffect(() => {
         async function getMyCart() {
             try {
                 let response = await axios.get(`${API_URL}/cart/${id}`);
-                // console.log('mycart', response.data);
-                setMyCart(response.data);
+                // console.log('mycart table', response.data);
+                // console.log(
+                //     'mycart response mycart',
+                //     response.data.myCart.length
+                // );
+                let items_amount = response.data.myCart.length;
+                if (items_amount) {
+                    setMyCart(response.data.myCart);
+
+                    //分類別
+                    let myCartList = response.data.myCart;
+                    const myCart_cateA = myCartList.filter((v) => {
+                        return v.category_id === 'A';
+                    });
+                    // console.log('myCartA in table filter', myCart_cateA);
+                    setMyCartA(myCart_cateA);
+                    const myCart_cateB = myCartList.filter((v) => {
+                        return v.category_id === 'B';
+                    });
+                    setMyCartB(myCart_cateB);
+
+                    return;
+                }
             } catch (err) {
                 console.log('錯誤', err.response.data.message);
             }
         }
         getMyCart();
-    }, []);
-    console.log('myCart response', myCart);
+    }, [setMyCart]);
+
     return (
         <>
             <table className="table m-0 myCartTable">
@@ -37,14 +60,16 @@ function MyCartTable({ setShoppingCartPriceA, setShoppingCartPriceB }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {myCart ? (
+                    {/* {console.log('myCartA in table', myCartA)} */}
+                    {myCartA ? (
                         <MyCartProduct
                             myCart={myCart}
                             setMyCart={setMyCart}
-                            setShoppingCartPriceA={setShoppingCartPriceA}
+                            myCartA={myCartA}
+                            setMyCartA={setMyCartA}
                         />
                     ) : (
-                        '目前沒有資料'
+                        ''
                     )}
                 </tbody>
             </table>
@@ -59,14 +84,16 @@ function MyCartTable({ setShoppingCartPriceA, setShoppingCartPriceB }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {myCart ? (
+                    {/* {console.log('myCartB in table', myCartB)} */}
+                    {myCartB ? (
                         <MyCartClass
                             myCart={myCart}
                             setMyCart={setMyCart}
-                            setShoppingCartPriceB={setShoppingCartPriceB}
+                            myCartB={myCartB}
+                            setMyCartB={setMyCartB}
                         />
                     ) : (
-                        '目前沒有資料'
+                        ''
                     )}
                 </tbody>
             </table>

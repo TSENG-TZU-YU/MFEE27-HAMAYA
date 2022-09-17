@@ -9,21 +9,26 @@ import { ReactComponent as FavDefault } from '../../../../../assets/svg/favorite
 import { RiAddFill } from 'react-icons/ri';
 import { RiSubtractFill } from 'react-icons/ri';
 
-function MyCartProduct({ myCart, setMyCart, setShoppingCartPriceA }) {
+function MyCartProduct({ myCart, setMyCart, myCartA, setMyCartA }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
+    // console.log('myCartA', myCartA);
+    // const myCartList = myCart.myCart;
+    // const myCart_cateA = myCartList.filter((v) => {
+    //     return v.category_id === 'A';
+    // });
+    // console.log('myCart_cateA', myCart_cateA);
+    // if (myCart_cateA !== 0) {
+    //     let itemsPriceTotal = myCart_cateA.map((item) => {
+    //         return item.price;
+    //     });
+    //     if (itemsPriceTotal !== 0) {
+    //         itemsPriceTotal.reduce((prev, curr) => prev + curr);
+    //         setShoppingCartPriceA(itemsPriceTotal);
+    //     }
+    // }
 
-    const myCartList = myCart.myCart;
-    const myCart_cateA = myCartList.filter((v) => {
-        return v.category_id === 'A';
-    });
-    let itemsPriceTotal = myCart_cateA
-        .map((item) => {
-            return item.price;
-        })
-        .reduce((prev, curr) => prev + curr);
-    setShoppingCartPriceA(itemsPriceTotal);
     //進行刪除及時更新
     function handleRemoveItem(itemId) {
         console.log('click');
@@ -40,9 +45,14 @@ function MyCartProduct({ myCart, setMyCart, setShoppingCartPriceA }) {
                         product_id: itemId,
                     },
                 });
-                // console.log('刪除response.data', response.data);
+                console.log('刪除response.data', response.data);
                 alert(response.data.message);
                 //set狀態回去
+                let myCartList = response.data.myCart;
+                const myCart_cateA = myCartList.filter((v) => {
+                    return v.category_id === 'A';
+                });
+                setMyCartA(myCart_cateA);
                 setMyCart(response.data);
             };
             setItemDataDelete();
@@ -57,7 +67,7 @@ function MyCartProduct({ myCart, setMyCart, setShoppingCartPriceA }) {
     }
     return (
         <>
-            {myCart_cateA.map((item) => {
+            {myCartA.map((item) => {
                 let itemPriceTotal = item.amount * item.price;
                 return (
                     <tr key={item.product_id}>
