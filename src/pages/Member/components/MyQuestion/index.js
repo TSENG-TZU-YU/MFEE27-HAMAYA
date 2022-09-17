@@ -11,7 +11,7 @@ import { ReactComponent as NextPageIcon } from '../../../../assets/svg/next_page
 
 function MyQuestion(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
-    const [haveQuestion, setHaveQuestion] = useState(1); //是否擁有優惠券
+    const [haveQuestion, setHaveQuestion] = useState(0); //是否擁有
     const [myQuestion, setMyQuestion] = useState([
         [
             {
@@ -20,12 +20,12 @@ function MyQuestion(props) {
                 name: '',
                 email: '',
                 phone: '',
-                q_category: '',
+                user_q_category: '',
                 title: '',
                 comment: '',
                 user_reply_state: '',
                 create_time: '',
-                update_time:'',
+                update_time: '',
             },
         ],
     ]);
@@ -36,22 +36,26 @@ function MyQuestion(props) {
     const [pageTotal, setPageTotal] = useState(0); //總共幾頁
 
     useEffect(() => {
-        setbread('我的詢問'); //載入頁面時 設定麵包削
+        setbread('客服問答'); //載入頁面時 設定麵包削
         loadingMyQuestion();
     }, []);
 
     //讀取我的詢問
     async function loadingMyQuestion() {
         try {
-            let response = await axios.get(`${API_URL}/member/myquestion`, {
-                withCredentials: true,
-            });
+            let response = await axios.get(
+                `${API_URL}/member/myquestion/loading`,
+                {
+                    withCredentials: true,
+                }
+            );
             console.log(response.data);
 
             //判斷是否擁有優惠券
             if (response.data.length === 0) {
                 setHaveQuestion(0);
             }
+
             //分切頁面資料
             const pageList = _.chunk(response.data, perPage);
 
@@ -60,6 +64,7 @@ function MyQuestion(props) {
             if (pageList.length > 0) {
                 setPageTotal(pageList.length);
                 setMyQuestion(pageList);
+                setHaveQuestion(1);
             }
         } catch (err) {
             console.log(err.response.data);
@@ -68,7 +73,7 @@ function MyQuestion(props) {
     }
     //頁碼
     const paginationBar = (
-        <div className="pagination d-flex justify-content-center align-items-center">
+        <div className="member_pagination d-flex justify-content-center align-items-center">
             <Link
                 className="mx-2"
                 to=""
@@ -112,7 +117,7 @@ function MyQuestion(props) {
     return (
         <div className="col-12 col-md-8 col-lg-9  MyQuestion">
             <div className="d-flex my-2">
-                <h4 className="main-color ">我的詢問</h4>
+                <h4 className="main-color ">客服問答</h4>
                 <Link to="/member/myquestion/detail">
                     <div className="bg-main-gary-light-color d-flex align-items-center addbtn">
                         <img src={add_img} alt="" />
@@ -130,7 +135,7 @@ function MyQuestion(props) {
                                 className="text-nowrap fw-light text-center"
                                 scope="col"
                             >
-                                提問編號
+                                問答編號
                             </th>
                             <th
                                 className="text-nowrap fw-light text-center"
@@ -171,30 +176,38 @@ function MyQuestion(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr className="cssTable">
-                            <th scope="row">
-                                A0001
-                                <br />
-                                <span className="time">2022/08/30 15:30</span>
-                            </th>
-                            <td>商品問題</td>
-                            <td>請問還有貨嗎?</td>
-                            <td>
-                                <div className="">
-                                    <span className="ellipsis">
-                                        問題的關鍵看似不明確，但想必在諸位心中已有了明確的答案。菲爾丁講過一段深奧的話，不好的書也像不好的朋友一樣，可能會把你戕害。請諸位將這段話在心中默念三遍。我們都有個共識，若問題很困難，那就勢必不好解決。庫存的出現，重寫了人生的意義。
-                                    </span>
-                                </div>
-                            </td>
-                            <td className="">已回覆</td>
-                            <td className="">2022/08/31 13:30</td>
-                            <td className="text-nowrap ">
-                                <a>
-                                    <img src={detail_img} alt="" />
-                                    查看詳細
-                                </a>
-                            </td>
-                        </tr>
+                        {myQuestion[pageNow - 1].map((data) => {
+                            return (
+                                <tr className="cssTable">
+                                    <th scope="row">
+                                        QA00{data.id}
+                                        <br />
+                                        <span className="time">
+                                            {data.create_time}
+                                        </span>
+                                    </th>
+                                    <td>{data.user_q_category}</td>
+                                    <td>{data.title}</td>
+                                    <td>
+                                        <div className="">
+                                            <span className="ellipsis">
+                                                {data.comment}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td className="">
+                                        {data.user_reply_state}
+                                    </td>
+                                    <td className="">{data.update_time}</td>
+                                    <td className="text-nowrap ">
+                                        <a>
+                                            <img src={detail_img} alt="" />
+                                            查看詳細
+                                        </a>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>
@@ -207,7 +220,7 @@ function MyQuestion(props) {
                                 <div className="bg-main-color accent-light-color p-1">
                                     <div className="d-flex justify-content-between">
                                         <div className="text-nowrap fw-light">
-                                            提問編號:<span>A000{data.id}</span>
+                                            問答編號:<span>QA00{data.id}</span>
                                         </div>
                                         <span className="time">
                                             {data.create_time}
@@ -216,7 +229,7 @@ function MyQuestion(props) {
                                 </div>
                             </div>
                             <div className="col-6">
-                                <div className="p-1 d-flex justify-content-between ">
+                                <div className="p-1 d-flex justify-content-between align-items-center h-100">
                                     <div className="main-color text-nowrap">
                                         問題主旨:
                                     </div>
@@ -224,11 +237,11 @@ function MyQuestion(props) {
                                 </div>
                             </div>
                             <div className="col-6 ">
-                                <div className="p-1 d-flex justify-content-between ">
+                                <div className="p-1 d-flex justify-content-between align-items-center h-100">
                                     <div className="main-color text-nowrap">
                                         問題類型:
                                     </div>
-                                    <div>{data.q_category}</div>
+                                    <div>{data.user_q_category}</div>
                                 </div>
                             </div>
                             <hr />
@@ -241,12 +254,12 @@ function MyQuestion(props) {
                                 </div>
                             </div>
                             <div className="col-6">
-                                <div className="p-1 d-flex justify-content-between align-items-center ">
+                                <div className="p-1 d-flex justify-content-between align-items-center h-100">
                                     <div className="main-color text-nowrap">
                                         最後更新時間:&nbsp;
                                     </div>
                                     <div className="text-wrap time2">
-                                    {data.update_time}
+                                        {data.update_time}
                                     </div>
                                 </div>
                             </div>
