@@ -93,7 +93,7 @@ function Header(props) {
                                         <Link className="" to="news">
                                             最新消息
                                         </Link>
-                                        <ul className="list-unstyled  bg-main-light-color">
+                                        <ul className="list-unstyled bg-main-light-color py-1 mt-2">
                                             <li>
                                                 <Link
                                                     to="/"
@@ -126,7 +126,7 @@ function Header(props) {
                                         <Link className="" to="products">
                                             樂器商城
                                         </Link>
-                                        <ul className="list-unstyled bg-main-light-color">
+                                        <ul className="list-unstyled bg-main-light-color py-1 mt-2">
                                             <li>
                                                 <Link
                                                     to="/"
@@ -185,7 +185,7 @@ function Header(props) {
                                         <Link className="" to="class">
                                             音樂教育
                                         </Link>
-                                        <ul className="list-unstyled bg-main-light-color">
+                                        <ul className="list-unstyled bg-main-light-color py-1 mt-2">
                                             <li>
                                                 <Link
                                                     to="/"

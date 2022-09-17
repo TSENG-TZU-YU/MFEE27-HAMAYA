@@ -30,18 +30,22 @@ function Detailed() {
     const [detailedSelect, setDetailedSelect] = useState(true);
 
     const [data, setData] = useState([]);
-    const [dataAll, setDataAll] = useState([]);
+    const [dataImg, setDataImg] = useState([]);
 
     // 把網址上的 :detailedID 拿出來
     const { detailedID } = useParams();
     console.log('classDetailID', detailedID);
     useEffect(() => {
-        let getAdultClass = async () => {
+        let getClassDetail = async () => {
             let response = await axios.get(
                 `http://localhost:3001/api/class/list/${detailedID}`
             );
             setData(response.data.data);
-            setDataAll(response.data.dataAll.data2.data);
+            let imgData = response.data.dataImg[0];
+            imgData = Object.keys(imgData).map((key) => {
+                return imgData[key];
+            });
+            setDataImg(imgData);
             window.scrollTo({
                 top: 0,
                 left: 0,
@@ -49,8 +53,9 @@ function Detailed() {
             });
             // console.log('data', response.data);
         };
-        getAdultClass();
+        getClassDetail();
     }, []);
+    console.log(dataImg);
 
     useEffect(() => {}, [data]);
 
@@ -99,7 +104,7 @@ function Detailed() {
                                         >
                                             {/* data={data}  */}
                                             {/* images={classImages} */}
-                                            <Carousel images={classImages} />
+                                            <Carousel dataImg={dataImg} />
                                         </div>
                                     </div>
                                 </Col>
@@ -299,7 +304,7 @@ function Detailed() {
                     <div className=" detailed-vector  mt-3 "></div>
                 </div>
                 {/* TODO:  推薦課程  從後端GET 隨機4個課程 */}
-                {dataAll.map((recommend) => {
+                {data.map((recommend) => {
                     return (
                         <div key={recommend.id}>
                             <Row className="mt-5 mb-5 row-cols-xl-4  row-cols-md-2 ">

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
+import { v4 as uuidv4 } from 'uuid';
 
 // 套件
 import { Container, Row, Col } from 'react-bootstrap';
@@ -11,13 +12,12 @@ import './index.scss';
 
 // 元件
 import ToShareCollect from '../../../components/ToShare';
-import ProductsItem from '../ProductsList/ProductsItem';
+import ProductsItem from '../components/ProductsItem';
 import Compare from '../ProductCompare';
-import Carousel from '../../../components/Carousel/Carousel';
+import ProductCarousel from '../../../components/ProductCarousel';
 import BreadCrumb from '../../../components/BreadCrumb/BreadCrumb';
 
 // 圖檔
-import { productImages } from '../../../assets/ProductsImg';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import cartCheck from '../../../assets/ProductsImg/icon/shopping_cart_check.svg';
 import cartCheckout from '../../../assets/ProductsImg/icon/shopping_cart_checkout.svg';
@@ -31,20 +31,78 @@ import { useCart } from '../../../utils/use_cart';
 function Product() {
     // 商品 伺服器來的資料
     const [product, setProduct] = useState([]);
-    const [productImg, setProductImg] = useState([]);
+    const [productImgs, setProductImgs] = useState([]);
+    const [relatedProducts, setRelatedProducts] = useState([]);
+    const [count, setCount] = useState(1);
 
     // 網址上的商品id
     const { productId } = useParams();
 
+    const location = useLocation();
     // 取得商品 api
     useEffect(() => {
+        let params = new URLSearchParams(location.search);
+        let mainId = params.get('main_id');
         let getProductDetail = async () => {
-            let response = await axios.get(`${API_URL}/products/${productId}`);
+            let response = await axios.get(
+                `${API_URL}/products/${productId}?mainId=${mainId}`
+            );
             setProduct(response.data.data);
-            setProductImg(response.data.dataImg);
+            let imgData = response.data.dataImg[0];
+            imgData = Object.keys(imgData).map((key) => {
+                return imgData[key];
+            });
+            setProductImgs(imgData);
+            setRelatedProducts(response.data.relatedProducts);
         };
         getProductDetail();
-    }, []);
+    }, [location]);
+
+    console.log(productImgs);
+
+    const productCount = (stock) => {
+        if (stock !== 0) {
+            return (
+                <>
+                    <div className="d-flex align-items-center mt-2">
+                        <h6 className="mb-0 me-2 productDetail-line-height fw-400">
+                            數量：
+                        </h6>
+                        <div className="d-flex  align-items-center">
+                            <FiMinus
+                                size="30px"
+                                className="gary-dark-color cursor-pointer"
+                                onClick={() =>
+                                    count > 0
+                                        ? setCount(count - 1)
+                                        : setCount(0)
+                                }
+                            />
+                            <div className="product-purchase-quantity border border-2 mx-2">
+                                <h4 className="text-center m-0">{count}</h4>
+                            </div>
+                            <FiPlus
+                                size="30px"
+                                className="gary-dark-color cursor-pointer"
+                                onClick={() =>
+                                    stock > count
+                                        ? setCount(count + 1)
+                                        : setCount(count)
+                                }
+                            />
+                        </div>
+                        <p className="mb-0 ms-2 gary-light-color">庫存充足</p>
+                    </div>
+                </>
+            );
+        } else {
+            return (
+                <>
+                    <h4 className="mb-0 gary-light-color">熱銷缺貨中</h4>
+                </>
+            );
+        }
+    };
 
     // Toggled
     const [productCompare, setProductCompare] = useState(false);
@@ -119,40 +177,14 @@ function Product() {
                 {/* 麵包屑 */}
                 <BreadCrumb />
                 {/* 麵包屑 end */}
-                {/* <ul className="breadcrumb products-breadcrumb">
-                    <li className="breadcrumb-item">
-                        <a href="/">首頁</a>
-                    </li>
-                    <li className="breadcrumb-item">
-                        <a href="/">樂器商城 </a>
-                    </li>
-                    <li className="breadcrumb-item">
-                        <a href="/">琴鍵樂器 </a>
-                    </li>
-                    <li className="breadcrumb-item">YAMAHA U系列 U1</li>
-                </ul> */}
-                {/* 麵包屑 end */}
 
                 <Row>
                     {/* 商品照片 */}
                     <Col lg={6}>
-                        <div
-                            style={{
-                                height: '100%',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                        >
-                            <div
-                                style={{
-                                    width: '100%',
-                                    height: '100%',
-                                    padding: '15px',
-                                }}
-                            >
-                                {/* TODO: 還沒撈到照片 */}
-                                <Carousel images={productImages} />
+                        <div className="d-flex h-100 align-items-center justify-content-center">
+                            <div className="w-100 h-100 p-3">
+                                {/* TODO: 一開始大圖的照片不對 */}
+                                <ProductCarousel images={productImgs} />
                             </div>
                         </div>
                     </Col>
@@ -264,30 +296,9 @@ function Product() {
                                         <h3 className="accent-color fw-bold productDetail-price-letter-spacing my-3">
                                             NT $ {value.price}
                                         </h3>
-                                        <p className="gary-light-color mb-0 ms-3">
-                                            / 售出1件
-                                        </p>
                                     </div>
                                     <div className="d-flex align-items-center mt-2">
-                                        <h6 className="mb-0 me-2 productDetail-line-height fw-400">
-                                            數量：
-                                        </h6>
-                                        <FiMinus
-                                            size="30px"
-                                            className="gary-dark-color cursor-pointer"
-                                        />
-                                        <div className="product-purchase-quantity border border-2 mx-2">
-                                            <h4 className="text-center m-0">
-                                                0
-                                            </h4>
-                                        </div>
-                                        <FiPlus
-                                            size="30px"
-                                            className="gary-dark-color cursor-pointer"
-                                        />
-                                        <p className="mb-0 ms-2 gary-light-color">
-                                            庫存充足
-                                        </p>
+                                        {productCount(value.stock)}
                                     </div>
                                     <div className="row mt-4">
                                         <button className="col m-2 btn btn-primary productDetail-btn d-flex justify-content-center align-items-center">
@@ -366,10 +377,9 @@ function Product() {
                     <div className="productDetail-vector bg-main-light-color"></div>
                 </div>
                 <Row className="mt-2 mb-5 row-cols-2 row-cols-xl-4">
-                    <ProductsItem />
-                    <ProductsItem />
-                    <ProductsItem />
-                    <ProductsItem />
+                    {relatedProducts.map((value, index) => {
+                        return <ProductsItem key={uuidv4()} value={value} />;
+                    })}
                 </Row>
                 {/* 商品比較 btn */}
                 <img
