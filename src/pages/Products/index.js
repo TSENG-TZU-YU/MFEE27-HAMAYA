@@ -99,7 +99,6 @@ function Products() {
         getCategory();
     }, []);
 
-    // TODO: 製作頁碼按鈕
     // 分頁用
     const [pageNow, setPageNow] = useState(1); // 目前頁號
     const [perPage, setPerPage] = useState(24); // 每頁多少筆資料
@@ -292,6 +291,10 @@ function Products() {
         setCategoryToggled(!categoryToggled);
     };
 
+    // 比較
+    const [compareCount, setCompareCount] = useState(0);
+
+    // 登入狀態
     const { member, setMember, isLogin, setIsLogin } = useAuth();
 
     //購物車
@@ -349,11 +352,6 @@ function Products() {
                         console.log(err.response.data.message);
                     }
                 }
-            }
-            //臨時購物車
-            setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
-        }
-    }
             }
             //臨時購物車
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
@@ -638,7 +636,14 @@ function Products() {
                                                 <div className="product-like position-absolute top-0 end-0">
                                                     <Favorite />
                                                 </div>
-                                                <div className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-1">
+                                                <div
+                                                    className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-1"
+                                                    onClick={() =>
+                                                        setCompareCount(
+                                                            compareCount + 1
+                                                        )
+                                                    }
+                                                >
                                                     <img
                                                         src={compare}
                                                         alt="compare"
@@ -729,7 +734,7 @@ function Products() {
                     className="d-blok compare-btn m-4 cursor-pointer"
                     onClick={toggleProductCompare}
                 />
-                <div className="compare-quantity">0</div>
+                <div className="compare-quantity">{compareCount}</div>
                 {/* 商品比較 btn end */}
             </Container>
 

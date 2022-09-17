@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
 // 樣式
 import 'swiper/css';
@@ -18,7 +17,7 @@ function ProductCarousel(props) {
     return (
         <>
             <Swiper
-                loop={true}
+                loop={false}
                 spaceBetween={10}
                 navigation={true}
                 modules={[Navigation, Thumbs]}

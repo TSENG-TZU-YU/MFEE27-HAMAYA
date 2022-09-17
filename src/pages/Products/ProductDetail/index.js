@@ -33,7 +33,7 @@ function Product() {
     const [product, setProduct] = useState([]);
     const [productImgs, setProductImgs] = useState([]);
     const [relatedProducts, setRelatedProducts] = useState([]);
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(1);
 
     // 網址上的商品id
     const { productId } = useParams();
@@ -56,7 +56,9 @@ function Product() {
             setRelatedProducts(response.data.relatedProducts);
         };
         getProductDetail();
-    }, []);
+    }, [location]);
+
+    console.log(productImgs);
 
     const productCount = (stock) => {
         if (stock !== 0) {
