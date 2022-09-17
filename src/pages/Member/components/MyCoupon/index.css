@@ -110,7 +110,7 @@
     border-radius: 0;
     outline: 0;
 }
-.MyCoupon .btn{
+.MyCoupon .btn1{
     font-size: 14px;
     color: #ffff;
     margin: 0 ;
@@ -121,10 +121,10 @@
     align-items: center;
 
 }
-.MyCoupon .btn:hover{
-    color: #ffff;
-    background-color: #004352;
-    border: 2px solid #004352;
+.MyCoupon .btn1:hover{
+    /* color: #ffff; */
+    background-color: #289fb9;
+    border: 2px solid #289fb9;
 }
 .MyCoupon .link01{
     padding: 5px;

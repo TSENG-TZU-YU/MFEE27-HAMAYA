@@ -65,6 +65,7 @@ function Place(props) {
                 setRent({
                     ...rent,
                     fullName: response.data.fullName,
+                    user_id: response.data.id,
                     phone: response.data.phone,
                     email: response.data.email,
                 });
@@ -142,7 +143,7 @@ function Place(props) {
                 <img src={banner} alt="banner" className="w-100" />
             </div>
             <div className="container ">
-                <div className="place">
+                <div className="">
                     <div className="d-flex mt-5">
                         <a href="/">
                             <p>首頁</p>
@@ -165,339 +166,68 @@ function Place(props) {
                         </h4>
                         <div className="vector3 mt-3"></div>
                     </div>
-
-                    {/* studioa */}
-                    <div className="row">
-                        <div className="col-12 d-block d-md-none">
-                            <h5 className="text-center main-color py-3">
-                                Studio-A 錄音室
-                            </h5>
-                        </div>
-                        <div className="col-12 col-md-6 order-1 ">
-                            <div className="position-relative p-3 studioImgDIV">
-                                <img
-                                    src={studioA01}
-                                    alt="studioA01"
-                                    className={
-                                        studioAImg === 'studioA01'
-                                            ? 'studio hover'
-                                            : 'studio'
-                                    }
-                                />
-                                <img
-                                    src={studioA02}
-                                    alt="studioA02"
-                                    className={
-                                        studioAImg === 'studioA02'
-                                            ? 'studio hover'
-                                            : 'studio'
-                                    }
-                                />
-                                <img
-                                    src={studioA03}
-                                    alt="studioA03"
-                                    className={
-                                        studioAImg === 'studioA03'
-                                            ? 'studio hover'
-                                            : 'studio'
-                                    }
-                                />
+                    {/*  輪播 */}
+                    <div className="place">
+                        {/* studioa */}
+                        <div className="row">
+                            <div className="col-12 d-block d-md-none">
+                                <h5 className="text-center main-color py-3">
+                                    Studio-A 錄音室
+                                </h5>
                             </div>
-                        </div>
-                        <div className="col-12 col-md-6 order-3 order-md-2">
-                            <h4 className="item1 d-flex justify-content-end d-none d-md-block">
-                                Studio-A 錄音室
-                            </h4>
-                            <div className="intro1">
-                                <p>
-                                    Studio-A
-                                    錄音室，深知每個音樂人都有成名夢，這裡提供給音樂人一個專業錄音空間，將自己的作品完美的輸出成輯。
-                                </p>
-                                <h6>設備介紹</h6>
-                                <p> 8軌A類等級的麥克風前極放大器 </p>
-                                <p>3軌A類等級的Di </p>
-                                <p>4軌B類等級的麥克風放大器</p>
-                                <p>ADAD類比數位轉換器</p>
-                                <h6>
-                                    時段 08:00 - 21:00　平日 NT $2,000　假日 NT
-                                    $2,500
-                                </h6>
+                            <div className="col-12 col-md-6 order-1 ">
+                                <div className="position-relative p-3 studioImgDIV">
+                                    <img
+                                        src={studioA01}
+                                        alt="studioA01"
+                                        className={
+                                            studioAImg === 'studioA01'
+                                                ? 'studio hover'
+                                                : 'studio'
+                                        }
+                                    />
+                                    <img
+                                        src={studioA02}
+                                        alt="studioA02"
+                                        className={
+                                            studioAImg === 'studioA02'
+                                                ? 'studio hover'
+                                                : 'studio'
+                                        }
+                                    />
+                                    <img
+                                        src={studioA03}
+                                        alt="studioA03"
+                                        className={
+                                            studioAImg === 'studioA03'
+                                                ? 'studio hover'
+                                                : 'studio'
+                                        }
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <div className="col-12 col-md-6 d-none d-md-block order-3"></div>
-                        <div className="col-12 col-md-6 order-2 order-md-4">
-                            <button
-                                className={
-                                    studioAImgBtn === 'studioA01'
-                                        ? 'p-0 m-1 studioBtn hover'
-                                        : 'p-0 m-1 studioBtn '
-                                }
-                            >
-                                <img
-                                    src={studioA01min}
-                                    alt="studioA01min"
-                                    onClick={() => {
-                                        setStudioAImg('studioA01');
-                                        setStudioAImgBtn('studioA01');
-                                    }}
-                                />
-                            </button>
-                            <button
-                                className={
-                                    studioAImgBtn === 'studioA02'
-                                        ? 'p-0 m-1 studioBtn hover'
-                                        : 'p-0 m-1 studioBtn '
-                                }
-                            >
-                                <img
-                                    src={studioA02min}
-                                    alt="studioA02min"
-                                    onClick={() => {
-                                        setStudioAImg('studioA02');
-                                        setStudioAImgBtn('studioA02');
-                                    }}
-                                />
-                            </button>
-                            <button
-                                className={
-                                    studioAImgBtn === 'studioA03'
-                                        ? 'p-0 m-1 studioBtn hover'
-                                        : 'p-0 m-1 studioBtn'
-                                }
-                            >
-                                <img
-                                    src={studioA03min}
-                                    alt="studioA03min"
-                                    onClick={() => {
-                                        setStudioAImg('studioA03');
-                                        setStudioAImgBtn('studioA03');
-                                    }}
-                                />
-                            </button>
-                        </div>
-                    </div>
-                    <hr className="m-5" />
-                    {/* studioB */}
-                    <div className="row">
-                        <div className="col-12 d-block d-md-none">
-                            <h5 className="text-center main-color py-3">
-                                Studio-B 練團室
-                            </h5>
-                        </div>
-                        <div className=" col-12 col-md-6 order-3 order-md-1">
-                            <h4 className="item2 d-none d-md-block">
-                                Studio-B 練團室
-                            </h4>
-                            <div className="intro2">
-                                <p>
-                                    精緻練團室出租，希望藉由完善、貼心的服務，使樂團能心無旁鶩的修練音樂技巧。
-                                </p>
-                                <h6>設備介紹</h6>
-                                <p>練團室坪數：5坪 / 容納約7人 </p>
-                                <p>吉他音箱：Laney IRT15H + Laney 412cab</p>
-                                <p>吉他音箱：Marshall DSL15H + MX212cab</p>
-                                <p>貝斯音箱：GK MB112 II </p>
-                                <p> 爵士鼓組：Dixon Aritisan Standard 5粒組</p>
-                                <h6>
-                                    時段 08:00 - 21:00　平日 NT $2,000　假日 NT
-                                    $2,500
-                                </h6>
+                            <div className="col-12 col-md-6 order-3 order-md-2">
+                                <h4 className="item1 d-flex justify-content-end d-none d-md-block">
+                                    Studio-A 錄音室
+                                </h4>
+                                <div className="intro1">
+                                    <p>
+                                        Studio-A
+                                        錄音室，深知每個音樂人都有成名夢，這裡提供給音樂人一個專業錄音空間，將自己的作品完美的輸出成輯。
+                                    </p>
+                                    <h6>設備介紹</h6>
+                                    <p> 8軌A類等級的麥克風前極放大器 </p>
+                                    <p>3軌A類等級的Di </p>
+                                    <p>4軌B類等級的麥克風放大器</p>
+                                    <p>ADAD類比數位轉換器</p>
+                                    <h6>
+                                        時段 08:00 - 21:00　平日 NT $2,000　假日
+                                        NT $2,500
+                                    </h6>
+                                </div>
                             </div>
-                        </div>
-                        <div></div>
-                        <div className="col-12 col-md-6 order-1 order-md-2 ">
-                            <div className="position-relative p-3 studioImgDIV">
-                                <img
-                                    src={studioB01}
-                                    alt="studioB01"
-                                    className={
-                                        studioBImg === 'studioB01'
-                                            ? 'studio hover'
-                                            : 'studio'
-                                    }
-                                />
-                                <img
-                                    src={studioB02}
-                                    alt="studioB02"
-                                    className={
-                                        studioBImg === 'studioB02'
-                                            ? 'studio hover'
-                                            : 'studio'
-                                    }
-                                />
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-6 order-md-4 d-none d-md-block"></div>
-                        <div className="col-12 col-md-6 order-md-3 order-2 studioBMinImg">
-                            <button
-                                className={
-                                    studioBImgBtn === 'studioB01'
-                                        ? 'p-0 m-1 studioBtn hover'
-                                        : 'p-0 m-1 studioBtn '
-                                }
-                            >
-                                <img
-                                    src={studioB01min}
-                                    alt="studioB01min"
-                                    onClick={() => {
-                                        setStudioBImg('studioB01');
-                                        setStudioBImgBtn('studioB01');
-                                    }}
-                                />
-                            </button>
-                            <button
-                                className={
-                                    studioBImgBtn === 'studioB02'
-                                        ? 'p-0 m-1 studioBtn hover'
-                                        : 'p-0 m-1 studioBtn '
-                                }
-                            >
-                                <img
-                                    src={studioB02min}
-                                    alt="studioB02min"
-                                    onClick={() => {
-                                        setStudioBImg('studioB02');
-                                        setStudioBImgBtn('studioB02');
-                                    }}
-                                />
-                            </button>
-                        </div>
-                    </div>
-
-                    <hr className="m-5" />
-                    {/* studioC */}
-                    <div className="row">
-                        <div className="col-12 d-block d-md-none">
-                            <h5 className="text-center main-color py-3">
-                                Studio-C 小型展演空間
-                            </h5>
-                        </div>
-                        <div className="col-12 col-md-6 order-1 ">
-                            <div className="position-relative p-3 studioImgDIV">
-                                <img
-                                    src={studioC01}
-                                    alt="studioC01"
-                                    className={
-                                        studioCImg === 'studioC01'
-                                            ? 'studio hover'
-                                            : 'studio'
-                                    }
-                                />
-                                <img
-                                    src={studioC02}
-                                    alt="studioC02"
-                                    className={
-                                        studioCImg === 'studioC02'
-                                            ? 'studio hover'
-                                            : 'studio'
-                                    }
-                                />
-                            </div>
-                        </div>
-                        <div className=" col-12 col-md-6 order-3 order-md-2">
-                            <h4 className="item3 d-flex justify-content-end d-none d-md-block">
-                                Studio-C 小型展演空間
-                            </h4>
-                            <div className="intro3">
-                                <p>
-                                    適合舉辦小型音樂展演、各類型講座、小型企業開會、
-                                    產品活動發表會、各類型講座、私人包場與聚會。
-                                </p>
-                                <h6>設備介紹</h6>
-                                <p>免費提供 300M/100M光纖 Wifi</p>
-                                <p>
-                                    100吋單槍投影幕、無線麥克風、頂級 LD System
-                                    音響系統
-                                </p>
-                                <p>
-                                    40張折疊椅、6張折疊桌、休息室、茶水間及衛生間
-                                </p>
-                                <p>Yamaha C2 平台演奏琴</p>
-                                <h6>
-                                    時段 08:00 - 21:00　平日 NT $2,000　假日 NT
-                                    $2,500
-                                </h6>
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-6 order-3 d-none d-md-block"></div>
-                        <div className="col-12 col-md-6 order-2 order-md-4">
-                            <button
-                                className={
-                                    studioCImgBtn === 'studioC01'
-                                        ? 'p-0 m-1 studioBtn hover'
-                                        : 'p-0 m-1 studioBtn'
-                                }
-                            >
-                                <img
-                                    src={studioC01min}
-                                    alt="studioC01min"
-                                    onClick={() => {
-                                        setStudioCImg('studioC01');
-                                        setStudioCImgBtn('studioC01');
-                                    }}
-                                />
-                            </button>
-                            <button
-                                className={
-                                    studioCImgBtn === 'studioC02'
-                                        ? 'p-0 m-1 studioBtn hover'
-                                        : 'p-0 m-1 studioBtn'
-                                }
-                            >
-                                <img
-                                    src={studioC02min}
-                                    alt="studioC02min"
-                                    onClick={() => {
-                                        setStudioCImg('studioC02');
-                                        setStudioCImgBtn('studioC02');
-                                    }}
-                                />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* test 輪播 */}
-            <div className="container">
-                <div className="row">
-                    <div className="col-12 col-md-6">
-                        <div className="d-block d-md-none">
-                            <h5 className="text-center main-color py-3">
-                                Studio-A 錄音室
-                            </h5>
-                        </div>
-                        <div className="">
-                            <div className="position-relative p-3 studioImgDIV">
-                                <img
-                                    src={studioA01}
-                                    alt="studioA01"
-                                    className={
-                                        studioAImg === 'studioA01'
-                                            ? 'studio hover'
-                                            : 'studio'
-                                    }
-                                />
-                                <img
-                                    src={studioA02}
-                                    alt="studioA02"
-                                    className={
-                                        studioAImg === 'studioA02'
-                                            ? 'studio hover'
-                                            : 'studio'
-                                    }
-                                />
-                                <img
-                                    src={studioA03}
-                                    alt="studioA03"
-                                    className={
-                                        studioAImg === 'studioA03'
-                                            ? 'studio hover'
-                                            : 'studio'
-                                    }
-                                />
-                            </div>
-                            <div className="">
+                            <div className="col-12 col-md-6 d-none d-md-block order-3"></div>
+                            <div className="col-12 col-md-6 order-2 order-md-4">
                                 <button
                                     className={
                                         studioAImgBtn === 'studioA01'
@@ -548,83 +278,192 @@ function Place(props) {
                                 </button>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="col-12 col-md-6">
-                        <div className="text-end d-none d-md-block p-3">
-                            <h4 className="item1">Studio-A 錄音室</h4>
+                        <hr className="m-5" />
+                        {/* studioB */}
+                        <div className="row">
+                            <div className="col-12 d-block d-md-none">
+                                <h5 className="text-center main-color py-3">
+                                    Studio-B 練團室
+                                </h5>
+                            </div>
+                            <div className=" col-12 col-md-6 order-3 order-md-1">
+                                <h4 className="item2 d-none d-md-block">
+                                    Studio-B 練團室
+                                </h4>
+                                <div className="intro2">
+                                    <p>
+                                        精緻練團室出租，希望藉由完善、貼心的服務，使樂團能心無旁鶩的修練音樂技巧。
+                                    </p>
+                                    <h6>設備介紹</h6>
+                                    <p>練團室坪數：5坪 / 容納約7人 </p>
+                                    <p>吉他音箱：Laney IRT15H + Laney 412cab</p>
+                                    <p>吉他音箱：Marshall DSL15H + MX212cab</p>
+                                    <p>貝斯音箱：GK MB112 II </p>
+                                    <p>
+                                        {' '}
+                                        爵士鼓組：Dixon Aritisan Standard 5粒組
+                                    </p>
+                                    <h6>
+                                        時段 08:00 - 21:00　平日 NT $2,000　假日
+                                        NT $2,500
+                                    </h6>
+                                </div>
+                            </div>
+                            <div></div>
+                            <div className="col-12 col-md-6 order-1 order-md-2 ">
+                                <div className="position-relative p-3 studioImgDIV">
+                                    <img
+                                        src={studioB01}
+                                        alt="studioB01"
+                                        className={
+                                            studioBImg === 'studioB01'
+                                                ? 'studio hover'
+                                                : 'studio'
+                                        }
+                                    />
+                                    <img
+                                        src={studioB02}
+                                        alt="studioB02"
+                                        className={
+                                            studioBImg === 'studioB02'
+                                                ? 'studio hover'
+                                                : 'studio'
+                                        }
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-12 col-md-6 order-md-4 d-none d-md-block"></div>
+                            <div className="col-12 col-md-6 order-md-3 order-2 studioBMinImg">
+                                <button
+                                    className={
+                                        studioBImgBtn === 'studioB01'
+                                            ? 'p-0 m-1 studioBtn hover'
+                                            : 'p-0 m-1 studioBtn '
+                                    }
+                                >
+                                    <img
+                                        src={studioB01min}
+                                        alt="studioB01min"
+                                        onClick={() => {
+                                            setStudioBImg('studioB01');
+                                            setStudioBImgBtn('studioB01');
+                                        }}
+                                    />
+                                </button>
+                                <button
+                                    className={
+                                        studioBImgBtn === 'studioB02'
+                                            ? 'p-0 m-1 studioBtn hover'
+                                            : 'p-0 m-1 studioBtn '
+                                    }
+                                >
+                                    <img
+                                        src={studioB02min}
+                                        alt="studioB02min"
+                                        onClick={() => {
+                                            setStudioBImg('studioB02');
+                                            setStudioBImgBtn('studioB02');
+                                        }}
+                                    />
+                                </button>
+                            </div>
                         </div>
 
-                        <div className="intro1">
-                            <p>
-                                Studio-A
-                                錄音室，深知每個音樂人都有成名夢，這裡提供給音樂人一個專業錄音空間，將自己的作品完美的輸出成輯。
-                            </p>
-                            <h6>設備介紹</h6>
-                            <p> 8軌A類等級的麥克風前極放大器 </p>
-                            <p>3軌A類等級的Di </p>
-                            <p>4軌B類等級的麥克風放大器</p>
-                            <p>ADAD類比數位轉換器</p>
-                            <h6>
-                                時段 08:00 - 21:00　平日 NT $2,000　假日 NT
-                                $2,500
-                            </h6>
-                        </div>
-                        <div className="">
-                            <button
-                                className={
-                                    studioAImgBtn === 'studioA01'
-                                        ? 'p-0 m-1 studioBtn hover'
-                                        : 'p-0 m-1 studioBtn '
-                                }
-                            >
-                                <img
-                                    src={studioA01min}
-                                    alt="studioA01min"
-                                    onClick={() => {
-                                        setStudioAImg('studioA01');
-                                        setStudioAImgBtn('studioA01');
-                                    }}
-                                />
-                            </button>
-                            <button
-                                className={
-                                    studioAImgBtn === 'studioA02'
-                                        ? 'p-0 m-1 studioBtn hover'
-                                        : 'p-0 m-1 studioBtn '
-                                }
-                            >
-                                <img
-                                    src={studioA02min}
-                                    alt="studioA02min"
-                                    onClick={() => {
-                                        setStudioAImg('studioA02');
-                                        setStudioAImgBtn('studioA02');
-                                    }}
-                                />
-                            </button>
-                            <button
-                                className={
-                                    studioAImgBtn === 'studioA03'
-                                        ? 'p-0 m-1 studioBtn hover'
-                                        : 'p-0 m-1 studioBtn'
-                                }
-                            >
-                                <img
-                                    src={studioA03min}
-                                    alt="studioA03min"
-                                    onClick={() => {
-                                        setStudioAImg('studioA03');
-                                        setStudioAImgBtn('studioA03');
-                                    }}
-                                />
-                            </button>
+                        <hr className="m-5" />
+                        {/* studioC */}
+                        <div className="row">
+                            <div className="col-12 d-block d-md-none">
+                                <h5 className="text-center main-color py-3">
+                                    Studio-C 小型展演空間
+                                </h5>
+                            </div>
+                            <div className="col-12 col-md-6 order-1 ">
+                                <div className="position-relative p-3 studioImgDIV">
+                                    <img
+                                        src={studioC01}
+                                        alt="studioC01"
+                                        className={
+                                            studioCImg === 'studioC01'
+                                                ? 'studio hover'
+                                                : 'studio'
+                                        }
+                                    />
+                                    <img
+                                        src={studioC02}
+                                        alt="studioC02"
+                                        className={
+                                            studioCImg === 'studioC02'
+                                                ? 'studio hover'
+                                                : 'studio'
+                                        }
+                                    />
+                                </div>
+                            </div>
+                            <div className=" col-12 col-md-6 order-3 order-md-2">
+                                <h4 className="item3 d-flex justify-content-end d-none d-md-block">
+                                    Studio-C 小型展演空間
+                                </h4>
+                                <div className="intro3">
+                                    <p>
+                                        適合舉辦小型音樂展演、各類型講座、小型企業開會、
+                                        產品活動發表會、各類型講座、私人包場與聚會。
+                                    </p>
+                                    <h6>設備介紹</h6>
+                                    <p>免費提供 300M/100M光纖 Wifi</p>
+                                    <p>
+                                        100吋單槍投影幕、無線麥克風、頂級 LD
+                                        System 音響系統
+                                    </p>
+                                    <p>
+                                        40張折疊椅、6張折疊桌、休息室、茶水間及衛生間
+                                    </p>
+                                    <p>Yamaha C2 平台演奏琴</p>
+                                    <h6>
+                                        時段 08:00 - 21:00　平日 NT $2,000　假日
+                                        NT $2,500
+                                    </h6>
+                                </div>
+                            </div>
+                            <div className="col-12 col-md-6 order-3 d-none d-md-block"></div>
+                            <div className="col-12 col-md-6 order-2 order-md-4">
+                                <button
+                                    className={
+                                        studioCImgBtn === 'studioC01'
+                                            ? 'p-0 m-1 studioBtn hover'
+                                            : 'p-0 m-1 studioBtn'
+                                    }
+                                >
+                                    <img
+                                        src={studioC01min}
+                                        alt="studioC01min"
+                                        onClick={() => {
+                                            setStudioCImg('studioC01');
+                                            setStudioCImgBtn('studioC01');
+                                        }}
+                                    />
+                                </button>
+                                <button
+                                    className={
+                                        studioCImgBtn === 'studioC02'
+                                            ? 'p-0 m-1 studioBtn hover'
+                                            : 'p-0 m-1 studioBtn'
+                                    }
+                                >
+                                    <img
+                                        src={studioC02min}
+                                        alt="studioC02min"
+                                        onClick={() => {
+                                            setStudioCImg('studioC02');
+                                            setStudioCImgBtn('studioC02');
+                                        }}
+                                    />
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            {/* 表單 */}
+            ;{/* 表單 */}
             <div className="bg-main-gary-light-color">
                 <form
                     className="container mt-5 placeform"
