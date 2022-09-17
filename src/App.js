@@ -49,6 +49,11 @@ import MyQuestion from './pages/Member/components/MyQuestion';
 import MyOrderDetail from './pages/Member/components/MyOrder/components/MyOrderDetail';
 import MyPlace from './pages/Member/components/MyPlace';
 
+//MyQuestion 次頁面
+import MyQuestionList from './pages/Member/components/MyQuestion/components/MyQuestionList';
+import MyQuestionAdd from './pages/Member/components/MyQuestion/components/MyQuestionAdd';
+import MyQuestionDetail from './pages/Member/components/MyQuestion/components/MyQuestionDetail';
+
 function App() {
     //page to top 要用的
     useEffect(() => {
@@ -134,7 +139,20 @@ function App() {
                                     <Route
                                         path="myquestion"
                                         element={<MyQuestion />}
-                                    />
+                                    >
+                                        <Route
+                                            index
+                                            element={<MyQuestionList />}
+                                        />
+                                        <Route
+                                            path="add"
+                                            element={<MyQuestionAdd />}
+                                        />
+                                        <Route
+                                            path="detail"
+                                            element={<MyQuestionDetail />}
+                                        />
+                                    </Route>
                                     <Route
                                         path="myplace"
                                         element={<MyPlace />}
