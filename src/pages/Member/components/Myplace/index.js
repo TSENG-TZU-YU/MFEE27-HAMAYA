@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useOutletContext } from 'react-router-dom';
-import add_img from '../../../../assets/svg/add.svg';
+import { API_URL } from '../../../../utils/config';
 import detail_img from '../../../../assets/svg/detailed.svg';
 
 function MyPlace() {
@@ -9,6 +9,23 @@ function MyPlace() {
     useEffect(() => {
         setbread('場地租借'); //載入頁面時 設定麵包削
     }, []);
+
+    const [data, setdata] = useState([]);
+
+    useEffect(() => {
+        let getPlace = async () => {
+            let response = await axios.get(
+                `${API_URL}/member/myplace/loading`,
+                {
+                    withCredentials: true,
+                }
+            );
+            setdata(response.data);
+            console.log(response.data);
+        };
+        getPlace();
+    }, []);
+
     return (
         <div className="col-12 col-md-8 col-lg-9">
             <div className="d-none d-lg-block">
@@ -63,23 +80,32 @@ function MyPlace() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr className="cssTable">
-                            <th scope="row">studio A 錄音室</th>
-                            <td>租借日期</td>
-                            <td>使用人數</td>
-                            <td>
-                                <div className="">
-                                    <span className="ellipsis">123123</span>
-                                </div>
-                            </td>
-                            <td className="">已回覆</td>
-                            <td className="text-nowrap ">
-                                <a>
-                                    <img src={detail_img} />
-                                    查看詳細
-                                </a>
-                            </td>
-                        </tr>
+                        {data.map((v, i) => {
+                            return (
+                                <tr className="cssTable">
+                                    <td>{v.item}</td>
+                                    <td>{v.usedate}</td>
+                                    <td>{v.usercount}</td>
+                                    <td>
+                                        <div className="">
+                                            <span className="ellipsis">
+                                                {v.comment}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td className="">已回覆</td>
+                                    <td className="text-nowrap ">
+                                        <a>
+                                            <img
+                                                src={detail_img}
+                                                alt="detail"
+                                            />
+                                            查看詳細
+                                        </a>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>

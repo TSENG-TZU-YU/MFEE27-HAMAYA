@@ -59,7 +59,7 @@ function Car({ itemsCart }) {
                     //要做後端資料庫裡是否重複 重複則去購物車修改數量 目前只拿一個加入購物車
                     try {
                         let response = await axios.post(
-                            `${API_URL}/cart`,
+                            `${API_URL}/member/mycart`,
                             itemsData
                         );
                         alert(response.data.message);

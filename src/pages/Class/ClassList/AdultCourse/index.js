@@ -44,7 +44,6 @@ function AdultCourse({
 
                 // 設定到state中
                 setPageProducts(pageList);
-                console.log('pageProducts', pageProducts);
             }
         };
 

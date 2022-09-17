@@ -29,8 +29,10 @@ function Detailed({ ins_main_id }) {
 
     // 把網址上的 :detailedID 拿出來
     const { detailedID } = useParams();
+    // 當 URL 網址改變時useState()會返回一個新的包含有關目前URL的狀態和位置的物件函數。每當URL網址有變更，則 useLocation 資訊也將更新
     const location = useLocation();
     useEffect(() => {
+        // 從網址上抓到關鍵字
         let params = new URLSearchParams(location.search);
         let selectClass = params.get('class');
         let getClassDetail = async () => {
@@ -307,12 +309,12 @@ function Detailed({ ins_main_id }) {
                         return (
                             <Link
                                 to={`/class/list/${recommend.id}?class=${recommend.ins_main_id}`}
+                                key={recommend.id}
                             >
                                 <Col>
                                     <div
                                         className="card mb-4 mx-auto"
                                         style={{ width: ' 19rem' }}
-                                        key={recommend.id}
                                     >
                                         <img
                                             className="card-img-top img-fluid"
