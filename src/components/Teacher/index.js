@@ -62,9 +62,4 @@ function Teacher({ data }) {
     );
 }
 
-/* 要傳進去的圖片資料 */
-// Teacher.propTypes = {
-//     images: PropTypes.array.isRequired,
-// };
-
 export default Teacher;

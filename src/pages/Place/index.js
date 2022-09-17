@@ -22,6 +22,7 @@ import studioC01min from '../../assets/PlaceImg/studioC01min.jpg';
 import studioC02min from '../../assets/PlaceImg/studioC02min.jpg';
 
 function Place(props) {
+    const [editRent, setEditRent] = useState(false);
     // 表單狀態
     const [memberLogin, setMemberLogin] = useState(false);
 
@@ -62,6 +63,7 @@ function Place(props) {
                 setIsLogin(true);
                 setMember(response.data);
                 setMemberLogin(true);
+                setEditRent(true)
                 setRent({
                     ...rent,
                     fullName: response.data.fullName,
@@ -89,7 +91,7 @@ function Place(props) {
     async function rentsubmit(e) {
         e.preventDefault();
         try {
-            const response = await axios.put(
+            const response = await axios.post(
                 'http://localhost:3001/api/place/rent',
                 rent,
                 { withCredentials: true }
@@ -501,6 +503,7 @@ function Place(props) {
                                 placeholder="請輸入姓名"
                                 onChange={fieldChange}
                                 className="w-100"
+                                disabled={editRent}
                             />
                         </div>
                         <div className="col-12 col-md-6 my-2">
@@ -528,6 +531,7 @@ function Place(props) {
                                 onChange={fieldChange}
                                 placeholder="請輸入電話/手機"
                                 className="w-100"
+                                disabled={editRent}
                             />
                         </div>
                         <div className="col-12 col-md-6 my-2">
@@ -555,6 +559,7 @@ function Place(props) {
                                 onChange={fieldChange}
                                 placeholder="請輸入信箱"
                                 className="w-100"
+                                disabled={editRent}
                             />
                         </div>
                         <div className="col-12 col-md-6 my-2">

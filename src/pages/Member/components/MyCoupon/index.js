@@ -14,7 +14,7 @@ import { ReactComponent as NextPageIcon } from '../../../../assets/svg/next_page
 function MyCoupon(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
     const today = new Date().getTime();
-    const [haveCoupon, setHaveCoupon] = useState(1); //是否擁有優惠券
+    const [haveCoupon, setHaveCoupon] = useState(0); //是否擁有優惠券
     const [couponSn, setCouponSn] = useState({ sn: '' });
     const [myCoupon, setMyCoupon] = useState([
         [
@@ -65,6 +65,7 @@ function MyCoupon(props) {
             if (pageList.length > 0) {
                 setPageTotal(pageList.length);
                 setMyCoupon(pageList);
+                setHaveCoupon(1);
             }
         } catch (err) {
             console.log(err.response.data);
@@ -96,7 +97,7 @@ function MyCoupon(props) {
 
     //頁碼
     const paginationBar = (
-        <div className="pagination d-flex justify-content-center align-items-center">
+        <div className="member_pagination d-flex justify-content-center align-items-center">
             <Link
                 className="mx-2"
                 to=""

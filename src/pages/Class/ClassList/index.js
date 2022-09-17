@@ -112,7 +112,7 @@ function ClassList(props) {
                 a.start_date.localeCompare(b.start_date)
             );
         }
-        console.log('sortBy', newProducts);
+
         return newProducts;
     };
 
@@ -123,7 +123,9 @@ function ClassList(props) {
             newProducts = products.filter((product) => {
                 return product.name.includes(searchWord);
             });
+            setSubIns('');
         }
+        console.log('search', newProducts);
         return newProducts;
     };
 
@@ -202,8 +204,8 @@ function ClassList(props) {
 
     //     // 處理搜尋
     //     newProducts = handleSearch(products, searchWord);
-
-    //    // setDisplayProducts(newProducts);
+    //     console.log('search', newProducts);
+    //     setDisplayProducts(newProducts);
     // }, [products, searchWord]);
 
     // useEffect(() => {
@@ -216,14 +218,13 @@ function ClassList(props) {
     // }, [products, subIns]);
 
     useEffect(() => {
-        // applyFilters();
-        let newProducts = [];
+        let newProducts = [...products];
 
-        // TODO: 處理搜尋
-        newProducts = handleSearch(products, searchWord);
+        // 處理搜尋
+        newProducts = handleSearch(newProducts, searchWord);
 
         // 處理樂器
-        newProducts = handleSubIns(products, subIns);
+        newProducts = handleSubIns(newProducts, subIns);
 
         // 處理排序
         newProducts = handleSort(newProducts, sortBy);
@@ -231,12 +232,11 @@ function ClassList(props) {
         // 處理價格區間選項
         newProducts = applyFilters(newProducts, selectedPrice);
 
-        const newPageProducts = _.chunk(newProducts, perPage);
-
-        setPageProducts(newPageProducts);
-        setPageTotal(pageProducts.length);
-        // console.log('pageProducts', pageProducts);
         setDisplayProducts(newProducts);
+        const newPageProducts = _.chunk(newProducts, perPage);
+        setPageTotal(pageProducts.length);
+        setPageProducts(newPageProducts);
+        console.log('newProductsClass', newProducts);
     }, [products, selectedPrice, sortBy, searchWord, subIns]);
 
     return (
@@ -284,9 +284,10 @@ function ClassList(props) {
                                         <select
                                             className="select-class mt-1 border-0"
                                             value={subIns}
-                                            onChange={(e) =>
-                                                setSubIns(e.target.value)
-                                            }
+                                            onChange={(e) => {
+                                                setSubIns(e.target.value);
+                                                setSearchWord('');
+                                            }}
                                         >
                                             <option value="0">所有樂器</option>
                                             <option value="1">琴鍵樂器</option>
@@ -407,8 +408,24 @@ function ClassList(props) {
             </div>
             {/* 篩選 mob */}
             <div className="d-md-none">
+                <div className=" d-flex justify-content-end mob-search">
+                    <button className="border-0 " onClick={toggleSearchToggled}>
+                        <img className="" src={search} alt="search"></img>
+                    </button>
+                </div>
+                {searchToggled ? (
+                    <div className=" mob-class-search ">
+                        <SearchBar
+                            searchWord={searchWord}
+                            setSearchWord={setSearchWord}
+                        />
+                    </div>
+                ) : (
+                    ''
+                )}
+
                 <div className="mobile-class-filter-nav position-relative">
-                    <div className="d-flex justify-content-center align-items-center  ">
+                    <div className="d-flex justify-content-center align-items-center mt-4">
                         <div className="class-filter-nav-item border-end  ">
                             <p className="class-filter-nav-item-name text-center pe-5 me-1">
                                 進階篩選
@@ -578,7 +595,7 @@ function ClassList(props) {
             {/* 課程選擇 頁面*/}
             {selectCourse ? (
                 <AdultCourse
-                    products={displayProducts}
+                    products={products}
                     // 原始資料 跟 改動資料都要傳入子層
                     setProducts={setProducts}
                     pageProducts={pageProducts}
@@ -589,10 +606,11 @@ function ClassList(props) {
                     setPageNow={setPageNow}
                     pageTotal={pageTotal}
                     pageNow={pageNow}
+                    displayProducts={displayProducts}
                 />
             ) : (
                 <ChildrenCourse
-                    products={displayProducts}
+                    products={products}
                     setProducts={setProducts}
                     pageProducts={pageProducts}
                     setPageProducts={setPageProducts}
@@ -602,6 +620,7 @@ function ClassList(props) {
                     setPageNow={setPageNow}
                     pageTotal={pageTotal}
                     pageNow={pageNow}
+                    displayProducts={displayProducts}
                 />
             )}
             {/* 課程選擇 頁面 end*/}
