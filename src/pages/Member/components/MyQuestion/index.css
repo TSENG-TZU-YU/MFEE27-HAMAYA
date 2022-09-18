@@ -38,3 +38,49 @@
     position: relative;
     margin-bottom: 40px;
 }
+.myQuestion_form{
+    width: 100%;
+    max-width: 600px;
+    /* background-color: blueviolet; */
+}
+.myQuestion_form h6{
+    margin: 5px 0;
+    color: #00323d;
+}
+.myQuestion_form label{
+    width: 100%;
+    margin: 5px 0;
+}
+
+.myQuestion_form select{
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #767676; 
+}
+.myQuestion_form .option01{
+    color:#767676;
+}
+.myQuestion_form input{
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #767676;
+}
+.myQuestion_form textarea{
+    width: 100%;
+    border: 1px solid #767676;
+}
+.myQuestion_form .btn1{
+    width: 100px;
+    height: 40px;
+    background-color: #00323d;
+    color: #ffff;
+    border: 0;
+}
+.myQuestion_form .btn2{
+    width: 100px;
+    height: 40px;
+    background-color: #5b322f;
+    color: #ffff;
+    border: 0;
+    margin-left: 10px;
+}
