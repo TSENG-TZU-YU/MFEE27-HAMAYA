@@ -9,7 +9,7 @@ import { useAuth } from '../../../../utils/use_auth';
 function MyCart(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
     const { member, setMember, isLogin, setIsLogin } = useAuth();
-    //需進行map的狀態要宣告陣列才不會報錯
+    
 
     //全部購物車
     const [myCart, setMyCart] = useState([]);

@@ -63,7 +63,7 @@ function MyCartDoCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
             ];
             // console.log(newSaveOrderInfo);
 
-            async function getOrderInfo() {
+            async function setOrderInfo() {
                 let response = await axios.post(
                     `${API_URL}/member/myorder`,
                     newSaveOrderInfo
@@ -73,7 +73,7 @@ function MyCartDoCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                 );
                 // console.log(response.data);
             }
-            getOrderInfo();
+            setOrderInfo();
         }
     }
 
