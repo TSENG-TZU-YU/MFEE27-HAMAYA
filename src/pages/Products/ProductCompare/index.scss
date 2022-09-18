@@ -54,7 +54,7 @@
     white-space: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
-    box-shadow:inset 10px 0px  10px -15px #6a777a
+    box-shadow: inset 10px 0px  10px -15px #6a777a;
 
   }
   &__item-box::-webkit-scrollbar { 
@@ -69,6 +69,18 @@
     text-align: center;
     white-space: nowrap;
     display: inline-block;
+  }
+  &__Tags {
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    transition: .3s;
+  }
+  &__Tags:hover{
+    filter: brightness(0.8);
+  }
+  &__item-active {
+    background-color: #c9d4d7;
   }
 }
 

@@ -16,7 +16,18 @@ import compare from '../../../assets/ProductsImg/icon/compare.svg';
 import { useCart } from '../../../utils/use_cart';
 
 function ProductsItem({
-    value: { product_id, ins_main_id, image, name, price },
+    value: {
+        product_id,
+        ins_main_id,
+        image,
+        name,
+        price,
+        brandName,
+        color,
+        spec,
+        create_time,
+    },
+    getCompare,
 }) {
     //購物車
     const { shopItemCart, setShopItemCart } = useCart();
@@ -38,7 +49,22 @@ function ProductsItem({
                 <div className="product-like position-absolute top-0 end-0">
                     <Favorite />
                 </div>
-                <div className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-1">
+                <div
+                    className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-1"
+                    onClick={() =>
+                        getCompare({
+                            product_id: product_id,
+                            image: image,
+                            name: name,
+                            brand: brandName,
+                            color: color,
+                            price: price,
+                            spec: spec,
+                            mainId: ins_main_id,
+                            create_time: create_time,
+                        })
+                    }
+                >
                     <img
                         src={compare}
                         alt="compare"

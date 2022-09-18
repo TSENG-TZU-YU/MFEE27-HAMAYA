@@ -13,16 +13,17 @@ import './index.scss';
 // 元件
 import ToShareCollect from '../../../components/ToShare';
 import ProductsItem from '../components/ProductsItem';
-import Compare from '../ProductCompare';
+import ProductCompare from '../ProductCompare';
 import ProductCarousel from '../../../components/ProductCarousel';
 import BreadCrumb from '../../../components/BreadCrumb/BreadCrumb';
+import CompareBtn from '../components/CompareBtn';
 
 // 圖檔
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import cartCheck from '../../../assets/ProductsImg/icon/shopping_cart_check.svg';
 import cartCheckout from '../../../assets/ProductsImg/icon/shopping_cart_checkout.svg';
-import compareBtn from '../../../assets/ProductsImg/icon/compare_btn.svg';
 import note from '../../../assets/ProductsImg/icon/product_details_note.svg';
+import { ReactComponent as CompareButton } from '../../../assets/svg/sync_alt.svg';
 
 import { useAuth } from '../../../utils/use_auth';
 //購物車
@@ -58,7 +59,9 @@ function Product() {
         getProductDetail();
     }, [location]);
 
-    console.log(productImgs);
+    // console.log(productImgs);
+    // console.log(productImgs[0]);
+    // console.log(relatedProducts);
 
     const productCount = (stock) => {
         if (stock !== 0) {
@@ -107,6 +110,30 @@ function Product() {
     // Toggled
     const [productCompare, setProductCompare] = useState(false);
     const toggleProductCompare = () => setProductCompare(!productCompare);
+
+    // 比較
+    //取得localStorage內容
+    let compareLocal = JSON.parse(localStorage.getItem('compare'));
+    // 存入比較的商品資料
+    const [compareProduct, setCompareProduct] = useState(compareLocal);
+    // 存localStorage
+    const setNewCompareLocal = (newCompareLocal) => {
+        //塞資料進去
+        localStorage.setItem('compare', JSON.stringify(newCompareLocal));
+    };
+    function getCompare(compareItem) {
+        // 確認有沒有重複，有重複則不加入
+        let newCompareItem = compareProduct.find((value) => {
+            return value.product_id === compareItem.product_id;
+        });
+        if (!newCompareItem) {
+            // 存入比較的商品資料
+            setNewCompareLocal([{ ...compareItem }, ...compareProduct]);
+            // 存localStorage
+            setCompareProduct([{ ...compareItem }, ...compareProduct]);
+        }
+    }
+
     //會員
     const { member, setMember, isLogin, setIsLogin } = useAuth();
 
@@ -183,7 +210,6 @@ function Product() {
                     <Col lg={6}>
                         <div className="d-flex h-100 align-items-center justify-content-center">
                             <div className="w-100 h-100 p-3">
-                                {/* TODO: 一開始大圖的照片不對 */}
                                 <ProductCarousel images={productImgs} />
                             </div>
                         </div>
@@ -347,7 +373,30 @@ function Product() {
                                             </h6>
                                         </button>
                                     </div>
-                                    <ToShareCollect />
+                                    <div className="d-flex">
+                                        <ToShareCollect className="me-2" />
+                                        <div
+                                            className="d-flex justify-content-center align-items-center cursor-pinter my-3 mx-4"
+                                            onClick={() =>
+                                                getCompare({
+                                                    product_id:
+                                                        value.product_id,
+                                                    image: productImgs[0],
+                                                    name: value.name,
+                                                    brand: value.brandName,
+                                                    color: value.color,
+                                                    price: value.price,
+                                                    spec: value.spec,
+                                                    mainId: value.ins_main_id,
+                                                    create_time:
+                                                        value.create_time,
+                                                })
+                                            }
+                                        >
+                                            <CompareButton className="me-2" />
+                                            <p className="mt-3 share">比較</p>
+                                        </div>
+                                    </div>
                                 </div>
                             );
                         })}
@@ -378,20 +427,24 @@ function Product() {
                 </div>
                 <Row className="mt-2 mb-5 row-cols-2 row-cols-xl-4">
                     {relatedProducts.map((value, index) => {
-                        return <ProductsItem key={uuidv4()} value={value} />;
+                        return (
+                            <ProductsItem
+                                getCompare={getCompare}
+                                key={uuidv4()}
+                                value={value}
+                            />
+                        );
                     })}
                 </Row>
                 {/* 商品比較 btn */}
-                <img
-                    src={compareBtn}
-                    alt="compareBtn"
-                    className="d-blok compare-btn m-4 cursor-pointer"
-                    onClick={toggleProductCompare}
-                />
-                <div className="compare-quantity">0</div>
-                {/* 商品比較 btn end */}
+                <CompareBtn toggleProductCompare={toggleProductCompare} />
+                {/* 比較頁顯示 */}
                 {productCompare ? (
-                    <Compare setProductCompare={setProductCompare} />
+                    <ProductCompare
+                        compareProduct={compareProduct}
+                        setCompareProduct={setCompareProduct}
+                        setProductCompare={setProductCompare}
+                    />
                 ) : (
                     ''
                 )}

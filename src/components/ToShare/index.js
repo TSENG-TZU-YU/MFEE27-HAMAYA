@@ -10,7 +10,7 @@ function ToShareCollect(props) {
     const [plusToggled, setPlus] = useState(false);
     const toggle = () => setPlus(!plusToggled);
     return (
-        <div className="d-flex mt-2">
+        <div className="d-flex">
             {/* 收藏 */}
             <div className="d-flex justify-content-center align-items-center cursor-pinter me-4">
                 {plusToggled ? (

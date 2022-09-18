@@ -23,6 +23,7 @@ import MobileSortBar from './components/SortBar';
 import FilterBar from './components/FilterBar';
 import MobileFilterBar from './components/MobileFilterBar';
 import PaginationBar from '../../components/PaginationBar/PaginationBar';
+import CompareBtn from './components/CompareBtn';
 
 // 元件 FilterNav
 import SearchBar from '../../components/SearchBar';
@@ -33,7 +34,6 @@ import Favorite from '../../components/Favorite';
 
 // 圖檔
 import banner from '../../assets/ProductsImg/banner.png';
-import compareBtn from '../../assets/ProductsImg/icon/compare_btn.svg';
 import { TbMusicOff } from 'react-icons/tb';
 
 // 圖檔 ProductsItem
@@ -292,22 +292,20 @@ function Products() {
     };
 
     // 比較
+    //取得localStorage內容
+    let compareLocal = JSON.parse(localStorage.getItem('compare'));
     // 存入比較的商品資料
-    const [compareProduct, setCompareProduct] = useState([]);
-    // 加入比較的商品數量
-    let compareCount = compareProduct.length;
+    const [compareProduct, setCompareProduct] = useState(compareLocal);
     // 存localStorage
     const setNewCompareLocal = (newCompareLocal) => {
         //塞資料進去
         localStorage.setItem('compare', JSON.stringify(newCompareLocal));
     };
     function getCompare(compareItem) {
-        // localStorage.clear();
         // 確認有沒有重複，有重複則不加入
         let newCompareItem = compareProduct.find((value) => {
             return value.product_id === compareItem.product_id;
         });
-        // let compareCount = ;
         if (!newCompareItem) {
             // 存入比較的商品資料
             setNewCompareLocal([{ ...compareItem }, ...compareProduct]);
@@ -315,8 +313,6 @@ function Products() {
             setCompareProduct([{ ...compareItem }, ...compareProduct]);
         }
     }
-
-    console.log(compareProduct);
 
     // 登入狀態
     const { member, setMember, isLogin, setIsLogin } = useAuth();
@@ -668,10 +664,13 @@ function Products() {
                                                                 product.product_id,
                                                             image: product.image,
                                                             name: product.name,
-                                                            brand: product.ins_brand,
+                                                            brand: product.brandName,
                                                             color: product.color,
                                                             price: product.price,
                                                             spec: product.spec,
+                                                            mainId: product.ins_main_id,
+                                                            create_time:
+                                                                product.create_time,
                                                         })
                                                     }
                                                 >
@@ -759,16 +758,8 @@ function Products() {
                 </div>
 
                 {/* 商品比較 btn */}
-                <img
-                    src={compareBtn}
-                    alt="compareBtn"
-                    className="d-blok compare-btn m-4 cursor-pointer"
-                    onClick={toggleProductCompare}
-                />
-                <div className="compare-quantity">{compareCount}</div>
-                {/* 商品比較 btn end */}
+                <CompareBtn toggleProductCompare={toggleProductCompare} />
             </Container>
-
             {/* 比較頁顯示 */}
             {productCompare ? (
                 <ProductCompare
