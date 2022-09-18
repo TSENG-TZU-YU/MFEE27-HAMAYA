@@ -185,46 +185,51 @@ function MyQuestionList(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {myQuestionList[pageNow - 1].map((data, index) => {
-                                    return (
-                                        <tr key={uuidv4()} className="cssTable">
-                                            <th scope="row">
-                                                QA00{data.id}
-                                                <br />
-                                                <span className="time">
-                                                    {data.create_time}
-                                                </span>
-                                            </th>
-                                            <td>{data.user_q_category}</td>
-                                            <td>{data.title}</td>
-                                            <td>
-                                                <div className="">
-                                                    <span className="ellipsis">
-                                                        {data.comment}
+                                {myQuestionList[pageNow - 1].map(
+                                    (data, index) => {
+                                        return (
+                                            <tr
+                                                key={uuidv4()}
+                                                className="cssTable"
+                                            >
+                                                <th scope="row">
+                                                    QA00{data.id}
+                                                    <br />
+                                                    <span className="time">
+                                                        {data.create_time}
                                                     </span>
-                                                </div>
-                                            </td>
-                                            <td className="">
-                                                {data.user_reply_state}
-                                            </td>
-                                            <td className="">
-                                                {data.update_time}
-                                            </td>
-                                            <td className="text-nowrap ">
-                                                <Link
-                                                    className=""
-                                                    to={`/member/myquestion/detail?qaid=${data.id}`}
-                                                >
-                                                    <img
-                                                        src={detail_img}
-                                                        alt=""
-                                                    />
-                                                    查看詳細
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
+                                                </th>
+                                                <td>{data.user_q_category}</td>
+                                                <td>{data.title}</td>
+                                                <td>
+                                                    <div className="">
+                                                        <span className="ellipsis">
+                                                            {data.comment}
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td className="">
+                                                    {data.user_reply_state}
+                                                </td>
+                                                <td className="">
+                                                    {data.update_time}
+                                                </td>
+                                                <td className="text-nowrap ">
+                                                    <Link
+                                                        className=""
+                                                        to={`/member/myquestion/detail?qaid=${data.id}`}
+                                                    >
+                                                        <img
+                                                            src={detail_img}
+                                                            alt=""
+                                                        />
+                                                        查看詳細
+                                                    </Link>
+                                                </td>
+                                            </tr>
+                                        );
+                                    }
+                                )}
                             </tbody>
                         </table>
                     </div>
