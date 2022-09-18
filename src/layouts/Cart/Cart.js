@@ -16,11 +16,10 @@ function Cart() {
     if (shoppingCart.length === 0) {
         setShopCartState(false);
     }
+    //copy
     let newShoppingCart = shoppingCart.map((item) => {
         return { ...item };
     });
-
-    // console.log('shoppingCartPrice', shoppingCartPrice);
 
     function handleRemoveItem(itemId) {
         //取得localStorage內容

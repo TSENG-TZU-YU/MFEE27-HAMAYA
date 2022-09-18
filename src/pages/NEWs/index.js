@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { Link } from 'react-router-dom';
 // import { useState } from 'react';
+// import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 // 圖檔
 import NewsBanner from '../../assets/NewsImg/news-banner.jpg';
@@ -17,28 +19,46 @@ import NewsImg8 from '../../assets/NewsImg/news-img8.png';
 import NewsImg9 from '../../assets/NewsImg/news-img9.png';
 import NewsImg10 from '../../assets/NewsImg/news-img10.png';
 
+import NewsActivity from './MusicArticle/components/NewsActivity';
+
 function NEWs(props) {
     //只是在設定avtive的狀態
     const [activeText, setActiveText] = useState(1);
-    //使用抓取id來顯示名字
-    const menuItems = [
-        {
-            id: 1,
-            name: '促銷活動',
-        },
-        {
-            id: 2,
-            name: '活動快訊',
-        },
-        {
-            id: 3,
-            name: '重要通知',
-        },
-        {
-            id: 4,
-            name: '音樂文章',
-        },
-    ];
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        console.log('News', 'useEffect []');
+        console.log('useEffect[]', data);
+        let getNews = async () => {
+            let response = await axios.get('http://localhost:3001/api/news');
+            setData(response.data.news);
+            console.log('useEffect[] after set', data);
+        };
+        getNews();
+    }, []);
+
+    useEffect(() => {
+        console.log('News', 'useEffect [data]');
+    }, [data]);
+    // 使用抓取id來顯示名字
+    // const menuItems = [
+    //     {
+    //         id: 1,
+    //         name: '促銷活動',
+    //     },
+    //     {
+    //         id: 2,
+    //         name: '活動快訊',
+    //     },
+    //     {
+    //         id: 3,
+    //         name: '重要通知',
+    //     },
+    //     {
+    //         id: 4,
+    //         name: '音樂文章',
+    //     },
+    // ];
     return (
         <>
             <div className="">
@@ -155,146 +175,28 @@ function NEWs(props) {
 
             <div className="container">
                 <div className="row text-center ">
-                    {menuItems.map((value) => {
+                    {/* 連接資料庫的article_category */}
+                    {data.map((news, index) => {
                         return (
                             <button
                                 className={
-                                    activeText === value.id
+                                    activeText === news.id
                                         ? 'col-3 News-word3  News-vector5-Btn-active'
                                         : 'col-3 News-word3  News-vector5-Btn'
                                 }
-                                key={Math.random()
-                                    .toString(36)
-                                    .replace('0.', '')}
+                                key={index}
                                 onClick={() => {
-                                    setActiveText(value.id);
+                                    setActiveText(news.id);
                                 }}
                             >
                                 <span className=" News-word3 ">
-                                    {value.name}
+                                    {news.name}
                                 </span>
                             </button>
                         );
                     })}
-                    {/* <button className="">
-                        <span className=" News-word3 ">促銷活動</span>
-                    </button> */}
-
-                    {/* <button className="">
-                        <span className=" News-word3 ">活動快訊</span>
-                    </button>
-
-                    <button className="col-3 News-word3  News-vector5-Btn">
-                        重要通知
-                    </button>
-                    <button className="col-3 News-word3  News-vector5-Btn">
-                        音樂文章
-                    </button> */}
-                </div>
-            </div>
-            <div className="container ">
-                <div className="row  News-articles">
-                    <div className="col-12 col-md-4 ">
-                        <div className="mt-4 ">
-                            <img
-                                src={NewsImg5}
-                                alt="art02"
-                                width="100%"
-                                height="100%"
-                                className="News-imgs"
-                            />
-                            <span className="gary-dark-color h6 News-cursor-pinter mt-2">
-                                買樂器就交給最專業的HAMAYA吧！
-                                <div className=" d-flex mt-2 ">
-                                    <p className="News-music-article4 small">
-                                        促銷活動
-                                    </p>
-                                    <p className="ms-2">May － 2022/08/20</p>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
-                    <div className="col-12 col-md-4  ">
-                        <div className="mt-4">
-                            <img
-                                src={NewsImg6}
-                                alt="art02"
-                                width="100%"
-                                height="100%"
-                                className="News-imgs"
-                            />
-                            <span className="gary-dark-color h6 News-cursor-pinter mt-2 ">
-                                樂時代～報名課程拿好康 Let's Music！
-                                <div className="d-flex mt-2 ">
-                                    <p className="News-music-article4 small News-label">
-                                        促銷活動
-                                    </p>
-                                    <p className="ms-2">May － 2022/08/20</p>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
-                    <div className="col-12 col-md-4  ">
-                        <div className="mt-4">
-                            <img
-                                src={NewsImg7}
-                                alt="art02"
-                                width="100%"
-                                height="100%"
-                                className="News-imgs"
-                            />
-                            <span className="gary-dark-color h6 News-cursor-pinter mt-2">
-                                學員專屬生日活動！
-                                <div className="d-flex mt-2 ">
-                                    <p className="News-music-article4 small News-label">
-                                        促銷活動
-                                    </p>
-                                    <p className="ms-2">May － 2022/08/20</p>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
-                    <div className="col-md-4 col-12">
-                        <div className="mt-2">
-                            <img
-                                src={NewsImg8}
-                                alt="art02"
-                                width="100%"
-                                height="100%"
-                                className="News-imgs"
-                            />
-                            <span className="gary-dark-color h6 News-cursor-pinter me-1 mt-2">
-                                買樂器就交給最專業的HAMAYA吧！
-                                <div className="d-flex mt-2 ">
-                                    <p className="News-music-article4 small">
-                                        促銷活動
-                                    </p>
-                                    <p className="ms-2">May － 2022/08/20</p>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
-                    <div className="col-md-4 col-12">
-                        <div className="mt-2">
-                            <img
-                                src={NewsImg9}
-                                alt="art02"
-                                width="100%"
-                                height="100%"
-                                className="News-imgs"
-                            />
-                            <span className="gary-dark-color h6 News-cursor-pinter me-1 mt-2 ">
-                                樂時代～報名課程拿好康 Let's Music！
-                                <div className="d-flex mt-2 ">
-                                    <p className="News-music-article4 small">
-                                        促銷活動
-                                    </p>
-                                    <p className="ms-2">May － 2022/08/20</p>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
-                    <div className="col-md-4 col-12">
+                    <NewsActivity />
+                    {/* <div className="col-md-4 col-12">
                         <div className="mt-2">
                             <img
                                 src={NewsImg10}
@@ -313,20 +215,36 @@ function NEWs(props) {
                                 </div>
                             </span>
                         </div>
-                        <div className="container News-more-art ">
-                            <Link
-                                to="section"
-                                className="mb-0 me-1 cursor-pinter"
-                            >
-                                看更多音樂文章
-                            </Link>
-                            <img
-                                className="News-art-arrow"
-                                style={{ width: '15px', height: '15px' }}
-                                src={arrow}
-                                alt="arrow"
-                            />
-                        </div>
+                    </div> */}
+
+                    <div className="container News-more-art ">
+                        {data.map((news, index) => {
+                            return (
+                                <Link
+                                    to="section"
+                                    className={
+                                        activeText === news.id
+                                            ? 'mb-0 me-1 cursor-pinter  News-vector5-Btn-active'
+                                            : 'mb-0 me-1 cursor-pinter  News-vector5-Btn'
+                                    }
+                                    key={index}
+                                    onClick={() => {
+                                        setActiveText(news.id);
+                                    }}
+                                >
+                                    看更多{news.name}
+                                    <img
+                                        className="News-art-arrow"
+                                        style={{
+                                            width: '15px',
+                                            height: '15px',
+                                        }}
+                                        src={arrow}
+                                        alt="arrow"
+                                    />
+                                </Link>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
