@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useOutletContext } from 'react-router-dom'; //抓取Outlet的props
+import { Link, useOutletContext, useNavigate } from 'react-router-dom'; //抓取Outlet的props
 import detail_img from '../../../../../assets/svg/detailed.svg';
 import add_img from '../../../../../assets/svg/add.svg';
 import axios from 'axios';
@@ -8,13 +8,15 @@ import { useAuth } from '../../../../../utils/use_auth';
 import _ from 'lodash';
 import { ReactComponent as PrevPageIcon } from '../../../../../assets/svg/prev_page_btn.svg';
 import { ReactComponent as NextPageIcon } from '../../../../../assets/svg/next_page_btn.svg';
+import { v4 as uuidv4 } from 'uuid';
 
 function MyQuestionList(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
+    const navigate = useNavigate();
     const { member } = useAuth();
     const [haveQuestion, setHaveQuestion] = useState(0); //是否有詢問問題
     // const [openAskForm, setOpenAskForm] = useState(false); //開啟詢問表單
-    const [myQuestion, setMyQuestion] = useState([
+    const [myQuestionList, setMyQuestionList] = useState([
         [
             {
                 id: '',
@@ -34,7 +36,7 @@ function MyQuestionList(props) {
 
     // 分頁用
     const [pageNow, setPageNow] = useState(1); // 目前頁號
-    const [perPage, setPerPage] = useState(5); // 每頁多少筆資料
+    const [perPage, setPerPage] = useState(6); // 每頁多少筆資料
     const [pageTotal, setPageTotal] = useState(0); //總共幾頁
 
     useEffect(() => {
@@ -65,7 +67,7 @@ function MyQuestionList(props) {
 
             if (pageList.length > 0) {
                 setPageTotal(pageList.length);
-                setMyQuestion(pageList);
+                setMyQuestionList(pageList);
                 setHaveQuestion(1);
             }
         } catch (err) {
@@ -183,50 +185,58 @@ function MyQuestionList(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {myQuestion[pageNow - 1].map((data) => {
-                                    return (
-                                        <tr className="cssTable">
-                                            <th scope="row">
-                                                QA00{data.id}
-                                                <br />
-                                                <span className="time">
-                                                    {data.create_time}
-                                                </span>
-                                            </th>
-                                            <td>{data.user_q_category}</td>
-                                            <td>{data.title}</td>
-                                            <td>
-                                                <div className="">
-                                                    <span className="ellipsis">
-                                                        {data.comment}
+                                {myQuestionList[pageNow - 1].map(
+                                    (data, index) => {
+                                        return (
+                                            <tr
+                                                key={uuidv4()}
+                                                className="cssTable"
+                                            >
+                                                <th scope="row">
+                                                    QA00{data.id}
+                                                    <br />
+                                                    <span className="time">
+                                                        {data.create_time}
                                                     </span>
-                                                </div>
-                                            </td>
-                                            <td className="">
-                                                {data.user_reply_state}
-                                            </td>
-                                            <td className="">
-                                                {data.update_time}
-                                            </td>
-                                            <td className="text-nowrap ">
-                                                <a>
-                                                    <img
-                                                        src={detail_img}
-                                                        alt=""
-                                                    />
-                                                    查看詳細
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
+                                                </th>
+                                                <td>{data.user_q_category}</td>
+                                                <td>{data.title}</td>
+                                                <td>
+                                                    <div className="">
+                                                        <span className="ellipsis">
+                                                            {data.comment}
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td className="">
+                                                    {data.user_reply_state}
+                                                </td>
+                                                <td className="">
+                                                    {data.update_time}
+                                                </td>
+                                                <td className="text-nowrap ">
+                                                    <Link
+                                                        className=""
+                                                        to={`/member/myquestion/detail?qaid=${data.id}`}
+                                                    >
+                                                        <img
+                                                            src={detail_img}
+                                                            alt=""
+                                                        />
+                                                        查看詳細
+                                                    </Link>
+                                                </td>
+                                            </tr>
+                                        );
+                                    }
+                                )}
                             </tbody>
                         </table>
                     </div>
                     {/* 手機板 */}
-                    {myQuestion[pageNow - 1].map((data) => {
+                    {myQuestionList[pageNow - 1].map((data, index) => {
                         return (
-                            <div className="d-block d-lg-none">
+                            <div key={uuidv4()} className="d-block d-lg-none">
                                 <div className="row ">
                                     <div className="col-12 ">
                                         <div className="bg-main-color accent-light-color p-1">
@@ -287,7 +297,9 @@ function MyQuestionList(props) {
                                             </div>
                                         </div>
                                         <div className="main-color text-center p-1 ">
-                                            <Link to="/member/myquestion/detail">
+                                            <Link
+                                                to={`/member/myquestion/detail?qaid=${data.id}`}
+                                            >
                                                 <div className="bg-main-gary-light-color">
                                                     <img
                                                         src={detail_img}
