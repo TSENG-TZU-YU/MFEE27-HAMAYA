@@ -28,7 +28,7 @@ function MyCartTable({
                         />
                         <label
                             className="form-check-label"
-                            for="flexCheckDefault"
+                            htmlFor="flexCheckDefault"
                         >
                             全選
                         </label>

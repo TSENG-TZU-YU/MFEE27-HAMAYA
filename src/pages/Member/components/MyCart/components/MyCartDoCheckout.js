@@ -2,28 +2,80 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../../../../utils/use_auth';
 import { cityData, distData } from '../../MyProfile/location';
+import axios from 'axios';
+import { API_URL } from '../../../../../utils/config';
 function MyCartDoCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
+    // console.log('get member', member);
 
     const [myCartInfo, setMyCartInfo] = useState({
-        fullName: member.fullName,
+        receiver: member.fullName,
         phone: member.phone,
-        city: member.city,
-        dist: member.dist,
-        address: member.address,
         freight: 0,
+        city: '',
+        dist: '',
+        address: '',
         coupon: 0,
+        coupon_id: 'coupon_id',
     });
 
     function getMyCartInfo(e) {
         setMyCartInfo({ ...myCartInfo, [e.target.name]: e.target.value });
     }
+    // function getMyCartCou(e) {
+    //     console.log(e.target.selectedIndex); //抓得到option順序
+    // }
 
-    function setSaveOrder(saveOrderInfo) {
-        console.log('click in to Checkout', saveOrderInfo);
-        console.log('order product Detail', myCart);
+    async function setSaveOrder(saveOrderInfo) {
+        // console.log('click in to Checkout', saveOrderInfo);
+        // console.log('order product Detail', myCart);
+        //確保是否登入
+        if (member !== null && member.id !== '') {
+            //串要傳資料庫的內容 前端驗證資訊是否填妥
+            if (saveOrderInfo.receiver === '') {
+                alert('請填寫收件人姓名');
+                return;
+            }
+            if (saveOrderInfo.phone === '') {
+                alert('請填寫收件人電話');
+                return;
+            }
+            if (saveOrderInfo.city === '' && saveOrderInfo.dist === '') {
+                alert('請填寫完整地址');
+                return;
+            }
+            if (saveOrderInfo.address === '') {
+                alert('請填寫完整地址');
+                return;
+            }
+            if (saveOrderInfo.freight === 0) {
+                alert('請選擇運費');
+                return;
+            }
+
+            let newSaveOrderInfo = [
+                {
+                    user_id: member.id,
+                    ...saveOrderInfo,
+                    pay_method: 1,
+                    product_detail: myCart,
+                },
+            ];
+            // console.log(newSaveOrderInfo);
+
+            async function getOrderInfo() {
+                let response = await axios.post(
+                    `${API_URL}/member/myorder`,
+                    newSaveOrderInfo
+                );
+                alert(
+                    `訂單編號：${response.data.order_id} & ${response.data.message}`
+                );
+                // console.log(response.data);
+            }
+            getOrderInfo();
+        }
     }
-
 
     return (
         <>
@@ -35,7 +87,7 @@ function MyCartDoCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                 </div>
                 <div className="d-flex align-items-center py-2">
                     <div className="col-auto px-2">
-                        <label for="" className="main-color col-form-label">
+                        <label htmlFor="" className="main-color col-form-label">
                             收件人姓名
                         </label>
                     </div>
@@ -43,14 +95,14 @@ function MyCartDoCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                         <input
                             type="text"
                             id=""
-                            name="fullName"
+                            name="receiver"
                             className="form-control"
                             onChange={getMyCartInfo}
-                            value={myCartInfo.fullName}
+                            value={myCartInfo.receiver}
                         />
                     </div>
                     <div className="col-auto px-2">
-                        <label for="" className="main-color col-form-label">
+                        <label htmlFor="" className="main-color col-form-label">
                             聯絡電話
                         </label>
                     </div>
@@ -103,7 +155,11 @@ function MyCartDoCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                                         return (
                                             <option
                                                 key={index}
-                                                value={data.dist}
+                                                value={
+                                                    data.number +
+                                                    ',' +
+                                                    data.dist
+                                                }
                                             >
                                                 {data.dist}
                                             </option>
@@ -117,6 +173,7 @@ function MyCartDoCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                 <div className="ps-2 d-flex align-items-center pt-2">
                     <input
                         type="text"
+                        placeholder="請填寫地址"
                         id=""
                         name="address"
                         value={myCartInfo.address}
@@ -144,7 +201,6 @@ function MyCartDoCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                             <select
                                 className="form-select"
                                 name="freight"
-                                id=""
                                 onChange={getMyCartInfo}
                             >
                                 <option value="">請選擇運費</option>
@@ -202,10 +258,11 @@ function MyCartDoCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                     <button
                         className="w-100 btn btn-primary p-0 mt-2"
                         onClick={() => {
-                            //TODO:要送order資料庫
+                            //要送order資料庫
+                            //TODO:(1)如果可以做是否結帳詢問的確認訊息 (2)串接信用卡
                             setSaveOrder({
-                                myCartInfo: myCartInfo,
-                                myCartTotal:
+                                ...myCartInfo,
+                                total_amount:
                                     myCartPrice +
                                     Number(myCartInfo.freight) -
                                     Number(myCartInfo.coupon),
