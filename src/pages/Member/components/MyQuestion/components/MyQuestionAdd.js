@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
-
 
 function MyQuestionAdd(props) {
     const navigate = useNavigate();
@@ -31,7 +30,7 @@ function MyQuestionAdd(props) {
                 title: '',
                 comment: '',
             });
-            navigate('/member/myquestion')
+            navigate('/member/myquestion');
             // setOpenAskForm(false);
             alert(response.data.message);
         } catch (err) {
@@ -102,9 +101,9 @@ function MyQuestionAdd(props) {
                 <button className="btn1" onClick={asksubmit}>
                     進行提問
                 </button>
-                <button type="button" className="btn2" >
-                    <Link to="/member/myquestion" className="text-light">取消</Link>
-                </button>
+                <Link to="/member/myquestion" className="text-light btn2">
+                    取消
+                </Link>
             </form>
         </div>
     );

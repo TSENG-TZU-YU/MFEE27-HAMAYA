@@ -54,6 +54,10 @@ import MyQuestionList from './pages/Member/components/MyQuestion/components/MyQu
 import MyQuestionAdd from './pages/Member/components/MyQuestion/components/MyQuestionAdd';
 import MyQuestionDetail from './pages/Member/components/MyQuestion/components/MyQuestionDetail';
 
+// MyPlace 次頁面
+import MyPlaceList from './pages/Member/components/MyPlace/components/MyPlaceList';
+import MyPlaceDetail from './pages/Member/components/MyPlace/components/MyPlaceDetail';
+
 function App() {
     //page to top 要用的
     useEffect(() => {
@@ -153,10 +157,16 @@ function App() {
                                             element={<MyQuestionDetail />}
                                         />
                                     </Route>
-                                    <Route
-                                        path="myplace"
-                                        element={<MyPlace />}
-                                    />
+                                    <Route path="myplace" element={<MyPlace />}>
+                                        <Route
+                                            index
+                                            element={<MyPlaceList />}
+                                        />
+                                        <Route
+                                            path="detail"
+                                            element={<MyPlaceDetail />}
+                                        />
+                                    </Route>
                                 </Route>
 
                                 {/* 404未找到的頁面路由，需放在最下方 */}

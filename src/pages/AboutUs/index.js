@@ -84,10 +84,7 @@ function About(props) {
             );
             console.log(response.data);
             setAsk({
-                fullName: '',
                 user_id: '',
-                phone: '',
-                email: '',
                 q_category: '',
                 title: '',
                 comment: '',

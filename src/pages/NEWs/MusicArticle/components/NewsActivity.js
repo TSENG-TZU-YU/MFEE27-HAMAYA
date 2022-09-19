@@ -1,65 +1,81 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import arrow from '../../../../assets/svg/arrow_back_ios_new.svg';
 
-import NewsImg5 from '../../../../assets/NewsImg/news-img5.png';
-// import NewsImg6 from '../../../../assets/NewsImg/news-img6.png';
-// import NewsImg7 from '../../../../assets/NewsImg/news-img7.png';
-// import NewsImg8 from '../../../../assets/NewsImg/news-img8.png';
-// import NewsImg9 from '../../../../assets/NewsImg/news-img9.png';
-// import NewsImg10 from '../../../../assets/NewsImg/news-img10.png';
+function NewsActivity({ data, activeText, menuItems }) {
+    // const [data, setData] = useState([]);
+    // const { data } = props;
+    console.log(data);
+    console.log(menuItems);
+    console.log(activeText);
+    const id = menuItems.filter((v) => v.id === activeText);
+    console.log(id[0].name);
 
-function NewsActivity(props) {
-    const [data, setData] = useState([]);
-    const [news2, setNews2] = useState([]);
+    // useEffect(() => {
+    //     console.log('News', 'useEffect []');
+    //     console.log('useEffect[]', data);
+    //     let getNewsActivity = async () => {
+    //         let response = await axios.get(
+    //             'http://localhost:3001/api/news/section?news=1'
+    //         );
+    //         setData(response.data);
+    //         console.log('useEffect[] after set', data);
+    //     };
+    //     getNewsActivity();
+    // }, []);
 
-    useEffect(() => {
-        console.log('News', 'useEffect []');
-        console.log('useEffect[]', data);
-        let getNews = async () => {
-            let response = await axios.get('http://localhost:3001/api/news');
-            setNews2(response.data.news2);
-            console.log('useEffect[] after set', data);
-        };
-        getNews();
-    }, []);
+    // useEffect(() => {
+    //     console.log('News', 'useEffect [data]');
+    // }, [data]);
 
-    useEffect(() => {
-        console.log('News', 'useEffect [data]');
-    }, [data]);
-
+    // TODO:要修圖片的尺寸大小
     return (
         <>
-            <div>
-                {news2.map((news2, index) => {
-                    return (
-                        <div key={index} className="container">
-                            <div className="row  News-articles ">
-                                <div className="col-4 col-md-4 ">
-                                    <div className="mt-4 ">
-                                        <img
-                                            src={NewsImg5}
-                                            alt="art02"
-                                            width="100%"
-                                            height="100%"
-                                            className="News-imgs"
-                                        />
-                                        <span className="gary-dark-color h6 News-cursor-pinter mt-2">
-                                            {news2.title}
-                                            <div className=" d-flex mt-2 ">
-                                                <p className="News-music-article4 small">
-                                                    {news2.name}
-                                                </p>
-                                                <p className="ms-2">
-                                                    {news2.creation_dat}
-                                                </p>
-                                            </div>
-                                        </span>
-                                    </div>
+            <div className="container">
+                <div className="row  News-articles ">
+                    {data.map((activity, index) => {
+                        return (
+                            <div key={index} className="col-12 col-md-4 ">
+                                <div className="mt-4 ">
+                                    <img
+                                        src={require(`../../../../album/article/${activity.image}`)}
+                                        alt="art02"
+                                        width="100%"
+                                        className="News-imgs"
+                                    />
+                                    <span className="gary-dark-color h6 News-cursor-pinter mt-2">
+                                        {activity.title}
+                                        <div className=" d-flex mt-2 ">
+                                            <p className="News-music-article4 small">
+                                                {activity.categoryName}
+                                            </p>
+                                            <p className="ms-2">
+                                                {activity.creation_date}
+                                            </p>
+                                        </div>
+                                    </span>
                                 </div>
                             </div>
-                        </div>
-                    );
-                })}
+                        );
+                    })}
+                </div>
+            </div>
+            <div className="container News-more-art ">
+                <Link
+                    to={`section?categoryId=${activeText}`}
+                    className="mb-0 me-1 cursor-pinter"
+                >
+                    看更多{id[0].name}
+                    <img
+                        className="News-art-arrow"
+                        style={{
+                            width: '15px',
+                            height: '15px',
+                        }}
+                        src={arrow}
+                        alt="arrow"
+                    />
+                </Link>
             </div>
         </>
     );
