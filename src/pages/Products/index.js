@@ -292,7 +292,6 @@ function Products() {
     };
 
     // 比較
-    //取得localStorage內容
     let compareLocal = JSON.parse(localStorage.getItem('compare'));
     // 存入比較的商品資料
     const [compareProduct, setCompareProduct] = useState(compareLocal);
@@ -302,10 +301,18 @@ function Products() {
         localStorage.setItem('compare', JSON.stringify(newCompareLocal));
     };
     function getCompare(compareItem) {
+        if (!localStorage.getItem('compare')) {
+            localStorage.setItem('compare', JSON.stringify([]));
+            setCompareProduct([]);
+        }
+        let newCompareItem = [];
+        //取得localStorage內容
         // 確認有沒有重複，有重複則不加入
-        let newCompareItem = compareProduct.find((value) => {
+        // if (compareLocal !== null) {
+        newCompareItem = compareProduct.find((value) => {
             return value.product_id === compareItem.product_id;
         });
+        // }
         if (!newCompareItem) {
             // 存入比較的商品資料
             setNewCompareLocal([{ ...compareItem }, ...compareProduct]);
@@ -313,6 +320,32 @@ function Products() {
             setCompareProduct([{ ...compareItem }, ...compareProduct]);
         }
     }
+
+    // // 比較
+    // //取得localStorage內容
+    // // let compareLocal = JSON.parse(localStorage.getItem('compare'));
+    // // 存入比較的商品資料
+    // const [compareProduct, setCompareProduct] = useState([]);
+    // // 存localStorage
+    // const setNewCompareLocal = (newCompareLocal) => {
+    //     //塞資料進去
+    //     localStorage.setItem('compare', JSON.stringify(newCompareLocal));
+    // };
+    // function getCompare(compareItem) {
+    //     // if (!localStorage.getItem('compare')) {
+    //     //     localStorage.getItem('compare');
+    //     // }
+    //     // 確認有沒有重複，有重複則不加入
+    //     let newCompareItem = compareProduct.find((value) => {
+    //         return value.product_id === compareItem.product_id;
+    //     });
+    //     if (!newCompareItem) {
+    //         // 存入比較的商品資料
+    //         setNewCompareLocal([{ ...compareItem }, ...compareProduct]);
+    //         // 存localStorage
+    //         setCompareProduct([{ ...compareItem }, ...compareProduct]);
+    //     }
+    // }
 
     // 登入狀態
     const { member, setMember, isLogin, setIsLogin } = useAuth();
@@ -734,6 +767,10 @@ function Products() {
                                                     上架日期：
                                                     {product.create_time}
                                                 </p>
+                                                <p className="product-name border-top pt-2">
+                                                    品牌：
+                                                    {product.brandName}
+                                                </p>
                                             </div>
                                         </div>
                                     );
@@ -758,7 +795,10 @@ function Products() {
                 </div>
 
                 {/* 商品比較 btn */}
-                <CompareBtn toggleProductCompare={toggleProductCompare} />
+                <CompareBtn
+                    toggleProductCompare={toggleProductCompare}
+                    compareProduct={compareProduct}
+                />
             </Container>
             {/* 比較頁顯示 */}
             {productCompare ? (

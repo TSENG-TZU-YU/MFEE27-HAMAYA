@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import compareBtn from '../../../assets/ProductsImg/icon/compare_btn.svg';
 
 function CompareBtn(props) {
-    const { toggleProductCompare } = props;
-    // 加入比較的商品數量
-    let compareCount = JSON.parse(localStorage.getItem('compare')).length;
+    const { toggleProductCompare, compareProduct } = props;
+    const [compareCount, setCompareCount] = useState(compareProduct.length);
+    useEffect(() => {
+        setCompareCount(compareProduct.length);
+    }, [compareProduct]);
     return (
         <>
             <img
