@@ -123,17 +123,17 @@
 }
 .MyCoupon .btn1:hover{
     /* color: #ffff; */
-    background-color: #289fb9;
-    border: 2px solid #289fb9;
+    /* background-color: #289fb9; */
+    /* border: 2px solid #289fb9; */
 }
 .MyCoupon .link01{
-    padding: 5px;
+    /* padding: 5px; */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    align-items:flex-end ;
 }
 .MyCoupon .link01:hover{
-    border-bottom: 2px solid #00323d;
+    /* border: 2px solid #00323d; */
 }
 .MyCoupon .btn2{
     font-size: 14px;
