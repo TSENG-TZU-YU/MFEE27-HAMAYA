@@ -89,7 +89,7 @@ function Home(props) {
 
                 <div className="container pushed-wrapper home-blank-top2 d-none d-md-block">
                     <div className="row pushed-box4 pushed-box5">
-                        <Link Link className="" to="class">
+                        <Link className="" to="class">
                             <span className="item-word3">音樂教育</span>
                             <img
                                 src={Vector25}
