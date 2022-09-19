@@ -151,17 +151,19 @@ function Product() {
     };
 
     function getCheck(itemInfo) {
-        console.log('get Member', member);
+        // console.log('get Member', member);
+        // console.log('itemInfo', itemInfo);
         //確認有沒有重複
         let newItemInfo = shoppingCart.find((v) => {
             return v.product_id === itemInfo.product_id;
         });
+
         if (!newItemInfo) {
-            // //臨時購物車
-            // setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
-            //localStorage
+            //臨時購物車
+            setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            //localStorage;
             setNewLocal([{ ...itemInfo }, ...shoppingCart]);
-            //判斷是否為登入
+            //判斷是否為登入;
             if (member !== null && member.id !== '') {
                 let getNewLocal = JSON.parse(
                     localStorage.getItem('shoppingCart')
@@ -176,7 +178,7 @@ function Product() {
                         amount: item.amount,
                     };
                 });
-                // console.log('itemsData', itemsData);
+                console.log('itemsData', itemsData);
                 //寫進資料庫
                 setItemsData(itemsData);
                 async function setItemsData(itemsData) {
@@ -197,7 +199,7 @@ function Product() {
                     }
                 }
             }
-            //臨時購物車
+            //臨時購物車;
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
         }
     }
@@ -223,7 +225,6 @@ function Product() {
                     {/* 品名、規格、數量、購買 */}
                     <Col lg={6}>
                         {product.map((value, index) => {
-                            console.log('詳細頁裡的product', product);
                             return (
                                 <div
                                     className="d-flex flex-column m-3 text-start"
@@ -354,7 +355,7 @@ function Product() {
                                                         value.product_id,
                                                     category_id:
                                                         value.category_id,
-                                                    image: value.image,
+                                                    image: productImgs[0],
                                                     name: value.name,
                                                     amount: 1,
                                                     price: value.price,
