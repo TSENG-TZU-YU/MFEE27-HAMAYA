@@ -119,20 +119,17 @@ function Product() {
     const setNewCompareLocal = (newCompareLocal) => {
         //塞資料進去
         localStorage.setItem('compare', JSON.stringify(newCompareLocal));
-        setCompareProduct([]);
     };
+    if (!localStorage.getItem('compare')) {
+        localStorage.setItem('compare', JSON.stringify([]));
+        setCompareProduct([]);
+    }
     function getCompare(compareItem) {
-        if (!localStorage.getItem('compare')) {
-            localStorage.setItem('compare', JSON.stringify([]));
-        }
         let newCompareItem = [];
-        //取得localStorage內容
         // 確認有沒有重複，有重複則不加入
-        // if (compareLocal !== null) {
-            newCompareItem = compareProduct.find((value) => {
-                return value.product_id === compareItem.product_id;
-            });
-        // }
+        newCompareItem = compareProduct.find((value) => {
+            return value.product_id === compareItem.product_id;
+        });
         if (!newCompareItem) {
             // 存入比較的商品資料
             setNewCompareLocal([{ ...compareItem }, ...compareProduct]);
