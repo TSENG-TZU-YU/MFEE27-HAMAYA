@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
+import { useAuth } from '../../../../../utils/use_auth';
+import { API_URL } from '../../../../../utils/config';
 import { ReactComponent as OrderFinish } from '../../../../../assets/svg/order_status_finish.svg';
 import { ReactComponent as OrderUndone } from '../../../../../assets/svg/order_status_undone.svg';
 import { ReactComponent as OK } from '../../../../../assets/svg/ok.svg';
@@ -6,7 +9,15 @@ import { ReactComponent as Message } from '../../../../../assets/svg/message.svg
 import productImg from '../../../../../album/products/FP-90-3.png';
 import classPic from '../../../../../assets/ClassImg/Adult img.png';
 import './MyOrderDetail.scss';
+
 function MyOrderDetail() {
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    useEffect(() => {
+        async function getMyOrderDetail() {
+            let response = await axios.get(`${API_URL}/member/myorder`);
+        }
+    });
+
     return (
         <div className="col-12 col-md-8 col-lg-9">
             {/*此className為RWD設定請勿更動*/}

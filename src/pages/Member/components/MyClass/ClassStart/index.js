@@ -1,56 +1,72 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
-// 圖檔
-import Adult_img from '../../../../../assets/ClassImg/Adult img.png';
-import message from '../../../../../assets/svg/message.svg';
+import './index.scss';
+import { API_URL } from '../../../../../utils/config';
+import axios from 'axios';
+import { useAuth } from '../../../../../utils/use_auth';
 
 function ClassStart(props) {
+    const [data, setData] = useState([]);
+    const [buyClass, setBuyClass] = useState([]);
+    // 取得會員 ID 資料
+    const { member } = useAuth();
+    useEffect(() => {
+        let getAdultClass = async () => {
+            let response = await axios.get(
+                `${API_URL}/member/myclass/${member.id}`
+            );
+            setData(response.data.data);
+            setBuyClass(response.data.buyClass);
+            console.log('data', data);
+            console.log('buyClass', buyClass);
+            // TODO: 當該課程ID=已評價過的課程ID
+        };
+        getAdultClass();
+    }, []);
     return (
         <div>
             <Link to="detailed">
-                <div className="introduce row mx-2  mb-5 class-shadow text-start">
-                    <img
-                        className="col-lg-4  px-0"
-                        src={Adult_img}
-                        alt="Adult img"
-                        style={{ minWidth: '130px' }}
-                    />
-                    <div className="col-lg-8  mt-3 ">
-                        <h6 className="ms-1 mb-2 " style={{ color: '#00323d' }}>
-                            藍調與爵士鋼琴的獨奏技巧與應用
-                        </h6>
-                        <div className="vector2 me-2"></div>
-                        <div className=" mt-2 row">
-                            <p className="col-md-6 mb-0 ">
-                                開課時間：2022/10/19 - 2022/12/10
-                            </p>
-                            <p className="col-md-6 mb-0 ">師資：XXX老師</p>
+                {buyClass.map((buyClass) => {
+                    return (
+                        <div
+                            key={buyClass.id}
+                            className="introduce row mx-2  mb-5 class-shadow text-start"
+                        >
+                            <img
+                                className="col-lg-4  px-0  buyClassImg"
+                                src={require(`../../../../../album/class/${buyClass.image_1}`)}
+                                alt="Adult img"
+                            />
+                            <div className="col-lg-8  mt-3 ">
+                                <h6
+                                    className="ms-1 mb-2 "
+                                    style={{ color: '#00323d' }}
+                                >
+                                    {buyClass.name}
+                                </h6>
+                                <div className="vector2 me-2"></div>
+                                <div className=" mt-2">
+                                    <p className=" mb-0 ">
+                                        開課時間：{buyClass.start_date} -
+                                        {buyClass.end_date}
+                                    </p>
+                                    <p className=" mb-0 mt-2">
+                                        師資： {buyClass.teacher}老師
+                                    </p>
 
-                            <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-2 ">
-                                <p
-                                    className=" fw-bold "
-                                    style={{ color: '#5b322f' }}
-                                >
-                                    NT $2,500 / 期
-                                </p>
-                                <button
-                                    className="btn d-flex pb-0 border-0"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                    }}
-                                >
-                                    <img
-                                        className="me-1"
-                                        src={message}
-                                        alt="message"
-                                    />
-                                    <p>課程諮詢</p>
-                                </button>
+                                    <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-2 ">
+                                        <p
+                                            className=" fw-bold pt-1"
+                                            style={{ color: '#5b322f' }}
+                                        >
+                                            NT $ {buyClass.price} / 期
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    );
+                })}
             </Link>
         </div>
     );

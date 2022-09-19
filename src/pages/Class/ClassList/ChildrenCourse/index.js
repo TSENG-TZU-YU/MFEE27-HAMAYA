@@ -3,6 +3,7 @@ import '../AdultCourse/index.scss';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { API_URL } from '../../../../utils/config';
 
 // 分頁
 import _ from 'lodash';
@@ -33,9 +34,7 @@ function ChildrenCourse({
 
     useEffect(() => {
         let getAdultClass = async () => {
-            let response = await axios.get(
-                `http://localhost:3001/api/class/list?class=2`
-            );
+            let response = await axios.get(`${API_URL}/class/list?class=2`);
             setProducts(response.data);
             setDisplayProducts(response.data);
             // 從前端取得總頁數 (lastPage)
