@@ -63,7 +63,7 @@ function Place(props) {
                 setIsLogin(true);
                 setMember(response.data);
                 setMemberLogin(true);
-                setEditRent(true)
+                setEditRent(true);
                 setRent({
                     ...rent,
                     fullName: response.data.fullName,
@@ -98,13 +98,10 @@ function Place(props) {
             );
             console.log(response.data);
             setRent({
-                fullName: '',
                 user_id: '',
                 date: '',
-                phone: '',
                 time: '',
                 usercount: '0',
-                email: '',
                 item: '0',
                 comment: '',
             });
@@ -508,7 +505,7 @@ function Place(props) {
                         </div>
                         <div className="col-12 col-md-6 my-2">
                             <p className="d-flex m-0">
-                                使用日期*
+                                預計租借日期*
                                 <span className="error">{renterros.date}</span>
                             </p>
                             <input
@@ -536,7 +533,7 @@ function Place(props) {
                         </div>
                         <div className="col-12 col-md-6 my-2">
                             <p className="d-flex m-0">
-                                使用時間*
+                                預計租借時間*
                                 <span className="error">{renterros.time}</span>
                             </p>
                             <input
