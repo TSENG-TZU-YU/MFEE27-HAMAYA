@@ -11,7 +11,7 @@ function PaginationBar(props) {
                 <div
                     className="pagination-btn cursor-pointer"
                     onClick={() => {
-                        setPageNow(pageNow - 1);
+                        setPageNow(pageNow === 1 ? pageNow : pageNow - 1);
                     }}
                 >
                     <FiChevronLeft />
@@ -36,7 +36,9 @@ function PaginationBar(props) {
                 <div
                     className="pagination-btn cursor-pointer"
                     onClick={() => {
-                        setPageNow(pageNow + 1);
+                        setPageNow(
+                            pageNow === pageTotal ? pageNow : pageNow + 1
+                        );
                     }}
                 >
                     <FiChevronRight />

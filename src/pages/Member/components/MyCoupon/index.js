@@ -4,12 +4,9 @@ import './index.css';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import add_img2 from '../../../../assets/svg/add2.svg';
-import { AiOutlineSend } from 'react-icons/ai';
 import { BiLinkExternal } from 'react-icons/bi';
 import _ from 'lodash';
-import { ReactComponent as PrevPageIcon } from '../../../../assets/svg/prev_page_btn.svg';
-import { ReactComponent as NextPageIcon } from '../../../../assets/svg/next_page_btn.svg';
-// import next_page_icon from './next_page_btn.svg';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 function MyCoupon(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
@@ -99,13 +96,13 @@ function MyCoupon(props) {
     const paginationBar = (
         <div className="member_pagination d-flex justify-content-center align-items-center">
             <Link
-                className="mx-2"
+                className="page_number"
                 to=""
                 onClick={() => {
                     pageNow > 1 && setPageNow(pageNow - 1);
                 }}
             >
-                <PrevPageIcon />
+                <FiChevronLeft />
             </Link>
             {Array(pageTotal)
                 .fill(1)
@@ -116,8 +113,8 @@ function MyCoupon(props) {
                             to=""
                             className={
                                 i + 1 === pageNow
-                                    ? 'mx-2 page_number active '
-                                    : 'mx-2 page_number'
+                                    ? 'page_number active '
+                                    : 'page_number'
                             }
                             onClick={() => {
                                 setPageNow(i + 1);
@@ -128,19 +125,26 @@ function MyCoupon(props) {
                     );
                 })}
             <Link
-                className="mx-2"
+                className="page_number"
                 to=""
                 onClick={() => {
                     pageNow < pageTotal && setPageNow(pageNow + 1);
                 }}
             >
-                <NextPageIcon />
+                <FiChevronRight />
             </Link>
         </div>
     );
     return (
         <div className="col-12 col-md-8 col-lg-9 MyCoupon">
-            <h4 className="main-color m-1">我的優惠券</h4>
+           
+            <div className="d-flex">
+            <h4 className="main-color mx-1">我的優惠券</h4>
+                <Link to="/products" className="link01  ">
+                    去商城逛逛&nbsp;
+                    <BiLinkExternal size="20" />
+                </Link>
+            </div>
             <div className="d-flex justify-content-between m-1 mt-4">
                 <div className="d-flex align-items-center">
                     <input
@@ -155,12 +159,6 @@ function MyCoupon(props) {
                         <img alt="add_img" src={add_img2} />
                         新增優惠券
                     </button>
-                </div>
-                <div className="d-flex justify-content-center align-items-center">
-                    <Link to="/products" className="link01">
-                        去商城逛逛&nbsp;
-                        <AiOutlineSend size="20" />
-                    </Link>
                 </div>
             </div>
             {haveCoupon === 1 ? (

@@ -12,7 +12,7 @@ function Cart() {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
-    //如果臨時購物車商品為0 則關閉
+    //臨時購物車商品為0 則關閉
     if (shoppingCart.length === 0) {
         setShopCartState(false);
     }
@@ -20,7 +20,8 @@ function Cart() {
     let newShoppingCart = shoppingCart.map((item) => {
         return { ...item };
     });
-
+    console.log('shoppingCart', shoppingCart);
+    //移除臨時購物車商品
     function handleRemoveItem(itemId) {
         //取得localStorage內容
         let shoppingCartLocal = JSON.parse(
@@ -109,14 +110,24 @@ function Cart() {
                                     .toString(36)
                                     .replace('3.', '')}
                             >
-                                {/* <img
-                                    className="shoppingCartItemImg mx-3"
-                                    src={require(`../../album/products/${item.image}`)}
-                                    alt=""
-                                /> */}
+                                {item.category_id === 'A' && (
+                                    <img
+                                        className="shoppingCartItemImg mx-3"
+                                        src={require(`../../album/products/${item.image}`)}
+                                        alt=""
+                                    />
+                                )}
+                                {item.category_id === 'B' && (
+                                    <img
+                                        className="shoppingCartItemImg mx-3"
+                                        src={require(`../../album/class/${item.image_1}`)}
+                                        alt=""
+                                    />
+                                )}
+
                                 <div className="d-flex flex-column">
                                     <span className="small main-color mb-5">
-                                        {item.name + ' & ' + item.product_id}
+                                        {item.name}
                                     </span>
                                     <span className="small gary-dark-color">
                                         數量:{1}

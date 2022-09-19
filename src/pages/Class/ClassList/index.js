@@ -22,6 +22,7 @@ import filterIcon from '../../../assets/svg/filter_alt.svg';
 import sort from '../../../assets/svg/sort.svg';
 import search from '../../../assets/svg/search.svg';
 import arrowDown from '../../../assets/ProductsImg/icon/arrow_down.svg';
+import { TbMusicOff } from 'react-icons/tb';
 
 function ClassList(props) {
     // 課程 Toggled
@@ -538,9 +539,7 @@ function ClassList(props) {
                 {/* 商品排序區塊 end */}
             </div>
             {/* 篩選 end*/}
-
             {/* <SliderAntd /> */}
-
             {/* 課程選擇 toggle */}
             <Row className="text-center mt-md-5 pt-5 mb-5 ">
                 <button
@@ -592,6 +591,22 @@ function ClassList(props) {
                 </button>
             </Row>
             {/* 課程選擇 toggle  end*/}
+            {pageProducts.length === 0 ? (
+                <div style={{ height: '50vh' }}>
+                    <h4 className="mt-5 d-flex w-100 h-100 main-gary-light-color text-center justify-content-center align-items-center">
+                        <TbMusicOff
+                            style={{
+                                width: '30px',
+                                height: '30px',
+                            }}
+                        />
+                        無符合條件商品
+                    </h4>
+                </div>
+            ) : (
+                ''
+            )}
+
             {/* 課程選擇 頁面*/}
             {selectCourse ? (
                 <AdultCourse
