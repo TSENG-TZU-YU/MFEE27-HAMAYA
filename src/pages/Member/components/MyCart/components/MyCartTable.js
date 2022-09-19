@@ -7,96 +7,80 @@ import '../MyCart.scss';
 import MyCartProduct from './MyCartProduct';
 import MyCartClass from './MyCartClass';
 
-function MyCartTable({ myCart, setMyCart }) {
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
-    // const [myCart, setMyCart] = useState(null);
-    const [myCartA, setMyCartA] = useState();
-    const [myCartB, setMyCartB] = useState();
-    const id = member.id;
-    useEffect(() => {
-        async function getMyCart() {
-            try {
-                let response = await axios.get(`${API_URL}/cart/${id}`);
-                // console.log('mycart table', response.data);
-                // console.log(
-                //     'mycart response mycart',
-                //     response.data.myCart.length
-                // );
-                let items_amount = response.data.myCart.length;
-                if (items_amount) {
-                    setMyCart(response.data.myCart);
-
-                    //分類別
-                    let myCartList = response.data.myCart;
-                    const myCart_cateA = myCartList.filter((v) => {
-                        return v.category_id === 'A';
-                    });
-                    // console.log('myCartA in table filter', myCart_cateA);
-                    setMyCartA(myCart_cateA);
-                    const myCart_cateB = myCartList.filter((v) => {
-                        return v.category_id === 'B';
-                    });
-                    setMyCartB(myCart_cateB);
-
-                    return;
-                }
-            } catch (err) {
-                console.log('錯誤', err.response.data.message);
-            }
-        }
-        getMyCart();
-    }, [setMyCart]);
-
+function MyCartTable({
+    myCart,
+    setMyCart,
+    myCartA,
+    setMyCartA,
+    myCartB,
+    setMyCartB,
+}) {
     return (
         <>
-            <table className="table m-0 myCartTable">
-                <thead>
-                    <tr className="text-center accent-light-color bg-main-color">
-                        <th className="myCartThWidth">樂器商城</th>
-                        <th className="w-25">商品名稱</th>
-                        <th>價格</th>
-                        <th>數量</th>
-                        <th>小計</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {/* {console.log('myCartA in table', myCartA)} */}
-                    {myCartA ? (
+            <div className="p-2">
+                <div className="row col-lg-5 align-items-center ">
+                    <div class="col-3 d-inline-flex justify-content-evenly form-check">
+                        <input
+                            className="form-check-input"
+                            type="checkbox"
+                            value=""
+                            id="flexCheckDefault"
+                        />
+                        <label
+                            className="form-check-label"
+                            htmlFor="flexCheckDefault"
+                        >
+                            全選
+                        </label>
+                    </div>
+                    <button className="btn btn-primary col mx-2 p-0 text-nowrap">
+                        移除品項
+                    </button>
+                    <button className="btn btn-primary col mx-2 p-0 text-nowrap">
+                        加入收藏
+                    </button>
+                </div>
+            </div>
+            <div>
+                <table className="table m-0 myCartTable">
+                    <thead>
+                        <tr className="text-center accent-light-color bg-main-color">
+                            <th className="myCartThWidth">樂器商城</th>
+                            <th className="w-25">商品名稱</th>
+                            <th>價格</th>
+                            <th>數量</th>
+                            <th>小計</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <MyCartProduct
                             myCart={myCart}
                             setMyCart={setMyCart}
                             myCartA={myCartA}
                             setMyCartA={setMyCartA}
                         />
-                    ) : (
-                        ''
-                    )}
-                </tbody>
-            </table>
-            <table className="table m-0 myCartTable myCartTableClass">
-                <thead>
-                    <tr className="text-center accent-light-color bg-main-color">
-                        <th className="myCartThWidth">音樂教育</th>
-                        <th className="w-25">商品名稱</th>
-                        <th>價格</th>
-                        <th>數量</th>
-                        <th>小計</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {/* {console.log('myCartB in table', myCartB)} */}
-                    {myCartB ? (
+                    </tbody>
+                </table>
+                <table className="table m-0 myCartTable myCartTableClass">
+                    <thead>
+                        <tr className="text-center accent-light-color bg-main-color">
+                            <th className="myCartThWidth">音樂教育</th>
+                            <th className="w-25">商品名稱</th>
+                            <th>價格</th>
+                            <th>數量</th>
+                            <th>小計</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <MyCartClass
                             myCart={myCart}
                             setMyCart={setMyCart}
                             myCartB={myCartB}
                             setMyCartB={setMyCartB}
                         />
-                    ) : (
-                        ''
-                    )}
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </>
     );
 }

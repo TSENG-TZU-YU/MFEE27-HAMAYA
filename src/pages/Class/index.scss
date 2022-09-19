@@ -26,11 +26,12 @@
     border-top: 1px solid $main-gary-light;
     width: 100%;
 }
-@media screen and (min-width: 1405px) {
-    .blank-art-left {
-        margin-left: -35px;
-    }
-}
+
+// @media screen and (min-width: 1405px) {
+//     .blank-art-left {
+//         margin-left: -35px;
+//     }
+// }
 
 .important {
     width: 70px;
@@ -105,14 +106,12 @@
     bottom: 0;
     left: -10px;
     object-fit: cover;
-
 }
 .decorate2 {
     position: absolute;
     bottom: 0;
     right: 0;
     object-fit: cover;
-
 }
 .decorate3 {
     position: absolute;

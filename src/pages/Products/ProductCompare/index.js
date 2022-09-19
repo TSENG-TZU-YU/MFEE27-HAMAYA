@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 // 樣式
 import './index.scss';
@@ -7,270 +9,216 @@ import './index.scss';
 import { Container } from 'react-bootstrap';
 
 // 圖檔
-import product from '../../../assets/ProductsImg/product.png';
-import Close from '../../../assets/svg/close.svg';
-import Delete from '../../../assets/ProductsImg/icon/delete.svg';
-import cartCheck from '../../../assets/ProductsImg/icon/shopping_cart_check_gary_dark.svg';
+import { ReactComponent as Close } from '../../../assets/svg/close.svg';
+import { ReactComponent as Delete } from '../../../assets/svg/delete.svg';
+import { ReactComponent as CartCheck } from '../../../assets/svg/shopping_cart_check.svg';
+import { TbMusicOff } from 'react-icons/tb';
 
-function ProductCompare({ setProductCompare }) {
+function ProductCompare(props) {
+    const { compareProduct, setCompareProduct, setProductCompare } = props;
+    const [compareTags, setCompareTags] = useState('1');
+    function handleRemoveItem(itemId) {
+        //移除
+        let removeItem = compareProduct.filter((item) => {
+            return item.product_id !== itemId;
+        });
+        //存回localStorage
+        localStorage.setItem('compare', JSON.stringify(removeItem));
+        setCompareProduct(removeItem);
+    }
+    function handleClear() {
+        //清空
+        // localStorage.removeItem('compare');
+        localStorage.setItem('compare', JSON.stringify([]));
+        setCompareProduct([]);
+    }
+    // console.log(compareProduct);
+    const handleCompare = (compareProduct, compareTags) => {
+        let newCompareProduct = [...compareProduct];
+        // 價格排序 低 > 高
+        if (compareTags === '1') {
+            newCompareProduct = [...newCompareProduct].sort(
+                (a, b) => a.price - b.price
+            );
+        }
+        // 時間排序 新 > 舊
+        if (compareTags === '2') {
+            newCompareProduct = [...newCompareProduct].sort((a, b) =>
+                b.create_time.localeCompare(a.create_time)
+            );
+        }
+        setCompareProduct(newCompareProduct);
+    };
+
+    useEffect(() => {
+        handleCompare(compareProduct, compareTags);
+    }, [compareTags]);
+
     return (
-        <div className="productCompare-popup-bg">
+        <div className="productCompare__popup-bg">
             <Container>
-                <div className="productCompare-box bg-accent-light-color main-color m-3 fw-bold p-3 m-4">
+                <div className="productCompare__box bg-accent-light-color fw-bold p-4">
                     <div className="d-flex justify-content-between">
-                        <h4 className="main-color">比較結果</h4>
-                        <button
-                            className="closeBtn"
-                            onClick={() => {
-                                setProductCompare(false);
-                            }}
-                        >
-                            <img src={Close} alt="close" />
+                        <div className="d-flex">
+                            <h4 className="main-color fw-bold">比較結果</h4>
+                            <div
+                                className={
+                                    compareTags === '1'
+                                        ? 'bg-main-color productCompare__Tags text-center mx-3 cursor-pinter'
+                                        : 'bg-main-light-color productCompare__Tags text-center mx-3 cursor-pinter'
+                                }
+                                onClick={(e) => {
+                                    setCompareTags('1');
+                                }}
+                            >
+                                <p className="accent-light-color">價格最低</p>
+                            </div>
+                            <div
+                                className={
+                                    compareTags === '2'
+                                        ? 'bg-main-color productCompare__Tags text-center me-3 cursor-pinter'
+                                        : 'bg-main-light-color productCompare__Tags text-center me-3 cursor-pinter'
+                                }
+                                onClick={(e) => {
+                                    setCompareTags('2');
+                                }}
+                            >
+                                <p className="accent-light-color">最新上架</p>
+                            </div>
+                            <div
+                                className="productCompare__Tags bg-accent-color text-center cursor-pinter"
+                                onClick={() => {
+                                    handleClear();
+                                }}
+                            >
+                                <p className="accent-light-color">清空</p>
+                            </div>
+                        </div>
+                        <button className="closeBtn">
+                            <Close
+                                className="cursor-pointer"
+                                onClick={() => {
+                                    setProductCompare(false);
+                                }}
+                            />
                         </button>
                     </div>
-                    <table className="table">
-                        <thead>
-                            <tr className="productCompare-tr">
-                                <th></th>
-                                <th>
-                                    <img src={product} alt="product" />
-                                </th>
-                                <th>
-                                    <img src={product} alt="product" />
-                                </th>
-                                <th>
-                                    <img src={product} alt="product" />
-                                </th>
-                                <th>
-                                    <img src={product} alt="product" />
-                                </th>
-                                <th>
-                                    <img src={product} alt="product" />
-                                </th>
-                                <th>
-                                    <img src={product} alt="product" />
-                                </th>
-                            </tr>
-                            <tr className="productCompare-tr">
-                                <th nowrap="nowrap">品名/型號</th>
-                                <th>YAMAHA U系列 U1</th>
-                                <th>YAMAHA U系列 U1</th>
-                                <th>YAMAHA U系列 U1</th>
-                                <th>YAMAHA U系列 U1</th>
-                                <th>YAMAHA U系列 U1</th>
-                                <th>YAMAHA U系列 U1</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr className="productCompare-tr">
-                                <td>售價</td>
-                                <td className="accent-color fs-5 fw-bold productCompare-letter-spacing">
-                                    NT $5,000
-                                </td>
-                                <td className="accent-color fs-5 fw-bold productCompare-letter-spacing">
-                                    NT $5,000
-                                </td>
-                                <td className="accent-color fs-5 fw-bold productCompare-letter-spacing">
-                                    NT $5,000
-                                </td>
-                                <td className="accent-color fs-5 fw-bold productCompare-letter-spacing">
-                                    NT $5,000
-                                </td>
-                                <td className="accent-color fs-5 fw-bold productCompare-letter-spacing">
-                                    NT $5,000
-                                </td>
-                                <td className="accent-color fs-5 fw-bold productCompare-letter-spacing">
-                                    NT $5,000
-                                </td>
-                            </tr>
-                            <tr className="productCompare-tr">
-                                <td>品牌</td>
-                                <td>YAMAHA</td>
-                                <td>YAMAHA</td>
-                                <td>YAMAHA</td>
-                                <td>YAMAHA</td>
-                                <td>YAMAHA</td>
-                                <td>YAMAHA</td>
-                            </tr>
-                            <tr className="productCompare-tr">
-                                <td>規格</td>
-                                <td>
-                                    長度 151公分 / 寬度 146 公分 / 高度 99 公分
-                                </td>
-                                <td>
-                                    長度 151公分 / 寬度 146 公分 / 高度 99 公分
-                                </td>
-                                <td>
-                                    長度 151公分 / 寬度 146 公分 / 高度 99 公分
-                                </td>
-                                <td>
-                                    長度 151公分 / 寬度 146 公分 / 高度 99 公分
-                                </td>
-                                <td>
-                                    長度 151公分 / 寬度 146 公分 / 高度 99 公分
-                                </td>
-                                <td>
-                                    長度 151公分 / 寬度 146 公分 / 高度 99 公分
-                                </td>
-                            </tr>
-                            <tr className="productCompare-tr">
-                                <td>顏色</td>
-                                <td>
-                                    <div className="d-flex p-0">
-                                        <div className="products-filter-color-box color"></div>
+                    <div className="d-flex my-3">
+                        <div className="productCompare__titles">
+                            <div className="productCompare__height"></div>
+                            <div className="productCompare__list border-bottom ">
+                                <p className="main-color">型號 / 品名</p>
+                            </div>
+                            <div className="productCompare__list border-bottom ">
+                                <p className="main-color">售價</p>
+                            </div>
+                            <div className="productCompare__list border-bottom ">
+                                <p className="main-color">品牌</p>
+                            </div>
+                            <div className="productCompare__list productCompare__list-height border-bottom ">
+                                <p className="main-color">規格</p>
+                            </div>
+                            <div className="productCompare__list border-bottom ">
+                                <p className="main-color">顏色</p>
+                            </div>
+                            <div className="productCompare__list productCompare__list-height border-bottom "></div>
+                        </div>
+                        {compareProduct.length === 0 ? (
+                            <h4 className="mt-5 d-flex w-100 main-gary-light-color text-center justify-content-center align-items-center">
+                                <TbMusicOff
+                                    style={{
+                                        width: '30px',
+                                        height: '30px',
+                                    }}
+                                />
+                                目前沒有商品可以比較
+                            </h4>
+                        ) : (
+                            ''
+                        )}
+                        <div className="productCompare__item-box">
+                            {compareProduct.map((value, index) => {
+                                return (
+                                    <div
+                                        className={
+                                            index === 0
+                                                ? 'productCompare__item productCompare__item-active'
+                                                : 'productCompare__item'
+                                        }
+                                        key={uuidv4()}
+                                    >
+                                        <Link
+                                            to={`/products/${value.product_id}?main_id=${value.mainId}`}
+                                            onClick={() => {
+                                                setProductCompare(false);
+                                            }}
+                                        >
+                                            <div className="productCompare__list-img">
+                                                <img
+                                                    className="img-fluid"
+                                                    src={require(`../../../album/products/${value.image}`)}
+                                                    alt="product"
+                                                />
+                                            </div>
+                                        </Link>
+                                        <div className="productCompare__list border-bottom">
+                                            <Link
+                                                to={`/products/${value.product_id}?main_id=${value.mainId}`}
+                                                onClick={() => {
+                                                    setProductCompare(false);
+                                                }}
+                                                className="text-nowrap main-color fw-bold h5"
+                                            >
+                                                {value.name}
+                                            </Link>
+                                        </div>
+                                        <div className="productCompare__list border-bottom">
+                                            <h6 className="accent-color fw-bold">
+                                                NT ${value.price}
+                                            </h6>
+                                        </div>
+                                        <div className="productCompare__list border-bottom">
+                                            <p>{value.brand}</p>
+                                        </div>
+                                        <div className="productCompare__list productCompare__list-height border-bottom">
+                                            <p className="text-wrap">
+                                                {value.spec}
+                                            </p>
+                                        </div>
+                                        <div className="productCompare__list border-bottom">
+                                            <div
+                                                className="products-filter-color-box"
+                                                style={{
+                                                    backgroundColor: `${value.color}`,
+                                                }}
+                                            ></div>
+                                        </div>
+                                        <div className="productCompare__list productCompare__list-height  border-bottom">
+                                            <CartCheck
+                                                style={{
+                                                    width: '25px',
+                                                    height: '25px',
+                                                }}
+                                                className="me-5 cursor-pointer"
+                                            />
+                                            <Delete
+                                                style={{
+                                                    width: '30px',
+                                                    height: '30px',
+                                                }}
+                                                className="cursor-pointer"
+                                                onClick={() => {
+                                                    handleRemoveItem(
+                                                        value.product_id
+                                                    );
+                                                }}
+                                            />
+                                        </div>
                                     </div>
-                                </td>
-                                <td>
-                                    <div className="d-flex p-0">
-                                        <div className="products-filter-color-box color"></div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="d-flex p-0">
-                                        <div className="products-filter-color-box color"></div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="d-flex p-0">
-                                        <div className="products-filter-color-box color"></div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="d-flex p-0">
-                                        <div className="products-filter-color-box color"></div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="d-flex p-0">
-                                        <div className="products-filter-color-box color"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr className="productCompare-tr">
-                                <td></td>
-                                <td>
-                                    <img
-                                        style={{
-                                            width: '25px',
-                                            height: '25px',
-                                        }}
-                                        src={cartCheck}
-                                        alt="cartCheck"
-                                        className="me-4 cursor-pointer"
-                                    />
-                                    <img
-                                        style={{
-                                            width: '30px',
-                                            height: '30px',
-                                        }}
-                                        src={Delete}
-                                        alt="delete"
-                                        className="cursor-pointer"
-                                    />
-                                </td>
-                                <td>
-                                    <img
-                                        style={{
-                                            width: '25px',
-                                            height: '25px',
-                                        }}
-                                        src={cartCheck}
-                                        alt="cartCheck"
-                                        className="me-4 cursor-pointer"
-                                    />
-                                    <img
-                                        style={{
-                                            width: '30px',
-                                            height: '30px',
-                                        }}
-                                        src={Delete}
-                                        alt="delete"
-                                        className="cursor-pointer"
-                                    />
-                                </td>
-                                <td>
-                                    <img
-                                        style={{
-                                            width: '25px',
-                                            height: '25px',
-                                        }}
-                                        src={cartCheck}
-                                        alt="cartCheck"
-                                        className="me-4 cursor-pointer"
-                                    />
-                                    <img
-                                        style={{
-                                            width: '30px',
-                                            height: '30px',
-                                        }}
-                                        src={Delete}
-                                        alt="delete"
-                                        className="cursor-pointer"
-                                    />
-                                </td>
-                                <td>
-                                    <img
-                                        style={{
-                                            width: '25px',
-                                            height: '25px',
-                                        }}
-                                        src={cartCheck}
-                                        alt="cartCheck"
-                                        className="me-4 cursor-pointer"
-                                    />
-                                    <img
-                                        style={{
-                                            width: '30px',
-                                            height: '30px',
-                                        }}
-                                        src={Delete}
-                                        alt="delete"
-                                        className="cursor-pointer"
-                                    />
-                                </td>
-                                <td>
-                                    <img
-                                        style={{
-                                            width: '25px',
-                                            height: '25px',
-                                        }}
-                                        src={cartCheck}
-                                        alt="cartCheck"
-                                        className="me-4 cursor-pointer"
-                                    />
-                                    <img
-                                        style={{
-                                            width: '30px',
-                                            height: '30px',
-                                        }}
-                                        src={Delete}
-                                        alt="delete"
-                                        className="cursor-pointer"
-                                    />
-                                </td>
-                                <td>
-                                    <img
-                                        style={{
-                                            width: '25px',
-                                            height: '25px',
-                                        }}
-                                        src={cartCheck}
-                                        alt="cartCheck"
-                                        className="me-4 cursor-pointer"
-                                    />
-                                    <img
-                                        style={{
-                                            width: '30px',
-                                            height: '30px',
-                                        }}
-                                        src={Delete}
-                                        alt="delete"
-                                        className="cursor-pointer"
-                                    />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                );
+                            })}
+                        </div>
+                    </div>
                 </div>
             </Container>
         </div>
