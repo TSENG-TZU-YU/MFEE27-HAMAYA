@@ -1,6 +1,7 @@
 import React from 'react';
 import '../MyCart.scss';
 import axios from 'axios';
+import { useEffect } from 'react';
 import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
 import { useCart } from '../../../../../utils/use_cart';
@@ -12,7 +13,7 @@ import { RiSubtractFill } from 'react-icons/ri';
 function MyCartProduct({ myCart, setMyCart, myCartA, setMyCartA }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
 
-    //進行刪除及時更新
+    //進行刪除
     async function handleRemoveItem(itemId) {
         console.log('click');
         if (member !== null && member.id !== '') {
@@ -34,10 +35,11 @@ function MyCartProduct({ myCart, setMyCart, myCartA, setMyCartA }) {
                 let newMyCartAfterDelete = newMyCart.filter((item) => {
                     return item.product_id !== itemId;
                 });
-                //set狀態回去 TODO:AB再調整
+                //set狀態回去
                 const myCart_cateA = newMyCartAfterDelete.filter((v) => {
                     return v.category_id === 'A';
                 });
+                // console.log('myCart_cateA', myCart_cateA);
                 setMyCartA(myCart_cateA);
                 setMyCart(newMyCartAfterDelete);
             };
@@ -48,6 +50,7 @@ function MyCartProduct({ myCart, setMyCart, myCartA, setMyCartA }) {
         <>
             {myCartA.map((item) => {
                 let itemPriceTotal = item.amount * item.price;
+
                 return (
                     <tr key={item.product_id}>
                         <td data-title="樂器商城" align="center">

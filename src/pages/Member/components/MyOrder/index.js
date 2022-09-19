@@ -10,7 +10,7 @@ import { ReactComponent as Detailed } from '../../../../assets/svg/detailed.svg'
 import { ReactComponent as Message } from '../../../../assets/svg/message.svg';
 import './MyOrder.scss';
 
-function MyOrder(props) {
+function MyOrder() {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
     const { member, setMember, isLogin, setIsLogin } = useAuth();
 
@@ -23,8 +23,7 @@ function MyOrder(props) {
             let response = await axios.get(
                 `${API_URL}/member/myorder/${member.id}`
             );
-            console.log('response', response.data.myOrder);
-
+            // console.log('response', response.data.myOrder);
             //找order_id
             let order_id = response.data.myOrder.map((item) => item.order_id);
             //過濾重複的
@@ -36,8 +35,7 @@ function MyOrder(props) {
                     return item.order_id === id;
                 });
             });
-
-            console.log('order_id noRepeat', order_id, noRepeat, newResponse);
+            // console.log('order_id noRepeat', order_id, noRepeat, newResponse);
             setMyOrder(newResponse);
         }
         getMyOrder();
@@ -72,11 +70,20 @@ function MyOrder(props) {
                         return (
                             <tr key={order.order_id}>
                                 <td>
-                                    <img
-                                        className="myOrder-Img myOrder-contain"
-                                        src={require(`../../../../album/products/${order.image}`)}
-                                        alt=""
-                                    />
+                                    {order.category_id === 'A' && (
+                                        <img
+                                            className="myOrder-Img myOrder-contain"
+                                            src={require(`../../../../album/products/${order.image}`)}
+                                            alt=""
+                                        />
+                                    )}
+                                    {order.category_id === 'B' && (
+                                        <img
+                                            className="myOrder-Img myOrder-contain"
+                                            src={require(`../../../../album/class/${order.image_1}`)}
+                                            alt=""
+                                        />
+                                    )}
                                 </td>
                                 {/* 這一個td 是只會在手機板出現 */}
                                 <td
