@@ -5,9 +5,6 @@ import { API_URL } from '../../utils/config';
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 // 套件
 import { Container } from 'react-bootstrap';
 
@@ -27,7 +24,6 @@ import FilterBar from './components/FilterBar';
 import MobileFilterBar from './components/MobileFilterBar';
 import PaginationBar from '../../components/PaginationBar/PaginationBar';
 import CompareBtn from './components/CompareBtn';
-import Toast from '../../components/Toast';
 
 // 元件 FilterNav
 import SearchBar from '../../components/SearchBar';
@@ -120,7 +116,6 @@ function Products() {
             let response = await axios.get(
                 `${API_URL}/products?mainId=${mainId}&subId=${subId}`
             );
-            // TODO: 再撈品牌資料product item中顯示
             response.data.color.unshift({ color: '' });
             response.data.brand.forEach((e) => (e.checked = false));
             setBrandTags(response.data.brand);
@@ -294,7 +289,7 @@ function Products() {
         }
         setCategoryToggled(!categoryToggled);
     };
-    const notify = () => toast('成功加入比較!');
+
     // 比較
     let compareLocal = JSON.parse(localStorage.getItem('compare'));
     // 存入比較的商品資料
@@ -319,7 +314,6 @@ function Products() {
             setNewCompareLocal([{ ...compareItem }, ...compareProduct]);
             // 存localStorage
             setCompareProduct([{ ...compareItem }, ...compareProduct]);
-            notify();
         }
     }
 
@@ -775,9 +769,6 @@ function Products() {
                     toggleProductCompare={toggleProductCompare}
                     compareProduct={compareProduct}
                 />
-                <div>
-                    <ToastContainer />
-                </div>
             </Container>
             {/* 比較頁顯示 */}
             {productCompare ? (
