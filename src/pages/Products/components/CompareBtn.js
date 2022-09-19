@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { RiContactsBookLine } from 'react-icons/ri';
 import compareBtn from '../../../assets/ProductsImg/icon/compare_btn.svg';
 
 function CompareBtn(props) {
-    const { toggleProductCompare } = props;
-    // 加入比較的商品數量
-    let compareCount = JSON.parse(localStorage.getItem('compare')).length;
+    const { toggleProductCompare, compareProduct } = props;
+    const [compareCount, setCompareCount] = useState(0);
+    const getCompareCoun = () => {
+        if (compareProduct !== null) {
+            setCompareCount(compareProduct.length);
+        }
+    };
+    useEffect(() => {
+        getCompareCoun();
+    }, [compareProduct]);
     return (
         <>
             <img
