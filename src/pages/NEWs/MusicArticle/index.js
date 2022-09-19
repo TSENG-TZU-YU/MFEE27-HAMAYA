@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.scss';
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 // 圖檔
 import NewsBanner from '../../../assets/NewsImg/news-banner.jpg';
@@ -15,6 +16,8 @@ import NewsImg17 from '../../../assets/NewsImg/news-img17.png';
 
 import arrow from '../../../assets/svg/arrow_back_ios_new.svg';
 function MusicArticle(props) {
+    const { articleId } = useParams();
+    console.log('stock-id', articleId);
     return (
         <>
             <img src={NewsBanner} alt="banner" className="img-fluid" />
