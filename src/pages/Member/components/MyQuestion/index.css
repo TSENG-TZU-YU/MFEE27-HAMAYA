@@ -77,8 +77,8 @@
     border: 0;
 }
 .myQuestion_form .btn2{
-    width: 100px;
-    height: 40px;
+    padding: 10px 40px;
+
     background-color: #5b322f;
     color: #ffff;
     border: 0;
