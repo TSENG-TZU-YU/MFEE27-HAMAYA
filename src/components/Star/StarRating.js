@@ -3,8 +3,7 @@ import './StarRating.css';
 import { AiFillStar } from 'react-icons/ai';
 // import { AiOutlineStar } from 'react-icons/ai';
 
-function StarRating() {
-    const [rating, setRating] = useState(0);
+function StarRating({ evaluationChange, rating, setRating }) {
     const [hover, setHover] = useState(null);
 
     return (
@@ -23,6 +22,7 @@ function StarRating() {
                                         e.preventDefault();
                                         setRating(ratingValue);
                                     }}
+                                    onChange={evaluationChange}
                                 />
                                 <AiFillStar
                                     className={`fa-star ${

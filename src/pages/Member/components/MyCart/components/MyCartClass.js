@@ -16,7 +16,6 @@ function MyCartClass({ myCart, setMyCart, myCartB, setMyCartB }) {
 
     //進行刪除及時更新
     async function handleRemoveItem(itemId) {
-        console.log('click');
         if (member !== null && member.id !== '') {
             //讀資料庫 進行刪除 還必須確認資料庫有無東西
             let setItemDataDelete = async () => {

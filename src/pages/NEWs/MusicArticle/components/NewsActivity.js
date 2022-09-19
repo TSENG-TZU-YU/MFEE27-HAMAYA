@@ -61,8 +61,9 @@ function NewsActivity({ data, activeText, menuItems }) {
                 </div>
             </div>
             <div className="container News-more-art ">
+                {/* 帶假資料的值到下一頁MusicArticle */}
                 <Link
-                    to={`section?categoryId=${activeText}`}
+                    to={`section?categoryList=${activeText}`}
                     className="mb-0 me-1 cursor-pinter"
                 >
                     看更多{id[0].name}

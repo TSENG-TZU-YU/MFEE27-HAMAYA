@@ -15,11 +15,6 @@ function Car({ itemsCart }) {
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
 
-    function handleAddShop(e) {
-        // console.log('加入購物車');
-        // console.log(classAdult.id);
-    }
-
     //存localStorage
     const setNewLocal = (newLocal) => {
         //塞資料進去
@@ -84,7 +79,6 @@ function Car({ itemsCart }) {
             onClick={(e) => {
                 setShopCartState(true);
                 e.preventDefault();
-                handleAddShop();
                 getCheck(itemsCart);
                 console.log('itemsCart', itemsCart);
             }}

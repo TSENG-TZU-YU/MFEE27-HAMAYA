@@ -3,6 +3,7 @@ import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import './index.scss';
+import { API_URL } from '../../utils/config';
 
 import { Link } from 'react-router-dom';
 
@@ -32,7 +33,7 @@ function Class(props) {
 
     useEffect(() => {
         let getAdultClass = async () => {
-            let response = await axios.get(`http://localhost:3001/api/class`);
+            let response = await axios.get(`${API_URL}/class`);
             setData(response.data.teacher);
             setArticle(response.data.article);
             setArticle1(response.data.article1);

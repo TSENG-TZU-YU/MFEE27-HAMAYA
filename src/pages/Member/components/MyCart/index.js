@@ -6,10 +6,9 @@ import MyCartDoCheckout from './components/MyCartDoCheckout';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { useAuth } from '../../../../utils/use_auth';
-function MyCart(props) {
+function MyCart() {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
     const { member, setMember, isLogin, setIsLogin } = useAuth();
-    
 
     //全部購物車
     const [myCart, setMyCart] = useState([]);
@@ -19,12 +18,12 @@ function MyCart(props) {
     const [myCartB, setMyCartB] = useState([]);
     //有資料true,沒資料false
     const [hiddenState, setHiddenState] = useState(false);
-    //金額
-    const [myCartPrice, setMyCartPrice] = useState(0);
 
     useEffect(() => {
         setbread('購物車'); //載入頁面時 設定麵包削
+    }, []);
 
+    useEffect(() => {
         async function getMyCart() {
             try {
                 let response = await axios.get(
@@ -35,7 +34,7 @@ function MyCart(props) {
                 if (items_amount !== 0) {
                     setHiddenState(true);
                     setMyCart(response.data.myCart);
-                    console.log(response.data.myCart);
+                    // console.log(response.data.myCart);
                     //分類別
                     let myCartList = response.data.myCart;
                     const myCart_cateA = myCartList.filter((v) => {
@@ -46,24 +45,22 @@ function MyCart(props) {
                         return v.category_id === 'B';
                     });
                     setMyCartB(myCart_cateB);
-
-                    //TODO:金額無法即時更新
-                    let myCartListPrice = [];
-                    myCartListPrice = myCartList
-                        .map((v) => {
-                            return v.price;
-                        })
-                        .reduce((prev, curr) => prev + curr);
-                    setMyCartPrice(myCartListPrice);
-                    console.log('myCartListPrice', myCartListPrice);
                 }
             } catch (err) {
-                console.log('錯誤', err);
+                console.log('載入購物車錯誤', err);
             }
         }
         getMyCart();
     }, []);
 
+    //總金額
+    const calcTotalPrice = () => {
+        let total = 0;
+        for (let i = 0; i < myCart.length; i++) {
+            total += Number(myCart[i].amount) * Number(myCart[i].price);
+        }
+        return total;
+    };
     return (
         <div className="col-12 col-md-8 col-lg-9">
             {/*此className為RWD設定請勿更動*/}
@@ -75,8 +72,6 @@ function MyCart(props) {
                     <MyCartTable
                         myCart={myCart}
                         setMyCart={setMyCart}
-                        myCartPrice={myCartPrice}
-                        setMyCartPrice={setMyCartPrice}
                         myCartB={myCartB}
                         setMyCartB={setMyCartB}
                         myCartA={myCartA}
@@ -86,8 +81,10 @@ function MyCart(props) {
                         <MyCartDoCheckout
                             myCart={myCart}
                             setMyCart={setMyCart}
-                            myCartPrice={myCartPrice}
-                            setMyCartPrice={setMyCartPrice}
+                            setMyCartA={setMyCartA}
+                            setMyCartB={setMyCartB}
+                            setHiddenState={setHiddenState}
+                            calcTotalPrice={calcTotalPrice()}
                         />
                     </div>
                 </>

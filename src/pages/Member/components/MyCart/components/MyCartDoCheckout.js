@@ -4,9 +4,16 @@ import { useAuth } from '../../../../../utils/use_auth';
 import { cityData, distData } from '../../MyProfile/location';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
-function MyCartDoCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
+
+function MyCartDoCheckout({
+    myCart,
+    setMyCart,
+    setMyCartA,
+    setMyCartB,
+    setHiddenState,
+    calcTotalPrice,
+}) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
-    // console.log('get member', member);
 
     const [myCartInfo, setMyCartInfo] = useState({
         receiver: member.fullName,
@@ -27,8 +34,6 @@ function MyCartDoCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
     // }
 
     async function setSaveOrder(saveOrderInfo) {
-        // console.log('click in to Checkout', saveOrderInfo);
-        // console.log('order product Detail', myCart);
         //確保是否登入
         if (member !== null && member.id !== '') {
             //串要傳資料庫的內容 前端驗證資訊是否填妥
@@ -52,18 +57,19 @@ function MyCartDoCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                 alert('請選擇運費');
                 return;
             }
+        }
 
-            let newSaveOrderInfo = [
-                {
-                    user_id: member.id,
-                    ...saveOrderInfo,
-                    pay_method: 1,
-                    product_detail: myCart,
-                },
-            ];
-            // console.log(newSaveOrderInfo);
+        let newSaveOrderInfo = [
+            {
+                user_id: member.id,
+                ...saveOrderInfo,
+                pay_method: 1,
+                product_detail: myCart,
+            },
+        ];
 
-            async function setOrderInfo() {
+        async function setOrderInfo() {
+            try {
                 let response = await axios.post(
                     `${API_URL}/member/myorder`,
                     newSaveOrderInfo
@@ -71,10 +77,16 @@ function MyCartDoCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                 alert(
                     `訂單編號：${response.data.order_id} & ${response.data.message}`
                 );
+                setMyCart([]);
+                setMyCartA([]);
+                setMyCartB([]);
+                setHiddenState(false);
                 // console.log(response.data);
+            } catch (err) {
+                console.log('新增訂單錯誤', err);
             }
-            setOrderInfo();
         }
+        setOrderInfo();
     }
 
     return (
@@ -190,7 +202,7 @@ function MyCartDoCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                 </div>
                 <div className="d-flex justify-content-end py-2">
                     <span className="accent-color px-2">總計</span>
-                    <span className="">NT: {myCartPrice}</span>
+                    <span className="">NT: {calcTotalPrice}</span>
                 </div>
                 <div className="d-flex justify-content-end align-items-center py-lg-2">
                     <div className="flex-grow-1 d-flex align-items-center justify-content-between px-2 mx-3">
@@ -247,7 +259,7 @@ function MyCartDoCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                             訂單金額{' '}
                             <span>
                                 NT:{' '}
-                                {myCartPrice +
+                                {calcTotalPrice +
                                     Number(myCartInfo.freight) -
                                     Number(myCartInfo.coupon)}
                             </span>
@@ -263,7 +275,7 @@ function MyCartDoCheckout({ myCart, setMyCart, myCartPrice, setMyCartPrice }) {
                             setSaveOrder({
                                 ...myCartInfo,
                                 total_amount:
-                                    myCartPrice +
+                                    calcTotalPrice +
                                     Number(myCartInfo.freight) -
                                     Number(myCartInfo.coupon),
                             });
