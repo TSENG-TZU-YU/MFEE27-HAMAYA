@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     Link,
     useOutletContext,
@@ -9,9 +10,11 @@ import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
 import { v4 as uuidv4 } from 'uuid';
+import { ReactComponent as Close } from '../../../../../assets/svg/close.svg';
 
 function MyQuestionDetail(props) {
     const [setbread] = useOutletContext();
+    const navigate = useNavigate();
     const location = useLocation();
     const [myQuestion, setMyQuestion] = useState({
         detail: {
@@ -27,7 +30,13 @@ function MyQuestionDetail(props) {
             create_time: '',
             update_time: '',
         },
-        content: [{}],
+        content: [
+            {
+                name: '',
+                create_time: '',
+                q_content: '',
+            },
+        ],
     });
 
     //讀取問答詳細
@@ -91,11 +100,23 @@ function MyQuestionDetail(props) {
 
     return (
         <div className="col-12 col-md-8 col-lg-9 mb-3 MyQuestionDetail">
-            <div className="d-flex align-items-center  my-2">
-                <h4 className="main-color ">問答詳細</h4>
-                <div className="mx-1">
-                    問答編號:QA00{myQuestion.detail.id}&nbsp;
-                    {myQuestion.detail.create_time}
+            <div className="d-flex align-items-center justify-content-between content  my-2">
+                <div>
+                    <h4 className="main-color ">問答詳細</h4>
+                    <div className="">
+                        問答編號:QA00{myQuestion.detail.id}&nbsp;
+                        {myQuestion.detail.create_time}
+                    </div>
+                </div>
+                <div>
+                    <button
+                        className="closebtn"
+                        onClick={() => {
+                            navigate(-1);
+                        }}
+                    >
+                        <Close />
+                    </button>
                 </div>
             </div>
             <div className="content ">

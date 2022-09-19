@@ -1,18 +1,23 @@
 import { useState, useEffect } from 'react';
-import { Link, useOutletContext, useNavigate } from 'react-router-dom'; //抓取Outlet的props
+import {
+    Link,
+    useOutletContext,
+    useLocation,
+    useNavigate,
+} from 'react-router-dom'; //抓取Outlet的props
 import detail_img from '../../../../../assets/svg/detailed.svg';
 import add_img from '../../../../../assets/svg/add.svg';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
 import _ from 'lodash';
-import { ReactComponent as PrevPageIcon } from '../../../../../assets/svg/prev_page_btn.svg';
-import { ReactComponent as NextPageIcon } from '../../../../../assets/svg/next_page_btn.svg';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { v4 as uuidv4 } from 'uuid';
 
 function MyQuestionList(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
     const navigate = useNavigate();
+    const location = useLocation();
     const { member } = useAuth();
     const [haveQuestion, setHaveQuestion] = useState(0); //是否有詢問問題
     // const [openAskForm, setOpenAskForm] = useState(false); //開啟詢問表單
@@ -43,6 +48,15 @@ function MyQuestionList(props) {
         setbread('客服問答'); //載入頁面時 設定麵包削
         loadingMyQuestion();
     }, []);
+
+    useEffect(() => {
+        let params = new URLSearchParams(location.search);
+        let page = params.get('page');
+        console.log('page', page);
+        if (page) {
+            setPageNow(page);
+        }
+    }, [location]);
 
     //讀取我的詢問
     async function loadingMyQuestion() {
@@ -80,13 +94,14 @@ function MyQuestionList(props) {
     const paginationBar = (
         <div className="member_pagination d-flex justify-content-center align-items-center">
             <Link
-                className="mx-2"
-                to=""
-                onClick={() => {
-                    pageNow > 1 && setPageNow(pageNow - 1);
-                }}
+                className="page_number"
+                to={
+                    pageNow > 1
+                        ? `/member/myquestion?page=${Number(pageNow) - 1}`
+                        : `/member/myquestion?page=${Number(pageNow)}`
+                }
             >
-                <PrevPageIcon />
+                <FiChevronLeft />
             </Link>
             {Array(pageTotal)
                 .fill(1)
@@ -94,28 +109,26 @@ function MyQuestionList(props) {
                     return (
                         <Link
                             key={i}
-                            to=""
+                            to={`/member/myquestion?page=${i + 1}`}
                             className={
-                                i + 1 === pageNow
-                                    ? 'mx-2 page_number active '
-                                    : 'mx-2 page_number'
+                                i + 1 === Number(pageNow)
+                                    ? 'page_number active'
+                                    : 'page_number'
                             }
-                            onClick={() => {
-                                setPageNow(i + 1);
-                            }}
                         >
                             {i + 1}
                         </Link>
                     );
                 })}
             <Link
-                className="mx-2"
-                to=""
-                onClick={() => {
-                    pageNow < pageTotal && setPageNow(pageNow + 1);
-                }}
+                className="page_number"
+                to={
+                    pageNow < pageTotal
+                        ? `/member/myquestion?page=${Number(pageNow) + 1}`
+                        : `/member/myquestion?page=${Number(pageNow)}`
+                }
             >
-                <NextPageIcon />
+                <FiChevronRight />
             </Link>
         </div>
     );

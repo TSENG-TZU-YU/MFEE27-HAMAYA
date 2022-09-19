@@ -155,22 +155,32 @@
 .coupon_img {
     width: 100px;
 }
+
+/*頁碼設定*/
 .MyCoupon{
     position: relative;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
 }
-
+.MyQuestion{
+    position: relative;
+    margin-bottom: 50px;
+}
 .member_pagination{
     position: absolute;
-    bottom: -30px;
-    width: 100%;
+    bottom: -40px;
+    width: 97%;
 }
 .member_pagination .page_number{
     color: #6A777A;
-    font-size: 16px;
+    font-size: 14px;
+    padding: 8px 16px;
+    transition: .3s;
+}
+.member_pagination .page_number:hover{
+    background-color: #ddd
 }
 .member_pagination .active{
-    color: #00323d;
-    font-weight: 800;
+    color: white;
+    background-color: #6A777A;
     border: 0;
 }

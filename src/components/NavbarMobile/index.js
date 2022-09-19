@@ -31,6 +31,22 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
         setShowMenu('list');
         setShowBackground('background');
     };
+    async function getMember() {
+        try {
+            console.log('檢查是否登入');
+            let response = await axios.get(`${API_URL}/auth`, {
+                withCredentials: true,
+            });
+            console.log('已登入', response.data);
+            await setIsLogin(true);
+            setMember(response.data);
+            setLoginPopup(false);
+            navigate('/member');
+        } catch (err) {
+            setLoginPopup(true);
+            console.log(err.response.data.message);
+        }
+    }
 
     async function logoutSubmit(e) {
         e.preventDefault();
@@ -96,9 +112,7 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                         <button
                             title="會員專區登入/註冊"
                             className=""
-                            onClick={() => {
-                                setLoginPopup(true);
-                            }}
+                            onClick={getMember}
                         >
                             <img src={users} alt="users" className="menubtn" />
                         </button>
