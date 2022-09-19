@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { Link, useLocation } from 'react-router-dom';
-// import { useState } from 'react';
-// import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
 
@@ -25,8 +23,8 @@ function NEWs(props) {
     const location = useLocation();
 
     //TODO:這是利用useLocation下去抓資料庫的的資料，params是在改變用來改變網址的，
-    //TODO:categoryId是自己設定好的變數後端也是categoryId
- 
+    //categoryId是自己設定好的變數後端也是categoryId
+
     useEffect(() => {
         let params = new URLSearchParams(location.search);
         let categoryId = params.get('categoryId');
@@ -69,116 +67,111 @@ function NEWs(props) {
 
     return (
         <>
-            <div className="">
-                <img src={NewsBanner} alt="banner" className="img-fluid" />
-                {/* 麵包屑 */}
-                <div className="container d-flex mt-5 ">
-                    <Link to="/">
-                        <p className="News-Breadcrumbs">首頁</p>
-                    </Link>
-                    /
-                    <Link to="/class">
-                        <p className="News-Breadcrumbs">最新消息</p>
-                    </Link>
-                </div>
-                {/* 麵包屑 end*/}
-                {/* 最新消息 */}
-                <div className="container d-flex News-blank-top">
-                    <p className="News-word fw-bold News-cursor-pinter me-3 text-nowrap">
-                        最新消息
-                    </p>
-                    <p className="News-word fw-bold News-engText me-3">NEWS</p>
-                    <div className=" mt-3 News-vector3"></div>
-                </div>
+            <img src={NewsBanner} alt="banner" className="img-fluid" />
+            {/* 麵包屑 */}
+            <div className="container d-flex mt-5 ">
+                <Link to="/">
+                    <p className="News-Breadcrumbs">首頁</p>
+                </Link>
+                /
+                <Link to="/class">
+                    <p className="News-Breadcrumbs">最新消息</p>
+                </Link>
+            </div>
+            {/* 麵包屑 end*/}
+            {/* 最新消息 */}
+            <div className="container d-flex News-blank-top">
+                <p className="News-word fw-bold News-cursor-pinter me-3 text-nowrap">
+                    最新消息
+                </p>
+                <p className="News-word fw-bold News-engText me-3">NEWS</p>
+                <div className=" mt-3 News-vector3"></div>
+            </div>
 
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12 col-md-6">
-                            <img
-                                src={NewsImg}
-                                alt="banner"
-                                width="600"
-                                height="100%"
-                                className="img-fluid mt-2"
-                            />
-                            <p className="gary-dark-color h5 News-cursor-pinter mt-3">
-                                【親子點唱機】孟德爾頌《無言歌》為什麼沒有歌詞？
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 col-md-6">
+                        <img
+                            src={NewsImg}
+                            alt="banner"
+                            width="600"
+                            height="100%"
+                            className="img-fluid mt-2"
+                        />
+                        <p className="gary-dark-color h5 News-cursor-pinter mt-3">
+                            【親子點唱機】孟德爾頌《無言歌》為什麼沒有歌詞？
+                        </p>
+                        <div className=" d-flex mt-3 ">
+                            <p className="News-music-article small me-2">
+                                活動快訊
                             </p>
-                            <div className=" d-flex mt-3 ">
-                                <p className="News-music-article small me-2">
-                                    活動快訊
-                                </p>
-                                <p>李明蒨 － 2022/08/20</p>
-                            </div>
+                            <p>李明蒨 － 2022/08/20</p>
                         </div>
-                        <div className="col-12 col-md-6 News-blank-art-left  ">
-                            <div className="d-flex mt-2 ">
-                                <img
-                                    src={NewsImg2}
-                                    alt="art02"
-                                    width="150"
-                                    height="100"
-                                    className=""
-                                />
-                                <span className="gary-dark-color h5 News-cursor-pinter ms-2 ">
-                                    AI執筆完成貝多芬《第十號交響曲》——AI的創作是否享有著作權法的保護？
-                                    <div className=" d-flex mt-2 ">
-                                        <p className="News-music-article2 small  ">
-                                            音樂文章
-                                        </p>
-                                        <p className="ms-3">
-                                            瓦力 － 2022/08/20
-                                        </p>
-                                    </div>
-                                </span>
-                            </div>
-                            <div className="border-top border-secondary border-1 px-3 pt-3 mt-4 mb-3"></div>
-                            <div className="d-flex mt-2 ">
-                                <img
-                                    src={NewsImg3}
-                                    alt="art02"
-                                    width="150"
-                                    height="100"
-                                    className=""
-                                />
-                                <span className="gary-dark-color h5 News-cursor-pinter ms-2 ">
-                                    廣場上的小提琴手
-                                    <div className=" d-flex mt-2 ">
-                                        <p className="News-music-article3 small  ">
-                                            重要通知
-                                        </p>
-                                        <p className="ms-3">
-                                            眾博法律事務所 － 2022/08/20
-                                        </p>
-                                    </div>
-                                </span>
-                            </div>
-                            <div className="border-top border-secondary border-1 mt-4 mb-3"></div>
-                            <div className="d-flex mt-2 ">
-                                <img
-                                    src={NewsImg4}
-                                    alt="art02"
-                                    width="150"
-                                    height="100"
-                                    className=""
-                                />
-                                <span className="gary-dark-color h5 News-cursor-pinter ms-2 ">
-                                    莫札特《費加洛的婚禮》——聰明，反被聰明誤？
-                                    <div className=" d-flex mt-2 ">
-                                        <p className="News-music-article4 small">
-                                            促銷活動
-                                        </p>
-                                        <p className="ms-3">
-                                            邢子青 － 2022/08/20
-                                        </p>
-                                    </div>
-                                </span>
-                            </div>
-                            <div className="border-top border-secondary border-1 mt-4 mb-3"></div>
+                    </div>
+                    <div className="col-12 col-md-6 News-blank-art-left  ">
+                        <div className="d-flex mt-2 ">
+                            <img
+                                src={NewsImg2}
+                                alt="art02"
+                                width="150"
+                                height="100"
+                                className=""
+                            />
+                            <span className="gary-dark-color h5 News-cursor-pinter ms-2 ">
+                                AI執筆完成貝多芬《第十號交響曲》——AI的創作是否享有著作權法的保護？
+                                <div className=" d-flex mt-2 ">
+                                    <p className="News-music-article2 small  ">
+                                        音樂文章
+                                    </p>
+                                    <p className="ms-3">瓦力 － 2022/08/20</p>
+                                </div>
+                            </span>
                         </div>
+                        <div className="border-top border-secondary border-1 px-3 pt-3 mt-4 mb-3"></div>
+                        <div className="d-flex mt-2 ">
+                            <img
+                                src={NewsImg3}
+                                alt="art02"
+                                width="150"
+                                height="100"
+                                className=""
+                            />
+                            <span className="gary-dark-color h5 News-cursor-pinter ms-2 ">
+                                廣場上的小提琴手
+                                <div className=" d-flex mt-2 ">
+                                    <p className="News-music-article3 small  ">
+                                        重要通知
+                                    </p>
+                                    <p className="ms-3">
+                                        眾博法律事務所 － 2022/08/20
+                                    </p>
+                                </div>
+                            </span>
+                        </div>
+                        <div className="border-top border-secondary border-1 mt-4 mb-3"></div>
+                        <div className="d-flex mt-2 ">
+                            <img
+                                src={NewsImg4}
+                                alt="art02"
+                                width="150"
+                                height="100"
+                                className=""
+                            />
+                            <span className="gary-dark-color h5 News-cursor-pinter ms-2 ">
+                                莫札特《費加洛的婚禮》——聰明，反被聰明誤？
+                                <div className=" d-flex mt-2 ">
+                                    <p className="News-music-article4 small">
+                                        促銷活動
+                                    </p>
+                                    <p className="ms-3">邢子青 － 2022/08/20</p>
+                                </div>
+                            </span>
+                        </div>
+                        <div className="border-top border-secondary border-1 mt-4 mb-3"></div>
                     </div>
                 </div>
             </div>
+
             {/* TODO:底線要有距離，還需要再修 */}
 
             <div className="container">
