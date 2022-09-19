@@ -14,7 +14,7 @@ function MyQuestionDetail(props) {
     const [setbread] = useOutletContext();
     const location = useLocation();
     const [myQuestion, setMyQuestion] = useState({
-        myQuestionDetail: {
+        detail: {
             id: '',
             user_id: '',
             name: '',
@@ -27,7 +27,7 @@ function MyQuestionDetail(props) {
             create_time: '',
             update_time: '',
         },
-        
+        content: [{}],
     });
 
     //讀取問答詳細
@@ -59,33 +59,86 @@ function MyQuestionDetail(props) {
     // const myQuestionDetail = myQuestion.fliter((data) => data.id = 2);
     // console.log(myQuestionDetail);
     return (
-        <div className="col-12 col-md-8 col-lg-9  MyQuestionDetail">
-            <div className="d-flex my-2">
+        <div className="col-12 col-md-8 col-lg-9 mb-3 MyQuestionDetail">
+            <div className="d-flex align-items-center  my-2">
                 <h4 className="main-color ">問答詳細</h4>
+                <div className="mx-1">
+                    問答編號:QA00{myQuestion.detail.id}&nbsp;
+                    {myQuestion.detail.create_time}
+                </div>
             </div>
-            <div className="row">
-                <div className="col-12">
-                    問答編號QA00{myQuestion.myQuestionDetail.id}{' '}
-                    {myQuestion.myQuestionDetail.create_time}
+            <div className="content ">
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        問題主旨
+                    </div>
+                    <div className=" col-9 text-center p-1">
+                        {myQuestion.detail.title}
+                    </div>
                 </div>
-                <div className="col-12">
-                    問題主旨{myQuestion.myQuestionDetail.title}{' '}
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        問題類型
+                    </div>
+                    <div className="col-9 text-center  p-1">
+                        {myQuestion.detail.user_q_category}
+                    </div>
                 </div>
-                <div className="col-12">
-                    問題類型{myQuestion.myQuestionDetail.user_q_category}
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        回覆狀態
+                    </div>
+                    <div className="col-9 text-center  p-1">
+                        {myQuestion.detail.user_reply_state}
+                    </div>
                 </div>
-                <div className="col-12">
-                    回覆狀態{myQuestion.myQuestionDetail.user_reply_state}
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        最後更新時間
+                    </div>
+                    <div className="col-9 text-center  p-1">
+                        {myQuestion.detail.update_time}
+                    </div>
                 </div>
-                <div className="col-12">
-                    最後更新時間{myQuestion.myQuestionDetail.update_time}
+                <div className=" text-center text-light bg-main-color p-1 border">
+                    問答內容
                 </div>
-                <div className="col-12">
-                    提問內容
-                    <div></div>
+                <div className="border maincontent p-1">
+                    <div className="">
+                        {myQuestion.content.map((data) => {
+                            return (
+                                <div>
+                                    <p class="text-start m-0">
+                                        <span class=" fs-5 fw-bolder">
+                                            {data.name}
+                                        </span>
+                                        &nbsp;
+                                        <span class="">
+                                            {data.create_time}
+                                        </span>{' '}
+                                    </p>
+                                    <p class="text-start fs-6 m-0">
+                                        {data.q_content}
+                                    </p>
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
-                
-                <div className="col-12">進行回覆</div>
+                <div className="border p-1">
+                    <textarea
+                        className="w-100 textarea"
+                        rows="4"
+                        type="text"
+                        name="comment"
+                        // value={askForm.comment}
+                        // onChange={askFormChange}
+                        placeholder="輸入內容"
+                    />
+                    <button className="text-light bg-main-color p-1 px-5 btn1">
+                        進行回覆
+                    </button>
+                </div>
             </div>
         </div>
     );

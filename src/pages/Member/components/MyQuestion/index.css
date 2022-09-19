@@ -84,3 +84,29 @@
     border: 0;
     margin-left: 10px;
 }
+
+.MyQuestionDetail .content{
+  
+    max-width: 700px;
+}
+
+.MyQuestionDetail .maincontent{
+    min-height: 300px;
+    background-color: rgb(230, 230, 230);
+    /* overflow: auto; */
+}
+.MyQuestionDetail .textarea:focus{
+    border: transparent;
+    /* width: 100%; */
+    outline: 2px solid cornflowerblue;
+}
+.MyQuestionDetail .btn1{
+    border: 0;
+    /* width: 100%; */
+}
+
+@media screen and (max-width:768px) {
+    .MyQuestionDetail .btn1{
+        width: 100%;
+    }
+}
