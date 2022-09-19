@@ -6,7 +6,8 @@ import {
     useNavigate,
 } from 'react-router-dom'; //抓取Outlet的props
 import detail_img from '../../../../../assets/svg/detailed.svg';
-import add_img from '../../../../../assets/svg/add.svg';
+// import add_img from '../../../../../assets/svg/add.svg';
+import { ReactComponent as AddImg } from '../../../../../assets/svg/add.svg';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
@@ -138,11 +139,8 @@ function MyQuestionList(props) {
             <div className="d-flex my-2">
                 <h4 className="main-color ">客服問答</h4>
 
-                <Link
-                    to="/member/myquestion/add"
-                    className="border-0 main-color bg-main-gary-light-color d-flex align-items-center addbtn"
-                >
-                    <img src={add_img} alt="" />
+                <Link to="/member/myquestion/add" className="addbtn">
+                    <AddImg />
                     我要提問
                 </Link>
             </div>
@@ -309,6 +307,7 @@ function MyQuestionList(props) {
                                                 {data.comment}
                                             </div>
                                         </div>
+                                        <hr />
                                         <div className="main-color text-center p-1 ">
                                             <Link
                                                 to={`/member/myquestion/detail?qaid=${data.id}`}
