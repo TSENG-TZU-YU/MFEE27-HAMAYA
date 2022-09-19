@@ -25,18 +25,42 @@
     /*垂直置中*/
     vertical-align: middle;
 }
-.MyQuestion .addbtn{
-    padding: 0 10px;
+.MyQuestion .addbtn{ 
+    color: white;
+    background-color: #00323d;
+    padding: 0 13px 0 5px;
     margin: 0 10px ;
     font-size: 14px;
-    font-weight: 500;
-    /* vertical-align: middle;
-    display: inline-block; */
+    font-weight: 300;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* vertical-align: middle; */
+    /* display: inline-block; */
 }
 
+.MyQuestionAdd .content{
+    max-width: 700px;
+}
+.MyQuestionAdd .closebtn{
+    /* border: 2px solid #00323d; */
+    border: 2px solid #00000000;
+    padding: 0;
+    border-radius: 2px;
+    /* box-shadow:10px 5px 5px black ; */
+    transition: .3s;
+}
+.MyQuestionAdd .closebtn:hover{
+    border: 2px solid #00323d;
+    /* box-shadow:3px 3px 5px rgb(60, 60, 60) ; */
+    /* position: relative; */
+    /* transform: translate(-3px,-3px); */
+    /* shadow: #3c3c3c; */
+}
 .myQuestion_form{
     width: 100%;
-    max-width: 600px;
+    max-width: 700px;
     /* background-color: blueviolet; */
 }
 .myQuestion_form h6{
@@ -66,10 +90,6 @@
     border: 1px solid #767676;
 }
 .myQuestion_form .btn1{
-    width: 100px;
-    height: 40px;
-    background-color: #00323d;
-    color: #ffff;
     border: 0;
 }
 .myQuestion_form .btn2{
@@ -82,7 +102,6 @@
 }
 
 .MyQuestionDetail .content{
-  
     max-width: 700px;
 }
 
@@ -101,18 +120,24 @@
     /* width: 100%; */
 }
 .MyQuestionDetail .closebtn{
-    border: 2px solid #00323d;
-    border-radius: 3px;
-    /* box-shadow:10px 5px 5px black ; */
-    transition: .5s;
+     /* border: 2px solid #00323d; */
+     border: 2px solid #00000000;
+     padding: 0;
+     border-radius: 2px;
+     /* box-shadow:10px 5px 5px black ; */
+     transition: .3s;
 }
 .MyQuestionDetail .closebtn:hover{
-    box-shadow:3px 3px 5px rgb(60, 60, 60) ;
+    border: 2px solid #00323d;
+    /* box-shadow:3px 3px 5px rgb(60, 60, 60) ; */
     /* position: relative; */
-    transform: translate(-3px,-3px);
+    /* transform: translate(-3px,-3px); */
     /* shadow: #3c3c3c; */
 }
 @media screen and (max-width:768px) {
+    .myQuestion_form .btn1{
+        width: 100%;
+    }
     .MyQuestionDetail .btn1{
         width: 100%;
     }

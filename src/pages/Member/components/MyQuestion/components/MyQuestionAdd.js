@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
+import { ReactComponent as Close } from '../../../../../assets/svg/close.svg';
 
 function MyQuestionAdd(props) {
     const navigate = useNavigate();
@@ -49,11 +50,21 @@ function MyQuestionAdd(props) {
         }
     }
     const addQuestion = (
-        <div className="col-12 col-md-8 col-lg-9  MyQuestion">
-            <div className="d-flex my-2">
+        <div className="col-12 col-md-8 col-lg-9  MyQuestionAdd">
+            <div className="d-flex align-items-center justify-content-between content my-1">
                 <h4 className="main-color ">進行提問</h4>
+                <div>
+                    <button
+                        className="closebtn"
+                        onClick={() => {
+                            navigate(-1);
+                        }}
+                    >
+                        <Close />
+                    </button>
+                </div>
             </div>
-            <form className="myQuestion_form">
+            <form className="myQuestion_form mb-2">
                 <label>
                     <h6>問題類型</h6>
                     <select
@@ -94,16 +105,16 @@ function MyQuestionAdd(props) {
                         name="comment"
                         value={askForm.comment}
                         onChange={askFormChange}
-                        placeholder="再次輸入問題內容"
+                        placeholder="請輸入問題內容"
                     />
                 </label>
                 <br />
-                <button className="btn1" onClick={asksubmit}>
+                <button
+                    className="btn1 text-light bg-main-color p-1 px-5 btn1 my-2"
+                    onClick={asksubmit}
+                >
                     進行提問
                 </button>
-                <Link to="/member/myquestion" className="text-light btn2">
-                    取消
-                </Link>
             </form>
         </div>
     );
