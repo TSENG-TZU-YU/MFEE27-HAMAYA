@@ -1,115 +1,144 @@
 import { useState, useEffect } from 'react';
+import {
+    Link,
+    useOutletContext,
+    useNavigateuse,
+    useLocation,
+} from 'react-router-dom';
 import axios from 'axios';
-import { Link, useOutletContext, useNavigate } from 'react-router-dom'; //抓取Outlet的props
 import { API_URL } from '../../../../../utils/config';
-import detail_img from '../../../../../assets/svg/detailed.svg';
 import { useAuth } from '../../../../../utils/use_auth';
+import { v4 as uuidv4 } from 'uuid';
 
-function MyPlaceDetail() {
-    const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
-    useEffect(() => {
-        setbread('場地租借'); //載入頁面時 設定麵包削
-    }, []);
+function MyPlaceDetail(props) {
+    const [setbread] = useOutletContext();
+    const location = useLocation();
+    const [myPlace, setMyMyplace] = useState({
+        detail: {
+            id: '',
+            user_id: '',
+            name: '',
+            email: '',
+            phone: '',
+            item: '',
+            usetime: '',
+            comment: '',
+            user_reply_state: '',
+            create_time: '',
+            update_time: '',
+        },
+        content: [{}],
+    });
 
-    const [data, setdata] = useState([]);
-
-    // 讀取場地表單
-    useEffect(() => {
-        let getPlace = async () => {
+    //讀取問答詳細
+    async function MyPlaceDetail(plid) {
+        try {
             let response = await axios.get(
-                `${API_URL}/member/myplace/loading`,
+                `${API_URL}/member/myplace/detail?plid=${plid}`,
                 {
                     withCredentials: true,
                 }
             );
-            setdata(response.data);
             console.log(response.data);
-        };
-        getPlace();
-    }, []);
 
+            setMyMyplace(response.data);
+        } catch (err) {
+            console.log(err.response.data);
+            alert(err.response.data.message);
+        }
+    }
+
+    useEffect(() => {
+        let params = new URLSearchParams(location.search);
+        let plid = params.get('plid');
+        console.log(plid);
+        MyPlaceDetail(plid);
+        // console.log(myQuestion);
+    }, [location]);
+
+    // const myQuestionDetail = myQuestion.fliter((data) => data.id = 2);
+    // console.log(myQuestionDetail);
     return (
-        <div className="col-12 col-md-8 col-lg-9">
-            <div className="d-none d-lg-block">
-                <div className="d-flex my-2">
-                    <h4 className="main-color ">場地租借</h4>
-                    {/* <Link to="/member/myquestion/detail">
-                        <div className="bg-main-gary-light-color d-flex align-items-center addbtn">
-                            <img src={add_img} />
-                            我要提問
-                        </div>
-                    </Link> */}
+        <div className="col-12 col-md-8 col-lg-9 mb-3 MyQuestionDetail">
+            <div className="d-flex align-items-center  my-2">
+                <h4 className="main-color ">租借場地</h4>
+                <div className="mx-1">
+                    表單編號:PL00{myPlace.detail.id}&nbsp;
+                    {myPlace.detail.create_time}
                 </div>
-                <table className="table ">
-                    <thead>
-                        <tr className="bg-main-color accent-light-color ">
-                            <th
-                                className="text-nowrap fw-light text-center"
-                                scope="col"
-                            >
-                                您租借的場地
-                            </th>
-                            <th
-                                className="text-nowrap fw-light text-center"
-                                scope="col"
-                            >
-                                租借日期
-                            </th>
-                            <th
-                                className="text-nowrap fw-light Qtitle text-center"
-                                scope="col"
-                            >
-                                使用人數
-                            </th>
-                            <th
-                                className="text-nowrap fw-light text-center"
-                                scope="col"
-                            >
-                                詢問內容
-                            </th>
-                            <th
-                                className="text-nowrap fw-light text-center"
-                                scope="col"
-                            >
-                                回覆狀態
-                            </th>
-                            <th
-                                className="text-nowrap fw-light text-center"
-                                scope="col"
-                            >
-                                功能
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.map((v, i) => {
+            </div>
+            <div className="content ">
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        租借場地
+                    </div>
+                    <div className=" col-9 text-center p-1">
+                        {myPlace.detail.item}
+                    </div>
+                </div>
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        預計租借時間
+                    </div>
+                    <div className="col-9 text-center  p-1">
+                        {myPlace.detail.usedate}
+                    </div>
+                </div>
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        回覆狀態
+                    </div>
+                    <div className="col-9 text-center  p-1">
+                        {myPlace.detail.user_reply_state}
+                    </div>
+                </div>
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        最後更新時間
+                    </div>
+                    <div className="col-9 text-center  p-1">
+                        {myPlace.detail.update_time}
+                    </div>
+                </div>
+                <div className=" text-center text-light bg-main-color p-1 border">
+                    問答內容
+                </div>
+                <div className="border maincontent p-1">
+                    <div className="">
+                        {myPlace.content.map((data) => {
                             return (
-                                <tr className="cssTable">
-                                    <td>{v.item}</td>
-                                    <td>{v.usedate}</td>
-                                    <td>{v.usercount}</td>
-                                    <td>
-                                        <div className="">
-                                            <span className="ellipsis">
-                                                {v.comment}
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td className="">已回覆</td>
-                                    <td className="text-nowrap ">
-                                        <a>
-                                            <img
-                                                src={detail_img}
-                                                alt="detail"
-                                            />
-                                            查看詳細
-                                        </a>
-                                    </td>
-                                </tr>
+                                <div>
+                                    <p class="text-start m-0">
+                                        <span class=" fs-5 fw-bolder">
+                                            {data.name}
+                                        </span>
+                                        &nbsp;
+                                        <span class="">
+                                            {data.create_time}
+                                        </span>{' '}
+                                    </p>
+                                    <p class="text-start fs-6 m-0">
+                                        {data.place_content}
+                                    </p>
+                                </div>
                             );
                         })}
-                    </tbody>
-                </table>
+                    </div>
+                </div>
+                <div className="border p-1">
+                    <textarea
+                        className="w-100 textarea"
+                        rows="4"
+                        type="text"
+                        name="comment"
+                        // value={askForm.comment}
+                        // onChange={askFormChange}
+                        placeholder="輸入內容"
+                    />
+                    <button className="text-light bg-main-color p-1 px-5 btn1">
+                        進行回覆
+                    </button>
+                </div>
             </div>
         </div>
     );

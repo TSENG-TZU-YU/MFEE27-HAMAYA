@@ -136,6 +136,12 @@ function MyPlaceList(props) {
                                     className="text-nowrap fw-light text-center"
                                     scope="col"
                                 >
+                                    表單編號
+                                </th>
+                                <th
+                                    className="text-nowrap fw-light text-center"
+                                    scope="col"
+                                >
                                     您租借的場地
                                 </th>
                                 <th
@@ -180,6 +186,10 @@ function MyPlaceList(props) {
                             {myPlaceList[pageNow - 1].map((data, index) => {
                                 return (
                                     <tr key={uuidv4()} className="cssTable">
+                                        <th scope="row">
+                                            PL00{data.id}
+                                            <br />
+                                        </th>
                                         <th scope="row">{data.item}</th>
                                         <td>{data.usedate}</td>
                                         <td>{data.usercount}</td>
@@ -197,7 +207,7 @@ function MyPlaceList(props) {
                                         <td className="text-nowrap ">
                                             <Link
                                                 className=""
-                                                to={`/member/myquestion/detail?qaid=${data.id}`}
+                                                to={`/member/myplace/detail?plid=${data.id}`}
                                             >
                                                 <img src={detail_img} alt="" />
                                                 查看詳細
@@ -218,7 +228,8 @@ function MyPlaceList(props) {
                                     <div className="bg-main-color accent-light-color p-1">
                                         <div className="d-flex justify-content-between">
                                             <div className="text-nowrap fw-light">
-                                                您租借的場地
+                                                表單編號
+                                                <span>PL00{data.id}</span>
                                             </div>
                                             <span className="time">
                                                 {data.create_time}
@@ -239,7 +250,9 @@ function MyPlaceList(props) {
                                         <div className="main-color text-nowrap">
                                             希望租借時間:
                                         </div>
-                                        <div>{data.usedate}</div>
+                                        <div className="text-wrap time2">
+                                            {data.usedate}
+                                        </div>
                                     </div>
                                 </div>
                                 <hr />
@@ -273,7 +286,7 @@ function MyPlaceList(props) {
                                     </div>
                                     <div className="main-color text-center p-1 ">
                                         <Link
-                                            to={`/member/myquestion/detail?qaid=${data.id}`}
+                                            to={`/member/myplace/detail?plid=${data.id}`}
                                         >
                                             <div className="bg-main-gary-light-color">
                                                 <img src={detail_img} alt="" />

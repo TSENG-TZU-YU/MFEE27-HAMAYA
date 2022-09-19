@@ -56,6 +56,7 @@ function MemberListMobile(props) {
                     <option value="myorder">訂單查詢</option>
                     <option value="mycoupon">我的優惠券</option>
                     <option value="myquestion">客服問答</option>
+                    <option value="myplace">租借場地</option>
                 </select>
             </div>
         </div>

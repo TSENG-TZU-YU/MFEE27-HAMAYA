@@ -588,13 +588,13 @@ function Place(props) {
                                 onChange={fieldChange}
                             >
                                 <option value="0">請選擇場地</option>
-                                <option value="studio A">
+                                <option value="studio A 錄音室">
                                     studio A 錄音室
                                 </option>
-                                <option value="studio B">
+                                <option value="studio B 練團室">
                                     studio B 練團室
                                 </option>
-                                <option value="studio C">
+                                <option value="studio C 小型展演空間">
                                     studio C 小型展演空間
                                 </option>
                             </select>
