@@ -1,7 +1,7 @@
-import React from 'react';
 import './index.scss';
 import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
 // 圖檔
 import NewsBanner from '../../../assets/NewsImg/news-banner.jpg';
@@ -16,12 +16,33 @@ import NewsImg17 from '../../../assets/NewsImg/news-img17.png';
 
 import arrow from '../../../assets/svg/arrow_back_ios_new.svg';
 function MusicArticle(props) {
-    const { articleId } = useParams();
-    console.log('stock-id', articleId);
+    const [activeText, setActiveText] = useState();
+    // const [data, setData] = useState([]);
+    //假資料
+    const ListItems = [
+        {
+            id: 1,
+            name: '促銷活動',
+        },
+        {
+            id: 2,
+            name: '活動快訊',
+        },
+        {
+            id: 3,
+            name: '重要通知',
+        },
+        {
+            id: 4,
+            name: '音樂文章',
+        },
+    ];
+
+    // console.log(activeText);
     return (
         <>
             <img src={NewsBanner} alt="banner" className="img-fluid" />
-            {/* 麵包屑 */}
+            {/* 麵包屑 end*/}
             <div className="container d-flex mt-5 ">
                 <Link to="/">
                     <p className="News-Breadcrumbs">首頁</p>
@@ -31,12 +52,38 @@ function MusicArticle(props) {
                     <p className="News-Breadcrumbs">最新消息</p>
                 </Link>
                 /
-                <Link to="">
-                    <p className="News-Breadcrumbs">音樂文章</p>
+                <Link to="/class">
+                    <p className="News-Breadcrumbs">促銷活動</p>
                 </Link>
             </div>
-            {/* 麵包屑 end*/}
+
+            {/* 麵包屑 */}
             <div className="container">
+                <div className="row text-center ">
+                    {ListItems.map((value, index) => {
+                        return (
+                            <Link
+                                className={
+                                    activeText === value.id
+                                        ? 'col-3 News-word3  News-vector5-Btn-active'
+                                        : 'col-3 News-word3  News-vector5-Btn'
+                                }
+                                key={index}
+                                to={`/news/section?categoryList=${value.id}`}
+                                onClick={() => {
+                                    setActiveText(value.id);
+                                }}
+                            >
+                                <span className=" News-word3 ">
+                                    {value.name}
+                                </span>
+                            </Link>
+                        );
+                    })}
+                </div>
+            </div>
+            {/* 麵包屑 end*/}
+            {/* <div className="container">
                 <div className="row text-center ">
                     <Link
                         to="section"
@@ -63,7 +110,7 @@ function MusicArticle(props) {
                         <span>音樂文章</span>
                     </Link>
                 </div>
-            </div>
+            </div> */}
             <div className="container">
                 <div className="row">
                     <div className="col-12  col-md-6 d-flex mt-3">
