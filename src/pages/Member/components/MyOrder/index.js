@@ -23,8 +23,22 @@ function MyOrder(props) {
             let response = await axios.get(
                 `${API_URL}/member/myorder/${member.id}`
             );
-            console.log(response.data.myOrder);
-            setMyOrder(response.data.myOrder);
+            console.log('response', response.data.myOrder);
+
+            //找order_id
+            let order_id = response.data.myOrder.map((item) => item.order_id);
+            //過濾重複的
+            let noRepeat = order_id.filter((item, index, arr) => {
+                return arr.indexOf(item) === index;
+            });
+            let newResponse = noRepeat.map((id) => {
+                return response.data.myOrder.find((item) => {
+                    return item.order_id === id;
+                });
+            });
+
+            console.log('order_id noRepeat', order_id, noRepeat, newResponse);
+            setMyOrder(newResponse);
         }
         getMyOrder();
     }, []);
@@ -60,7 +74,7 @@ function MyOrder(props) {
                                 <td>
                                     <img
                                         className="myOrder-Img myOrder-contain"
-                                        src={productImg}
+                                        src={require(`../../../../album/products/${order.image}`)}
                                         alt=""
                                     />
                                 </td>

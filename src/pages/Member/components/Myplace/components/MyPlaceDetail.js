@@ -10,18 +10,18 @@ import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
 import { v4 as uuidv4 } from 'uuid';
 
-function MyQuestionDetail(props) {
+function MyPlaceDetail(props) {
     const [setbread] = useOutletContext();
     const location = useLocation();
-    const [myQuestion, setMyQuestion] = useState({
+    const [myPlace, setMyMyplace] = useState({
         detail: {
             id: '',
             user_id: '',
             name: '',
             email: '',
             phone: '',
-            user_q_category: '',
-            title: '',
+            item: '',
+            usetime: '',
             comment: '',
             user_reply_state: '',
             create_time: '',
@@ -31,88 +31,57 @@ function MyQuestionDetail(props) {
     });
 
     //讀取問答詳細
-    async function myQuestionDetail(qaid) {
+    async function MyPlaceDetail(plid) {
         try {
             let response = await axios.get(
-                `${API_URL}/member/myquestion/detail?qaid=${qaid}`,
+                `${API_URL}/member/myplace/detail?plid=${plid}`,
                 {
                     withCredentials: true,
                 }
             );
             console.log(response.data);
-            setreplyForm({
-                ...replyForm,
-                user_qna_id: response.data.detail.id,
-            });
-            setMyQuestion(response.data);
+
+            setMyMyplace(response.data);
         } catch (err) {
             console.log(err.response.data);
             alert(err.response.data.message);
         }
     }
+
     useEffect(() => {
         let params = new URLSearchParams(location.search);
-        let qaid = params.get('qaid');
-        console.log(qaid);
-        myQuestionDetail(qaid);
+        let plid = params.get('plid');
+        console.log(plid);
+        MyPlaceDetail(plid);
         // console.log(myQuestion);
     }, [location]);
 
-    //新增回覆
-    const [replyForm, setreplyForm] = useState({
-        user_qna_id: '',
-        q_content: '',
-        // name: '', 從session拿
-    });
-    const replyFormChange = (e) => {
-        setreplyForm({ ...replyForm, q_content: e.target.value });
-    };
-    async function replyFormSubmit(e) {
-        e.preventDefault();
-        try {
-            let response = await axios.post(
-                `${API_URL}/member/myquestion/reply`,
-                replyForm,
-                {
-                    withCredentials: true,
-                }
-            );
-            // console.log(response.data);
-            //讀取問答詳細
-            myQuestionDetail(replyForm.user_qna_id);
-            //清空replyForm input
-            setreplyForm({ ...replyForm, q_content: '' });
-            // alert(response.data.message);
-        } catch (err) {
-            console.log(err.response.data);
-            alert(err.response.data.message);
-        }
-    }
-
+    // const myQuestionDetail = myQuestion.fliter((data) => data.id = 2);
+    // console.log(myQuestionDetail);
     return (
         <div className="col-12 col-md-8 col-lg-9 mb-3 MyQuestionDetail">
             <div className="d-flex align-items-center  my-2">
-                <h4 className="main-color ">問答詳細</h4>
+                <h4 className="main-color ">租借場地</h4>
                 <div className="mx-1">
-                    問答編號:QA00{myQuestion.detail.id}&nbsp;
-                    {myQuestion.detail.create_time}
+                    表單編號:PL00{myPlace.detail.id}&nbsp;
+                    {myPlace.detail.create_time}
                 </div>
             </div>
             <div className="content ">
                 <div className="d-flex border">
                     <div className="col-3 text-center text-light bg-main-color p-1">
-                        問題主旨
+                        租借場地
                     </div>
                     <div className=" col-9 text-center p-1">
-                        {myQuestion.detail.title}
+                        {myPlace.detail.item}
                     </div>
                 </div>
                 <div className="d-flex border">
                     <div className="col-3 text-center text-light bg-main-color p-1">
-                        問題類型
+                        預計租借時間
                     </div>
                     <div className="col-9 text-center  p-1">
-                        {myQuestion.detail.user_q_category}
+                        {myPlace.detail.usedate}
                     </div>
                 </div>
                 <div className="d-flex border">
@@ -120,7 +89,7 @@ function MyQuestionDetail(props) {
                         回覆狀態
                     </div>
                     <div className="col-9 text-center  p-1">
-                        {myQuestion.detail.user_reply_state}
+                        {myPlace.detail.user_reply_state}
                     </div>
                 </div>
                 <div className="d-flex border">
@@ -128,7 +97,7 @@ function MyQuestionDetail(props) {
                         最後更新時間
                     </div>
                     <div className="col-9 text-center  p-1">
-                        {myQuestion.detail.update_time}
+                        {myPlace.detail.update_time}
                     </div>
                 </div>
                 <div className=" text-center text-light bg-main-color p-1 border">
@@ -136,20 +105,20 @@ function MyQuestionDetail(props) {
                 </div>
                 <div className="border maincontent p-1">
                     <div className="">
-                        {myQuestion.content.map((data) => {
+                        {myPlace.content.map((data) => {
                             return (
-                                <div key={uuidv4()}>
-                                    <p className="text-start m-0">
-                                        <span className=" fs-5 fw-bolder">
+                                <div>
+                                    <p class="text-start m-0">
+                                        <span class=" fs-5 fw-bolder">
                                             {data.name}
                                         </span>
                                         &nbsp;
-                                        <span className="">
+                                        <span class="">
                                             {data.create_time}
                                         </span>{' '}
                                     </p>
-                                    <p className="text-start fs-6 m-0">
-                                        {data.q_content}
+                                    <p class="text-start fs-6 m-0">
+                                        {data.place_content}
                                     </p>
                                 </div>
                             );
@@ -157,27 +126,22 @@ function MyQuestionDetail(props) {
                     </div>
                 </div>
                 <div className="border p-1">
-                    <form>
-                        <textarea
-                            className="w-100 textarea"
-                            rows="4"
-                            type="text"
-                            name="q_content"
-                            value={replyForm.q_content}
-                            onChange={replyFormChange}
-                            placeholder="輸入內容"
-                        />
-                        <button
-                            className="text-light bg-main-color p-1 px-5 btn1"
-                            onClick={replyFormSubmit}
-                        >
-                            進行回覆
-                        </button>
-                    </form>
+                    <textarea
+                        className="w-100 textarea"
+                        rows="4"
+                        type="text"
+                        name="comment"
+                        // value={askForm.comment}
+                        // onChange={askFormChange}
+                        placeholder="輸入內容"
+                    />
+                    <button className="text-light bg-main-color p-1 px-5 btn1">
+                        進行回覆
+                    </button>
                 </div>
             </div>
         </div>
     );
 }
 
-export default MyQuestionDetail;
+export default MyPlaceDetail;

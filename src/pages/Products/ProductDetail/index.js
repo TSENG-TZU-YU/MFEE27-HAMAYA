@@ -112,7 +112,6 @@ function Product() {
     const toggleProductCompare = () => setProductCompare(!productCompare);
 
     // 比較
-    //取得localStorage內容
     let compareLocal = JSON.parse(localStorage.getItem('compare'));
     // 存入比較的商品資料
     const [compareProduct, setCompareProduct] = useState(compareLocal);
@@ -121,9 +120,14 @@ function Product() {
         //塞資料進去
         localStorage.setItem('compare', JSON.stringify(newCompareLocal));
     };
+    if (!localStorage.getItem('compare')) {
+        localStorage.setItem('compare', JSON.stringify([]));
+        setCompareProduct([]);
+    }
     function getCompare(compareItem) {
+        let newCompareItem = [];
         // 確認有沒有重複，有重複則不加入
-        let newCompareItem = compareProduct.find((value) => {
+        newCompareItem = compareProduct.find((value) => {
             return value.product_id === compareItem.product_id;
         });
         if (!newCompareItem) {
@@ -437,7 +441,10 @@ function Product() {
                     })}
                 </Row>
                 {/* 商品比較 btn */}
-                <CompareBtn toggleProductCompare={toggleProductCompare} />
+                <CompareBtn
+                    toggleProductCompare={toggleProductCompare}
+                    compareProduct={compareProduct}
+                />
                 {/* 比較頁顯示 */}
                 {productCompare ? (
                     <ProductCompare

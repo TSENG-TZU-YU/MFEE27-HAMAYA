@@ -63,7 +63,7 @@ function Place(props) {
                 setIsLogin(true);
                 setMember(response.data);
                 setMemberLogin(true);
-                setEditRent(true)
+                setEditRent(true);
                 setRent({
                     ...rent,
                     fullName: response.data.fullName,
@@ -98,13 +98,10 @@ function Place(props) {
             );
             console.log(response.data);
             setRent({
-                fullName: '',
                 user_id: '',
                 date: '',
-                phone: '',
                 time: '',
                 usercount: '0',
-                email: '',
                 item: '0',
                 comment: '',
             });
@@ -508,7 +505,7 @@ function Place(props) {
                         </div>
                         <div className="col-12 col-md-6 my-2">
                             <p className="d-flex m-0">
-                                使用日期*
+                                預計租借日期*
                                 <span className="error">{renterros.date}</span>
                             </p>
                             <input
@@ -536,7 +533,7 @@ function Place(props) {
                         </div>
                         <div className="col-12 col-md-6 my-2">
                             <p className="d-flex m-0">
-                                使用時間*
+                                預計租借時間*
                                 <span className="error">{renterros.time}</span>
                             </p>
                             <input
@@ -591,13 +588,13 @@ function Place(props) {
                                 onChange={fieldChange}
                             >
                                 <option value="0">請選擇場地</option>
-                                <option value="studio A">
+                                <option value="studio A 錄音室">
                                     studio A 錄音室
                                 </option>
-                                <option value="studio B">
+                                <option value="studio B 練團室">
                                     studio B 練團室
                                 </option>
-                                <option value="studio C">
+                                <option value="studio C 小型展演空間">
                                     studio C 小型展演空間
                                 </option>
                             </select>
