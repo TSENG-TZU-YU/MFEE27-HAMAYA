@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useLocation, useParams } from 'react-router-dom';
+import { API_URL } from '../../../utils/config';
 
 import './index.scss';
 
@@ -37,7 +38,7 @@ function Detailed({ ins_main_id }) {
         let selectClass = params.get('class');
         let getClassDetail = async () => {
             let response = await axios.get(
-                `http://localhost:3001/api/class/list/${detailedID}?class=${selectClass}`
+                `${API_URL}/class/list/${detailedID}?class=${selectClass}`
             );
             setData(response.data.data);
             setRecommendClass(response.data.recommendClass);
@@ -140,7 +141,8 @@ function Detailed({ ins_main_id }) {
                                                 {classDetailed.end_date}
                                             </p>
                                             <p className="mb-0 AdultDetailed-line-height">
-                                                師資：林宣樣 老師
+                                                師資：{classDetailed.teacher}
+                                                老師
                                             </p>
                                             <div className="AdultDetailed-line-height d-flex">
                                                 <p className="me-3">
