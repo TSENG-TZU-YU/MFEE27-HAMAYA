@@ -5,6 +5,9 @@ import { API_URL } from '../../utils/config';
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // 套件
 import { Container } from 'react-bootstrap';
 
@@ -24,6 +27,7 @@ import FilterBar from './components/FilterBar';
 import MobileFilterBar from './components/MobileFilterBar';
 import PaginationBar from '../../components/PaginationBar/PaginationBar';
 import CompareBtn from './components/CompareBtn';
+import Toast from '../../components/Toast';
 
 // 元件 FilterNav
 import SearchBar from '../../components/SearchBar';
@@ -290,7 +294,7 @@ function Products() {
         }
         setCategoryToggled(!categoryToggled);
     };
-
+    const notify = () => toast('成功加入比較!');
     // 比較
     let compareLocal = JSON.parse(localStorage.getItem('compare'));
     // 存入比較的商品資料
@@ -315,6 +319,7 @@ function Products() {
             setNewCompareLocal([{ ...compareItem }, ...compareProduct]);
             // 存localStorage
             setCompareProduct([{ ...compareItem }, ...compareProduct]);
+            notify();
         }
     }
 
@@ -723,7 +728,7 @@ function Products() {
                                                             {product.name}
                                                         </Link>
                                                         {/* 價格 */}
-                                                        <h1 className="product-price accent-color">
+                                                        <h1 className="product-price accent-color py-1">
                                                             NT ${product.price}
                                                         </h1>
                                                     </div>
@@ -734,11 +739,11 @@ function Products() {
                                                         }}
                                                     ></div>
                                                 </div>
-                                                <p className="product-name border-top pt-2">
+                                                <p className="product-name border-top py-1 m-0">
                                                     上架日期：
                                                     {product.create_time}
                                                 </p>
-                                                <p className="product-name border-top pt-2">
+                                                <p className="product-name border-top py-1 m-0">
                                                     品牌：
                                                     {product.brandName}
                                                 </p>
@@ -770,6 +775,9 @@ function Products() {
                     toggleProductCompare={toggleProductCompare}
                     compareProduct={compareProduct}
                 />
+                <div>
+                    <ToastContainer />
+                </div>
             </Container>
             {/* 比較頁顯示 */}
             {productCompare ? (

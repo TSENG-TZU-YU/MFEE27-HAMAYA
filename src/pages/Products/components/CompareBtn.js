@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { RiContactsBookLine } from 'react-icons/ri';
 import compareBtn from '../../../assets/ProductsImg/icon/compare_btn.svg';
 
 function CompareBtn(props) {
     const { toggleProductCompare, compareProduct } = props;
     const [compareCount, setCompareCount] = useState(0);
-    const getCompareCoun = () => {
+    const getCompareCount = () => {
         if (compareProduct !== null) {
             setCompareCount(compareProduct.length);
         }
     };
     useEffect(() => {
-        getCompareCoun();
+        getCompareCount();
     }, [compareProduct]);
     return (
         <>
