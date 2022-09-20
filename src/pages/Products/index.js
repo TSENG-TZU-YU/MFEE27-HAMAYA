@@ -665,11 +665,13 @@ function Products() {
                                                     <Favorite />
                                                 </div>
                                                 <div
-                                                    className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-1"
+                                                    className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-2"
                                                     onClick={() =>
                                                         getCompare({
                                                             product_id:
                                                                 product.product_id,
+                                                            category_id:
+                                                                product.category_id,
                                                             image: product.image,
                                                             name: product.name,
                                                             brand: product.brandName,

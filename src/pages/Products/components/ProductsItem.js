@@ -18,6 +18,7 @@ import { useCart } from '../../../utils/use_cart';
 function ProductsItem({
     value: {
         product_id,
+        category_id,
         ins_main_id,
         image,
         name,
@@ -50,10 +51,11 @@ function ProductsItem({
                     <Favorite />
                 </div>
                 <div
-                    className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-1"
+                    className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-2"
                     onClick={() =>
                         getCompare({
                             product_id: product_id,
+                            category_id: category_id,
                             image: image,
                             name: name,
                             brand: brandName,

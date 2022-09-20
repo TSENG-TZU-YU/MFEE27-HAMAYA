@@ -62,8 +62,8 @@ li.products-page-active {
 }
 
 .product-icon {
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .product-img {
@@ -105,8 +105,8 @@ li.products-page-active {
 .product-compare {
   opacity: 0;
   color: $accent-light;
-  width: 4rem;
-  padding: 1px;
+  width: 5rem;
+  padding: 2px 1px;
   background: $main-light;
   cursor: pointer;
   transition: .4s;

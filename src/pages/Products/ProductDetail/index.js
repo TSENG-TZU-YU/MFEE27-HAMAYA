@@ -59,7 +59,6 @@ function Product() {
         };
         getProductDetail();
     }, [location]);
-
     const productCount = (stock) => {
         if (stock !== 0) {
             return (
@@ -387,6 +386,8 @@ function Product() {
                                                 getCompare({
                                                     product_id:
                                                         value.product_id,
+                                                    category_id:
+                                                        value.category_id,
                                                     image: productImgs[0],
                                                     name: value.name,
                                                     brand: value.brandName,
