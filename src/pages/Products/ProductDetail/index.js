@@ -17,6 +17,7 @@ import ProductCompare from '../ProductCompare';
 import ProductCarousel from '../../../components/ProductCarousel';
 import BreadCrumb from '../../../components/BreadCrumb/BreadCrumb';
 import CompareBtn from '../components/CompareBtn';
+import { successToast, warningToast } from '../../../components/Alert';
 
 // 圖檔
 import { FiMinus, FiPlus } from 'react-icons/fi';
@@ -58,11 +59,6 @@ function Product() {
         };
         getProductDetail();
     }, [location]);
-
-    // console.log(productImgs);
-    // console.log(productImgs[0]);
-    // console.log(relatedProducts);
-
     const productCount = (stock) => {
         if (stock !== 0) {
             return (
@@ -135,6 +131,10 @@ function Product() {
             setNewCompareLocal([{ ...compareItem }, ...compareProduct]);
             // 存localStorage
             setCompareProduct([{ ...compareItem }, ...compareProduct]);
+            successToast('成功加入比較!', '關閉');
+        }
+        if (newCompareItem) {
+            warningToast('已加入在項目中', '關閉');
         }
     }
 
@@ -357,7 +357,7 @@ function Product() {
                                                         value.category_id,
                                                     image: productImgs[0],
                                                     name: value.name,
-                                                    amount: 1,
+                                                    amount: count,
                                                     price: value.price,
                                                     spec: value.spec,
                                                     shipment: value.shipment,
@@ -386,6 +386,8 @@ function Product() {
                                                 getCompare({
                                                     product_id:
                                                         value.product_id,
+                                                    category_id:
+                                                        value.category_id,
                                                     image: productImgs[0],
                                                     name: value.name,
                                                     brand: value.brandName,

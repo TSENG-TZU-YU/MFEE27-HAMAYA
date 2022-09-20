@@ -97,8 +97,8 @@ function MyPlaceList(props) {
                             to=""
                             className={
                                 i + 1 === pageNow
-                                    ? 'mx-2 page_number active '
-                                    : 'mx-2 page_number'
+                                    ? 'page_number active '
+                                    : 'page_number'
                             }
                             onClick={() => {
                                 setPageNow(i + 1);
@@ -186,11 +186,13 @@ function MyPlaceList(props) {
                             {myPlaceList[pageNow - 1].map((data, index) => {
                                 return (
                                     <tr key={uuidv4()} className="cssTable">
-                                        <th scope="row">
+                                        <th>
                                             PL00{data.id}
                                             <br />
                                         </th>
-                                        <th scope="row">{data.item}</th>
+                                        <th className="text-nowrap text-center">
+                                            {data.item}
+                                        </th>
                                         <td>{data.usedate}</td>
                                         <td>{data.usercount}</td>
                                         <td>

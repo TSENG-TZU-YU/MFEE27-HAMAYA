@@ -24,6 +24,7 @@ import FilterBar from './components/FilterBar';
 import MobileFilterBar from './components/MobileFilterBar';
 import PaginationBar from '../../components/PaginationBar/PaginationBar';
 import CompareBtn from './components/CompareBtn';
+import { successToast, warningToast } from '../../components/Alert';
 
 // 元件 FilterNav
 import SearchBar from '../../components/SearchBar';
@@ -314,6 +315,10 @@ function Products() {
             setNewCompareLocal([{ ...compareItem }, ...compareProduct]);
             // 存localStorage
             setCompareProduct([{ ...compareItem }, ...compareProduct]);
+            successToast('成功加入比較!', '關閉');
+        }
+        if (newCompareItem) {
+            warningToast('已加入在項目中', '關閉');
         }
     }
 
@@ -660,11 +665,13 @@ function Products() {
                                                     <Favorite />
                                                 </div>
                                                 <div
-                                                    className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-1"
+                                                    className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-2"
                                                     onClick={() =>
                                                         getCompare({
                                                             product_id:
                                                                 product.product_id,
+                                                            category_id:
+                                                                product.category_id,
                                                             image: product.image,
                                                             name: product.name,
                                                             brand: product.brandName,

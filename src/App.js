@@ -58,6 +58,28 @@ import MyQuestionDetail from './pages/Member/components/MyQuestion/components/My
 import MyPlaceList from './pages/Member/components/MyPlace/components/MyPlaceList';
 import MyPlaceDetail from './pages/Member/components/MyPlace/components/MyPlaceDetail';
 
+//後臺頁面
+import Admin from './pages/Admin';
+
+//後臺次頁面
+import Articles from './pages/Admin/components/Articles';
+import Coupon from './pages/Admin/components/Coupon';
+import CustomerService from './pages/Admin/components/CustomerService';
+import Members from './pages/Admin/components/Members';
+import Order from './pages/Admin/components/Order';
+import Product from './pages/Admin/components/Product';
+import Teachers from './pages/Admin/components/Teachers';
+import BeHome from './pages/Admin/components/BeHome';
+
+//CustomerService次頁
+import CommonQA from './pages/Admin/components/CustomerService/CommonQA';
+import CommonQADetail from './pages/Admin/components/CustomerService/CommonQADetail';
+import OrderQA from './pages/Admin/components/CustomerService/OrderQA';
+import OrderQADetail from './pages/Admin/components/CustomerService/OrderQADetail';
+import PlaceQA from './pages/Admin/components/CustomerService/PlaceQA';
+import PlaceQADetail from './pages/Admin/components/CustomerService/PlaceQADetail';
+
+
 function App() {
     //page to top 要用的
     useEffect(() => {
@@ -168,7 +190,57 @@ function App() {
                                         />
                                     </Route>
                                 </Route>
-
+                                <Route path="admin" element={<Admin />}>
+                                    <Route index element={<BeHome />} />
+                                    <Route
+                                        path="articles"
+                                        element={<Articles />}
+                                    />
+                                    <Route path="coupon" element={<Coupon />} />
+                                    <Route
+                                        path="customerservice"
+                                        element={<CustomerService />}
+                                    />
+                                    <Route
+                                        path="customerservice"
+                                        element={<CustomerService />}
+                                    >
+                                        <Route index element={<CommonQA />} />
+                                        <Route
+                                            path="commonqa/detail"
+                                            element={<CommonQADetail />}
+                                        />
+                                        <Route
+                                            path="orderqa"
+                                            element={<OrderQA />}
+                                        />
+                                        <Route
+                                            path="orderqa/detail"
+                                            element={<OrderQADetail />}
+                                        />
+                                        <Route
+                                            path="placeqa"
+                                            element={<PlaceQA />}
+                                        />
+                                        <Route
+                                            path="placeqa/detail"
+                                            element={<PlaceQADetail />}
+                                        />
+                                    </Route>
+                                    <Route
+                                        path="members"
+                                        element={<Members />}
+                                    />
+                                    <Route path="order" element={<Order />} />
+                                    <Route
+                                        path="product"
+                                        element={<Product />}
+                                    />
+                                    <Route
+                                        path="teachers"
+                                        element={<Teachers />}
+                                    />
+                                </Route>
                                 {/* 404未找到的頁面路由，需放在最下方 */}
                                 <Route
                                     path="*"

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
+import { API_URL } from '../../../utils/config';
 // 樣式
 // import './styles/productsItem.scss';
 
@@ -11,13 +12,15 @@ import Favorite from '../../../components/Favorite';
 import product from '../../../assets/ProductsImg/product.png';
 import cartCheck from '../../../assets/ProductsImg/icon/shopping_cart_check.svg';
 import compare from '../../../assets/ProductsImg/icon/compare.svg';
-
+//會員
+import { useAuth } from '../../../utils/use_auth';
 //購物車
 import { useCart } from '../../../utils/use_cart';
 
 function ProductsItem({
     value: {
         product_id,
+        category_id,
         ins_main_id,
         image,
         name,
@@ -29,8 +32,73 @@ function ProductsItem({
     },
     getCompare,
 }) {
+    //會員
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+
     //購物車
-    const { shopItemCart, setShopItemCart } = useCart();
+    const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
+        useCart();
+    //存localStorage
+    const setNewLocal = (newLocal) => {
+        //塞資料進去
+        localStorage.setItem('shoppingCart', JSON.stringify(newLocal));
+    };
+
+    //加入購物車
+    function getCheck(itemInfo) {
+        // console.log('get Member', member);
+        console.log('itemInfo', itemInfo);
+        //確認有沒有重複
+        let newItemInfo = shoppingCart.find((v) => {
+            return v.product_id === itemInfo.product_id;
+        });
+
+        if (!newItemInfo) {
+            //臨時購物車
+            setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            //localStorage;
+            setNewLocal([{ ...itemInfo }, ...shoppingCart]);
+            //判斷是否為登入;
+            if (member !== null && member.id !== '') {
+                let getNewLocal = JSON.parse(
+                    localStorage.getItem('shoppingCart')
+                );
+                // console.log('getNewLocal', getNewLocal);
+
+                const itemsData = getNewLocal.map((item) => {
+                    return {
+                        user_id: member.id,
+                        product_id: item.product_id,
+                        category_id: item.category_id,
+                        amount: item.amount,
+                    };
+                });
+                console.log('itemsData', itemsData);
+                //寫進資料庫
+                setItemsData(itemsData);
+                async function setItemsData(itemsData) {
+                    //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
+                    try {
+                        let response = await axios.post(
+                            `${API_URL}/member/mycart`,
+                            itemsData
+                        );
+                        // console.log('duplicate', response.data.duplicate);
+                        alert(response.data.message);
+                        if (response.data.duplicate === 1) {
+                            setShoppingCart([...shoppingCart]);
+                            return;
+                        }
+                    } catch (err) {
+                        console.log(err.response.data.message);
+                    }
+                }
+            }
+            //臨時購物車;
+            setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+        }
+    }
+
     return (
         <div className="col product">
             <div className="position-relative">
@@ -50,10 +118,11 @@ function ProductsItem({
                     <Favorite />
                 </div>
                 <div
-                    className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-1"
+                    className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-2"
                     onClick={() =>
                         getCompare({
                             product_id: product_id,
+                            category_id: category_id,
                             image: image,
                             name: name,
                             brand: brandName,
@@ -75,7 +144,16 @@ function ProductsItem({
                 <button
                     className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
                     onClick={() => {
-                        setShopItemCart(true);
+                        setShopCartState(true);
+                        getCheck({
+                            product_id: product_id,
+                            category_id: category_id,
+                            image: image,
+                            name: name,
+                            amount: 1,
+                            price: price,
+                            spec: spec,
+                        });
                     }}
                 >
                     <img

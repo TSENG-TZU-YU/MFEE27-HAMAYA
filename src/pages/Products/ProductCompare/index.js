@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+import { API_URL } from '../../../utils/config';
+//會員
+import { useAuth } from '../../../utils/use_auth';
+//購物車
+import { useCart } from '../../../utils/use_cart';
 
 // 樣式
 import './index.scss';
 
 // 套件
 import { Container } from 'react-bootstrap';
+
+// 元件
+import { successToast } from '../../../components/Alert';
 
 // 圖檔
 import { ReactComponent as Close } from '../../../assets/svg/close.svg';
@@ -31,6 +40,7 @@ function ProductCompare(props) {
         // localStorage.removeItem('compare');
         localStorage.setItem('compare', JSON.stringify([]));
         setCompareProduct([]);
+        successToast('商品清空成功!', '關閉');
     }
     // console.log(compareProduct);
     const handleCompare = (compareProduct, compareTags) => {
@@ -53,6 +63,73 @@ function ProductCompare(props) {
     useEffect(() => {
         handleCompare(compareProduct, compareTags);
     }, [compareTags]);
+
+    //會員
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+
+    //購物車
+    const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
+        useCart();
+    //存localStorage
+    const setNewLocal = (newLocal) => {
+        //塞資料進去
+        localStorage.setItem('shoppingCart', JSON.stringify(newLocal));
+    };
+
+    //加入購物車
+    function getCheck(itemInfo) {
+        // console.log('get Member', member);
+        console.log('itemInfo', itemInfo);
+        //確認有沒有重複
+        let newItemInfo = shoppingCart.find((v) => {
+            return v.product_id === itemInfo.product_id;
+        });
+
+        if (!newItemInfo) {
+            //臨時購物車
+            setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            //localStorage;
+            setNewLocal([{ ...itemInfo }, ...shoppingCart]);
+            //判斷是否為登入;
+            if (member !== null && member.id !== '') {
+                let getNewLocal = JSON.parse(
+                    localStorage.getItem('shoppingCart')
+                );
+                // console.log('getNewLocal', getNewLocal);
+
+                const itemsData = getNewLocal.map((item) => {
+                    return {
+                        user_id: member.id,
+                        product_id: item.product_id,
+                        category_id: item.category_id,
+                        amount: item.amount,
+                    };
+                });
+                console.log('itemsData', itemsData);
+                //寫進資料庫
+                setItemsData(itemsData);
+                async function setItemsData(itemsData) {
+                    //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
+                    try {
+                        let response = await axios.post(
+                            `${API_URL}/member/mycart`,
+                            itemsData
+                        );
+                        // console.log('duplicate', response.data.duplicate);
+                        alert(response.data.message);
+                        if (response.data.duplicate === 1) {
+                            setShoppingCart([...shoppingCart]);
+                            return;
+                        }
+                    } catch (err) {
+                        console.log(err.response.data.message);
+                    }
+                }
+            }
+            //臨時購物車;
+            setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+        }
+    }
 
     return (
         <div className="productCompare__popup-bg">
@@ -200,6 +277,22 @@ function ProductCompare(props) {
                                                     height: '25px',
                                                 }}
                                                 className="me-5 cursor-pointer"
+                                                onClick={() => {
+                                                    setShopCartState(true);
+                                                    getCheck({
+                                                        product_id:
+                                                            value.product_id,
+                                                        category_id:
+                                                            value.category_id,
+                                                        image: value.image,
+                                                        name: value.name,
+                                                        amount: 1,
+                                                        price: value.price,
+                                                        spec: value.spec,
+                                                        shipment:
+                                                            value.shipment,
+                                                    });
+                                                }}
                                             />
                                             <Delete
                                                 style={{
