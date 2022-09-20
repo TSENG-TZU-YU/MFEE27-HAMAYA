@@ -357,7 +357,7 @@ function Product() {
                                                         value.category_id,
                                                     image: productImgs[0],
                                                     name: value.name,
-                                                    amount: 1,
+                                                    amount: count,
                                                     price: value.price,
                                                     spec: value.spec,
                                                     shipment: value.shipment,

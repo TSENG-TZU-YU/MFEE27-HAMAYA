@@ -130,7 +130,7 @@ function Cart() {
                                         {item.name}
                                     </span>
                                     <span className="small gary-dark-color">
-                                        數量:{1}
+                                        數量:{item.amount}
                                     </span>
                                     <span className="small gary-dark-color">
                                         價錢:{item.price}
