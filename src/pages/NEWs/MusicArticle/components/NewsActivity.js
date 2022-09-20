@@ -36,20 +36,21 @@ function NewsActivity({ data, activeText, menuItems }) {
                     {data.map((activity, index) => {
                         return (
                             <div key={index} className="col-12 col-md-4 ">
-                                <div className="mt-4 ">
+                                <div className="mt-4">
                                     <img
                                         src={require(`../../../../album/article/${activity.image}`)}
                                         alt="art02"
-                                        width="100%"
+                                        width=""
                                         className="News-imgs"
                                     />
-                                    <span className="gary-dark-color h6 News-cursor-pinter mt-2">
+                                    <span className="col-md-12 gary-dark-color h6 News-cursor-pinter mt-2">
                                         {activity.title}
                                         <div className=" d-flex mt-2 ">
                                             <p className="News-music-article4 small">
                                                 {activity.categoryName}
                                             </p>
                                             <p className="ms-2">
+                                            {activity.author} －
                                                 {activity.creation_date}
                                             </p>
                                         </div>
