@@ -99,8 +99,8 @@ function CommonQADetail(props) {
     }
 
     return (
-        <div className="col-12 col-md-8 col-lg-9 mb-3 MyQuestionDetail">
-            <div className="d-flex align-items-center justify-content-between content  my-2">
+        <div className=" mb-3 MyQuestionDetail">
+            <div className="d-flex align-items-center justify-content-between   my-2">
                 <div>
                     <h4 className="main-color ">問答詳細</h4>
                     <div className="">
@@ -119,7 +119,7 @@ function CommonQADetail(props) {
                     </button>
                 </div>
             </div>
-            <div className="content ">
+            <div className=" ">
                 <div className="d-flex border">
                     <div className="col-3 text-center text-light bg-main-color p-1">
                         問題主旨

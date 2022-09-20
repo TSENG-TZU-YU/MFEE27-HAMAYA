@@ -1,0 +1,10 @@
+.adminlist{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 18px;
+}
+.adminlist .active{
+    background: #767676;
+    color: white;
+    border: 0;
+}
