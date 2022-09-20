@@ -6,8 +6,10 @@ import {
     useOutletContext,
     useLocation,
     useNavigate,
-} from 'react-router-dom'; //抓取Outlet的props
-
+} from 'react-router-dom';
+import axios from 'axios';
+import { API_URL } from '../../../../utils/config';
+import _ from 'lodash';
 function CommonQA(props) {
     // 分頁用
     const [pageNow, setPageNow] = useState(1); // 目前頁號
@@ -32,6 +34,33 @@ function CommonQA(props) {
         ],
     ]);
 
+    async function loadingCommonQA() {
+        try {
+            let response = await axios.get(
+                `${API_URL}/admin/customerservice/commonqa/loading`,
+                {
+                    withCredentials: true,
+                }
+            );
+            console.log(response.data);
+
+            //分切頁面資料
+            const pageList = _.chunk(response.data, perPage);
+
+            console.log(pageList);
+
+            if (pageList.length > 0) {
+                setPageTotal(pageList.length);
+                setMyQuestionList(pageList);
+            }
+        } catch (err) {
+            console.log(err.response.data);
+            alert(err.response.data.message);
+        }
+    }
+    useEffect(() => {
+        loadingCommonQA();
+    }, []);
     return (
         <div>
             <div className="">

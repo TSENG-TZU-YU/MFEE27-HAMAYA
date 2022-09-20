@@ -1,5 +1,5 @@
 function Articles(props) {
-    return <div>Article</div>;
+    return <div>Articles</div>;
 }
 
 export default Articles;

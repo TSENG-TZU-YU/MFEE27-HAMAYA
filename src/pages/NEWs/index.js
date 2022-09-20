@@ -12,7 +12,8 @@ import NewsImg3 from '../../assets/NewsImg/news-img3.png';
 import NewsImg4 from '../../assets/NewsImg/news-img4.png';
 
 import NewsActivity from './MusicArticle/components/NewsActivity';
-
+//TODO:類別顏色切換
+//TODO:上面一塊尚未拉資料庫
 //設定變數換網址
 function NEWs(props) {
     //只是在設定avtive的狀態
@@ -22,7 +23,7 @@ function NEWs(props) {
     //使用useLocation來對應到網址
     const location = useLocation();
 
-    //TODO:這是利用useLocation下去抓資料庫的的資料，params是在改變用來改變網址的，
+    //這是利用useLocation下去抓資料庫的的資料，params是在改變用來改變網址的，
     //categoryId是自己設定好的變數後端也是categoryId
 
     useEffect(() => {
@@ -37,6 +38,7 @@ function NEWs(props) {
         getNews();
     }, [location]);
 
+    //預設的api這個網頁
     useEffect(() => {
         let getNews = async () => {
             let response = await axios.get(`${API_URL}/news`);

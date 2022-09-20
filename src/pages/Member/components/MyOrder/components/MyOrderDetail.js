@@ -164,7 +164,7 @@ function MyOrderDetail() {
                                             <b>{item.name}</b>
                                         </span>
                                         <span className="small">
-                                            型號：aNueNue-M2
+                                            型號：{item.brand_name}
                                         </span>
                                     </div>
                                 </td>
@@ -282,7 +282,7 @@ function MyOrderDetail() {
                     Number(userInfo.freight);
                 return (
                     <>
-                        <div className="row detailBorder gary-dark-color mx-1">
+                        <div className="row detailBorder gary-dark-color mx-1 mt-3">
                             <div className="py-2 col-12 row justify-content-end">
                                 <p className="m-0 col-lg-2 col-5 text-end">
                                     總計
@@ -320,11 +320,11 @@ function MyOrderDetail() {
                             </div>
                             <div className="py-2 row col-lg-5 offset-lg-7 align-items-center">
                                 <button className="btn btn-secondary col mx-2 p-0 text-nowrap">
-                                    <Message className="myOrderIcon myOrderDetailBtn-Icon px-1" />
+                                    <Message className="myOrderDetailBtn-Icon px-1" />
                                     訂單詢問
                                 </button>
                                 <button className="btn btn-primary col mx-2 p-0 text-nowrap">
-                                    <OK className="myOrderIcon myOrderDetailBtn-Icon px-1" />
+                                    <OK className="myOrderDetailBtn-Icon px-1" />
                                     訂單完成
                                 </button>
                             </div>
