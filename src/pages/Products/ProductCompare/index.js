@@ -8,6 +8,9 @@ import './index.scss';
 // 套件
 import { Container } from 'react-bootstrap';
 
+// 元件
+import { successToast } from '../../../components/Alert';
+
 // 圖檔
 import { ReactComponent as Close } from '../../../assets/svg/close.svg';
 import { ReactComponent as Delete } from '../../../assets/svg/delete.svg';
@@ -31,6 +34,7 @@ function ProductCompare(props) {
         // localStorage.removeItem('compare');
         localStorage.setItem('compare', JSON.stringify([]));
         setCompareProduct([]);
+        successToast('商品清空成功!', '關閉');
     }
     // console.log(compareProduct);
     const handleCompare = (compareProduct, compareTags) => {
