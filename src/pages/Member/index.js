@@ -10,9 +10,15 @@ import MemberListMobile from './components/MemberListMobile';
 import { io } from 'socket.io-client';
 
 function Members(props) {
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    const {
+        member,
+        setMember,
+        isLogin,
+        setIsLogin,
+        socketStatus,
+        setSocketStatus,
+    } = useAuth();
     const [bread, setbread] = useState('');
-    const [updetaQADetail, setUpdetaQADetail] = useState(false);//更新detail
     const navigate = useNavigate();
 
     const [socketConn, setSocketConn] = useState(null);
@@ -24,21 +30,25 @@ function Members(props) {
                 let response = await axios.get(`${API_URL}/auth`, {
                     withCredentials: true,
                 });
-                console.log('已登入', response.data);
+                console.log('已登入', response.data.fullName);
                 setIsLogin(true);
                 setMember(response.data);
                 if (!socketConn) {
                     console.log('已登入開始建立連線');
                     let socket = io('http://localhost:3001');
                     setSocketConn(socket);
-                    socket.emit('name', response.data);
+                    socket.emit('memberName', response.data);
                     socket.on(`userid${response.data.id}`, (msg) => {
-                        //這裡的 messages 會一直抓到原始的值 []
-                        console.log('來自後端的訊息', msg);
-                        //要用這樣的方式寫，但為什麼？
-                        // setMessages(function (prevState, props) {
-                        //     return [...prevState, { dt: Date.now(), content: msg }];
-                        // });
+                        console.log(msg);
+                        if(msg.customerName){
+                            // setSocketStatus()
+                            //TODO:傳送customerName到detail頁面 寫到replyForm裡
+                        }
+                        //判斷是否需要更新MyQuestionDetail
+                        if (msg.MyQuestionDetail === true) {
+                            console.log('來自後端的訊息', msg);
+                            setSocketStatus(true);
+                        }
                     });
                 }
             } catch (err) {
@@ -72,7 +82,7 @@ function Members(props) {
             <MemberListMobile />
             <div className="row">
                 <MemberListTable />
-                <Outlet context={[setbread,updetaQADetail]} />
+                <Outlet context={[setbread]} />
             </div>
         </div>
     );

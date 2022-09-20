@@ -11,11 +11,13 @@ import { API_URL } from '../../../../utils/config';
 import { useAuth } from '../../../../utils/use_auth';
 import { v4 as uuidv4 } from 'uuid';
 import { ReactComponent as Close } from '../../../../assets/svg/close.svg';
+import { io } from 'socket.io-client';
 
 function CommonQADetail(props) {
     const [setbread] = useOutletContext();
     const navigate = useNavigate();
     const location = useLocation();
+    const [socketConn, setSocketConn] = useState(null);
     const [myQuestion, setMyQuestion] = useState({
         detail: {
             id: '',
@@ -43,7 +45,7 @@ function CommonQADetail(props) {
     async function myQuestionDetail(nlid) {
         try {
             let response = await axios.get(
-                `${API_URL}/member/myquestion/detail?qaid=${nlid}`,
+                `${API_URL}/admin/customerservice/commonqa/detail?nlid=${nlid}`,
                 {
                     withCredentials: true,
                 }
@@ -51,6 +53,7 @@ function CommonQADetail(props) {
             console.log(response.data);
             setreplyForm({
                 ...replyForm,
+                user_id: response.data.detail.user_id,
                 user_qna_id: response.data.detail.id,
             });
             setMyQuestion(response.data);
@@ -65,10 +68,31 @@ function CommonQADetail(props) {
         console.log(nlid);
         myQuestionDetail(nlid);
         // console.log(myQuestion);
+
+        if (!socketConn) {
+            console.log('管理員進入開始建立連線');
+            let socket = io('http://localhost:3001');
+            setSocketConn(socket);
+            let newLine = uuidv4();
+            //傳送管理員連線ns給會員
+            socket.emit(`customerName`, {
+                customerName: `customer${newLine}`,
+                user_qna_id: nlid,
+            });
+            socket.on(`customer${newLine}`, (msg) => {
+                console.log(msg);
+                //判斷是否需要更新MyQuestionDetail
+                if (msg.MyQuestionDetail === true) {
+                    console.log('來自會員的訊息', msg);
+                    // setSocketStatus(true);
+                }
+            });
+        }
     }, [location]);
 
     //新增回覆
     const [replyForm, setreplyForm] = useState({
+        user_id: '',
         user_qna_id: '',
         q_content: '',
         // name: '', 從session拿
@@ -80,7 +104,7 @@ function CommonQADetail(props) {
         e.preventDefault();
         try {
             let response = await axios.post(
-                `${API_URL}/member/myquestion/reply`,
+                `${API_URL}/admin/customerservice/commonqa/reply`,
                 replyForm,
                 {
                     withCredentials: true,

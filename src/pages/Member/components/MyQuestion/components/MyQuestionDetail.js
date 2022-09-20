@@ -14,6 +14,7 @@ import { ReactComponent as Close } from '../../../../../assets/svg/close.svg';
 
 function MyQuestionDetail(props) {
     const [setbread] = useOutletContext();
+    const { socketStatus, setSocketStatus } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const [myQuestion, setMyQuestion] = useState({
@@ -59,18 +60,31 @@ function MyQuestionDetail(props) {
             alert(err.response.data.message);
         }
     }
+
     useEffect(() => {
         let params = new URLSearchParams(location.search);
         let qaid = params.get('qaid');
         console.log(qaid);
         myQuestionDetail(qaid);
-        // console.log(myQuestion);
+        console.log(socketStatus);
     }, [location]);
+
+    //有新訊息更新資料庫
+    useEffect(() => {
+        if (socketStatus) {
+            let params = new URLSearchParams(location.search);
+            let qaid = params.get('qaid');
+            console.log(qaid);
+            myQuestionDetail(qaid);
+            setSocketStatus(false);
+        }
+    }, [socketStatus]);
 
     //新增回覆
     const [replyForm, setreplyForm] = useState({
         user_qna_id: '',
         q_content: '',
+        customerName: '',
         // name: '', 從session拿
     });
     const replyFormChange = (e) => {
@@ -86,6 +100,7 @@ function MyQuestionDetail(props) {
                     withCredentials: true,
                 }
             );
+            //TODO:傳送customerName到後端 告訴管理員更新資料庫
             // console.log(response.data);
             //讀取問答詳細
             myQuestionDetail(replyForm.user_qna_id);
