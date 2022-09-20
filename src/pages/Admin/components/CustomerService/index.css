@@ -1,0 +1,6 @@
+.QAlist{
+    font-size: 18px;
+}
+.QAlist .active{
+    border-bottom:4px solid #767676 ;
+}
