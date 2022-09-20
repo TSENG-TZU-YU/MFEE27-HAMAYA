@@ -17,6 +17,7 @@ import ProductCompare from '../ProductCompare';
 import ProductCarousel from '../../../components/ProductCarousel';
 import BreadCrumb from '../../../components/BreadCrumb/BreadCrumb';
 import CompareBtn from '../components/CompareBtn';
+import { successToast, warningToast } from '../../../components/Alert';
 
 // 圖檔
 import { FiMinus, FiPlus } from 'react-icons/fi';
@@ -58,10 +59,6 @@ function Product() {
         };
         getProductDetail();
     }, [location]);
-
-    // console.log(productImgs);
-    // console.log(productImgs[0]);
-    // console.log(relatedProducts);
 
     const productCount = (stock) => {
         if (stock !== 0) {
@@ -135,6 +132,10 @@ function Product() {
             setNewCompareLocal([{ ...compareItem }, ...compareProduct]);
             // 存localStorage
             setCompareProduct([{ ...compareItem }, ...compareProduct]);
+            successToast('成功加入比較!', '關閉');
+        }
+        if (newCompareItem) {
+            warningToast('已加入在項目中', '關閉');
         }
     }
 
