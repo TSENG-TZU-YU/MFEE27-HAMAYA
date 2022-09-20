@@ -1,7 +1,7 @@
 import React from 'react';
 import '../MyCart.scss';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
 import { useCart } from '../../../../../utils/use_cart';
@@ -9,9 +9,12 @@ import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
 import { ReactComponent as FavDefault } from '../../../../../assets/svg/favorite_defaut.svg';
 import { RiAddFill } from 'react-icons/ri';
 import { RiSubtractFill } from 'react-icons/ri';
+import MyCartCount from './MyCartCount';
 
 function MyCartProduct({ myCart, setMyCart, myCartA, setMyCartA }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
+
+    const [count, setCount] = useState(0);
 
     //進行刪除
     async function handleRemoveItem(itemId) {
@@ -50,7 +53,6 @@ function MyCartProduct({ myCart, setMyCart, myCartA, setMyCartA }) {
         <>
             {myCartA.map((item) => {
                 let itemPriceTotal = item.amount * item.price;
-
                 return (
                     <tr key={item.product_id}>
                         <td data-title="樂器商城" align="center">
@@ -77,7 +79,9 @@ function MyCartProduct({ myCart, setMyCart, myCartA, setMyCartA }) {
                                 <span className="p main-color">
                                     <b>{item.name}</b>
                                 </span>
-                                <span className="small">型號：aNueNue-M2</span>
+                                <span className="small">
+                                    型號：{item.brand_name}
+                                </span>
                                 <div className="pt-lg-3 d-inline">
                                     <button className="btn border-0 p-0">
                                         <FavDefault className="myCartItemIconFav " />
@@ -102,7 +106,24 @@ function MyCartProduct({ myCart, setMyCart, myCartA, setMyCartA }) {
                             </div>
                         </td>
                         <td align="center" className="align-middle">
-                            <div className="d-inline-block">
+                            <MyCartCount
+                                count={item.amount}
+                                setCount={(newCount) => {
+                                    const newMyCart = myCart.map((v, i) => {
+                                        return item.id === v.id
+                                            ? { ...v, amount: newCount }
+                                            : { ...v };
+                                    });
+                                    const newMyCartA = myCartA.map((v, i) => {
+                                        return item.id === v.id
+                                            ? { ...v, amount: newCount }
+                                            : { ...v };
+                                    });
+                                    setMyCartA(newMyCartA);
+                                    setMyCart(newMyCart);
+                                }}
+                            />
+                            {/* <div className="d-inline-block">
                                 <button className="btn border-0">
                                     <RiSubtractFill size="20" />
                                 </button>
@@ -110,7 +131,7 @@ function MyCartProduct({ myCart, setMyCart, myCartA, setMyCartA }) {
                                 <button className=" btn border-0">
                                     <RiAddFill size="20" />
                                 </button>
-                            </div>
+                            </div> */}
                         </td>
                         <td align="center" className="align-middle ">
                             <div className="gary-dark">

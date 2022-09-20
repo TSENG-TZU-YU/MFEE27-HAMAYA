@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom'; //抓取Outlet的props
+import { useOutletContext, Link } from 'react-router-dom'; //抓取Outlet的props
 import MyCartTable from './components/MyCartTable';
 import './MyCart.scss';
 import MyCartDoCheckout from './components/MyCartDoCheckout';
@@ -34,7 +34,7 @@ function MyCart() {
                 if (items_amount !== 0) {
                     setHiddenState(true);
                     setMyCart(response.data.myCart);
-                    // console.log(response.data.myCart);
+                    console.log(response.data.myCart);
                     //分類別
                     let myCartList = response.data.myCart;
                     const myCart_cateA = myCartList.filter((v) => {
@@ -89,7 +89,12 @@ function MyCart() {
                     </div>
                 </>
             ) : (
-                <h5 className="text-center py-2">目前沒有資料</h5>
+                <>
+                    <h5 className="text-center py-2">目前沒有購物清單</h5>
+                    <h6 className="text-center py-2">
+                        <Link to="/products">回到音樂商城</Link>
+                    </h6>
+                </>
             )}
         </div>
     );

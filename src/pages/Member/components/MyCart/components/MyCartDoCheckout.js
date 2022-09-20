@@ -33,10 +33,21 @@ function MyCartDoCheckout({
     //     console.log(e.target.selectedIndex); //抓得到option順序
     // }
 
+    //前往付款 成立訂單
     async function setSaveOrder(saveOrderInfo) {
+        console.log('saveOrderInfo', saveOrderInfo, myCart);
         //確保是否登入
         if (member !== null && member.id !== '') {
             //串要傳資料庫的內容 前端驗證資訊是否填妥
+            let newMyCart = myCart.filter((item) => {
+                return item.amount !== 0;
+            });
+            console.log('newMyCart', newMyCart);
+
+            if (!newMyCart.length) {
+                return alert('商品數量不對喔');
+            }
+
             if (saveOrderInfo.receiver === '') {
                 alert('請填寫收件人姓名');
                 return;
@@ -57,36 +68,36 @@ function MyCartDoCheckout({
                 alert('請選擇運費');
                 return;
             }
-        }
 
-        let newSaveOrderInfo = [
-            {
-                user_id: member.id,
-                ...saveOrderInfo,
-                pay_method: 1,
-                product_detail: myCart,
-            },
-        ];
+            let newSaveOrderInfo = [
+                {
+                    user_id: member.id,
+                    ...saveOrderInfo,
+                    pay_method: 1,
+                    product_detail: newMyCart,
+                },
+            ];
 
-        async function setOrderInfo() {
-            try {
-                let response = await axios.post(
-                    `${API_URL}/member/myorder`,
-                    newSaveOrderInfo
-                );
-                alert(
-                    `訂單編號：${response.data.order_id} & ${response.data.message}`
-                );
-                setMyCart([]);
-                setMyCartA([]);
-                setMyCartB([]);
-                setHiddenState(false);
-                // console.log(response.data);
-            } catch (err) {
-                console.log('新增訂單錯誤', err);
+            async function setOrderInfo() {
+                try {
+                    let response = await axios.post(
+                        `${API_URL}/member/myorder`,
+                        newSaveOrderInfo
+                    );
+                    alert(
+                        `訂單編號：${response.data.order_id} & ${response.data.message}`
+                    );
+                    setMyCart([]);
+                    setMyCartA([]);
+                    setMyCartB([]);
+                    setHiddenState(false);
+                    // console.log(response.data);
+                } catch (err) {
+                    console.log('新增訂單錯誤', err);
+                }
             }
+            setOrderInfo();
         }
-        setOrderInfo();
     }
 
     return (
@@ -201,21 +212,21 @@ function MyCartDoCheckout({
                     </span>
                 </div>
                 <div className="d-flex justify-content-end py-2">
-                    <span className="accent-color px-2">總計</span>
+                    <span className="accent-color px-4">總計</span>
                     <span className="">NT: {calcTotalPrice}</span>
                 </div>
-                <div className="d-flex justify-content-end align-items-center py-lg-2">
-                    <div className="flex-grow-1 d-flex align-items-center justify-content-between px-2 mx-3">
+                <div className="d-flex justify-content-between align-items-center py-lg-2">
+                    <div className="d-flex align-items-center justify-content-between px-2 mx-3">
                         <div className="myCartMarginLeft">
                             <span className="accent-color">運費</span>
                         </div>
-                        <div className="">
+                        <div className="myCartSelectMargin">
                             <select
                                 className="form-select"
                                 name="freight"
                                 onChange={getMyCartInfo}
                             >
-                                <option value="">請選擇運費</option>
+                                <option value="0">請選擇運費</option>
                                 <option value="2000">2000</option>
                                 <option value="5000">5000</option>
                                 <option value="3000">3000</option>
@@ -226,21 +237,21 @@ function MyCartDoCheckout({
                         <span className="">NT:{myCartInfo.freight}</span>
                     </div>
                 </div>
-                <div className="d-flex align-items-center justify-content-end py-2 orderBottomLine">
-                    <div className="flex-grow-1 d-flex align-items-center justify-content-between px-2">
+                <div className="d-flex align-items-center justify-content-between py-2 orderBottomLine">
+                    <div className="d-flex align-items-center justify-content-between px-2">
                         <div>
                             <span className="accent-color text-nowrap">
                                 優惠券折扣
                             </span>
                         </div>
-                        <div className="myCartMarginRight">
+                        <div className="myCartSelectMargin">
                             <select
                                 className="form-select"
                                 name="coupon"
                                 id=""
                                 onChange={getMyCartInfo}
                             >
-                                <option value="">請選擇折扣</option>
+                                <option value="0">請選擇折扣</option>
                                 <option value="50">50</option>
                                 <option value="100">100</option>
                                 <option value="200">200</option>
