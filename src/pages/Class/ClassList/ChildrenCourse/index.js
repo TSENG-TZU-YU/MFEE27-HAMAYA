@@ -47,34 +47,16 @@ function ChildrenCourse({
                 setPageProducts(pageList);
                 console.log('pageProducts', pageProducts);
             }
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'auto',
+            });
         };
         getAdultClass();
     }, []);
 
     useEffect(() => {}, [products]);
-    // 製作分頁按鈕
-    const getPage = () => {
-        let pages = [];
-        for (let i = 1; i <= pageTotal; i++) {
-            //要從陣列後面依序放頁數
-            pages.push(
-                <li
-                    className="pages"
-                    style={{
-                        backgroundColor: pageNow === i ? '#00323d' : '',
-                        color: pageNow === i ? '#f2f2f2' : '#6a777a',
-                    }}
-                    key={i}
-                    onClick={(e) => {
-                        setPageNow(i);
-                    }}
-                >
-                    {i}
-                </li>
-            );
-        }
-        return pages;
-    };
 
     return (
         <div>
@@ -114,7 +96,8 @@ function ChildrenCourse({
                                             </p>
                                             <p className="mb-0">名額：10 人 </p>
                                             <p className="mb-0">
-                                                報名截止：{classChild.deadline}
+                                                報名截止：
+                                                {classChild.deadline}
                                             </p>
                                             <p className="mb-0">
                                                 開課時間：
@@ -133,7 +116,9 @@ function ChildrenCourse({
                                             <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">
                                                 <h4
                                                     className=" fw-bold"
-                                                    style={{ color: '#5b322f' }}
+                                                    style={{
+                                                        color: '#5b322f',
+                                                    }}
                                                 >
                                                     NT ${classChild.price} / 期
                                                 </h4>

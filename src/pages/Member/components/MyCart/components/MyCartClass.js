@@ -10,10 +10,12 @@ import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
 import { ReactComponent as FavDefault } from '../../../../../assets/svg/favorite_defaut.svg';
 import { RiAddFill } from 'react-icons/ri';
 import { RiSubtractFill } from 'react-icons/ri';
+import MyCartCount from './MyCartCount';
 
 function MyCartClass({ myCart, setMyCart, myCartB, setMyCartB }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
 
+    const [count, setCount] = useState(0);
     //進行刪除及時更新
     async function handleRemoveItem(itemId) {
         if (member !== null && member.id !== '') {
@@ -31,11 +33,11 @@ function MyCartClass({ myCart, setMyCart, myCartB, setMyCartB }) {
                 let newMyCart = myCart.map((item) => {
                     return { ...item };
                 });
-                //前端刪除狀態
+                //前端刪除狀態 (全部)
                 let newMyCartAfterDelete = newMyCart.filter((item) => {
                     return item.product_id !== itemId;
                 });
-                //set狀態回去 TODO:AB再調整
+                //set狀態回去
                 const myCart_cateB = newMyCartAfterDelete.filter((v) => {
                     return v.category_id === 'B';
                 });
@@ -100,15 +102,23 @@ function MyCartClass({ myCart, setMyCart, myCartB, setMyCartB }) {
                             </div>
                         </td>
                         <td align="center" className="align-middle">
-                            <div className="d-inline-block">
-                                <button className="btn border-0">
-                                    <RiSubtractFill size="20" />
-                                </button>
-                                <div className="countBox">{item.amount}</div>
-                                <button className=" btn border-0">
-                                    <RiAddFill size="20" />
-                                </button>
-                            </div>
+                            <MyCartCount
+                                count={item.amount}
+                                setCount={(newCount) => {
+                                    const newMyCart = myCart.map((v, i) => {
+                                        return item.id === v.id
+                                            ? { ...v, amount: newCount }
+                                            : { ...v };
+                                    });
+                                    const newMyCartB = myCartB.map((v, i) => {
+                                        return item.id === v.id
+                                            ? { ...v, amount: newCount }
+                                            : { ...v };
+                                    });
+                                    setMyCartB(newMyCartB);
+                                    setMyCart(newMyCart);
+                                }}
+                            />
                         </td>
                         <td align="center" className="align-middle ">
                             <div className="gary-dark">
