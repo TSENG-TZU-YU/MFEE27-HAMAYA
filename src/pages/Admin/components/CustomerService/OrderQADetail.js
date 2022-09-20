@@ -7,14 +7,13 @@ import {
     useLocation,
 } from 'react-router-dom';
 import axios from 'axios';
-import { API_URL } from '../../../../../utils/config';
-import { useAuth } from '../../../../../utils/use_auth';
+import { API_URL } from '../../../../utils/config';
+import { useAuth } from '../../../../utils/use_auth';
 import { v4 as uuidv4 } from 'uuid';
-import { ReactComponent as Close } from '../../../../../assets/svg/close.svg';
+import { ReactComponent as Close } from '../../../../assets/svg/close.svg';
 
-function MyQuestionDetail(props) {
+function OrderQADetail(props) {
     const [setbread] = useOutletContext();
-    const { socketStatus, setSocketStatus } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const [myQuestion, setMyQuestion] = useState({
@@ -41,10 +40,10 @@ function MyQuestionDetail(props) {
     });
 
     //讀取問答詳細
-    async function myQuestionDetail(qaid) {
+    async function myQuestionDetail(orid) {
         try {
             let response = await axios.get(
-                `${API_URL}/member/myquestion/detail?qaid=${qaid}`,
+                `${API_URL}/member/myquestion/detail?qaid=${orid}`,
                 {
                     withCredentials: true,
                 }
@@ -60,31 +59,18 @@ function MyQuestionDetail(props) {
             alert(err.response.data.message);
         }
     }
-
     useEffect(() => {
         let params = new URLSearchParams(location.search);
-        let qaid = params.get('qaid');
-        console.log(qaid);
-        myQuestionDetail(qaid);
-        console.log(socketStatus);
+        let orid = params.get('orid');
+        console.log(orid);
+        myQuestionDetail(orid);
+        // console.log(myQuestion);
     }, [location]);
-
-    //有新訊息更新資料庫
-    useEffect(() => {
-        if (socketStatus) {
-            let params = new URLSearchParams(location.search);
-            let qaid = params.get('qaid');
-            console.log(qaid);
-            myQuestionDetail(qaid);
-            setSocketStatus(false);
-        }
-    }, [socketStatus]);
 
     //新增回覆
     const [replyForm, setreplyForm] = useState({
         user_qna_id: '',
         q_content: '',
-        customerName: '',
         // name: '', 從session拿
     });
     const replyFormChange = (e) => {
@@ -100,7 +86,6 @@ function MyQuestionDetail(props) {
                     withCredentials: true,
                 }
             );
-            //TODO:傳送customerName到後端 告訴管理員更新資料庫
             // console.log(response.data);
             //讀取問答詳細
             myQuestionDetail(replyForm.user_qna_id);
@@ -114,12 +99,12 @@ function MyQuestionDetail(props) {
     }
 
     return (
-        <div className="col-12 col-md-8 col-lg-9 mb-3 MyQuestionDetail">
+        <div className="mb-3  MyQuestionDetail">
             <div className="d-flex align-items-center justify-content-between content  my-2">
                 <div>
                     <h4 className="main-color ">問答詳細</h4>
                     <div className="">
-                        問答編號:QA00{myQuestion.detail.id}&nbsp;
+                        問答編號:OR00{myQuestion.detail.id}&nbsp;
                         {myQuestion.detail.create_time}
                     </div>
                 </div>
@@ -215,5 +200,4 @@ function MyQuestionDetail(props) {
         </div>
     );
 }
-
-export default MyQuestionDetail;
+export default OrderQADetail;

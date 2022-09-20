@@ -6,10 +6,22 @@ import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import MemberListTable from './components/MemberListTable';
 import MemberListMobile from './components/MemberListMobile';
+
+import { io } from 'socket.io-client';
+
 function Members(props) {
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    const {
+        member,
+        setMember,
+        isLogin,
+        setIsLogin,
+        socketStatus,
+        setSocketStatus,
+    } = useAuth();
     const [bread, setbread] = useState('');
     const navigate = useNavigate();
+
+    const [socketConn, setSocketConn] = useState(null);
 
     useEffect(() => {
         async function getMember() {
@@ -18,9 +30,27 @@ function Members(props) {
                 let response = await axios.get(`${API_URL}/auth`, {
                     withCredentials: true,
                 });
-                console.log('已登入', response.data);
+                console.log('已登入', response.data.fullName);
                 setIsLogin(true);
                 setMember(response.data);
+                if (!socketConn) {
+                    console.log('已登入開始建立連線');
+                    let socket = io('http://localhost:3001');
+                    setSocketConn(socket);
+                    socket.emit('memberName', response.data);
+                    socket.on(`userid${response.data.id}`, (msg) => {
+                        console.log(msg);
+                        if(msg.customerName){
+                            // setSocketStatus()
+                            //TODO:傳送customerName到detail頁面 寫到replyForm裡
+                        }
+                        //判斷是否需要更新MyQuestionDetail
+                        if (msg.MyQuestionDetail === true) {
+                            console.log('來自後端的訊息', msg);
+                            setSocketStatus(true);
+                        }
+                    });
+                }
             } catch (err) {
                 navigate('/');
                 console.log(err.response.data.message);

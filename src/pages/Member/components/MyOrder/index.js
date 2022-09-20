@@ -15,7 +15,8 @@ function MyOrder() {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
 
     const [myOrder, setMyOrder] = useState([]);
-
+    //有資料true,沒資料false
+    const [hiddenState, setHiddenState] = useState(false);
     useEffect(() => {
         setbread('訂單查詢'); //載入頁面時 設定麵包削
 
@@ -23,7 +24,7 @@ function MyOrder() {
             let response = await axios.get(
                 `${API_URL}/member/myorder/${member.id}`
             );
-            // console.log('response', response.data.myOrder);
+            // console.log('response', response.data);
             //找order_id
             let order_id = response.data.myOrder.map((item) => item.order_id);
             //過濾重複的
@@ -35,8 +36,11 @@ function MyOrder() {
                     return item.order_id === id;
                 });
             });
-            // console.log('order_id noRepeat', order_id, noRepeat, newResponse);
-            setMyOrder(newResponse);
+            console.log('order_id noRepeat', order_id, noRepeat, newResponse);
+            if (newResponse.length !== 0) {
+                setHiddenState(true);
+                setMyOrder(newResponse);
+            }
         }
         getMyOrder();
     }, []);
@@ -52,110 +56,121 @@ function MyOrder() {
                     <img src={search} alt="" />
                 </button>
             </div>
-            <table className="table my-2 myOrderTable">
-                <thead>
-                    <tr className="text-center accent-light-color bg-main-color">
-                        <th className="myOrderThWidth">#</th>
-                        <th>訂單編號</th>
-                        <th>訂單金額</th>
-                        <th>訂單狀態</th>
-                        <th>訂單時間</th>
-                        <th>功能</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {myOrder.map((order) => {
-                        let timeSplit = order.create_time.split(' ');
-                        let newCreateTime = timeSplit[0];
-                        return (
-                            <tr key={order.order_id}>
-                                <td>
-                                    {order.category_id === 'A' && (
-                                        <img
-                                            className="myOrder-Img myOrder-contain"
-                                            src={require(`../../../../album/products/${order.image}`)}
-                                            alt=""
-                                        />
-                                    )}
-                                    {order.category_id === 'B' && (
-                                        <img
-                                            className="myOrder-Img myOrder-contain"
-                                            src={require(`../../../../album/class/${order.image_1}`)}
-                                            alt=""
-                                        />
-                                    )}
-                                </td>
-                                {/* 這一個td 是只會在手機板出現 */}
-                                <td
-                                    align="center"
-                                    className="align-middle d-lg-none p-0"
-                                    data-title={`訂單編號：${order.order_id}`}
-                                ></td>
-                                <td
-                                    className="align-middle text-lg-center"
-                                    colSpan={2}
-                                >
-                                    <div className="row g-0 px-3 px-lg-0">
-                                        <span className="col-3 d-lg-none main-color">
-                                            訂單編號
-                                        </span>
-                                        <span className="col-lg-6 col-3 text-lg-center text-end pe-2 pe-lg-0">
-                                            {order.order_id}
-                                        </span>
-                                        <span className="col-3  d-lg-none main-color ps-2">
-                                            訂單價錢
-                                        </span>
-                                        <span className="col-lg-6 col-3 text-lg-center text-end">
-                                            NT ${order.total_amount}
-                                        </span>
-                                    </div>
-                                </td>
-                                <td
-                                    className="align-middle text-lg-center"
-                                    colSpan={2}
-                                >
-                                    <div className="row g-0 px-3 px-lg-0">
-                                        <span className="col-3  d-lg-none main-color">
-                                            訂單狀態
-                                        </span>
-                                        <span className="col-lg-6 col-3 text-lg-center text-end pe-2 pe-lg-0">
-                                            待出貨
-                                        </span>
-                                        <span className="col-3  d-lg-none main-color ps-2">
-                                            訂單時間
-                                        </span>
-                                        <span className="col-lg-6 col-3 text-lg-center text-end">
-                                            {newCreateTime}
-                                        </span>
-                                    </div>
-                                </td>
-                                <td className="align-middle text-center text-xl-center text-lg-end">
-                                    <div className="row justify-content-around align-items-center">
-                                        <div className="col-lg-12 col-xl-7 col-7">
-                                            <button className="btn border-0 p-0">
-                                                <Message className="myOrderIcon" />
-                                                訂單詢問
-                                            </button>
-                                            <span className="small accent-light-color bg-main-color mx-1">
-                                                未回覆
-                                            </span>
-                                        </div>
-                                        <div className="col-lg-12 col-xl-5 col-5">
-                                            <Link
-                                                to={`/member/myorder/${order.order_id}`}
-                                                className="btn border-0 p-0"
-                                            >
-                                                <Detailed className="myOrderIcon" />
-                                                訂單詳細
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </td>
+            {hiddenState ? (
+                <>
+                    <table className="table my-2 myOrderTable">
+                        <thead>
+                            <tr className="text-center accent-light-color bg-main-color">
+                                <th className="myOrderThWidth">#</th>
+                                <th>訂單編號</th>
+                                <th>訂單金額</th>
+                                <th>訂單狀態</th>
+                                <th>訂單時間</th>
+                                <th>功能</th>
                             </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+                        </thead>
+                        <tbody>
+                            {myOrder.map((order) => {
+                                let timeSplit = order.create_time.split(' ');
+                                let newCreateTime = timeSplit[0];
+                                return (
+                                    <tr key={order.order_id}>
+                                        <td>
+                                            {order.category_id === 'A' && (
+                                                <img
+                                                    className="myOrder-Img myOrder-contain"
+                                                    src={require(`../../../../album/products/${order.image}`)}
+                                                    alt=""
+                                                />
+                                            )}
+                                            {order.category_id === 'B' && (
+                                                <img
+                                                    className="myOrder-Img myOrder-contain"
+                                                    src={require(`../../../../album/class/${order.image_1}`)}
+                                                    alt=""
+                                                />
+                                            )}
+                                        </td>
+                                        {/* 這一個td 是只會在手機板出現 */}
+                                        <td
+                                            align="center"
+                                            className="align-middle d-lg-none p-0"
+                                            data-title={`訂單編號：${order.order_id}`}
+                                        ></td>
+                                        <td
+                                            className="align-middle text-lg-center"
+                                            colSpan={2}
+                                        >
+                                            <div className="row g-0 px-3 px-lg-0">
+                                                <span className="col-3 d-lg-none main-color">
+                                                    訂單編號
+                                                </span>
+                                                <span className="col-lg-6 col-3 text-lg-center text-end pe-2 pe-lg-0">
+                                                    {order.order_id}
+                                                </span>
+                                                <span className="col-3  d-lg-none main-color ps-2">
+                                                    訂單價錢
+                                                </span>
+                                                <span className="col-lg-6 col-3 text-lg-center text-end">
+                                                    NT ${order.total_amount}
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td
+                                            className="align-middle text-lg-center"
+                                            colSpan={2}
+                                        >
+                                            <div className="row g-0 px-3 px-lg-0">
+                                                <span className="col-3  d-lg-none main-color">
+                                                    訂單狀態
+                                                </span>
+                                                <span className="col-lg-6 col-3 text-lg-center text-end pe-2 pe-lg-0">
+                                                    待出貨
+                                                </span>
+                                                <span className="col-3  d-lg-none main-color ps-2">
+                                                    訂單時間
+                                                </span>
+                                                <span className="col-lg-6 col-3 text-lg-center text-end">
+                                                    {newCreateTime}
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td className="align-middle text-center text-xl-center text-lg-end">
+                                            <div className="row justify-content-around align-items-center">
+                                                <div className="col-lg-12 col-xl-7 col-7">
+                                                    <button className="btn border-0 p-0">
+                                                        <Message className="myOrderIcon" />
+                                                        訂單詢問
+                                                    </button>
+                                                    <span className="small accent-light-color bg-main-color mx-1">
+                                                        未回覆
+                                                    </span>
+                                                </div>
+                                                <div className="col-lg-12 col-xl-5 col-5">
+                                                    <Link
+                                                        to={`/member/myorder/${order.order_id}`}
+                                                        className="btn border-0 p-0"
+                                                    >
+                                                        <Detailed className="myOrderIcon" />
+                                                        訂單詳細
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </>
+            ) : (
+                <>
+                    <h5 className="text-center py-2">目前沒有訂單</h5>
+                    <h6 className="text-center py-2">
+                        <Link to="/products">回到音樂商城</Link>
+                    </h6>
+                </>
+            )}
         </div>
     );
 }

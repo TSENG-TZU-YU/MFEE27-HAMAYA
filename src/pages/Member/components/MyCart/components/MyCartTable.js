@@ -49,7 +49,7 @@ function MyCartTable({
                             <th className="w-25">商品名稱</th>
                             <th>價格</th>
                             <th>數量</th>
-                            <th>小計</th>
+                            <th className="myCartThWidth">小計</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,7 +68,7 @@ function MyCartTable({
                             <th className="w-25">商品名稱</th>
                             <th>價格</th>
                             <th>數量</th>
-                            <th>小計</th>
+                            <th className="myCartThWidth">小計</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -5,8 +5,11 @@ import { API_URL } from '../../../../../utils/config';
 import axios from 'axios';
 import { useAuth } from '../../../../../utils/use_auth';
 
+// 元件
+import PaginationBar from '../../../../../components/PaginationBar/PaginationBar';
+
 function ClassStart(props) {
-    const [data, setData] = useState([]);
+    // const [data, setData] = useState([]);
     const [buyClass, setBuyClass] = useState([]);
     // 取得會員 ID 資料
     const { member } = useAuth();
@@ -15,11 +18,10 @@ function ClassStart(props) {
             let response = await axios.get(
                 `${API_URL}/member/myclass/${member.id}`
             );
-            setData(response.data.data);
+            // setData(response.data.data);
             setBuyClass(response.data.buyClass);
-            console.log('data', data);
+
             console.log('buyClass', buyClass);
-            // TODO: 當該課程ID=已評價過的課程ID
         };
         getAdultClass();
     }, []);
@@ -68,6 +70,15 @@ function ClassStart(props) {
                     );
                 })}
             </Link>
+            {/* 頁碼 */}
+            {/* <div className="pageBar">
+                <PaginationBar
+                // pageNow={pageNow}
+                // setPageNow={setPageNow}
+                // pageTotal={pageTotal}
+                />
+            </div> */}
+            {/* 頁碼 end */}
         </div>
     );
 }

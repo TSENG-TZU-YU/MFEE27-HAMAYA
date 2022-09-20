@@ -87,12 +87,6 @@ function ClassList(props) {
     // 排序：處理方法
     const handleSort = (products, sortBy) => {
         let newProducts = [...products];
-
-        // TODO: 預設用id 大至小
-        // if (sortBy === '' && newProducts.length > 0) {
-        //     newProducts = [...newProducts].sort((a, b) => a.id - b.id);
-        // }
-
         // 以價格排序-低到高
         if (sortBy === '1') {
             newProducts = [...newProducts].sort((a, b) => a.price - b.price);
@@ -126,13 +120,14 @@ function ClassList(props) {
             });
             setSubIns('');
         }
-        console.log('search', newProducts);
+
         return newProducts;
     };
 
     // 樂器:處理方法
     const handleSubIns = (products, subIns) => {
         let newProducts = [...products];
+        console.log('subIns', newProducts);
 
         if (subIns === '1') {
             newProducts = [...newProducts].filter(
@@ -232,10 +227,11 @@ function ClassList(props) {
 
         // 處理價格區間選項
         newProducts = applyFilters(newProducts, selectedPrice);
-
+        // 篩選後 PageNow = 1 map 才有作用
+        setPageNow(1);
         setDisplayProducts(newProducts);
         const newPageProducts = _.chunk(newProducts, perPage);
-        setPageTotal(pageProducts.length);
+        setPageTotal(newPageProducts.length);
         setPageProducts(newPageProducts);
         console.log('newProductsClass', newProducts);
     }, [products, selectedPrice, sortBy, searchWord, subIns]);
