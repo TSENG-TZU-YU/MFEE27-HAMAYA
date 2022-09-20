@@ -6,10 +6,16 @@ import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import MemberListTable from './components/MemberListTable';
 import MemberListMobile from './components/MemberListMobile';
+
+import { io } from 'socket.io-client';
+
 function Members(props) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const [bread, setbread] = useState('');
+    const [updetaQADetail, setUpdetaQADetail] = useState(false);//更新detail
     const navigate = useNavigate();
+
+    const [socketConn, setSocketConn] = useState(null);
 
     useEffect(() => {
         async function getMember() {
@@ -21,6 +27,20 @@ function Members(props) {
                 console.log('已登入', response.data);
                 setIsLogin(true);
                 setMember(response.data);
+                if (!socketConn) {
+                    console.log('已登入開始建立連線');
+                    let socket = io('http://localhost:3001');
+                    setSocketConn(socket);
+                    socket.emit('name', response.data);
+                    socket.on(`userid${response.data.id}`, (msg) => {
+                        //這裡的 messages 會一直抓到原始的值 []
+                        console.log('來自後端的訊息', msg);
+                        //要用這樣的方式寫，但為什麼？
+                        // setMessages(function (prevState, props) {
+                        //     return [...prevState, { dt: Date.now(), content: msg }];
+                        // });
+                    });
+                }
             } catch (err) {
                 navigate('/');
                 console.log(err.response.data.message);
@@ -52,7 +72,7 @@ function Members(props) {
             <MemberListMobile />
             <div className="row">
                 <MemberListTable />
-                <Outlet context={[setbread]} />
+                <Outlet context={[setbread,updetaQADetail]} />
             </div>
         </div>
     );
