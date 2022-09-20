@@ -107,7 +107,7 @@ li.products-page-active {
   color: $accent-light;
   width: 5rem;
   padding: 2px 1px;
-  background: $main-light;
+  background: $main;
   cursor: pointer;
   transition: .4s;
 }
@@ -162,7 +162,7 @@ li.products-page-active {
 .products-filter-menu {
   background: $main-light;
   width: 200px;
-  top: 40px;
+  top: 36px;
   z-index: 1;
   color: $accent-light;
 }
@@ -213,7 +213,7 @@ button.products-btn-border-none {
 .products-sort-menu {
   background: $main-light;
   left: 110px;
-  top: 40px;
+  top: 36px;
   z-index: 1;
   color: $accent-light;
 }
@@ -231,9 +231,10 @@ button.products-btn-border-none {
 }
 
 .products-Search-box {
-  left: 110px;
-  top: 40px;
+  right: 0;
+  top: 36px;
   z-index: 2;
+  width: 100%;
 }
 
 

@@ -8,6 +8,7 @@
         "@testing-library/user-event": "^13.5.0",
         "axios": "^0.27.2",
         "bootstrap": "^5.2.0",
+        "framer-motion": "^7.3.5",
         "lodash": "^4.17.21",
         "postcss": "^8.4.16",
         "postcss-cli": "^10.0.0",

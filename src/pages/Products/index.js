@@ -25,6 +25,10 @@ import MobileFilterBar from './components/MobileFilterBar';
 import PaginationBar from '../../components/PaginationBar/PaginationBar';
 import CompareBtn from './components/CompareBtn';
 import { successToast, warningToast } from '../../components/Alert';
+import {
+    ListMotionContainer,
+    ListMotionItem,
+} from '../../components/ListMotion';
 
 // 元件 FilterNav
 import SearchBar from '../../components/SearchBar';
@@ -145,10 +149,11 @@ function Products() {
         setBrandTags(changeCheckedBrandTags);
     };
 
-    // 排序：處理方法
-    const handleSort = (products, sortBy) => {
+    // 篩選方法
+    const applyFilters = () => {
         let newProducts = [...products];
 
+        // 排序：處理方法
         // 價格排序 低 > 高
         if (sortBy === '1') {
             newProducts = [...newProducts].sort((a, b) => a.price - b.price);
@@ -172,16 +177,6 @@ function Products() {
                 a.create_time.localeCompare(b.create_time)
             );
         }
-
-        return newProducts;
-    };
-
-    // 篩選方法
-    const applyFilters = () => {
-        let newProducts = [...products];
-
-        // 排序：處理方法
-        newProducts = handleSort(products, sortBy);
 
         // 搜尋：處理方法
         if (searchWord.length) {
@@ -218,6 +213,7 @@ function Products() {
         newProducts = newProducts.filter(
             (product) => product.price >= minPrice && product.price <= maxPrice
         );
+
         setPageNow(1);
         setDisplayProducts(newProducts);
         const newPageProducts = _.chunk(newProducts, perPage);
@@ -318,7 +314,7 @@ function Products() {
             successToast('成功加入比較!', '關閉');
         }
         if (newCompareItem) {
-            warningToast('已加入在項目中', '關閉');
+            warningToast('已加入項目中', '關閉');
         }
     }
 
@@ -662,7 +658,16 @@ function Products() {
                                                     />
                                                 </Link>
                                                 <div className="product-like position-absolute top-0 end-0">
-                                                    <Favorite />
+                                                    <Favorite
+                                                        user_id={member.id}
+                                                        product_id={
+                                                            product.product_id
+                                                        }
+                                                        category_id={
+                                                            product.category_id
+                                                        }
+                                                        toggled={true}
+                                                    />
                                                 </div>
                                                 <div
                                                     className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-2"
