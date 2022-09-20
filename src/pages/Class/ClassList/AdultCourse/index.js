@@ -46,6 +46,11 @@ function AdultCourse({
                 // 設定到state中
                 setPageProducts(pageList);
             }
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'auto',
+            });
         };
 
         getAdultClass();
