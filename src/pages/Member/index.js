@@ -38,16 +38,23 @@ function Members(props) {
                     let socket = io('http://localhost:3001');
                     setSocketConn(socket);
                     socket.emit('memberName', response.data);
-                    socket.on(`userid${response.data.id}`, (msg) => {
-                        console.log(msg);
-                        if(msg.customerName){
-                            // setSocketStatus()
-                            //TODO:傳送customerName到detail頁面 寫到replyForm裡
+                    socket.on(`userid${response.data.id}`, (res) => {
+                        // console.log(res);
+                        if (res.customer_id !== '') {
+                            console.log('管理員進入detail頁面', res);
+                            setSocketStatus({
+                                ...socketStatus,
+                                customer_id: res.customer_id,
+                            });
+                            //TODO:傳送customer_id到detail頁面 寫到replyForm裡
                         }
                         //判斷是否需要更新MyQuestionDetail
-                        if (msg.MyQuestionDetail === true) {
-                            console.log('來自後端的訊息', msg);
-                            setSocketStatus(true);
+                        if (res.updateMyQA === true) {
+                            console.log('來自管理員的訊息', res);
+                            setSocketStatus({
+                                ...socketStatus,
+                                updateMyQA: true,
+                            });
                         }
                     });
                 }
