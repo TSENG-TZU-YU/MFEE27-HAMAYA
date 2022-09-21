@@ -10,7 +10,7 @@ function BucketClass() {
         <>
             <div className="row p-2">
                 <div className="row col-lg-5 align-items-center ">
-                    <div class="col-3 d-inline-flex justify-content-evenly form-check">
+                    <div className="col-3 d-inline-flex justify-content-evenly form-check">
                         <input
                             className="form-check-input"
                             type="checkbox"

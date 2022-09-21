@@ -6,7 +6,7 @@ import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
 import { useCart } from '../../../../../utils/use_cart';
 import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
-import { ReactComponent as FavDefault } from '../../../../../assets/svg/favorite_defaut.svg';
+import CartFavorite from '../../../../../components/CartFavorite';
 import { RiAddFill } from 'react-icons/ri';
 import { RiSubtractFill } from 'react-icons/ri';
 import MyCartCount from './MyCartCount';
@@ -15,7 +15,6 @@ function MyCartProduct({ myCart, setMyCart, myCartA, setMyCartA }) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
 
     const [count, setCount] = useState(0);
-
     //進行刪除
     async function handleRemoveItem(itemId) {
         console.log('click');
@@ -82,10 +81,8 @@ function MyCartProduct({ myCart, setMyCart, myCartA, setMyCartA }) {
                                 <span className="small">
                                     型號：{item.brand_name}
                                 </span>
-                                <div className="pt-lg-3 d-inline">
-                                    <button className="btn border-0 p-0">
-                                        <FavDefault className="myCartItemIconFav " />
-                                    </button>
+                                <div className="pt-lg-3 d-flex">
+                                    <CartFavorite />
                                     <button
                                         className="btn border-0 p-0 ms-3"
                                         onClick={() => {

@@ -8,6 +8,7 @@ import { useCart } from '../../../../../utils/use_cart';
 import '../MyCart.scss';
 import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
 import { ReactComponent as FavDefault } from '../../../../../assets/svg/favorite_defaut.svg';
+import CartFavorite from '../../../../../components/CartFavorite';
 import { RiAddFill } from 'react-icons/ri';
 import { RiSubtractFill } from 'react-icons/ri';
 import MyCartCount from './MyCartCount';
@@ -78,10 +79,8 @@ function MyCartClass({ myCart, setMyCart, myCartB, setMyCartB }) {
                                 <span className="p main-color">
                                     <b>{item.name}</b>
                                 </span>
-                                <div className="pt-lg-3 d-inline">
-                                    <button className="btn border-0 p-0">
-                                        <FavDefault className="myCartItemIconFav " />
-                                    </button>
+                                <div className="pt-lg-3 d-flex">
+                                    <CartFavorite />
                                     <button
                                         className="btn border-0 p-0 ms-3"
                                         onClick={() => {
