@@ -178,7 +178,7 @@ function Product() {
                         amount: item.amount,
                     };
                 });
-                console.log('itemsData', itemsData);
+                // console.log('itemsData', itemsData);
                 //寫進資料庫
                 setItemsData(itemsData);
                 async function setItemsData(itemsData) {
@@ -189,19 +189,23 @@ function Product() {
                             itemsData
                         );
                         // console.log('duplicate', response.data.duplicate);
-                        alert(response.data.message);
                         if (response.data.duplicate === 1) {
+                            warningToast(response.data.message, '關閉');
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
+                        successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);
                     }
                 }
             }
-            //臨時購物車;
+            successToast('加入購物車', '關閉');
+            //臨時購物車
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            return;
         }
+        warningToast('已加入臨時購物車', '關閉');
     }
 
     return (
