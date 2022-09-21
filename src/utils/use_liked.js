@@ -4,16 +4,16 @@ export const LikedContext = createContext();
 
 export const LikedProvider = ({ children }) => {
     // 收藏樣式
-    const [favoriteToggled, setFavoriteToggled] = useState(null);
+    const [favToggled, setFavToggled] = useState(null);
     // 收藏資料
-    const [favoriteData, setFavoriteData] = useState([]);
+    const [favProducts, setFavProducts] = useState([]);
     return (
         <LikedContext.Provider
             value={{
-                favoriteToggled,
-                setFavoriteToggled,
-                favoriteData,
-                setFavoriteData,
+                favToggled,
+                setFavToggled,
+                favProducts,
+                setFavProducts,
             }}
         >
             {children}

@@ -24,7 +24,7 @@ import FilterBar from './components/FilterBar';
 import MobileFilterBar from './components/MobileFilterBar';
 import PaginationBar from '../../components/PaginationBar/PaginationBar';
 import CompareBtn from './components/CompareBtn';
-import { successToast, warningToast } from '../../components/Alert';
+import { successToast, warningToast, errorToast } from '../../components/Alert';
 import {
     ListMotionContainer,
     ListMotionItem,
@@ -33,9 +33,6 @@ import {
 // 元件 FilterNav
 import SearchBar from '../../components/SearchBar';
 import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
-
-// 元件 ProductsItem
-import Favorite from '../../components/Favorite';
 
 // 圖檔
 import banner from '../../assets/ProductsImg/banner.png';
@@ -63,6 +60,9 @@ import { useAuth } from '../../utils/use_auth';
 import { useCart } from '../../utils/use_cart';
 // import Cart from '../../layouts/Cart/Cart';
 import { RiContactsBookLine } from 'react-icons/ri';
+
+// 收藏
+import { useLiked } from '../../utils/use_liked';
 
 function Products() {
     const [url, setUrl] = useState('');
@@ -103,9 +103,8 @@ function Products() {
     // 登入狀態
     const { member, setMember, isLogin, setIsLogin } = useAuth();
 
-    // 裝資料庫中的使用者收藏
-    const [favProducts, setFavProducts] = useState([]);
-    const [favoriteToggled, setFavoriteToggled] = useState(null);
+    // 收藏
+    const { favProducts, setFavProducts } = useLiked();
 
     // 取得商品次類別 api
     useEffect(() => {
@@ -123,7 +122,7 @@ function Products() {
     const [pageProducts, setPageProducts] = useState([]);
 
     const location = useLocation();
-    
+
     // 取得商品 api
     useEffect(() => {
         let params = new URLSearchParams(location.search);
@@ -151,20 +150,7 @@ function Products() {
             }
         };
         getProducts();
-        let getAllFavoriteProducts = async () => {
-            let response = await axios.get(
-                `${API_URL}/member/mybucketlist/${member.id}`
-            );
-            let products = response.data.products.map(
-                (item) => item.product_id
-            );
-            setFavProducts(products);
-        };
-        if (member.id) {
-            getAllFavoriteProducts();
-        }
     }, [location]);
-
 
     // 品牌篩選 選取陣列
     const handleBrandTagsChecked = (id) => {
@@ -407,6 +393,23 @@ function Products() {
         warningToast('已加入臨時購物車', '關閉');
     }
 
+    // 會員收藏的資料
+    useEffect(() => {
+        let getAllFavProducts = async () => {
+            let response = await axios.get(
+                `${API_URL}/member/mybucketlist/${member.id}`,
+                { withCredentials: true }
+            );
+            let products = response.data.products.map(
+                (item) => item.product_id
+            );
+            setFavProducts(products);
+        };
+        if (member.id) {
+            getAllFavProducts();
+        }
+    }, [member]);
+
     // 新增收藏
     const handleAddFavorite = (itemsData) => {
         console.log(itemsData);
@@ -418,16 +421,37 @@ function Products() {
                         `${API_URL}/member/mybucketlist`,
                         [itemsData]
                     );
-                    alert(response.data.message);
-                    setFavProducts(response.data.resProducts);
+                    let products = response.data.resProducts.map(
+                        (item) => item.product_id
+                    );
+                    successToast(response.data.message, '關閉');
+                    setFavProducts(products);
                 } catch (err) {
-                    console.log(err.response.data.message);
+                    errorToast(err.response.data.message, '關閉');
                 }
             }
-        } else {
-            alert('請先登入');
         }
     };
+
+    // 取消收藏
+    async function handleRemoveFavorite(product_id) {
+        console.log('handleRemoveFavorite', product_id);
+        try {
+            let response = await axios.delete(
+                `${API_URL}/member/mybucketlist/${product_id}`,
+                {
+                    withCredentials: true,
+                }
+            );
+            let products = response.data.resProducts.map(
+                (item) => item.product_id
+            );
+            successToast(response.data.message, '關閉');
+            setFavProducts(products);
+        } catch (err) {
+            errorToast(err.response.data.message, '關閉');
+        }
+    }
 
     return (
         <>
@@ -709,29 +733,39 @@ function Products() {
                                                         favProducts.includes(
                                                             product.product_id
                                                         ) ? (
-                                                            <div className="favorite-box bg-accent-light-color rounded-circle position-relative">
+                                                            <div
+                                                                className="favorite-box bg-accent-light-color rounded-circle position-relative"
+                                                                onClick={(
+                                                                    e
+                                                                ) => {
+                                                                    e.preventDefault();
+                                                                    handleRemoveFavorite(
+                                                                        product.product_id
+                                                                    );
+                                                                }}
+                                                            >
                                                                 <HeartFill className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle" />
                                                             </div>
                                                         ) : (
-                                                            <div className="favorite-box bg-accent-light-color rounded-circle position-relative">
-                                                                <HeartLine
-                                                                    className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle"
-                                                                    onClick={(
-                                                                        e
-                                                                    ) => {
-                                                                        e.preventDefault();
-                                                                        handleAddFavorite(
-                                                                            {
-                                                                                user_id:
-                                                                                    member.id,
-                                                                                product_id:
-                                                                                    product.product_id,
-                                                                                category_id:
-                                                                                    product.category_id,
-                                                                            }
-                                                                        );
-                                                                    }}
-                                                                />
+                                                            <div
+                                                                className="favorite-box bg-accent-light-color rounded-circle position-relative"
+                                                                onClick={(
+                                                                    e
+                                                                ) => {
+                                                                    e.preventDefault();
+                                                                    handleAddFavorite(
+                                                                        {
+                                                                            user_id:
+                                                                                member.id,
+                                                                            product_id:
+                                                                                product.product_id,
+                                                                            category_id:
+                                                                                product.category_id,
+                                                                        }
+                                                                    );
+                                                                }}
+                                                            >
+                                                                <HeartLine className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle" />
                                                             </div>
                                                         )
                                                     ) : (
