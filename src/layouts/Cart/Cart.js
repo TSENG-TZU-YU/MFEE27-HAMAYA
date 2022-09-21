@@ -5,6 +5,7 @@ import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import './Cart.scss';
 import ashBin from '../../assets/svg/delete.svg';
+import { basicAlert, successToast } from '../../components/Alert';
 //修改 CheckOut 顏色
 import { ReactComponent as CheckOut } from '../../assets/svg/shopping_cart_checkout.svg';
 
@@ -31,15 +32,14 @@ function Cart() {
             //讀資料庫 進行刪除
             let setItemDataDelete = async () => {
                 let response = await axios.delete(`${API_URL}/member/mycart`, {
-                    data: {
-                        user_id: member.id,
-                        product_id: itemId,
-                    },
+                    data: [[member.id, itemId]],
                 });
 
-                alert(response.data.message);
+                successToast(response.data.message, '關閉');
             };
             setItemDataDelete();
+        } else {
+            successToast('已刪除購物車商品', '關閉');
         }
         //移除
         let removeItem = shoppingCartLocal.filter((item) => {
@@ -55,7 +55,7 @@ function Cart() {
             localStorage.getItem('shoppingCart')
         );
         if (member === null || member.id === '') {
-            alert('請先登入');
+            basicAlert('請先登入', '確認');
             return;
         }
         //把資料組成陣列
@@ -69,7 +69,7 @@ function Cart() {
                     `${API_URL}/member/mycart/multi`,
                     itemsData
                 );
-                alert(response.data.message);
+                successToast(response.data.message, '關閉');
             } catch (err) {
                 console.log(err.response.data.message);
             }
@@ -80,6 +80,7 @@ function Cart() {
         //清空臨時購物車
         setShoppingCart([]);
     }
+
     //金額
     let shoppingCartPrice = [];
     shoppingCartPrice = newShoppingCart
@@ -87,6 +88,7 @@ function Cart() {
             return item.price;
         })
         .reduce((prev, curr) => prev + curr, 0);
+
     return (
         <div className="position-relative">
             <div className="shoppingCart p-2">

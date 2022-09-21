@@ -7,7 +7,7 @@ import { API_URL } from '../../../utils/config';
 
 // 元件
 import Favorite from '../../../components/Favorite';
-
+import { successToast, warningToast } from '../../../components/Alert';
 // 圖檔
 import product from '../../../assets/ProductsImg/product.png';
 import cartCheck from '../../../assets/ProductsImg/icon/shopping_cart_check.svg';
@@ -84,19 +84,23 @@ function ProductsItem({
                             itemsData
                         );
                         // console.log('duplicate', response.data.duplicate);
-                        alert(response.data.message);
                         if (response.data.duplicate === 1) {
+                            warningToast(response.data.message, '關閉');
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
+                        successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);
                     }
                 }
             }
-            //臨時購物車;
+            successToast('加入購物車', '關閉');
+            //臨時購物車
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            return;
         }
+        warningToast('已加入臨時購物車', '關閉');
     }
 
     return (
