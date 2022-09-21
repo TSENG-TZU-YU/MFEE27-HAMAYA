@@ -71,20 +71,28 @@ function MyQuestionDetail(props) {
 
     //有新訊息更新資料庫
     useEffect(() => {
-        if (socketStatus) {
+        if (socketStatus.updateMyQA) {
+            setSocketStatus({
+                ...socketStatus,
+                updateMyQA: false,
+            });
             let params = new URLSearchParams(location.search);
             let qaid = params.get('qaid');
             console.log(qaid);
             myQuestionDetail(qaid);
-            setSocketStatus(false);
         }
-    }, [socketStatus]);
+    }, [socketStatus.updateMyQA]);
+
+    useEffect(() => {
+        console.log('123');
+        setreplyForm({ ...replyForm, customer_id: socketStatus.customer_id });
+    }, [socketStatus.customer_id]);
 
     //新增回覆
     const [replyForm, setreplyForm] = useState({
         user_qna_id: '',
         q_content: '',
-        customerName: '',
+        customer_id: '',
         // name: '', 從session拿
     });
     const replyFormChange = (e) => {

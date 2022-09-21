@@ -70,21 +70,20 @@ function CommonQADetail(props) {
         // console.log(myQuestion);
 
         if (!socketConn) {
-            console.log('管理員進入開始建立連線');
+            console.log('管理員進入Detail頁面建立連線');
             let socket = io('http://localhost:3001');
             setSocketConn(socket);
             let newLine = uuidv4();
             //傳送管理員連線ns給會員
-            socket.emit(`customerName`, {
-                customerName: `customer${newLine}`,
+            socket.emit(`customer_conn`, {
+                customer_id: `customer${newLine}`,
                 user_qna_id: nlid,
             });
-            socket.on(`customer${newLine}`, (msg) => {
-                console.log(msg);
-                //判斷是否需要更新MyQuestionDetail
-                if (msg.MyQuestionDetail === true) {
-                    console.log('來自會員的訊息', msg);
-                    // setSocketStatus(true);
+            socket.on(`customer${newLine}`, (data) => {
+                //判斷是否需要更新CommonQADetail
+                if (data.updateCommonQA === true) {
+                    console.log('來自會員的訊息', data);
+                    myQuestionDetail(nlid);
                 }
             });
         }
