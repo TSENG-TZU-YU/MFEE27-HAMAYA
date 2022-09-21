@@ -160,6 +160,7 @@ function Class(props) {
             </Container>
 
             <div className="session-bg ">
+                {/* TODO: background-size */}
                 <img
                     className="decorate1 d-none d-lg-block  img-fluid"
                     src={decorate1}

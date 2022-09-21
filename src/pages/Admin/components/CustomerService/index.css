@@ -6,10 +6,45 @@
 }
 
 .NLQADetail{
-    width: 700px;
+    width: 100%;
+    max-width: 700px;
     margin: 0 auto;
 }
 
 .NLQADetail .maincontent{
-    min-height: 300px;
+    height: 350px;
+    background-color:#e6e6e6 ;
+    overflow: auto;
+    /* flex-direction : column-reverse ; */
+
+}
+.NLQADetail .closebtn{
+    border: 2px solid #00000000;
+    padding: 0;
+    border-radius: 2px;
+    transition: .3s;
+    
+}
+.NLQADetail .closebtn:hover{
+    border: 2px solid #00323d;
+}
+
+.NLQADetail .inputcontent{
+    height: 50px;
+    padding: 5px;
+}
+
+.NLQADetail .inputcontent:focus{
+    border: transparent;
+    outline: 2px solid cornflowerblue;
+}
+
+.NLQADetail .btn1{
+    margin: 5px 0;
+    border: 0;
+}
+
+.PLQADetail{
+    width: 700px;
+    margin: 0 auto;
 }

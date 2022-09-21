@@ -27,9 +27,16 @@ function Detailed({ ins_main_id }) {
     // 課程 Toggle
     const [detailedSelect, setDetailedSelect] = useState(true);
 
+    // 資料庫 課程
     const [data, setData] = useState([]);
     const [dataImg, setDataImg] = useState([]);
     const [recommendClass, setRecommendClass] = useState([]);
+
+    // 資料庫 評論
+    const [evaluation, setEvaluation] = useState([]);
+
+    // 資料庫 評論 平均數
+    const [avg, setAvg] = useState([]);
 
     // 把網址上的 :detailedID 拿出來
     const { detailedID } = useParams();
@@ -45,6 +52,8 @@ function Detailed({ ins_main_id }) {
             );
             setData(response.data.data);
             setRecommendClass(response.data.recommendClass);
+            setEvaluation(response.data.evaluation);
+            setAvg(response.data.avg);
 
             let imgData = response.data.dataImg[0];
             // 圖片拆陣列
@@ -373,7 +382,11 @@ function Detailed({ ins_main_id }) {
                         <h4>課程評價</h4>
                     </button>
                 </Row>
-                {detailedSelect ? <Information data={data} /> : <Comment />}
+                {detailedSelect ? (
+                    <Information data={data} />
+                ) : (
+                    <Comment evaluation={evaluation} avg={avg} />
+                )}
                 <div className="  d-flex mt-5  px-0">
                     <h4
                         className=" me-5 text-nowrap fw-bold"
@@ -389,7 +402,7 @@ function Detailed({ ins_main_id }) {
                     {recommendClass.map((recommend) => {
                         return (
                             <Link
-                                to={`/class/list/${recommend.id}?class=${recommend.ins_main_id}`}
+                                to={`/class/list/${recommend.product_id}?class=${recommend.ins_main_id}`}
                                 key={recommend.id}
                             >
                                 <Col>

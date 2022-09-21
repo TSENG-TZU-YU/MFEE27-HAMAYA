@@ -15,21 +15,22 @@ import rate_review from '../../../../../assets/svg/rate_review.svg';
 
 function ClassEnd(props) {
     const [popup, setPopup] = useState(false);
-    // const [data, setData] = useState([]);
+
+    // 資料庫
     const [finishClass, setFinishClass] = useState([]);
 
     // 取得會員 ID 資料
     const { member } = useAuth();
+
     // StarRating.js 改放 ClassEnd/index.js 並傳值進去
     const [rating, setRating] = useState(0);
-    // 是否以平價過
-    // const [haveEvaluation, setHaveEvaluation] = useState([]);
 
     // 星級、內容狀態
     const [evaluation, setEvaluation] = useState();
+    console.log('evaluation', evaluation);
 
     // 評價成功狀態
-    // const [success, setSuccess] = useState();
+    const [success, setSuccess] = useState();
 
     // 今天日期
     let date = new Date();
@@ -40,40 +41,27 @@ function ClassEnd(props) {
             let response = await axios.get(
                 `${API_URL}/member/myclass/${member.id}`
             );
-            // setData(response.data.data);
+            setSuccess(false);
             setFinishClass(response.data.finishClass);
-            // setHaveEvaluation(response.data.evaluation);
-
-            // TODO: 當該課程ID=已評價過的課程ID
-
-            console.log('finishClass', finishClass);
         };
         getAdultClass();
-    }, []);
+    }, [success]);
 
     // 記入星級、評價內容
     const evaluationChange = (e) => {
-        const newEvaluation = {
-            ...evaluation,
-            [e.target.name]: e.target.value,
-        };
-
-        setEvaluation(newEvaluation);
+        setEvaluation({ ...evaluation, [e.target.name]: e.target.value });
     };
 
     async function evaluationSubmit(e) {
         e.preventDefault();
         try {
-            let response = await axios.post(
+            let response = await axios.patch(
                 `${API_URL}/member/myclass`,
-                evaluation,
-                {
-                    withCredentials: true,
-                }
+                evaluation
             );
-            console.log(response.data);
-            // TODO: 評價成功後 無法再評價 只能查看
-            // setSuccess(true);
+            console.log('123', response.data);
+            // 設定 重新渲染 useEffect
+            setSuccess(true);
             setPopup(false);
             alert('評價成功');
         } catch (err) {
@@ -81,6 +69,7 @@ function ClassEnd(props) {
             alert(err.response.data.errors[0].msg);
         }
     }
+
     return (
         <div>
             <Link to="detailed">
@@ -119,27 +108,44 @@ function ClassEnd(props) {
                                         >
                                             NT $ {buyClass.price} / 期
                                         </p>
-
-                                        <button
-                                            className="btn d-flex pb-0 border-0"
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                setPopup(true);
-                                                setRating(0);
-                                                setEvaluation({
-                                                    classProduct:
-                                                        buyClass.product_id,
-                                                    memberID: member.id,
-                                                });
-                                            }}
-                                        >
-                                            <img
-                                                className="me-1 "
-                                                src={rate_review}
-                                                alt="message"
-                                            />
-                                            <p>評價課程</p>
-                                        </button>
+                                        {buyClass.content === null &&
+                                        buyClass.member_id === null ? (
+                                            <button
+                                                className="btn d-flex pb-0 border-0"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    setPopup(true);
+                                                    setRating(0);
+                                                    setEvaluation({
+                                                        order: buyClass.order_id,
+                                                        classProduct:
+                                                            buyClass.product_id,
+                                                        memberID: member.id,
+                                                        date: date,
+                                                    });
+                                                }}
+                                            >
+                                                <img
+                                                    className="me-1 "
+                                                    src={rate_review}
+                                                    alt="message"
+                                                />
+                                                <p>評價課程</p>
+                                            </button>
+                                        ) : (
+                                            <Link
+                                                to={`/class/list/${buyClass.product_id}?class=${buyClass.ins_main_id}`}
+                                            >
+                                                <button className="btn d-flex pb-0 border-0">
+                                                    <img
+                                                        className="me-1 "
+                                                        src={rate_review}
+                                                        alt="message"
+                                                    />
+                                                    <p>查看評價</p>
+                                                </button>
+                                            </Link>
+                                        )}
                                     </div>
                                 </div>
                             </div>
