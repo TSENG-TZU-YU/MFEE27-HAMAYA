@@ -11,22 +11,25 @@ import { RiAddFill } from 'react-icons/ri';
 import { RiSubtractFill } from 'react-icons/ri';
 import MyCartCount from './MyCartCount';
 
-function MyCartProduct({ myCart, setMyCart, myCartA, setMyCartA }) {
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
-
-    const [count, setCount] = useState(0);
+function MyCartProduct({
+    myCart,
+    setMyCart,
+    myCartA,
+    setMyCartA,
+    check,
+    setCheck,
+    handleCheckBox,
+}) {
+    const { member } = useAuth();
 
     //進行刪除
-    async function handleRemoveItem(itemId) {
-        console.log('click');
+    function handleRemoveItem(itemId) {
+        // console.log('click');
         if (member !== null && member.id !== '') {
             //讀資料庫 進行刪除 還必須確認資料庫有無東西
             let setItemDataDelete = async () => {
                 let response = await axios.delete(`${API_URL}/member/mycart`, {
-                    data: {
-                        user_id: member.id,
-                        product_id: itemId,
-                    },
+                    data: [[member.id, itemId]],
                 });
                 // console.log('刪除response.data', response.data);
                 alert(response.data.message);
@@ -49,6 +52,7 @@ function MyCartProduct({ myCart, setMyCart, myCartA, setMyCartA }) {
             setItemDataDelete();
         }
     }
+
     return (
         <>
             {myCartA.map((item) => {
@@ -61,8 +65,13 @@ function MyCartProduct({ myCart, setMyCart, myCartA, setMyCartA }) {
                                     <input
                                         className="form-check-input"
                                         type="checkbox"
-                                        value=""
-                                        id=""
+                                        value={item.product_id}
+                                        checked={check.includes(
+                                            item.product_id
+                                        )}
+                                        onChange={(e) => {
+                                            handleCheckBox(e);
+                                        }}
                                     />
                                 </div>
                                 <div className="flex-lg-grow-1">
