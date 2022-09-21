@@ -15,16 +15,97 @@ function MyCartTable({
     myCartB,
     setMyCartB,
 }) {
+    const { member } = useAuth();
+    //checkbox check 裡面放product_id
+    const [check, setCheck] = useState([]);
+    // console.log('check', check);
+    const [allCheck, setAllCheck] = useState(false);
+
+    //商品單選checkbox
+    function handleCheckBox(e) {
+        const value = e.target.value;
+        let newItem = [];
+        if (check.includes(value)) {
+            newItem = check.filter((v) => {
+                return v !== value;
+            });
+            setCheck(newItem);
+        } else {
+            newItem = [...check, value];
+            setCheck(newItem);
+        }
+        if (newItem === myCart.length) {
+            setAllCheck(true);
+        }
+        if (newItem !== myCart.length) {
+            setAllCheck(false);
+        }
+    }
+
+    //取得product_id
+    let itemId = myCart.map((v) => v.product_id);
+    //商品全選
+    function handleAllCheckBox() {
+        allCheck ? setAllCheck(false) : setAllCheck(true);
+        if (!allCheck) {
+            setCheck(itemId);
+        } else {
+            setCheck([]);
+        }
+    }
+
+    //依賴checkbox移除
+    function handleRemoveItem() {
+        console.log('移除品項', check);
+
+        if (member !== null && member.id !== '') {
+            //重組陣列 加入member.id
+            let newCheck = check.map((product_id) => {
+                return [member.id, product_id];
+            });
+            // console.log('newCheck', newCheck);
+            let setItemDataDelete = async () => {
+                let response = await axios.delete(`${API_URL}/member/mycart`, {
+                    data: newCheck,
+                });
+                // console.log('刪除response.data', response.data);
+                alert(response.data.message);
+
+                // //copy myCart
+                let newMyCart = myCart.map((item) => {
+                    return { ...item };
+                });
+                //前端刪除狀態 (全部)
+                let newMyCartAfterDelete = newMyCart.filter((item) => {
+                    return check.indexOf(item.product_id) === -1;
+                });
+
+                // console.log('newMyCartAfterDelete', newMyCartAfterDelete);
+                const myCart_cateA = newMyCartAfterDelete.filter((v) => {
+                    return v.category_id === 'A';
+                });
+                const myCart_cateB = newMyCartAfterDelete.filter((v) => {
+                    return v.category_id === 'B';
+                });
+                // //set狀態回去
+                setMyCartA(myCart_cateA);
+                setMyCartB(myCart_cateB);
+                setMyCart(newMyCartAfterDelete);
+            };
+            setItemDataDelete();
+        }
+    }
     return (
         <>
             <div className="p-2">
                 <div className="row col-lg-5 align-items-center ">
-                    <div class="col-3 d-inline-flex justify-content-evenly form-check">
+                    <div className="col-3 d-inline-flex justify-content-evenly form-check">
                         <input
                             className="form-check-input"
                             type="checkbox"
                             value=""
-                            id="flexCheckDefault"
+                            checked={allCheck}
+                            onChange={handleAllCheckBox}
                         />
                         <label
                             className="form-check-label"
@@ -33,7 +114,12 @@ function MyCartTable({
                             全選
                         </label>
                     </div>
-                    <button className="btn btn-primary col mx-2 p-0 text-nowrap">
+                    <button
+                        className="btn btn-primary col mx-2 p-0 text-nowrap"
+                        onClick={() => {
+                            handleRemoveItem();
+                        }}
+                    >
                         移除品項
                     </button>
                     <button className="btn btn-primary col mx-2 p-0 text-nowrap">
@@ -58,6 +144,9 @@ function MyCartTable({
                             setMyCart={setMyCart}
                             myCartA={myCartA}
                             setMyCartA={setMyCartA}
+                            check={check}
+                            setCheck={setCheck}
+                            handleCheckBox={handleCheckBox}
                         />
                     </tbody>
                 </table>
@@ -77,6 +166,9 @@ function MyCartTable({
                             setMyCart={setMyCart}
                             myCartB={myCartB}
                             setMyCartB={setMyCartB}
+                            check={check}
+                            setCheck={setCheck}
+                            handleCheckBox={handleCheckBox}
                         />
                     </tbody>
                 </table>

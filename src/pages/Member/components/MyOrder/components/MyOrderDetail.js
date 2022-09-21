@@ -208,7 +208,7 @@ function MyOrderDetail() {
                     {myOrderListB.map((item) => {
                         let itemPriceTotal = item.amount * item.price;
                         return (
-                            <tr>
+                            <tr key={item.id}>
                                 <td className="align-middle" align="center">
                                     <div className="detail-Img">
                                         <img

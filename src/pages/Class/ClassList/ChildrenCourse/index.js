@@ -69,7 +69,7 @@ function ChildrenCourse({
                             className="d-lg-flex justify-content-lg-center align-items-lg-center  mb-5"
                         >
                             <Link
-                                to={`${classChild.id}?class=${classChild.ins_main_id}`}
+                                to={`${classChild.product_id}?class=${classChild.ins_main_id}`}
                             >
                                 <div className="introduce row mx-0 mb-5 class-shadow">
                                     <div className="d-flex col-lg-6  px-lg-0  position-relative">
