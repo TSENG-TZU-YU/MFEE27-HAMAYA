@@ -7,9 +7,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // 登入元件
 import { AuthProvider } from './utils/use_auth';
 // import { ClassContext } from './pages/Class/UseContext';
-//購物車
+// 購物車
 import { CartProvider } from './utils/use_cart';
-
+// 收藏
+import { LikedProvider } from './utils/use_liked';
 // 版面頁面元件
 import MainOutlet from './layouts/MainOutlet';
 import SubOutlet from './layouts/SubOutlet';
@@ -79,7 +80,6 @@ import OrderQADetail from './pages/Admin/components/CustomerService/OrderQADetai
 import PlaceQA from './pages/Admin/components/CustomerService/PlaceQA';
 import PlaceQADetail from './pages/Admin/components/CustomerService/PlaceQADetail';
 
-
 function App() {
     //page to top 要用的
     useEffect(() => {
@@ -89,167 +89,202 @@ function App() {
         <>
             <BrowserRouter>
                 <AuthProvider>
-                    <CartProvider>
-                        <Header />
-                        <Routes>
-                            <Route path="/" element={<MainOutlet />}>
-                                <Route index element={<Home />} />
-
-                                <Route path="products" element={<MainOutlet />}>
-                                    <Route index element={<Products />} />
-                                    <Route
-                                        path=":productId"
-                                        element={<ProductDetail />}
-                                    />
-                                </Route>
-
-                                <Route path="news" element={<MainOutlet />}>
-                                    <Route index element={<NEWs />} />
-                                    <Route
-                                        path="section"
-                                        element={<MusicArticle />}
-                                    />
-                                    <Route
-                                        path=":content"
-                                        element={<Article />}
-                                    />
-                                </Route>
-
-                                <Route path="class" element={<MainOutlet />}>
-                                    <Route index element={<Class />} />
-                                    <Route path="list" element={<SubOutlet />}>
-                                        <Route index element={<ClassList />} />
-                                        <Route
-                                            path=":detailedID"
-                                            element={<Detailed />}
-                                        />
-                                    </Route>
-                                    <Route
-                                        path="teacher/:detailedID"
-                                        element={<Teacher />}
-                                    />
-                                </Route>
-
-                                <Route path="place" element={<MainOutlet />}>
-                                    <Route index element={<Place />} />
-                                </Route>
-
-                                <Route path="aboutus" element={<MainOutlet />}>
-                                    <Route index element={<AboutUs />} />
-                                </Route>
-
-                                <Route path="member" element={<Member />}>
-                                    <Route index element={<MyProfile />} />
-                                    <Route
-                                        path="myclass"
-                                        element={<MyClass />}
-                                    />
-                                    <Route
-                                        path="mybucketlist"
-                                        element={<MyBucketList />}
-                                    />
-                                    <Route path="mycart" element={<MyCart />} />
-                                    <Route
-                                        path="myorder"
-                                        element={<MyOrder />}
-                                    />
-                                    <Route
-                                        path="/member/myorder/:orderId"
-                                        element={<MyOrderDetail />}
-                                    />
+                    <LikedProvider>
+                        <CartProvider>
+                            <Header />
+                            <Routes>
+                                <Route path="/" element={<MainOutlet />}>
+                                    <Route index element={<Home />} />
 
                                     <Route
-                                        path="mycoupon"
-                                        element={<MyCoupon />}
-                                    />
-                                    <Route
-                                        path="myquestion"
-                                        element={<MyQuestion />}
+                                        path="products"
+                                        element={<MainOutlet />}
                                     >
+                                        <Route index element={<Products />} />
                                         <Route
-                                            index
-                                            element={<MyQuestionList />}
-                                        />
-                                        <Route
-                                            path="add"
-                                            element={<MyQuestionAdd />}
-                                        />
-                                        <Route
-                                            path="detail"
-                                            element={<MyQuestionDetail />}
+                                            path=":productId"
+                                            element={<ProductDetail />}
                                         />
                                     </Route>
-                                    <Route path="myplace" element={<MyPlace />}>
+
+                                    <Route path="news" element={<MainOutlet />}>
+                                        <Route index element={<NEWs />} />
                                         <Route
-                                            index
-                                            element={<MyPlaceList />}
+                                            path="section"
+                                            element={<MusicArticle />}
                                         />
                                         <Route
-                                            path="detail"
-                                            element={<MyPlaceDetail />}
+                                            path="category"
+                                            element={<Article />}
                                         />
                                     </Route>
-                                </Route>
-                                <Route path="admin" element={<Admin />}>
-                                    <Route index element={<BeHome />} />
+
                                     <Route
-                                        path="articles"
-                                        element={<Articles />}
-                                    />
-                                    <Route path="coupon" element={<Coupon />} />
-                                    <Route
-                                        path="customerservice"
-                                        element={<CustomerService />}
-                                    />
-                                    <Route
-                                        path="customerservice"
-                                        element={<CustomerService />}
+                                        path="class"
+                                        element={<MainOutlet />}
                                     >
-                                        <Route index element={<CommonQA />} />
+                                        <Route index element={<Class />} />
                                         <Route
-                                            path="commonqa/detail"
-                                            element={<CommonQADetail />}
-                                        />
+                                            path="list"
+                                            element={<SubOutlet />}
+                                        >
+                                            <Route
+                                                index
+                                                element={<ClassList />}
+                                            />
+                                            <Route
+                                                path=":detailedID"
+                                                element={<Detailed />}
+                                            />
+                                        </Route>
                                         <Route
-                                            path="orderqa"
-                                            element={<OrderQA />}
-                                        />
-                                        <Route
-                                            path="orderqa/detail"
-                                            element={<OrderQADetail />}
-                                        />
-                                        <Route
-                                            path="placeqa"
-                                            element={<PlaceQA />}
-                                        />
-                                        <Route
-                                            path="placeqa/detail"
-                                            element={<PlaceQADetail />}
+                                            path="teacher/:detailedID"
+                                            element={<Teacher />}
                                         />
                                     </Route>
+
                                     <Route
-                                        path="members"
-                                        element={<Members />}
-                                    />
-                                    <Route path="order" element={<Order />} />
+                                        path="place"
+                                        element={<MainOutlet />}
+                                    >
+                                        <Route index element={<Place />} />
+                                    </Route>
+
                                     <Route
-                                        path="product"
-                                        element={<Product />}
-                                    />
+                                        path="aboutus"
+                                        element={<MainOutlet />}
+                                    >
+                                        <Route index element={<AboutUs />} />
+                                    </Route>
+
+                                    <Route path="member" element={<Member />}>
+                                        <Route index element={<MyProfile />} />
+                                        <Route
+                                            path="myclass"
+                                            element={<MyClass />}
+                                        />
+                                        <Route
+                                            path="mybucketlist"
+                                            element={<MyBucketList />}
+                                        />
+                                        <Route
+                                            path="mycart"
+                                            element={<MyCart />}
+                                        />
+                                        <Route
+                                            path="myorder"
+                                            element={<MyOrder />}
+                                        />
+                                        <Route
+                                            path="/member/myorder/:orderId"
+                                            element={<MyOrderDetail />}
+                                        />
+
+                                        <Route
+                                            path="mycoupon"
+                                            element={<MyCoupon />}
+                                        />
+                                        <Route
+                                            path="myquestion"
+                                            element={<MyQuestion />}
+                                        >
+                                            <Route
+                                                index
+                                                element={<MyQuestionList />}
+                                            />
+                                            <Route
+                                                path="add"
+                                                element={<MyQuestionAdd />}
+                                            />
+                                            <Route
+                                                path="detail"
+                                                element={<MyQuestionDetail />}
+                                            />
+                                        </Route>
+                                        <Route
+                                            path="myplace"
+                                            element={<MyPlace />}
+                                        >
+                                            <Route
+                                                index
+                                                element={<MyPlaceList />}
+                                            />
+                                            <Route
+                                                path="detail"
+                                                element={<MyPlaceDetail />}
+                                            />
+                                        </Route>
+                                    </Route>
+                                    <Route path="admin" element={<Admin />}>
+                                        <Route index element={<BeHome />} />
+                                        <Route
+                                            path="articles"
+                                            element={<Articles />}
+                                        />
+                                        <Route
+                                            path="coupon"
+                                            element={<Coupon />}
+                                        />
+                                        <Route
+                                            path="customerservice"
+                                            element={<CustomerService />}
+                                        />
+                                        <Route
+                                            path="customerservice"
+                                            element={<CustomerService />}
+                                        >
+                                            <Route
+                                                index
+                                                element={<CommonQA />}
+                                            />
+                                            <Route
+                                                path="commonqa/detail"
+                                                element={<CommonQADetail />}
+                                            />
+                                            <Route
+                                                path="orderqa"
+                                                element={<OrderQA />}
+                                            />
+                                            <Route
+                                                path="orderqa/detail"
+                                                element={<OrderQADetail />}
+                                            />
+                                            <Route
+                                                path="placeqa"
+                                                element={<PlaceQA />}
+                                            />
+                                            <Route
+                                                path="placeqa/detail"
+                                                element={<PlaceQADetail />}
+                                            />
+                                        </Route>
+                                        <Route
+                                            path="members"
+                                            element={<Members />}
+                                        />
+                                        <Route
+                                            path="order"
+                                            element={<Order />}
+                                        />
+                                        <Route
+                                            path="product"
+                                            element={<Product />}
+                                        />
+                                        <Route
+                                            path="teachers"
+                                            element={<Teachers />}
+                                        />
+                                    </Route>
+                                    {/* 404未找到的頁面路由，需放在最下方 */}
                                     <Route
-                                        path="teachers"
-                                        element={<Teachers />}
+                                        path="*"
+                                        element={<h1>404 NOT FOUND</h1>}
                                     />
                                 </Route>
-                                {/* 404未找到的頁面路由，需放在最下方 */}
-                                <Route
-                                    path="*"
-                                    element={<h1>404 NOT FOUND</h1>}
-                                />
-                            </Route>
-                        </Routes>
-                        <Footer />
-                    </CartProvider>
+                            </Routes>
+                            <Footer />
+                        </CartProvider>
+                    </LikedProvider>
                 </AuthProvider>
             </BrowserRouter>
         </>

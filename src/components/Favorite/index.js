@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { API_URL } from '../../utils/config';
 import axios from 'axios';
 
@@ -10,47 +10,45 @@ import { ReactComponent as HeartLine } from '../../assets/svg/favorite_defaut.sv
 import { ReactComponent as HeartFill } from '../../assets/svg/favorite_check.svg';
 
 function Favorite(props) {
-    const { user_id, product_id, category_id, toggled } = props;
-    const [favoriteToggled, setFavoriteToggled] = useState(toggled);
-    const [resProducts, setResProducts] = useState([]);
-    const itemsData = { user_id, product_id, category_id };
+    const { toggled, user_id, product_id, category_id } = props;
+
+    console.log(toggled);
+    // console.log(props);
+    let itemsData = { user_id, product_id, category_id };
+
+    // 新增收藏
     const handleAddFavorite = (itemsData) => {
         if (itemsData.user_id !== null && itemsData.user_id !== '') {
-            setFavoriteToggled(!favoriteToggled);
             setItemsData(itemsData);
             async function setItemsData(itemsData) {
                 try {
-                    let res = await axios.post(
+                    let response = await axios.post(
                         `${API_URL}/member/mybucketlist`,
                         [itemsData]
                     );
-                    alert(res.data.message);
-                    setResProducts(res.data.resProducts);
+                    alert(response.data.message);
                 } catch (err) {
-                    console.log(err.res.data.message);
+                    console.log(err.response.data.message);
                 }
             }
+            // setFavoriteToggled(true);
+        } else {
+            alert('請先登入');
         }
     };
-    console.log('resProducts', resProducts);
+
     return (
-        <div className="favorite-box bg-accent-light-color rounded-circle position-relative">
-            {favoriteToggled ? (
-                <HeartFill
-                    className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        handleAddFavorite(itemsData);
-                    }}
-                />
+        <div
+            className="favorite-box bg-accent-light-color rounded-circle position-relative"
+            onClick={(e) => {
+                e.preventDefault();
+                handleAddFavorite(itemsData);
+            }}
+        >
+            {toggled === 1 ? (
+                <HeartFill className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle" />
             ) : (
-                <HeartLine
-                    className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        handleAddFavorite(itemsData);
-                    }}
-                />
+                <HeartLine className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle" />
             )}
         </div>
     );

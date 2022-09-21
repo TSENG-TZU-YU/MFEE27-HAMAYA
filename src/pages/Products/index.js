@@ -53,8 +53,13 @@ import search from '../../assets/ProductsImg/icon/search.svg';
 // 圖檔 MobileFilterNav
 import arrowDown from '../../assets/ProductsImg/icon/arrow_down.svg';
 
+// 圖檔
+import { ReactComponent as HeartLine } from '../../assets/svg/favorite_defaut.svg';
+import { ReactComponent as HeartFill } from '../../assets/svg/favorite_check.svg';
+
 import { useAuth } from '../../utils/use_auth';
-//購物車
+
+// 購物車
 import { useCart } from '../../utils/use_cart';
 // import Cart from '../../layouts/Cart/Cart';
 import { RiContactsBookLine } from 'react-icons/ri';
@@ -95,6 +100,13 @@ function Products() {
     const [selectedPrice, setSelectedPrice] = useState([0, 7380000]);
     const [maxPrice, setMaxPrice] = useState(7380000);
 
+    // 登入狀態
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+
+    // 裝資料庫中的使用者收藏
+    const [favProducts, setFavProducts] = useState([]);
+    const [favoriteToggled, setFavoriteToggled] = useState(null);
+
     // 取得商品次類別 api
     useEffect(() => {
         let getCategory = async () => {
@@ -111,6 +123,7 @@ function Products() {
     const [pageProducts, setPageProducts] = useState([]);
 
     const location = useLocation();
+    
     // 取得商品 api
     useEffect(() => {
         let params = new URLSearchParams(location.search);
@@ -138,7 +151,20 @@ function Products() {
             }
         };
         getProducts();
+        let getAllFavoriteProducts = async () => {
+            let response = await axios.get(
+                `${API_URL}/member/mybucketlist/${member.id}`
+            );
+            let products = response.data.products.map(
+                (item) => item.product_id
+            );
+            setFavProducts(products);
+        };
+        if (member.id) {
+            getAllFavoriteProducts();
+        }
     }, [location]);
+
 
     // 品牌篩選 選取陣列
     const handleBrandTagsChecked = (id) => {
@@ -318,10 +344,7 @@ function Products() {
         }
     }
 
-    // 登入狀態
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
-
-    //購物車
+    // 購物車
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
     //存localStorage
@@ -383,6 +406,28 @@ function Products() {
         }
         warningToast('已加入臨時購物車', '關閉');
     }
+
+    // 新增收藏
+    const handleAddFavorite = (itemsData) => {
+        console.log(itemsData);
+        if (itemsData.user_id !== null && itemsData.user_id !== '') {
+            setItemsData(itemsData);
+            async function setItemsData(itemsData) {
+                try {
+                    let response = await axios.post(
+                        `${API_URL}/member/mybucketlist`,
+                        [itemsData]
+                    );
+                    alert(response.data.message);
+                    setFavProducts(response.data.resProducts);
+                } catch (err) {
+                    console.log(err.response.data.message);
+                }
+            }
+        } else {
+            alert('請先登入');
+        }
+    };
 
     return (
         <>
@@ -660,16 +705,38 @@ function Products() {
                                                     />
                                                 </Link>
                                                 <div className="product-like position-absolute top-0 end-0">
-                                                    <Favorite
-                                                        user_id={member.id}
-                                                        product_id={
+                                                    {member.id ? (
+                                                        favProducts.includes(
                                                             product.product_id
-                                                        }
-                                                        category_id={
-                                                            product.category_id
-                                                        }
-                                                        toggled={true}
-                                                    />
+                                                        ) ? (
+                                                            <div className="favorite-box bg-accent-light-color rounded-circle position-relative">
+                                                                <HeartFill className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle" />
+                                                            </div>
+                                                        ) : (
+                                                            <div className="favorite-box bg-accent-light-color rounded-circle position-relative">
+                                                                <HeartLine
+                                                                    className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle"
+                                                                    onClick={(
+                                                                        e
+                                                                    ) => {
+                                                                        e.preventDefault();
+                                                                        handleAddFavorite(
+                                                                            {
+                                                                                user_id:
+                                                                                    member.id,
+                                                                                product_id:
+                                                                                    product.product_id,
+                                                                                category_id:
+                                                                                    product.category_id,
+                                                                            }
+                                                                        );
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                        )
+                                                    ) : (
+                                                        ''
+                                                    )}
                                                 </div>
                                                 <div
                                                     className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-2"
