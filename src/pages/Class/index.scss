@@ -106,18 +106,22 @@
     bottom: 0;
     left: -10px;
     object-fit: cover;
+    // 不會擋到後面圖片的鼠標
+    pointer-events: none;
 }
 .decorate2 {
     position: absolute;
     bottom: 0;
     right: 0;
     object-fit: cover;
+    pointer-events: none;
 }
 .decorate3 {
     position: absolute;
     bottom: 0;
     right: 280px;
     object-fit: cover;
+    pointer-events: none;
 }
 
 @media screen and (max-width: 768px) {
