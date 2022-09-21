@@ -11,11 +11,13 @@ import { API_URL } from '../../../../utils/config';
 import { useAuth } from '../../../../utils/use_auth';
 import { v4 as uuidv4 } from 'uuid';
 import { ReactComponent as Close } from '../../../../assets/svg/close.svg';
+import { io } from 'socket.io-client';
 
 function PlaceQADetail(props) {
     const [setbread] = useOutletContext();
     const navigate = useNavigate();
     const location = useLocation();
+    const [socketConn, setSocketConn] = useState(null);
     const [myQuestion, setMyQuestion] = useState({
         detail: {
             id: '',
@@ -23,27 +25,29 @@ function PlaceQADetail(props) {
             name: '',
             email: '',
             phone: '',
-            user_q_category: '',
-            title: '',
+            usedate: '',
+            item: '',
             comment: '',
+            usercount: '',
+            manager_reply_state: '',
             user_reply_state: '',
-            create_time: '',
             update_time: '',
+            create_time: '',
         },
-        content: [
+        myPlace: [
             {
                 name: '',
                 create_time: '',
-                q_content: '',
+                place_content: '',
             },
         ],
     });
 
     //讀取問答詳細
-    async function myQuestionDetail(plid) {
+    async function myPlaceDetail(plid) {
         try {
             let response = await axios.get(
-                `${API_URL}/member/myquestion/detail?qaid=${plid}`,
+                `${API_URL}/admin/customerservice/placeqa/detail?plid=${plid}`,
                 {
                     withCredentials: true,
                 }
@@ -51,7 +55,7 @@ function PlaceQADetail(props) {
             console.log(response.data);
             setreplyForm({
                 ...replyForm,
-                user_qna_id: response.data.detail.id,
+                place_rt_id: response.data.detail.id,
             });
             setMyQuestion(response.data);
         } catch (err) {
@@ -63,24 +67,42 @@ function PlaceQADetail(props) {
         let params = new URLSearchParams(location.search);
         let plid = params.get('plid');
         console.log(plid);
-        myQuestionDetail(plid);
+        myPlaceDetail(plid);
         // console.log(myQuestion);
+        // if (!socketConn) {
+        //     console.log('管理員進入Detail頁面建立連線');
+        //     let socket = io('http://localhost:3001');
+        //     setSocketConn(socket);
+        //     let newLine = uuidv4();
+        //     //傳送管理員連線ns給會員
+        //     socket.emit(`customer_conn`, {
+        //         customer_id: `customer${newLine}`,
+        //         place_rt_id: plid,
+        //     });
+        //     socket.on(`customer${newLine}`, (data) => {
+        //         //判斷是否需要更新CommonQADetail
+        //         if (data.updateCommonQA === true) {
+        //             console.log('來自會員的訊息', data);
+        //             myPlaceDetail(plid);
+        //         }
+        //     });
+        // }
     }, [location]);
 
     //新增回覆
     const [replyForm, setreplyForm] = useState({
-        user_qna_id: '',
-        q_content: '',
+        place_rt_id: '',
+        place_content: '',
         // name: '', 從session拿
     });
     const replyFormChange = (e) => {
-        setreplyForm({ ...replyForm, q_content: e.target.value });
+        setreplyForm({ ...replyForm, place_content: e.target.value });
     };
     async function replyFormSubmit(e) {
         e.preventDefault();
         try {
             let response = await axios.post(
-                `${API_URL}/member/myquestion/reply`,
+                `${API_URL}/admin/customerservice/placeqa/reply`,
                 replyForm,
                 {
                     withCredentials: true,
@@ -88,9 +110,9 @@ function PlaceQADetail(props) {
             );
             // console.log(response.data);
             //讀取問答詳細
-            myQuestionDetail(replyForm.user_qna_id);
+            myPlaceDetail(replyForm.place_rt_id);
             //清空replyForm input
-            setreplyForm({ ...replyForm, q_content: '' });
+            setreplyForm({ ...replyForm, place_content: '' });
             // alert(response.data.message);
         } catch (err) {
             console.log(err.response.data);
@@ -99,7 +121,7 @@ function PlaceQADetail(props) {
     }
 
     return (
-        <div className="col-12 col-md-8 col-lg-9 mb-3 MyQuestionDetail">
+        <div className="mb-3 PLQADetail">
             <div className="d-flex align-items-center justify-content-between content  my-2">
                 <div>
                     <h4 className="main-color ">問答詳細</h4>
@@ -122,18 +144,42 @@ function PlaceQADetail(props) {
             <div className="content ">
                 <div className="d-flex border">
                     <div className="col-3 text-center text-light bg-main-color p-1">
-                        問題主旨
+                        姓名
                     </div>
                     <div className=" col-9 text-center p-1">
-                        {myQuestion.detail.title}
+                        {myQuestion.detail.name}
                     </div>
                 </div>
                 <div className="d-flex border">
                     <div className="col-3 text-center text-light bg-main-color p-1">
-                        問題類型
+                        連絡電話
                     </div>
-                    <div className="col-9 text-center  p-1">
-                        {myQuestion.detail.user_q_category}
+                    <div className=" col-9 text-center p-1">
+                        {myQuestion.detail.phone}
+                    </div>
+                </div>
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        電子郵件
+                    </div>
+                    <div className=" col-9 text-center p-1">
+                        {myQuestion.detail.email}
+                    </div>
+                </div>
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        租借場地
+                    </div>
+                    <div className=" col-9 text-center p-1">
+                        {myQuestion.detail.item}
+                    </div>
+                </div>
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        使用人數
+                    </div>
+                    <div className=" col-9 text-center p-1">
+                        {myQuestion.detail.usercount}
                     </div>
                 </div>
                 <div className="d-flex border">
@@ -157,7 +203,7 @@ function PlaceQADetail(props) {
                 </div>
                 <div className="border maincontent p-1">
                     <div className="">
-                        {myQuestion.content.map((data) => {
+                        {myQuestion.myPlace.map((data) => {
                             return (
                                 <div key={uuidv4()}>
                                     <p className="text-start m-0">
@@ -170,7 +216,7 @@ function PlaceQADetail(props) {
                                         </span>{' '}
                                     </p>
                                     <p className="text-start fs-6 m-0">
-                                        {data.q_content}
+                                        {data.place_content}
                                     </p>
                                 </div>
                             );
@@ -183,8 +229,8 @@ function PlaceQADetail(props) {
                             className="w-100 textarea"
                             rows="4"
                             type="text"
-                            name="q_content"
-                            value={replyForm.q_content}
+                            name="place_content"
+                            value={replyForm.place_content}
                             onChange={replyFormChange}
                             placeholder="輸入內容"
                         />

@@ -13,3 +13,8 @@
 .NLQADetail .maincontent{
     min-height: 300px;
 }
+
+.PLQADetail{
+    width: 700px;
+    margin: 0 auto;
+}
