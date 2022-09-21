@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import arrow from '../../../../assets/svg/arrow_back_ios_new.svg';
+import { v4 as uuidv4 } from 'uuid';
 
 function NewsActivity({ data, activeText, menuItems }) {
     // const [data, setData] = useState([]);
     // const { data } = props;
+
     console.log(data);
     console.log(menuItems);
-    console.log(activeText);
+    console.log('nnn', activeText);
     const id = menuItems.filter((v) => v.id === activeText);
     console.log(id[0].name);
 
@@ -33,9 +35,9 @@ function NewsActivity({ data, activeText, menuItems }) {
         <>
             <div className="container">
                 <div className="row  News-articles ">
-                    {data.map((activity, index) => {
+                    {data.map((activity) => {
                         return (
-                            <div key={index} className="col-12 col-md-4 ">
+                            <div key={uuidv4()} className="col-12 col-md-4 ">
                                 <div className="mt-4">
                                     <img
                                         src={require(`../../../../album/article/${activity.image}`)}
@@ -50,7 +52,7 @@ function NewsActivity({ data, activeText, menuItems }) {
                                                 {activity.categoryName}
                                             </p>
                                             <p className="ms-2">
-                                            {activity.author} －
+                                                {activity.author} －
                                                 {activity.creation_date}
                                             </p>
                                         </div>
@@ -64,7 +66,9 @@ function NewsActivity({ data, activeText, menuItems }) {
             <div className="container News-more-art ">
                 {/* 帶假資料的值到下一頁MusicArticle */}
                 <Link
-                    to={`section?categoryList=${activeText}`}
+                    data={data}
+                    activeText={activeText}
+                    to={`/news/section?categoryList=${activeText}`}
                     className="mb-0 me-1 cursor-pinter"
                 >
                     看更多{id[0].name}
