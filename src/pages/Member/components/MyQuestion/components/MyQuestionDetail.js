@@ -71,28 +71,28 @@ function MyQuestionDetail(props) {
 
     //有新訊息更新資料庫
     useEffect(() => {
-        if (socketStatus.updateMyQA) {
+        if (socketStatus.newMessage) {
             setSocketStatus({
                 ...socketStatus,
-                updateMyQA: false,
+                newMessage: false,
             });
             let params = new URLSearchParams(location.search);
             let qaid = params.get('qaid');
-            console.log(qaid);
+            // console.log(qaid);
             myQuestionDetail(qaid);
         }
-    }, [socketStatus.updateMyQA]);
+    }, [socketStatus.newMessage]);
 
-    useEffect(() => {
-        console.log('123');
-        setreplyForm({ ...replyForm, customer_id: socketStatus.customer_id });
-    }, [socketStatus.customer_id]);
+    // useEffect(() => {
+    //     console.log('123');
+    //     setreplyForm({ ...replyForm, customer_id: socketStatus.customer_id });
+    // }, [socketStatus.customer_id]);
 
     //新增回覆
     const [replyForm, setreplyForm] = useState({
         user_qna_id: '',
         q_content: '',
-        customer_id: '',
+        // customer_id: '',
         // name: '', 從session拿
     });
     const replyFormChange = (e) => {
@@ -111,7 +111,7 @@ function MyQuestionDetail(props) {
             //TODO:傳送customerName到後端 告訴管理員更新資料庫
             // console.log(response.data);
             //讀取問答詳細
-            myQuestionDetail(replyForm.user_qna_id);
+            // myQuestionDetail(replyForm.user_qna_id);
             //清空replyForm input
             setreplyForm({ ...replyForm, q_content: '' });
             // alert(response.data.message);
@@ -202,9 +202,8 @@ function MyQuestionDetail(props) {
                 </div>
                 <div className="border p-1">
                     <form>
-                        <textarea
-                            className="w-100 textarea"
-                            rows="4"
+                        <input
+                            className="w-100 inputcontent"
                             type="text"
                             name="q_content"
                             value={replyForm.q_content}
