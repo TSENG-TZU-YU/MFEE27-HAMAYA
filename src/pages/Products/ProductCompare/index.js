@@ -15,7 +15,7 @@ import './index.scss';
 import { Container } from 'react-bootstrap';
 
 // 元件
-import { successToast } from '../../../components/Alert';
+import { successToast, warningToast } from '../../../components/Alert';
 
 // 圖檔
 import { ReactComponent as Close } from '../../../assets/svg/close.svg';
@@ -116,19 +116,23 @@ function ProductCompare(props) {
                             itemsData
                         );
                         // console.log('duplicate', response.data.duplicate);
-                        alert(response.data.message);
                         if (response.data.duplicate === 1) {
+                            warningToast(response.data.message, '關閉');
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
+                        successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);
                     }
                 }
             }
-            //臨時購物車;
+            successToast('加入購物車', '關閉');
+            //臨時購物車
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            return;
         }
+        warningToast('已加入臨時購物車', '關閉');
     }
 
     return (

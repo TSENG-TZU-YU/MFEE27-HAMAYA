@@ -104,10 +104,31 @@
 .MyQuestionDetail .content{
     max-width: 700px;
 }
+.MyQuestionDetail .maincontent{
+    height: 350px;
+    background-color:#e6e6e6 ;
+    overflow: auto;
+    display: flex;
+    flex-direction: column-reverse;
+}
+.MyQuestionDetail .inputcontent{
+    height: 50px;
+    padding: 5px;
+} 
+
+.MyQuestionDetail .inputcontent:focus{
+    border: transparent;
+    outline: 2px solid cornflowerblue;
+}
+
+.MyQuestionDetail .btn1{
+    margin: 5px 0;
+    border: 0;
+}
 
 .MyQuestionDetail .maincontent{
     min-height: 300px;
-    background-color: rgb(230, 230, 230);
+    background-color: #e6e6e6;
     /* overflow: auto; */
 }
 .MyQuestionDetail .textarea:focus{

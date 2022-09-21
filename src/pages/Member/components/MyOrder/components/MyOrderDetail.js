@@ -14,7 +14,7 @@ import './MyOrderDetail.scss';
 function MyOrderDetail() {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { orderId } = useParams();
-    console.log('orderId', orderId);
+    // console.log('orderId', orderId);
 
     const [myOrderUserInfo, setMyOrderUserInfo] = useState([]);
     const [myOrderList, setMyOrderList] = useState([]);

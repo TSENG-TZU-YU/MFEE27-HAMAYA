@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import './index.scss';
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
+import { v4 as uuidv4 } from 'uuid';
 
 // 圖檔
 import NewsBanner from '../../assets/NewsImg/news-banner.jpg';
@@ -12,13 +13,17 @@ import NewsImg3 from '../../assets/NewsImg/news-img3.png';
 import NewsImg4 from '../../assets/NewsImg/news-img4.png';
 
 import NewsActivity from './MusicArticle/components/NewsActivity';
+
 //TODO:類別顏色切換
 //TODO:上面一塊尚未拉資料庫
+//TODO:activeText會出現紅字找不到父層
+
 //設定變數換網址
-function NEWs(props) {
-    //只是在設定avtive的狀態
+function NEWs() {
+    //只是在設定active的狀態
     const [activeText, setActiveText] = useState(1);
     const [data, setData] = useState([]);
+    console.log('nnn', activeText);
 
     //使用useLocation來對應到網址
     const location = useLocation();
@@ -33,6 +38,7 @@ function NEWs(props) {
             let response = await axios.get(
                 `${API_URL}/news?categoryId=${categoryId}`
             );
+
             setData(response.data.data);
         };
         getNews();
@@ -181,6 +187,8 @@ function NEWs(props) {
                     {menuItems.map((value, index) => {
                         return (
                             <Link
+                                // activeText={activeText}
+                                // data={data}
                                 className={
                                     activeText === value.id
                                         ? 'col-3 News-word3  News-vector5-Btn-active'
@@ -201,6 +209,7 @@ function NEWs(props) {
 
                     <NewsActivity
                         //將以下資料設定成變數帶到NewsActivity
+
                         data={data}
                         activeText={activeText}
                         menuItems={menuItems}

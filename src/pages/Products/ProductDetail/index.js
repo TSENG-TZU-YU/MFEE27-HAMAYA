@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import { v4 as uuidv4 } from 'uuid';
@@ -17,7 +17,11 @@ import ProductCompare from '../ProductCompare';
 import ProductCarousel from '../../../components/ProductCarousel';
 import BreadCrumb from '../../../components/BreadCrumb/BreadCrumb';
 import CompareBtn from '../components/CompareBtn';
-import { successToast, warningToast } from '../../../components/Alert';
+import {
+    successToast,
+    warningToast,
+    basicAlert,
+} from '../../../components/Alert';
 
 // 圖檔
 import { FiMinus, FiPlus } from 'react-icons/fi';
@@ -140,7 +144,7 @@ function Product() {
 
     //會員
     const { member, setMember, isLogin, setIsLogin } = useAuth();
-
+    const navigate = useNavigate();
     //購物車
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
@@ -149,7 +153,7 @@ function Product() {
         //塞資料進去
         localStorage.setItem('shoppingCart', JSON.stringify(newLocal));
     };
-
+    //加入購物車
     function getCheck(itemInfo) {
         // console.log('get Member', member);
         // console.log('itemInfo', itemInfo);
@@ -160,7 +164,7 @@ function Product() {
 
         if (!newItemInfo) {
             //臨時購物車
-            setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            // setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
             //localStorage;
             setNewLocal([{ ...itemInfo }, ...shoppingCart]);
             //判斷是否為登入;
@@ -178,7 +182,7 @@ function Product() {
                         amount: item.amount,
                     };
                 });
-                console.log('itemsData', itemsData);
+                // console.log('itemsData', itemsData);
                 //寫進資料庫
                 setItemsData(itemsData);
                 async function setItemsData(itemsData) {
@@ -189,18 +193,53 @@ function Product() {
                             itemsData
                         );
                         // console.log('duplicate', response.data.duplicate);
-                        alert(response.data.message);
                         if (response.data.duplicate === 1) {
+                            warningToast(response.data.message, '關閉');
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
+                        successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);
                     }
                 }
             }
-            //臨時購物車;
+            //未登入者提示
+            successToast('加入購物車', '關閉');
+            //臨時購物車
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            return;
+        }
+        warningToast('已加入臨時購物車', '關閉');
+    }
+    //立即購買
+    function getImmediate(itemInfo) {
+        if (member === null || member.id === '') {
+            basicAlert('請先登入', '關閉');
+            return;
+        }
+        // console.log('itemInfo fff', itemInfo);
+
+        console.log('itemsData', itemInfo);
+        setItemsData(itemInfo);
+        async function setItemsData(itemsData) {
+            //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
+            try {
+                let response = await axios.post(
+                    `${API_URL}/member/mycart`,
+                    itemsData
+                );
+                // console.log('duplicate', response.data.duplicate);
+                if (response.data.duplicate === 1) {
+                    warningToast(response.data.message, '關閉');
+                    setShoppingCart([...shoppingCart]);
+                    return;
+                }
+                successToast(response.data.message, '關閉');
+                navigate('/member/mycart');
+            } catch (err) {
+                console.log(err.response.data.message);
+            }
         }
     }
 
@@ -332,7 +371,21 @@ function Product() {
                                         {productCount(value.stock)}
                                     </div>
                                     <div className="row mt-4">
-                                        <button className="col m-2 btn btn-primary productDetail-btn d-flex justify-content-center align-items-center">
+                                        <button
+                                            className="col m-2 btn btn-primary productDetail-btn d-flex justify-content-center align-items-center"
+                                            onClick={() => {
+                                                getImmediate([
+                                                    {
+                                                        user_id: member.id,
+                                                        product_id:
+                                                            value.product_id,
+                                                        category_id:
+                                                            value.category_id,
+                                                        amount: count,
+                                                    },
+                                                ]);
+                                            }}
+                                        >
                                             <img
                                                 style={{
                                                     width: '30px',

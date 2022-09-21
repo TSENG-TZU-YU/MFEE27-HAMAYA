@@ -41,8 +41,39 @@ function CommonQADetail(props) {
         ],
     });
 
+    //建立socket連線
+    useEffect(() => {
+        async function customerConn() {
+            if (!socketConn) {
+                console.log('管理員進入Detail頁面建立連線');
+                let socket = io('http://localhost:3001');
+                setSocketConn(socket);
+                let params = new URLSearchParams(location.search);
+                let nlid = params.get('nlid');
+                let response = await axios.get(
+                    `${API_URL}/admin/customerservice/commonqa/detail?nlid=${nlid}`,
+                    {
+                        withCredentials: true,
+                    }
+                );
+                socket.on(`userid${response.data.detail.user_id}`, (res) => {
+                    console.log('新訊息', res);
+                    //判斷是否需要更新資料庫
+                    if (res.newMessage) {
+                        console.log('更新資料庫');
+                        myQuestionDetail();
+                    }
+                });
+            }
+        }
+        customerConn();
+    }, []);
+
     //讀取問答詳細
-    async function myQuestionDetail(nlid) {
+    async function myQuestionDetail() {
+        let params = new URLSearchParams(location.search);
+        let nlid = params.get('nlid');
+        console.log(nlid);
         try {
             let response = await axios.get(
                 `${API_URL}/admin/customerservice/commonqa/detail?nlid=${nlid}`,
@@ -52,9 +83,9 @@ function CommonQADetail(props) {
             );
             console.log(response.data);
             setreplyForm({
-                ...replyForm,
                 user_id: response.data.detail.user_id,
                 user_qna_id: response.data.detail.id,
+                q_content: '',
             });
             setMyQuestion(response.data);
         } catch (err) {
@@ -63,30 +94,7 @@ function CommonQADetail(props) {
         }
     }
     useEffect(() => {
-        let params = new URLSearchParams(location.search);
-        let nlid = params.get('nlid');
-        console.log(nlid);
-        myQuestionDetail(nlid);
-        // console.log(myQuestion);
-
-        if (!socketConn) {
-            console.log('管理員進入Detail頁面建立連線');
-            let socket = io('http://localhost:3001');
-            setSocketConn(socket);
-            let newLine = uuidv4();
-            //傳送管理員連線ns給會員
-            socket.emit(`customer_conn`, {
-                customer_id: `customer${newLine}`,
-                user_qna_id: nlid,
-            });
-            socket.on(`customer${newLine}`, (data) => {
-                //判斷是否需要更新CommonQADetail
-                if (data.updateCommonQA === true) {
-                    console.log('來自會員的訊息', data);
-                    myQuestionDetail(nlid);
-                }
-            });
-        }
+        myQuestionDetail();
     }, [location]);
 
     //新增回覆
@@ -94,7 +102,6 @@ function CommonQADetail(props) {
         user_id: '',
         user_qna_id: '',
         q_content: '',
-        // name: '', 從session拿
     });
     const replyFormChange = (e) => {
         setreplyForm({ ...replyForm, q_content: e.target.value });
@@ -109,9 +116,6 @@ function CommonQADetail(props) {
                     withCredentials: true,
                 }
             );
-            // console.log(response.data);
-            //讀取問答詳細
-            myQuestionDetail(replyForm.user_qna_id);
             //清空replyForm input
             setreplyForm({ ...replyForm, q_content: '' });
             // alert(response.data.message);
@@ -218,17 +222,17 @@ function CommonQADetail(props) {
                 </div>
                 <div className="border p-1">
                     <form>
-                        <textarea
-                            className="w-100 textarea"
-                            rows="4"
+                        <input
+                            className="w-100 inputcontent"
                             type="text"
                             name="q_content"
                             value={replyForm.q_content}
                             onChange={replyFormChange}
                             placeholder="輸入內容"
+                            autoomplete="off"
                         />
                         <button
-                            className="text-light bg-main-color p-1 px-5 btn1"
+                            className="text-light bg-main-color p-1 px-5 btn1 "
                             onClick={replyFormSubmit}
                         >
                             進行回覆
