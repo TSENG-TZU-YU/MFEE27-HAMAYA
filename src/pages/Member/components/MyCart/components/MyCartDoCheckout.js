@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../../../../../utils/use_auth';
 import { cityData, distData } from '../../MyProfile/location';
 import axios from 'axios';
@@ -13,7 +13,7 @@ function MyCartDoCheckout({
     setHiddenState,
     calcTotalPrice,
 }) {
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    const { member } = useAuth();
 
     const [myCartInfo, setMyCartInfo] = useState({
         receiver: member.fullName,

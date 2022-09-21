@@ -7,12 +7,11 @@ import {
     useLocation,
     useNavigate,
 } from 'react-router-dom'; //抓取Outlet的props
-
-
-
+import axios from 'axios';
+import { API_URL } from '../../../../utils/config';
+import _ from 'lodash';
 
 function PlaceQA(props) {
-    
     // 分頁用
     const [pageNow, setPageNow] = useState(1); // 目前頁號
     const [perPage, setPerPage] = useState(6); // 每頁多少筆資料
@@ -36,8 +35,35 @@ function PlaceQA(props) {
         ],
     ]);
 
+    async function loadingPlaceQA() {
+        try {
+            let response = await axios.get(
+                `${API_URL}/admin/customerservice/placeqa/loading`,
+                {
+                    withCredentials: true,
+                }
+            );
+            console.log(response.data);
+
+            //分切頁面資料
+            const pageList = _.chunk(response.data, perPage);
+
+            console.log(pageList);
+
+            if (pageList.length > 0) {
+                setPageTotal(pageList.length);
+                setMyQuestionList(pageList);
+            }
+        } catch (err) {
+            console.log(err.response.data);
+            alert(err.response.data.message);
+        }
+    }
+    useEffect(() => {
+        loadingPlaceQA();
+    }, []);
     return (
-        <div>
+        <div className="mb-3">
             <div className="">
                 <table className="table ">
                     <thead>
@@ -46,19 +72,25 @@ function PlaceQA(props) {
                                 className="text-nowrap fw-light text-center"
                                 scope="col"
                             >
-                                問答編號
+                                表單編號
                             </th>
                             <th
                                 className="text-nowrap fw-light text-center"
                                 scope="col"
                             >
-                                問題類型
+                                姓名
                             </th>
                             <th
-                                className="text-nowrap fw-light Qtitle text-center"
+                                className="text-nowrap fw-light text-center"
                                 scope="col"
                             >
-                                問題主旨
+                                租借場地
+                            </th>
+                            <th
+                                className="text-nowrap fw-light text-center"
+                                scope="col"
+                            >
+                                使用人數
                             </th>
                             <th
                                 className="text-nowrap fw-light text-center"
@@ -97,8 +129,9 @@ function PlaceQA(props) {
                                             {data.create_time}
                                         </span>
                                     </th>
-                                    <td>{data.user_q_category}</td>
-                                    <td>{data.title}</td>
+                                    <td>{data.name}</td>
+                                    <td>{data.item}</td>
+                                    <td>{data.usercount}</td>
                                     <td>
                                         <div className="">
                                             <span className="ellipsis">

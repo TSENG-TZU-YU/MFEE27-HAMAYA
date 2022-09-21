@@ -4,14 +4,19 @@ import {
     useOutletContext,
     useNavigateuse,
     useLocation,
+    useNavigate,
 } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
 import { v4 as uuidv4 } from 'uuid';
+import { data } from 'autoprefixer';
+import { ReactComponent as Close } from '../../../../../assets/svg/close.svg';
 
 function MyPlaceDetail(props) {
     const [setbread] = useOutletContext();
+    const { socketStatus, setSocketStatus } = useAuth();
+    const navigate = useNavigate();
     const location = useLocation();
     const [myPlace, setMyMyplace] = useState({
         detail: {
@@ -39,8 +44,11 @@ function MyPlaceDetail(props) {
                     withCredentials: true,
                 }
             );
-            console.log(response.data);
-
+            console.log('456', response.data);
+            setreplyForm({
+                ...replyForm,
+                place_rt_id: response.data.detail.id,
+            });
             setMyMyplace(response.data);
         } catch (err) {
             console.log(err.response.data);
@@ -53,18 +61,83 @@ function MyPlaceDetail(props) {
         let plid = params.get('plid');
         console.log(plid);
         MyPlaceDetail(plid);
+        console.log(socketStatus);
         // console.log(myQuestion);
     }, [location]);
+
+    // useEffect(() => {
+    //     console.log('123');
+    //     setreplyForm({ ...replyForm, customer_id: socketStatus.customer_id });
+    // }, [socketStatus.customer_id]);
+
+    //有新訊息更新資料庫
+    useEffect(() => {
+        if (socketStatus.updateMyQA) {
+            setSocketStatus({
+                ...socketStatus,
+                updateMyQA: false,
+            });
+            let params = new URLSearchParams(location.search);
+            let plid = params.get('plid');
+            console.log(plid);
+            MyPlaceDetail(plid);
+        }
+    }, [socketStatus.updateMyQA]);
+
+    //新增回覆
+    const [replyForm, setreplyForm] = useState({
+        place_rt_id: '',
+        place_content: '',
+        // customer_id: '',
+        // name: '', 從session拿
+    });
+    const replyFormChange = (e) => {
+        setreplyForm({ ...replyForm, place_content: e.target.value });
+    };
+    async function replyFormSubmit(e) {
+        e.preventDefault();
+        try {
+            let response = await axios.post(
+                `${API_URL}/member/myplace/reply`,
+                replyForm,
+                {
+                    withCredentials: true,
+                }
+            );
+            //TODO:傳送customerName到後端 告訴管理員更新資料庫
+            // console.log(response.data);
+            //讀取問答詳細
+            MyPlaceDetail(replyForm.place_rt_id);
+            //清空replyForm input
+            setreplyForm({ ...replyForm, place_content: '' });
+            // alert(response.data.message);
+        } catch (err) {
+            console.log(err.response.data);
+            alert(err.response.data.message);
+        }
+    }
 
     // const myQuestionDetail = myQuestion.fliter((data) => data.id = 2);
     // console.log(myQuestionDetail);
     return (
-        <div className="col-12 col-md-8 col-lg-9 mb-3 MyQuestionDetail">
-            <div className="d-flex align-items-center  my-2">
-                <h4 className="main-color ">租借場地</h4>
-                <div className="mx-1">
-                    表單編號:PL00{myPlace.detail.id}&nbsp;
-                    {myPlace.detail.create_time}
+        <div className="col-12 col-md-8 col-lg-9 mb-3 MyPlaceDetail">
+            <div className="d-flex align-items-center justify-content-between content my-2">
+                <div>
+                    <h4 className="main-color ">租借場地</h4>
+                    <div className="mx-1">
+                        表單編號:PL00{myPlace.detail.id}&nbsp;
+                        {myPlace.detail.create_time}
+                    </div>
+                </div>
+                <div>
+                    <button
+                        className="closebtn"
+                        onClick={() => {
+                            navigate(-1);
+                        }}
+                    >
+                        <Close />
+                    </button>
                 </div>
             </div>
             <div className="content ">
@@ -130,12 +203,15 @@ function MyPlaceDetail(props) {
                         className="w-100 textarea"
                         rows="4"
                         type="text"
-                        name="comment"
-                        // value={askForm.comment}
-                        // onChange={askFormChange}
+                        name="place_content"
+                        value={replyForm.place_content}
+                        onChange={replyFormChange}
                         placeholder="輸入內容"
                     />
-                    <button className="text-light bg-main-color p-1 px-5 btn1">
+                    <button
+                        className="text-light bg-main-color p-1 px-5 btn1"
+                        onClick={replyFormSubmit}
+                    >
                         進行回覆
                     </button>
                 </div>

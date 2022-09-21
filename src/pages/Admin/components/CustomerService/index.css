@@ -4,3 +4,17 @@
 .QAlist .active{
     border-bottom:4px solid #767676 ;
 }
+
+.NLQADetail{
+    width: 700px;
+    margin: 0 auto;
+}
+
+.NLQADetail .maincontent{
+    min-height: 300px;
+}
+
+.PLQADetail{
+    width: 700px;
+    margin: 0 auto;
+}

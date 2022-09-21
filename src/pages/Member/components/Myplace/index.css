@@ -1,0 +1,14 @@
+.MyPlaceDetail .content{
+    max-width: 700px;
+}
+
+.MyPlaceDetail .closebtn{
+
+    border: 2px solid #00000000;
+    padding: 0;
+    border-radius: 2px;
+    transition: .3s;
+}
+.MyPlaceDetail .closebtn:hover{
+    border: 2px solid #00323d;
+}

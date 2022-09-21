@@ -70,21 +70,20 @@ function CommonQADetail(props) {
         // console.log(myQuestion);
 
         if (!socketConn) {
-            console.log('管理員進入開始建立連線');
+            console.log('管理員進入Detail頁面建立連線');
             let socket = io('http://localhost:3001');
             setSocketConn(socket);
             let newLine = uuidv4();
             //傳送管理員連線ns給會員
-            socket.emit(`customerName`, {
-                customerName: `customer${newLine}`,
+            socket.emit(`customer_conn`, {
+                customer_id: `customer${newLine}`,
                 user_qna_id: nlid,
             });
-            socket.on(`customer${newLine}`, (msg) => {
-                console.log(msg);
-                //判斷是否需要更新MyQuestionDetail
-                if (msg.MyQuestionDetail === true) {
-                    console.log('來自會員的訊息', msg);
-                    // setSocketStatus(true);
+            socket.on(`customer${newLine}`, (data) => {
+                //判斷是否需要更新CommonQADetail
+                if (data.updateCommonQA === true) {
+                    console.log('來自會員的訊息', data);
+                    myQuestionDetail(nlid);
                 }
             });
         }
@@ -123,7 +122,7 @@ function CommonQADetail(props) {
     }
 
     return (
-        <div className=" mb-3 MyQuestionDetail">
+        <div className=" mb-3 NLQADetail">
             <div className="d-flex align-items-center justify-content-between   my-2">
                 <div>
                     <h4 className="main-color ">問答詳細</h4>
@@ -150,6 +149,22 @@ function CommonQADetail(props) {
                     </div>
                     <div className=" col-9 text-center p-1">
                         {myQuestion.detail.title}
+                    </div>
+                </div>
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        連絡電話
+                    </div>
+                    <div className=" col-9 text-center p-1">
+                        {myQuestion.detail.phone}
+                    </div>
+                </div>
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        電子郵件
+                    </div>
+                    <div className=" col-9 text-center p-1">
+                        {myQuestion.detail.email}
                     </div>
                 </div>
                 <div className="d-flex border">
