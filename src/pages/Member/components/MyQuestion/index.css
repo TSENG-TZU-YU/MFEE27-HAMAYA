@@ -108,7 +108,8 @@
     height: 350px;
     background-color:#e6e6e6 ;
     overflow: auto;
-    /* flex-direction : column-reverse ; */
+    display: flex;
+    flex-direction: column-reverse;
 }
 .MyQuestionDetail .inputcontent{
     height: 50px;
