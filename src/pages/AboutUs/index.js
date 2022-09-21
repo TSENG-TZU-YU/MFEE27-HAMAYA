@@ -5,6 +5,12 @@ import { API_URL } from '../../utils/config';
 import './about.scss';
 
 import banner from '../../assets/AboutImg/banner.png';
+import avatar01 from '../../assets/AboutImg/avatar01.png';
+import avatar02 from '../../assets/AboutImg/avatar02.png';
+import avatar03 from '../../assets/AboutImg/avatar03.png';
+import avatar04 from '../../assets/AboutImg/avatar04.png';
+import avatar05 from '../../assets/AboutImg/avatar05.png';
+import avatar06 from '../../assets/AboutImg/avatar06.png';
 import fb from '../../assets/AboutImg/fb.png';
 import line from '../../assets/AboutImg/line.png';
 import cat from '../../assets/AboutImg/cat.jpg';
@@ -190,7 +196,7 @@ function About(props) {
                 <div className="row mt-5 p-4">
                     <div className="col-md-3 col-6">
                         <div className="founder">
-                            <img src={cat} alt="cat" className="" />
+                            <img src={avatar03} alt="cat" className="" />
                         </div>
                         <h4 style={{ color: '#5b322f' }}>33 范家寧 組長</h4>
                         <h5 style={{ color: '#333333' }}>負責項目</h5>
@@ -199,7 +205,7 @@ function About(props) {
                     <div className="col-md-3 col-6">
                         <div className="founder">
                             {' '}
-                            <img src={cat} alt="cat" className="" />
+                            <img src={avatar04} alt="cat" className="" />
                         </div>
                         <h4 style={{ color: '#5b322f' }}>03 黃睿渝 技術長</h4>
                         <h5 style={{ color: '#333333' }}>負責項目</h5>
@@ -208,7 +214,7 @@ function About(props) {
                     <div className="col-md-3 col-6">
                         <div className="founder">
                             {' '}
-                            <img src={cat} alt="cat" className="" />
+                            <img src={avatar02} alt="cat" className="" />
                         </div>
                         <h4 style={{ color: '#5b322f' }}>09 黃秀莉</h4>
                         <h5 style={{ color: '#333333' }}>負責項目</h5>
@@ -217,7 +223,7 @@ function About(props) {
                     <div className="col-md-3 col-6">
                         <div className="founder">
                             {' '}
-                            <img src={cat} alt="cat" className="" />
+                            <img src={avatar05} alt="cat" className="" />
                         </div>
                         <h4 style={{ color: '#5b322f' }}>15 劉光育</h4>
                         <h5 style={{ color: '#333333' }}>負責項目</h5>
@@ -227,7 +233,7 @@ function About(props) {
                     <div className="col-md-3 col-6">
                         <div className="founder">
                             {' '}
-                            <img src={cat} alt="cat" className="" />
+                            <img src={avatar06} alt="cat" className="" />
                         </div>
                         <h4 style={{ color: '#5b322f' }}>17 温侑臻</h4>
                         <h5 style={{ color: '#333333' }}>負責項目</h5>
@@ -236,7 +242,7 @@ function About(props) {
                     <div className="col-md-3 col-6">
                         <div className="founder">
                             {' '}
-                            <img src={cat} alt="cat" className="" />
+                            <img src={avatar01} alt="cat" className="" />
                         </div>
                         <h4 style={{ color: '#5b322f' }}>27 曾子瑜</h4>
                         <h5 style={{ color: '#333333' }}>負責項目</h5>

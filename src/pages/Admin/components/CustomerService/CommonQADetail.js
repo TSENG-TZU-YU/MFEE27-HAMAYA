@@ -122,7 +122,7 @@ function CommonQADetail(props) {
     }
 
     return (
-        <div className=" mb-3 MyQuestionDetail">
+        <div className=" mb-3 NLQADetail">
             <div className="d-flex align-items-center justify-content-between   my-2">
                 <div>
                     <h4 className="main-color ">問答詳細</h4>
@@ -149,6 +149,22 @@ function CommonQADetail(props) {
                     </div>
                     <div className=" col-9 text-center p-1">
                         {myQuestion.detail.title}
+                    </div>
+                </div>
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        連絡電話
+                    </div>
+                    <div className=" col-9 text-center p-1">
+                        {myQuestion.detail.phone}
+                    </div>
+                </div>
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        電子郵件
+                    </div>
+                    <div className=" col-9 text-center p-1">
+                        {myQuestion.detail.email}
                     </div>
                 </div>
                 <div className="d-flex border">
