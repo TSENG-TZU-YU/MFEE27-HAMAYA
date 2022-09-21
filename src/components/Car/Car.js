@@ -5,7 +5,7 @@ import { API_URL } from '../../utils/config';
 import { useAuth } from '../../utils/use_auth';
 //購物車
 import { useCart } from '../../utils/use_cart';
-
+import { successToast, warningToast } from '../Alert';
 // 圖檔
 import shop_car from '../../assets/svg/add_shopping_cart.svg';
 
@@ -57,20 +57,23 @@ function Car({ itemsCart }) {
                             `${API_URL}/member/mycart`,
                             itemsData
                         );
-                        alert(response.data.message);
                         if (response.data.duplicate === 1) {
+                            warningToast(response.data.message, '關閉');
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
-                        return;
+                        successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);
                     }
                 }
             }
+            successToast('加入購物車', '關閉');
             //臨時購物車
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            return;
         }
+        warningToast('已加入臨時購物車', '關閉');
     }
 
     return (

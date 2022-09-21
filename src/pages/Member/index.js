@@ -37,17 +37,16 @@ function Members(props) {
                     console.log('已登入開始建立連線');
                     let socket = io('http://localhost:3001');
                     setSocketConn(socket);
-                    socket.emit('memberName', response.data);
-                    socket.on(`userid${response.data.id}`, (msg) => {
-                        console.log(msg);
-                        if(msg.customerName){
-                            // setSocketStatus()
-                            //TODO:傳送customerName到detail頁面 寫到replyForm裡
-                        }
-                        //判斷是否需要更新MyQuestionDetail
-                        if (msg.MyQuestionDetail === true) {
-                            console.log('來自後端的訊息', msg);
-                            setSocketStatus(true);
+                    // socket.emit('user_conn', response.data);
+                    socket.on(`userid${response.data.id}`, (res) => {
+                        console.log('新訊息', res);
+                        //判斷是否需要更新資料庫
+                        if (res.newMessage) {
+                            console.log('更新資料庫');
+                            setSocketStatus({
+                                ...socketStatus,
+                                newMessage: true,
+                            });
                         }
                     });
                 }

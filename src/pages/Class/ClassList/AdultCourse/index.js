@@ -9,7 +9,7 @@ import { API_URL } from '../../../../utils/config';
 import _ from 'lodash';
 
 // 元件
-import StarRating from '../../../../components/Star/StarRating';
+// import Evaluation from '../../../../components/Evaluation/Evaluation';
 import Car from '../../../../components/Car/Car';
 import Favorite from '../../../../components/Favorite';
 import PaginationBar from '../../../../components/PaginationBar/PaginationBar';
@@ -27,14 +27,19 @@ function AdultCourse({
     pageNow,
     displayProducts,
 }) {
+    // 資料庫 評論 平均數
+    //    const [avg, setAvg] = useState([]);
+
     useEffect(() => {
         let getAdultClass = async () => {
             let response = await axios.get(
                 //&page=${page}
                 `${API_URL}/class/list?class=1`
+                // { params: { product: product_id } }
             );
             setProducts(response.data);
             setDisplayProducts(response.data);
+            // setAvg(response.data.avg);
 
             // 從前端取得總頁數 (lastPage)
             const pageList = _.chunk(response.data, perPage);
@@ -71,7 +76,7 @@ function AdultCourse({
                             className="d-lg-flex justify-content-lg-center align-items-lg-center  mb-5"
                         >
                             <Link
-                                to={`${classAdult.id}?class=${classAdult.ins_main_id}`}
+                                to={`${classAdult.product_id}?class=${classAdult.ins_main_id}`}
                             >
                                 <div className="introduce row mx-0 mb-5 class-shadow">
                                     <div className="d-flex col-lg-6  px-lg-0  position-relative">
@@ -108,7 +113,7 @@ function AdultCourse({
                                             </p>
                                             <div className="d-flex mt-2 align-items-center">
                                                 <div className="StarRating">
-                                                    <StarRating />
+                                                    {/* <Evaluation rating={} /> */}
                                                 </div>
                                                 <p className="ms-2 mt-2">
                                                     {' '}

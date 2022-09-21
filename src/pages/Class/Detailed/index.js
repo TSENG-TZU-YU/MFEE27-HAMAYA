@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useLocation, useParams } from 'react-router-dom';
 import { API_URL } from '../../../utils/config';
-
+import { useAuth } from '../../../utils/use_auth';
+//購物車
+import { useCart } from '../../../utils/use_cart';
+import { successToast, warningToast } from '../../../components/Alert';
 import './index.scss';
 
 // 子元件
@@ -16,17 +19,24 @@ import Carousel from '../../../components/Carousel/Carousel';
 
 // 元件
 import note from '../../../assets/ClassImg/Note.png';
-import shop_car from '../../../assets/svg/add_shopping_cart.svg';
-// import arrow_right from '../../../assets/svg/arrow-right.svg';
-// import arrow_left from '../../../assets/svg/arrow-left.svg';
+import shop_car from '../../../assets/svg/shopping_cart.svg';
+import cartCheckout from '../../../assets/svg/shopping_cart_checkout.svg';
+import Evaluation from '../../../components/Evaluation/Evaluation';
 
 function Detailed({ ins_main_id }) {
     // 課程 Toggle
     const [detailedSelect, setDetailedSelect] = useState(true);
 
+    // 資料庫 課程
     const [data, setData] = useState([]);
     const [dataImg, setDataImg] = useState([]);
     const [recommendClass, setRecommendClass] = useState([]);
+
+    // 資料庫 評論
+    const [evaluation, setEvaluation] = useState([]);
+
+    // 資料庫 評論 平均數
+    const [avg, setAvg] = useState([]);
 
     // 把網址上的 :detailedID 拿出來
     const { detailedID } = useParams();
@@ -42,6 +52,8 @@ function Detailed({ ins_main_id }) {
             );
             setData(response.data.data);
             setRecommendClass(response.data.recommendClass);
+            setEvaluation(response.data.evaluation);
+            setAvg(response.data.avg);
 
             let imgData = response.data.dataImg[0];
             // 圖片拆陣列
@@ -60,6 +72,76 @@ function Detailed({ ins_main_id }) {
 
     useEffect(() => {}, [data]);
 
+    //會員
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+
+    //購物車
+    const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
+        useCart();
+    //存localStorage
+    const setNewLocal = (newLocal) => {
+        //塞資料進去
+        localStorage.setItem('shoppingCart', JSON.stringify(newLocal));
+    };
+
+    function getCheck(itemInfo) {
+        // console.log('get Member', member);
+        console.log('itemInfo class detail', itemInfo);
+        //確認有沒有重複
+        let newItemInfo = shoppingCart.find((v) => {
+            return v.product_id === itemInfo.product_id;
+        });
+
+        if (!newItemInfo) {
+            //臨時購物車
+            // setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            //localStorage;
+            setNewLocal([{ ...itemInfo }, ...shoppingCart]);
+            //判斷是否為登入;
+            if (member !== null && member.id !== '') {
+                let getNewLocal = JSON.parse(
+                    localStorage.getItem('shoppingCart')
+                );
+                // console.log('getNewLocal', getNewLocal);
+
+                const itemsData = getNewLocal.map((item) => {
+                    return {
+                        user_id: member.id,
+                        product_id: item.product_id,
+                        category_id: item.category_id,
+                        amount: 1,
+                    };
+                });
+                console.log('itemsData', itemsData);
+                //寫進資料庫
+                setItemsData(itemsData);
+                async function setItemsData(itemsData) {
+                    //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
+                    try {
+                        let response = await axios.post(
+                            `${API_URL}/member/mycart`,
+                            itemsData
+                        );
+                        // console.log('duplicate', response.data.duplicate);
+                        if (response.data.duplicate === 1) {
+                            warningToast(response.data.message, '關閉');
+                            setShoppingCart([...shoppingCart]);
+                            return;
+                        }
+                        successToast(response.data.message, '關閉');
+                    } catch (err) {
+                        console.log(err.response.data.message);
+                    }
+                }
+            }
+            successToast('加入購物車', '關閉');
+            //臨時購物車
+            setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            return;
+        }
+        warningToast('已加入臨時購物車', '關閉');
+    }
+
     return (
         <div>
             <Container>
@@ -76,8 +158,13 @@ function Detailed({ ins_main_id }) {
                     <Link to="/class/list">
                         <p className="mb-0 ">成人課程</p>
                     </Link>
+                    /
                     <Link to="/class/list/Detailed">
-                        <p className="mb-0 ">藍調與爵士鋼琴的獨奏技巧與應用</p>
+                        {data.map((classDetailed) => {
+                            return (
+                                <p className="mb-0 ">{classDetailed.name}</p>
+                            );
+                        })}
                     </Link>
                 </nav>
                 {/* 麵包屑 end */}
@@ -217,13 +304,25 @@ function Detailed({ ins_main_id }) {
                                                     </h6>
                                                 </div>
                                                 <div className="d-flex align-items-center">
-                                                    <div className="StarRating">
-                                                        <StarRating />
-                                                    </div>
-                                                    <p className="ms-2 mt-2">
-                                                        {' '}
-                                                        2 人評價
-                                                    </p>
+                                                    {avg.map((avg) => {
+                                                        return (
+                                                            <>
+                                                                <div className="StarRating">
+                                                                    <Evaluation
+                                                                        rating={
+                                                                            avg.rating
+                                                                        }
+                                                                    />
+                                                                </div>
+                                                                <p className="ms-2 mt-2">
+                                                                    {
+                                                                        avg.member_id
+                                                                    }
+                                                                    人評價
+                                                                </p>
+                                                            </>
+                                                        );
+                                                    })}
                                                 </div>
                                             </div>
                                             <Row className=" mt-4">
@@ -233,22 +332,28 @@ function Detailed({ ins_main_id }) {
                                                             width: '30px',
                                                             height: '30px',
                                                         }}
-                                                        className="d-block product-icon me-1"
-                                                        src={shop_car}
-                                                        alt="shop_car"
+                                                        className="d-block product-icon me-3"
+                                                        src={cartCheckout}
+                                                        alt="cartCheckout"
                                                     />
                                                     <h6 className="AdultDetailed-car-text-color text-center">
                                                         立即報名
                                                     </h6>
                                                 </button>
 
-                                                <button className="col m-2 btn btn-primary AdultDetailed-btn d-flex justify-content-center align-items-center border-0">
+                                                <button
+                                                    className="col m-2 btn btn-primary AdultDetailed-btn d-flex justify-content-center align-items-center border-0"
+                                                    onClick={() => {
+                                                        setShopCartState(true);
+                                                        getCheck(classDetailed);
+                                                    }}
+                                                >
                                                     <img
                                                         style={{
                                                             width: '30px',
                                                             height: '30px',
                                                         }}
-                                                        className="d-block product-icon me-1"
+                                                        className="d-block product-icon me-3"
                                                         src={shop_car}
                                                         alt="shop_car"
                                                     />
@@ -294,7 +399,11 @@ function Detailed({ ins_main_id }) {
                         <h4>課程評價</h4>
                     </button>
                 </Row>
-                {detailedSelect ? <Information data={data} /> : <Comment />}
+                {detailedSelect ? (
+                    <Information data={data} />
+                ) : (
+                    <Comment evaluation={evaluation} avg={avg} />
+                )}
                 <div className="  d-flex mt-5  px-0">
                     <h4
                         className=" me-5 text-nowrap fw-bold"
@@ -310,7 +419,7 @@ function Detailed({ ins_main_id }) {
                     {recommendClass.map((recommend) => {
                         return (
                             <Link
-                                to={`/class/list/${recommend.id}?class=${recommend.ins_main_id}`}
+                                to={`/class/list/${recommend.product_id}?class=${recommend.ins_main_id}`}
                                 key={recommend.id}
                             >
                                 <Col>

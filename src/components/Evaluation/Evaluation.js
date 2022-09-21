@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import './StarRating.css';
+import './Evaluation.css';
 import { AiFillStar } from 'react-icons/ai';
 // import { AiOutlineStar } from 'react-icons/ai';
 
-function StarRating({ evaluationChange, rating, setRating }) {
-    const [hover, setHover] = useState(null);
-
+function Evaluation({ evaluationChange, rating }) {
     return (
         <>
             <div className="wrapper">
@@ -18,20 +16,11 @@ function StarRating({ evaluationChange, rating, setRating }) {
                                     type="radio"
                                     name="rating"
                                     value={ratingValue}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        setRating(ratingValue);
-                                    }}
-                                    onChange={evaluationChange}
                                 />
                                 <AiFillStar
                                     className={`fa-star ${
-                                        ratingValue <= (hover || rating)
-                                            ? 'main'
-                                            : 'gray'
+                                        ratingValue <= rating ? 'main' : 'gray'
                                     }`}
-                                    onMouseEnter={() => setHover(ratingValue)}
-                                    onMouseLeave={() => setHover(null)}
                                 />
                             </label>
                         );
@@ -42,4 +31,4 @@ function StarRating({ evaluationChange, rating, setRating }) {
     );
 }
 
-export default StarRating;
+export default Evaluation;

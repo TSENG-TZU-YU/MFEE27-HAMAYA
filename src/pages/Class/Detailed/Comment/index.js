@@ -1,72 +1,92 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
+import { IMAGE_URL } from '../../../../utils/config';
+import './index.scss';
+import { TbMusicOff } from 'react-icons/tb';
 
-// 子元件
-import StarRating from '../../../../components/Star/StarRating';
+// 元件
+import Evaluation from '../../../../components/Evaluation/Evaluation';
 
-function Comment(props) {
+function Comment({ evaluation, avg }) {
     return (
         <>
-        {/* TODO: 選擇課程 /幾筆資料 */}
-            <div className="d-md-flex ">
-                <div className="d-flex me-lg-5 ">
-                    <h1 className="me-3">3.0</h1>
-                    <div className="mt-1 ">
-                        {/* TODO: rwd 中間會會變直的 */}
-                        <StarRating />
+            {/* 用長度判斷是否有資料 */}
+            {evaluation.length === 0 ? (
+                <div style={{ height: '10vh' }}>
+                    <h4 className="mt-5 d-flex w-100 h-100 main-gary-light-color text-center justify-content-center align-items-center">
+                        <TbMusicOff
+                            style={{
+                                width: '30px',
+                                height: '30px',
+                            }}
+                        />
+                        暫無評論
+                    </h4>
+                </div>
+            ) : (
+                <div className="row">
+                    {avg.map((avg) => {
+                        return (
+                            <div className="d-flex col-md-4 justify-content-md-center">
+                                <h1 className="d-flex   me-3">
+                                    <h6 className="mt-5 pt-2 me-2">平均</h6>
+                                    {avg.rating}.0
+                                </h1>
+                                <div className="mt-1 ">
+                                    {/* <Evaluation /> */}
 
-                        <p className="mt-1 "> 2 人評價</p>
+                                    <p className="mt-5 pt-1">
+                                        / {avg.member_id} 則評價
+                                    </p>
+                                </div>
+                            </div>
+                        );
+                    })}
+                    <div className="col-md-8  mt-4 mt-md-2  ">
+                        {/* TODO:  卷軸or下拉 */}
+                        {/* 會員評論 */}
+                        {evaluation.map((evaluation) => {
+                            return (
+                                <div key={evaluation.id}>
+                                    <div className="d-flex ">
+                                        <div className="me-5">
+                                            <img
+                                                src={
+                                                    IMAGE_URL + evaluation.photo
+                                                }
+                                                alt=""
+                                                style={{
+                                                    width: '99px',
+                                                    height: '99px',
+                                                }}
+                                            />
+                                            <p className="mt-1">
+                                                {evaluation.name}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <Evaluation
+                                                rating={evaluation.rating}
+                                            />
+                                            <p className="mt-2  mb-2">
+                                                {evaluation.evaluation_date}
+                                            </p>
+                                            <p className="comment-text">
+                                                {evaluation.content}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div
+                                        className="border-top  border-1 px-3 pt-3 me-2"
+                                        style={{ color: '#bababa' }}
+                                    ></div>
+                                </div>
+                            );
+                        })}
+                        {/* 會員評論 end */}
                     </div>
                 </div>
-
-                <div className="ms-lg-4">
-                    {/* TODO: 前面顯示最新評論 卷軸or下拉 */}
-                    {/* 會員評論 */}
-                    <div className="d-flex ">
-                        <div className="me-5">
-                            <img
-                                src=""
-                                alt=""
-                                style={{ width: '99px', height: '99px' }}
-                            />
-                            <p>Emma</p>
-                        </div>
-                        <div>
-                            <StarRating />
-                            <p className="mt-2  mb-2">2022/09/05</p>
-                            <p>
-                                由淺入深，循序漸進從基礎教導學員，在爭對各個技巧一一擊破，非常推薦任何對學習爵士鋼琴有興趣的朋友們，推!
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        className="border-top  border-1 px-3 pt-3 me-2"
-                        style={{ color: '#bababa' }}
-                    ></div>
-                    {/* 會員評論 end */}
-                    <div className="d-flex ">
-                        <div className="me-5">
-                            <img
-                                src=""
-                                alt=""
-                                style={{ width: '99px', height: '99px' }}
-                            />
-                            <p>Emma</p>
-                        </div>
-                        <div>
-                            <StarRating />
-                            <p className="mt-2 mb-2">2022/09/05</p>
-                            <p>
-                                由淺入深，循序漸進從基礎教導學員，在爭對各個技巧一一擊破，非常推薦任何對學習爵士鋼琴有興趣的朋友們，推!
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        className="border-top  border-1 px-3 pt-3 me-2"
-                        style={{ color: '#bababa' }}
-                    ></div>
-                </div>
-            </div>
+            )}
         </>
     );
 }

@@ -9,10 +9,13 @@ import NewsImg6 from '../../../assets/NewsImg/news-img6.png';
 import NewsImg7 from '../../../assets/NewsImg/news-img7.png';
 import NewsImg18 from '../../../assets/NewsImg/news-img18.png';
 
-function Article() {
+function Article({ data, SmallArticles }) {
+    
+    console.log(data);
+    console.log(SmallArticles);
     return (
         <>
-            {/* 麵包屑 */} 
+            {/* 麵包屑 */}
             {/* TODO: ＲＷＤ版AI執筆的位置不對 */}
             <div className="container d-flex mt-5 ">
                 <Link to="/">
@@ -35,7 +38,7 @@ function Article() {
             </div>
             {/* 麵包屑 end*/}
             {/* TODO:底線大小需要再調整 */}
-            <div className="container ">
+            <div className="container">
                 <Link to="">
                     <p className="text-center article-word3  article-vector5-Btn">
                         音樂文章

@@ -24,7 +24,8 @@ export const AuthProvider = ({ children }) => {
     //暫時新增圖片
     const [uploadPhotoURL, setUploadPhotoURL] = useState('');
     //是否更新資料
-    const [socketStatus, setSocketStatus] = useState(false);
+    const [socketStatus, setSocketStatus] = useState({ newMessage: false });
+
     return (
         <AuthContext.Provider
             value={{

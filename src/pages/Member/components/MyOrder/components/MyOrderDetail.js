@@ -14,7 +14,7 @@ import './MyOrderDetail.scss';
 function MyOrderDetail() {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { orderId } = useParams();
-    console.log('orderId', orderId);
+    // console.log('orderId', orderId);
 
     const [myOrderUserInfo, setMyOrderUserInfo] = useState([]);
     const [myOrderList, setMyOrderList] = useState([]);
@@ -208,7 +208,7 @@ function MyOrderDetail() {
                     {myOrderListB.map((item) => {
                         let itemPriceTotal = item.amount * item.price;
                         return (
-                            <tr>
+                            <tr key={item.id}>
                                 <td className="align-middle" align="center">
                                     <div className="detail-Img">
                                         <img

@@ -13,20 +13,24 @@ import { RiAddFill } from 'react-icons/ri';
 import { RiSubtractFill } from 'react-icons/ri';
 import MyCartCount from './MyCartCount';
 
-function MyCartClass({ myCart, setMyCart, myCartB, setMyCartB }) {
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
+function MyCartClass({
+    myCart,
+    setMyCart,
+    myCartB,
+    setMyCartB,
+    check,
+    setCheck,
+    handleCheckBox,
+}) {
+    const { member } = useAuth();
 
-    const [count, setCount] = useState(0);
     //進行刪除及時更新
-    async function handleRemoveItem(itemId) {
+    function handleRemoveItem(itemId) {
         if (member !== null && member.id !== '') {
             //讀資料庫 進行刪除 還必須確認資料庫有無東西
             let setItemDataDelete = async () => {
                 let response = await axios.delete(`${API_URL}/member/mycart`, {
-                    data: {
-                        user_id: member.id,
-                        product_id: itemId,
-                    },
+                    data: [[member.id, itemId]],
                 });
                 // console.log('刪除response.data', response.data);
                 alert(response.data.message);
@@ -61,8 +65,13 @@ function MyCartClass({ myCart, setMyCart, myCartB, setMyCartB }) {
                                     <input
                                         className="form-check-input"
                                         type="checkbox"
-                                        value=""
-                                        id=""
+                                        value={item.product_id}
+                                        checked={check.includes(
+                                            item.product_id
+                                        )}
+                                        onChange={(e) => {
+                                            handleCheckBox(e);
+                                        }}
                                     />
                                 </div>
                                 <div className="flex-lg-grow-1">

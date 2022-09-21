@@ -6,10 +6,9 @@ import axios from 'axios';
 import { useAuth } from '../../../../../utils/use_auth';
 
 // 元件
-import PaginationBar from '../../../../../components/PaginationBar/PaginationBar';
+// import PaginationBar from '../../../../../components/PaginationBar/PaginationBar';
 
 function ClassStart(props) {
-    // const [data, setData] = useState([]);
     const [buyClass, setBuyClass] = useState([]);
     // 取得會員 ID 資料
     const { member } = useAuth();
@@ -18,7 +17,7 @@ function ClassStart(props) {
             let response = await axios.get(
                 `${API_URL}/member/myclass/${member.id}`
             );
-            // setData(response.data.data);
+
             setBuyClass(response.data.buyClass);
 
             console.log('buyClass', buyClass);

@@ -77,6 +77,12 @@ function CommonQA(props) {
                                 className="text-nowrap fw-light text-center"
                                 scope="col"
                             >
+                                姓名
+                            </th>
+                            <th
+                                className="text-nowrap fw-light text-center"
+                                scope="col"
+                            >
                                 問題類型
                             </th>
                             <th
@@ -122,6 +128,9 @@ function CommonQA(props) {
                                             {data.create_time}
                                         </span>
                                     </th>
+                                    <td className="text-nowrap text-center">
+                                        {data.name}
+                                    </td>
                                     <td>{data.user_q_category}</td>
                                     <td>{data.title}</td>
                                     <td>
