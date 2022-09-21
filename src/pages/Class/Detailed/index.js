@@ -16,9 +16,9 @@ import Carousel from '../../../components/Carousel/Carousel';
 
 // 元件
 import note from '../../../assets/ClassImg/Note.png';
-import shop_car from '../../../assets/svg/add_shopping_cart.svg';
-// import arrow_right from '../../../assets/svg/arrow-right.svg';
-// import arrow_left from '../../../assets/svg/arrow-left.svg';
+import shop_car from '../../../assets/svg/shopping_cart.svg';
+import cartCheckout from '../../../assets/svg/shopping_cart_checkout.svg';
+import Evaluation from '../../../components/Evaluation/Evaluation';
 
 function Detailed({ ins_main_id }) {
     // 課程 Toggle
@@ -85,8 +85,13 @@ function Detailed({ ins_main_id }) {
                     <Link to="/class/list">
                         <p className="mb-0 ">成人課程</p>
                     </Link>
+                    /
                     <Link to="/class/list/Detailed">
-                        <p className="mb-0 ">藍調與爵士鋼琴的獨奏技巧與應用</p>
+                        {data.map((classDetailed) => {
+                            return (
+                                <p className="mb-0 ">{classDetailed.name}</p>
+                            );
+                        })}
                     </Link>
                 </nav>
                 {/* 麵包屑 end */}
@@ -226,13 +231,25 @@ function Detailed({ ins_main_id }) {
                                                     </h6>
                                                 </div>
                                                 <div className="d-flex align-items-center">
-                                                    <div className="StarRating">
-                                                        <StarRating />
-                                                    </div>
-                                                    <p className="ms-2 mt-2">
-                                                        {' '}
-                                                        2 人評價
-                                                    </p>
+                                                    {avg.map((avg) => {
+                                                        return (
+                                                            <>
+                                                                <div className="StarRating">
+                                                                    <Evaluation
+                                                                        rating={
+                                                                            avg.rating
+                                                                        }
+                                                                    />
+                                                                </div>
+                                                                <p className="ms-2 mt-2">
+                                                                    {
+                                                                        avg.member_id
+                                                                    }
+                                                                    人評價
+                                                                </p>
+                                                            </>
+                                                        );
+                                                    })}
                                                 </div>
                                             </div>
                                             <Row className=" mt-4">
@@ -242,9 +259,9 @@ function Detailed({ ins_main_id }) {
                                                             width: '30px',
                                                             height: '30px',
                                                         }}
-                                                        className="d-block product-icon me-1"
-                                                        src={shop_car}
-                                                        alt="shop_car"
+                                                        className="d-block product-icon me-3"
+                                                        src={cartCheckout}
+                                                        alt="cartCheckout"
                                                     />
                                                     <h6 className="AdultDetailed-car-text-color text-center">
                                                         立即報名
@@ -257,7 +274,7 @@ function Detailed({ ins_main_id }) {
                                                             width: '30px',
                                                             height: '30px',
                                                         }}
-                                                        className="d-block product-icon me-1"
+                                                        className="d-block product-icon me-3"
                                                         src={shop_car}
                                                         alt="shop_car"
                                                     />

@@ -4,7 +4,7 @@ import { IMAGE_URL } from '../../../../utils/config';
 import './index.scss';
 import { TbMusicOff } from 'react-icons/tb';
 
-// 子元件
+// 元件
 import Evaluation from '../../../../components/Evaluation/Evaluation';
 
 function Comment({ evaluation, avg }) {
@@ -27,23 +27,22 @@ function Comment({ evaluation, avg }) {
                 <div className="row">
                     {avg.map((avg) => {
                         return (
-                            <div className="d-flex  me-lg-5 col-md-4 justify-content-md-center">
+                            <div className="d-flex col-md-4 justify-content-md-center">
                                 <h1 className="d-flex   me-3">
                                     <h6 className="mt-5 pt-2 me-2">平均</h6>
-                                    {avg.rating}
+                                    {avg.rating}.0
                                 </h1>
                                 <div className="mt-1 ">
-                                    <Evaluation />
+                                    {/* <Evaluation /> */}
 
-                                    <p className="mt-2 ">
+                                    <p className="mt-5 pt-1">
                                         / {avg.member_id} 則評價
                                     </p>
                                 </div>
                             </div>
                         );
                     })}
-
-                    <div className="col-md-7 mt-4 mt-md-2">
+                    <div className="col-md-8  mt-4 mt-md-2  ">
                         {/* TODO:  卷軸or下拉 */}
                         {/* 會員評論 */}
                         {evaluation.map((evaluation) => {
