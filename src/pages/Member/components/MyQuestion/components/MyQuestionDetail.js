@@ -51,8 +51,8 @@ function MyQuestionDetail(props) {
             );
             console.log(response.data);
             setreplyForm({
-                ...replyForm,
                 user_qna_id: response.data.detail.id,
+                q_content: '',
             });
             setMyQuestion(response.data);
         } catch (err) {
@@ -83,17 +83,10 @@ function MyQuestionDetail(props) {
         }
     }, [socketStatus.newMessage]);
 
-    // useEffect(() => {
-    //     console.log('123');
-    //     setreplyForm({ ...replyForm, customer_id: socketStatus.customer_id });
-    // }, [socketStatus.customer_id]);
-
     //新增回覆
     const [replyForm, setreplyForm] = useState({
         user_qna_id: '',
         q_content: '',
-        // customer_id: '',
-        // name: '', 從session拿
     });
     const replyFormChange = (e) => {
         setreplyForm({ ...replyForm, q_content: e.target.value });
@@ -108,12 +101,7 @@ function MyQuestionDetail(props) {
                     withCredentials: true,
                 }
             );
-            //TODO:傳送customerName到後端 告訴管理員更新資料庫
-            // console.log(response.data);
-            //讀取問答詳細
-            // myQuestionDetail(replyForm.user_qna_id);
             //清空replyForm input
-            setreplyForm({ ...replyForm, q_content: '' });
             // alert(response.data.message);
         } catch (err) {
             console.log(err.response.data);
@@ -209,6 +197,7 @@ function MyQuestionDetail(props) {
                             value={replyForm.q_content}
                             onChange={replyFormChange}
                             placeholder="輸入內容"
+                            autoComplete="off"
                         />
                         <button
                             className="text-light bg-main-color p-1 px-5 btn1"

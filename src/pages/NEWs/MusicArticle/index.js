@@ -3,7 +3,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { API_URL } from '../../../utils/config';
-
+import { v4 as uuidv4 } from 'uuid';
 // 圖檔
 import NewsBanner from '../../../assets/NewsImg/news-banner.jpg';
 
@@ -13,39 +13,40 @@ import arrow from '../../../assets/svg/arrow_back_ios_new.svg';
 //TODO:類別顏色切換，四個選項的顏色切換
 //TODO:連結到下一頁的變數
 
-function MusicArticle({ activeText }) {
-    const [activeText2, setActiveText2] = useState();
+function MusicArticle() {
     const [data, setData] = useState([]);
+    const [activeText, setActiveText] = useState(1);
     const [SmallArticles, setSmallArticles] = useState([]);
-    const categoryId = useParams();
+    const articleId = useParams();
     const location = useLocation();
+
+    // useEffect(() => {
+    //     let params = new URLSearchParams(location.search);
+    //     let categoryList = params.get('categoryList');
+    //     if (categoryList !== null) {
+    //         setActiveText(categoryList);
+    //     }
+    //     console.log(categoryList);
+    // }, []);
 
     useEffect(() => {
         let params = new URLSearchParams(location.search);
         let categoryList = params.get('categoryList');
-        let getArticleList = async () => {
+        let getMusicArticle = async () => {
             let response = await axios.get(
                 `${API_URL}/news/section?categoryList=${categoryList}`
             );
             setData(response.data.data);
             setSmallArticles(response.data.SmallArticles);
+            setActiveText(response.data.data[0].categoryId);
         };
-        getArticleList();
+        getMusicArticle();
     }, [location]);
 
-    console.log(data);
-    console.log(SmallArticles);
+    // console.log(data);
+    // console.log(SmallArticles);
 
-    //預設的網頁動作打一支api給他
-    // useEffect(() => {
-    //     let getArticleList = async () => {
-    //         let response = await axios.get(`${API_URL}/news/section`);
-    //         setData(response.data.data);
-    //     };
-    //     getArticleList();
-    // }, []);
-
-    // 假資料
+    // 假資料;
     const ListItems = [
         {
             id: 1,
@@ -86,18 +87,18 @@ function MusicArticle({ activeText }) {
             {/* 麵包屑 */}
             <div className="container">
                 <div className="row text-center ">
-                    {ListItems.map((value, index) => {
+                    {ListItems.map((value) => {
                         return (
                             <Link
                                 className={
-                                    activeText2 === value.id
+                                    activeText === value.id
                                         ? 'col-3 News-word3  News-vector5-Btn-active'
                                         : 'col-3 News-word3  News-vector5-Btn'
                                 }
-                                key={index}
+                                key={uuidv4()}
                                 to={`/news/section?categoryList=${value.id}`}
                                 onClick={() => {
-                                    setActiveText2(value.id);
+                                    setActiveText(value.id);
                                 }}
                             >
                                 <span className=" News-word3 ">
@@ -111,11 +112,11 @@ function MusicArticle({ activeText }) {
 
             <div className="container">
                 <div className="row">
-                    {data.map((list, index) => {
+                    {data.map((list) => {
                         return (
                             <>
                                 <div
-                                    key={index}
+                                    key={uuidv4()}
                                     className="col-12 col-md-5 d-flex mt-4"
                                 >
                                     <img
@@ -132,7 +133,7 @@ function MusicArticle({ activeText }) {
                                             <p className=" list-music-article2 small  ">
                                                 {list.categoryName}
                                             </p>
-                                            <p className=" mt-1 ">
+                                            <p className="ms-2 mt-1 ">
                                                 {list.author} －
                                                 {list.creation_date}
                                             </p>
@@ -144,7 +145,8 @@ function MusicArticle({ activeText }) {
                                 </div>
                                 <div className="container list-more-art ">
                                     <Link
-                                        to="/news/category"
+                                        // 直接設定一個變數抓資料庫的id不用再一層一層抓
+                                        to={`/news/${list.id}`}
                                         className="mb-0 me-1 list-cursor-pinter"
                                     >
                                         閱讀全文
@@ -166,11 +168,11 @@ function MusicArticle({ activeText }) {
             </div>
             <div className="container">
                 <div className="row">
-                    {SmallArticles.map((list2, index) => {
+                    {SmallArticles.map((list2) => {
                         return (
                             <>
                                 <div
-                                    key={index}
+                                    key={uuidv4()}
                                     className="col-md col-sm-12  d-flex mt-3"
                                 >
                                     <img
@@ -198,8 +200,12 @@ function MusicArticle({ activeText }) {
                                 </div>
                                 <div className="container list-more-art ">
                                     <Link
-                                        to={`category?categoryList=${categoryId}`}
+                                        // data={data}
+                                        // activeText={activeText}
+                                        to={`/news/${list2.id}`}
                                         className="mb-0 me-1 list-cursor-pinter"
+                                        data={data}
+                                        SmallArticles={list2.categoryId}
                                     >
                                         閱讀全文
                                     </Link>
