@@ -222,10 +222,10 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                     withCredentials: true,
                 }
             );
-            console.log(response.data.message);
+            successToast(response.data.message, '關閉');
             setMyBucketB(response.data.class);
         } catch (err) {
-            console.log(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
         }
     }
 
