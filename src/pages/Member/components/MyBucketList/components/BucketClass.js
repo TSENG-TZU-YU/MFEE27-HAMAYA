@@ -21,6 +21,8 @@ function BucketClass({ myBucketB, setMyBucketB }) {
     // console.log('check', check);
     const [allCheck, setAllCheck] = useState(false);
 
+    console.log('我的收藏BucketClass元件中', myBucketB);
+
     //商品單選checkbox
     function handleCheckBox(e) {
         console.log('value, allCheck, check', e.target.value, allCheck, check);
@@ -123,7 +125,7 @@ function BucketClass({ myBucketB, setMyBucketB }) {
     }
     //依賴checkbox加入購物車
     function getCheckBucket() {
-        // console.log('buy bucket  myBucketB', check, myBucketB);
+        console.log('buy bucket  myBucketB', check, myBucketB);
 
         //過濾出有被選取的
         let newMyBucketB = myBucketB.filter((item) => {
@@ -142,7 +144,7 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                 name: item.name,
                 amount: 1,
                 price: item.price,
-                image: item.image_1,
+                image_1: item.image_1,
             };
         });
         // console.log('reNewMyBucketB', reNewMyBucketB);
@@ -192,6 +194,39 @@ function BucketClass({ myBucketB, setMyBucketB }) {
             return;
         }
         warningToast('已加入臨時購物車', '關閉');
+    }
+
+    //             // console.log('newMyCartAfterDelete', newMyCartAfterDelete);
+    //             const myCart_cateA = newMyBucketAfterDelete.filter((v) => {
+    //                 return v.category_id === 'A';
+    //             });
+    //             const myCart_cateB = newMyBucketAfterDelete.filter((v) => {
+    //                 return v.category_id === 'B';
+    //             });
+    //             // //set狀態回去
+    //             // setMyBucketA(myCart_cateA);
+    //             // setMyBucketB(myCart_cateB);
+    //             // setMyBucket(newMyBucketAfterDelete);
+    //         };
+    //         setItemDataDelete();
+    //     }
+    // }
+
+    // 取消收藏
+    async function handleRemoveFavorite(product_id) {
+        // console.log('handleRemoveFavorite', product_id);
+        try {
+            let response = await axios.delete(
+                `${API_URL}/member/mybucketlist/${product_id}`,
+                {
+                    withCredentials: true,
+                }
+            );
+            console.log(response.data.message);
+            setMyBucketB(response.data.class);
+        } catch (err) {
+            console.log(err.response.data.message);
+        }
     }
 
     return (
@@ -285,7 +320,7 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                                                     product_id: item.product_id,
                                                     category_id:
                                                         item.category_id,
-                                                    image: item.image_1,
+                                                    image_1: item.image_1,
                                                     name: item.name,
                                                     amount: 1,
                                                     price: item.price,
@@ -295,7 +330,15 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                                             <AddCart className="myBucketItemIcon" />
                                         </button>
                                         <button className="btn border-0 p-0">
-                                            <AshBin className="myBucketItemIcon" />
+                                            <AshBin
+                                                className="myBucketItemIcon"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    handleRemoveFavorite(
+                                                        item.product_id
+                                                    );
+                                                }}
+                                            />
                                         </button>
                                     </div>
                                 </div>

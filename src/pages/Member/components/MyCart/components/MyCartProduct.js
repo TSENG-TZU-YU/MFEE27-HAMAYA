@@ -6,10 +6,13 @@ import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
 import { useCart } from '../../../../../utils/use_cart';
 import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
+import { ReactComponent as HeartLine } from '../../../../../assets/svg/favorite_defaut.svg';
+import { ReactComponent as HeartFill } from '../../../../../assets/svg/favorite_check.svg';
 import CartFavorite from '../../../../../components/CartFavorite';
 import { RiAddFill } from 'react-icons/ri';
 import { RiSubtractFill } from 'react-icons/ri';
 import MyCartCount from './MyCartCount';
+import { successToast, errorToast } from '../../../../../components/Alert';
 
 function MyCartProduct({
     myCart,
@@ -19,6 +22,8 @@ function MyCartProduct({
     check,
     setCheck,
     handleCheckBox,
+    favA,
+    setFavA,
 }) {
     const { member } = useAuth();
 
@@ -50,6 +55,47 @@ function MyCartProduct({
                 setMyCart(newMyCartAfterDelete);
             };
             setItemDataDelete();
+        }
+    }
+
+    // 新增收藏
+    const handleAddFavorite = (itemsData) => {
+        // console.log(itemsData);
+        if (itemsData.user_id !== null && itemsData.user_id !== '') {
+            setItemsData(itemsData);
+            async function setItemsData(itemsData) {
+                try {
+                    let response = await axios.post(
+                        `${API_URL}/member/mybucketlist`,
+                        [itemsData]
+                    );
+                    let products = response.data.product.map(
+                        (item) => item.product_id
+                    );
+                    successToast(response.data.message, '關閉');
+                    setFavA(products);
+                } catch (err) {
+                    errorToast(err.response.data.message, '關閉');
+                }
+            }
+        }
+    };
+
+    // 取消收藏
+    async function handleRemoveFavorite(product_id) {
+        // console.log('handleRemoveFavorite', product_id);
+        try {
+            let response = await axios.delete(
+                `${API_URL}/member/mybucketlist/${product_id}`,
+                {
+                    withCredentials: true,
+                }
+            );
+            let products = response.data.product.map((item) => item.product_id);
+            successToast(response.data.message, '關閉');
+            setFavA(products);
+        } catch (err) {
+            errorToast(err.response.data.message, '關閉');
         }
     }
 
@@ -92,7 +138,30 @@ function MyCartProduct({
                                     型號：{item.brand_name}
                                 </span>
                                 <div className="pt-lg-3 d-flex">
-                                    <CartFavorite />
+                                    {favA.includes(item.product_id) ? (
+                                        <HeartFill
+                                            className="CartFavorite cursor-pointer"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                handleRemoveFavorite(
+                                                    item.product_id
+                                                );
+                                            }}
+                                        />
+                                    ) : (
+                                        <HeartLine
+                                            className="CartFavorite cursor-pointer"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                handleAddFavorite({
+                                                    user_id: member.id,
+                                                    product_id: item.product_id,
+                                                    category_id:
+                                                        item.category_id,
+                                                });
+                                            }}
+                                        />
+                                    )}
                                     <button
                                         className="btn border-0 p-0 ms-3"
                                         onClick={() => {

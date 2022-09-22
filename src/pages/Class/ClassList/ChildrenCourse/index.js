@@ -5,11 +5,15 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 
+//  AOS
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 // 分頁
 import _ from 'lodash';
 
-// 子元件
-import StarRating from '../../../../components/Star/StarRating';
+// 元件
+import Evaluation from '../../../../components/Evaluation/Evaluation';
 import Car from '../../../../components/Car/Car';
 import PaginationBar from '../../../../components/PaginationBar/PaginationBar';
 import Favorite from '../../../../components/Favorite';
@@ -21,7 +25,7 @@ import { useAuth } from '../../../../utils/use_auth';
 import { useLiked } from '../../../../utils/use_liked';
 
 // 圖檔
-// import Adult_img from '../../../../assets/ClassImg/Adult img.png';
+import doc_music from '../../../../assets/ClassImg/doc-music.png';
 
 function ChildrenCourse({
     products,
@@ -36,6 +40,7 @@ function ChildrenCourse({
     pageNow,
     displayProducts,
 }) {
+    AOS.init();
     const [itemId, setItemId] = useState();
 
     useEffect(() => {
@@ -99,7 +104,10 @@ function ChildrenCourse({
                             <Link
                                 to={`${classChild.product_id}?class=${classChild.ins_main_id}`}
                             >
-                                <div className="introduce row mx-0 mb-5 class-shadow">
+                                <div
+                                    className="introduce row mx-0 mb-5 class-shadow"
+                                    data-aos="fade-right"
+                                >
                                     <div className="d-flex col-lg-6  px-lg-0  position-relative">
                                         <img
                                             className=" col-12 class-course-image"
@@ -115,6 +123,14 @@ function ChildrenCourse({
                                         </div>
                                     </div>
                                     <div className="col-lg-6  mt-1 mb-2">
+                                        <div className="d-none d-lg-block">
+                                            <img
+                                                className="doc-music "
+                                                data-aos="fade-down-left"
+                                                src={doc_music}
+                                                alt="doc_music"
+                                            />
+                                        </div>
                                         <h4
                                             className="ms-1 mb-2"
                                             style={{ color: '#00323d' }}
@@ -138,11 +154,14 @@ function ChildrenCourse({
                                             </p>
                                             <div className="d-flex mt-2 align-items-center">
                                                 <div className="StarRating">
-                                                    <StarRating />
+                                                    <Evaluation
+                                                        rating={
+                                                            classChild.rating
+                                                        }
+                                                    />
                                                 </div>
                                                 <p className="ms-2 mt-2">
-                                                    {' '}
-                                                    2 人評價
+                                                    {classChild.member} 人評價
                                                 </p>
                                             </div>
                                             <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">

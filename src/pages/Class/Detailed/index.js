@@ -505,7 +505,7 @@ function Detailed({ ins_main_id }) {
                                                                 }}
                                                             />
                                                             <p className="mt-3 collect">
-                                                                收藏
+                                                                取消收藏
                                                             </p>
                                                         </div>
                                                     ) : (
