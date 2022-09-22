@@ -47,7 +47,13 @@ function CouponList(props) {
                     </ol>
                 </nav>
             </div>
-            <h3>優惠券管理</h3>
+            <div className="d-flex">
+                <h3>優惠券管理</h3>
+                <div>
+                    <Link to={`/admin/coupon/add`}>新增優惠券</Link>
+                </div>
+            </div>
+
             <hr />
             <div>
                 <table className="table ">

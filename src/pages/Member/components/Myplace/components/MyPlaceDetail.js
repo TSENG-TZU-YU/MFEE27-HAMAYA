@@ -46,8 +46,8 @@ function MyPlaceDetail(props) {
             );
             console.log('456', response.data);
             setreplyForm({
-                ...replyForm,
                 place_rt_id: response.data.detail.id,
+                place_content: '',
             });
             setMyMyplace(response.data);
         } catch (err) {
@@ -72,24 +72,22 @@ function MyPlaceDetail(props) {
 
     //有新訊息更新資料庫
     useEffect(() => {
-        if (socketStatus.updateMyQA) {
+        if (socketStatus.newMessage) {
             setSocketStatus({
                 ...socketStatus,
-                updateMyQA: false,
+                newMessage: false,
             });
             let params = new URLSearchParams(location.search);
             let plid = params.get('plid');
-            console.log(plid);
+            // console.log(plid);
             MyPlaceDetail(plid);
         }
-    }, [socketStatus.updateMyQA]);
+    }, [socketStatus.newMessage]);
 
     //新增回覆
     const [replyForm, setreplyForm] = useState({
         place_rt_id: '',
         place_content: '',
-        // customer_id: '',
-        // name: '', 從session拿
     });
     const replyFormChange = (e) => {
         setreplyForm({ ...replyForm, place_content: e.target.value });
@@ -104,12 +102,8 @@ function MyPlaceDetail(props) {
                     withCredentials: true,
                 }
             );
-            //TODO:傳送customerName到後端 告訴管理員更新資料庫
-            // console.log(response.data);
-            //讀取問答詳細
-            MyPlaceDetail(replyForm.place_rt_id);
             //清空replyForm input
-            setreplyForm({ ...replyForm, place_content: '' });
+            // setreplyForm({ ...replyForm, place_content: '' });
             // alert(response.data.message);
         } catch (err) {
             console.log(err.response.data);
@@ -117,8 +111,6 @@ function MyPlaceDetail(props) {
         }
     }
 
-    // const myQuestionDetail = myQuestion.fliter((data) => data.id = 2);
-    // console.log(myQuestionDetail);
     return (
         <div className="col-12 col-md-8 col-lg-9 mb-3 MyPlaceDetail">
             <div className="d-flex align-items-center justify-content-between content my-2">
@@ -199,14 +191,14 @@ function MyPlaceDetail(props) {
                     </div>
                 </div>
                 <div className="border p-1">
-                    <textarea
-                        className="w-100 textarea"
-                        rows="4"
+                    <input
+                        className="w-100 inputcontent"
                         type="text"
                         name="place_content"
                         value={replyForm.place_content}
                         onChange={replyFormChange}
                         placeholder="輸入內容"
+                        autoComplete="off"
                     />
                     <button
                         className="text-light bg-main-color p-1 px-5 btn1"
