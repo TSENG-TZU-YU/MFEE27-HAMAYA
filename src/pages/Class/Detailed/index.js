@@ -9,14 +9,11 @@ import {
     successToast,
     warningToast,
     basicAlert,
+    errorToast,
 } from '../../../components/Alert';
 //購物車
 import { useCart } from '../../../utils/use_cart';
-import {
-    successToast,
-    warningToast,
-    errorToast,
-} from '../../../components/Alert';
+
 import './index.scss';
 
 // 收藏
@@ -509,7 +506,7 @@ function Detailed({ ins_main_id }) {
                                                                 }}
                                                             />
                                                             <p className="mt-3 collect">
-                                                                收藏
+                                                                取消收藏
                                                             </p>
                                                         </div>
                                                     ) : (

@@ -253,6 +253,11 @@ function ProductsItem({
                 <Link
                     to={`/products/${product_id}?main_id=${ins_main_id}`}
                     className="product-name"
+                    onClick={window.scrollTo({
+                        top: 0,
+                        left: 0,
+                        behavior: 'smooth',
+                    })}
                 >
                     {name}
                 </Link>

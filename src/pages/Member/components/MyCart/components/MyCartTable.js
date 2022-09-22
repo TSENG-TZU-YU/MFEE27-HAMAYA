@@ -14,6 +14,10 @@ function MyCartTable({
     setMyCartA,
     myCartB,
     setMyCartB,
+    favA,
+    setFavA,
+    favB,
+    setFavB,
 }) {
     const { member } = useAuth();
     //checkbox check 裡面放product_id
@@ -148,6 +152,8 @@ function MyCartTable({
                                 check={check}
                                 setCheck={setCheck}
                                 handleCheckBox={handleCheckBox}
+                                favA={favA}
+                                setFavA={setFavA}
                             />
                         </tbody>
                     </table>
@@ -174,6 +180,8 @@ function MyCartTable({
                                 check={check}
                                 setCheck={setCheck}
                                 handleCheckBox={handleCheckBox}
+                                favB={favB}
+                                setFavB={setFavB}
                             />
                         </tbody>
                     </table>
