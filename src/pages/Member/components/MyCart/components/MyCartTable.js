@@ -34,6 +34,7 @@ function MyCartTable({
     //商品單選checkbox
     function handleCheckBox(e) {
         const value = e.target.value;
+        console.log('handleCheckBox', e.target.value);
         let newItem = [];
         if (check.includes(value)) {
             newItem = check.filter((v) => {
@@ -109,6 +110,30 @@ function MyCartTable({
             setItemDataDelete();
         }
     }
+
+    // TODO: checkbox 多筆加入收藏
+    function handleCheckAddFav() {
+        console.log('加入收藏', check);
+        if (member !== null && member.id !== '') {
+            //重組陣列 加入 member.id
+            let newCheck = check.map((product_id) => {
+                return [member.id, product_id];
+            });
+
+            //     // console.log('加入收藏', newCheck);
+            //     let setItemDataAdd = async () => {
+            //         let response = await axios.post(
+            //             `${API_URL}/member/mybucketlist`,
+            //             {
+            //                 data: newCheck,
+            //             }
+            //         );
+            //         console.log('新增response.data', response.data);
+            //     };
+            //     //     // http://localhost:3001/api/member/mybucketlist/multi
+        }
+    }
+
     return (
         <>
             <div className="p-2">
@@ -139,7 +164,7 @@ function MyCartTable({
                     <button
                         className="btn btn-primary col mx-2 p-0 text-nowrap"
                         onClick={() => {
-                            // handleAddFavorite();
+                            handleCheckAddFav();
                         }}
                     >
                         加入收藏

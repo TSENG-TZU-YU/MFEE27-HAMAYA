@@ -218,9 +218,10 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                 }
             );
             console.log(response.data);
+            successToast(response.data.message, '關閉');
             setMyBucketB(response.data.class);
         } catch (err) {
-            console.log(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
         }
     }
 

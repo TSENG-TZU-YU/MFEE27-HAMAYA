@@ -132,7 +132,15 @@ function Header(props) {
                                         <ul className="list-unstyled bg-main-light-color py-1 mt-2">
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="products"
+                                                    className="accent-light-color fw-light"
+                                                >
+                                                    最新消息
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    to="/products?main_id=1"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     琴鍵樂器
@@ -140,7 +148,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/products?main_id=2"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     管樂器
@@ -148,7 +156,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/products?main_id=3"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     弓弦樂器
@@ -156,7 +164,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/products?main_id=4"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     吉他/
@@ -166,7 +174,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/products?main_id=5"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     打擊樂器
@@ -174,7 +182,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/products?main_id=6"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     配件
