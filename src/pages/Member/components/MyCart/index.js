@@ -108,6 +108,7 @@ function MyCart() {
                         setFavA={setFavA}
                         favB={favB}
                         setFavB={setFavB}
+                        setHiddenState={setHiddenState}
                     />
                     <div className="pb-5 row justify-content-around">
                         <MyCartDoCheckout

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../utils/use_auth';
 import { API_URL } from '../../utils/config';
+import { successToast, warningToast } from '../../components/Alert';
 
 import banner from '../../assets/PlaceImg/banner.png';
 import studioA01 from '../../assets/PlaceImg/studioA01.jpg';
@@ -105,9 +106,10 @@ function Place(props) {
                 item: '0',
                 comment: '',
             });
-            alert('表單已送出');
+            successToast('表單已送出', '關閉');
         } catch (err) {
             console.log(err.response.data);
+            warningToast('請填寫完整表單', '關閉');
 
             setAskErros({
                 fullName: err.response.data.fullName,

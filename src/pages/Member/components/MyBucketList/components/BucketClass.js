@@ -3,6 +3,12 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
+import { useCart } from '../../../../../utils/use_cart';
+import {
+    successToast,
+    warningToast,
+    errorToast,
+} from '../../../../../components/Alert';
 //svg
 import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
 import { ReactComponent as AddCart } from '../../../../../assets/svg/shopping_cart_check.svg';
@@ -55,31 +61,140 @@ function BucketClass({ myBucketB, setMyBucketB }) {
         }
     }
 
-    //依賴checkbox移除
-    // function handleRemoveItem() {
-    //     console.log('移除品項', check);
+    // 購物車
+    const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
+        useCart();
+    //存localStorage
+    const setNewLocal = (newLocal) => {
+        //塞資料進去
+        localStorage.setItem('shoppingCart', JSON.stringify(newLocal));
+    };
+    //點選icon的加入購物車
+    function getCheck(itemInfo) {
+        console.log('itemInfo', itemInfo);
+        //確認有沒有重複
+        let newItemInfo = shoppingCart.find((v) => {
+            return v.product_id === itemInfo.product_id;
+        });
+        if (!newItemInfo) {
+            //localStorage
+            setNewLocal([{ ...itemInfo }, ...shoppingCart]);
+            //判斷是否為登入
+            if (member !== null && member.id !== '') {
+                let getNewLocal = JSON.parse(
+                    localStorage.getItem('shoppingCart')
+                );
+                console.log('getNewLocal', getNewLocal);
 
-    //     if (member !== null && member.id !== '') {
-    //         //重組陣列 加入member.id
-    //         let newCheck = check.map((product_id) => {
-    //             return [member.id, product_id];
-    //         });
-    //         // console.log('newCheck', newCheck);
-    //         let setItemDataDelete = async () => {
-    //             let response = await axios.delete(`${API_URL}/member/mycart`, {
-    //                 data: newCheck,
-    //             });
-    //             // console.log('刪除response.data', response.data);
-    //             alert(response.data.message);
+                const itemsData = getNewLocal.map((item) => {
+                    return {
+                        user_id: member.id,
+                        product_id: item.product_id,
+                        category_id: item.category_id,
+                        amount: item.amount,
+                    };
+                });
+                console.log('itemsData', itemsData);
+                //寫進資料庫
+                setItemsData(itemsData);
+                async function setItemsData(itemsData) {
+                    //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
+                    try {
+                        let response = await axios.post(
+                            `${API_URL}/member/mycart`,
+                            itemsData
+                        );
+                        // console.log('duplicate', response.data.duplicate);
+                        if (response.data.duplicate === 1) {
+                            warningToast(response.data.message, '關閉');
+                            setShoppingCart([...shoppingCart]);
+                            return;
+                        }
+                        successToast(response.data.message, '關閉');
+                    } catch (err) {
+                        console.log(err.response.data.message);
+                    }
+                }
+            }
+            successToast('加入購物車', '關閉');
+            //臨時購物車
+            setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            return;
+        }
+        warningToast('已加入臨時購物車', '關閉');
+    }
+    //依賴checkbox加入購物車
+    function getCheckBucket() {
+        // console.log('buy bucket  myBucketB', check, myBucketB);
 
-    //             // //copy myCart
-    //             let newMyBucketB = myBucketB.map((item) => {
-    //                 return { ...item };
-    //             });
-    //             //前端刪除狀態 (全部)
-    //             let newMyBucketAfterDelete = newMyBucketB.filter((item) => {
-    //                 return check.indexOf(item.product_id) === -1;
-    //             });
+        //過濾出有被選取的
+        let newMyBucketB = myBucketB.filter((item) => {
+            return check.indexOf(item.product_id) !== -1;
+        });
+        // console.log('newMyBucketB', newMyBucketB);
+        //確認有無存在購物車
+        let newItemInfo = shoppingCart.find((v) => {
+            return v.product_id === newMyBucketB.product_id;
+        });
+        // console.log('newItemInfo', newItemInfo);
+        let reNewMyBucketB = newMyBucketB.map((item) => {
+            return {
+                product_id: item.product_id,
+                category_id: item.category_id,
+                name: item.name,
+                amount: 1,
+                price: item.price,
+                image: item.image_1,
+            };
+        });
+        // console.log('reNewMyBucketB', reNewMyBucketB);
+        if (!newItemInfo) {
+            //localStorage
+            setNewLocal([...reNewMyBucketB, ...shoppingCart]);
+            //判斷是否為登入
+            if (member !== null && member.id !== '') {
+                let getNewLocal = JSON.parse(
+                    localStorage.getItem('shoppingCart')
+                );
+                console.log('getNewLocal', getNewLocal);
+
+                const itemsData = getNewLocal.map((item) => {
+                    return {
+                        user_id: member.id,
+                        product_id: item.product_id,
+                        category_id: item.category_id,
+                        amount: item.amount,
+                    };
+                });
+                console.log('itemsData', itemsData);
+                //寫進資料庫
+                setItemsData(itemsData);
+                async function setItemsData(itemsData) {
+                    //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
+                    try {
+                        let response = await axios.post(
+                            `${API_URL}/member/mycart`,
+                            itemsData
+                        );
+                        // console.log('duplicate', response.data.duplicate);
+                        if (response.data.duplicate === 1) {
+                            warningToast(response.data.message, '關閉');
+                            setShoppingCart([...shoppingCart]);
+                            return;
+                        }
+                        successToast(response.data.message, '關閉');
+                    } catch (err) {
+                        console.log(err.response.data.message);
+                    }
+                }
+            }
+            successToast('加入購物車', '關閉');
+            //臨時購物車
+            setShoppingCart([...reNewMyBucketB, ...shoppingCart]);
+            return;
+        }
+        warningToast('已加入臨時購物車', '關閉');
+    }
 
     //             // console.log('newMyCartAfterDelete', newMyCartAfterDelete);
     //             const myCart_cateA = newMyBucketAfterDelete.filter((v) => {
@@ -135,7 +250,14 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                     <button className="btn btn-primary col mx-2 p-0 text-nowrap">
                         取消收藏
                     </button>
-                    <button className="btn btn-primary col mx-2 p-0 text-nowrap">
+                    <button
+                        className="btn btn-primary col mx-2 p-0 text-nowrap"
+                        onClick={() => {
+                            setShopCartState(true);
+                            //checkbox select add cart
+                            getCheckBucket();
+                        }}
+                    >
                         加入購物車
                     </button>
                 </div>
@@ -190,7 +312,21 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                                         /期
                                     </p>
                                     <div>
-                                        <button className="btn border-0 p-0 mx-3">
+                                        <button
+                                            className="btn border-0 p-0 mx-3"
+                                            onClick={() => {
+                                                setShopCartState(true);
+                                                getCheck({
+                                                    product_id: item.product_id,
+                                                    category_id:
+                                                        item.category_id,
+                                                    image: item.image_1,
+                                                    name: item.name,
+                                                    amount: 1,
+                                                    price: item.price,
+                                                });
+                                            }}
+                                        >
                                             <AddCart className="myBucketItemIcon" />
                                         </button>
                                         <button className="btn border-0 p-0">

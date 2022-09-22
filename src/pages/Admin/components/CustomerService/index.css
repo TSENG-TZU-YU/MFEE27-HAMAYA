@@ -45,7 +45,7 @@
     border: 0;
 }
 
-.PLQADetail{
-    width: 700px;
-    margin: 0 auto;
+.test01::placeholder{
+    color: red;
 }
+
