@@ -23,6 +23,7 @@ function StarRating({ evaluationChange, rating, setRating }) {
                                         setRating(ratingValue);
                                     }}
                                     onChange={evaluationChange}
+                                    className="star"
                                 />
                                 <AiFillStar
                                     className={`fa-star ${

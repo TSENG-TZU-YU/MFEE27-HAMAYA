@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import { useAuth } from '../../utils/use_auth';
+import { successToast, errorToast, warningToast } from '../Alert';
 
 function SignUp({ setLoginPopup }) {
     const [visibility, setVisibility] = useState(false);
@@ -41,10 +42,12 @@ function SignUp({ setLoginPopup }) {
             // setIsLogin(true);
             // navigate('/member');
             setLoginPopup(false);
-            alert('註冊成功');
+            successToast('註冊成功', '關閉');
+            // alert('註冊成功');
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.errors[0].msg)
+            // alert(err.response.data.errors[0].msg);
+            errorToast(err.response.data.errors[0].msg, '關閉');
         }
     }
     return (

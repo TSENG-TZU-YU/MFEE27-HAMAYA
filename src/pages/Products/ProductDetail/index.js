@@ -501,9 +501,14 @@ function Product() {
                                                         );
                                                     }}
                                                 >
-                                                    <RiHeartAddFill className="plus-icon-size me-2 plus-icon-color" />
+                                                    <RiHeartAddFill
+                                                        className="plus-icon-size me-2 plus-icon-color  main-color"
+                                                        style={{
+                                                            fontSize: '30px',
+                                                        }}
+                                                    />
                                                     <p className="mt-3 collect">
-                                                        收藏
+                                                        取消收藏
                                                     </p>
                                                 </div>
                                             ) : (
@@ -520,7 +525,12 @@ function Product() {
                                                         });
                                                     }}
                                                 >
-                                                    <RiHeartAddLine className="plus-icon-size me-2 plus-icon-color" />
+                                                    <RiHeartAddLine
+                                                        className="plus-icon-size me-2 plus-icon-color  main-color"
+                                                        style={{
+                                                            fontSize: '30px',
+                                                        }}
+                                                    />
                                                     <p className="mt-3 collect">
                                                         收藏
                                                     </p>

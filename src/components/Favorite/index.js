@@ -16,7 +16,7 @@ import { useAuth } from '../../utils/use_auth';
 // 收藏
 import { useLiked } from '../../utils/use_liked';
 
-function FavoriteTest(props) {
+function Favorite(props) {
     const { itemsData, favProducts, setFavProducts } = props;
     //會員
     const { member, setMember, isLogin, setIsLogin } = useAuth();
@@ -97,4 +97,4 @@ function FavoriteTest(props) {
     );
 }
 
-export default FavoriteTest;
+export default Favorite;

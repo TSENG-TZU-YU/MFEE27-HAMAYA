@@ -21,6 +21,8 @@ function BucketClass({ myBucketB, setMyBucketB }) {
     // console.log('check', check);
     const [allCheck, setAllCheck] = useState(false);
 
+    console.log('我的收藏BucketClass元件中', myBucketB);
+
     //商品單選checkbox
     function handleCheckBox(e) {
         console.log('value, allCheck, check', e.target.value, allCheck, check);
@@ -194,6 +196,39 @@ function BucketClass({ myBucketB, setMyBucketB }) {
         warningToast('已加入臨時購物車', '關閉');
     }
 
+    //             // console.log('newMyCartAfterDelete', newMyCartAfterDelete);
+    //             const myCart_cateA = newMyBucketAfterDelete.filter((v) => {
+    //                 return v.category_id === 'A';
+    //             });
+    //             const myCart_cateB = newMyBucketAfterDelete.filter((v) => {
+    //                 return v.category_id === 'B';
+    //             });
+    //             // //set狀態回去
+    //             // setMyBucketA(myCart_cateA);
+    //             // setMyBucketB(myCart_cateB);
+    //             // setMyBucket(newMyBucketAfterDelete);
+    //         };
+    //         setItemDataDelete();
+    //     }
+    // }
+
+    // 取消收藏
+    async function handleRemoveFavorite(product_id) {
+        // console.log('handleRemoveFavorite', product_id);
+        try {
+            let response = await axios.delete(
+                `${API_URL}/member/mybucketlist/${product_id}`,
+                {
+                    withCredentials: true,
+                }
+            );
+            console.log(response.data.message);
+            setMyBucketB(response.data.class);
+        } catch (err) {
+            console.log(err.response.data.message);
+        }
+    }
+
     return (
         <>
             <div className="row p-2">
@@ -295,7 +330,15 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                                             <AddCart className="myBucketItemIcon" />
                                         </button>
                                         <button className="btn border-0 p-0">
-                                            <AshBin className="myBucketItemIcon" />
+                                            <AshBin
+                                                className="myBucketItemIcon"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    handleRemoveFavorite(
+                                                        item.product_id
+                                                    );
+                                                }}
+                                            />
                                         </button>
                                     </div>
                                 </div>

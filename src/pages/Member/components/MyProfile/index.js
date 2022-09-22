@@ -5,6 +5,11 @@ import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { useAuth } from '../../../../utils/use_auth';
 import { cityData, distData } from './location';
+import {
+    successToast,
+    errorToast,
+    warningToast,
+} from '../../../../components/Alert';
 
 function MyProfile(props) {
     const {
@@ -79,11 +84,13 @@ function MyProfile(props) {
             );
             console.log(response.data[0]);
             setEditProfile(true);
-            alert(response.data[1]);
+            successToast(response.data[1], '關閉');
+            // alert(response.data[1]);
             setMember(response.data[0]);
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
     async function passwordSubmit(e) {
@@ -98,10 +105,12 @@ function MyProfile(props) {
             );
             console.log(response.data);
             setEditPassword(true);
-            alert(response.data.message);
+            successToast(response.data.message, '關閉');
+            // alert(response.data.message);
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
     return (

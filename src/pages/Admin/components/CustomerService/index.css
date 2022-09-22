@@ -45,3 +45,7 @@
     border: 0;
 }
 
+.test01::placeholder{
+    color: red;
+}
+

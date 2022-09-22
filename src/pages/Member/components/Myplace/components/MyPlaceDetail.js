@@ -12,6 +12,7 @@ import { useAuth } from '../../../../../utils/use_auth';
 import { v4 as uuidv4 } from 'uuid';
 import { data } from 'autoprefixer';
 import { ReactComponent as Close } from '../../../../../assets/svg/close.svg';
+import { errorToast } from '../../../../../components/Alert';
 
 function MyPlaceDetail(props) {
     const [setbread] = useOutletContext();
@@ -107,7 +108,8 @@ function MyPlaceDetail(props) {
             // alert(response.data.message);
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
 
