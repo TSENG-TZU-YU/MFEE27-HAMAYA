@@ -39,7 +39,7 @@ function CouponList(props) {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                            <a href="#">首頁</a>
+                            <Link to="/admin">首頁</Link>
                         </li>
                         <li className="breadcrumb-item " aria-current="page">
                             優惠券管理

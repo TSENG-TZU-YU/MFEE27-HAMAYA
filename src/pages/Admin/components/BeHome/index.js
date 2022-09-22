@@ -1,3 +1,9 @@
+import {
+    Link,
+    useOutletContext,
+    useLocation,
+    useNavigate,
+} from 'react-router-dom';
 import './index.css';
 function BeHome(props) {
     return (
@@ -6,7 +12,7 @@ function BeHome(props) {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                            <a href="#">首頁</a>
+                            <Link to="/admin">首頁</Link>
                         </li>
                     </ol>
                 </nav>
@@ -16,48 +22,84 @@ function BeHome(props) {
             <div className="row p-3">
                 <div className="col-3 p-0 d-flex justify-content-center align-items-center">
                     <div className="item01">
-                        <h4>文章管理</h4>
+                        <Link to="/admin/articles" className="maintitle">
+                            文章管理
+                        </Link>
                         <hr />
                     </div>
                 </div>
                 <div className="col-3 p-0 d-flex justify-content-center align-items-center">
                     <div className="item01">
-                        <h4>優惠券管理</h4>
+                        <Link to="/admin/coupon" className="maintitle">
+                            優惠券管理
+                        </Link>
                         <hr />
                     </div>
                 </div>
                 <div className="col-3 p-0 d-flex justify-content-center align-items-center">
                     <div className="item01">
-                        <h4>客服系統</h4>
+                        <Link to="/admin/customerservice" className="maintitle">
+                            客服系統
+                        </Link>
                         <hr />
-                        <h6>一般問答</h6>
-                        <h6>訂單問答</h6>
-                        <h6>場地問答</h6>
+                        <Link
+                            to="/admin/customerservice"
+                            className="secondtitle"
+                        >
+                            一般問答
+                        </Link>
+                        <br />
+                        <Link
+                            to="/admin/customerservice/orderqa"
+                            className="secondtitle"
+                        >
+                            訂單問答
+                        </Link>
+                        <br />
+                        <Link
+                            to="/admin/customerservice/placeqa"
+                            className="secondtitle"
+                        >
+                            場地問答
+                        </Link>
                     </div>
                 </div>
                 <div className="col-3 p-0 d-flex justify-content-center align-items-center">
                     <div className="item01">
-                        <h4>會員管理</h4>
+                        <Link to="/admin/members" className="maintitle">
+                            會員管理
+                        </Link>
                         <hr />
                     </div>
                 </div>
                 <div className="col-3 p-0 d-flex justify-content-center align-items-center">
                     <div className="item01">
-                        <h4>訂單管理</h4>
+                        <Link to="/admin/order" className="maintitle">
+                            訂單管理
+                        </Link>
                         <hr />
                     </div>
                 </div>
                 <div className="col-3 p-0 d-flex justify-content-center align-items-center">
                     <div className="item01">
-                        <h4>商品管理</h4>
+                        <Link to="/admin/product" className="maintitle">
+                            商品管理
+                        </Link>
                         <hr />
-                        <h6>樂器商城</h6>
-                        <h6>音樂教育</h6>
+                        <Link to="/admin/product" className="secondtitle">
+                            樂器商城
+                        </Link>
+                        <br />
+                        <Link to="/admin/product" className="secondtitle">
+                            音樂教育
+                        </Link>
                     </div>
                 </div>
                 <div className="col-3 p-0 d-flex justify-content-center align-items-center">
                     <div className="item01">
-                        <h4>師資管理</h4>
+                        <Link to="/admin/teachers" className="maintitle">
+                            師資管理
+                        </Link>
                         <hr />
                     </div>
                 </div>

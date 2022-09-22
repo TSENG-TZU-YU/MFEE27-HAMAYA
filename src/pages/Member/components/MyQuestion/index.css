@@ -17,8 +17,17 @@
     display: -webkit-box;
     -webkit-line-clamp: 2; 
     -webkit-box-orient: vertical;
+}
+.reply_state{
+    color: rgb(160, 0, 0);
+}
 
-  }
+.reply_state2{
+    color: rgb(0, 104, 26);
+}
+.reply_state3{
+    color: rgb(212, 175, 55);
+}
 .cssTable td 
 {
     text-align: center; 

@@ -92,7 +92,8 @@ function PlaceQADetail(props) {
             setMyQuestion(response.data);
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
     useEffect(() => {
@@ -237,7 +238,7 @@ function PlaceQADetail(props) {
                         <input
                             className={
                                 myQuestion.detail.user_id === 0
-                                    ? 'w-100 inputcontent test01'
+                                    ? 'w-100 inputcontent placeholderNone'
                                     : 'w-100 inputcontent'
                             }
                             type="text"
