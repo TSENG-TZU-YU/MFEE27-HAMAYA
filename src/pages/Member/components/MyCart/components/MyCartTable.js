@@ -3,6 +3,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
+import {
+    successToast,
+    warningToast,
+    errorToast,
+} from '../../../../../components/Alert';
 import '../MyCart.scss';
 import MyCartProduct from './MyCartProduct';
 import MyCartClass from './MyCartClass';
@@ -131,7 +136,12 @@ function MyCartTable({
                     >
                         移除品項
                     </button>
-                    <button className="btn btn-primary col mx-2 p-0 text-nowrap">
+                    <button
+                        className="btn btn-primary col mx-2 p-0 text-nowrap"
+                        onClick={() => {
+                            // handleAddFavorite();
+                        }}
+                    >
                         加入收藏
                     </button>
                 </div>
