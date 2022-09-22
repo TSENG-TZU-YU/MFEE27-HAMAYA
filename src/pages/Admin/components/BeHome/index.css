@@ -1,0 +1,9 @@
+.BeHome .item01{
+    background-color: rgb(202, 202, 202);
+    border: 2px solid gray;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    /* height: 150px; */
+    margin: 10px;
+
+}
