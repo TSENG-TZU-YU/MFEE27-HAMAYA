@@ -12,10 +12,10 @@ function CouponAdd(props) {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                            <a href="#">首頁</a>
+                            <Link to="/admin">首頁</Link>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#">優惠券管理</a>
+                            <Link to="/admin/coupon">優惠券管理</Link>
                         </li>
                         <li className="breadcrumb-item " aria-current="page">
                             新增優惠券

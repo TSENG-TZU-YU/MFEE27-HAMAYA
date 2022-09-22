@@ -15,7 +15,7 @@ function Articles(props) {
     const [pageNow, setPageNow] = useState(1); // 目前頁號
     const [perPage, setPerPage] = useState(6); // 每頁多少筆資料
     const [pageTotal, setPageTotal] = useState(0); //總共幾頁
-    
+
     const [myQuestionList, setMyQuestionList] = useState([
         [
             {
@@ -39,7 +39,7 @@ function Articles(props) {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                            <a href="#">首頁</a>
+                            <Link to="/admin">首頁</Link>
                         </li>
                         <li className="breadcrumb-item " aria-current="page">
                             文章管理

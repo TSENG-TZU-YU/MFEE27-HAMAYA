@@ -228,10 +228,6 @@ function App() {
                                         <Route
                                             path="coupon"
                                             element={<Coupon />}
-                                        />
-                                        <Route
-                                            path="coupon"
-                                            element={<Coupon />}
                                         >
                                             <Route
                                                 index
@@ -242,10 +238,6 @@ function App() {
                                                 element={<CouponAdd />}
                                             />
                                         </Route>
-                                        <Route
-                                            path="customerservice"
-                                            element={<CustomerService />}
-                                        />
                                         <Route
                                             path="customerservice"
                                             element={<CustomerService />}
