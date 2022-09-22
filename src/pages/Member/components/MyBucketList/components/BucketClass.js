@@ -123,7 +123,7 @@ function BucketClass({ myBucketB, setMyBucketB }) {
     }
     //依賴checkbox加入購物車
     function getCheckBucket() {
-        // console.log('buy bucket  myBucketB', check, myBucketB);
+        console.log('buy bucket  myBucketB', check, myBucketB);
 
         //過濾出有被選取的
         let newMyBucketB = myBucketB.filter((item) => {
@@ -142,7 +142,7 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                 name: item.name,
                 amount: 1,
                 price: item.price,
-                image: item.image_1,
+                image_1: item.image_1,
             };
         });
         // console.log('reNewMyBucketB', reNewMyBucketB);
@@ -285,7 +285,7 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                                                     product_id: item.product_id,
                                                     category_id:
                                                         item.category_id,
-                                                    image: item.image_1,
+                                                    image_1: item.image_1,
                                                     name: item.name,
                                                     amount: 1,
                                                     price: item.price,
