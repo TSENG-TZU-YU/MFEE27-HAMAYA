@@ -17,7 +17,7 @@ export const successToast = (title, confirmBtnName) => {
         color: '#00323d',
         background: '#f2f2f2',
         iconColor: '#86a8ae',
-        timer: 1500,
+        timer: 2000,
         position: 'top',
     });
 };
@@ -38,7 +38,7 @@ export const errorToast = (title, confirmBtnName) => {
         color: '#5b322f',
         background: '#f2f2f2',
         iconColor: '#c59894',
-        timer: 1500,
+        timer: 2000,
         position: 'top',
     });
 };
@@ -59,7 +59,7 @@ export const warningToast = (title, confirmBtnName) => {
         color: '#00323d',
         background: '#f2f2f2',
         iconColor: '#767676',
-        timer: 1500,
+        timer: 2000,
         position: 'top',
     });
 };

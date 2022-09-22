@@ -90,3 +90,15 @@
 .orderBottomLine {
     border-bottom: 2px solid $accent;
 }
+
+
+// 收藏 icon
+.CartFavorite{
+    width: 25px;
+    height: 25px;
+}
+  
+.CartFavorite path {
+    fill: #8a3731;
+    stroke:  #8a3731;
+}

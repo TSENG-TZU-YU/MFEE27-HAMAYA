@@ -9,8 +9,6 @@ import BucketProduct from './components/BucketProduct';
 import { useOutletContext } from 'react-router-dom'; //抓取Outlet的props
 import { ReactComponent as ArrowLeft } from '../../../../assets/svg/arrow-left.svg';
 import { ReactComponent as ArrowRight } from '../../../../assets/svg/arrow-right.svg';
-// import arrowLeft from '../../../../assets/svg/arrow-left.svg';
-// import arrowRight from '../../../../assets/svg/arrow-right.svg';
 
 function MyBucketList(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread

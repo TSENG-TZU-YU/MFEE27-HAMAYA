@@ -10,7 +10,7 @@ import {
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import _ from 'lodash';
-function Order(props) {
+function CouponList(props) {
     // 分頁用
     const [pageNow, setPageNow] = useState(1); // 目前頁號
     const [perPage, setPerPage] = useState(6); // 每頁多少筆資料
@@ -42,12 +42,18 @@ function Order(props) {
                             <a href="#">首頁</a>
                         </li>
                         <li className="breadcrumb-item " aria-current="page">
-                            訂單管理
+                            優惠券管理
                         </li>
                     </ol>
                 </nav>
             </div>
-            <h3>訂單管理</h3>
+            <div className="d-flex">
+                <h3>優惠券管理</h3>
+                <div>
+                    <Link to={`/admin/coupon/add`}>新增優惠券</Link>
+                </div>
+            </div>
+
             <hr />
             <div>
                 <table className="table ">
@@ -149,4 +155,4 @@ function Order(props) {
     );
 }
 
-export default Order;
+export default CouponList;
