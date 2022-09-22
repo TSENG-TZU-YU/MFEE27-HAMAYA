@@ -40,7 +40,7 @@ function AdultCourse({
     pageNow,
     displayProducts,
 }) {
-    AOS.init();
+    // AOS.init();
     useEffect(() => {
         let getAdultClass = async () => {
             let response = await axios.get(
@@ -68,7 +68,7 @@ function AdultCourse({
     }, []);
 
     useEffect(() => {
-        console.log('products', products);
+        // console.log('products', products);
     }, [products]);
 
     // 收藏
@@ -85,7 +85,6 @@ function AdultCourse({
             );
 
             let products = response.data.class.map((item) => item.product_id);
-            // console.log(products);
             setFavProducts(products);
         };
         if (member.id) {
@@ -106,10 +105,7 @@ function AdultCourse({
                             <Link
                                 to={`${classAdult.product_id}?class=${classAdult.ins_main_id}`}
                             >
-                                <div
-                                    className="introduce row mx-0 mb-5 class-shadow position-relative  "
-                                    data-aos="fade-right"
-                                >
+                                <div className="introduce row mx-0  class-shadow position-relative  ">
                                     <div className="d-flex col-lg-6  px-lg-0  position-relative">
                                         <img
                                             className=" col-12 class-course-image"
