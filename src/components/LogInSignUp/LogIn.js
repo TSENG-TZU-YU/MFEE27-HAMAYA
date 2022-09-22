@@ -5,10 +5,11 @@ import unVisib from './visibility_off.svg';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import { useAuth } from '../../utils/use_auth';
+import { successToast, errorToast, warningToast } from '../Alert';
 
 function LogIn({ setLoginPopup }) {
     const [visibility, setVisibility] = useState(false);
-   
+
     const navigate = useNavigate();
 
     function handleChange(e) {
@@ -36,10 +37,11 @@ function LogIn({ setLoginPopup }) {
             setIsLogin(true);
             navigate('/member');
             setLoginPopup(false);
-            alert('登入成功');
+            successToast('登入成功', '關閉');
+            // alert('登入成功');
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
         }
     }
 
