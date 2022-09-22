@@ -76,6 +76,7 @@ function MyCart() {
                         setMyCartB={setMyCartB}
                         myCartA={myCartA}
                         setMyCartA={setMyCartA}
+                        setHiddenState={setHiddenState}
                     />
                     <div className="pb-5 row justify-content-around">
                         <MyCartDoCheckout

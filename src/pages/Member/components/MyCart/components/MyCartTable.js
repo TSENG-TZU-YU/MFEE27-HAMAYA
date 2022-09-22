@@ -14,6 +14,7 @@ function MyCartTable({
     setMyCartA,
     myCartB,
     setMyCartB,
+    setHiddenState,
 }) {
     const { member } = useAuth();
     //checkbox check 裡面放product_id
@@ -91,6 +92,10 @@ function MyCartTable({
                 setMyCartA(myCart_cateA);
                 setMyCartB(myCart_cateB);
                 setMyCart(newMyCartAfterDelete);
+                setAllCheck(false);
+                if (newMyCartAfterDelete.length === 0) {
+                    setHiddenState(false);
+                }
             };
             setItemDataDelete();
         }
