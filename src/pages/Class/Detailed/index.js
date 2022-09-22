@@ -2,17 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { API_URL } from '../../../utils/config';
 import { useAuth } from '../../../utils/use_auth';
+import {
+    successToast,
+    warningToast,
+    basicAlert,
+    errorToast,
+} from '../../../components/Alert';
 //購物車
 import { useCart } from '../../../utils/use_cart';
-import { successToast, warningToast } from '../../../components/Alert';
 import './index.scss';
+
+// 收藏
+import { useLiked } from '../../../utils/use_liked';
 
 // 子元件
 import StarRating from '../../../components/Star/StarRating';
-import ToShareCollect from '../../../components/ToShare';
 import Information from './Information';
 import Comment from './Comment';
 import Carousel from '../../../components/Carousel/Carousel';
@@ -22,6 +29,11 @@ import note from '../../../assets/ClassImg/Note.png';
 import shop_car from '../../../assets/svg/shopping_cart.svg';
 import cartCheckout from '../../../assets/svg/shopping_cart_checkout.svg';
 import Evaluation from '../../../components/Evaluation/Evaluation';
+
+// 圖檔
+import { RiHeartAddFill } from 'react-icons/ri';
+import { RiHeartAddLine } from 'react-icons/ri';
+import Share from '../../../assets/svg/open_in_new.svg';
 
 function Detailed({ ins_main_id }) {
     // 課程 Toggle
@@ -74,7 +86,7 @@ function Detailed({ ins_main_id }) {
 
     //會員
     const { member, setMember, isLogin, setIsLogin } = useAuth();
-
+    const navigate = useNavigate();
     //購物車
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
@@ -83,7 +95,7 @@ function Detailed({ ins_main_id }) {
         //塞資料進去
         localStorage.setItem('shoppingCart', JSON.stringify(newLocal));
     };
-
+    //加入購物車
     function getCheck(itemInfo) {
         // console.log('get Member', member);
         console.log('itemInfo class detail', itemInfo);
@@ -140,6 +152,97 @@ function Detailed({ ins_main_id }) {
             return;
         }
         warningToast('已加入臨時購物車', '關閉');
+    }
+    //立即報名
+    function getImmediate(itemInfo) {
+        if (member === null || member.id === '') {
+            basicAlert('請先登入', '關閉');
+            return;
+        }
+        // console.log('itemInfo fff', itemInfo);
+
+        console.log('itemsData', itemInfo);
+        setItemsData(itemInfo);
+        async function setItemsData(itemsData) {
+            //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
+            try {
+                let response = await axios.post(
+                    `${API_URL}/member/mycart`,
+                    itemsData
+                );
+                // console.log('duplicate', response.data.duplicate);
+                if (response.data.duplicate === 1) {
+                    warningToast(response.data.message, '關閉');
+                    setShoppingCart([...shoppingCart]);
+                    return;
+                }
+                successToast(response.data.message, '關閉');
+                navigate('/member/mycart');
+            } catch (err) {
+                console.log(err.response.data.message);
+            }
+        }
+    }
+
+    // 收藏
+    const { favProducts, setFavProducts } = useLiked();
+
+    // 會員收藏的資料
+    useEffect(() => {
+        let getAllFavProducts = async () => {
+            let response = await axios.get(
+                `${API_URL}/member/mybucketlist/${member.id}`,
+                { withCredentials: true }
+            );
+
+            let products = response.data.class.map((item) => item.product_id);
+            console.log(products);
+            setFavProducts(products);
+        };
+        if (member.id) {
+            getAllFavProducts();
+        }
+    }, [member]);
+
+    // 新增收藏
+    const handleAddFavorite = (itemsData) => {
+        console.log(itemsData);
+        if (itemsData.user_id !== null && itemsData.user_id !== '') {
+            setItemsData(itemsData);
+            async function setItemsData(itemsData) {
+                try {
+                    let response = await axios.post(
+                        `${API_URL}/member/mybucketlist`,
+                        [itemsData]
+                    );
+                    let products = response.data.class.map(
+                        (item) => item.product_id
+                    );
+                    successToast(response.data.message, '關閉');
+                    setFavProducts(products);
+                } catch (err) {
+                    errorToast(err.response.data.message, '關閉');
+                }
+            }
+        }
+    };
+
+    // 取消收藏
+    async function handleRemoveFavorite(product_id) {
+        console.log('handleRemoveFavorite', product_id);
+        try {
+            let response = await axios.delete(
+                `${API_URL}/member/mybucketlist/${product_id}`,
+                {
+                    withCredentials: true,
+                }
+            );
+            let products = response.data.class.map((item) => item.product_id);
+            successToast(response.data.message, '關閉');
+            setFavProducts(products);
+        } catch (err) {
+            errorToast(err.response.data.message, '關閉');
+        }
     }
 
     return (
@@ -326,7 +429,22 @@ function Detailed({ ins_main_id }) {
                                                 </div>
                                             </div>
                                             <Row className=" mt-4">
-                                                <button className="col m-2 btn btn-primary AdultDetailed-btn d-flex justify-content-center align-items-center border-0">
+                                                <button
+                                                    className="col m-2 btn btn-primary AdultDetailed-btn d-flex justify-content-center align-items-center border-0"
+                                                    onClick={() => {
+                                                        getImmediate([
+                                                            {
+                                                                user_id:
+                                                                    member.id,
+                                                                product_id:
+                                                                    classDetailed.product_id,
+                                                                category_id:
+                                                                    classDetailed.category_id,
+                                                                amount: 1,
+                                                            },
+                                                        ]);
+                                                    }}
+                                                >
                                                     <img
                                                         style={{
                                                             width: '30px',
@@ -363,7 +481,78 @@ function Detailed({ ins_main_id }) {
                                                 </button>
                                             </Row>
 
-                                            <ToShareCollect />
+                                            {/* 收藏、分享、比較 btn */}
+                                            <div className="d-flex">
+                                                {/* 收藏 */}
+                                                {member.id ? (
+                                                    favProducts.includes(
+                                                        classDetailed.product_id
+                                                    ) ? (
+                                                        <div
+                                                            className="d-flex justify-content-center align-items-center cursor-pinter me-5"
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                handleRemoveFavorite(
+                                                                    classDetailed.product_id
+                                                                );
+                                                            }}
+                                                        >
+                                                            <RiHeartAddFill
+                                                                className="me-2 main-color"
+                                                                style={{
+                                                                    fontSize:
+                                                                        '30px',
+                                                                }}
+                                                            />
+                                                            <p className="mt-3 collect">
+                                                                取消收藏
+                                                            </p>
+                                                        </div>
+                                                    ) : (
+                                                        <div
+                                                            className="d-flex justify-content-center align-items-center cursor-pinter me-5"
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                handleAddFavorite(
+                                                                    {
+                                                                        user_id:
+                                                                            member.id,
+                                                                        product_id:
+                                                                            classDetailed.product_id,
+                                                                        category_id:
+                                                                            classDetailed.category_id,
+                                                                    }
+                                                                );
+                                                            }}
+                                                        >
+                                                            <RiHeartAddLine
+                                                                className="me-2 main-color"
+                                                                style={{
+                                                                    fontSize:
+                                                                        '30px',
+                                                                }}
+                                                            />
+                                                            <p className="mt-3 collect">
+                                                                收藏
+                                                            </p>
+                                                        </div>
+                                                    )
+                                                ) : (
+                                                    ''
+                                                )}
+                                                {/* 分享 */}
+                                                <div className="d-flex justify-content-center align-items-center cursor-pinter ">
+                                                    <img
+                                                        className="me-2 mt-1"
+                                                        src={Share}
+                                                        alt="Share"
+                                                    />
+                                                    <p className="mt-3 share">
+                                                        分享
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            {/* 收藏、分享、比較 btn end*/}
                                         </div>
                                     </div>
                                 </Col>

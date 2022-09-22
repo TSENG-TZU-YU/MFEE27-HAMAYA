@@ -17,8 +17,17 @@
     display: -webkit-box;
     -webkit-line-clamp: 2; 
     -webkit-box-orient: vertical;
+}
+.reply_state{
+    color: rgb(160, 0, 0);
+}
 
-  }
+.reply_state2{
+    color: rgb(0, 104, 26);
+}
+.reply_state3{
+    color: rgb(212, 175, 55);
+}
 .cssTable td 
 {
     text-align: center; 
@@ -154,6 +163,27 @@
     /* position: relative; */
     /* transform: translate(-3px,-3px); */
     /* shadow: #3c3c3c; */
+}
+
+.MyPlaceDetail .maincontent{
+    height: 350px;
+    background-color:#e6e6e6 ;
+    overflow: auto;
+    display: flex;
+    flex-direction: column-reverse;
+}
+.MyPlaceDetail .btn1{
+    margin: 5px 0;
+    border: 0;
+}
+.MyPlaceDetail .inputcontent{
+    height: 50px;
+    padding: 5px;
+} 
+
+.MyPlaceDetail .inputcontent:focus{
+    border: transparent;
+    outline: 2px solid cornflowerblue;
 }
 @media screen and (max-width:768px) {
     .myQuestion_form .btn1{

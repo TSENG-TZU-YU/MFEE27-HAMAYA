@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useAuth } from '../../../../../utils/use_auth';
 import { cityData, distData } from '../../MyProfile/location';
@@ -14,6 +14,55 @@ function MyCartDoCheckout({
     calcTotalPrice,
 }) {
     const { member } = useAuth();
+    const [myCoupon, setMyCoupon] = useState([]);
+    useEffect(() => {
+        async function getCoupon() {
+            try {
+                let response = await axios.get(
+                    `${API_URL}/member/mycoupon/loading`,
+                    {
+                        withCredentials: true,
+                    }
+                );
+                console.log('myCoupon', response.data);
+
+                let filterUse = response.data.filter((v) => {
+                    return v.use === 1;
+                });
+                let newMyCoupon = filterUse.map((item) => {
+                    return {
+                        coupon_id: item.coupon_id,
+                        use: item.use,
+                        discount: item.discount,
+                        minimum: item.minimum,
+                        name: item.name,
+                    };
+                });
+
+                console.log('newMyCoupon', newMyCoupon);
+                setMyCoupon(newMyCoupon);
+                // let items_amount = response.data.myCart.length;
+                // if (items_amount !== 0) {
+                //     setHiddenState(true);
+                //     setMyCart(response.data.myCart);
+                //     // console.log('All MyCart', response.data.myCart);
+                //     //分類別
+                //     let myCartList = response.data.myCart;
+                //     const myCart_cateA = myCartList.filter((v) => {
+                //         return v.category_id === 'A';
+                //     });
+                //     setMyCartA(myCart_cateA);
+                //     const myCart_cateB = myCartList.filter((v) => {
+                //         return v.category_id === 'B';
+                //     });
+                //     setMyCartB(myCart_cateB);
+                // }
+            } catch (err) {
+                console.log('載入購物車錯誤', err);
+            }
+        }
+        getCoupon();
+    }, []);
 
     const [myCartInfo, setMyCartInfo] = useState({
         receiver: member.fullName,
@@ -23,15 +72,23 @@ function MyCartDoCheckout({
         dist: '',
         address: '',
         coupon: 0,
-        coupon_id: 'coupon_id',
+        coupon_id: 0,
     });
+    // console.log('myCartInfo', myCartInfo);
 
     function getMyCartInfo(e) {
         setMyCartInfo({ ...myCartInfo, [e.target.name]: e.target.value });
     }
-    // function getMyCartCou(e) {
-    //     console.log(e.target.selectedIndex); //抓得到option順序
-    // }
+    function getMyCartCou(e) {
+        const [coupon_id] = e.target.value.split('/');
+        const [, value] = e.target.value.split('/');
+        // console.log(coupon_id, value, e.target.value);
+        setMyCartInfo({
+            ...myCartInfo,
+            [e.target.name]: value,
+            coupon_id: coupon_id,
+        });
+    }
 
     //前往付款 成立訂單
     async function setSaveOrder(saveOrderInfo) {
@@ -148,7 +205,7 @@ function MyCartDoCheckout({
                     <div className="flex-grow-1 d-flex">
                         <div className="myCartSelectPadding">
                             <select
-                                class="form-select"
+                                className="form-select"
                                 id=""
                                 name="city"
                                 value={myCartInfo.city}
@@ -166,7 +223,7 @@ function MyCartDoCheckout({
                         </div>
                         <div>
                             <select
-                                class="form-select"
+                                className="form-select"
                                 id=""
                                 name="dist"
                                 value={myCartInfo.dist}
@@ -249,12 +306,21 @@ function MyCartDoCheckout({
                                 className="form-select"
                                 name="coupon"
                                 id=""
-                                onChange={getMyCartInfo}
+                                onChange={getMyCartCou}
                             >
                                 <option value="0">請選擇折扣</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                                <option value="200">200</option>
+                                {myCoupon.map((v) => {
+                                    return (
+                                        <option
+                                            key={v.coupon_id}
+                                            value={
+                                                v.coupon_id + '/' + v.discount
+                                            }
+                                        >
+                                            {(v.discount, v.name)}
+                                        </option>
+                                    );
+                                })}
                             </select>
                         </div>
                     </div>

@@ -15,6 +15,8 @@ import LogInSignUp from '../../components/LogInSignUp';
 import ScrollTo from '../../components/ScrollTo';
 import Cart from '../Cart/Cart';
 import NavbarMobile from '../../components/NavbarMobile';
+
+import { successToast, errorToast, warningToast } from '../../components/Alert';
 function Header(props) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const [loginPopup, setLoginPopup] = useState(false);
@@ -61,10 +63,11 @@ function Header(props) {
                 loginDt: '',
             });
             navigate('/');
-            alert(response.data.message);
+            successToast(response.data.message, '關閉');
+            // alert(response.data.message);
         } catch (err) {
             console.log(err.response.data.message);
-            alert(err.response.data.message);
+            // alert(err.response.data.message);
         }
     }
 

@@ -6,6 +6,20 @@ function CustomerService(props) {
     const [listActive, setListActive] = useState(1);
     return (
         <>
+            <div className="mt-1">
+                <nav aria-label="breadcrumb">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item">
+                        <Link to="/admin">首頁</Link>
+                        </li>
+                        <li className="breadcrumb-item " aria-current="page">
+                            客服系統
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+            <h3>客服系統</h3>
+            <hr/>
             <div className="d-flex justify-content-center align-items-center QAlist">
                 <Link
                     to=""

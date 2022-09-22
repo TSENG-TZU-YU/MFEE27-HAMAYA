@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../../utils/use_auth';
 import { API_URL } from '../../utils/config';
 import './about.scss';
+import { successToast, warningToast } from '../../components/Alert';
 
 import banner from '../../assets/AboutImg/banner.png';
 import avatar01 from '../../assets/AboutImg/avatar01.png';
@@ -13,7 +14,6 @@ import avatar05 from '../../assets/AboutImg/avatar05.png';
 import avatar06 from '../../assets/AboutImg/avatar06.png';
 import fb from '../../assets/AboutImg/fb.png';
 import line from '../../assets/AboutImg/line.png';
-import cat from '../../assets/AboutImg/cat.jpg';
 import axios from 'axios';
 
 function About(props) {
@@ -95,9 +95,10 @@ function About(props) {
                 title: '',
                 comment: '',
             });
-            alert('表單已送出');
+            successToast('表單已送出', '關閉');
         } catch (err) {
             console.log(err.response.data);
+            warningToast('請填寫完整表單', '關閉');
 
             setAskErros({
                 fullName: err.response.data.fullName,

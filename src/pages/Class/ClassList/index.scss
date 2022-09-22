@@ -8,6 +8,7 @@
     background-color: $main-light;
     top: 40px;
     left: -15px;
+    z-index: 880;
 }
 
 .select-class {
@@ -19,12 +20,13 @@
     background-color: $main-light;
     top: 40px;
     left: -8px;
+    z-index: 880;
 }
 .sort-menu-class {
     background: $main-light;
     left: 110px;
     top: 40px;
-    z-index: 3;
+    z-index: 880;
     color: $accent-light;
 }
 .sort-menu-class > ul > li {

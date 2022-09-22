@@ -1,18 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.scss';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+
 // 分頁
 import _ from 'lodash';
 
 // 元件
-// import Evaluation from '../../../../components/Evaluation/Evaluation';
+import Evaluation from '../../../../components/Evaluation/Evaluation';
 import Car from '../../../../components/Car/Car';
-import Favorite from '../../../../components/Favorite';
+// import Favorite from '../../../../components/Favorite';
 import PaginationBar from '../../../../components/PaginationBar/PaginationBar';
+import Favorite from '../../../../components/Favorite';
+
+// 會員
+import { useAuth } from '../../../../utils/use_auth';
+
+// 收藏
+import { useLiked } from '../../../../utils/use_liked';
+
+// 圖檔
+import doc_music from '../../../../assets/ClassImg/doc-music.png';
 
 function AdultCourse({
     products,
@@ -27,15 +40,12 @@ function AdultCourse({
     pageNow,
     displayProducts,
 }) {
-    // 資料庫 評論 平均數
-    //    const [avg, setAvg] = useState([]);
-
+    AOS.init();
     useEffect(() => {
         let getAdultClass = async () => {
             let response = await axios.get(
                 //&page=${page}
                 `${API_URL}/class/list?class=1`
-                // { params: { product: product_id } }
             );
             setProducts(response.data);
             setDisplayProducts(response.data);
@@ -51,11 +61,7 @@ function AdultCourse({
                 // 設定到state中
                 setPageProducts(pageList);
             }
-            window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: 'auto',
-            });
+            window.scrollTo(0, 0);
         };
 
         getAdultClass();
@@ -64,6 +70,28 @@ function AdultCourse({
     useEffect(() => {
         console.log('products', products);
     }, [products]);
+
+    // 收藏
+    const { favProducts, setFavProducts } = useLiked();
+    //會員
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+
+    // 會員收藏的資料
+    useEffect(() => {
+        let getAllFavProducts = async () => {
+            let response = await axios.get(
+                `${API_URL}/member/mybucketlist/${member.id}`,
+                { withCredentials: true }
+            );
+
+            let products = response.data.class.map((item) => item.product_id);
+            // console.log(products);
+            setFavProducts(products);
+        };
+        if (member.id) {
+            getAllFavProducts();
+        }
+    }, [member]);
 
     return (
         <div>
@@ -78,19 +106,35 @@ function AdultCourse({
                             <Link
                                 to={`${classAdult.product_id}?class=${classAdult.ins_main_id}`}
                             >
-                                <div className="introduce row mx-0 mb-5 class-shadow">
+                                <div
+                                    className="introduce row mx-0 mb-5 class-shadow position-relative  "
+                                    data-aos="fade-right"
+                                >
                                     <div className="d-flex col-lg-6  px-lg-0  position-relative">
                                         <img
                                             className=" col-12 class-course-image"
-                                            // require(`../../../../album/class/${classAdult.image}`)
                                             src={require(`../../../../album/class/${classAdult.image_1}`)}
                                             alt="Adult img"
                                         />
+
                                         <div className="class-like px-lg-0">
-                                            <Favorite />
+                                            <Favorite
+                                                itemsData={classAdult}
+                                                favProducts={favProducts}
+                                                setFavProducts={setFavProducts}
+                                            />
                                         </div>
                                     </div>
                                     <div className="col-lg-6  mt-1 mb-2">
+                                        <div className="d-none d-lg-block">
+                                            <img
+                                                className="doc-music "
+                                                data-aos="fade-down-left"
+                                                src={doc_music}
+                                                alt="doc_music"
+                                            />
+                                        </div>
+
                                         <h4
                                             className="ms-1 mb-2"
                                             style={{ color: '#00323d' }}
@@ -113,13 +157,17 @@ function AdultCourse({
                                             </p>
                                             <div className="d-flex mt-2 align-items-center">
                                                 <div className="StarRating">
-                                                    {/* <Evaluation rating={} /> */}
+                                                    <Evaluation
+                                                        rating={
+                                                            classAdult.rating
+                                                        }
+                                                    />
                                                 </div>
                                                 <p className="ms-2 mt-2">
-                                                    {' '}
-                                                    2 人評價
+                                                    {classAdult.member} 人評價
                                                 </p>
                                             </div>
+
                                             <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">
                                                 <h4
                                                     className=" fw-bold"
