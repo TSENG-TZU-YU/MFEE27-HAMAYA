@@ -16,6 +16,7 @@ function Evaluation({ evaluationChange, rating }) {
                                     type="radio"
                                     name="rating"
                                     value={ratingValue}
+                                    className="evaluation"
                                 />
                                 <AiFillStar
                                     className={`fa-star ${

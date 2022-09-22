@@ -11,6 +11,7 @@ import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
 import { v4 as uuidv4 } from 'uuid';
 import { ReactComponent as Close } from '../../../../../assets/svg/close.svg';
+import { errorToast } from '../../../../../components/Alert';
 
 function MyQuestionDetail(props) {
     const [setbread] = useOutletContext();
@@ -57,7 +58,8 @@ function MyQuestionDetail(props) {
             setMyQuestion(response.data);
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
 
@@ -105,7 +107,8 @@ function MyQuestionDetail(props) {
             // alert(response.data.message);
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
 
@@ -152,7 +155,15 @@ function MyQuestionDetail(props) {
                         回覆狀態
                     </div>
                     <div className="col-9 text-center  p-1">
-                        {myQuestion.detail.user_reply_state}
+                        <span
+                            className={
+                                myQuestion.detail.user_reply_state === '未回覆'
+                                    ? 'reply_state'
+                                    : 'reply_state2'
+                            }
+                        >
+                            {myQuestion.detail.user_reply_state}
+                        </span>
                     </div>
                 </div>
                 <div className="d-flex border">
@@ -203,7 +214,7 @@ function MyQuestionDetail(props) {
                             className="text-light bg-main-color p-1 px-5 btn1"
                             onClick={replyFormSubmit}
                         >
-                            進行回覆
+                            送出
                         </button>
                     </form>
                 </div>

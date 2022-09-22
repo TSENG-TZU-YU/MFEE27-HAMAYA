@@ -1,5 +1,5 @@
 import './index.scss';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { API_URL } from '../../../utils/config';
@@ -17,7 +17,7 @@ function MusicArticle() {
     const [data, setData] = useState([]);
     const [activeText, setActiveText] = useState(1);
     const [SmallArticles, setSmallArticles] = useState([]);
-    const articleId = useParams();
+
     const location = useLocation();
 
     // useEffect(() => {
@@ -145,8 +145,8 @@ function MusicArticle() {
                                 </div>
                                 <div className="container list-more-art ">
                                     <Link
-                                        // 直接設定一個變數抓資料庫的id不用再一層一層抓
-                                        to={`/news/${list.id}`}
+                                        // 直接設定一個變數抓資料庫的id
+                                        to={`/news/${list.id}?mainId=${list.categoryId}`}
                                         className="mb-0 me-1 list-cursor-pinter"
                                     >
                                         閱讀全文
@@ -202,7 +202,7 @@ function MusicArticle() {
                                     <Link
                                         // data={data}
                                         // activeText={activeText}
-                                        to={`/news/${list2.id}`}
+                                        to={`/news/${list2.id}?mainId=${list2.categoryId}`}
                                         className="mb-0 me-1 list-cursor-pinter"
                                         data={data}
                                         SmallArticles={list2.categoryId}

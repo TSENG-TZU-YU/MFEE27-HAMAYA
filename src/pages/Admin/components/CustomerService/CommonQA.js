@@ -10,6 +10,7 @@ import {
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import _ from 'lodash';
+import { errorToast } from '../../../../components/Alert';
 function CommonQA(props) {
     // 分頁用
     const [pageNow, setPageNow] = useState(1); // 目前頁號
@@ -27,7 +28,7 @@ function CommonQA(props) {
                 user_q_category: '',
                 title: '',
                 comment: '',
-                user_reply_state: '',
+                manager_reply_state: '',
                 create_time: '',
                 update_time: '',
             },
@@ -55,7 +56,8 @@ function CommonQA(props) {
             }
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
     useEffect(() => {
@@ -63,7 +65,7 @@ function CommonQA(props) {
     }, []);
     return (
         <>
-            <table className="table ">
+            <table className="table NLQA">
                 <thead>
                     <tr className="bg-main-color accent-light-color ">
                         <th
@@ -121,7 +123,7 @@ function CommonQA(props) {
                         return (
                             <tr key={uuidv4()} className="cssTable">
                                 <th scope="row">
-                                    NL00{data.id}
+                                    QA00{data.id}
                                     <br />
                                     <span className="time">
                                         {data.create_time}
@@ -139,7 +141,18 @@ function CommonQA(props) {
                                         </span>
                                     </div>
                                 </td>
-                                <td className="">{data.user_reply_state}</td>
+                                <td
+                                    className={
+                                        data.manager_reply_state === '未回覆'
+                                            ? 'reply_state'
+                                            : data.manager_reply_state ===
+                                              '已回覆'
+                                            ? 'reply_state2'
+                                            : 'reply_state3'
+                                    }
+                                >
+                                    {data.manager_reply_state}
+                                </td>
                                 <td className="">{data.update_time}</td>
                                 <td className="text-nowrap ">
                                     <Link

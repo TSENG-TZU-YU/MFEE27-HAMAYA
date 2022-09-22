@@ -13,3 +13,39 @@
     box-shadow: 5px 5px 10px rgb(14, 68, 36);
     transform: translate(-3px,-3px);
 }
+.BeHome .maintitle{
+    font-size: 20px;
+    word-wrap: nowrap;
+}
+.BeHome .secondtitle{
+    font-size: 18px;
+    word-wrap: nowrap;
+}
+
+@media screen and (max-width:1400px) {
+
+}
+@media screen and (max-width:1200px) {
+
+}
+@media screen and (max-width:992px) {
+
+.BeHome .maintitle{
+    font-size: 16px;
+    word-wrap: nowrap;
+}
+.BeHome .secondtitle{
+    font-size: 14px;
+    word-wrap: nowrap;
+}
+.BeHome .item01{
+    padding: 10px;
+}
+
+}
+@media screen and (max-width:768px) {
+
+}
+@media screen and (max-width:576px) {
+
+}

@@ -122,7 +122,7 @@ function Cart() {
                                 {item.category_id === 'B' && (
                                     <img
                                         className="shoppingCartItemImg mx-3"
-                                        src={require(`../../album/class/${item.image}`)}
+                                        src={require(`../../album/class/${item.image_1}`)}
                                         alt=""
                                     />
                                 )}

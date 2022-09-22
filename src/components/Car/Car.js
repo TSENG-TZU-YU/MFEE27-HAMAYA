@@ -22,7 +22,7 @@ function Car({ itemsCart }) {
     };
 
     function getCheck(itemInfo) {
-        console.log('get Member', member);
+        console.log('itemInfo', itemInfo);
         //確認有沒有重複
         let newItemInfo = shoppingCart.find((v) => {
             return v.product_id === itemInfo.product_id;

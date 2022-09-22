@@ -127,7 +127,6 @@ function ClassList(props) {
     // 樂器:處理方法
     const handleSubIns = (products, subIns) => {
         let newProducts = [...products];
-        console.log('subIns', newProducts);
 
         if (subIns === '1') {
             newProducts = [...newProducts].filter(
@@ -233,7 +232,6 @@ function ClassList(props) {
         const newPageProducts = _.chunk(newProducts, perPage);
         setPageTotal(newPageProducts.length);
         setPageProducts(newPageProducts);
-        console.log('newProductsClass', newProducts);
     }, [products, selectedPrice, sortBy, searchWord, subIns]);
 
     return (
