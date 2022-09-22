@@ -25,40 +25,42 @@ function MyCartDoCheckout({
                     }
                 );
                 console.log('myCoupon', response.data);
-
+                //過濾可以使用的
                 let filterUse = response.data.filter((v) => {
                     return v.use === 1;
                 });
-                let newMyCoupon = filterUse.map((item) => {
+                //過濾大於開始時間
+                let currentTime = Date.now();
+                // console.log('currentTime', currentTime);
+
+                let filterStart = filterUse.filter((v) => {
+                    let start_time = new Date(v.start_time).valueOf();
+                    return currentTime > start_time;
+                });
+                // console.log('filterStart', filterStart);
+                //過濾已到期
+                let filterEnd = filterStart.filter((v) => {
+                    let end_time = new Date(v.end_time).valueOf();
+                    return currentTime < end_time;
+                });
+                // console.log('filterEnd', filterEnd);
+
+                let newMyCoupon = filterEnd.map((item) => {
                     return {
                         coupon_id: item.coupon_id,
                         use: item.use,
                         discount: item.discount,
                         minimum: item.minimum,
                         name: item.name,
+                        end_time: item.end_time,
+                        start_time: item.start_time,
                     };
                 });
 
                 console.log('newMyCoupon', newMyCoupon);
                 setMyCoupon(newMyCoupon);
-                // let items_amount = response.data.myCart.length;
-                // if (items_amount !== 0) {
-                //     setHiddenState(true);
-                //     setMyCart(response.data.myCart);
-                //     // console.log('All MyCart', response.data.myCart);
-                //     //分類別
-                //     let myCartList = response.data.myCart;
-                //     const myCart_cateA = myCartList.filter((v) => {
-                //         return v.category_id === 'A';
-                //     });
-                //     setMyCartA(myCart_cateA);
-                //     const myCart_cateB = myCartList.filter((v) => {
-                //         return v.category_id === 'B';
-                //     });
-                //     setMyCartB(myCart_cateB);
-                // }
             } catch (err) {
-                console.log('載入購物車錯誤', err);
+                console.log('載入優惠券失敗', err);
             }
         }
         getCoupon();

@@ -40,9 +40,8 @@ function ChildrenCourse({
     pageNow,
     displayProducts,
 }) {
-    AOS.init();
     const [itemId, setItemId] = useState();
-
+    AOS.init();
     useEffect(() => {
         let getAdultClass = async () => {
             let response = await axios.get(`${API_URL}/class/list?class=2`);
@@ -106,7 +105,8 @@ function ChildrenCourse({
                             >
                                 <div
                                     className="introduce row mx-0 mb-5 class-shadow"
-                                    data-aos="fade-right"
+                                    data-aos="zoom-in"
+                                    data-aos-once="true"
                                 >
                                     <div className="d-flex col-lg-6  px-lg-0  position-relative">
                                         <img
