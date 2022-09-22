@@ -4,7 +4,6 @@ import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 
 // 元件
-import Favorite from '../../../components/Favorite';
 import {
     successToast,
     warningToast,
@@ -12,7 +11,6 @@ import {
 } from '../../../components/Alert';
 
 // 圖檔
-import product from '../../../assets/ProductsImg/product.png';
 import cartCheck from '../../../assets/ProductsImg/icon/shopping_cart_check.svg';
 import compare from '../../../assets/ProductsImg/icon/compare.svg';
 import { ReactComponent as HeartLine } from '../../../assets/svg/favorite_defaut.svg';
@@ -127,7 +125,7 @@ function ProductsItem({
                         `${API_URL}/member/mybucketlist`,
                         [itemsData]
                     );
-                    let products = response.data.resProducts.map(
+                    let products = response.data.product.map(
                         (item) => item.product_id
                     );
                     successToast(response.data.message, '關閉');
@@ -149,9 +147,7 @@ function ProductsItem({
                     withCredentials: true,
                 }
             );
-            let products = response.data.resProducts.map(
-                (item) => item.product_id
-            );
+            let products = response.data.product.map((item) => item.product_id);
             successToast(response.data.message, '關閉');
             setFavProducts(products);
         } catch (err) {

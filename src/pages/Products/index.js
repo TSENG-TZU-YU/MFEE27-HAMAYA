@@ -50,10 +50,11 @@ import search from '../../assets/ProductsImg/icon/search.svg';
 // 圖檔 MobileFilterNav
 import arrowDown from '../../assets/ProductsImg/icon/arrow_down.svg';
 
-// 圖檔
+// 圖檔 Favorite
 import { ReactComponent as HeartLine } from '../../assets/svg/favorite_defaut.svg';
 import { ReactComponent as HeartFill } from '../../assets/svg/favorite_check.svg';
 
+// 會員
 import { useAuth } from '../../utils/use_auth';
 
 // 購物車
@@ -400,9 +401,8 @@ function Products() {
                 `${API_URL}/member/mybucketlist/${member.id}`,
                 { withCredentials: true }
             );
-            let products = response.data.products.map(
-                (item) => item.product_id
-            );
+
+            let products = response.data.product.map((item) => item.product_id);
             setFavProducts(products);
         };
         if (member.id) {
@@ -421,7 +421,7 @@ function Products() {
                         `${API_URL}/member/mybucketlist`,
                         [itemsData]
                     );
-                    let products = response.data.resProducts.map(
+                    let products = response.data.product.map(
                         (item) => item.product_id
                     );
                     successToast(response.data.message, '關閉');
@@ -443,9 +443,7 @@ function Products() {
                     withCredentials: true,
                 }
             );
-            let products = response.data.resProducts.map(
-                (item) => item.product_id
-            );
+            let products = response.data.product.map((item) => item.product_id);
             successToast(response.data.message, '關閉');
             setFavProducts(products);
         } catch (err) {

@@ -11,7 +11,6 @@ import { Container, Row, Col } from 'react-bootstrap';
 import './index.scss';
 
 // 元件
-import ToShareCollect from '../../../components/ToShare';
 import ProductsItem from '../components/ProductsItem';
 import ProductCompare from '../ProductCompare';
 import ProductCarousel from '../../../components/ProductCarousel';
@@ -21,6 +20,7 @@ import {
     successToast,
     warningToast,
     basicAlert,
+    errorToast,
 } from '../../../components/Alert';
 
 // 圖檔
@@ -29,10 +29,18 @@ import cartCheck from '../../../assets/ProductsImg/icon/shopping_cart_check.svg'
 import cartCheckout from '../../../assets/ProductsImg/icon/shopping_cart_checkout.svg';
 import note from '../../../assets/ProductsImg/icon/product_details_note.svg';
 import { ReactComponent as CompareButton } from '../../../assets/svg/sync_alt.svg';
+import { RiHeartAddFill } from 'react-icons/ri';
+import { RiHeartAddLine } from 'react-icons/ri';
+import Share from '../../../assets/svg/open_in_new.svg';
 
+// 會員
 import { useAuth } from '../../../utils/use_auth';
-//購物車
+
+// 購物車
 import { useCart } from '../../../utils/use_cart';
+
+// 收藏
+import { useLiked } from '../../../utils/use_liked';
 
 function Product() {
     // 商品 伺服器來的資料
@@ -45,6 +53,7 @@ function Product() {
     const { productId } = useParams();
 
     const location = useLocation();
+
     // 取得商品 api
     useEffect(() => {
         let params = new URLSearchParams(location.search);
@@ -63,6 +72,7 @@ function Product() {
         };
         getProductDetail();
     }, [location]);
+
     const productCount = (stock) => {
         if (stock !== 0) {
             return (
@@ -240,6 +250,50 @@ function Product() {
             } catch (err) {
                 console.log(err.response.data.message);
             }
+        }
+    }
+
+    // 收藏
+    const { favProducts, setFavProducts } = useLiked();
+
+    // 新增收藏
+    const handleAddFavorite = (itemsData) => {
+        console.log(itemsData);
+        if (itemsData.user_id !== null && itemsData.user_id !== '') {
+            setItemsData(itemsData);
+            async function setItemsData(itemsData) {
+                try {
+                    let response = await axios.post(
+                        `${API_URL}/member/mybucketlist`,
+                        [itemsData]
+                    );
+                    let products = response.data.product.map(
+                        (item) => item.product_id
+                    );
+                    successToast(response.data.message, '關閉');
+                    setFavProducts(products);
+                } catch (err) {
+                    errorToast(err.response.data.message, '關閉');
+                }
+            }
+        }
+    };
+
+    // 取消收藏
+    async function handleRemoveFavorite(product_id) {
+        console.log('handleRemoveFavorite', product_id);
+        try {
+            let response = await axios.delete(
+                `${API_URL}/member/mybucketlist/${product_id}`,
+                {
+                    withCredentials: true,
+                }
+            );
+            let products = response.data.product.map((item) => item.product_id);
+            successToast(response.data.message, '關閉');
+            setFavProducts(products);
+        } catch (err) {
+            errorToast(err.response.data.message, '關閉');
         }
     }
 
@@ -431,8 +485,60 @@ function Product() {
                                             </h6>
                                         </button>
                                     </div>
+                                    {/* 收藏、分享、比較 btn */}
                                     <div className="d-flex">
-                                        <ToShareCollect className="me-2" />
+                                        {/* 收藏 */}
+                                        {member.id ? (
+                                            favProducts.includes(
+                                                value.product_id
+                                            ) ? (
+                                                <div
+                                                    className="d-flex justify-content-center align-items-center cursor-pinter me-5"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        handleRemoveFavorite(
+                                                            value.product_id
+                                                        );
+                                                    }}
+                                                >
+                                                    <RiHeartAddFill className="plus-icon-size me-2 plus-icon-color" />
+                                                    <p className="mt-3 collect">
+                                                        收藏
+                                                    </p>
+                                                </div>
+                                            ) : (
+                                                <div
+                                                    className="d-flex justify-content-center align-items-center cursor-pinter me-5"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        handleAddFavorite({
+                                                            user_id: member.id,
+                                                            product_id:
+                                                                value.product_id,
+                                                            category_id:
+                                                                value.category_id,
+                                                        });
+                                                    }}
+                                                >
+                                                    <RiHeartAddLine className="plus-icon-size me-2 plus-icon-color" />
+                                                    <p className="mt-3 collect">
+                                                        收藏
+                                                    </p>
+                                                </div>
+                                            )
+                                        ) : (
+                                            ''
+                                        )}
+                                        {/* 分享 */}
+                                        <div className="d-flex justify-content-center align-items-center cursor-pinter ">
+                                            <img
+                                                className="me-2 mt-1"
+                                                src={Share}
+                                                alt="Share"
+                                            />
+                                            <p className="mt-3 share">分享</p>
+                                        </div>
+                                        {/* 比較 */}
                                         <div
                                             className="d-flex justify-content-center align-items-center cursor-pinter my-3 mx-4"
                                             onClick={() =>
@@ -453,10 +559,11 @@ function Product() {
                                                 })
                                             }
                                         >
-                                            <CompareButton className="me-2" />
+                                            <CompareButton className="me-2 mt-1" />
                                             <p className="mt-3 share">比較</p>
                                         </div>
                                     </div>
+                                    {/* 收藏、分享、比較 btn end*/}
                                 </div>
                             );
                         })}
