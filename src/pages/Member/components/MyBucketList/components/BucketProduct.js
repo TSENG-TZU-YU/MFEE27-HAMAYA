@@ -226,6 +226,7 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
                                             <button
                                                 className="btn border-0 p-0 mx-3"
                                                 onClick={() => {
+                                                    setShopCartState(true);
                                                     getCheck({
                                                         product_id:
                                                             item.product_id,

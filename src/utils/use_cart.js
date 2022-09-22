@@ -4,7 +4,7 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
     //臨時購物車開關
-    const [shopCartState, setShopCartState] = useState(false);
+    const [shopCartState, setShopCartState] = useState(true);
     //測試用
     // const testShoppingCart = [
     //     {
