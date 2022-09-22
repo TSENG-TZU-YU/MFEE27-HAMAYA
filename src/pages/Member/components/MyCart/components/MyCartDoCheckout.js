@@ -148,7 +148,7 @@ function MyCartDoCheckout({
                     <div className="flex-grow-1 d-flex">
                         <div className="myCartSelectPadding">
                             <select
-                                class="form-select"
+                                className="form-select"
                                 id=""
                                 name="city"
                                 value={myCartInfo.city}
@@ -166,7 +166,7 @@ function MyCartDoCheckout({
                         </div>
                         <div>
                             <select
-                                class="form-select"
+                                className="form-select"
                                 id=""
                                 name="dist"
                                 value={myCartInfo.dist}

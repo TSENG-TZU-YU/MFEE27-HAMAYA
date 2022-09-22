@@ -130,15 +130,6 @@ function MyCartProduct({
                                     setMyCart(newMyCart);
                                 }}
                             />
-                            {/* <div className="d-inline-block">
-                                <button className="btn border-0">
-                                    <RiSubtractFill size="20" />
-                                </button>
-                                <div className="countBox">{item.amount}</div>
-                                <button className=" btn border-0">
-                                    <RiAddFill size="20" />
-                                </button>
-                            </div> */}
                         </td>
                         <td align="center" className="align-middle ">
                             <div className="gary-dark">
