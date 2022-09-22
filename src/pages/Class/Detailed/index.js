@@ -9,14 +9,10 @@ import {
     successToast,
     warningToast,
     basicAlert,
+    errorToast
 } from '../../../components/Alert';
 //購物車
 import { useCart } from '../../../utils/use_cart';
-import {
-    successToast,
-    warningToast,
-    errorToast,
-} from '../../../components/Alert';
 import './index.scss';
 
 // 收藏
