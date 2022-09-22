@@ -11,8 +11,14 @@ import _ from 'lodash';
 // 子元件
 import StarRating from '../../../../components/Star/StarRating';
 import Car from '../../../../components/Car/Car';
-import Favorite from '../../../../components/Favorite';
 import PaginationBar from '../../../../components/PaginationBar/PaginationBar';
+import Favorite from '../../../../components/Favorite';
+
+// 會員
+import { useAuth } from '../../../../utils/use_auth';
+
+// 收藏
+import { useLiked } from '../../../../utils/use_liked';
 
 // 圖檔
 // import Adult_img from '../../../../assets/ClassImg/Adult img.png';
@@ -58,6 +64,28 @@ function ChildrenCourse({
 
     useEffect(() => {}, [products]);
 
+    // 收藏
+    const { favProducts, setFavProducts } = useLiked();
+    //會員
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+
+    // 會員收藏的資料
+    useEffect(() => {
+        let getAllFavProducts = async () => {
+            let response = await axios.get(
+                `${API_URL}/member/mybucketlist/${member.id}`,
+                { withCredentials: true }
+            );
+
+            let products = response.data.class.map((item) => item.product_id);
+            // console.log(products);
+            setFavProducts(products);
+        };
+        if (member.id) {
+            getAllFavProducts();
+        }
+    }, [member]);
+
     return (
         <div>
             {/* 已灌資料庫 */}
@@ -79,7 +107,11 @@ function ChildrenCourse({
                                             alt="Adult img"
                                         />
                                         <div className="class-like px-lg-0">
-                                            <Favorite />
+                                            <Favorite
+                                                itemsData={classChild}
+                                                favProducts={favProducts}
+                                                setFavProducts={setFavProducts}
+                                            />
                                         </div>
                                     </div>
                                     <div className="col-lg-6  mt-1 mb-2">

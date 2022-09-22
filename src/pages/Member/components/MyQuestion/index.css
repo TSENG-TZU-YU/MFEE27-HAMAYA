@@ -155,6 +155,27 @@
     /* transform: translate(-3px,-3px); */
     /* shadow: #3c3c3c; */
 }
+
+.MyPlaceDetail .maincontent{
+    height: 350px;
+    background-color:#e6e6e6 ;
+    overflow: auto;
+    display: flex;
+    flex-direction: column-reverse;
+}
+.MyPlaceDetail .btn1{
+    margin: 5px 0;
+    border: 0;
+}
+.MyPlaceDetail .inputcontent{
+    height: 50px;
+    padding: 5px;
+} 
+
+.MyPlaceDetail .inputcontent:focus{
+    border: transparent;
+    outline: 2px solid cornflowerblue;
+}
 @media screen and (max-width:768px) {
     .myQuestion_form .btn1{
         width: 100%;
