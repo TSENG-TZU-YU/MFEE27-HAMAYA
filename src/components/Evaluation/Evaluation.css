@@ -1,10 +1,9 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-
 }
 
-input[type='radio'] {
+.evaluation[type='radio'] {
     display: none;
 }
 

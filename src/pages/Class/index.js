@@ -7,6 +7,9 @@ import { API_URL } from '../../utils/config';
 
 import { Link } from 'react-router-dom';
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 // 元件
 import Teacher from '../../components/Teacher';
 import TeacherMob from '../../components/TeacherMob';
@@ -22,6 +25,7 @@ import decorate3 from '../../assets/ClassImg/音樂裝飾3.png';
 // import { useAuth } from '../../utils/use_auth';
 
 function Class(props) {
+    AOS.init();
     const [selectCourse, setSelectCourse] = useOutletContext();
 
     const [data, setData] = useState([]);
@@ -223,7 +227,11 @@ function Class(props) {
                                 <div className="vector4 mt-3"></div>
                             </div>
                             <Row className="mt-5 text-center pb-md-5 ">
-                                <Col lg={6} className="pb-5 mb-md-5 ">
+                                <Col
+                                    lg={6}
+                                    className="pb-5 mb-md-5 "
+                                    data-aos="flip-left"
+                                >
                                     <Link to="list?class=1">
                                         <img
                                             src={Adult_Course}
@@ -238,7 +246,11 @@ function Class(props) {
                                         </h3>
                                     </Link>
                                 </Col>
-                                <Col lg={6} className="pb-5 ">
+                                <Col
+                                    lg={6}
+                                    className="pb-5 "
+                                    data-aos="flip-left"
+                                >
                                     <Link to="list?class=2">
                                         <img
                                             className="cursor-pinter img-fluid"
