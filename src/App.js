@@ -114,7 +114,7 @@ function App() {
                                             element={<MusicArticle />}
                                         />
                                         <Route
-                                            path="category"
+                                            path=":content"
                                             element={<Article />}
                                         />
                                     </Route>
