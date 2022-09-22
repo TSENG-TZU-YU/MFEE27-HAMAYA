@@ -20,7 +20,7 @@ function Admin(props) {
     return (
         <div className="container">
             <div className="row">
-                <div className="col-2">
+                <div className="col-2 ">
                     <nav className="adminlist">
                         <Link
                             to="/admin"
@@ -35,7 +35,7 @@ function Admin(props) {
                                         : 'text-nowrap text-center my-1 py-1 '
                                 }
                             >
-                                後台首頁
+                                首頁
                             </div>
                         </Link>
                         <Link

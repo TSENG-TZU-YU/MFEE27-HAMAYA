@@ -34,10 +34,10 @@ function MyCartTable({
             newItem = [...check, value];
             setCheck(newItem);
         }
-        if (newItem === myCart.length) {
+        if (newItem.length === myCart.length) {
             setAllCheck(true);
         }
-        if (newItem !== myCart.length) {
+        if (newItem.length !== myCart.length) {
             setAllCheck(false);
         }
     }
@@ -128,50 +128,58 @@ function MyCartTable({
                 </div>
             </div>
             <div>
-                <table className="table m-0 myCartTable">
-                    <thead>
-                        <tr className="text-center accent-light-color bg-main-color">
-                            <th className="myCartThWidth">樂器商城</th>
-                            <th className="w-25">商品名稱</th>
-                            <th>價格</th>
-                            <th>數量</th>
-                            <th className="myCartThWidth">小計</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <MyCartProduct
-                            myCart={myCart}
-                            setMyCart={setMyCart}
-                            myCartA={myCartA}
-                            setMyCartA={setMyCartA}
-                            check={check}
-                            setCheck={setCheck}
-                            handleCheckBox={handleCheckBox}
-                        />
-                    </tbody>
-                </table>
-                <table className="table m-0 myCartTable myCartTableClass">
-                    <thead>
-                        <tr className="text-center accent-light-color bg-main-color">
-                            <th className="myCartThWidth">音樂教育</th>
-                            <th className="w-25">商品名稱</th>
-                            <th>價格</th>
-                            <th>數量</th>
-                            <th className="myCartThWidth">小計</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <MyCartClass
-                            myCart={myCart}
-                            setMyCart={setMyCart}
-                            myCartB={myCartB}
-                            setMyCartB={setMyCartB}
-                            check={check}
-                            setCheck={setCheck}
-                            handleCheckBox={handleCheckBox}
-                        />
-                    </tbody>
-                </table>
+                {myCartA.length !== 0 ? (
+                    <table className="table m-0 myCartTable">
+                        <thead>
+                            <tr className="text-center accent-light-color bg-main-color">
+                                <th className="myCartThWidth">樂器商城</th>
+                                <th className="w-25">商品名稱</th>
+                                <th className="myCartThWidth">價格</th>
+                                <th>數量</th>
+                                <th className="myCartThWidth">小計</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <MyCartProduct
+                                myCart={myCart}
+                                setMyCart={setMyCart}
+                                myCartA={myCartA}
+                                setMyCartA={setMyCartA}
+                                check={check}
+                                setCheck={setCheck}
+                                handleCheckBox={handleCheckBox}
+                            />
+                        </tbody>
+                    </table>
+                ) : (
+                    ''
+                )}
+                {myCartB.length !== 0 ? (
+                    <table className="table m-0 myCartTable myCartTableClass">
+                        <thead>
+                            <tr className="text-center accent-light-color bg-main-color">
+                                <th className="myCartThWidth">音樂教育</th>
+                                <th className="w-25">商品名稱</th>
+                                <th className="myCartThWidth">價格</th>
+                                <th>數量</th>
+                                <th className="myCartThWidth">小計</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <MyCartClass
+                                myCart={myCart}
+                                setMyCart={setMyCart}
+                                myCartB={myCartB}
+                                setMyCartB={setMyCartB}
+                                check={check}
+                                setCheck={setCheck}
+                                handleCheckBox={handleCheckBox}
+                            />
+                        </tbody>
+                    </table>
+                ) : (
+                    ''
+                )}
             </div>
         </>
     );

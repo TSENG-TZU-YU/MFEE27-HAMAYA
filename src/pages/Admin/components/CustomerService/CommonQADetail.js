@@ -73,7 +73,6 @@ function CommonQADetail(props) {
     async function myQuestionDetail() {
         let params = new URLSearchParams(location.search);
         let nlid = params.get('nlid');
-        console.log(nlid);
         try {
             let response = await axios.get(
                 `${API_URL}/admin/customerservice/commonqa/detail?nlid=${nlid}`,
@@ -229,7 +228,7 @@ function CommonQADetail(props) {
                             value={replyForm.q_content}
                             onChange={replyFormChange}
                             placeholder="輸入內容"
-                            autoomplete="off"
+                            autoComplete="off"
                         />
                         <button
                             className="text-light bg-main-color p-1 px-5 btn1 "

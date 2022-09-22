@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { API_URL } from '../../../utils/config';
 import { useAuth } from '../../../utils/use_auth';
+import {
+    successToast,
+    warningToast,
+    basicAlert,
+} from '../../../components/Alert';
 //購物車
 import { useCart } from '../../../utils/use_cart';
 import {
@@ -85,7 +90,7 @@ function Detailed({ ins_main_id }) {
 
     //會員
     const { member, setMember, isLogin, setIsLogin } = useAuth();
-
+    const navigate = useNavigate();
     //購物車
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
@@ -94,7 +99,7 @@ function Detailed({ ins_main_id }) {
         //塞資料進去
         localStorage.setItem('shoppingCart', JSON.stringify(newLocal));
     };
-
+    //加入購物車
     function getCheck(itemInfo) {
         // console.log('get Member', member);
         console.log('itemInfo class detail', itemInfo);
@@ -151,6 +156,36 @@ function Detailed({ ins_main_id }) {
             return;
         }
         warningToast('已加入臨時購物車', '關閉');
+    }
+    //立即報名
+    function getImmediate(itemInfo) {
+        if (member === null || member.id === '') {
+            basicAlert('請先登入', '關閉');
+            return;
+        }
+        // console.log('itemInfo fff', itemInfo);
+
+        console.log('itemsData', itemInfo);
+        setItemsData(itemInfo);
+        async function setItemsData(itemsData) {
+            //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
+            try {
+                let response = await axios.post(
+                    `${API_URL}/member/mycart`,
+                    itemsData
+                );
+                // console.log('duplicate', response.data.duplicate);
+                if (response.data.duplicate === 1) {
+                    warningToast(response.data.message, '關閉');
+                    setShoppingCart([...shoppingCart]);
+                    return;
+                }
+                successToast(response.data.message, '關閉');
+                navigate('/member/mycart');
+            } catch (err) {
+                console.log(err.response.data.message);
+            }
+        }
     }
 
     // 收藏
@@ -398,7 +433,22 @@ function Detailed({ ins_main_id }) {
                                                 </div>
                                             </div>
                                             <Row className=" mt-4">
-                                                <button className="col m-2 btn btn-primary AdultDetailed-btn d-flex justify-content-center align-items-center border-0">
+                                                <button
+                                                    className="col m-2 btn btn-primary AdultDetailed-btn d-flex justify-content-center align-items-center border-0"
+                                                    onClick={() => {
+                                                        getImmediate([
+                                                            {
+                                                                user_id:
+                                                                    member.id,
+                                                                product_id:
+                                                                    classDetailed.product_id,
+                                                                category_id:
+                                                                    classDetailed.category_id,
+                                                                amount: 1,
+                                                            },
+                                                        ]);
+                                                    }}
+                                                >
                                                     <img
                                                         style={{
                                                             width: '30px',
