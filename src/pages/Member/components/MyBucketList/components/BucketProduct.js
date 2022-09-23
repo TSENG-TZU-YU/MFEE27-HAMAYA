@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
@@ -121,7 +122,24 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
         warningToast('已加入臨時購物車', '關閉');
     }
 
-    // 取消收藏
+    // 單筆 取消收藏
+    async function handleRemoveFavoriteSingle(product_id) {
+        console.log(`${API_URL}/member/mybucketlist/${product_id}`);
+        try {
+            let response = await axios.delete(
+                `${API_URL}/member/mybucketlist/${product_id}`,
+                {
+                    withCredentials: true,
+                }
+            );
+            successToast(response.data.message, '關閉');
+            setMyBucketA(response.data.product);
+        } catch (err) {
+            errorToast(err.response.data.message, '關閉');
+        }
+    }
+
+    // 多筆 取消收藏
     async function handleRemoveFavorite() {
         console.log('buy bucket  myBucketA', check, myBucketA);
 
@@ -264,7 +282,11 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
             <div className="row">
                 {myBucketA.map((item) => {
                     return (
-                        <div className="col-lg-6 p-0 my-1" key={item.id}>
+                        <div
+                            to={`/products/${item.product_id}?main_id=${item.ins_main_id}`}
+                            className="col-lg-6 p-0 my-1"
+                            key={item.id}
+                        >
                             <div className="myBucketProduct-Item d-flex m-2 p-2 bucket-shadow ">
                                 <div className="myBucketProduct-Img">
                                     <img
@@ -299,7 +321,8 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
                                         <div>
                                             <button
                                                 className="btn border-0 p-0 mx-3"
-                                                onClick={() => {
+                                                onClick={(e) => {
+                                                    e.preventDefault();
                                                     setShopCartState(true);
                                                     getCheck({
                                                         product_id:
@@ -321,7 +344,7 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
                                                 className="btn border-0 p-0"
                                                 onClick={(e) => {
                                                     e.preventDefault();
-                                                    handleRemoveFavorite(
+                                                    handleRemoveFavoriteSingle(
                                                         item.product_id
                                                     );
                                                 }}

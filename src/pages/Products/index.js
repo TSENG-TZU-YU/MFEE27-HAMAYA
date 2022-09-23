@@ -728,7 +728,7 @@ function Products() {
                                 {/* 商品列 */}
                                 <ListMotionContainer
                                     element="div"
-                                    className=" row row-cols-2 row-cols-md-3 row-cols-xl-4"
+                                    className="row row-cols-2 row-cols-md-3 row-cols-xl-4"
                                 >
                                     {error && <div>{error}</div>}
                                     {pageProducts.length === 0 ? (
