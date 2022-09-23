@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 // 圖檔
 import NewsBanner from '../../assets/NewsImg/news-banner.jpg';
-import NewsImg from '../../assets/NewsImg/news-img.png';
+
 import NewsImg2 from '../../assets/NewsImg/news-img2.png';
 import NewsImg3 from '../../assets/NewsImg/news-img3.png';
 import NewsImg4 from '../../assets/NewsImg/news-img4.png';
@@ -23,7 +23,7 @@ function NEWs() {
     //只是在設定active的狀態
     const [activeText, setActiveText] = useState(1);
     const [data, setData] = useState([]);
-    console.log('nnn', activeText);
+    const [news, setNews] = useState([]);
 
     //使用useLocation來對應到網址
     const location = useLocation();
@@ -40,6 +40,7 @@ function NEWs() {
             );
 
             setData(response.data.data);
+            setNews(response.data.news);
         };
         getNews();
     }, [location]);
@@ -49,6 +50,7 @@ function NEWs() {
         let getNews = async () => {
             let response = await axios.get(`${API_URL}/news`);
             setData(response.data.data);
+            setNews(response.data.news);
         };
         getNews();
     }, []);
@@ -98,24 +100,39 @@ function NEWs() {
 
             <div className="container">
                 <div className="row">
-                    <div className="col-12 col-md-6">
-                        <img
-                            src={NewsImg}
-                            alt="banner"
-                            width="600"
-                            height="100%"
-                            className="img-fluid mt-2"
-                        />
-                        <p className="gary-dark-color h5 News-cursor-pinter mt-3">
-                            【親子點唱機】孟德爾頌《無言歌》為什麼沒有歌詞？
-                        </p>
-                        <div className=" d-flex mt-3 ">
-                            <p className="News-music-article small me-2">
-                                活動快訊
-                            </p>
-                            <p>李明蒨 － 2022/08/20</p>
-                        </div>
-                    </div>
+                    {/* 活動快訊那一欄 */}
+                    {news.map((activity, index) => {
+                        return (
+                            <>
+                                <div key={uuidv4()} className="col-12 col-md-6">
+                                    <Link
+                                        to={`/news/${activity.id}?mainId=${activity.categoryId}`}
+                                    >
+                                        <img
+                                            src={require(`../../album/article/${activity.image}`)}
+                                            alt="banner"
+                                            width="600"
+                                            height="100%"
+                                            className="img-fluid mt-2"
+                                        />
+                                        <p className="gary-dark-color h5 News-cursor-pinter mt-3">
+                                            {activity.title}
+                                        </p>
+                                        <div className=" d-flex mt-3 ">
+                                            <p className="News-music-article small me-2">
+                                                {activity.categoryName}
+                                            </p>
+                                            <p>
+                                                {activity.author} －{' '}
+                                                {activity.creation_date}
+                                            </p>
+                                        </div>
+                                    </Link>
+                                </div>
+                            </>
+                        );
+                    })}
+
                     <div className="col-12 col-md-6 News-blank-art-left  ">
                         <div className="d-flex mt-2 ">
                             <img

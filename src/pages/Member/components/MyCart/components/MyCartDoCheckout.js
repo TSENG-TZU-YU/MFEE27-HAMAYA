@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useAuth } from '../../../../../utils/use_auth';
 import { cityData, distData } from '../../MyProfile/location';
@@ -14,6 +14,57 @@ function MyCartDoCheckout({
     calcTotalPrice,
 }) {
     const { member } = useAuth();
+    const [myCoupon, setMyCoupon] = useState([]);
+    useEffect(() => {
+        async function getCoupon() {
+            try {
+                let response = await axios.get(
+                    `${API_URL}/member/mycoupon/loading`,
+                    {
+                        withCredentials: true,
+                    }
+                );
+                console.log('myCoupon', response.data);
+                //過濾可以使用的
+                let filterUse = response.data.filter((v) => {
+                    return v.use === 1;
+                });
+                //過濾大於開始時間
+                let currentTime = Date.now();
+                // console.log('currentTime', currentTime);
+
+                let filterStart = filterUse.filter((v) => {
+                    let start_time = new Date(v.start_time).valueOf();
+                    return currentTime > start_time;
+                });
+                // console.log('filterStart', filterStart);
+                //過濾已到期
+                let filterEnd = filterStart.filter((v) => {
+                    let end_time = new Date(v.end_time).valueOf();
+                    return currentTime < end_time;
+                });
+                // console.log('filterEnd', filterEnd);
+
+                let newMyCoupon = filterEnd.map((item) => {
+                    return {
+                        coupon_id: item.coupon_id,
+                        use: item.use,
+                        discount: item.discount,
+                        minimum: item.minimum,
+                        name: item.name,
+                        end_time: item.end_time,
+                        start_time: item.start_time,
+                    };
+                });
+
+                console.log('newMyCoupon', newMyCoupon);
+                setMyCoupon(newMyCoupon);
+            } catch (err) {
+                console.log('載入優惠券失敗', err);
+            }
+        }
+        getCoupon();
+    }, []);
 
     const [myCartInfo, setMyCartInfo] = useState({
         receiver: member.fullName,
@@ -23,15 +74,23 @@ function MyCartDoCheckout({
         dist: '',
         address: '',
         coupon: 0,
-        coupon_id: 'coupon_id',
+        coupon_id: 0,
     });
+    // console.log('myCartInfo', myCartInfo);
 
     function getMyCartInfo(e) {
         setMyCartInfo({ ...myCartInfo, [e.target.name]: e.target.value });
     }
-    // function getMyCartCou(e) {
-    //     console.log(e.target.selectedIndex); //抓得到option順序
-    // }
+    function getMyCartCou(e) {
+        const [coupon_id] = e.target.value.split('/');
+        const [, value] = e.target.value.split('/');
+        // console.log(coupon_id, value, e.target.value);
+        setMyCartInfo({
+            ...myCartInfo,
+            [e.target.name]: value,
+            coupon_id: coupon_id,
+        });
+    }
 
     //前往付款 成立訂單
     async function setSaveOrder(saveOrderInfo) {
@@ -148,7 +207,7 @@ function MyCartDoCheckout({
                     <div className="flex-grow-1 d-flex">
                         <div className="myCartSelectPadding">
                             <select
-                                class="form-select"
+                                className="form-select"
                                 id=""
                                 name="city"
                                 value={myCartInfo.city}
@@ -166,7 +225,7 @@ function MyCartDoCheckout({
                         </div>
                         <div>
                             <select
-                                class="form-select"
+                                className="form-select"
                                 id=""
                                 name="dist"
                                 value={myCartInfo.dist}
@@ -249,12 +308,21 @@ function MyCartDoCheckout({
                                 className="form-select"
                                 name="coupon"
                                 id=""
-                                onChange={getMyCartInfo}
+                                onChange={getMyCartCou}
                             >
                                 <option value="0">請選擇折扣</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                                <option value="200">200</option>
+                                {myCoupon.map((v) => {
+                                    return (
+                                        <option
+                                            key={v.coupon_id}
+                                            value={
+                                                v.coupon_id + '/' + v.discount
+                                            }
+                                        >
+                                            {(v.discount, v.name)}
+                                        </option>
+                                    );
+                                })}
                             </select>
                         </div>
                     </div>

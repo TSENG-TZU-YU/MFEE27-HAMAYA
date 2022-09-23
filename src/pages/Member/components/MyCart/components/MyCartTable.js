@@ -3,6 +3,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
+import {
+    successToast,
+    warningToast,
+    errorToast,
+} from '../../../../../components/Alert';
 import '../MyCart.scss';
 import MyCartProduct from './MyCartProduct';
 import MyCartClass from './MyCartClass';
@@ -14,6 +19,11 @@ function MyCartTable({
     setMyCartA,
     myCartB,
     setMyCartB,
+    favA,
+    setFavA,
+    favB,
+    setFavB,
+    setHiddenState,
 }) {
     const { member } = useAuth();
     //checkbox check 裡面放product_id
@@ -24,6 +34,7 @@ function MyCartTable({
     //商品單選checkbox
     function handleCheckBox(e) {
         const value = e.target.value;
+        console.log('handleCheckBox', e.target.value);
         let newItem = [];
         if (check.includes(value)) {
             newItem = check.filter((v) => {
@@ -34,10 +45,10 @@ function MyCartTable({
             newItem = [...check, value];
             setCheck(newItem);
         }
-        if (newItem === myCart.length) {
+        if (newItem.length === myCart.length) {
             setAllCheck(true);
         }
-        if (newItem !== myCart.length) {
+        if (newItem.length !== myCart.length) {
             setAllCheck(false);
         }
     }
@@ -91,10 +102,38 @@ function MyCartTable({
                 setMyCartA(myCart_cateA);
                 setMyCartB(myCart_cateB);
                 setMyCart(newMyCartAfterDelete);
+                setAllCheck(false);
+                if (newMyCartAfterDelete.length === 0) {
+                    setHiddenState(false);
+                }
             };
             setItemDataDelete();
         }
     }
+
+    // TODO: checkbox 多筆加入收藏
+    function handleCheckAddFav() {
+        console.log('加入收藏', check);
+        if (member !== null && member.id !== '') {
+            //重組陣列 加入 member.id
+            let newCheck = check.map((product_id) => {
+                return [member.id, product_id];
+            });
+
+            //     // console.log('加入收藏', newCheck);
+            //     let setItemDataAdd = async () => {
+            //         let response = await axios.post(
+            //             `${API_URL}/member/mybucketlist`,
+            //             {
+            //                 data: newCheck,
+            //             }
+            //         );
+            //         console.log('新增response.data', response.data);
+            //     };
+            //     //     // http://localhost:3001/api/member/mybucketlist/multi
+        }
+    }
+
     return (
         <>
             <div className="p-2">
@@ -122,56 +161,73 @@ function MyCartTable({
                     >
                         移除品項
                     </button>
-                    <button className="btn btn-primary col mx-2 p-0 text-nowrap">
+                    <button
+                        className="btn btn-primary col mx-2 p-0 text-nowrap"
+                        onClick={() => {
+                            handleCheckAddFav();
+                        }}
+                    >
                         加入收藏
                     </button>
                 </div>
             </div>
             <div>
-                <table className="table m-0 myCartTable">
-                    <thead>
-                        <tr className="text-center accent-light-color bg-main-color">
-                            <th className="myCartThWidth">樂器商城</th>
-                            <th className="w-25">商品名稱</th>
-                            <th>價格</th>
-                            <th>數量</th>
-                            <th className="myCartThWidth">小計</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <MyCartProduct
-                            myCart={myCart}
-                            setMyCart={setMyCart}
-                            myCartA={myCartA}
-                            setMyCartA={setMyCartA}
-                            check={check}
-                            setCheck={setCheck}
-                            handleCheckBox={handleCheckBox}
-                        />
-                    </tbody>
-                </table>
-                <table className="table m-0 myCartTable myCartTableClass">
-                    <thead>
-                        <tr className="text-center accent-light-color bg-main-color">
-                            <th className="myCartThWidth">音樂教育</th>
-                            <th className="w-25">商品名稱</th>
-                            <th>價格</th>
-                            <th>數量</th>
-                            <th className="myCartThWidth">小計</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <MyCartClass
-                            myCart={myCart}
-                            setMyCart={setMyCart}
-                            myCartB={myCartB}
-                            setMyCartB={setMyCartB}
-                            check={check}
-                            setCheck={setCheck}
-                            handleCheckBox={handleCheckBox}
-                        />
-                    </tbody>
-                </table>
+                {myCartA.length !== 0 ? (
+                    <table className="table m-0 myCartTable">
+                        <thead>
+                            <tr className="text-center accent-light-color bg-main-color">
+                                <th className="myCartThWidth">樂器商城</th>
+                                <th className="w-25">商品名稱</th>
+                                <th className="myCartThWidth">價格</th>
+                                <th>數量</th>
+                                <th className="myCartThWidth">小計</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <MyCartProduct
+                                myCart={myCart}
+                                setMyCart={setMyCart}
+                                myCartA={myCartA}
+                                setMyCartA={setMyCartA}
+                                check={check}
+                                setCheck={setCheck}
+                                handleCheckBox={handleCheckBox}
+                                favA={favA}
+                                setFavA={setFavA}
+                            />
+                        </tbody>
+                    </table>
+                ) : (
+                    ''
+                )}
+                {myCartB.length !== 0 ? (
+                    <table className="table m-0 myCartTable myCartTableClass">
+                        <thead>
+                            <tr className="text-center accent-light-color bg-main-color">
+                                <th className="myCartThWidth">音樂教育</th>
+                                <th className="w-25">商品名稱</th>
+                                <th className="myCartThWidth">價格</th>
+                                <th>數量</th>
+                                <th className="myCartThWidth">小計</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <MyCartClass
+                                myCart={myCart}
+                                setMyCart={setMyCart}
+                                myCartB={myCartB}
+                                setMyCartB={setMyCartB}
+                                check={check}
+                                setCheck={setCheck}
+                                handleCheckBox={handleCheckBox}
+                                favB={favB}
+                                setFavB={setFavB}
+                            />
+                        </tbody>
+                    </table>
+                ) : (
+                    ''
+                )}
             </div>
         </>
     );

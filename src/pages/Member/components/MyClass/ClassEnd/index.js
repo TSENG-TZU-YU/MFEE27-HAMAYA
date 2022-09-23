@@ -8,6 +8,7 @@ import { useAuth } from '../../../../../utils/use_auth';
 // 元件
 import StarRating from '../../../../../components/Star/StarRating';
 import Close from '../../../../../assets/svg/close.svg';
+import { errorToast, successToast } from '../../../../../components/Alert';
 // import PaginationBar from '../../../../../components/PaginationBar/PaginationBar';
 
 // 圖檔
@@ -27,7 +28,6 @@ function ClassEnd(props) {
 
     // 星級、內容狀態
     const [evaluation, setEvaluation] = useState();
-    console.log('evaluation', evaluation);
 
     // 評價成功狀態
     const [success, setSuccess] = useState();
@@ -63,7 +63,7 @@ function ClassEnd(props) {
             // 設定 重新渲染 useEffect
             setSuccess(true);
             setPopup(false);
-            alert('評價成功');
+            successToast('', '評價成功!可以去程看評價喔! ');
         } catch (err) {
             console.log('評價失敗', err.response.data);
             alert(err.response.data.errors[0].msg);
@@ -273,7 +273,20 @@ function ClassEnd(props) {
                                 <div className="d-flex justify-content-center">
                                     <button
                                         className="btn btn-primary myClass-btn mt-4 "
-                                        onClick={evaluationSubmit}
+                                        onClick={
+                                            (() => {
+                                                if (
+                                                    !evaluation.content ||
+                                                    !evaluation.rating
+                                                ) {
+                                                    return errorToast(
+                                                        '',
+                                                        '請填寫完整評價'
+                                                    );
+                                                }
+                                            },
+                                            evaluationSubmit)
+                                        }
                                     >
                                         送出評價
                                     </button>

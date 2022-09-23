@@ -80,6 +80,10 @@ import OrderQADetail from './pages/Admin/components/CustomerService/OrderQADetai
 import PlaceQA from './pages/Admin/components/CustomerService/PlaceQA';
 import PlaceQADetail from './pages/Admin/components/CustomerService/PlaceQADetail';
 
+//Coupon次頁
+import CouponList from './pages/Admin/components/Coupon/CouponList';
+import CouponAdd from './pages/Admin/components/Coupon/CouponAdd';
+
 function App() {
     //page to top 要用的
     useEffect(() => {
@@ -114,7 +118,7 @@ function App() {
                                             element={<MusicArticle />}
                                         />
                                         <Route
-                                            path="category"
+                                            path=":content"
                                             element={<Article />}
                                         />
                                     </Route>
@@ -224,11 +228,16 @@ function App() {
                                         <Route
                                             path="coupon"
                                             element={<Coupon />}
-                                        />
-                                        <Route
-                                            path="customerservice"
-                                            element={<CustomerService />}
-                                        />
+                                        >
+                                            <Route
+                                                index
+                                                element={<CouponList />}
+                                            />
+                                            <Route
+                                                path="add"
+                                                element={<CouponAdd />}
+                                            />
+                                        </Route>
                                         <Route
                                             path="customerservice"
                                             element={<CustomerService />}

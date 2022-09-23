@@ -94,14 +94,38 @@ li.articles-page-active {
 
 
   .article-list-images{
-    max-width: 500px;
-    overflow: fit;
+    width: 500px;
+    height: 300px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px solid;
+    
   }
 
-  .article-list-images2{
-    max-width: 300px;
-    overflow: fit;
+  .article-list-images img{
+    max-width: 100%;
+    max-height: 100%;
+
   }
+  .article-list-images2{
+    width: 300px;
+    height: 200px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px solid;
+  }
+
+  .article-list-images2 img{
+    max-width: 100%;
+    max-height: 100%;
+
+  }
+  
+
 
   
 @media screen and (max-width: 768px) {

@@ -1,21 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
-// 樣式
-// import './styles/productsItem.scss';
 
 // 元件
-import Favorite from '../../../components/Favorite';
-import { successToast, warningToast } from '../../../components/Alert';
+import {
+    successToast,
+    warningToast,
+    errorToast,
+} from '../../../components/Alert';
+
 // 圖檔
-import product from '../../../assets/ProductsImg/product.png';
 import cartCheck from '../../../assets/ProductsImg/icon/shopping_cart_check.svg';
 import compare from '../../../assets/ProductsImg/icon/compare.svg';
+import { ReactComponent as HeartLine } from '../../../assets/svg/favorite_defaut.svg';
+import { ReactComponent as HeartFill } from '../../../assets/svg/favorite_check.svg';
+
 //會員
 import { useAuth } from '../../../utils/use_auth';
+
 //購物車
 import { useCart } from '../../../utils/use_cart';
+
+// 收藏
+import { useLiked } from '../../../utils/use_liked';
 
 function ProductsItem({
     value: {
@@ -103,6 +111,50 @@ function ProductsItem({
         warningToast('已加入臨時購物車', '關閉');
     }
 
+    // 收藏
+    const { favProducts, setFavProducts } = useLiked();
+
+    // 新增收藏
+    const handleAddFavorite = (itemsData) => {
+        console.log(itemsData);
+        if (itemsData.user_id !== null && itemsData.user_id !== '') {
+            setItemsData(itemsData);
+            async function setItemsData(itemsData) {
+                try {
+                    let response = await axios.post(
+                        `${API_URL}/member/mybucketlist`,
+                        [itemsData]
+                    );
+                    let products = response.data.product.map(
+                        (item) => item.product_id
+                    );
+                    successToast(response.data.message, '關閉');
+                    setFavProducts(products);
+                } catch (err) {
+                    errorToast(err.response.data.message, '關閉');
+                }
+            }
+        }
+    };
+
+    // 取消收藏
+    async function handleRemoveFavorite(product_id) {
+        console.log('handleRemoveFavorite', product_id);
+        try {
+            let response = await axios.delete(
+                `${API_URL}/member/mybucketlist/${product_id}`,
+                {
+                    withCredentials: true,
+                }
+            );
+            let products = response.data.product.map((item) => item.product_id);
+            successToast(response.data.message, '關閉');
+            setFavProducts(products);
+        } catch (err) {
+            errorToast(err.response.data.message, '關閉');
+        }
+    }
+
     return (
         <div className="col product">
             <div className="position-relative">
@@ -119,7 +171,35 @@ function ProductsItem({
                     />
                 </Link>
                 <div className="product-like position-absolute top-0 end-0">
-                    <Favorite />
+                    {member.id ? (
+                        favProducts.includes(product_id) ? (
+                            <div
+                                className="favorite-box bg-accent-light-color rounded-circle position-relative"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleRemoveFavorite(product_id);
+                                }}
+                            >
+                                <HeartFill className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle" />
+                            </div>
+                        ) : (
+                            <div
+                                className="favorite-box bg-accent-light-color rounded-circle position-relative"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleAddFavorite({
+                                        user_id: member.id,
+                                        product_id: product_id,
+                                        category_id: category_id,
+                                    });
+                                }}
+                            >
+                                <HeartLine className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle" />
+                            </div>
+                        )
+                    ) : (
+                        ''
+                    )}
                 </div>
                 <div
                     className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-2"
@@ -173,6 +253,11 @@ function ProductsItem({
                 <Link
                     to={`/products/${product_id}?main_id=${ins_main_id}`}
                     className="product-name"
+                    onClick={window.scrollTo({
+                        top: 0,
+                        left: 0,
+                        behavior: 'smooth',
+                    })}
                 >
                     {name}
                 </Link>

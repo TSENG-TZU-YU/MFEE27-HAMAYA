@@ -73,9 +73,45 @@ function Footer(props) {
                             </Link>
                             <Link
                                 className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                to="products"
+                                to="/products"
                             >
                                 最新商品
+                            </Link>
+                            <Link
+                                className="ms-1 main-gary-light-color text-nowrap word-size2"
+                                to="/products?main_id=1"
+                            >
+                                琴鍵樂器
+                            </Link>
+                            <Link
+                                className="ms-1 main-gary-light-color text-nowrap word-size2"
+                                to="/products?main_id=2"
+                            >
+                                管樂器
+                            </Link>
+                            <Link
+                                className="ms-1 main-gary-light-color text-nowrap word-size2"
+                                to="/products?main_id=3"
+                            >
+                                弓弦樂器
+                            </Link>
+                            <Link
+                                className="ms-1 main-gary-light-color text-nowrap word-size2"
+                                to="/products?main_id=4"
+                            >
+                                吉他/烏克麗麗
+                            </Link>
+                            <Link
+                                className="ms-1 main-gary-light-color text-nowrap word-size2"
+                                to="/products?main_id=5"
+                            >
+                                打擊樂器
+                            </Link>
+                            <Link
+                                className="ms-1 main-gary-light-color text-nowrap word-size2"
+                                to="/products?main_id=6"
+                            >
+                                配件
                             </Link>
                         </div>
                         <div className="col-md pt-3">

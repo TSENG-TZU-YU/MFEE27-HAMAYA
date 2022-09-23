@@ -1,8 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import './PaginationBar.scss';
-// import { ReactComponent as arrowLeft } from '../../../src/assets/svg/arrow-left.svg';
-// import { ReactComponent as arrowRight } from '../../../src/assets/svg/arrow-right.svg';
 import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
 
 function PaginationBar(props) {
@@ -29,6 +27,11 @@ function PaginationBar(props) {
                                 }`}
                                 onClick={() => {
                                     setPageNow(i + 1);
+                                    window.scrollTo({
+                                        top: 0,
+                                        left: 0,
+                                        behavior: 'smooth',
+                                    });
                                 }}
                             >
                                 {i + 1}
@@ -41,6 +44,11 @@ function PaginationBar(props) {
                         setPageNow(
                             pageNow === pageTotal ? pageNow : pageNow + 1
                         );
+                        window.scrollTo({
+                            top: 0,
+                            left: 0,
+                            behavior: 'smooth',
+                        });
                     }}
                 >
                     <FiChevronRight />

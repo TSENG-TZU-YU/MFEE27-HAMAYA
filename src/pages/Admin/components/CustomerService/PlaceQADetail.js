@@ -12,6 +12,7 @@ import { useAuth } from '../../../../utils/use_auth';
 import { v4 as uuidv4 } from 'uuid';
 import { ReactComponent as Close } from '../../../../assets/svg/close.svg';
 import { io } from 'socket.io-client';
+import { errorToast } from '../../../../components/Alert';
 
 function PlaceQADetail(props) {
     const [setbread] = useOutletContext();
@@ -43,8 +44,38 @@ function PlaceQADetail(props) {
         ],
     });
 
+    //建立socket連線
+    useEffect(() => {
+        async function customerConn() {
+            if (!socketConn) {
+                console.log('管理員進入Detail頁面建立連線');
+                let socket = io('http://localhost:3001');
+                setSocketConn(socket);
+                let params = new URLSearchParams(location.search);
+                let plid = params.get('plid');
+                let response = await axios.get(
+                    `${API_URL}/admin/customerservice/placeqa/detail?plid=${plid}`,
+                    {
+                        withCredentials: true,
+                    }
+                );
+                socket.on(`userid${response.data.detail.user_id}`, (res) => {
+                    console.log('新訊息', res);
+                    //判斷是否需要更新資料庫
+                    if (res.newMessage) {
+                        console.log('更新資料庫');
+                        myPlaceDetail();
+                    }
+                });
+            }
+        }
+        customerConn();
+    }, []);
+
     //讀取問答詳細
-    async function myPlaceDetail(plid) {
+    async function myPlaceDetail() {
+        let params = new URLSearchParams(location.search);
+        let plid = params.get('plid');
         try {
             let response = await axios.get(
                 `${API_URL}/admin/customerservice/placeqa/detail?plid=${plid}`,
@@ -54,43 +85,24 @@ function PlaceQADetail(props) {
             );
             console.log(response.data);
             setreplyForm({
-                ...replyForm,
+                user_id: response.data.detail.user_id,
                 place_rt_id: response.data.detail.id,
+                place_content: '',
             });
             setMyQuestion(response.data);
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
     useEffect(() => {
-        let params = new URLSearchParams(location.search);
-        let plid = params.get('plid');
-        console.log(plid);
-        myPlaceDetail(plid);
-        // console.log(myQuestion);
-        // if (!socketConn) {
-        //     console.log('管理員進入Detail頁面建立連線');
-        //     let socket = io('http://localhost:3001');
-        //     setSocketConn(socket);
-        //     let newLine = uuidv4();
-        //     //傳送管理員連線ns給會員
-        //     socket.emit(`customer_conn`, {
-        //         customer_id: `customer${newLine}`,
-        //         place_rt_id: plid,
-        //     });
-        //     socket.on(`customer${newLine}`, (data) => {
-        //         //判斷是否需要更新CommonQADetail
-        //         if (data.updateCommonQA === true) {
-        //             console.log('來自會員的訊息', data);
-        //             myPlaceDetail(plid);
-        //         }
-        //     });
-        // }
+        myPlaceDetail();
     }, [location]);
 
     //新增回覆
     const [replyForm, setreplyForm] = useState({
+        user_id: '',
         place_rt_id: '',
         place_content: '',
         // name: '', 從session拿
@@ -108,20 +120,18 @@ function PlaceQADetail(props) {
                     withCredentials: true,
                 }
             );
-            // console.log(response.data);
-            //讀取問答詳細
-            myPlaceDetail(replyForm.place_rt_id);
             //清空replyForm input
-            setreplyForm({ ...replyForm, place_content: '' });
+            // setreplyForm({ ...replyForm, place_content: '' });
             // alert(response.data.message);
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
 
     return (
-        <div className="mb-3 PLQADetail">
+        <div className="mb-3 NLQADetail">
             <div className="d-flex align-items-center justify-content-between content  my-2">
                 <div>
                     <h4 className="main-color ">問答詳細</h4>
@@ -187,7 +197,7 @@ function PlaceQADetail(props) {
                         回覆狀態
                     </div>
                     <div className="col-9 text-center  p-1">
-                        {myQuestion.detail.user_reply_state}
+                        {myQuestion.detail.manager_reply_state}
                     </div>
                 </div>
                 <div className="d-flex border">
@@ -213,7 +223,7 @@ function PlaceQADetail(props) {
                                         &nbsp;
                                         <span className="">
                                             {data.create_time}
-                                        </span>{' '}
+                                        </span>
                                     </p>
                                     <p className="text-start fs-6 m-0">
                                         {data.place_content}
@@ -225,14 +235,23 @@ function PlaceQADetail(props) {
                 </div>
                 <div className="border p-1">
                     <form>
-                        <textarea
-                            className="w-100 textarea"
-                            rows="4"
+                        <input
+                            className={
+                                myQuestion.detail.user_id === 0
+                                    ? 'w-100 inputcontent placeholderNone'
+                                    : 'w-100 inputcontent'
+                            }
                             type="text"
                             name="place_content"
                             value={replyForm.place_content}
                             onChange={replyFormChange}
-                            placeholder="輸入內容"
+                            placeholder={
+                                myQuestion.detail.user_id === 0
+                                    ? '非會員請直接聯絡'
+                                    : '請輸入內容'
+                            }
+                            autoComplete="off"
+                            disabled={myQuestion.detail.user_id === 0}
                         />
                         <button
                             className="text-light bg-main-color p-1 px-5 btn1"

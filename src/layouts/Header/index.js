@@ -15,6 +15,8 @@ import LogInSignUp from '../../components/LogInSignUp';
 import ScrollTo from '../../components/ScrollTo';
 import Cart from '../Cart/Cart';
 import NavbarMobile from '../../components/NavbarMobile';
+
+import { successToast, errorToast, warningToast } from '../../components/Alert';
 function Header(props) {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const [loginPopup, setLoginPopup] = useState(false);
@@ -61,10 +63,11 @@ function Header(props) {
                 loginDt: '',
             });
             navigate('/');
-            alert(response.data.message);
+            successToast(response.data.message, '關閉');
+            // alert(response.data.message);
         } catch (err) {
             console.log(err.response.data.message);
-            alert(err.response.data.message);
+            // alert(err.response.data.message);
         }
     }
 
@@ -129,7 +132,15 @@ function Header(props) {
                                         <ul className="list-unstyled bg-main-light-color py-1 mt-2">
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="products"
+                                                    className="accent-light-color fw-light"
+                                                >
+                                                    最新消息
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    to="/products?main_id=1"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     琴鍵樂器
@@ -137,7 +148,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/products?main_id=2"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     管樂器
@@ -145,7 +156,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/products?main_id=3"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     弓弦樂器
@@ -153,7 +164,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/products?main_id=4"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     吉他/
@@ -163,7 +174,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/products?main_id=5"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     打擊樂器
@@ -171,7 +182,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/products?main_id=6"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     配件

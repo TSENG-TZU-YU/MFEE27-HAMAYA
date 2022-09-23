@@ -7,6 +7,11 @@ import add_img2 from '../../../../assets/svg/add2.svg';
 import { BiLinkExternal } from 'react-icons/bi';
 import _ from 'lodash';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import {
+    successToast,
+    errorToast,
+    warningToast,
+} from '../../../../components/Alert';
 
 function MyCoupon(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
@@ -66,7 +71,8 @@ function MyCoupon(props) {
             }
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
 
@@ -83,12 +89,14 @@ function MyCoupon(props) {
             );
             console.log(response.data);
             setCouponSn({ sn: '' });
-            alert(response.data.message);
-            loadingMyCoupon(); //TODO:TEST
+            successToast(response.data.message, '關閉');
+            // alert(response.data.message);
+            loadingMyCoupon();
             setHaveCoupon(1);
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
 
@@ -137,9 +145,8 @@ function MyCoupon(props) {
     );
     return (
         <div className="col-12 col-md-8 col-lg-9 MyCoupon">
-           
             <div className="d-flex">
-            <h4 className="main-color mx-1">我的優惠券</h4>
+                <h4 className="main-color mx-1">我的優惠券</h4>
                 <Link to="/products" className="link01  ">
                     去商城逛逛&nbsp;
                     <BiLinkExternal size="20" />

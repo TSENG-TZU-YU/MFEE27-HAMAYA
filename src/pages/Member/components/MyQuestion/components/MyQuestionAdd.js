@@ -3,7 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
 import { ReactComponent as Close } from '../../../../../assets/svg/close.svg';
-
+import {
+    successToast,
+    errorToast,
+    warningToast,
+} from '../../../../../components/Alert';
 function MyQuestionAdd(props) {
     const navigate = useNavigate();
     //詢問表單
@@ -33,10 +37,12 @@ function MyQuestionAdd(props) {
             });
             navigate('/member/myquestion');
             // setOpenAskForm(false);
-            alert(response.data.message);
+            successToast(response.data.message, '關閉');
+            // alert(response.data.message);
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
 
             // setAskErros({
             //     fullName: err.response.data.fullName,
