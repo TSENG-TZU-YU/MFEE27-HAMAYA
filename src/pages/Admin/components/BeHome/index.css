@@ -10,8 +10,8 @@
 
 }
 .BeHome .item01:hover{
-    box-shadow: 5px 5px 10px rgb(14, 68, 36);
-    transform: translate(-3px,-3px);
+    box-shadow: 0px 0px 10px rgb(13, 62, 33);
+    transform: translate(-2px,-2px);
 }
 .BeHome .maintitle{
     font-size: 20px;
@@ -23,29 +23,27 @@
 }
 
 @media screen and (max-width:1400px) {
-
+/* xxl */
 }
 @media screen and (max-width:1200px) {
-
+/* xl */
 }
 @media screen and (max-width:992px) {
-
-.BeHome .maintitle{
-    font-size: 16px;
-    word-wrap: nowrap;
-}
-.BeHome .secondtitle{
-    font-size: 14px;
-    word-wrap: nowrap;
-}
-.BeHome .item01{
-    padding: 10px;
-}
+/* lg */
+    .BeHome .maintitle{
+        font-size: 18px;
+    }
+    .BeHome .secondtitle{
+        font-size: 16px;
+    }
+    .BeHome .item01{
+        padding: 15px;
+    }
 
 }
 @media screen and (max-width:768px) {
-
+/* md */
 }
 @media screen and (max-width:576px) {
-
+/* sm */
 }

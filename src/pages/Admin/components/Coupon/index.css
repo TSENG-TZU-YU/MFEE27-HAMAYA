@@ -1,0 +1,69 @@
+/* 頁碼設定  */
+.CouponList{
+    position: relative;
+    margin-bottom: 50px;
+    min-height: 500px;
+}
+.CouponList .addbtn{
+    padding: 5px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+.CouponList .addbtn .icon{
+    width: 25px;
+    height: 25px;
+}
+.CouponList .time{
+    font-size: 10px;
+    font-weight: 300;
+    text-align: center;
+}
+.CouponList .time2{
+    font-size: 12px;
+    /* font-weight: 300; */
+    text-align: center;
+}
+
+.CouponAdd{
+    max-width: 600px;
+    margin: 0 auto;
+    border: 2px solid gray;
+    border-radius: 5px;
+}
+.CouponAdd .closebtn{
+    border: 2px solid #00000000;
+    padding: 0;
+    border-radius: 2px;
+    transition: .3s;
+}
+.CouponAdd .closebtn:hover{
+    border: 2px solid #00323d;
+}
+
+.CouponAdd h6{
+    margin: 3px 0;
+    color: #00323d;
+}
+.CouponAdd label{
+    width: 100%;
+    margin: 5px 0;
+}
+.CouponAdd input{
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #767676;
+}
+.CouponAdd .radiobtn{
+    width: auto;
+    display: flex;
+    margin: 0 5px;
+}
+.CouponAdd input[type="radio"]{
+    width: auto;
+    margin: 5px;
+}
+.CouponAdd .btn1{
+    border: 0;
+    margin: 0;
+}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import './index.css';
 import detail_img from '../../../../assets/svg/detailed.svg';
 import {
     Link,
@@ -10,6 +11,12 @@ import {
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import _ from 'lodash';
+import {
+    FiChevronLeft,
+    FiChevronRight,
+    FiPlus,
+    FiPlusSquare,
+} from 'react-icons/fi';
 function Articles(props) {
     // 分頁用
     const [pageNow, setPageNow] = useState(1); // 目前頁號
@@ -34,7 +41,7 @@ function Articles(props) {
         ],
     ]);
     return (
-        <>
+        <div className="Articles">
             <div className="mt-1">
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
@@ -47,7 +54,13 @@ function Articles(props) {
                     </ol>
                 </nav>
             </div>
-            <h3>文章管理</h3>
+            <div className="d-flex align-items-center">
+                <h3>文章管理</h3>
+                <Link to={`/admin/coupon/add`} className="addbtn">
+                    <FiPlusSquare className="icon" />
+                    新增文章
+                </Link>
+            </div>
             <hr />
             <div>
                 <table className="table ">
@@ -145,7 +158,7 @@ function Articles(props) {
                     </tbody>
                 </table>
             </div>
-        </>
+        </div>
     );
 }
 
