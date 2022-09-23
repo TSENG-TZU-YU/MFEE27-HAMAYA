@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
@@ -12,6 +13,7 @@ import {
 //svg
 import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
 import { ReactComponent as AddCart } from '../../../../../assets/svg/shopping_cart_check.svg';
+import { TbMusicOff } from 'react-icons/tb';
 
 function BucketClass({ myBucketB, setMyBucketB }) {
     console.log('myBucketB', myBucketB);
@@ -279,20 +281,43 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                     </button>
                 </div>
             </div>
+            {myBucketB.length === 0 ? (
+                <h4 className="mt-5 d-flex w-100 main-gary-light-color text-center justify-content-center align-items-center">
+                    <TbMusicOff
+                        className="me-2"
+                        style={{
+                            width: '30px',
+                            height: '30px',
+                        }}
+                    />
+                    目前無收藏商品
+                </h4>
+            ) : (
+                ''
+            )}
             {myBucketB.map((item) => {
                 return (
                     <div className="my-2 bucket-shadow " key={item.id}>
                         <div className="myBucketClass-Item d-lg-flex">
-                            <img
-                                className="myBucketClass-Img "
-                                src={require(`../../../../../album/class/${item.image_1}`)}
-                                alt=""
-                            />
+                            <Link
+                                to={`/class/list/${item.product_id}?class=${item.ins_main_id}`}
+                                className="myBucketClass-Img"
+                            >
+                                <img
+                                    className="myBucketClass-Img-cover"
+                                    src={require(`../../../../../album/class/${item.image_1}`)}
+                                    alt=""
+                                />
+                            </Link>
                             <div className="flex-grow-1 p-2 row">
                                 <div className="col-12 d-flex justify-content-between">
-                                    <h6>
-                                        <b>{item.name}</b>
-                                    </h6>
+                                    <Link
+                                        to={`/class/list/${item.product_id}?class=${item.ins_main_id}`}
+                                    >
+                                        <h6>
+                                            <b>{item.name}</b>
+                                        </h6>
+                                    </Link>
                                     <input
                                         className="form-check-input"
                                         type="checkbox"

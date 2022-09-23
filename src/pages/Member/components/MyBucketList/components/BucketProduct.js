@@ -12,6 +12,8 @@ import {
 } from '../../../../../components/Alert';
 import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
 import { ReactComponent as AddCart } from '../../../../../assets/svg/shopping_cart_check.svg';
+import { TbMusicOff } from 'react-icons/tb';
+
 function BucketProduct({ myBucketA, setMyBucketA }) {
     const { member } = useAuth();
     //checkbox check 裡面放product_id
@@ -280,25 +282,43 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
                 </div>
             </div>
             <div className="row">
+                {myBucketA.length === 0 ? (
+                    <h4 className="mt-5 d-flex w-100 main-gary-light-color text-center justify-content-center align-items-center">
+                        <TbMusicOff
+                            className="me-2"
+                            style={{
+                                width: '30px',
+                                height: '30px',
+                            }}
+                        />
+                        目前無收藏商品
+                    </h4>
+                ) : (
+                    ''
+                )}
                 {myBucketA.map((item) => {
                     return (
                         <div className="col-lg-6 p-0 my-1" key={item.id}>
                             <div className="myBucketProduct-Item d-flex m-2 p-2 bucket-shadow ">
                                 <Link
-                                    to={`/products/${item.product_id}`}
+                                    to={`/products/${item.product_id}?main_id=${item.ins_main_id}`}
                                     className="myBucketProduct-Img"
                                 >
                                     <img
-                                        className="img-fluid"
+                                        className="myBucketProduct-Img-contain"
                                         src={require(`../../../../../album/products/${item.image}`)}
                                         alt="productImg"
                                     />
                                 </Link>
                                 <div className="flex-grow-1 m-2 d-flex flex-column">
                                     <div className="d-flex justify-content-between">
-                                        <h6>
-                                            <b>{item.name}</b>
-                                        </h6>
+                                        <Link
+                                            to={`/products/${item.product_id}?main_id=${item.ins_main_id}`}
+                                        >
+                                            <h6>
+                                                <b>{item.name}</b>
+                                            </h6>
+                                        </Link>
                                         <input
                                             className="form-check-input"
                                             type="checkbox"

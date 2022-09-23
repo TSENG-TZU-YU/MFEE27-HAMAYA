@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import _ from 'lodash';
 import { API_URL } from '../../../../utils/config';
 import { useAuth } from '../../../../utils/use_auth';
 import search from '../../../../assets/svg/search.svg';
@@ -33,16 +34,19 @@ function MyBucketList(props) {
                     // console.log('All MyBucketList', response.data.myBucketList);
                     //分類別
                     let myBucketList = response.data.myBucketList;
-                    console.log('myBucketList', myBucketList);
+                    // console.log('myBucketList', myBucketList);
+
                     const myBucket_cateA = myBucketList.filter((v) => {
                         return v.category_id === 'A';
                     });
                     setMyBucketA(myBucket_cateA);
+
                     const myBucket_cateB = myBucketList.filter((v) => {
                         return v.category_id === 'B';
                     });
                     setMyBucketB(myBucket_cateB);
-                    console.log('myBucketB', myBucket_cateB);
+
+                    // console.log('myBucketB', myBucket_cateB);
                 }
             } catch (err) {
                 console.log('載入我的收藏錯誤', err);
@@ -107,7 +111,8 @@ function MyBucketList(props) {
                 />
             )}
             <div className="text-center py-2">
-                <ul className="myBucketPage">
+                {/* TODO: 這裡要加頁碼 */}
+                {/* <ul className="myBucketPage">
                     <li className="d-inline">
                         <ArrowLeft className="pageArrowIcon" />
                     </li>
@@ -117,7 +122,7 @@ function MyBucketList(props) {
                     <li className="d-inline ">
                         <ArrowRight className="pageArrowIcon" />
                     </li>
-                </ul>
+                </ul> */}
             </div>
         </div>
     );

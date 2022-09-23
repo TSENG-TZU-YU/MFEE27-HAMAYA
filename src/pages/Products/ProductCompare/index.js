@@ -7,6 +7,8 @@ import { API_URL } from '../../../utils/config';
 import { useAuth } from '../../../utils/use_auth';
 //購物車
 import { useCart } from '../../../utils/use_cart';
+// 收藏
+import { useLiked } from '../../../utils/use_liked';
 
 // 樣式
 import './index.scss';
@@ -15,13 +17,19 @@ import './index.scss';
 import { Container } from 'react-bootstrap';
 
 // 元件
-import { successToast, warningToast } from '../../../components/Alert';
+import {
+    successToast,
+    warningToast,
+    errorToast,
+} from '../../../components/Alert';
 
 // 圖檔
 import { ReactComponent as Close } from '../../../assets/svg/close.svg';
 import { ReactComponent as Delete } from '../../../assets/svg/delete.svg';
 import { ReactComponent as CartCheck } from '../../../assets/svg/shopping_cart_check.svg';
 import { TbMusicOff } from 'react-icons/tb';
+import { ReactComponent as HeartLine } from '../../../assets/svg/favorite_defaut.svg';
+import { ReactComponent as HeartFill } from '../../../assets/svg/favorite_check.svg';
 
 function ProductCompare(props) {
     const { compareProduct, setCompareProduct, setProductCompare } = props;
@@ -135,6 +143,67 @@ function ProductCompare(props) {
         warningToast('已加入臨時購物車', '關閉');
     }
 
+    // 收藏
+    const { favProducts, setFavProducts } = useLiked();
+
+    // 會員收藏的資料
+    useEffect(() => {
+        let getAllFavProducts = async () => {
+            let response = await axios.get(
+                `${API_URL}/member/mybucketlist/${member.id}`,
+                { withCredentials: true }
+            );
+
+            let products = response.data.product.map((item) => item.product_id);
+            setFavProducts(products);
+        };
+        if (member.id) {
+            getAllFavProducts();
+        }
+    }, [member]);
+
+    // 新增收藏
+    const handleAddFavorite = (itemsData) => {
+        console.log(itemsData);
+        if (itemsData.user_id !== null && itemsData.user_id !== '') {
+            setItemsData(itemsData);
+            async function setItemsData(itemsData) {
+                try {
+                    let response = await axios.post(
+                        `${API_URL}/member/mybucketlist`,
+                        [itemsData]
+                    );
+                    let products = response.data.product.map(
+                        (item) => item.product_id
+                    );
+                    successToast(response.data.message, '關閉');
+                    setFavProducts(products);
+                } catch (err) {
+                    errorToast(err.response.data.message, '關閉');
+                }
+            }
+        }
+    };
+
+    // 取消收藏
+    async function handleRemoveFavorite(product_id) {
+        let itemsData = [{ user_id: member.id, product_id: product_id }];
+        try {
+            let response = await axios.delete(
+                `${API_URL}/member/mybucketlist/delete`,
+                {
+                    withCredentials: true,
+                    data: itemsData,
+                }
+            );
+            let products = response.data.product.map((item) => item.product_id);
+            successToast(response.data.message, '關閉');
+            setFavProducts(products);
+        } catch (err) {
+            errorToast(err.response.data.message, '關閉');
+        }
+    }
+
     return (
         <div className="productCompare__popup-bg">
             <Container>
@@ -207,6 +276,7 @@ function ProductCompare(props) {
                         {compareProduct.length === 0 ? (
                             <h4 className="mt-5 d-flex w-100 main-gary-light-color text-center justify-content-center align-items-center">
                                 <TbMusicOff
+                                    className="me-2"
                                     style={{
                                         width: '30px',
                                         height: '30px',
@@ -275,6 +345,33 @@ function ProductCompare(props) {
                                             ></div>
                                         </div>
                                         <div className="productCompare__list productCompare__list-height  border-bottom">
+                                            {favProducts.includes(
+                                                value.product_id
+                                            ) ? (
+                                                <HeartFill
+                                                    className="me-5 CartFavorite cursor-pointer"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        handleRemoveFavorite(
+                                                            value.product_id
+                                                        );
+                                                    }}
+                                                />
+                                            ) : (
+                                                <HeartLine
+                                                    className="me-5 CartFavorite cursor-pointer"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        handleAddFavorite({
+                                                            user_id: member.id,
+                                                            product_id:
+                                                                value.product_id,
+                                                            category_id:
+                                                                value.category_id,
+                                                        });
+                                                    }}
+                                                />
+                                            )}
                                             <CartCheck
                                                 style={{
                                                     width: '25px',

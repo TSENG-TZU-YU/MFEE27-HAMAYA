@@ -15,6 +15,7 @@ function Comment({ evaluation, avg }) {
                 <div style={{ height: '10vh' }}>
                     <h4 className="mt-5 d-flex w-100 h-100 main-gary-light-color text-center justify-content-center align-items-center">
                         <TbMusicOff
+                            className="me-2"
                             style={{
                                 width: '30px',
                                 height: '30px',
