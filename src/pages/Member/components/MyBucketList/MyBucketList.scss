@@ -32,11 +32,27 @@
     height: 130px;
     background-color: white;
 }
+
 .myBucketProduct-Img {
     width: 130px;
-    height: auto;
-    overflow: hidden;
 }
+
+.myBucketClass-Img {
+    width: 180px;
+}
+
+.myBucketProduct-Img-contain {
+    width:100%;
+    height:100%;
+    object-fit: contain;
+}
+
+.myBucketClass-Img-cover {
+    width:100%;
+    height:100%;
+    object-fit: cover ;
+}
+
 .myBucketClass-Item {
     background-color: white;
 }
@@ -61,4 +77,15 @@
     width: 15px;
     height: 15px;
     
+}
+.bucket-shadow:hover {
+    box-shadow: 0 0.25rem 0.5rem rgb(0 0 0 / 15%);
+    transition: 0.2s;
+    .doc-music {
+        display: block;
+        position: absolute;
+        right: -10px;
+        top: -25px;
+        transition: 0.2s;
+    }
 }

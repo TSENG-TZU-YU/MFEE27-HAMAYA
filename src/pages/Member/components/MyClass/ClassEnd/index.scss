@@ -45,6 +45,16 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
-
-  
+}
+.evaluation-doc {
+    position: absolute;
+    top: -25px;
+    right: -15px;
+}
+@media screen and (min-width: 992px) {
+    .evaluation-doc {
+        position: absolute;
+        top: -50px;
+        right: -45px;
+    }
 }

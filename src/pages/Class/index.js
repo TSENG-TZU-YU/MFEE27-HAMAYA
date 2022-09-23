@@ -49,7 +49,7 @@ function Class(props) {
         };
         getAdultClass();
 
-        // 2秒後關起動畫呈現資料
+        // 0.8秒後關起動畫呈現資料
         setTimeout(() => {
             setIsLoading(false);
         }, 800);
