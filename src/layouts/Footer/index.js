@@ -9,10 +9,12 @@ import Lines from '../../assets/FooterImg/lines.svg';
 import MobileFooter from './MobileFooter';
 import FooterLogo from '../../assets/FooterImg/footer-logo.svg';
 import FooterConnect from '../../assets/FooterImg/FooterConnect.svg';
+import { useAuth } from '../../utils/use_auth';
 
 function Footer(props) {
+    const { hideHeaderFooter } = useAuth();
     return (
-        <>
+        <div className={hideHeaderFooter && 'd-none'}>
             <div className="bg-main-light-color footer-height pt-4">
                 <MobileFooter />
                 <div className="container d-none d-md-block ">
@@ -199,7 +201,7 @@ function Footer(props) {
                     />
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

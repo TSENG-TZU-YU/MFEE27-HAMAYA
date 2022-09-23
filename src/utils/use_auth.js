@@ -25,7 +25,8 @@ export const AuthProvider = ({ children }) => {
     const [uploadPhotoURL, setUploadPhotoURL] = useState('');
     //是否更新資料
     const [socketStatus, setSocketStatus] = useState({ newMessage: false });
-
+    //隱藏header footer
+    const [hideHeaderFooter, sethideHeaderFooter] = useState(false);
     return (
         <AuthContext.Provider
             value={{
@@ -37,6 +38,8 @@ export const AuthProvider = ({ children }) => {
                 setUploadPhotoURL,
                 socketStatus,
                 setSocketStatus,
+                hideHeaderFooter,
+                sethideHeaderFooter,
             }}
         >
             {children}

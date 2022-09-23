@@ -9,10 +9,13 @@ import { successToast, errorToast, warningToast } from '../../components/Alert';
 import visib from '../../assets/svg/visibility.svg';
 import unVisib from '../../assets/svg/visibility_off.svg';
 import logo from '../../assets/svg/logo.svg';
+import logout from '../../assets/svg/logout.svg';
+import footerLogo from '../../assets/FooterImg/footer-logo.svg';
+import footerConnect from '../../assets/FooterImg/FooterConnect.svg';
 
 function Admin(props) {
     const [listActive, setListActive] = useState('');
-    // const { member, setMember, isLogin, setIsLogin } = useAuth();
+    const { sethideHeaderFooter } = useAuth();
 
     const [isAdminLogin, setAdminIsLogin] = useState(false);
     const [adminMember, setAdminMember] = useState(null);
@@ -28,7 +31,7 @@ function Admin(props) {
         account: 'admin',
         password: '12345678',
     });
-
+    //登入
     async function loginSubmit(e) {
         e.preventDefault();
         try {
@@ -48,7 +51,25 @@ function Admin(props) {
             errorToast(err.response.data.message, '關閉');
         }
     }
-    useEffect(() => {}, []);
+    useEffect(() => {
+        sethideHeaderFooter(true);
+    }, []);
+    //登出
+    async function logoutSubmit(e) {
+        e.preventDefault();
+        try {
+            let response = await axios.get(`${API_URL}/admin/logout`, {
+                withCredentials: true,
+            });
+            console.log(response.data);
+            setAdminMember({});
+            setAdminIsLogin(false);
+            successToast('已登出', '關閉');
+        } catch (err) {
+            console.log(err.response.data);
+            errorToast(err.response.data.message, '關閉');
+        }
+    }
     //登入頁面
     const loginPage = (
         <div className="loginPage">
@@ -100,7 +121,8 @@ function Admin(props) {
     );
     //主頁面
     const mainPage = (
-        <div className="container">
+        <div className="container adminMainContent">
+            <div className="header_space"></div>
             <div className="row">
                 <div className="col-2 ">
                     <nav className="adminlist">
@@ -240,7 +262,32 @@ function Admin(props) {
             </div>
         </div>
     );
-    return <>{isAdminLogin ? mainPage : loginPage}</>;
+    const header = (
+        <div className="adminHeader">
+            <div className="d-flex align-items-center">
+                <div className="logo">
+                    <img src={logo} width={150} />
+                </div>
+                <div className="title1">後臺管理</div>
+            </div>
+            <button className="logoutbtn" onClick={logoutSubmit}>
+                <img src={logout} width={25} />
+            </button>
+        </div>
+    );
+    const footer = (
+        <div className="adminFooter">
+            <img src={footerLogo} width={200} className="mx-5" />
+            <img src={footerConnect} width={180} />
+        </div>
+    );
+    return (
+        <>
+            {header}
+            {isAdminLogin ? mainPage : loginPage}
+            {footer}
+        </>
+    );
 }
 
 export default Admin;

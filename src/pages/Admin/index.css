@@ -1,3 +1,43 @@
+/* .hideHeaderFooter{
+    display: none;
+} */
+.adminMainContent{
+    min-height: calc(100vh - 80px);
+}
+.adminHeader{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 0 15px;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    background-color: #bababa;
+    height: 80px;
+}
+.header_space{
+    height: 80px;
+}
+.adminHeader .title1{
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    margin: 0 10px;
+}
+.adminHeader .logoutbtn{
+  border: 0;
+  background-color: transparent;
+}
+.adminFooter{
+    /* position: absolute;
+    bottom: 0; */
+    width: 100%;
+    padding: 0 15px;
+    background-color: #6a777a;
+    height: 80px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
 .adminlist{
     margin-top: 50px;
     margin-bottom: 50px;
