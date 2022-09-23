@@ -10,31 +10,126 @@ import {
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import _ from 'lodash';
+import { errorToast } from '../../../../components/Alert';
+import {
+    FiChevronLeft,
+    FiChevronRight,
+    FiPlus,
+    FiPlusSquare,
+} from 'react-icons/fi';
+
 function CouponList(props) {
+    const [loadingComplete, setLoadingComplete] = useState(false); //是否已載入完成
+    //給予預設值防止報錯
+    const [myCouponList, setMyCouponList] = useState(null);
+    // const [myCouponList, setMyCouponList] = useState([
+    //     [
+    //         {
+    //             id: '',
+    //             name: '',
+    //             sn: '',
+    //             minimum: '',
+    //             discount: '',
+    //             use_count: '',
+    //             take_count: '',
+    //             start_time: '',
+    //             end_time: '',
+    //             create_time: '',
+    //             valid: '',
+    //         },
+    //     ],
+    // ]);
+
     // 分頁用
     const [pageNow, setPageNow] = useState(1); // 目前頁號
     const [perPage, setPerPage] = useState(6); // 每頁多少筆資料
     const [pageTotal, setPageTotal] = useState(0); //總共幾頁
+    const location = useLocation();
+    //讀取頁數
+    useEffect(() => {
+        let params = new URLSearchParams(location.search);
+        let page = params.get('page');
+        console.log('page', page);
+        if (page) {
+            setPageNow(page);
+        }
+    }, [location]);
 
-    const [myQuestionList, setMyQuestionList] = useState([
-        [
-            {
-                id: '',
-                user_id: '',
-                name: '',
-                email: '',
-                phone: '',
-                user_q_category: '',
-                title: '',
-                comment: '',
-                user_reply_state: '',
-                create_time: '',
-                update_time: '',
-            },
-        ],
-    ]);
+    //讀取優惠券
+    useEffect(() => {
+        async function loadingMyCoupon() {
+            try {
+                let response = await axios.get(
+                    `${API_URL}/admin/coupon/loading`,
+                    {
+                        withCredentials: true,
+                    }
+                );
+                console.log(response.data);
+
+                //分切頁面資料
+                const pageList = _.chunk(response.data, perPage);
+
+                console.log(pageList);
+
+                if (pageList.length > 0) {
+                    setPageTotal(pageList.length);
+                    setMyCouponList(pageList);
+                    setLoadingComplete(true); //載入完成
+                }
+            } catch (err) {
+                console.log(err.response.data);
+                errorToast(err.response.data.message, '關閉');
+                // alert(err.response.data.message);
+            }
+        }
+        loadingMyCoupon();
+    }, []);
+
+    //頁碼
+    const paginationBar = (
+        <div className="member_pagination d-flex justify-content-center align-items-center">
+            <Link
+                className="page_number"
+                to={
+                    pageNow > 1
+                        ? `/admin/coupon?page=${Number(pageNow) - 1}`
+                        : `/admin/coupon?page=${Number(pageNow)}`
+                }
+            >
+                <FiChevronLeft />
+            </Link>
+            {Array(pageTotal)
+                .fill(1)
+                .map((v, i) => {
+                    return (
+                        <Link
+                            key={i}
+                            to={`/admin/coupon?page=${i + 1}`}
+                            className={
+                                i + 1 === Number(pageNow)
+                                    ? 'page_number active'
+                                    : 'page_number'
+                            }
+                        >
+                            {i + 1}
+                        </Link>
+                    );
+                })}
+            <Link
+                className="page_number"
+                to={
+                    pageNow < pageTotal
+                        ? `/admin/coupon?page=${Number(pageNow) + 1}`
+                        : `/admin/coupon?page=${Number(pageNow)}`
+                }
+            >
+                <FiChevronRight />
+            </Link>
+        </div>
+    );
     return (
-        <>
+        <div className="CouponList">
             <div className="mt-1">
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
@@ -47,15 +142,15 @@ function CouponList(props) {
                     </ol>
                 </nav>
             </div>
-            <div className="d-flex">
+            <div className="d-flex align-items-center">
                 <h3>優惠券管理</h3>
-                <div>
-                    <Link to={`/admin/coupon/add`}>新增優惠券</Link>
-                </div>
+                <Link to={`/admin/coupon/add`} className="addbtn">
+                    <FiPlusSquare className="icon" />
+                    新增優惠券
+                </Link>
             </div>
-
             <hr />
-            <div>
+            {loadingComplete && (
                 <table className="table ">
                     <thead>
                         <tr className="bg-main-color accent-light-color ">
@@ -63,43 +158,49 @@ function CouponList(props) {
                                 className="text-nowrap fw-light text-center"
                                 scope="col"
                             >
-                                問答編號
+                                優惠券序號
                             </th>
                             <th
                                 className="text-nowrap fw-light text-center"
                                 scope="col"
                             >
-                                姓名
+                                名稱
                             </th>
                             <th
                                 className="text-nowrap fw-light text-center"
                                 scope="col"
                             >
-                                問題類型
+                                最低消費金額
                             </th>
                             <th
                                 className="text-nowrap fw-light Qtitle text-center"
                                 scope="col"
                             >
-                                問題主旨
+                                折扣金額
                             </th>
                             <th
                                 className="text-nowrap fw-light text-center"
                                 scope="col"
                             >
-                                詢問內容
+                                可使用次數
                             </th>
                             <th
                                 className="text-nowrap fw-light text-center"
                                 scope="col"
                             >
-                                回覆狀態
+                                可領取次數
                             </th>
                             <th
                                 className="text-nowrap fw-light text-center "
                                 scope="col"
                             >
-                                最後更新時間
+                                開始時間
+                            </th>
+                            <th
+                                className="text-nowrap fw-light text-center "
+                                scope="col"
+                            >
+                                結束時間
                             </th>
                             <th
                                 className="text-nowrap fw-light text-center"
@@ -110,36 +211,35 @@ function CouponList(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {myQuestionList[pageNow - 1].map((data, index) => {
+                        {myCouponList[pageNow - 1].map((data, index) => {
                             return (
                                 <tr key={uuidv4()} className="cssTable">
                                     <th scope="row">
-                                        NL00{data.id}
+                                        {data.sn}
                                         <br />
                                         <span className="time">
                                             {data.create_time}
                                         </span>
                                     </th>
-                                    <td className="text-nowrap text-center">
-                                        {data.name}
-                                    </td>
-                                    <td>{data.user_q_category}</td>
-                                    <td>{data.title}</td>
+                                    <td className="text-nowrap">{data.name}</td>
+                                    <td>{data.minimum}</td>
+                                    <td>{data.discount}</td>
+                                    <td>{data.use_count}</td>
+                                    <td>{data.take_count}</td>
                                     <td>
-                                        <div className="">
-                                            <span className="ellipsis">
-                                                {data.comment}
-                                            </span>
-                                        </div>
+                                        <span className="time2">
+                                            {data.start_time}
+                                        </span>
                                     </td>
-                                    <td className="">
-                                        {data.user_reply_state}
+                                    <td>
+                                        <span className="time2">
+                                            {data.end_time}
+                                        </span>
                                     </td>
-                                    <td className="">{data.update_time}</td>
                                     <td className="text-nowrap ">
                                         <Link
                                             className=""
-                                            to={`/admin/customerservice/commonqa/detail?nlid=${data.id}`}
+                                            to={`/admin/coupon/detail?cpid=${data.id}`}
                                         >
                                             <img src={detail_img} alt="" />
                                             查看詳細
@@ -150,8 +250,9 @@ function CouponList(props) {
                         })}
                     </tbody>
                 </table>
-            </div>
-        </>
+            )}
+            {pageTotal > 1 && paginationBar}
+        </div>
     );
 }
 

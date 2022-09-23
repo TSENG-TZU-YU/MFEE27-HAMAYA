@@ -1,10 +1,17 @@
 .QAlist{
     font-size: 18px;
-}
-.QAlist .active{
-    border-bottom:4px solid #767676 ;
+    position: relative;
 }
 
+.QAlist .active{
+    border:2px solid #00323d ;
+}
+.QAlist .title1{
+    color: #212529;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 .NLQA .Qtitle{
     min-width: 120px;
 }
@@ -68,5 +75,12 @@
 
 .placeholderNone::placeholder{
     color:  rgb(160, 0, 0);
+}
+
+/* 頁碼設定  */
+.CommonQA{
+    position: relative;
+    margin-bottom: 50px;
+    min-height: 500px;
 }
 

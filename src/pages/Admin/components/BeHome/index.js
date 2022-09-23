@@ -20,7 +20,7 @@ function BeHome(props) {
             <h3>首頁</h3>
             <hr />
             <div className="row p-3">
-                <div className="col-3 p-0 d-flex justify-content-center align-items-center">
+                <div className="col-6 col-md-4 col-lg-3 p-0 d-flex justify-content-center align-items-center">
                     <div className="item01">
                         <Link to="/admin/articles" className="maintitle">
                             文章管理
@@ -28,7 +28,7 @@ function BeHome(props) {
                         <hr />
                     </div>
                 </div>
-                <div className="col-3 p-0 d-flex justify-content-center align-items-center">
+                <div className="col-6 col-md-4 col-lg-3 p-0 d-flex justify-content-center align-items-center">
                     <div className="item01">
                         <Link to="/admin/coupon" className="maintitle">
                             優惠券管理
@@ -36,7 +36,7 @@ function BeHome(props) {
                         <hr />
                     </div>
                 </div>
-                <div className="col-3 p-0 d-flex justify-content-center align-items-center">
+                <div className="col-6 col-md-4 col-lg-3 p-0 d-flex justify-content-center align-items-center">
                     <div className="item01">
                         <Link to="/admin/customerservice" className="maintitle">
                             客服系統
@@ -64,7 +64,7 @@ function BeHome(props) {
                         </Link>
                     </div>
                 </div>
-                <div className="col-3 p-0 d-flex justify-content-center align-items-center">
+                <div className="col-6 col-md-4 col-lg-3  p-0 d-flex justify-content-center align-items-center">
                     <div className="item01">
                         <Link to="/admin/members" className="maintitle">
                             會員管理
@@ -72,7 +72,7 @@ function BeHome(props) {
                         <hr />
                     </div>
                 </div>
-                <div className="col-3 p-0 d-flex justify-content-center align-items-center">
+                <div className="col-6 col-md-4 col-lg-3 p-0 d-flex justify-content-center align-items-center">
                     <div className="item01">
                         <Link to="/admin/order" className="maintitle">
                             訂單管理
@@ -80,7 +80,7 @@ function BeHome(props) {
                         <hr />
                     </div>
                 </div>
-                <div className="col-3 p-0 d-flex justify-content-center align-items-center">
+                <div className="col-6 col-md-4 col-lg-3 p-0 d-flex justify-content-center align-items-center">
                     <div className="item01">
                         <Link to="/admin/product" className="maintitle">
                             商品管理
@@ -95,7 +95,7 @@ function BeHome(props) {
                         </Link>
                     </div>
                 </div>
-                <div className="col-3 p-0 d-flex justify-content-center align-items-center">
+                <div className="col-6 col-md-4 col-lg-3 p-0 d-flex justify-content-center align-items-center">
                     <div className="item01">
                         <Link to="/admin/teachers" className="maintitle">
                             師資管理
