@@ -14,7 +14,14 @@ import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
 import { ReactComponent as AddCart } from '../../../../../assets/svg/shopping_cart_check.svg';
 import { TbMusicOff } from 'react-icons/tb';
 
-function BucketProduct({ myBucketA, setMyBucketA }) {
+function BucketProduct({
+    myBucketA,
+    setMyBucketA,
+    displayProductsA,
+    setDisplayProductsA,
+    pageProductsA,
+    setPageProductsA,
+}) {
     const { member } = useAuth();
     //checkbox check 裡面放product_id
     const [check, setCheck] = useState([]);
@@ -296,9 +303,10 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
                 ) : (
                     ''
                 )}
+
                 {myBucketA.map((item) => {
                     return (
-                        <div className="col-lg-6 p-0 my-1" key={item.id}>
+                        <div className="col-lg-6 p-0" key={item.id}>
                             <div className="myBucketProduct-Item d-flex m-2 p-2 bucket-shadow ">
                                 <Link
                                     to={`/products/${item.product_id}?main_id=${item.ins_main_id}`}

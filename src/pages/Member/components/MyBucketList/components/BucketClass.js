@@ -297,7 +297,7 @@ function BucketClass({ myBucketB, setMyBucketB }) {
             )}
             {myBucketB.map((item) => {
                 return (
-                    <div className="my-2 bucket-shadow " key={item.id}>
+                    <div className="my-4 bucket-shadow " key={item.id}>
                         <div className="myBucketClass-Item d-lg-flex">
                             <Link
                                 to={`/class/list/${item.product_id}?class=${item.ins_main_id}`}

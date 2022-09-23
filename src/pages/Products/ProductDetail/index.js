@@ -258,7 +258,6 @@ function Product() {
 
     // 新增收藏
     const handleAddFavorite = (itemsData) => {
-        console.log(itemsData);
         if (itemsData.user_id !== null && itemsData.user_id !== '') {
             setItemsData(itemsData);
             async function setItemsData(itemsData) {
@@ -302,9 +301,20 @@ function Product() {
         <>
             <Container>
                 {/* 麵包屑 */}
-                <BreadCrumb />
+                <div className="d-flex">
+                    <BreadCrumb />
+                    {product.map((value) => {
+                        return (
+                            <p
+                                className="m-0 py-2 d-block align-items-center"
+                                key={uuidv4()}
+                            >
+                                &nbsp; {value.name}
+                            </p>
+                        );
+                    })}
+                </div>
                 {/* 麵包屑 end */}
-
                 <Row>
                     {/* 商品照片 */}
                     <Col lg={6}>
