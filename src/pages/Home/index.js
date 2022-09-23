@@ -1,7 +1,9 @@
-import React from 'react';
 import './index.scss';
-import { Link } from 'react-router-dom';
-
+import { Link, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { API_URL } from '../../utils/config';
+import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 // 套件
 
 import { homeImages } from '../../album/home';
@@ -18,10 +20,6 @@ import HomeScroll from '../../components/HomeScroll/HomeScroll';
 import ServiceItem from '../../assets/HomeImg/service-item.jpg';
 import ServiceItem2 from '../../assets/HomeImg/service-item2.jpg';
 import ServiceItem3 from '../../assets/HomeImg/service-item3.jpg';
-
-import NewsImg5 from '../../assets/NewsImg/news-img5.png';
-import NewsImg6 from '../../assets/NewsImg/news-img6.png';
-import NewsImg7 from '../../assets/NewsImg/news-img7.png';
 import Vector25 from '../../assets/HomeImg/Vector25.svg';
 
 import Note6 from '../../assets/HomeImg/note-6.svg';
@@ -32,7 +30,27 @@ import Note9 from '../../assets/HomeImg/note-9.svg';
 
 import HomeAnimation from './HomeAnimation/HomeAnimation';
 
-function Home(props) {
+function Home() {
+    const [data, setData] = useState([]);
+    const [read, setRead] = useState([]);
+
+    // const { content } = useParams();
+
+    const location = useLocation();
+
+    useEffect(() => {
+        // let params = new URLSearchParams(location.search);
+        // let mainId = params.get('mainId');
+        let getArticle = async () => {
+            let response = await axios.get(`${API_URL}/home/${15}?mainId=${4}`);
+            setData(response.data.data);
+            setRead(response.data.read);
+        };
+        getArticle();
+    }, [location]);
+
+    console.log(data);
+
     return (
         <>
             <HomeAnimation />
@@ -170,72 +188,79 @@ function Home(props) {
                 </div>
                 <div className="container bg-main-gary-light-color ">
                     <div className="row  News-articles">
-                        <div className="col-12 col-md-4 ">
-                            <div className="mt-4 ">
-                                <img
-                                    src={NewsImg5}
-                                    alt="art02"
-                                    width="100%"
-                                    height="100%"
-                                    className="News-imgs"
-                                />
-                                <span className="gary-dark-color h6 News-cursor-pinter mt-2">
-                                    買樂器就交給最專業的HAMAYA吧！
-                                    <div className=" d-flex mt-2 ">
-                                        <p className="News-music-article4 small">
-                                            促銷活動
-                                        </p>
-                                        <p className="ms-2 mt-1">
-                                            May － 2022/08/20
-                                        </p>
+                        {data.map((article, index) => {
+                            return (
+                                <>
+                                    <div
+                                        key={index}
+                                        className="col-12 col-md-4 "
+                                    >
+                                        <div className="mt-4 ">
+                                            <Link
+                                                to={`/news/${article.id}?mainId=${article.category}`}
+                                            >
+                                                <img
+                                                    src={require(`../../album/article/${article.image}`)}
+                                                    alt="art02"
+                                                    className="article-imgs article-img"
+                                                />
+                                                <span className="gary-dark-color h6 article-cursor-pinter mt-2">
+                                                    {article.title}
+                                                    <div className=" d-flex mt-2 ">
+                                                        <p className="article-music4 small">
+                                                            {
+                                                                article.articleName
+                                                            }
+                                                        </p>
+                                                        <p className="ms-2">
+                                                            {article.author}－
+                                                            {
+                                                                article.creation_date
+                                                            }
+                                                        </p>
+                                                    </div>
+                                                </span>
+                                            </Link>
+                                        </div>
                                     </div>
-                                </span>
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-4  ">
-                            <div className="mt-4">
-                                <img
-                                    src={NewsImg6}
-                                    alt="art02"
-                                    width="100%"
-                                    height="100%"
-                                    className="News-imgs"
-                                />
-                                <span className="gary-dark-color h6 News-cursor-pinter ">
-                                    樂時代～報名課程拿好康 Let's Music！
-                                    <div className="d-flex mt-2 ">
-                                        <p className="News-music-article4 small News-label">
-                                            促銷活動
-                                        </p>
-                                        <p className="ms-2 mt-1">
-                                            May － 2022/08/20
-                                        </p>
+                                </>
+                            );
+                        })}
+
+                        {read.map((article2) => {
+                            return (
+                                <div
+                                    key={Math.random()
+                                        .toString(36)
+                                        .replace('2.', '')}
+                                    className="col-12 col-md-4  "
+                                >
+                                    <div className="mt-4">
+                                        <Link
+                                            to={`/news/${article2.id}?mainId=${article2.category}`}
+                                        >
+                                            <img
+                                                src={require(`../../album/article/${article2.image}`)}
+                                                alt="art02"
+                                                className="News-imgs"
+                                            />
+                                            <span className="gary-dark-color h6 News-cursor-pinter ">
+                                                {article2.title}
+                                                <div className="d-flex mt-2 ">
+                                                    <p className="News-music-article4 small News-label">
+                                                        {article2.articleName}
+                                                    </p>
+                                                    <p className="ms-2 mt-1">
+                                                        {article2.author} －
+                                                        {article2.creation_date}
+                                                    </p>
+                                                </div>
+                                            </span>
+                                        </Link>
                                     </div>
-                                </span>
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-4  ">
-                            <div className="mt-4">
-                                <img
-                                    src={NewsImg7}
-                                    alt="art02"
-                                    width="100%"
-                                    height="100%"
-                                    className="News-imgs"
-                                />
-                                <span className="gary-dark-color h6 News-cursor-pinter mt-2">
-                                    學員專屬生日活動！
-                                    <div className="d-flex mt-2 ">
-                                        <p className="News-music-article4 small News-label">
-                                            促銷活動
-                                        </p>
-                                        <p className="ms-2 mt-1">
-                                            May － 2022/08/20
-                                        </p>
-                                    </div>
-                                </span>
-                            </div>
-                        </div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
