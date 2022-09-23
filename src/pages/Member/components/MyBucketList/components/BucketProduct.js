@@ -69,7 +69,7 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
     };
     //icon 加入購物車
     function getCheck(itemInfo) {
-        console.log('itemInfo', itemInfo);
+        // console.log('itemInfo', itemInfo);
         //確認有沒有重複
         let newItemInfo = shoppingCart.find((v) => {
             return v.product_id === itemInfo.product_id;
@@ -124,12 +124,13 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
 
     // 單筆 取消收藏
     async function handleRemoveFavoriteSingle(product_id) {
-        console.log(`${API_URL}/member/mybucketlist/${product_id}`);
+        let itemsData = [{ user_id: member.id, product_id: product_id }];
         try {
             let response = await axios.delete(
-                `${API_URL}/member/mybucketlist/${product_id}`,
+                `${API_URL}/member/mybucketlist/delete`,
                 {
                     withCredentials: true,
+                    data: itemsData,
                 }
             );
             successToast(response.data.message, '關閉');
@@ -141,29 +142,28 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
 
     // 多筆 取消收藏
     async function handleRemoveFavorite() {
-        console.log('buy bucket  myBucketA', check, myBucketA);
-
         //filter我選取的東西
         let newMyBucketA = myBucketA.filter((item) => {
             return check.indexOf(item.product_id) !== -1;
         });
-        //
         let itemsData = newMyBucketA.map((item) => {
-            return [item.user_id, item.product_id];
+            return { user_id: member.id, product_id: item.product_id };
         });
-        console.log('itemsData', itemsData);
-        try {
-            let response = await axios.delete(
-                `${API_URL}/member/mybucketlist/delete`,
-                {
-                    withCredentials: true,
-                    data: itemsData,
-                }
-            );
-            console.log(response.data);
-            setMyBucketA(response.data.product);
-        } catch (err) {
-            console.log(err.response.data.message);
+        setItemsData(itemsData);
+        async function setItemsData(itemsData) {
+            try {
+                let response = await axios.delete(
+                    `${API_URL}/member/mybucketlist/delete`,
+                    {
+                        withCredentials: true,
+                        data: itemsData,
+                    }
+                );
+                successToast(response.data.message, '關閉');
+                setMyBucketA(response.data.product);
+            } catch (err) {
+                console.log(err.response.data.message);
+            }
         }
     }
 
@@ -282,19 +282,18 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
             <div className="row">
                 {myBucketA.map((item) => {
                     return (
-                        <div
-                            to={`/products/${item.product_id}?main_id=${item.ins_main_id}`}
-                            className="col-lg-6 p-0 my-1"
-                            key={item.id}
-                        >
+                        <div className="col-lg-6 p-0 my-1" key={item.id}>
                             <div className="myBucketProduct-Item d-flex m-2 p-2 bucket-shadow ">
-                                <div className="myBucketProduct-Img">
+                                <Link
+                                    to={`/products/${item.product_id}`}
+                                    className="myBucketProduct-Img"
+                                >
                                     <img
                                         className="img-fluid"
                                         src={require(`../../../../../album/products/${item.image}`)}
-                                        alt=""
+                                        alt="productImg"
                                     />
-                                </div>
+                                </Link>
                                 <div className="flex-grow-1 m-2 d-flex flex-column">
                                     <div className="d-flex justify-content-between">
                                         <h6>

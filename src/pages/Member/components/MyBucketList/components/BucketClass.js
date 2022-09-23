@@ -196,19 +196,9 @@ function BucketClass({ myBucketB, setMyBucketB }) {
         warningToast('已加入臨時購物車', '關閉');
     }
 
-    // 取消收藏
-    async function handleRemoveFavorite() {
-        console.log('buy bucket  myBucketB', check, myBucketB);
-
-        //filter我選取的東西
-        let newMyBucketB = myBucketB.filter((item) => {
-            return check.indexOf(item.product_id) !== -1;
-        });
-        //
-        let itemsData = newMyBucketB.map((item) => {
-            return [item.user_id, item.product_id];
-        });
-        console.log('itemsData', itemsData);
+    // 單筆 取消收藏
+    async function handleRemoveFavoriteSingle(product_id) {
+        let itemsData = [{ user_id: member.id, product_id: product_id }];
         try {
             let response = await axios.delete(
                 `${API_URL}/member/mybucketlist/delete`,
@@ -217,11 +207,37 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                     data: itemsData,
                 }
             );
-            console.log(response.data);
             successToast(response.data.message, '關閉');
             setMyBucketB(response.data.class);
         } catch (err) {
             errorToast(err.response.data.message, '關閉');
+        }
+    }
+
+    // 多筆 取消收藏
+    async function handleRemoveFavorite() {
+        //filter我選取的東西
+        let newMyBucketB = myBucketB.filter((item) => {
+            return check.indexOf(item.product_id) !== -1;
+        });
+        let itemsData = newMyBucketB.map((item) => {
+            return { user_id: member.id, product_id: item.product_id };
+        });
+        setItemsData(itemsData);
+        async function setItemsData(itemsData) {
+            try {
+                let response = await axios.delete(
+                    `${API_URL}/member/mybucketlist/delete`,
+                    {
+                        withCredentials: true,
+                        data: itemsData,
+                    }
+                );
+                successToast(response.data.message, '關閉');
+                setMyBucketB(response.data.class);
+            } catch (err) {
+                console.log(err.response.data.message);
+            }
         }
     }
 
@@ -335,7 +351,7 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                                                 className="myBucketItemIcon"
                                                 onClick={(e) => {
                                                     e.preventDefault();
-                                                    handleRemoveFavorite(
+                                                    handleRemoveFavoriteSingle(
                                                         item.product_id
                                                     );
                                                 }}
