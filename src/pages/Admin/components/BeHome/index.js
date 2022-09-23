@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import {
     Link,
     useOutletContext,
@@ -6,6 +7,7 @@ import {
 } from 'react-router-dom';
 import './index.css';
 function BeHome(props) {
+    
     return (
         <div className="BeHome">
             <div className="mt-1">

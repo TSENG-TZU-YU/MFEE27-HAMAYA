@@ -5,19 +5,101 @@ import { useAuth } from '../../utils/use_auth';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import './index.css';
+import { successToast, errorToast, warningToast } from '../../components/Alert';
+import visib from '../../assets/svg/visibility.svg';
+import unVisib from '../../assets/svg/visibility_off.svg';
+import logo from '../../assets/svg/logo.svg';
 
 function Admin(props) {
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
     const [listActive, setListActive] = useState('');
+    // const { member, setMember, isLogin, setIsLogin } = useAuth();
+
+    const [isAdminLogin, setAdminIsLogin] = useState(false);
+    const [adminMember, setAdminMember] = useState(null);
+
+    const [visibility, setVisibility] = useState(false);
 
     const navigate = useNavigate();
+    function handleChange(e) {
+        setLoginMember({ ...loginMember, [e.target.name]: e.target.value });
+    }
 
+    const [loginMember, setLoginMember] = useState({
+        account: 'admin',
+        password: '12345678',
+    });
+
+    async function loginSubmit(e) {
+        e.preventDefault();
+        try {
+            let response = await axios.post(
+                `${API_URL}/admin/login`,
+                loginMember,
+                {
+                    withCredentials: true,
+                }
+            );
+            console.log(response.data);
+            setAdminMember(response.data);
+            setAdminIsLogin(true);
+            successToast('登入成功', '關閉');
+        } catch (err) {
+            console.log(err.response.data);
+            errorToast(err.response.data.message, '關閉');
+        }
+    }
     useEffect(() => {}, []);
-
-    // if (!isLogin) {
-    //     return <Navigate to="/" />;
-    // }
-    return (
+    //登入頁面
+    const loginPage = (
+        <div className="loginPage">
+            <div className="loginPageInner">
+                <img src={logo} width={150} />
+                <h5 className="text-center main-color">後臺登入</h5>
+                <form className="">
+                    <label className="">
+                        帳號
+                        <br />
+                        <input
+                            type="text"
+                            name="account"
+                            value={loginMember.account}
+                            onChange={handleChange}
+                            placeholder="請輸入帳號"
+                            required
+                        />
+                    </label>
+                    <label className="position-relative">
+                        密碼
+                        <br />
+                        <input
+                            type={visibility ? 'text' : 'password'}
+                            name="password"
+                            value={loginMember.password}
+                            onChange={handleChange}
+                            placeholder="請輸入密碼"
+                            required
+                        />
+                        <button
+                            className="loginVisibiImg border-0"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setVisibility(!visibility);
+                            }}
+                        >
+                            <img src={visibility ? visib : unVisib} alt="" />
+                        </button>
+                    </label>
+                    <br />
+                    <br />
+                    <button className="subBtn" onClick={loginSubmit}>
+                        登入
+                    </button>
+                </form>
+            </div>
+        </div>
+    );
+    //主頁面
+    const mainPage = (
         <div className="container">
             <div className="row">
                 <div className="col-2 ">
@@ -158,6 +240,7 @@ function Admin(props) {
             </div>
         </div>
     );
+    return <>{isAdminLogin ? mainPage : loginPage}</>;
 }
 
 export default Admin;
