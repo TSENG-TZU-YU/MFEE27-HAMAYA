@@ -3,6 +3,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
+import {
+    successToast,
+    warningToast,
+    errorToast,
+} from '../../../../../components/Alert';
 import '../MyCart.scss';
 import MyCartProduct from './MyCartProduct';
 import MyCartClass from './MyCartClass';

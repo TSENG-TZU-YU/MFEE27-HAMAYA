@@ -122,19 +122,30 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
     }
 
     // 取消收藏
-    async function handleRemoveFavorite(product_id) {
-        // console.log('handleRemoveFavorite', product_id);
+    async function handleRemoveFavorite() {
+        console.log('buy bucket  myBucketA', check, myBucketA);
+
+        //filter我選取的東西
+        let newMyBucketA = myBucketA.filter((item) => {
+            return check.indexOf(item.product_id) !== -1;
+        });
+        //
+        let itemsData = newMyBucketA.map((item) => {
+            return [item.user_id, item.product_id];
+        });
+        console.log('itemsData', itemsData);
         try {
             let response = await axios.delete(
-                `${API_URL}/member/mybucketlist/${product_id}`,
+                `${API_URL}/member/mybucketlist/delete`,
                 {
                     withCredentials: true,
+                    data: itemsData,
                 }
             );
-            successToast(response.data.message, '關閉');
+            console.log(response.data);
             setMyBucketA(response.data.product);
         } catch (err) {
-            errorToast(err.response.data.message, '關閉');
+            console.log(err.response.data.message);
         }
     }
 
@@ -230,7 +241,12 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
                             全選
                         </label>
                     </div>
-                    <button className="btn btn-primary col mx-2 p-0 text-nowrap">
+                    <button
+                        className="btn btn-primary col mx-2 p-0 text-nowrap"
+                        onClick={() => {
+                            handleRemoveFavorite();
+                        }}
+                    >
                         取消收藏
                     </button>
                     <button

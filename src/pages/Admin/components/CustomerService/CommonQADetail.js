@@ -95,7 +95,7 @@ function CommonQADetail(props) {
     }
     useEffect(() => {
         myQuestionDetail();
-    }, [location]);
+    }, []);
 
     //新增回覆
     const [replyForm, setreplyForm] = useState({
@@ -117,7 +117,7 @@ function CommonQADetail(props) {
                 }
             );
             //清空replyForm input
-            setreplyForm({ ...replyForm, q_content: '' });
+            // setreplyForm({ ...replyForm, q_content: '' });
             // alert(response.data.message);
         } catch (err) {
             console.log(err.response.data);

@@ -125,7 +125,7 @@ function BucketClass({ myBucketB, setMyBucketB }) {
     }
     //依賴checkbox加入購物車
     function getCheckBucket() {
-        console.log('buy bucket  myBucketB', check, myBucketB);
+        // console.log('buy bucket  myBucketB', check, myBucketB);
 
         //過濾出有被選取的
         let newMyBucketB = myBucketB.filter((item) => {
@@ -196,32 +196,28 @@ function BucketClass({ myBucketB, setMyBucketB }) {
         warningToast('已加入臨時購物車', '關閉');
     }
 
-    //             // console.log('newMyCartAfterDelete', newMyCartAfterDelete);
-    //             const myCart_cateA = newMyBucketAfterDelete.filter((v) => {
-    //                 return v.category_id === 'A';
-    //             });
-    //             const myCart_cateB = newMyBucketAfterDelete.filter((v) => {
-    //                 return v.category_id === 'B';
-    //             });
-    //             // //set狀態回去
-    //             // setMyBucketA(myCart_cateA);
-    //             // setMyBucketB(myCart_cateB);
-    //             // setMyBucket(newMyBucketAfterDelete);
-    //         };
-    //         setItemDataDelete();
-    //     }
-    // }
-
     // 取消收藏
-    async function handleRemoveFavorite(product_id) {
-        // console.log('handleRemoveFavorite', product_id);
+    async function handleRemoveFavorite() {
+        console.log('buy bucket  myBucketB', check, myBucketB);
+
+        //filter我選取的東西
+        let newMyBucketB = myBucketB.filter((item) => {
+            return check.indexOf(item.product_id) !== -1;
+        });
+        //
+        let itemsData = newMyBucketB.map((item) => {
+            return [item.user_id, item.product_id];
+        });
+        console.log('itemsData', itemsData);
         try {
             let response = await axios.delete(
-                `${API_URL}/member/mybucketlist/${product_id}`,
+                `${API_URL}/member/mybucketlist/delete`,
                 {
                     withCredentials: true,
+                    data: itemsData,
                 }
             );
+            console.log(response.data);
             successToast(response.data.message, '關閉');
             setMyBucketB(response.data.class);
         } catch (err) {
@@ -247,7 +243,12 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                             全選
                         </label>
                     </div>
-                    <button className="btn btn-primary col mx-2 p-0 text-nowrap">
+                    <button
+                        className="btn btn-primary col mx-2 p-0 text-nowrap"
+                        onClick={() => {
+                            handleRemoveFavorite();
+                        }}
+                    >
                         取消收藏
                     </button>
                     <button
