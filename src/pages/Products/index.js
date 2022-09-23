@@ -724,12 +724,12 @@ function Products() {
                             />
                             {/* 桌機 商品類別選項 end */}
 
-                            <ListMotionContainer
-                                element="div"
-                                className="col-12 col-md-10 d-flex flex-column justify-content-between"
-                            >
+                            <div className="col-12 col-md-10 d-flex flex-column justify-content-between">
                                 {/* 商品列 */}
-                                <div className=" row row-cols-2 row-cols-md-3 row-cols-xl-4">
+                                <ListMotionContainer
+                                    element="div"
+                                    className=" row row-cols-2 row-cols-md-3 row-cols-xl-4"
+                                >
                                     {error && <div>{error}</div>}
                                     {pageProducts.length === 0 ? (
                                         <h4 className="mt-5 d-flex w-100 main-gary-light-color text-center justify-content-center align-items-center">
@@ -916,7 +916,7 @@ function Products() {
                                                 );
                                             }
                                         )}
-                                </div>
+                                </ListMotionContainer>
                                 {/* 商品列 end */}
 
                                 {/* 頁碼 */}
@@ -932,7 +932,7 @@ function Products() {
                                     )}
                                 </div>
                                 {/* 頁碼 end */}
-                            </ListMotionContainer>
+                            </div>
                         </div>
 
                         {/* 商品比較 btn */}

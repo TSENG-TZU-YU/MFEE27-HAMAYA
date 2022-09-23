@@ -248,8 +248,8 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
             <div className="row">
                 {myBucketA.map((item) => {
                     return (
-                        <div className="col-lg-6 py-2" key={item.id}>
-                            <div className="myBucketProduct-Item d-flex">
+                        <div className="col-lg-6 p-0 my-1" key={item.id}>
+                            <div className="myBucketProduct-Item d-flex m-2 p-2 bucket-shadow ">
                                 <div className="myBucketProduct-Img">
                                     <img
                                         className="img-fluid"
@@ -277,7 +277,7 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
                                     <div className="d-flex justify-content-between align-items-center mt-auto">
                                         <p className="d-inline-flex m-0">
                                             <span className="accent-color">
-                                                <b>NT: {item.price}</b>
+                                                <b>NT ${item.price}</b>
                                             </span>
                                         </p>
                                         <div>

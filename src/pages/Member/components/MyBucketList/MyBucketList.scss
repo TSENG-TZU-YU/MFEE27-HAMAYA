@@ -62,3 +62,14 @@
     height: 15px;
     
 }
+.bucket-shadow:hover {
+    box-shadow: 0 0.25rem 0.5rem rgb(0 0 0 / 15%);
+    transition: 0.2s;
+    .doc-music {
+        display: block;
+        position: absolute;
+        right: -10px;
+        top: -25px;
+        transition: 0.2s;
+    }
+}

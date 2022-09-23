@@ -264,7 +264,7 @@ function BucketClass({ myBucketB, setMyBucketB }) {
             </div>
             {myBucketB.map((item) => {
                 return (
-                    <div className="py-2" key={item.id}>
+                    <div className="my-2 bucket-shadow " key={item.id}>
                         <div className="myBucketClass-Item d-lg-flex">
                             <img
                                 className="myBucketClass-Img "
@@ -307,7 +307,7 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                                 <div className="col-12 d-flex justify-content-between align-items-center">
                                     <p className="d-inline-flex m-0">
                                         <span className="accent-color">
-                                            <b>NT: {item.price}</b>
+                                            <b>NT ${item.price}</b>
                                         </span>
                                         /期
                                     </p>
