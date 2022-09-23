@@ -12,7 +12,7 @@ import { Container } from 'react-bootstrap';
 import './index.scss';
 
 // 項目資料
-import { sortByTitle } from './constants';
+import { sortByTitle, categoryMainTypes as categoryMain } from './constants';
 
 // 元件
 import ProductCompare from './ProductCompare';
@@ -68,6 +68,8 @@ import { useLiked } from '../../utils/use_liked';
 function Products() {
     // 是否正在載入資料的旗標, true = 載入資料中
     const [isLoading, setIsLoading] = useState(false);
+
+    const [isVisibled, setIsVisable] = useState(false);
 
     const [url, setUrl] = useState('');
 
@@ -126,14 +128,16 @@ function Products() {
     const [pageProducts, setPageProducts] = useState([]);
 
     const location = useLocation();
+    let params = new URLSearchParams(location.search);
+    let mainId = params.get('main_id');
+    let subId = params.get('sub_id');
 
     // 取得商品 api
     useEffect(() => {
-        //開啟載入指示動畫
+        // 開啟載入指示動畫
         setIsLoading(true);
-        let params = new URLSearchParams(location.search);
-        let mainId = params.get('main_id');
-        let subId = params.get('sub_id');
+        // 切換撥放呈現商品項目動畫
+        setIsVisable(true);
         clearState();
         let getProducts = async () => {
             let response = await axios.get(
@@ -396,7 +400,6 @@ function Products() {
                             `${API_URL}/member/mycart`,
                             itemsData
                         );
-                        // console.log('duplicate', response.data.duplicate);
                         if (response.data.duplicate === 1) {
                             warningToast(response.data.message, '關閉');
                             setShoppingCart([...shoppingCart]);
@@ -490,7 +493,6 @@ function Products() {
                                     {/* 麵包屑 */}
                                     <BreadCrumb />
                                     {/* 麵包屑 end */}
-
                                     {/* 進階篩選 */}
                                     <div className="filter-nav d-flex position-relative">
                                         <button

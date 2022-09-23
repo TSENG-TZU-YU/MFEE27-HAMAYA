@@ -90,7 +90,7 @@ function Cart() {
         .reduce((prev, curr) => prev + curr, 0);
 
     return (
-        <div className="position-relative">
+        <div className="position-relative" >
             <div className="shoppingCart p-2">
                 <div className="d-flex justify-content-between align-items-baseline shoppingCartTitle pb-2">
                     <span className="main-color">
