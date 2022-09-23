@@ -17,7 +17,6 @@ function MainOutlet(props) {
     //     }
     // }, []);
     const [selectCourse, setSelectCourse] = useState(true);
-    // console.log('out', selectCourse);
 
     return <Outlet context={[selectCourse, setSelectCourse]} />;
 }

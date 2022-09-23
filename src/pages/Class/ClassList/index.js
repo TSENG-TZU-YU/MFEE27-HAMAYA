@@ -27,7 +27,7 @@ import { TbMusicOff } from 'react-icons/tb';
 function ClassList(props) {
     // 課程 Toggled
     const [selectCourse, setSelectCourse] = useOutletContext();
-
+    console.log('selectCourse00000', selectCourse);
     //  篩選 Toggled
     const [filterToggled, setFilterToggled] = useState(false);
     const toggleFilterTrueFalse = () => {
@@ -61,7 +61,7 @@ function ClassList(props) {
     const [searchWord, setSearchWord] = useState('');
 
     // 價格
-    const [selectedPrice, setSelectedPrice] = useState([2500, 2800]);
+    const [selectedPrice, setSelectedPrice] = useState([2500, 30000]);
 
     // 樂器
     const [subIns, setSubIns] = useState('');
@@ -258,9 +258,9 @@ function ClassList(props) {
                 <div className="d-none d-md-block">
                     <nav className="d-flex  ">
                         <div className="d-flex me-5 justify-content-between align-items-center position-relative">
-                            <p className="mb-0">進階篩選</p>
+                            <p className="mb-0 cursor-pinter">進階篩選</p>
                             <img
-                                className="ms-1  "
+                                className="ms-1 cursor-pinter"
                                 src={filterIcon}
                                 alt="filterIcon"
                                 onClick={toggleFilterTrueFalse}
@@ -322,12 +322,12 @@ function ClassList(props) {
                                                     value={selectedPrice}
                                                     // TODO: 從資料庫讀取最低最高價錢
                                                     min={2600}
-                                                    max={2800}
+                                                    max={30000}
                                                 />
                                             </div>
                                         </div>
                                         <p className="accent-light-color small m-0">
-                                            NT ${String(selectedPrice[0])} ~{' '}
+                                            NT ${String(selectedPrice[0])} ~
                                             {String(selectedPrice[1])}
                                         </p>
                                         <p
@@ -344,9 +344,9 @@ function ClassList(props) {
                             </div>
                         </div>
                         <div className="d-flex justify-content-between align-items-center position-relative">
-                            <p className="mb-0">商品排序</p>
+                            <p className="mb-0 cursor-pinter">商品排序</p>
                             <img
-                                className=" ms-1 "
+                                className=" ms-1 cursor-pinter"
                                 src={sort}
                                 alt="Sort"
                                 onClick={toggleSortTrueFalse}
@@ -540,9 +540,6 @@ function ClassList(props) {
                     className={`cursor-pinter col-6 ${
                         selectCourse ? 'vector5-Btn-active' : 'vector5-Btn'
                     }`}
-                    onClick={() => {
-                        setSelectCourse(true);
-                    }}
                 >
                     <Link to="/class/list?class=1">
                         <h4
@@ -564,9 +561,6 @@ function ClassList(props) {
                     className={`cursor-pinter col-6 ${
                         selectCourse ? 'vector5-Btn' : 'vector5-Btn-active'
                     }`}
-                    onClick={() => {
-                        setSelectCourse(false);
-                    }}
                 >
                     <Link to="/class/list?class=2">
                         <h4

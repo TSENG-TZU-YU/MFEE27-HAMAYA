@@ -24,3 +24,14 @@ export const sortByTypes = [
     { id: '3', name: '開課：新到舊' },
     { id: '4', name: '開課：舊到新' },
 ];
+
+export const loader = (
+    <div className="sk-chase ">
+        <div className="sk-chase-dot"></div>
+        <div className="sk-chase-dot"></div>
+        <div className="sk-chase-dot"></div>
+        <div className="sk-chase-dot"></div>
+        <div className="sk-chase-dot"></div>
+        <div className="sk-chase-dot"></div>
+    </div>
+);

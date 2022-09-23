@@ -13,6 +13,7 @@ import { errorToast, successToast } from '../../../../../components/Alert';
 
 // 圖檔
 import rate_review from '../../../../../assets/svg/rate_review.svg';
+import evaluation_doc from '../../../../../assets/ClassImg/evaluation.png';
 
 function ClassEnd(props) {
     const [popup, setPopup] = useState(false);
@@ -53,7 +54,6 @@ function ClassEnd(props) {
     };
 
     async function evaluationSubmit(e) {
-        e.preventDefault();
         try {
             let response = await axios.patch(
                 `${API_URL}/member/myclass`,
@@ -77,14 +77,14 @@ function ClassEnd(props) {
                     return (
                         <div
                             key={buyClass.id}
-                            className="introduce row mx-2  mb-5 class-shadow text-start"
+                            className="introduce row mx-2  mb-5 class-shadow text-start "
                         >
                             <img
                                 className="col-lg-4  px-0  buyClassImg"
                                 src={require(`../../../../../album/class/${buyClass.image_1}`)}
                                 alt="Adult img"
                             />
-                            <div className="col-lg-8  mt-3 ">
+                            <div className="col-lg-8  mt-3 position-relative">
                                 <h6
                                     className="ms-1 mb-2 "
                                     style={{ color: '#00323d' }}
@@ -101,7 +101,7 @@ function ClassEnd(props) {
                                         師資： {buyClass.teacher}老師
                                     </p>
 
-                                    <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-2 ">
+                                    <div className="d-flex justify-content-between align-items-center pt-2 ">
                                         <p
                                             className=" fw-bold pt-1"
                                             style={{ color: '#5b322f' }}
@@ -133,18 +133,27 @@ function ClassEnd(props) {
                                                 <p>評價課程</p>
                                             </button>
                                         ) : (
-                                            <Link
-                                                to={`/class/list/${buyClass.product_id}?class=${buyClass.ins_main_id}`}
-                                            >
-                                                <button className="btn d-flex pb-0 border-0">
+                                            <>
+                                                <div>
                                                     <img
-                                                        className="me-1 "
-                                                        src={rate_review}
-                                                        alt="message"
+                                                        className="evaluation-doc"
+                                                        src={evaluation_doc}
+                                                        alt="evaluation_doc"
                                                     />
-                                                    <p>查看評價</p>
-                                                </button>
-                                            </Link>
+                                                </div>
+                                                <Link
+                                                    to={`/class/list/${buyClass.product_id}?class=${buyClass.ins_main_id}`}
+                                                >
+                                                    <button className="btn d-flex pb-0 border-0">
+                                                        <img
+                                                            className="me-1 "
+                                                            src={rate_review}
+                                                            alt="message"
+                                                        />
+                                                        <p>查看評價</p>
+                                                    </button>
+                                                </Link>
+                                            </>
                                         )}
                                     </div>
                                 </div>
@@ -273,20 +282,19 @@ function ClassEnd(props) {
                                 <div className="d-flex justify-content-center">
                                     <button
                                         className="btn btn-primary myClass-btn mt-4 "
-                                        onClick={
-                                            (() => {
-                                                if (
-                                                    !evaluation.content ||
-                                                    !evaluation.rating
-                                                ) {
-                                                    return errorToast(
-                                                        '',
-                                                        '請填寫完整評價'
-                                                    );
-                                                }
-                                            },
-                                            evaluationSubmit)
-                                        }
+                                        onClick={(e) => {
+                                            if (
+                                                !evaluation.content ||
+                                                !evaluation.rating
+                                            ) {
+                                                return errorToast(
+                                                    '',
+                                                    '請填寫完整評價'
+                                                );
+                                            }
+                                            e.preventDefault();
+                                            evaluationSubmit();
+                                        }}
                                     >
                                         送出評價
                                     </button>
