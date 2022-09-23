@@ -34,8 +34,8 @@ function MyCart() {
         }
     }, [member]);
 
-    console.log('product', favA);
-    console.log('class', favB);
+    // console.log('product', favA);
+    // console.log('class', favB);
 
     //全部購物車
     const [myCart, setMyCart] = useState([]);

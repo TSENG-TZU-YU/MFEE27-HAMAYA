@@ -165,7 +165,7 @@ function Article() {
             </div>
             <div className="container ">
                 <div className="row ">
-                    {read.map((recommend, index) => {
+                    {read.map((recommend) => {
                         return (
                             <>
                                 <div

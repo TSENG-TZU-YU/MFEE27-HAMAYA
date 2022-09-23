@@ -3,14 +3,10 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
-import {
-    successToast,
-    warningToast,
-    errorToast,
-} from '../../../../../components/Alert';
 import '../MyCart.scss';
 import MyCartProduct from './MyCartProduct';
 import MyCartClass from './MyCartClass';
+import { successToast, errorToast } from '../../../../../components/Alert';
 
 function MyCartTable({
     myCart,
@@ -111,26 +107,40 @@ function MyCartTable({
         }
     }
 
-    // TODO: checkbox 多筆加入收藏
-    function handleCheckAddFav() {
-        console.log('加入收藏', check);
-        if (member !== null && member.id !== '') {
-            //重組陣列 加入 member.id
-            let newCheck = check.map((product_id) => {
-                return [member.id, product_id];
-            });
-
-            //     // console.log('加入收藏', newCheck);
-            //     let setItemDataAdd = async () => {
-            //         let response = await axios.post(
-            //             `${API_URL}/member/mybucketlist`,
-            //             {
-            //                 data: newCheck,
-            //             }
-            //         );
-            //         console.log('新增response.data', response.data);
-            //     };
-            //     //     // http://localhost:3001/api/member/mybucketlist/multi
+    // 多筆 加入收藏
+    async function handleAddFavorite() {
+        // console.log('buy Cart myCart', check, myCart);
+        // //filter我選取的東西
+        let newMyCart = myCart.filter((item) => {
+            return check.indexOf(item.product_id) !== -1;
+        });
+        // console.log('buy Cart newMyCart', check, newMyCart);
+        let itemsData = newMyCart.map((item) => {
+            return {
+                user_id: member.id,
+                product_id: item.product_id,
+                category_id: item.category_id,
+            };
+        });
+        setItemsData(itemsData);
+        async function setItemsData(itemsData) {
+            try {
+                let response = await axios.post(
+                    `${API_URL}/member/mybucketlist`,
+                    itemsData
+                );
+                let productsA = response.data.product.map(
+                    (item) => item.product_id
+                );
+                let productsB = response.data.class.map(
+                    (item) => item.product_id
+                );
+                successToast(response.data.message, '關閉');
+                setFavA(productsA);
+                setFavB(productsB);
+            } catch (err) {
+                errorToast(err.response.data.message, '關閉');
+            }
         }
     }
 
@@ -164,7 +174,7 @@ function MyCartTable({
                     <button
                         className="btn btn-primary col mx-2 p-0 text-nowrap"
                         onClick={() => {
-                            handleCheckAddFav();
+                            handleAddFavorite();
                         }}
                     >
                         加入收藏

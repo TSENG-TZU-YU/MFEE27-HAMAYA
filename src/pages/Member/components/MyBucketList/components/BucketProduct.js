@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
@@ -11,6 +12,8 @@ import {
 } from '../../../../../components/Alert';
 import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
 import { ReactComponent as AddCart } from '../../../../../assets/svg/shopping_cart_check.svg';
+import { TbMusicOff } from 'react-icons/tb';
+
 function BucketProduct({ myBucketA, setMyBucketA }) {
     const { member } = useAuth();
     //checkbox check 裡面放product_id
@@ -68,7 +71,7 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
     };
     //icon 加入購物車
     function getCheck(itemInfo) {
-        console.log('itemInfo', itemInfo);
+        // console.log('itemInfo', itemInfo);
         //確認有沒有重複
         let newItemInfo = shoppingCart.find((v) => {
             return v.product_id === itemInfo.product_id;
@@ -121,19 +124,9 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
         warningToast('已加入臨時購物車', '關閉');
     }
 
-    // 取消收藏
-    async function handleRemoveFavorite() {
-        console.log('buy bucket  myBucketA', check, myBucketA);
-
-        //filter我選取的東西
-        let newMyBucketA = myBucketA.filter((item) => {
-            return check.indexOf(item.product_id) !== -1;
-        });
-        //
-        let itemsData = newMyBucketA.map((item) => {
-            return [item.user_id, item.product_id];
-        });
-        console.log('itemsData', itemsData);
+    // 單筆 取消收藏
+    async function handleRemoveFavoriteSingle(product_id) {
+        let itemsData = [{ user_id: member.id, product_id: product_id }];
         try {
             let response = await axios.delete(
                 `${API_URL}/member/mybucketlist/delete`,
@@ -142,10 +135,37 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
                     data: itemsData,
                 }
             );
-            console.log(response.data);
+            successToast(response.data.message, '關閉');
             setMyBucketA(response.data.product);
         } catch (err) {
-            console.log(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+        }
+    }
+
+    // 多筆 取消收藏
+    async function handleRemoveFavorite() {
+        //filter我選取的東西
+        let newMyBucketA = myBucketA.filter((item) => {
+            return check.indexOf(item.product_id) !== -1;
+        });
+        let itemsData = newMyBucketA.map((item) => {
+            return { user_id: member.id, product_id: item.product_id };
+        });
+        setItemsData(itemsData);
+        async function setItemsData(itemsData) {
+            try {
+                let response = await axios.delete(
+                    `${API_URL}/member/mybucketlist/delete`,
+                    {
+                        withCredentials: true,
+                        data: itemsData,
+                    }
+                );
+                successToast(response.data.message, '關閉');
+                setMyBucketA(response.data.product);
+            } catch (err) {
+                console.log(err.response.data.message);
+            }
         }
     }
 
@@ -262,22 +282,43 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
                 </div>
             </div>
             <div className="row">
+                {myBucketA.length === 0 ? (
+                    <h4 className="mt-5 d-flex w-100 main-gary-light-color text-center justify-content-center align-items-center">
+                        <TbMusicOff
+                            className="me-2"
+                            style={{
+                                width: '30px',
+                                height: '30px',
+                            }}
+                        />
+                        目前無收藏商品
+                    </h4>
+                ) : (
+                    ''
+                )}
                 {myBucketA.map((item) => {
                     return (
-                        <div className="col-lg-6 py-2" key={item.id}>
-                            <div className="myBucketProduct-Item d-flex">
-                                <div className="myBucketProduct-Img">
+                        <div className="col-lg-6 p-0 my-1" key={item.id}>
+                            <div className="myBucketProduct-Item d-flex m-2 p-2 bucket-shadow ">
+                                <Link
+                                    to={`/products/${item.product_id}?main_id=${item.ins_main_id}`}
+                                    className="myBucketProduct-Img"
+                                >
                                     <img
-                                        className="img-fluid"
+                                        className="myBucketProduct-Img-contain"
                                         src={require(`../../../../../album/products/${item.image}`)}
-                                        alt=""
+                                        alt="productImg"
                                     />
-                                </div>
+                                </Link>
                                 <div className="flex-grow-1 m-2 d-flex flex-column">
                                     <div className="d-flex justify-content-between">
-                                        <h6>
-                                            <b>{item.name}</b>
-                                        </h6>
+                                        <Link
+                                            to={`/products/${item.product_id}?main_id=${item.ins_main_id}`}
+                                        >
+                                            <h6>
+                                                <b>{item.name}</b>
+                                            </h6>
+                                        </Link>
                                         <input
                                             className="form-check-input"
                                             type="checkbox"
@@ -293,13 +334,14 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
                                     <div className="d-flex justify-content-between align-items-center mt-auto">
                                         <p className="d-inline-flex m-0">
                                             <span className="accent-color">
-                                                <b>NT: {item.price}</b>
+                                                <b>NT ${item.price}</b>
                                             </span>
                                         </p>
                                         <div>
                                             <button
                                                 className="btn border-0 p-0 mx-3"
-                                                onClick={() => {
+                                                onClick={(e) => {
+                                                    e.preventDefault();
                                                     setShopCartState(true);
                                                     getCheck({
                                                         product_id:
@@ -321,7 +363,7 @@ function BucketProduct({ myBucketA, setMyBucketA }) {
                                                 className="btn border-0 p-0"
                                                 onClick={(e) => {
                                                     e.preventDefault();
-                                                    handleRemoveFavorite(
+                                                    handleRemoveFavoriteSingle(
                                                         item.product_id
                                                     );
                                                 }}

@@ -229,12 +229,13 @@ function Detailed({ ins_main_id }) {
 
     // 取消收藏
     async function handleRemoveFavorite(product_id) {
-        console.log('handleRemoveFavorite', product_id);
+        let itemsData = [{ user_id: member.id, product_id: product_id }];
         try {
             let response = await axios.delete(
-                `${API_URL}/member/mybucketlist/${product_id}`,
+                `${API_URL}/member/mybucketlist/delete`,
                 {
                     withCredentials: true,
+                    data: itemsData,
                 }
             );
             let products = response.data.class.map((item) => item.product_id);
