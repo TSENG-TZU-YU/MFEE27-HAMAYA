@@ -230,7 +230,7 @@ function Class(props) {
                                 <Col
                                     lg={6}
                                     className="pb-5 mb-md-5 "
-                                    data-aos="flip-left"
+                                    data-aos="fade-right"
                                 >
                                     <Link to="list?class=1">
                                         <img
@@ -249,7 +249,7 @@ function Class(props) {
                                 <Col
                                     lg={6}
                                     className="pb-5 "
-                                    data-aos="flip-left"
+                                    data-aos="fade-left"
                                 >
                                     <Link to="list?class=2">
                                         <img
