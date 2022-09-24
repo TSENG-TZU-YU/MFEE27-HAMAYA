@@ -179,7 +179,7 @@ function Cart() {
                     setShopCartState(false);
                 }}
             ></div>
-        </>
+        </div>
     );
 }
 
