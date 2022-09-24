@@ -193,18 +193,22 @@ function Class(props) {
                                 })}
                             </Col>
                         </Row>
+
                         <div className="more-art ">
                             <Link to={`/news/section?categoryList=4`}>
-                                <p className="mb-0 me-1 cursor-pinter">
+                                <p className="mb-0 me-1 cursor-pinter d-flex">
                                     看更多音樂文章
                                 </p>
-                                <img
-                                    className="art-arrow"
-                                    style={{ width: '15px', height: '15px' }}
-                                    src={arrow}
-                                    alt="arrow"
-                                />
                             </Link>
+                            <img
+                                className="art-arrow"
+                                style={{
+                                    width: '15px',
+                                    height: '15px',
+                                }}
+                                src={arrow}
+                                alt="arrow"
+                            />
                         </div>
                     </Container>
                     <div className="session-bg ">
