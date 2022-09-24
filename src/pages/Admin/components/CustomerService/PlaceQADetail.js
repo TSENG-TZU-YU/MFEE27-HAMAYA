@@ -72,7 +72,7 @@ function PlaceQADetail(props) {
         customerConn();
     }, []);
 
-    //讀取問答詳細
+    //讀取場地詳細
     async function myPlaceDetail() {
         let params = new URLSearchParams(location.search);
         let plid = params.get('plid');
@@ -98,7 +98,7 @@ function PlaceQADetail(props) {
     }
     useEffect(() => {
         myPlaceDetail();
-    }, [location]);
+    }, []);
 
     //新增回覆
     const [replyForm, setreplyForm] = useState({
@@ -197,7 +197,19 @@ function PlaceQADetail(props) {
                         回覆狀態
                     </div>
                     <div className="col-9 text-center  p-1">
-                        {myQuestion.detail.manager_reply_state}
+                        <span
+                            className={
+                                myQuestion.detail.manager_reply_state ===
+                                '未回覆'
+                                    ? 'reply_state'
+                                    : myQuestion.detail.manager_reply_state ===
+                                      '已回覆'
+                                    ? 'reply_state2'
+                                    : 'reply_state3'
+                            }
+                        >
+                            {myQuestion.detail.manager_reply_state}
+                        </span>
                     </div>
                 </div>
                 <div className="d-flex border">

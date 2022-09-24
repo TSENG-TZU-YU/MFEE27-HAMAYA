@@ -646,12 +646,34 @@ function Detailed({ ins_main_id }) {
                                                     </p>
 
                                                     <div className="d-flex mt-2 align-items-center">
-                                                        <div className="StarRating">
-                                                            <StarRating />
-                                                        </div>
-                                                        <small className="ms-2  ">
-                                                            2 人評價
-                                                        </small>
+                                                        {avg.map((avg) => {
+                                                            return (
+                                                                <>
+                                                                    <div className="StarRating">
+                                                                        <Evaluation
+                                                                            rating={
+                                                                                recommend.rating
+                                                                            }
+                                                                        />
+                                                                    </div>
+                                                                    <small className="ms-2">
+                                                                        {recommend.member ===
+                                                                            null ||
+                                                                        recommend.member ===
+                                                                            0 ? (
+                                                                            '無評價'
+                                                                        ) : (
+                                                                            <>
+                                                                                {
+                                                                                    recommend.member
+                                                                                }
+                                                                                人評價
+                                                                            </>
+                                                                        )}
+                                                                    </small>
+                                                                </>
+                                                            );
+                                                        })}
                                                     </div>
                                                     <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">
                                                         <h4
