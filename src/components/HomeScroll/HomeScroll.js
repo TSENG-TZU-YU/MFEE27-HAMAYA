@@ -1,7 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useState, useParams } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import PropTypes from 'prop-types';
+import { API_URL } from '../../utils/config';
+import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+import { Link, useLocation } from 'react-router-dom';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -14,6 +18,27 @@ import './HomeScroll.scss';
 import { Autoplay, Pagination, Navigation } from 'swiper';
 
 function HomeScroll(props) {
+    // const [data, setData] = useState([]);
+    // const [slider, setSlider] = useState([]);
+
+    // const { content } = useParams();
+
+    // const location = useLocation();
+
+    // useEffect(() => {
+    //     // let params = new URLSearchParams(location.search);
+    //     // let mainId = params.get('mainId');
+    //     let getArticle = async () => {
+    //         let response = await axios.get(
+    //             `${API_URL}/home/${content}?mainId=${1}`
+    //         );
+    //         setData(response.data.data);
+    //         setSlider(response.data.slider);
+    //     };
+    //     getArticle();
+    // }, [location]);
+
+    // console.log(data);
 
     return (
         <>
