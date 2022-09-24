@@ -7,8 +7,6 @@ import { ReactComponent as OrderFinish } from '../../../../../assets/svg/order_s
 import { ReactComponent as OrderUndone } from '../../../../../assets/svg/order_status_undone.svg';
 import { ReactComponent as OK } from '../../../../../assets/svg/ok.svg';
 import { ReactComponent as Message } from '../../../../../assets/svg/message.svg';
-import productImg from '../../../../../album/products/FP-90-3.png';
-import classPic from '../../../../../assets/ClassImg/Adult img.png';
 import './MyOrderDetail.scss';
 
 function MyOrderDetail() {
@@ -20,19 +18,41 @@ function MyOrderDetail() {
     const [myOrderList, setMyOrderList] = useState([]);
     const [myOrderListA, setMyOrderListA] = useState([]);
     const [myOrderListB, setMyOrderListB] = useState([]);
+    const [orderOne, setOrderOne] = useState(false);
+    const [orderTwo, setOrderTwo] = useState(false);
+    const [orderThr, setOrderThr] = useState(false);
 
     useEffect(() => {
         async function getMyOrderDetail() {
             let response = await axios.get(
                 `${API_URL}/member/myorder/detail/${orderId}`,
                 {
-                    params: { user_id: member.id, order_id: orderId },
+                    withCredentials: true,
+                    params: { user_id: member.id },
                 }
             );
-            console.log('response', response.data);
+            // console.log('response order detail', response.data);
 
             setMyOrderUserInfo(response.data.userInfo);
             setMyOrderList(response.data.orderList);
+
+            let order_state = response.data.userInfo[0].order_state;
+            switch (order_state) {
+                case 1:
+                    setOrderOne(true);
+                    break;
+                case 2:
+                    setOrderOne(true);
+                    setOrderTwo(true);
+                    break;
+                case 3:
+                    setOrderOne(true);
+                    setOrderTwo(true);
+                    setOrderThr(true);
+                    break;
+                default:
+                    setOrderOne(true);
+            }
 
             //分類別
             const myOrder_cateA = response.data.orderList.filter((v) => {
@@ -53,7 +73,10 @@ function MyOrderDetail() {
             {myOrderUserInfo.map((userInfo) => {
                 return (
                     <>
-                        <div className="d-flex align-items-center">
+                        <div
+                            key={Math.random().toString(36).replace('3.', '')}
+                            className="d-flex align-items-center"
+                        >
                             <h4 className="main-color d-inline-block">
                                 <b>訂單詳細</b>
                             </h4>
@@ -63,16 +86,61 @@ function MyOrderDetail() {
                         </div>
                         <div className="d-flex justify-content-evenly pt-4">
                             <div>
-                                <OrderFinish className="myOrderDetail-Icon" />
-                                <p className="gary-dark-color">訂單成立</p>
+                                {orderOne ? (
+                                    <>
+                                        <OrderFinish className="myOrderDetail-Icon" />
+                                        <p className="gary-dark-color">
+                                            訂單成立
+                                        </p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <OrderUndone className="myOrderDetail-Icon" />
+                                        <p className="gary-dark-color">
+                                            訂單成立
+                                        </p>
+                                    </>
+                                )}
+                                {/* <OrderFinish className="myOrderDetail-Icon" />
+                                <p className="gary-dark-color">訂單成立</p> */}
                             </div>
                             <div>
-                                <OrderFinish className="myOrderDetail-Icon" />
-                                <p className="gary-dark-color">待出貨</p>
+                                {orderTwo ? (
+                                    <>
+                                        <OrderFinish className="myOrderDetail-Icon" />
+                                        <p className="gary-dark-color">
+                                            待出貨
+                                        </p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <OrderUndone className="myOrderDetail-Icon" />
+                                        <p className="gary-dark-color">
+                                            待出貨
+                                        </p>
+                                    </>
+                                )}
+                                {/* <OrderFinish className="myOrderDetail-Icon" />
+                                <p className="gary-dark-color">待出貨</p> */}
                             </div>
                             <div>
-                                <OrderUndone className="myOrderDetail-Icon" />
-                                <p className="gary-dark-color">訂單完成</p>
+                                {orderThr ? (
+                                    <>
+                                        <OrderFinish className="myOrderDetail-Icon" />
+                                        <p className="gary-dark-color">
+                                            訂單完成
+                                        </p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <OrderUndone className="myOrderDetail-Icon" />
+                                        <p className="gary-dark-color">
+                                            訂單完成
+                                        </p>
+                                    </>
+                                )}
+                                {/* <OrderUndone className="myOrderDetail-Icon" />
+                                <p className="gary-dark-color">訂單完成</p> */}
                             </div>
                         </div>
                         <h6 className="main-color py-2">收件資訊</h6>
@@ -89,12 +157,16 @@ function MyOrderDetail() {
                                     {userInfo.phone}
                                 </span>
                             </p>
-                            <p className="m-0 py-1 main-color col-lg-6 col-12">
-                                收件人地址{' '}
-                                <span className="gary-dark-color">
-                                    {userInfo.address}
-                                </span>
-                            </p>
+                            {userInfo.address !== 'undefined' ? (
+                                <p className="m-0 py-1 main-color col-lg-6 col-12">
+                                    收件人地址{' '}
+                                    <span className="gary-dark-color">
+                                        {userInfo.address}
+                                    </span>
+                                </p>
+                            ) : (
+                                ''
+                            )}
                         </div>
                     </>
                 );
@@ -110,9 +182,9 @@ function MyOrderDetail() {
                     <tr className="text-center accent-light-color bg-main-color">
                         <th className="myOrderThWidth">樂器商城</th>
                         <th className="w-50">商品名稱</th>
-                        <th>價格</th>
+                        <th className="myOrderThWidth">價格</th>
                         <th>數量</th>
-                        <th>小計</th>
+                        <th className="myOrderThWidth">小計</th>
                     </tr>
                 </thead>
                 <tbody className="detail-tbody">
@@ -199,9 +271,9 @@ function MyOrderDetail() {
                     <tr className="text-center accent-light-color bg-main-color">
                         <th className="myOrderThWidth">音樂教育</th>
                         <th className="w-50">商品名稱</th>
-                        <th>價格</th>
+                        <th className="myOrderThWidth">價格</th>
                         <th>數量</th>
-                        <th>小計</th>
+                        <th className="myOrderThWidth">小計</th>
                     </tr>
                 </thead>
                 <tbody className="detail-tbody">
@@ -222,7 +294,7 @@ function MyOrderDetail() {
                                         <div className="col-3">
                                             <img
                                                 className="myOrder-Img myOrder-contain"
-                                                src={classPic}
+                                                src={require(`../../../../../album/class/${item.image_1}`)}
                                                 alt=""
                                             />
                                         </div>
@@ -280,9 +352,18 @@ function MyOrderDetail() {
                     Number(userInfo.total_amount) +
                     0 -
                     Number(userInfo.freight);
+                let discount;
+                if (userInfo.discount) {
+                    discount = userInfo.discount;
+                } else {
+                    discount = 0;
+                }
                 return (
                     <>
-                        <div className="row detailBorder gary-dark-color mx-1 mt-3">
+                        <div
+                            key={Math.random().toString(36).replace('3.', '')}
+                            className="row detailBorder gary-dark-color mx-1 mt-3"
+                        >
                             <div className="py-2 col-12 row justify-content-end">
                                 <p className="m-0 col-lg-2 col-5 text-end">
                                     總計
@@ -304,8 +385,7 @@ function MyOrderDetail() {
                                     優惠券折扣
                                 </p>
                                 <p className="m-0 col-lg-2 col-5 text-end">
-                                    - NT ${userInfo.coupon_id}
-                                    {/* 要串coupon_id */}
+                                    - NT ${discount}
                                 </p>
                             </div>
                         </div>
@@ -323,10 +403,16 @@ function MyOrderDetail() {
                                     <Message className="myOrderDetailBtn-Icon px-1" />
                                     訂單詢問
                                 </button>
-                                <button className="btn btn-primary col mx-2 p-0 text-nowrap">
-                                    <OK className="myOrderDetailBtn-Icon px-1" />
-                                    訂單完成
-                                </button>
+                                {orderTwo ? (
+                                    <button className="btn btn-primary col mx-2 p-0 text-nowrap">
+                                        <OK className="myOrderDetailBtn-Icon px-1" />
+                                        訂單完成
+                                    </button>
+                                ) : (
+                                    <button className="btn btn-primary col mx-2 p-0 text-nowrap">
+                                        前往付款
+                                    </button>
+                                )}
                             </div>
                         </div>
                     </>

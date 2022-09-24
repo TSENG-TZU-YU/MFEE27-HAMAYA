@@ -4,6 +4,12 @@ import { useAuth } from '../../../../../utils/use_auth';
 import { cityData, distData } from '../../MyProfile/location';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
+import {
+    basicAlert,
+    successToast,
+    warningToast,
+    errorToast,
+} from '../../../../../components/Alert';
 
 function MyCartDoCheckout({
     myCart,
@@ -24,15 +30,15 @@ function MyCartDoCheckout({
                         withCredentials: true,
                     }
                 );
-                console.log('myCoupon', response.data);
+                // console.log('myCoupon', response.data);
                 //過濾可以使用的
                 let filterUse = response.data.filter((v) => {
                     return v.use === 1;
                 });
+
                 //過濾大於開始時間
                 let currentTime = Date.now();
                 // console.log('currentTime', currentTime);
-
                 let filterStart = filterUse.filter((v) => {
                     let start_time = new Date(v.start_time).valueOf();
                     return currentTime > start_time;
@@ -57,7 +63,7 @@ function MyCartDoCheckout({
                     };
                 });
 
-                console.log('newMyCoupon', newMyCoupon);
+                // console.log('newMyCoupon', newMyCoupon);
                 setMyCoupon(newMyCoupon);
             } catch (err) {
                 console.log('載入優惠券失敗', err);
@@ -74,9 +80,10 @@ function MyCartDoCheckout({
         dist: '',
         address: '',
         coupon: 0,
-        coupon_id: 0,
+        coupon_id: '',
+        minimum: 0,
     });
-    // console.log('myCartInfo', myCartInfo);
+    console.log('myCartInfo', myCartInfo);
 
     function getMyCartInfo(e) {
         setMyCartInfo({ ...myCartInfo, [e.target.name]: e.target.value });
@@ -84,48 +91,64 @@ function MyCartDoCheckout({
     function getMyCartCou(e) {
         const [coupon_id] = e.target.value.split('/');
         const [, value] = e.target.value.split('/');
-        // console.log(coupon_id, value, e.target.value);
+        const [, , minimum] = e.target.value.split('/');
+        console.log(coupon_id, value, minimum, e.target.value);
+        if (calcTotalPrice < minimum) {
+            errorToast('此優惠券未滿' + minimum, '關閉');
+        }
         setMyCartInfo({
             ...myCartInfo,
             [e.target.name]: value,
             coupon_id: coupon_id,
+            minimum: minimum,
         });
     }
 
     //前往付款 成立訂單
     async function setSaveOrder(saveOrderInfo) {
-        console.log('saveOrderInfo', saveOrderInfo, myCart);
+        // console.log('saveOrderInfo', saveOrderInfo, myCart);
         //確保是否登入
         if (member !== null && member.id !== '') {
             //串要傳資料庫的內容 前端驗證資訊是否填妥
             let newMyCart = myCart.filter((item) => {
                 return item.amount !== 0;
             });
-            console.log('newMyCart', newMyCart);
+            // console.log('newMyCart', newMyCart);
 
             if (!newMyCart.length) {
-                return alert('商品數量不對喔');
+                return errorToast('商品數量不對喔', '關閉');
             }
 
             if (saveOrderInfo.receiver === '') {
-                alert('請填寫收件人姓名');
+                warningToast('請填寫訂購人姓名', '關閉');
                 return;
             }
             if (saveOrderInfo.phone === '') {
-                alert('請填寫收件人電話');
+                warningToast('請填寫訂購人電話', '關閉');
                 return;
             }
-            if (saveOrderInfo.city === '' && saveOrderInfo.dist === '') {
-                alert('請填寫完整地址');
-                return;
+            if (saveOrderInfo.minimum > saveOrderInfo.total_amount) {
+                return errorToast('金額未達使用該優惠券額度', '關閉');
             }
-            if (saveOrderInfo.address === '') {
-                alert('請填寫完整地址');
-                return;
-            }
-            if (saveOrderInfo.freight === 0) {
-                alert('請選擇運費');
-                return;
+
+            let categoryOnlyB = myCart.find((item) => {
+                return item.category_id === 'A';
+            });
+            // console.log('categoryOnlyB', categoryOnlyB);
+
+            if (categoryOnlyB) {
+                if (saveOrderInfo.city === '' && saveOrderInfo.dist === '') {
+                    warningToast('請填寫完整地址', '關閉');
+                    return;
+                }
+                if (saveOrderInfo.address === '') {
+                    warningToast('請填寫完整地址', '關閉');
+                    return;
+                }
+                if (saveOrderInfo.freight === 0) {
+                    warningToast('請選擇運費', '關閉');
+                    return;
+                }
             }
 
             let newSaveOrderInfo = [
@@ -143,9 +166,17 @@ function MyCartDoCheckout({
                         `${API_URL}/member/myorder`,
                         newSaveOrderInfo
                     );
-                    alert(
-                        `訂單編號：${response.data.order_id} & ${response.data.message}`
+
+                    basicAlert(
+                        `訂單編號：${response.data.order_id} & ${response.data.message}`,
+                        '關閉'
                     );
+                    if (response.data.noStock) {
+                        basicAlert(
+                            `商品編號：${response.data.noStock}  ${response.data.message} `,
+                            '關閉'
+                        );
+                    }
                     setMyCart([]);
                     setMyCartA([]);
                     setMyCartB([]);
@@ -178,6 +209,7 @@ function MyCartDoCheckout({
                             type="text"
                             id=""
                             name="receiver"
+                            placeholder="請輸入姓名"
                             className="form-control"
                             onChange={getMyCartInfo}
                             value={myCartInfo.receiver}
@@ -193,6 +225,7 @@ function MyCartDoCheckout({
                             type="phone"
                             id=""
                             name="phone"
+                            placeholder="請輸入電話"
                             className="form-control"
                             maxLength={10}
                             onChange={getMyCartInfo}
@@ -310,16 +343,27 @@ function MyCartDoCheckout({
                                 id=""
                                 onChange={getMyCartCou}
                             >
-                                <option value="0">請選擇折扣</option>
+                                <option value="">請選擇折扣</option>
                                 {myCoupon.map((v) => {
+                                    let option =
+                                        v.name +
+                                        ' 滿' +
+                                        v.minimum +
+                                        '折' +
+                                        v.discount;
+
                                     return (
                                         <option
                                             key={v.coupon_id}
                                             value={
-                                                v.coupon_id + '/' + v.discount
+                                                v.coupon_id +
+                                                '/' +
+                                                v.discount +
+                                                '/' +
+                                                v.minimum
                                             }
                                         >
-                                            {(v.discount, v.name)}
+                                            {option}
                                         </option>
                                     );
                                 })}
@@ -360,7 +404,7 @@ function MyCartDoCheckout({
                             });
                         }}
                     >
-                        前往付款
+                        訂單成立
                     </button>
                 </div>
             </div>

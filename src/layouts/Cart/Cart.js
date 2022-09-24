@@ -9,15 +9,17 @@ import ashBin from '../../assets/svg/delete.svg';
 import { basicAlert, successToast } from '../../components/Alert';
 //修改 CheckOut 顏色
 import { ReactComponent as CheckOut } from '../../assets/svg/shopping_cart_checkout.svg';
+import { useNavigate } from 'react-router-dom';
 
 function Cart() {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
+    const navigate = useNavigate();
     //臨時購物車商品為0 則關閉
-    if (shoppingCart.length === 0) {
-        setShopCartState(false);
-    }
+    // if (shoppingCart.length === 0) {
+    //     setShopCartState(false);
+    // }
     //copy
     let newShoppingCart = shoppingCart.map((item) => {
         return { ...item };
@@ -80,6 +82,7 @@ function Cart() {
         localStorage.removeItem('shoppingCart');
         //清空臨時購物車
         setShoppingCart([]);
+        navigate('/member/mycart');
     }
 
     //金額
@@ -91,22 +94,22 @@ function Cart() {
         .reduce((prev, curr) => prev + curr, 0);
 
     return (
-        <>
-            <div className="position-relative">
-                <div className="shoppingCart p-2">
-                    <div className="d-flex justify-content-between align-items-baseline shoppingCartTitle pb-2">
-                        <span className="main-color">
-                            <b className="">購物車</b>
-                        </span>
-                        <span className="minimum main-gary-light-color">
-                            共有{shoppingCart.length}件商品
-                        </span>
-                        <span className="minimum">
-                            總金額:NT ${shoppingCartPrice}
-                        </span>
-                    </div>
-                    <div className="scrollStyle overflow-auto pb-2">
-                        {shoppingCart.map((item, index) => {
+        <div className="position-relative">
+            <div className="shoppingCart p-2">
+                <div className="d-flex justify-content-between align-items-baseline shoppingCartTitle pb-2">
+                    <span className="main-color">
+                        <b className="">購物車</b>
+                    </span>
+                    <span className="minimum main-gary-light-color">
+                        共有{shoppingCart.length}件商品
+                    </span>
+                    <span className="minimum">
+                        總金額:NT ${shoppingCartPrice}
+                    </span>
+                </div>
+                <div className="scrollStyle overflow-auto pb-2">
+                    {shoppingCart.length !== 0 ? (
+                        shoppingCart.map((item, index) => {
                             return (
                                 <div
                                     className="shoppingCartItem d-flex py-2"
@@ -150,21 +153,24 @@ function Cart() {
                                     </button>
                                 </div>
                             );
-                        })}
-                    </div>
-                    <div className="pt-2">
-                        {/* 訂單結帳 如果未登入要要求登入 已登入要把資料送到後台重複的不寫入 沒有則寫入 清空localStorage*/}
-                        <Link
-                            className="border-0 bg-main-color checkOutBtn py-2 d-block text-center"
-                            to={`/member/mycart`}
-                            onClick={() => {
-                                getMultipleCheck();
-                            }}
-                        >
-                            <CheckOut className="checkOutIcon" />
-                            <span className="px-2">訂單結帳</span>
-                        </Link>
-                    </div>
+                        })
+                    ) : (
+                        <p className="text-center m-0 mt-4 py-5 main-color">
+                            目前購物車為空
+                        </p>
+                    )}
+                </div>
+                <div className="pt-2">
+                    {/* 訂單結帳 如果未登入要要求登入 已登入要把資料送到後台重複的不寫入 沒有則寫入 清空localStorage*/}
+                    <button
+                        className="border-0 bg-main-color checkOutBtn py-2"
+                        onClick={() => {
+                            getMultipleCheck();
+                        }}
+                    >
+                        <CheckOut className="checkOutIcon" />
+                        <span className="px-2">訂單結帳</span>
+                    </button>
                 </div>
             </div>
             <div

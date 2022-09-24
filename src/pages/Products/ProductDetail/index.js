@@ -235,12 +235,12 @@ function Product() {
                 }
             }
             //未登入者提示
-            successToast('加入購物車', '關閉');
+            successToast('成功加入購物車', '關閉');
             //臨時購物車
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
             return;
         }
-        warningToast('已加入臨時購物車', '關閉');
+        successToast('成功加入購物車', '關閉');
     }
     //立即購買
     function getImmediate(itemInfo) {
