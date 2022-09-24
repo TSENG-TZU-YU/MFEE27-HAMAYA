@@ -411,12 +411,12 @@ function Products() {
                     }
                 }
             }
-            successToast('加入購物車', '關閉');
+            successToast('成功加入購物車', '關閉');
             //臨時購物車
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
             return;
         }
-        warningToast('已加入臨時購物車', '關閉');
+        successToast('成功加入購物車', '關閉');
     }
 
     // 會員收藏的資料

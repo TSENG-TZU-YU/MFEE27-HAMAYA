@@ -24,7 +24,7 @@ function MyOrder() {
             let response = await axios.get(
                 `${API_URL}/member/myorder/${member.id}`
             );
-            // console.log('response', response.data);
+            console.log('response', response.data);
             //找order_id
             let order_id = response.data.myOrder.map((item) => item.order_id);
             //過濾重複的
@@ -124,9 +124,43 @@ function MyOrder() {
                                                 <span className="col-3  d-lg-none main-color">
                                                     訂單狀態
                                                 </span>
-                                                <span className="col-lg-6 col-3 text-lg-center text-end pe-2 pe-lg-0">
-                                                    待出貨
-                                                </span>
+                                                {order.order_state === 1 ? (
+                                                    <span
+                                                        style={{
+                                                            color: '#8a3731',
+                                                        }}
+                                                        className="col-lg-6 col-3 text-lg-center text-end pe-2 pe-lg-0"
+                                                    >
+                                                        {order.order_stateName}
+                                                    </span>
+                                                ) : (
+                                                    ''
+                                                )}
+                                                {order.order_state === 2 ? (
+                                                    <span
+                                                        style={{
+                                                            color: '#00323d',
+                                                        }}
+                                                        className="col-lg-6 col-3 text-lg-center text-end pe-2 pe-lg-0"
+                                                    >
+                                                        {order.order_stateName}
+                                                    </span>
+                                                ) : (
+                                                    ''
+                                                )}
+                                                {order.order_state === 3 ? (
+                                                    <span
+                                                        style={{
+                                                            color: '#767676',
+                                                        }}
+                                                        className="col-lg-6 col-3 text-lg-center text-end pe-2 pe-lg-0"
+                                                    >
+                                                        {order.order_stateName}
+                                                    </span>
+                                                ) : (
+                                                    ''
+                                                )}
+
                                                 <span className="col-3  d-lg-none main-color ps-2">
                                                     訂單時間
                                                 </span>
