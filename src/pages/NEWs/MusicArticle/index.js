@@ -9,6 +9,13 @@ import NewsBanner from '../../../assets/NewsImg/news-banner.jpg';
 
 import arrow from '../../../assets/svg/arrow_back_ios_new.svg';
 
+//分頁
+import _ from 'lodash';
+
+//元件
+import PaginationBar from '../../../components/PaginationBar/PaginationBar';
+import { clearConfigCache } from 'prettier';
+
 //TODO:頁碼還沒有做
 //TODO:類別顏色切換，四個選項的顏色切換
 //TODO:連結到下一頁的變數
@@ -17,6 +24,15 @@ function MusicArticle() {
     const [data, setData] = useState([]);
     const [activeText, setActiveText] = useState(1);
     const [SmallArticles, setSmallArticles] = useState([]);
+
+    // 畫面上目前呈現用狀態
+    const [articleDisplay, setArticleDisplay] = useState([]);
+
+    // 分頁用
+    const [pageNow, setPageNow] = useState(1); // 目前頁號
+    const [perPage, setPerPage] = useState(3); // 每頁多少筆資料
+    const [pageTotal, setPageTotal] = useState(0); //總共幾頁，在didMount時要決定
+    const [pageProducts, setPageProducts] = useState([]);
 
     const location = useLocation();
 
@@ -39,6 +55,14 @@ function MusicArticle() {
             setData(response.data.data);
             setSmallArticles(response.data.SmallArticles);
             setActiveText(response.data.data[0].categoryId);
+            const pageList = _.chunk(response.data.SmallArticles, perPage);
+            // console.log(pageList)
+
+            if (pageList.length > 0) {
+                setPageTotal(pageList.length);
+                // 設定到state中
+                setPageProducts(pageList);
+            }
         };
         getMusicArticle();
     }, [location]);
@@ -168,73 +192,76 @@ function MusicArticle() {
             </div>
             <div className="container">
                 <div className="row">
-                    {SmallArticles.map((list2) => {
-                        return (
-                            <>
-                                <div
-                                    key={uuidv4()}
-                                    className="col-md col-sm-12  d-flex mt-3"
-                                >
-                                    <img
-                                        src={require(`../../../album/article/${list2.image}`)}
-                                        alt="art02"
-                                        className="article-list-images2 mobile-images2"
-                                    />
-                                </div>
-                                <div className="col-md-9  col-sm-12  mt-3">
-                                    <span className="ms-2 gary-dark-color h4 list-cursor-pinter ">
-                                        {list2.title}
-                                        <div className="d-flex mt-2 ">
-                                            <p className="ms-2 list-music-article2 small  ">
-                                                {list2.categoryName}
-                                            </p>
-                                            <p className="ms-2 mt-1 ">
-                                                {list2.author} －
-                                                {list2.creation_date}
-                                            </p>
-                                        </div>
-                                    </span>
-                                    <p className=" ms-2 article-list-content ">
-                                        {list2.content}...
-                                    </p>
-                                </div>
-                                <div className="container list-more-art ">
-                                    <Link
-                                        // data={data}
-                                        // activeText={activeText}
-                                        to={`/news/${list2.id}?mainId=${list2.categoryId}`}
-                                        className="mb-0 me-1 list-cursor-pinter"
-                                        data={data}
-                                        SmallArticles={list2.categoryId}
+                    {pageProducts.length > 0 &&
+                        pageProducts[pageNow - 1].map((product) => {
+                            return (
+                                <>
+                                    <div
+                                        key={uuidv4()}
+                                        className="col-md col-sm-12  d-flex mt-3"
                                     >
-                                        閱讀全文
-                                    </Link>
-                                    <img
-                                        className="list-arrow"
-                                        style={{
-                                            width: '15px',
-                                            height: '15px',
-                                        }}
-                                        src={arrow}
-                                        alt="arrow"
-                                    />
-                                </div>
-                            </>
-                        );
-                    })}
+                                        <img
+                                            src={require(`../../../album/article/${product.image}`)}
+                                            alt="art02"
+                                            className="article-list-images2 mobile-images2"
+                                        />
+                                    </div>
+                                    <div className="col-md-9  col-sm-12  mt-3">
+                                        <span className="ms-2 gary-dark-color h4 list-cursor-pinter ">
+                                            {product.title}
+                                            <div className="d-flex mt-2 ">
+                                                <p className="ms-2 list-music-article2 small  ">
+                                                    {product.categoryName}
+                                                </p>
+                                                <p className="ms-2 mt-1 ">
+                                                    {product.author} －
+                                                    {product.creation_date}
+                                                </p>
+                                            </div>
+                                        </span>
+                                        <p className=" ms-2 article-list-content ">
+                                            {product.content}...
+                                        </p>
+                                    </div>
+                                    <div className="container list-more-art ">
+                                        <Link
+                                            // data={data}
+                                            // activeText={activeText}
+                                            to={`/news/${product.id}?mainId=${product.categoryId}`}
+                                            className="mb-0 me-1 list-cursor-pinter"
+                                            data={data}
+                                            SmallArticles={product.categoryId}
+                                        >
+                                            閱讀全文
+                                        </Link>
+                                        <img
+                                            className="list-arrow"
+                                            style={{
+                                                width: '15px',
+                                                height: '15px',
+                                            }}
+                                            src={arrow}
+                                            alt="arrow"
+                                        />
+                                    </div>
+                                </>
+                            );
+                        })}
                 </div>
             </div>
-
             {/* 頁碼 */}
-            <div className="d-flex justify-content-center align-items-center">
-                <ul className="articles-pages d-flex">
-                    <li>&#x3C;</li>
-                    <li className="articles-page-active">1</li>&ensp;
-                    <li>2</li>&ensp;
-                    <li>3</li>&ensp;
-                    <li>4</li>
-                    <li>&#x3E;</li>
-                </ul>
+            <div className="d-flex justify-content-center align-items-center my-5">
+                {console.log('thing', pageProducts)}
+                {SmallArticles.length > perPage ? (
+                    <PaginationBar
+                        pageNow={pageNow}
+                        setPageNow={setPageNow}
+                        pageTotal={pageTotal}
+                    />
+                ) : (
+                    ''
+                )}
+                {/* 不會顯示任何東西 */}
             </div>
             {/* 頁碼 end */}
         </>
