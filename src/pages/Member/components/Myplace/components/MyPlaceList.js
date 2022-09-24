@@ -1,21 +1,24 @@
 import { useState, useEffect } from 'react';
-import { Link, useOutletContext, useNavigate } from 'react-router-dom'; //抓取Outlet的props
+import {
+    Link,
+    useOutletContext,
+    useNavigate,
+    useLocation,
+} from 'react-router-dom'; //抓取Outlet的props
 import detail_img from '../../../../../assets/svg/detailed.svg';
-import add_img from '../../../../../assets/svg/add.svg';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
 import _ from 'lodash';
-import { ReactComponent as PrevPageIcon } from '../../../../../assets/svg/prev_page_btn.svg';
-import { ReactComponent as NextPageIcon } from '../../../../../assets/svg/next_page_btn.svg';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { v4 as uuidv4 } from 'uuid';
+import { errorToast } from '../../../../../components/Alert';
 
 function MyPlaceList(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
     const navigate = useNavigate();
-    const { member } = useAuth();
-    // const [haveQuestion, setHaveQuestion] = useState(0); //是否有詢問問題
-    // const [openAskForm, setOpenAskForm] = useState(false); //開啟詢問表單
+    const location = useLocation();
+    const { socketStatus, setSocketStatus } = useAuth();
     const [myPlaceList, setMymyPlaceList] = useState([
         [
             {
@@ -24,10 +27,12 @@ function MyPlaceList(props) {
                 name: '',
                 email: '',
                 phone: '',
-                user_q_category: '',
-                title: '',
+                usedate: '',
+                item: '',
                 comment: '',
+                usercount: '',
                 user_reply_state: '',
+                manager_reply_state: '',
                 create_time: '',
                 update_time: '',
             },
@@ -44,7 +49,27 @@ function MyPlaceList(props) {
         loadingMyPlace();
     }, []);
 
-    //讀取我的詢問
+    useEffect(() => {
+        let params = new URLSearchParams(location.search);
+        let page = params.get('page');
+        console.log('page', page);
+        if (page) {
+            setPageNow(page);
+        }
+    }, [location]);
+
+    //有新訊息更新資料庫
+    useEffect(() => {
+        if (socketStatus.newMessage) {
+            setSocketStatus({
+                ...socketStatus,
+                newMessage: false,
+            });
+            loadingMyPlace();
+        }
+    }, [socketStatus.newMessage]);
+
+    //讀取場地表單
     async function loadingMyPlace() {
         try {
             let response = await axios.get(
@@ -55,11 +80,6 @@ function MyPlaceList(props) {
             );
             console.log(response.data);
 
-            // //判斷是否擁有優惠券
-            // if (response.data.length === 0) {
-            //     // setHaveQuestion(0);
-            // }
-
             //分切頁面資料
             const pageList = _.chunk(response.data, perPage);
 
@@ -68,25 +88,27 @@ function MyPlaceList(props) {
             if (pageList.length > 0) {
                 setPageTotal(pageList.length);
                 setMymyPlaceList(pageList);
-                // setHaveQuestion(1);
             }
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
 
     //頁碼
+    //頁碼
     const paginationBar = (
         <div className="member_pagination d-flex justify-content-center align-items-center">
             <Link
-                className="mx-2"
-                to=""
-                onClick={() => {
-                    pageNow > 1 && setPageNow(pageNow - 1);
-                }}
+                className="page_number"
+                to={
+                    pageNow > 1
+                        ? `/member/myplace?page=${Number(pageNow) - 1}`
+                        : `/member/myplace?page=${Number(pageNow)}`
+                }
             >
-                <PrevPageIcon />
+                <FiChevronLeft />
             </Link>
             {Array(pageTotal)
                 .fill(1)
@@ -94,32 +116,30 @@ function MyPlaceList(props) {
                     return (
                         <Link
                             key={i}
-                            to=""
+                            to={`/member/myplace?page=${i + 1}`}
                             className={
-                                i + 1 === pageNow
-                                    ? 'page_number active '
+                                i + 1 === Number(pageNow)
+                                    ? 'page_number active'
                                     : 'page_number'
                             }
-                            onClick={() => {
-                                setPageNow(i + 1);
-                            }}
                         >
                             {i + 1}
                         </Link>
                     );
                 })}
             <Link
-                className="mx-2"
-                to=""
-                onClick={() => {
-                    pageNow < pageTotal && setPageNow(pageNow + 1);
-                }}
+                className="page_number"
+                to={
+                    pageNow < pageTotal
+                        ? `/member/myplace?page=${Number(pageNow) + 1}`
+                        : `/member/myplace?page=${Number(pageNow)}`
+                }
             >
-                <NextPageIcon />
+                <FiChevronRight />
             </Link>
         </div>
     );
-    //詢問清單頁面
+    //租借場地頁面
     const placeList = (
         <div className="col-12 col-md-8 col-lg-9  MyQuestion">
             <div className="d-flex my-2">
@@ -202,7 +222,17 @@ function MyPlaceList(props) {
                                                 </span>
                                             </div>
                                         </td>
-                                        <td className="">
+                                        <td
+                                            className={
+                                                data.user_reply_state ===
+                                                '未回覆'
+                                                    ? 'reply_state'
+                                                    : data.user_reply_state ===
+                                                      '已回覆'
+                                                    ? 'reply_state2'
+                                                    : 'reply_state3'
+                                            }
+                                        >
                                             {data.user_reply_state}
                                         </td>
                                         <td className="">{data.update_time}</td>
