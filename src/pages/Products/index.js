@@ -496,6 +496,26 @@ function Products() {
         }
     }
 
+    // TODO: 放到constants 在import進來用
+    const breadCrumbCategory = (mainId) => {
+        switch (mainId) {
+            case '1':
+                return `/ 琴鍵樂器`;
+            case '2':
+                return '/ 管樂器';
+            case '3':
+                return '/ 弓弦樂器';
+            case '4':
+                return '/ 吉他/烏克麗麗';
+            case '5':
+                return '/ 打擊樂器';
+            case '6':
+                return '/ 配件';
+            default:
+                return '/ 最新消息';
+        }
+    };
+
     return (
         <>
             <img className="img-fluid" src={banner} alt="banner" />
@@ -510,7 +530,13 @@ function Products() {
                             <div className="d-flex flex-row-reverse">
                                 <div className="col-10 d-flex justify-content-between align-items-center">
                                     {/* 麵包屑 */}
-                                    <BreadCrumb />
+                                    <div className="d-flex">
+                                        <BreadCrumb />
+                                        {/* TODO:麵包屑 */}
+                                        <p className="m-0 py-2 d-block align-items-center">
+                                            &nbsp;{breadCrumbCategory(mainId)}
+                                        </p>
+                                    </div>
                                     {/* 麵包屑 end */}
                                     {/* 進階篩選 */}
                                     <div className="filter-nav d-flex position-relative">
