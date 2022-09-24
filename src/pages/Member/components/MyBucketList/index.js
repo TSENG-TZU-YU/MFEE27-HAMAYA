@@ -8,8 +8,6 @@ import './MyBucketList.scss';
 import BucketClass from './components/BucketClass';
 import BucketProduct from './components/BucketProduct';
 import { useOutletContext } from 'react-router-dom'; //抓取Outlet的props
-import { ReactComponent as ArrowLeft } from '../../../../assets/svg/arrow-left.svg';
-import { ReactComponent as ArrowRight } from '../../../../assets/svg/arrow-right.svg';
 import PaginationBar from '../../../../components/PaginationBar/PaginationBar';
 
 function MyBucketList(props) {
@@ -18,18 +16,36 @@ function MyBucketList(props) {
         setbread('我的收藏'); //載入頁面時 設定麵包削
     }, []);
 
-    // 分頁用
+    //會員登入狀態判斷
+    useEffect(() => {
+        async function getMember() {
+            try {
+                // console.log('檢查是否登入');
+                let response = await axios.get(`${API_URL}/auth`, {
+                    withCredentials: true,
+                });
+                // console.log('已登入', response.data);
+                setIsLogin(true);
+                setMember(response.data);
+            } catch (err) {
+                // navigate('/');
+                console.log(err.response.data.message);
+            }
+        }
+        getMember();
+    }, []);
+
+    // 分頁用 樂器商城
     const [pageNowA, setPageNowA] = useState(1); // 目前頁號
     const [perPageA, setPerPageA] = useState(8); // 每頁多少筆資料
     const [pageTotalA, setPageTotalA] = useState(0); //總共幾頁，在didMount時要決定
     const [pageProductsA, setPageProductsA] = useState([]);
-    const [displayProductsA, setDisplayProductsA] = useState([]);
 
+    // 分頁用 音樂教育
     const [pageNowB, setPageNowB] = useState(1); // 目前頁號
-    const [perPageB, setPerPageB] = useState(8); // 每頁多少筆資料
+    const [perPageB, setPerPageB] = useState(4); // 每頁多少筆資料
     const [pageTotalB, setPageTotalB] = useState(0); //總共幾頁，在didMount時要決定
     const [pageProductsB, setPageProductsB] = useState([]);
-    const [displayProductsB, setDisplayProductsB] = useState([]);
 
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const [myBucket, setMyBucket] = useState([]);
@@ -42,38 +58,21 @@ function MyBucketList(props) {
                 let response = await axios.get(
                     `${API_URL}/member/mybucketlist/${member.id}`
                 );
-                console.log('response', response.data);
-                let bucketList = response.data.myBucketList.length;
-                if (bucketList !== 0) {
-                    setMyBucket(response.data.myBucketList);
-                    // console.log('All MyBucketList', response.data.myBucketList);
-                    //分類別
-                    let myBucketList = response.data.myBucketList;
-                    // console.log('myBucketList', myBucketList);
+                // console.log('response', response.data);
+                setMyBucketA(response.data.product);
+                const pageListA = _.chunk(response.data.product, perPageA);
+                if (pageListA.length > 0) {
+                    setPageTotalA(pageListA.length);
+                    // 設定到state中
+                    setPageProductsA(pageListA);
+                }
 
-                    const myBucket_cateA = myBucketList.filter((v) => {
-                        return v.category_id === 'A';
-                    });
-                    setMyBucketA(myBucket_cateA);
-
-                    const myBucket_cateB = myBucketList.filter((v) => {
-                        return v.category_id === 'B';
-                    });
-                    setMyBucketB(myBucket_cateB);
-                    setDisplayProductsA(myBucket_cateA);
-                    setDisplayProductsB(myBucket_cateB);
-                    const pageListA = _.chunk(myBucket_cateA, perPageA);
-                    const pageListB = _.chunk(myBucket_cateB, perPageB);
-                    if (pageListA.length > 0) {
-                        setPageTotalA(pageListA.length);
-                        // 設定到state中
-                        setPageProductsA(pageListA);
-                    }
-                    if (pageListB.length > 0) {
-                        setPageTotalB(pageListB.length);
-                        // 設定到state中
-                        setPageProductsB(pageListB);
-                    }
+                setMyBucketB(response.data.class);
+                const pageListB = _.chunk(response.data.class, perPageB);
+                if (pageListB.length > 0) {
+                    setPageTotalB(pageListB.length);
+                    // 設定到state中
+                    setPageProductsB(pageListB);
                 }
             } catch (err) {
                 console.log('載入我的收藏錯誤', err);
@@ -127,48 +126,54 @@ function MyBucketList(props) {
                 </button>
             </div>
             {bucketProduct ? (
-                <BucketProduct
-                    myBucketA={myBucketA}
-                    setMyBucketA={setMyBucketA}
-                    displayProductsA={displayProductsA}
-                    setDisplayProductsA={setDisplayProductsA}
-                    pageProductsA={pageProductsA}
-                    setPageProductsA={setPageProductsA}
-                    pageNowA={pageNowA}
-                    setPageNowA={setPageNowA}
-                />
+                <>
+                    <BucketProduct
+                        myBucketA={myBucketA}
+                        setMyBucketA={setMyBucketA}
+                        pageProductsA={pageProductsA}
+                        setPageProductsA={setPageProductsA}
+                        pageNowA={pageNowA}
+                        setPageNowA={setPageNowA}
+                        perPageA={perPageA}
+                        setPageTotalA={setPageTotalA}
+                    />
+                    <div className="text-center d-flex justify-content-center align-items-center my-4">
+                        {myBucketA.length > perPageA ? (
+                            <PaginationBar
+                                pageNow={pageNowA}
+                                setPageNow={setPageNowA}
+                                pageTotal={pageTotalA}
+                            />
+                        ) : (
+                            ''
+                        )}
+                    </div>
+                </>
             ) : (
-                <BucketClass
-                    myBucketB={myBucketB}
-                    setMyBucketB={setMyBucketB}
-                    pageProductsB={pageProductsB}
-                    setPageProductsB={setPageProductsB}
-                    pageNowB={pageNowB}
-                    setPageNowB={setPageNowB}
-                />
-            )}
-            <div className="text-center py-2">
-                {/* TODO: 這裡要加頁碼 */}
-                {bucketProduct ? (
-                    displayProductsA.length > perPageA ? (
-                        <PaginationBar
-                            pageNowA={pageNowA}
-                            setPageNowA={setPageNowA}
-                            pageTotalA={pageTotalA}
-                        />
-                    ) : (
-                        ''
-                    )
-                ) : displayProductsB.length > perPageB ? (
-                    <PaginationBar
+                <>
+                    <BucketClass
+                        myBucketB={myBucketB}
+                        setMyBucketB={setMyBucketB}
+                        pageProductsB={pageProductsB}
+                        setPageProductsB={setPageProductsB}
                         pageNowB={pageNowB}
                         setPageNowB={setPageNowB}
-                        pageTotalB={pageTotalB}
+                        perPageB={perPageB}
+                        setPageTotalB={setPageTotalB}
                     />
-                ) : (
-                    ''
-                )}
-            </div>
+                    <div className="text-center d-flex justify-content-center align-items-center my-4">
+                        {myBucketB.length > perPageB ? (
+                            <PaginationBar
+                                pageNow={pageNowB}
+                                setPageNow={setPageNowB}
+                                pageTotal={pageTotalB}
+                            />
+                        ) : (
+                            ''
+                        )}
+                    </div>
+                </>
+            )}
         </div>
     );
 }

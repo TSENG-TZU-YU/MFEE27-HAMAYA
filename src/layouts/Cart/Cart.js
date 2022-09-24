@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../utils/use_auth';
 import { useCart } from '../../utils/use_cart';
 import axios from 'axios';
@@ -69,7 +70,7 @@ function Cart() {
                     `${API_URL}/member/mycart/multi`,
                     itemsData
                 );
-                successToast(response.data.message, '關閉');
+                // successToast(response.data.message, '關閉');
             } catch (err) {
                 console.log(err.response.data.message);
             }
@@ -90,80 +91,89 @@ function Cart() {
         .reduce((prev, curr) => prev + curr, 0);
 
     return (
-        <div className="position-relative" >
-            <div className="shoppingCart p-2">
-                <div className="d-flex justify-content-between align-items-baseline shoppingCartTitle pb-2">
-                    <span className="main-color">
-                        <b className="">購物車</b>
-                    </span>
-                    <span className="minimum main-gary-light-color">
-                        共有{shoppingCart.length}件商品
-                    </span>
-                    <span className="minimum">
-                        總金額:NT ${shoppingCartPrice}
-                    </span>
-                </div>
-                <div className="scrollStyle overflow-auto pb-2">
-                    {shoppingCart.map((item, index) => {
-                        return (
-                            <div
-                                className="shoppingCartItem d-flex py-2"
-                                key={Math.random()
-                                    .toString(36)
-                                    .replace('3.', '')}
-                            >
-                                {item.category_id === 'A' && (
-                                    <img
-                                        className="shoppingCartItemImg mx-3"
-                                        src={require(`../../album/products/${item.image}`)}
-                                        alt=""
-                                    />
-                                )}
-                                {item.category_id === 'B' && (
-                                    <img
-                                        className="shoppingCartItemImg mx-3"
-                                        src={require(`../../album/class/${item.image_1}`)}
-                                        alt=""
-                                    />
-                                )}
-
-                                <div className="d-flex flex-column">
-                                    <span className="small main-color mb-5">
-                                        {item.name}
-                                    </span>
-                                    <span className="small gary-dark-color">
-                                        數量:{item.amount}
-                                    </span>
-                                    <span className="small gary-dark-color">
-                                        價錢:{item.price}
-                                    </span>
-                                </div>
-                                <button
-                                    className="border-0 btn ms-auto"
-                                    onClick={() => {
-                                        handleRemoveItem(item.product_id);
-                                    }}
+        <>
+            <div className="position-relative">
+                <div className="shoppingCart p-2">
+                    <div className="d-flex justify-content-between align-items-baseline shoppingCartTitle pb-2">
+                        <span className="main-color">
+                            <b className="">購物車</b>
+                        </span>
+                        <span className="minimum main-gary-light-color">
+                            共有{shoppingCart.length}件商品
+                        </span>
+                        <span className="minimum">
+                            總金額:NT ${shoppingCartPrice}
+                        </span>
+                    </div>
+                    <div className="scrollStyle overflow-auto pb-2">
+                        {shoppingCart.map((item, index) => {
+                            return (
+                                <div
+                                    className="shoppingCartItem d-flex py-2"
+                                    key={Math.random()
+                                        .toString(36)
+                                        .replace('3.', '')}
                                 >
-                                    <img src={ashBin} alt="" />
-                                </button>
-                            </div>
-                        );
-                    })}
-                </div>
-                <div className="pt-2">
-                    {/* 訂單結帳 如果未登入要要求登入 已登入要把資料送到後台重複的不寫入 沒有則寫入 清空localStorage*/}
-                    <button
-                        className="border-0 bg-main-color checkOutBtn py-2"
-                        onClick={() => {
-                            getMultipleCheck();
-                        }}
-                    >
-                        <CheckOut className="checkOutIcon" />
-                        <span className="px-2">訂單結帳</span>
-                    </button>
+                                    {item.category_id === 'A' && (
+                                        <img
+                                            className="shoppingCartItemImg mx-3"
+                                            src={require(`../../album/products/${item.image}`)}
+                                            alt=""
+                                        />
+                                    )}
+                                    {item.category_id === 'B' && (
+                                        <img
+                                            className="shoppingCartItemImg mx-3"
+                                            src={require(`../../album/class/${item.image_1}`)}
+                                            alt=""
+                                        />
+                                    )}
+
+                                    <div className="d-flex flex-column">
+                                        <span className="small main-color mb-5">
+                                            {item.name}
+                                        </span>
+                                        <span className="small gary-dark-color">
+                                            數量:{item.amount}
+                                        </span>
+                                        <span className="small gary-dark-color">
+                                            價錢:{item.price}
+                                        </span>
+                                    </div>
+                                    <button
+                                        className="border-0 btn ms-auto"
+                                        onClick={() => {
+                                            handleRemoveItem(item.product_id);
+                                        }}
+                                    >
+                                        <img src={ashBin} alt="" />
+                                    </button>
+                                </div>
+                            );
+                        })}
+                    </div>
+                    <div className="pt-2">
+                        {/* 訂單結帳 如果未登入要要求登入 已登入要把資料送到後台重複的不寫入 沒有則寫入 清空localStorage*/}
+                        <Link
+                            className="border-0 bg-main-color checkOutBtn py-2 d-block text-center"
+                            to={`/member/mycart`}
+                            onClick={() => {
+                                getMultipleCheck();
+                            }}
+                        >
+                            <CheckOut className="checkOutIcon" />
+                            <span className="px-2">訂單結帳</span>
+                        </Link>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div
+                className="Cart-bg"
+                onClick={(e) => {
+                    setShopCartState(false);
+                }}
+            ></div>
+        </>
     );
 }
 

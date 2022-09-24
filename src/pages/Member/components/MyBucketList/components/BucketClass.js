@@ -14,16 +14,24 @@ import {
 import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
 import { ReactComponent as AddCart } from '../../../../../assets/svg/shopping_cart_check.svg';
 import { TbMusicOff } from 'react-icons/tb';
+import _ from 'lodash';
 
-function BucketClass({ myBucketB, setMyBucketB }) {
+function BucketClass({
+    myBucketB,
+    setMyBucketB,
+    pageProductsB,
+    setPageProductsB,
+    setPageNowB,
+    setPageTotalB,
+    perPageB,
+    pageNowB,
+}) {
     console.log('myBucketB', myBucketB);
     const { member } = useAuth();
     //checkbox check 裡面放product_id
     const [check, setCheck] = useState([]);
     // console.log('check', check);
     const [allCheck, setAllCheck] = useState(false);
-
-    console.log('我的收藏BucketClass元件中', myBucketB);
 
     //商品單選checkbox
     function handleCheckBox(e) {
@@ -210,7 +218,14 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                 }
             );
             successToast(response.data.message, '關閉');
+            // setMyBucketB(response.data.class);
             setMyBucketB(response.data.class);
+            const pageListB = _.chunk(response.data.class, perPageB);
+            if (pageListB.length > 0) {
+                setPageTotalB(pageListB.length);
+                // 設定到state中
+                setPageProductsB(pageListB);
+            }
         } catch (err) {
             errorToast(err.response.data.message, '關閉');
         }
@@ -237,6 +252,10 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                 );
                 successToast(response.data.message, '關閉');
                 setMyBucketB(response.data.class);
+                const pageListB = _.chunk(response.data.class, perPageB);
+                setPageTotalB(pageListB.length);
+                // 設定到state中
+                setPageProductsB(pageListB);
             } catch (err) {
                 console.log(err.response.data.message);
             }
@@ -281,7 +300,7 @@ function BucketClass({ myBucketB, setMyBucketB }) {
                     </button>
                 </div>
             </div>
-            {myBucketB.length === 0 ? (
+            {pageProductsB.length === 0 ? (
                 <h4 className="mt-5 d-flex w-100 main-gary-light-color text-center justify-content-center align-items-center">
                     <TbMusicOff
                         className="me-2"
@@ -295,100 +314,102 @@ function BucketClass({ myBucketB, setMyBucketB }) {
             ) : (
                 ''
             )}
-            {myBucketB.map((item) => {
-                return (
-                    <div className="my-4 bucket-shadow " key={item.id}>
-                        <div className="myBucketClass-Item d-lg-flex">
-                            <Link
-                                to={`/class/list/${item.product_id}?class=${item.ins_main_id}`}
-                                className="myBucketClass-Img"
-                            >
-                                <img
-                                    className="myBucketClass-Img-cover"
-                                    src={require(`../../../../../album/class/${item.image_1}`)}
-                                    alt=""
-                                />
-                            </Link>
-                            <div className="flex-grow-1 p-2 row">
-                                <div className="col-12 d-flex justify-content-between">
-                                    <Link
-                                        to={`/class/list/${item.product_id}?class=${item.ins_main_id}`}
-                                    >
-                                        <h6>
-                                            <b>{item.name}</b>
-                                        </h6>
-                                    </Link>
-                                    <input
-                                        className="form-check-input"
-                                        type="checkbox"
-                                        value={item.product_id}
-                                        checked={check.includes(
-                                            item.product_id
-                                        )}
-                                        onChange={(e) => {
-                                            handleCheckBox(e);
-                                        }}
+            {pageProductsB.length > 0 &&
+                pageProductsB[pageNowB - 1].map((item) => {
+                    return (
+                        <div className="my-4 bucket-shadow " key={item.id}>
+                            <div className="myBucketClass-Item d-lg-flex">
+                                <Link
+                                    to={`/class/list/${item.product_id}?class=${item.ins_main_id}`}
+                                    className="myBucketClass-Img"
+                                >
+                                    <img
+                                        className="myBucketClass-Img-cover"
+                                        src={require(`../../../../../album/class/${item.image_1}`)}
+                                        alt=""
                                     />
-                                </div>
-                                <div className="col-12 row">
-                                    <span className="d-inline-block col-md-6 order-1 order-md-0">
-                                        報名期限：{item.deadline}
-                                    </span>
-                                    <span className="d-inline-block col-md-6 order-3 order-md-0">
-                                        師資：{item.teacher}
-                                    </span>
-
-                                    <span className="d-inline-block col-md-6 order-2 order-md-0">
-                                        上課時間：{item.start_date} -{' '}
-                                        {item.end_date}
-                                    </span>
-                                    <span className="d-inline-block col-md-6 order-4 order-md-0">
-                                        名額：{item.stock}人
-                                    </span>
-                                </div>
-                                <div className="col-12 d-flex justify-content-between align-items-center">
-                                    <p className="d-inline-flex m-0">
-                                        <span className="accent-color">
-                                            <b>NT ${item.price}</b>
-                                        </span>
-                                        /期
-                                    </p>
-                                    <div>
-                                        <button
-                                            className="btn border-0 p-0 mx-3"
-                                            onClick={() => {
-                                                setShopCartState(true);
-                                                getCheck({
-                                                    product_id: item.product_id,
-                                                    category_id:
-                                                        item.category_id,
-                                                    image_1: item.image_1,
-                                                    name: item.name,
-                                                    amount: 1,
-                                                    price: item.price,
-                                                });
-                                            }}
+                                </Link>
+                                <div className="flex-grow-1 p-2 row">
+                                    <div className="col-12 d-flex justify-content-between">
+                                        <Link
+                                            to={`/class/list/${item.product_id}?class=${item.ins_main_id}`}
                                         >
-                                            <AddCart className="myBucketItemIcon" />
-                                        </button>
-                                        <button className="btn border-0 p-0">
-                                            <AshBin
-                                                className="myBucketItemIcon"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    handleRemoveFavoriteSingle(
-                                                        item.product_id
-                                                    );
+                                            <h6>
+                                                <b>{item.name}</b>
+                                            </h6>
+                                        </Link>
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            value={item.product_id}
+                                            checked={check.includes(
+                                                item.product_id
+                                            )}
+                                            onChange={(e) => {
+                                                handleCheckBox(e);
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="col-12 row">
+                                        <span className="d-inline-block col-md-6 order-1 order-md-0">
+                                            報名期限：{item.deadline}
+                                        </span>
+                                        <span className="d-inline-block col-md-6 order-3 order-md-0">
+                                            師資：{item.teacher}
+                                        </span>
+
+                                        <span className="d-inline-block col-md-6 order-2 order-md-0">
+                                            上課時間：{item.start_date} -{' '}
+                                            {item.end_date}
+                                        </span>
+                                        <span className="d-inline-block col-md-6 order-4 order-md-0">
+                                            名額：{item.stock}人
+                                        </span>
+                                    </div>
+                                    <div className="col-12 d-flex justify-content-between align-items-center">
+                                        <p className="d-inline-flex m-0">
+                                            <span className="accent-color">
+                                                <b>NT ${item.price}</b>
+                                            </span>
+                                            /期
+                                        </p>
+                                        <div>
+                                            <button
+                                                className="btn border-0 p-0 mx-3"
+                                                onClick={() => {
+                                                    setShopCartState(true);
+                                                    getCheck({
+                                                        product_id:
+                                                            item.product_id,
+                                                        category_id:
+                                                            item.category_id,
+                                                        image_1: item.image_1,
+                                                        name: item.name,
+                                                        amount: 1,
+                                                        price: item.price,
+                                                    });
                                                 }}
-                                            />
-                                        </button>
+                                            >
+                                                <AddCart className="myBucketItemIcon" />
+                                            </button>
+                                            <button className="btn border-0 p-0">
+                                                <AshBin
+                                                    className="myBucketItemIcon"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        handleRemoveFavoriteSingle(
+                                                            item.product_id
+                                                        );
+                                                    }}
+                                                />
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                );
-            })}
+                    );
+                })}
         </>
     );
 }
