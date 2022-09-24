@@ -20,9 +20,10 @@ import {
 } from 'react-icons/fi';
 
 function PlaceQA(props) {
+    const [loadingComplete, setLoadingComplete] = useState(false); //是否已載入完成
     const [socketConn, setSocketConn] = useState(null);
 
-    const [myPlaceList, setMymyPlaceList] = useState([
+    const [myPlaceList, setMyPlaceList] = useState([
         [
             {
                 id: '',
@@ -75,7 +76,8 @@ function PlaceQA(props) {
 
             if (pageList.length > 0) {
                 setPageTotal(pageList.length);
-                setMymyPlaceList(pageList);
+                setMyPlaceList(pageList);
+                setLoadingComplete(true);
             }
         } catch (err) {
             console.log(err.response.data);
@@ -167,108 +169,112 @@ function PlaceQA(props) {
     );
     return (
         <div className="CommonQA">
-            <table className="table NLQA">
-                <thead>
-                    <tr className="bg-main-color accent-light-color ">
-                        <th
-                            className="text-nowrap fw-light text-center"
-                            scope="col"
-                        >
-                            表單編號
-                        </th>
-                        <th
-                            className="text-nowrap fw-light text-center"
-                            scope="col"
-                        >
-                            姓名
-                        </th>
-                        <th
-                            className="text-nowrap fw-light text-center"
-                            scope="col"
-                        >
-                            租借場地
-                        </th>
-                        <th
-                            className="text-nowrap fw-light text-center"
-                            scope="col"
-                        >
-                            使用人數
-                        </th>
-                        <th
-                            className="text-nowrap fw-light text-center"
-                            scope="col"
-                        >
-                            詢問內容
-                        </th>
-                        <th
-                            className="text-nowrap fw-light text-center"
-                            scope="col"
-                        >
-                            回覆狀態
-                        </th>
-                        <th
-                            className="text-nowrap fw-light text-center "
-                            scope="col"
-                        >
-                            最後更新時間
-                        </th>
-                        <th
-                            className="text-nowrap fw-light text-center"
-                            scope="col"
-                        >
-                            功能
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {myPlaceList[pageNow - 1].map((data, index) => {
-                        return (
-                            <tr key={uuidv4()} className="cssTable">
-                                <th scope="row">
-                                    PL00{data.id}
-                                    <br />
-                                    <span className="time">
-                                        {data.create_time}
-                                    </span>
-                                </th>
-                                <td>{data.name}</td>
-                                <td>{data.item}</td>
-                                <td>{data.usercount}</td>
-                                <td>
-                                    <div className="">
-                                        <span className="ellipsis">
-                                            {data.comment}
+            {loadingComplete && (
+                <table className="table NLQA">
+                    <thead>
+                        <tr className="bg-main-color accent-light-color ">
+                            <th
+                                className="text-nowrap fw-light text-center"
+                                scope="col"
+                            >
+                                表單編號
+                            </th>
+                            <th
+                                className="text-nowrap fw-light text-center"
+                                scope="col"
+                            >
+                                姓名
+                            </th>
+                            <th
+                                className="text-nowrap fw-light text-center"
+                                scope="col"
+                            >
+                                租借場地
+                            </th>
+                            <th
+                                className="text-nowrap fw-light text-center"
+                                scope="col"
+                            >
+                                使用人數
+                            </th>
+                            <th
+                                className="text-nowrap fw-light text-center"
+                                scope="col"
+                            >
+                                詢問內容
+                            </th>
+                            <th
+                                className="text-nowrap fw-light text-center"
+                                scope="col"
+                            >
+                                回覆狀態
+                            </th>
+                            <th
+                                className="text-nowrap fw-light text-center "
+                                scope="col"
+                            >
+                                最後更新時間
+                            </th>
+                            <th
+                                className="text-nowrap fw-light text-center"
+                                scope="col"
+                            >
+                                功能
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {myPlaceList[pageNow - 1].map((data, index) => {
+                            return (
+                                <tr key={uuidv4()} className="cssTable">
+                                    <th scope="row">
+                                        PL00{data.id}
+                                        <br />
+                                        <span className="time">
+                                            {data.create_time}
                                         </span>
-                                    </div>
-                                </td>
-                                <td
-                                    className={
-                                        data.manager_reply_state === '未回覆'
-                                            ? 'reply_state'
-                                            : data.manager_reply_state ===
-                                              '已回覆'
-                                            ? 'reply_state2'
-                                            : 'reply_state3'
-                                    }
-                                >
-                                    {data.manager_reply_state}
-                                </td>
-                                <td className="">{data.update_time}</td>
-                                <td className="text-nowrap ">
-                                    <Link
-                                        className=""
-                                        to={`/admin/customerservice/placeqa/detail?plid=${data.id}`}
+                                    </th>
+                                    <td>{data.name}</td>
+                                    <td>{data.item}</td>
+                                    <td>{data.usercount}</td>
+                                    <td>
+                                        <div className="">
+                                            <span className="ellipsis">
+                                                {data.comment}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td
+                                        className={
+                                            data.manager_reply_state ===
+                                            '未回覆'
+                                                ? 'reply_state'
+                                                : data.manager_reply_state ===
+                                                  '已回覆'
+                                                ? 'reply_state2'
+                                                : 'reply_state3'
+                                        }
                                     >
-                                        <img src={detail_img} alt="" />
-                                        查看詳細
-                                    </Link>
-                                </td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-                <div> {pageTotal > 1 && paginationBar}</div>
-            </table>
+                                        {data.manager_reply_state}
+                                    </td>
+                                    <td className="">{data.update_time}</td>
+                                    <td className="text-nowrap ">
+                                        <Link
+                                            className=""
+                                            to={`/admin/customerservice/placeqa/detail?plid=${data.id}`}
+                                        >
+                                            <img src={detail_img} alt="" />
+                                            查看詳細
+                                        </Link>
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            )}
+
+            {pageTotal > 1 && paginationBar}
         </div>
     );
 }
