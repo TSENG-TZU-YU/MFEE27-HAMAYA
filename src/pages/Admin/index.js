@@ -26,6 +26,23 @@ function Admin(props) {
     function handleChange(e) {
         setLoginMember({ ...loginMember, [e.target.name]: e.target.value });
     }
+    //檢查是否登入
+    useEffect(() => {
+        async function getMember() {
+            try {
+                console.log('檢查是管理員否登入');
+                let response = await axios.get(`${API_URL}/admin`, {
+                    withCredentials: true,
+                });
+                console.log('管理員已登入');
+                setAdminIsLogin(true);
+                setAdminMember(response.data);
+            } catch (err) {
+                console.log(err.response.data.message);
+            }
+        }
+        getMember();
+    }, []);
 
     const [loginMember, setLoginMember] = useState({
         account: 'admin',
