@@ -19,6 +19,7 @@ function MyCartClass({
     setMyCart,
     myCartB,
     setMyCartB,
+    setHiddenState,
     check,
     setCheck,
     handleCheckBox,
@@ -51,6 +52,9 @@ function MyCartClass({
                 });
                 setMyCartB(myCart_cateB);
                 setMyCart(newMyCartAfterDelete);
+                if (newMyCartAfterDelete.length === 0) {
+                    setHiddenState(false);
+                }
             };
             setItemDataDelete();
         }

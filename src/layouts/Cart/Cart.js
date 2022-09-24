@@ -82,6 +82,7 @@ function Cart() {
         localStorage.removeItem('shoppingCart');
         //清空臨時購物車
         setShoppingCart([]);
+        setShopCartState(false);
         navigate('/member/mycart');
     }
 
@@ -174,10 +175,10 @@ function Cart() {
                 </div>
             </div>
             <div
-                className="Cart-bg"
-                onClick={(e) => {
-                    setShopCartState(false);
-                }}
+            //className="Cart-bg"
+            //onClick={(e) => {
+            //setShopCartState(false);
+            //}}
             ></div>
         </div>
     );

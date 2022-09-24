@@ -171,17 +171,18 @@ function MyCartDoCheckout({
                         `訂單編號：${response.data.order_id} & ${response.data.message}`,
                         '關閉'
                     );
+                    console.log(response.data);
                     if (response.data.noStock) {
                         basicAlert(
-                            `商品編號：${response.data.noStock}  ${response.data.message} `,
+                            `商品名稱：${response.data.noStock}  ${response.data.message} `,
                             '關閉'
                         );
+                        return;
                     }
                     setMyCart([]);
                     setMyCartA([]);
                     setMyCartB([]);
                     setHiddenState(false);
-                    // console.log(response.data);
                 } catch (err) {
                     console.log('新增訂單錯誤', err);
                 }
@@ -343,7 +344,7 @@ function MyCartDoCheckout({
                                 id=""
                                 onChange={getMyCartCou}
                             >
-                                <option value="">請選擇折扣</option>
+                                <option value="0/0/0">請選擇折扣</option>
                                 {myCoupon.map((v) => {
                                     let option =
                                         v.name +
