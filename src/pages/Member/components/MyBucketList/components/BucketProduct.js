@@ -13,22 +13,23 @@ import {
 import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
 import { ReactComponent as AddCart } from '../../../../../assets/svg/shopping_cart_check.svg';
 import { TbMusicOff } from 'react-icons/tb';
+import _ from 'lodash';
 
 function BucketProduct({
     myBucketA,
     setMyBucketA,
-    displayProductsA,
-    setDisplayProductsA,
     pageProductsA,
     setPageProductsA,
+    setPageNowA,
+    setPageTotalA,
+    perPageA,
+    pageNowA,
 }) {
     const { member } = useAuth();
     //checkbox check 裡面放product_id
     const [check, setCheck] = useState([]);
     // console.log('check', check);
     const [allCheck, setAllCheck] = useState(false);
-
-    // console.log('我的收藏BucketProduct元件中', myBucketA);
 
     //商品單選checkbox
     function handleCheckBox(e) {
@@ -144,6 +145,12 @@ function BucketProduct({
             );
             successToast(response.data.message, '關閉');
             setMyBucketA(response.data.product);
+            const pageListA = _.chunk(response.data.product, perPageA);
+            if (pageListA.length > 0) {
+                setPageTotalA(pageListA.length);
+                // 設定到state中
+                setPageProductsA(pageListA);
+            }
         } catch (err) {
             errorToast(err.response.data.message, '關閉');
         }
@@ -170,6 +177,10 @@ function BucketProduct({
                 );
                 successToast(response.data.message, '關閉');
                 setMyBucketA(response.data.product);
+                const pageListA = _.chunk(response.data.product, perPageA);
+                setPageTotalA(pageListA.length);
+                // 設定到state中
+                setPageProductsA(pageListA);
             } catch (err) {
                 console.log(err.response.data.message);
             }
@@ -289,7 +300,7 @@ function BucketProduct({
                 </div>
             </div>
             <div className="row">
-                {myBucketA.length === 0 ? (
+                {pageProductsA.length === 0 ? (
                     <h4 className="mt-5 d-flex w-100 main-gary-light-color text-center justify-content-center align-items-center">
                         <TbMusicOff
                             className="me-2"
@@ -303,88 +314,89 @@ function BucketProduct({
                 ) : (
                     ''
                 )}
-
-                {myBucketA.map((item) => {
-                    return (
-                        <div className="col-lg-6 p-0" key={item.id}>
-                            <div className="myBucketProduct-Item d-flex m-2 p-2 bucket-shadow ">
-                                <Link
-                                    to={`/products/${item.product_id}?main_id=${item.ins_main_id}`}
-                                    className="myBucketProduct-Img"
-                                >
-                                    <img
-                                        className="myBucketProduct-Img-contain"
-                                        src={require(`../../../../../album/products/${item.image}`)}
-                                        alt="productImg"
-                                    />
-                                </Link>
-                                <div className="flex-grow-1 m-2 d-flex flex-column">
-                                    <div className="d-flex justify-content-between">
-                                        <Link
-                                            to={`/products/${item.product_id}?main_id=${item.ins_main_id}`}
-                                        >
-                                            <h6>
-                                                <b>{item.name}</b>
-                                            </h6>
-                                        </Link>
-                                        <input
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            value={item.product_id}
-                                            checked={check.includes(
-                                                item.product_id
-                                            )}
-                                            onChange={(e) => {
-                                                handleCheckBox(e);
-                                            }}
+                {pageProductsA.length > 0 &&
+                    pageProductsA[pageNowA - 1].map((item) => {
+                        return (
+                            <div className="col-lg-6 p-0" key={item.id}>
+                                <div className="myBucketProduct-Item d-flex m-2 p-2 bucket-shadow ">
+                                    <Link
+                                        to={`/products/${item.product_id}?main_id=${item.ins_main_id}`}
+                                        className="myBucketProduct-Img"
+                                    >
+                                        <img
+                                            className="myBucketProduct-Img-contain"
+                                            src={require(`../../../../../album/products/${item.image}`)}
+                                            alt="productImg"
                                         />
-                                    </div>
-                                    <div className="d-flex justify-content-between align-items-center mt-auto">
-                                        <p className="d-inline-flex m-0">
-                                            <span className="accent-color">
-                                                <b>NT ${item.price}</b>
-                                            </span>
-                                        </p>
-                                        <div>
-                                            <button
-                                                className="btn border-0 p-0 mx-3"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    setShopCartState(true);
-                                                    getCheck({
-                                                        product_id:
-                                                            item.product_id,
-                                                        category_id:
-                                                            item.category_id,
-                                                        image: item.image,
-                                                        name: item.name,
-                                                        amount: 1,
-                                                        price: item.price,
-                                                        spec: item.spec,
-                                                        shipment: item.shipment,
-                                                    });
-                                                }}
+                                    </Link>
+                                    <div className="flex-grow-1 m-2 d-flex flex-column">
+                                        <div className="d-flex justify-content-between">
+                                            <Link
+                                                to={`/products/${item.product_id}?main_id=${item.ins_main_id}`}
                                             >
-                                                <AddCart className="myBucketItemIcon" />
-                                            </button>
-                                            <button
-                                                className="btn border-0 p-0"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    handleRemoveFavoriteSingle(
-                                                        item.product_id
-                                                    );
+                                                <h6>
+                                                    <b>{item.name}</b>
+                                                </h6>
+                                            </Link>
+                                            <input
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                value={item.product_id}
+                                                checked={check.includes(
+                                                    item.product_id
+                                                )}
+                                                onChange={(e) => {
+                                                    handleCheckBox(e);
                                                 }}
-                                            >
-                                                <AshBin className="myBucketItemIcon" />
-                                            </button>
+                                            />
+                                        </div>
+                                        <div className="d-flex justify-content-between align-items-center mt-auto">
+                                            <p className="d-inline-flex m-0">
+                                                <span className="accent-color">
+                                                    <b>NT ${item.price}</b>
+                                                </span>
+                                            </p>
+                                            <div>
+                                                <button
+                                                    className="btn border-0 p-0 mx-3"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        setShopCartState(true);
+                                                        getCheck({
+                                                            product_id:
+                                                                item.product_id,
+                                                            category_id:
+                                                                item.category_id,
+                                                            image: item.image,
+                                                            name: item.name,
+                                                            amount: 1,
+                                                            price: item.price,
+                                                            spec: item.spec,
+                                                            shipment:
+                                                                item.shipment,
+                                                        });
+                                                    }}
+                                                >
+                                                    <AddCart className="myBucketItemIcon" />
+                                                </button>
+                                                <button
+                                                    className="btn border-0 p-0"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        handleRemoveFavoriteSingle(
+                                                            item.product_id
+                                                        );
+                                                    }}
+                                                >
+                                                    <AshBin className="myBucketItemIcon" />
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    );
-                })}
+                        );
+                    })}
             </div>
         </>
     );

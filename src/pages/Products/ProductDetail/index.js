@@ -54,6 +54,25 @@ function Product() {
 
     const location = useLocation();
 
+    //會員登入狀態判斷
+    useEffect(() => {
+        async function getMember() {
+            try {
+                // console.log('檢查是否登入');
+                let response = await axios.get(`${API_URL}/auth`, {
+                    withCredentials: true,
+                });
+                // console.log('已登入', response.data);
+                setIsLogin(true);
+                setMember(response.data);
+            } catch (err) {
+                // navigate('/');
+                console.log(err.response.data.message);
+            }
+        }
+        getMember();
+    }, []);
+
     // 取得商品 api
     useEffect(() => {
         let params = new URLSearchParams(location.search);
@@ -67,6 +86,7 @@ function Product() {
             imgData = Object.keys(imgData).map((key) => {
                 return imgData[key];
             });
+            console.log(imgData);
             setProductImgs(imgData);
             setRelatedProducts(response.data.relatedProducts);
         };
@@ -215,12 +235,12 @@ function Product() {
                 }
             }
             //未登入者提示
-            successToast('加入購物車', '關閉');
+            successToast('成功加入購物車', '關閉');
             //臨時購物車
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
             return;
         }
-        warningToast('已加入臨時購物車', '關閉');
+        successToast('成功加入購物車', '關閉');
     }
     //立即購買
     function getImmediate(itemInfo) {

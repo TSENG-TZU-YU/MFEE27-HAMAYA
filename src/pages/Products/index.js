@@ -135,6 +135,25 @@ function Products() {
     let mainId = params.get('main_id');
     let subId = params.get('sub_id');
 
+    //會員登入狀態判斷
+    useEffect(() => {
+        async function getMember() {
+            try {
+                // console.log('檢查是否登入');
+                let response = await axios.get(`${API_URL}/auth`, {
+                    withCredentials: true,
+                });
+                // console.log('已登入', response.data);
+                setIsLogin(true);
+                setMember(response.data);
+            } catch (err) {
+                // navigate('/');
+                console.log(err.response.data.message);
+            }
+        }
+        getMember();
+    }, []);
+
     // 取得商品 api
     useEffect(() => {
         // 開啟載入指示動畫
@@ -414,12 +433,12 @@ function Products() {
                     }
                 }
             }
-            successToast('加入購物車', '關閉');
+            successToast('成功加入購物車', '關閉');
             //臨時購物車
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
             return;
         }
-        warningToast('已加入臨時購物車', '關閉');
+        successToast('成功加入購物車', '關閉');
     }
 
     // 會員收藏的資料
