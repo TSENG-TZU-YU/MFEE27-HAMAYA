@@ -27,7 +27,7 @@ function MyPlaceDetail(props) {
             email: '',
             phone: '',
             item: '',
-            usetime: '',
+            usedate: '',
             comment: '',
             user_reply_state: '',
             create_time: '',
@@ -156,7 +156,15 @@ function MyPlaceDetail(props) {
                         回覆狀態
                     </div>
                     <div className="col-9 text-center  p-1">
-                        {myPlace.detail.user_reply_state}
+                        <span
+                            className={
+                                myPlace.detail.user_reply_state === '未回覆'
+                                    ? 'reply_state'
+                                    : 'reply_state2'
+                            }
+                        >
+                            {myPlace.detail.user_reply_state}
+                        </span>
                     </div>
                 </div>
                 <div className="d-flex border">

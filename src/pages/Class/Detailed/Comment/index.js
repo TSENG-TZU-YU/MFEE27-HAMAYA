@@ -29,10 +29,10 @@ function Comment({ evaluation, avg }) {
                     {avg.map((avg) => {
                         return (
                             <div className="d-flex col-md-4 justify-content-md-center">
-                                <h1 className="d-flex   me-3">
+                                <div className="d-flex   me-3">
                                     <h6 className="mt-5 pt-2 me-2">平均</h6>
-                                    {avg.rating}.0
-                                </h1>
+                                    <h1>{avg.rating}.0</h1>
+                                </div>
                                 <div className="mt-1 ">
                                     {/* <Evaluation /> */}
 

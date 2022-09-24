@@ -59,7 +59,7 @@ function AdultCourse({
             let response = await axios.get(`${API_URL}/class/list?class=1`);
             setProducts(response.data);
             setDisplayProducts(response.data);
-
+            console.log('123');
             // 從前端取得總頁數 (lastPage)
             const pageList = _.chunk(response.data, perPage);
             // 預設1頁

@@ -36,7 +36,7 @@ function MyCartClass({
                     data: [[member.id, itemId]],
                 });
                 // console.log('刪除response.data', response.data);
-                alert(response.data.message);
+                successToast(response.data.message, '關閉');
                 //copy myCart
                 let newMyCart = myCart.map((item) => {
                     return { ...item };

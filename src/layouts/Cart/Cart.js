@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../utils/use_auth';
 import { useCart } from '../../utils/use_cart';
 import axios from 'axios';
@@ -71,7 +72,7 @@ function Cart() {
                     `${API_URL}/member/mycart/multi`,
                     itemsData
                 );
-                successToast(response.data.message, '關閉');
+                // successToast(response.data.message, '關閉');
             } catch (err) {
                 console.log(err.response.data.message);
             }
@@ -172,7 +173,13 @@ function Cart() {
                     </button>
                 </div>
             </div>
-        </div>
+            <div
+                className="Cart-bg"
+                onClick={(e) => {
+                    setShopCartState(false);
+                }}
+            ></div>
+        </>
     );
 }
 

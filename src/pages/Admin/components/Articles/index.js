@@ -18,6 +18,7 @@ import {
     FiPlusSquare,
 } from 'react-icons/fi';
 function Articles(props) {
+    const [loadingComplete, setLoadingComplete] = useState(false); //是否已載入完成
     // 分頁用
     const [pageNow, setPageNow] = useState(1); // 目前頁號
     const [perPage, setPerPage] = useState(6); // 每頁多少筆資料
@@ -70,43 +71,49 @@ function Articles(props) {
                                 className="text-nowrap fw-light text-center"
                                 scope="col"
                             >
-                                問答編號
-                            </th>
-                            <th
-                                className="text-nowrap fw-light text-center"
-                                scope="col"
-                            >
-                                姓名
-                            </th>
-                            <th
-                                className="text-nowrap fw-light text-center"
-                                scope="col"
-                            >
-                                問題類型
+                                文章編號
                             </th>
                             <th
                                 className="text-nowrap fw-light Qtitle text-center"
                                 scope="col"
                             >
-                                問題主旨
+                                文章縮圖
                             </th>
                             <th
                                 className="text-nowrap fw-light text-center"
                                 scope="col"
                             >
-                                詢問內容
+                                作者
                             </th>
                             <th
                                 className="text-nowrap fw-light text-center"
                                 scope="col"
                             >
-                                回覆狀態
+                                文章類型
+                            </th>
+                            <th
+                                className="text-nowrap fw-light text-center"
+                                scope="col"
+                            >
+                                文章標題
                             </th>
                             <th
                                 className="text-nowrap fw-light text-center "
                                 scope="col"
                             >
-                                最後更新時間
+                                文章內容
+                            </th>
+                            <th
+                                className="text-nowrap fw-light text-center"
+                                scope="col"
+                            >
+                                狀態
+                            </th>
+                            <th
+                                className="text-nowrap fw-light text-center"
+                                scope="col"
+                            >
+                                建立時間
                             </th>
                             <th
                                 className="text-nowrap fw-light text-center"
@@ -121,7 +128,7 @@ function Articles(props) {
                             return (
                                 <tr key={uuidv4()} className="cssTable">
                                     <th scope="row">
-                                        NL00{data.id}
+                                        {data.id}
                                         <br />
                                         <span className="time">
                                             {data.create_time}
@@ -142,6 +149,7 @@ function Articles(props) {
                                     <td className="">
                                         {data.user_reply_state}
                                     </td>
+                                    <td className="">{data.update_time}</td>
                                     <td className="">{data.update_time}</td>
                                     <td className="text-nowrap ">
                                         <Link
