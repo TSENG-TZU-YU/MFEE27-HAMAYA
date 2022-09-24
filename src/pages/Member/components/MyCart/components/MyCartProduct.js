@@ -19,6 +19,7 @@ function MyCartProduct({
     setMyCart,
     myCartA,
     setMyCartA,
+    setHiddenState,
     check,
     setCheck,
     handleCheckBox,
@@ -53,6 +54,9 @@ function MyCartProduct({
                 // console.log('myCart_cateA', myCart_cateA);
                 setMyCartA(myCart_cateA);
                 setMyCart(newMyCartAfterDelete);
+                if (newMyCartAfterDelete.length === 0) {
+                    setHiddenState(false);
+                }
             };
             setItemDataDelete();
         }
