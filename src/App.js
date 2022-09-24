@@ -83,6 +83,7 @@ import PlaceQADetail from './pages/Admin/components/CustomerService/PlaceQADetai
 //Coupon次頁
 import CouponList from './pages/Admin/components/Coupon/CouponList';
 import CouponAdd from './pages/Admin/components/Coupon/CouponAdd';
+import CouponDetail from './pages/Admin/components/Coupon/CouponDetail';
 
 function App() {
     //page to top 要用的
@@ -236,6 +237,10 @@ function App() {
                                             <Route
                                                 path="add"
                                                 element={<CouponAdd />}
+                                            />
+                                            <Route
+                                                path="detail"
+                                                element={<CouponDetail />}
                                             />
                                         </Route>
                                         <Route

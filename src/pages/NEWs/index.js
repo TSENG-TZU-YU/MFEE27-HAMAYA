@@ -50,7 +50,7 @@ function NEWs() {
     //預設的api這個網頁
     useEffect(() => {
         let getNews = async () => {
-            let response = await axios.get(`${API_URL}/news`);
+            let response = await axios.get(`${API_URL}/news?categoryId=1`);
             setData(response.data.data);
             setNews(response.data.news);
             setNews2(response.data.news2);
@@ -126,7 +126,7 @@ function NEWs() {
                                                 {activity.categoryName}
                                             </p>
                                             <p>
-                                                {activity.author} －{' '}
+                                                {activity.author} －
                                                 {activity.creation_date}
                                             </p>
                                         </div>
@@ -137,40 +137,47 @@ function NEWs() {
                     })}
 
                     <div className="col-12 col-md-6 News-blank-art-left  ">
-                        {news2.map((article) => {
+                        {news2.map((article, index) => {
                             return (
-                                <>
-                                    <div
-                                        key={uuidv4()}
-                                        className="d-flex mt-2 "
+                                <div key={index}>
+                                    <Link
+                                        to={`/news/${article.article_id}?mainId=${article.category}`}
                                     >
-                                        <Link
-                                            to={`/news/${article.id}?mainId=${article.categoryId}`}
-                                        >
+                                        <div className="d-flex">
                                             <img
+                                                className="me-4 cursor-pinter"
+                                                style={{
+                                                    width: '150px',
+                                                    height: '100px',
+                                                }}
                                                 src={require(`../../album/article/${article.image}`)}
                                                 alt="art02"
-                                                width="150"
-                                                height="100"
-                                                className=""
                                             />
+                                            <div>
+                                                <h5 className=" cursor-pinter">
+                                                    {article.title}
+                                                </h5>
 
-                                            <span className="gary-dark-color h5 News-cursor-pinter ms-2 ">
-                                                {article.title}
                                                 <div className=" d-flex mt-2 ">
-                                                    <p className="News-music-article2 small  ">
+                                                    <small
+                                                        className="music-article me-3"
+                                                        style={{
+                                                            color: '#f2f2f2',
+                                                        }}
+                                                    >
                                                         {article.name}
-                                                    </p>
-                                                    <p className="ms-3">
-                                                        {article.author} －{' '}
+                                                    </small>
+                                                    <p>
+                                                        {article.auther} －
                                                         {article.creation_date}
                                                     </p>
                                                 </div>
-                                            </span>
-                                        </Link>
-                                    </div>
-                                    <div className="border-top border-secondary border-1  mb-3"></div>
-                                </>
+                                            </div>
+                                        </div>
+                                    </Link>
+
+                                    <div className="border-top border-secondary border-1  pt-3 mt-4 mb-3"></div>
+                                </div>
                             );
                         })}
                     </div>

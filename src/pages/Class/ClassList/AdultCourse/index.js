@@ -46,6 +46,9 @@ function AdultCourse({
     pageTotal,
     pageNow,
     displayProducts,
+    setMaxPrice,
+    setMinPrice,
+    setSelectedPrice,
 }) {
     // 是否正在載入資料的旗標, true = 載入資料中
     const [isLoading, setIsLoading] = useState(false);
@@ -57,11 +60,17 @@ function AdultCourse({
         // 載入資料
         let getAdultClass = async () => {
             let response = await axios.get(`${API_URL}/class/list?class=1`);
-            setProducts(response.data);
-            setDisplayProducts(response.data);
-            console.log('123');
+            setProducts(response.data.data);
+            setDisplayProducts(response.data.data);
+            setMaxPrice(response.data.maxPrice[0].maxPrice);
+            setMinPrice(response.data.minPrice[0].minPrice);
+            setSelectedPrice([
+                response.data.minPrice[0].minPrice,
+                response.data.maxPrice[0].maxPrice,
+            ]);
+
             // 從前端取得總頁數 (lastPage)
-            const pageList = _.chunk(response.data, perPage);
+            const pageList = _.chunk(response.data.data, perPage);
             // 預設1頁
             // setPageNow(1);
             if (pageList.length > 0) {

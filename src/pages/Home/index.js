@@ -33,7 +33,7 @@ import HomeAnimation from './HomeAnimation/HomeAnimation';
 function Home() {
     const [data, setData] = useState([]);
     const [read, setRead] = useState([]);
-
+    const [slider, setSlider] = useState([]);
     // const { content } = useParams();
 
     const location = useLocation();
@@ -45,6 +45,7 @@ function Home() {
             let response = await axios.get(`${API_URL}/home/${15}?mainId=${4}`);
             setData(response.data.data);
             setRead(response.data.read);
+            setSlider(response.data.slider);
         };
         getArticle();
     }, [location]);
@@ -57,16 +58,34 @@ function Home() {
 
             <div className="bg-main-gary-light-color ">
                 <div className="">
-                    <HomeScroll images={homeImages} />
+                    {/* //TODO:接到資料庫但如何只顯示一個並對應左下的字會跟著變動 */}
+                    {slider.map((slider, index) => {
+                        return (
+                            <>
+                                <Link
+                                    key={index}
+                                    to={`/news/${slider.id}?mainId=${slider.category}`}
+                                >
+                                    <HomeScroll images={homeImages} />
+                                </Link>
+
+                                <div className="container bg-main-gary-light-color ">
+                                    <span className="home-word">
+                                        NEW &ensp;
+                                        <span className="home-word2">
+                                            2022.08.25&ensp;
+                                        </span>
+                                        <span className="home-word3">
+                                            {/* 九月琴房租借優惠中 */}
+                                            {slider.title}
+                                        </span>
+                                    </span>
+                                </div>
+                            </>
+                        );
+                    })}
                 </div>
 
-                <div className="container bg-main-gary-light-color ">
-                    <span className="home-word">
-                        NEW &ensp;
-                        <span className="home-word2">2022.08.25&ensp;</span>
-                        <span className="home-word3">九月琴房租借優惠中</span>
-                    </span>
-                </div>
                 <MobileHome />
                 <div className="container d-flex home-blank-top">
                     <p className=" d-none d-md-block home-word4 fw-bold home-cursor-pinter me-3 text-nowrap">

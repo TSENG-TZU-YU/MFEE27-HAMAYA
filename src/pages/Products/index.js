@@ -104,7 +104,10 @@ function Products() {
 
     // 價格
     const [selectedPrice, setSelectedPrice] = useState([0, 7380000]);
-    const [maxPrice, setMaxPrice] = useState(7380000);
+    const [maxPrice, setMaxPrice] = useState();
+
+    console.log('selectedPrice', selectedPrice);
+    console.log('maxPrice', maxPrice);
 
     // 登入狀態
     const { member, setMember, isLogin, setIsLogin } = useAuth();
@@ -430,12 +433,12 @@ function Products() {
                     }
                 }
             }
-            successToast('加入購物車', '關閉');
+            successToast('成功加入購物車', '關閉');
             //臨時購物車
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
             return;
         }
-        warningToast('已加入臨時購物車', '關閉');
+        successToast('成功加入購物車', '關閉');
     }
 
     // 會員收藏的資料

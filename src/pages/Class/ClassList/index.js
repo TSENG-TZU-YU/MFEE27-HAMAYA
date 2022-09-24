@@ -65,7 +65,9 @@ function ClassList(props) {
     const [searchWord, setSearchWord] = useState('');
 
     // 價格
-    const [selectedPrice, setSelectedPrice] = useState([2500, 30000]);
+    const [maxPrice, setMaxPrice] = useState();
+    const [minPrice, setMinPrice] = useState();
+    const [selectedPrice, setSelectedPrice] = useState([]);
 
     // 樂器
     const [subIns, setSubIns] = useState('');
@@ -321,9 +323,8 @@ function ClassList(props) {
                                                             )
                                                         }
                                                         value={selectedPrice}
-                                                        // TODO: 從資料庫讀取最低最高價錢
-                                                        min={2600}
-                                                        max={30000}
+                                                        min={minPrice}
+                                                        max={maxPrice}
                                                     />
                                                 </div>
                                             </div>
@@ -512,9 +513,8 @@ function ClassList(props) {
                                                 setSelectedPrice(value)
                                             }
                                             value={selectedPrice}
-                                            // TODO: 從資料庫讀取最低最高價錢
-                                            min={2600}
-                                            max={30000}
+                                            min={minPrice}
+                                            max={maxPrice}
                                         />
                                     </div>
                                 </div>
@@ -641,6 +641,9 @@ function ClassList(props) {
                         pageTotal={pageTotal}
                         pageNow={pageNow}
                         displayProducts={displayProducts}
+                        setMaxPrice={setMaxPrice}
+                        setMinPrice={setMinPrice}
+                        setSelectedPrice={setSelectedPrice}
                     />
                 ) : (
                     <ChildrenCourse
@@ -655,6 +658,9 @@ function ClassList(props) {
                         pageTotal={pageTotal}
                         pageNow={pageNow}
                         displayProducts={displayProducts}
+                        setMaxPrice={setMaxPrice}
+                        setMinPrice={setMinPrice}
+                        setSelectedPrice={setSelectedPrice}
                     />
                 )}
                 {/* 課程選擇 頁面 end*/}
