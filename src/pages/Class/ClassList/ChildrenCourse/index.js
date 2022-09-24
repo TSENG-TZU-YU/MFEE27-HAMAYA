@@ -42,6 +42,9 @@ function ChildrenCourse({
     pageTotal,
     pageNow,
     displayProducts,
+    setMaxPrice,
+    setMinPrice,
+    setSelectedPrice,
 }) {
     // const [itemId, setItemId] = useState();
 
@@ -54,8 +57,14 @@ function ChildrenCourse({
         setIsLoading(true);
         let getAdultClass = async () => {
             let response = await axios.get(`${API_URL}/class/list?class=2`);
-            setProducts(response.data);
-            setDisplayProducts(response.data);
+            setProducts(response.data.data);
+            setDisplayProducts(response.data.data);
+            setMaxPrice(response.data.maxPrice[1].maxPrice);
+            setMinPrice(response.data.minPrice[1].minPrice);
+            setSelectedPrice([
+                response.data.minPrice[1].minPrice,
+                response.data.maxPrice[0].maxPrice,
+            ]);
             // 從前端取得總頁數 (lastPage)
             const pageList = _.chunk(response.data, perPage);
             setPageNow(1);

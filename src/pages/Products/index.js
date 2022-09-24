@@ -104,7 +104,10 @@ function Products() {
 
     // 價格
     const [selectedPrice, setSelectedPrice] = useState([0, 7380000]);
-    const [maxPrice, setMaxPrice] = useState(7380000);
+    const [maxPrice, setMaxPrice] = useState();
+
+    console.log('selectedPrice', selectedPrice);
+    console.log('maxPrice', maxPrice);
 
     // 登入狀態
     const { member, setMember, isLogin, setIsLogin } = useAuth();
