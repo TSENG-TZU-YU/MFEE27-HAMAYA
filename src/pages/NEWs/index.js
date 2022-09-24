@@ -24,6 +24,7 @@ function NEWs() {
     const [activeText, setActiveText] = useState(1);
     const [data, setData] = useState([]);
     const [news, setNews] = useState([]);
+    const [news2, setNews2] = useState([]);
 
     //使用useLocation來對應到網址
     const location = useLocation();
@@ -41,6 +42,7 @@ function NEWs() {
 
             setData(response.data.data);
             setNews(response.data.news);
+            setNews2(response.data.news2);
         };
         getNews();
     }, [location]);
@@ -51,6 +53,7 @@ function NEWs() {
             let response = await axios.get(`${API_URL}/news`);
             setData(response.data.data);
             setNews(response.data.news);
+            setNews2(response.data.news2);
         };
         getNews();
     }, []);
@@ -134,72 +137,49 @@ function NEWs() {
                     })}
 
                     <div className="col-12 col-md-6 News-blank-art-left  ">
-                        <div className="d-flex mt-2 ">
-                            <img
-                                src={NewsImg2}
-                                alt="art02"
-                                width="150"
-                                height="100"
-                                className=""
-                            />
-                            <span className="gary-dark-color h5 News-cursor-pinter ms-2 ">
-                                AI執筆完成貝多芬《第十號交響曲》——AI的創作是否享有著作權法的保護？
-                                <div className=" d-flex mt-2 ">
-                                    <p className="News-music-article2 small  ">
-                                        音樂文章
-                                    </p>
-                                    <p className="ms-3">瓦力 － 2022/08/20</p>
-                                </div>
-                            </span>
-                        </div>
-                        <div className="border-top border-secondary border-1 px-3 pt-3 mt-4 mb-3"></div>
-                        <div className="d-flex mt-2 ">
-                            <img
-                                src={NewsImg3}
-                                alt="art02"
-                                width="150"
-                                height="100"
-                                className=""
-                            />
-                            <span className="gary-dark-color h5 News-cursor-pinter ms-2 ">
-                                廣場上的小提琴手
-                                <div className=" d-flex mt-2 ">
-                                    <p className="News-music-article3 small  ">
-                                        重要通知
-                                    </p>
-                                    <p className="ms-3">
-                                        眾博法律事務所 － 2022/08/20
-                                    </p>
-                                </div>
-                            </span>
-                        </div>
-                        <div className="border-top border-secondary border-1 mt-4 mb-3"></div>
-                        <div className="d-flex mt-2 ">
-                            <img
-                                src={NewsImg4}
-                                alt="art02"
-                                width="150"
-                                height="100"
-                                className=""
-                            />
-                            <span className="gary-dark-color h5 News-cursor-pinter ms-2 ">
-                                莫札特《費加洛的婚禮》——聰明，反被聰明誤？
-                                <div className=" d-flex mt-2 ">
-                                    <p className="News-music-article4 small">
-                                        促銷活動
-                                    </p>
-                                    <p className="ms-3">邢子青 － 2022/08/20</p>
-                                </div>
-                            </span>
-                        </div>
-                        <div className="border-top border-secondary border-1 mt-4 mb-3"></div>
+                        {news2.map((article) => {
+                            return (
+                                <>
+                                    <div
+                                        key={uuidv4()}
+                                        className="d-flex mt-2 "
+                                    >
+                                        <Link
+                                            to={`/news/${article.id}?mainId=${article.categoryId}`}
+                                        >
+                                            <img
+                                                src={require(`../../album/article/${article.image}`)}
+                                                alt="art02"
+                                                width="150"
+                                                height="100"
+                                                className=""
+                                            />
+
+                                            <span className="gary-dark-color h5 News-cursor-pinter ms-2 ">
+                                                {article.title}
+                                                <div className=" d-flex mt-2 ">
+                                                    <p className="News-music-article2 small  ">
+                                                        {article.name}
+                                                    </p>
+                                                    <p className="ms-3">
+                                                        {article.author} －{' '}
+                                                        {article.creation_date}
+                                                    </p>
+                                                </div>
+                                            </span>
+                                        </Link>
+                                    </div>
+                                    <div className="border-top border-secondary border-1  mb-3"></div>
+                                </>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
 
             {/* TODO:底線要有距離，還需要再修 */}
 
-            <div className="container">
+            <div className="container mt-5">
                 <div className="row text-center ">
                     {menuItems.map((value, index) => {
                         return (

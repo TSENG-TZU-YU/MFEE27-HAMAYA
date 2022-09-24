@@ -104,35 +104,39 @@ function Class(props) {
                                 {article1.map((article1, index) => {
                                     return (
                                         <div key={index}>
-                                            <img
-                                                className="cursor-pinter img-fluid"
-                                                style={{
-                                                    width: '600px',
-                                                    heigh: '400px',
-                                                }}
-                                                src={require(`../../album/article/${article1.image}`)}
-                                                alt="art01"
-                                            />
-                                            <h5
-                                                className="mt-3 cursor-pinter"
-                                                style={{ color: '#333333' }}
+                                            <Link
+                                                to={`/news/${article1.article_id}?mainId=${article1.category}`}
                                             >
-                                                {article1.title}
-                                            </h5>
-                                            <div className=" d-flex mt-3 ">
-                                                <small
-                                                    className="Event me-3"
+                                                <img
+                                                    className="cursor-pinter img-fluid"
                                                     style={{
-                                                        color: '#f2f2f2',
+                                                        width: '600px',
+                                                        heigh: '400px',
                                                     }}
+                                                    src={require(`../../album/article/${article1.image}`)}
+                                                    alt="art01"
+                                                />
+                                                <h5
+                                                    className="mt-3 cursor-pinter"
+                                                    style={{ color: '#333333' }}
                                                 >
-                                                    {article1.name}
-                                                </small>
-                                                <p>
-                                                    {article1.auther} －
-                                                    {article1.creation_date}
-                                                </p>
-                                            </div>
+                                                    {article1.title}
+                                                </h5>
+                                                <div className=" d-flex mt-3 ">
+                                                    <small
+                                                        className="Event me-3"
+                                                        style={{
+                                                            color: '#f2f2f2',
+                                                        }}
+                                                    >
+                                                        {article1.name}
+                                                    </small>
+                                                    <p>
+                                                        {article1.auther} －
+                                                        {article1.creation_date}
+                                                    </p>
+                                                </div>
+                                            </Link>
                                         </div>
                                     );
                                 })}
@@ -141,40 +145,48 @@ function Class(props) {
                                 {article.map((article, index) => {
                                     return (
                                         <div key={index}>
-                                            <div className="d-flex">
-                                                <img
-                                                    className="me-4 cursor-pinter"
-                                                    style={{
-                                                        width: '150px',
-                                                        height: '100px',
-                                                    }}
-                                                    src={require(`../../album/article/${article.image}`)}
-                                                    alt="art02"
-                                                />
-                                                <div>
-                                                    <h5 className=" cursor-pinter">
-                                                        {article.title}
-                                                    </h5>
+                                            <Link
+                                                to={`/news/${article.article_id}?mainId=${article.category}`}
+                                            >
+                                                <div className="d-flex">
+                                                    <img
+                                                        className="me-4 cursor-pinter"
+                                                        style={{
+                                                            width: '150px',
+                                                            height: '100px',
+                                                        }}
+                                                        src={require(`../../album/article/${article.image}`)}
+                                                        alt="art02"
+                                                    />
+                                                    <div>
+                                                        <h5 className=" cursor-pinter">
+                                                            {article.title}
+                                                        </h5>
 
-                                                    <div className=" d-flex mt-2 ">
-                                                        <small
-                                                            className="music-article me-3"
-                                                            style={{
-                                                                color: '#f2f2f2',
-                                                            }}
-                                                        >
-                                                            {article.name}
-                                                        </small>
-                                                        <p>
-                                                            {' '}
-                                                            {article.auther} －
-                                                            {
-                                                                article.creation_date
-                                                            }
-                                                        </p>
+                                                        <div className=" d-flex mt-2 ">
+                                                            <small
+                                                                className="music-article me-3"
+                                                                style={{
+                                                                    color: '#f2f2f2',
+                                                                }}
+                                                            >
+                                                                {article.name}
+                                                            </small>
+                                                            <p>
+                                                                {' '}
+                                                                {
+                                                                    article.auther
+                                                                }{' '}
+                                                                －
+                                                                {
+                                                                    article.creation_date
+                                                                }
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </Link>
+
                                             <div className="border-top border-secondary border-1  pt-3 mt-4 mb-3"></div>
                                         </div>
                                     );
@@ -182,15 +194,17 @@ function Class(props) {
                             </Col>
                         </Row>
                         <div className="more-art ">
-                            <p className="mb-0 me-1 cursor-pinter">
-                                看更多音樂文章
-                            </p>
-                            <img
-                                className="art-arrow"
-                                style={{ width: '15px', height: '15px' }}
-                                src={arrow}
-                                alt="arrow"
-                            />
+                            <Link to={`/news/section?categoryList=4`}>
+                                <p className="mb-0 me-1 cursor-pinter">
+                                    看更多音樂文章
+                                </p>
+                                <img
+                                    className="art-arrow"
+                                    style={{ width: '15px', height: '15px' }}
+                                    src={arrow}
+                                    alt="arrow"
+                                />
+                            </Link>
                         </div>
                     </Container>
                     <div className="session-bg ">

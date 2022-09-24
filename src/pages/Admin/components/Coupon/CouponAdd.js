@@ -6,33 +6,45 @@ import { ReactComponent as Close } from '../../../../assets/svg/close.svg';
 import { successToast, errorToast } from '../../../../components/Alert';
 
 function CouponAdd(props) {
+    const [couponUser, setCouponUser] = useState(false);
     const navigate = useNavigate();
     //詢問表單
-    const [askForm, setAskForm] = useState({
-        q_category: '0',
-        title: '',
-        comment: '',
+    const [addCouponForm, setAddCouponForm] = useState({
+        name: '',
+        sn: '',
+        minimum: '',
+        discount: '',
+        use_count: '',
+        take_count: '',
+        start_time: '',
+        end_time: '',
+        user_email: '',
     });
-    const askFormChange = (e) => {
-        setAskForm({ ...askForm, [e.target.name]: e.target.value });
+    const addCouponChange = (e) => {
+        setAddCouponForm({ ...addCouponForm, [e.target.name]: e.target.value });
     };
     // 送出表單
-    async function asksubmit(e) {
+    async function addCouponSubmit(e) {
         e.preventDefault();
         try {
             const response = await axios.post(
-                `${API_URL}/member/myquestion/add`,
-                askForm,
+                `${API_URL}/admin/coupon/add`,
+                addCouponForm,
                 { withCredentials: true }
             );
             console.log(response.data);
             // loadingMyQuestion();
-            setAskForm({
-                q_category: '0',
-                title: '',
-                comment: '',
+            setAddCouponForm({
+                name: '',
+                sn: '',
+                minimum: '',
+                discount: '',
+                use_count: '',
+                take_count: '',
+                start_time: '',
+                end_time: '',
+                user_email: '',
             });
-            navigate('/member/myquestion');
             // setOpenAskForm(false);
             successToast(response.data.message, '關閉');
             // alert(response.data.message);
@@ -40,16 +52,6 @@ function CouponAdd(props) {
             console.log(err.response.data);
             errorToast(err.response.data.message, '關閉');
             // alert(err.response.data.message);
-
-            // setAskErros({
-            //     fullName: err.response.data.fullName,
-            //     user_id: err.response.data.user_id,
-            //     phone: err.response.data.phone,
-            //     email: err.response.data.email,
-            //     q_category: err.response.data.q_category,
-            //     title: err.response.data.title,
-            //     comment: err.response.data.comment,
-            // });
         }
     }
     return (
@@ -88,9 +90,9 @@ function CouponAdd(props) {
                         <input
                             className=""
                             type="text"
-                            name="title"
-                            value={askForm.title}
-                            onChange={askFormChange}
+                            name="name"
+                            value={addCouponForm.name}
+                            onChange={addCouponChange}
                             placeholder="請輸入優惠券名稱"
                         />
                     </label>
@@ -100,9 +102,9 @@ function CouponAdd(props) {
                         <input
                             className=""
                             type="text"
-                            name="title"
-                            value={askForm.title}
-                            onChange={askFormChange}
+                            name="sn"
+                            value={addCouponForm.sn}
+                            onChange={addCouponChange}
                             placeholder="請輸入序號"
                         />
                     </label>
@@ -112,10 +114,11 @@ function CouponAdd(props) {
                         <input
                             className=""
                             type="number"
-                            name="title"
-                            value={askForm.title}
-                            onChange={askFormChange}
+                            name="minimum"
+                            value={addCouponForm.minimum}
+                            onChange={addCouponChange}
                             placeholder="請輸入最低消費金額"
+                            min="1"
                         />
                     </label>
                     <br />
@@ -124,10 +127,11 @@ function CouponAdd(props) {
                         <input
                             className=""
                             type="number"
-                            name="title"
-                            value={askForm.title}
-                            onChange={askFormChange}
+                            name="discount"
+                            value={addCouponForm.discount}
+                            onChange={addCouponChange}
                             placeholder="請輸入折扣金額"
+                            min="1"
                         />
                     </label>
                     <br />
@@ -137,18 +141,18 @@ function CouponAdd(props) {
                             <input
                                 className=""
                                 type="datetime-local"
-                                name="title"
-                                value={askForm.title}
-                                onChange={askFormChange}
+                                name="start_time"
+                                value={addCouponForm.start_time}
+                                onChange={addCouponChange}
                                 placeholder="請輸入開始時間"
                             />
                             &nbsp;~&nbsp;
                             <input
                                 className=""
                                 type="datetime-local"
-                                name="title"
-                                value={askForm.title}
-                                onChange={askFormChange}
+                                name="end_time"
+                                value={addCouponForm.end_time}
+                                onChange={addCouponChange}
                                 placeholder="請輸入結束時間"
                             />
                         </div>
@@ -158,18 +162,35 @@ function CouponAdd(props) {
                         <h6>限制使用者</h6>
                         <div className="d-flex align-items-center">
                             <label className="radiobtn">
-                                <input type="radio" value="no" />無
+                                <input
+                                    type="radio"
+                                    value="0"
+                                    checked={couponUser ? false : true}
+                                    onClick={() => {
+                                        setCouponUser(false);
+                                    }}
+                                />
+                                無
                             </label>
                             <label className="radiobtn">
-                                <input type="radio" value="yes" />有
+                                <input
+                                    type="radio"
+                                    value="1"
+                                    checked={couponUser ? true : false}
+                                    onClick={() => {
+                                        setCouponUser(true);
+                                    }}
+                                />
+                                有
                             </label>
                             <input
                                 className="w-100"
                                 type="text"
-                                name="title"
-                                value={askForm.title}
-                                onChange={askFormChange}
-                                placeholder="請輸入使用者帳號"
+                                name="user_email"
+                                value={addCouponForm.user_email}
+                                onChange={addCouponChange}
+                                placeholder="請輸入使用者帳號(E-MAIL)"
+                                disabled={!couponUser}
                             />
                         </div>
                     </label>
@@ -179,10 +200,12 @@ function CouponAdd(props) {
                         <input
                             className=""
                             type="number"
-                            name="title"
-                            value={askForm.title}
-                            onChange={askFormChange}
+                            name="use_count"
+                            value={couponUser ? 1 : addCouponForm.use_count}
+                            onChange={addCouponChange}
                             placeholder="請輸入可使用次數"
+                            disabled={couponUser}
+                            min="1"
                         />
                     </label>
                     <br />
@@ -190,7 +213,7 @@ function CouponAdd(props) {
                     <div className="d-flex justify-content-end">
                         <button
                             className="btn1 text-light bg-main-color p-1 px-5 "
-                            onClick={asksubmit}
+                            onClick={addCouponSubmit}
                         >
                             確定新增
                         </button>
