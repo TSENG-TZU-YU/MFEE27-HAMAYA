@@ -10,6 +10,9 @@ import { Link } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+// 項目資料
+import { loader } from './constants';
+
 // 元件
 import Teacher from '../../components/Teacher';
 import TeacherMob from '../../components/TeacherMob';
@@ -57,24 +60,14 @@ function Class(props) {
 
     useEffect(() => {}, [data]);
 
-    const loader = (
-        <div className="sk-chase ">
-            <div className="sk-chase-dot"></div>
-            <div className="sk-chase-dot"></div>
-            <div className="sk-chase-dot"></div>
-            <div className="sk-chase-dot"></div>
-            <div className="sk-chase-dot"></div>
-            <div className="sk-chase-dot"></div>
-        </div>
-    );
 
     return (
         <>
+            <img className=" w-100" src={banner} alt="banner" />
             {isLoading ? (
                 loader
             ) : (
                 <>
-                    <img className=" w-100" src={banner} alt="banner" />
                     <Container>
                         {/* 麵包屑 */}
                         <div className="d-flex mt-5">

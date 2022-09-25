@@ -314,7 +314,7 @@ function Detailed({ ins_main_id }) {
                                             <img
                                                 src={note}
                                                 alt="note"
-                                                className="position-absolute classDetail-note "
+                                                className="position-absolute classDetail-note d-none d-lg-block "
                                             />
                                             <h6 className=" AdultDetailed-line-height mt-4">
                                                 {classDetailed.course_intro}

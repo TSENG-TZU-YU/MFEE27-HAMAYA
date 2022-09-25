@@ -6,36 +6,35 @@
 
 //首頁動畫
 .iframely-embed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 50;
-  background-color: $main-gary-light;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    background-color: $main-gary-light;
 }
 
 #app {
-  // opacity: 0 !important;
-  // visibility: hidden;
-  z-index: 100;
+    // opacity: 0 !important;
+    // visibility: hidden;
+    z-index: 100;
 
-  // &:hover {
-  //   opacity: 0.5;
-  // }
+    // &:hover {
+    //   opacity: 0.5;
+    // }
 }
 
 #app {
-  display: grid;
-  grid-template-columns: 2fr 3fr;
-  align-items: center;
-  // padding-bottom: 2vmin;
-  // height: 100vh;
-  height: 100vh;
-  width: 100%;
-  background-color: $main-gary-light;
-  color: $main;
-  
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    align-items: center;
+    // padding-bottom: 2vmin;
+    // height: 100vh;
+    height: 100vh;
+    width: 100%;
+    background-color: $main-gary-light;
+    color: $main;
 }
 
 // body {
@@ -44,65 +43,59 @@
 //   background-color: $main-gary-light;
 // }
 
-@import url("https://fonts.googleapis.com/css2?family=Prata&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
 
 .title {
-  padding-left: 1em;
-  grid-column: 1 / -1;
-  grid-row: 1;
-  font-family: "Prata", serif;
-  font-size: 15vmin;
-  width: 100%;
-  z-index: 2;
-  //字的大小
-margin-bottom: 3rem;
-  // z-index: 50;
+    padding-left: 1em;
+    grid-column: 1 / -1;
+    grid-row: 1;
+    font-family: 'Prata', serif;
+    font-size: 15vmin;
+    width: 100%;
+    z-index: 2;
+    //字的大小
+    margin-bottom: 3rem;
+    // z-index: 50;
 
+    // start
 
-  // start
-
-  > .title-inner {
-    display: inline-block;
-  }
+    > .title-inner {
+        display: inline-block;
+    }
 }
 
-
-
 @keyframes text-clip {
-  from {
-    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
-  }
-  to {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
+    from {
+        clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+    }
+    to {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
 }
 
 @keyframes outer-left {
-  from {
-    transform: translateX(50%);
-  }
-  to {
-    transform: none;
-  }
+    from {
+        transform: translateX(50%);
+    }
+    to {
+        transform: none;
+    }
 }
 
 @keyframes inner-left {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: none;
-  }
+    from {
+        transform: translateX(-50%);
+    }
+    to {
+        transform: none;
+    }
 }
-
-
 
 .cafe,
 .mozart {
-  animation: outer-left 1s 1s cubic-bezier(0.5, 0, 0.1, 1) both;
-  // outline: 1px solid red;
-  letter-spacing:10px;
-
+    animation: outer-left 1s 1s cubic-bezier(0.5, 0, 0.1, 1) both;
+    // outline: 1px solid red;
+    letter-spacing: 10px;
 }
 
 // [class*='inner'] {
@@ -110,209 +103,189 @@ margin-bottom: 3rem;
 // }
 
 .title-inner {
-  display: inline-block;
-  animation: inner-left 1s 1s ease both;
+    display: inline-block;
+    animation: inner-left 1s 1s ease both;
 }
 
 .cafe-inner {
-  display: inline-block;
-  animation: inner-left 1s 1s ease both,
-    text-clip 1s 0s cubic-bezier(0.5, 0, 0.1, 1) both;
-    letter-spacing:30px;
+    display: inline-block;
+    animation: inner-left 1s 1s ease both,
+        text-clip 1s 0s cubic-bezier(0.5, 0, 0.1, 1) both;
+    letter-spacing: 30px;
 }
 
 .mozart-inner {
-  animation: text-clip 1s 0s cubic-bezier(0.5, 0, 0.1, 1) both;
-  letter-spacing:30px;
+    animation: text-clip 1s 0s cubic-bezier(0.5, 0, 0.1, 1) both;
+    letter-spacing: 30px;
 }
 
 .title {
-  animation: outer-left 1s 1s ease both;
-
+    animation: outer-left 1s 1s ease both;
 }
 
 .cafe {
-  // start
-  > .cafe-inner {
-    display: inline-block;
-  }
+    // start
+    > .cafe-inner {
+        display: inline-block;
+    }
 }
 
 .mozart {
-  display: inline-block;
+    display: inline-block;
 }
 
+video {
+    // display: block;
+    // width: 100%;
+    // position:absolute;
+    // top:50px;
+    // right:100px;
+}
 
-  
-video{
-  // display: block;
-  // width: 100%;
-  // position:absolute;
-  // top:50px;
-  // right:100px;
-  
-  
-  }
-
-  .home-video {
+.home-video {
     grid-row: 1;
     grid-column: 2;
     margin-left: -1rem;
     opacity: 0.7;
-    aspect-ratio:  16/9;
+    aspect-ratio: 16/9;
     animation: image-in 1s cubic-bezier(0.5, 0, 0.1, 1) 2s backwards;
-  
+
     @keyframes image-in {
-      from {
-        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-      }
-      to {
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-      }
+        from {
+            clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        }
+        to {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
     }
-  
-   .home-video3 {
-      display: inline-block;
-      width: 100%;
-      height: 88vh;
-      object-fit: cover
+
+    .home-video3 {
+        display: inline-block;
+        width: 100%;
+        height: 88vh;
+        object-fit: cover;
+      
     }
-  }
-
-
+}
 
 // Replay animation!
 // :root:active * {
 //   animation: none !important;
 // }
 
-
 .font5 {
-  font-size: 2vmin;
-  position:relative;
-  bottom: -5rem;
-  right: 2rem;
-  color: $main;
-  font-weight: bold;
+    font-size: 2vmin;
+    position: relative;
+    bottom: -5rem;
+    right: 2rem;
+    color: $main;
+    font-weight: bold;
 }
-
-
-
-
-
 
 //音符動畫
 .muzieknootjes {
-  // display: block;
-  // margin: auto;
-  // position: relative;
-  // width: 100%;
-  // min-width: 300px;
-  // height: 200px;
-  // border: 0px solid #000;
+    // display: block;
+    // margin: auto;
+    // position: relative;
+    // width: 100%;
+    // min-width: 300px;
+    // height: 200px;
+    // border: 0px solid #000;
 }
 
 .noot-1,
 .noot-2,
 .noot-3,
 .noot-4,
-.noot-5{
-  position: absolute;
-  animation: notes 5s infinite linear;
-  font-size: 35px;
-  opacity: 0;
+.noot-5 {
+    position: absolute;
+    animation: notes 5s infinite linear;
+    font-size: 35px;
+    opacity: 0;
 }
 
 .noot-1 {
- bottom: 630px;
-  left: 3%;
-  animation-delay: 7s;
+    bottom: 630px;
+    left: 3%;
+    animation-delay: 7s;
 }
 
 .noot-2 {
-  bottom: 100px;
-  left: 20%;
-  animation-delay: 4s;
+    bottom: 100px;
+    left: 20%;
+    animation-delay: 4s;
 }
 
 .noot-3 {
- bottom:300px;
-  left: 45%;
+    bottom: 300px;
+    left: 45%;
 
-  animation-delay: 3s;
+    animation-delay: 3s;
 }
 
 .noot-4 {
-  bottom:500px;
-  left: 60%;
-  animation-delay: 4s;
+    bottom: 500px;
+    left: 60%;
+    animation-delay: 4s;
 }
-.noot-5{
- top:90px;
-  left:70%;
-  animation-delay: 6s;
+.noot-5 {
+    top: 90px;
+    left: 70%;
+    animation-delay: 6s;
 }
-
 
 @keyframes notes {
-  0% {
-    transform: scale(1) translate(0, 0);
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.5) translate(50%, -50%);
-  }
-  80% {
-    opacity: 0;
-    transform: scale(1.5) translate(100%, -100%);
-  }
-  100% {
-    transform: scale(1.5) translate(100%, -100%);
-    opacity: 0;
-  }
+    0% {
+        transform: scale(1) translate(0, 0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.5) translate(50%, -50%);
+    }
+    80% {
+        opacity: 0;
+        transform: scale(1.5) translate(100%, -100%);
+    }
+    100% {
+        transform: scale(1.5) translate(100%, -100%);
+        opacity: 0;
+    }
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
+    #app {
+        height: 40vh;
+    }
 
-  #app{
-    height: 40vh;
-  }
+    .title {
+        text-align: center;
+    }
 
+    .font5 {
+        font-size: 15px;
+        position: relative;
+        bottom: -3rem;
+        right: 1rem;
+        color: $main;
+        font-weight: bold;
+        text-align: center;
+    }
 
-  .title{
-  text-align: center;
+    .title2 {
+        padding-left: 1em;
+        // grid-column: 1 / -1;
+        // grid-row: 1;
+        font-family: 'Prata', serif;
+        font-size: 10vmin;
+        width: 100%;
+        z-index: 2;
+        position: relative;
+        bottom: -2rem;
+        right: 1rem;
+    }
 
-  }
-
-  .font5{
-    font-size: 15px;
-    position:relative;
-    bottom: -3rem;
-    right: 1rem;
-    color: $main;
-    font-weight: bold;
-    text-align: center;
-
-  }
-
-  .title2{
-    padding-left: 1em;
-    // grid-column: 1 / -1;
-    // grid-row: 1;
-    font-family: "Prata", serif;
-    font-size: 10vmin;
-    width: 100%;
-    z-index: 2;
-    position:relative;
-    bottom: -2rem;
-    right: 1rem;
-  }
-
-
-  .home-video2{
-    display: none;
-  }
+    .home-video2 {
+        display: none;
+    }
 }
-
-  
