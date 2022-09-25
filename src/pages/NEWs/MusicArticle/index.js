@@ -23,14 +23,13 @@ import { clearConfigCache } from 'prettier';
 function MusicArticle() {
     const [data, setData] = useState([]);
     const [activeText, setActiveText] = useState(1);
-    const [SmallArticles, setSmallArticles] = useState([]);
 
     // 畫面上目前呈現用狀態
     const [articleDisplay, setArticleDisplay] = useState([]);
 
-    // 分頁用
+    //分頁用;
     const [pageNow, setPageNow] = useState(1); // 目前頁號
-    const [perPage, setPerPage] = useState(3); // 每頁多少筆資料
+    const [perPage, setPerPage] = useState(5); // 每頁多少筆資料
     const [pageTotal, setPageTotal] = useState(0); //總共幾頁，在didMount時要決定
     const [pageProducts, setPageProducts] = useState([]);
 
@@ -53,14 +52,13 @@ function MusicArticle() {
                 `${API_URL}/news/section?categoryList=${categoryList}`
             );
             setData(response.data.data);
-            setSmallArticles(response.data.SmallArticles);
             setActiveText(response.data.data[0].categoryId);
-            const pageList = _.chunk(response.data.SmallArticles, perPage);
-            // console.log(pageList)
+            const pageList = _.chunk(response.data.data, perPage);
+            console.log(pageList);
 
             if (pageList.length > 0) {
                 setPageTotal(pageList.length);
-                // 設定到state中
+                //設定到state中;
                 setPageProducts(pageList);
             }
         };
@@ -68,7 +66,6 @@ function MusicArticle() {
     }, [location]);
 
     // console.log(data);
-    // console.log(SmallArticles);
 
     // 假資料;
     const ListItems = [
@@ -89,7 +86,9 @@ function MusicArticle() {
             name: '音樂文章',
         },
     ];
-
+    const id = ListItems.filter((v) => v.id === activeText);
+    // const Breadcrumbs = id.slice(0);
+    // console.log('麵包屑', Breadcrumbs);
     // console.log(activeText);
     return (
         <>
@@ -104,8 +103,12 @@ function MusicArticle() {
                     <p className="News-Breadcrumbs">最新消息</p>
                 </Link>
                 /
-                <Link to="/class">
-                    <p className="News-Breadcrumbs">促銷活動</p>
+                <Link
+                    data={data}
+                    activeText={activeText}
+                    to={`/news/section?categoryList=${activeText.id}`}
+                >
+                    <p className="News-Breadcrumbs">{id[0].name}</p>
                 </Link>
             </div>
             {/* 麵包屑 */}
@@ -133,104 +136,45 @@ function MusicArticle() {
                     })}
                 </div>
             </div>
-
-            <div className="container">
-                <div className="row">
-                    {data.map((list) => {
-                        return (
-                            <>
-                                <div
-                                    key={uuidv4()}
-                                    className="col-12 col-md-5 d-flex mt-4"
-                                >
-                                    <img
-                                        src={require(`../../../album/article/${list.image}`)}
-                                        alt="list-images"
-                                        className="article-list-images mobile-list-images"
-                                    />
-                                </div>
-
-                                <div className="col-12 col-md-7 mt-4">
-                                    <div className=" gary-dark-color h4 list-cursor-pinter ">
-                                        {list.title}
-                                        <div className="d-flex mt-2 ">
-                                            <p className=" list-music-article2 small  ">
-                                                {list.categoryName}
-                                            </p>
-                                            <p className="ms-2 mt-1 ">
-                                                {list.author} －
-                                                {list.creation_date}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <p className=" article-list-content ">
-                                        {list.content}...
-                                    </p>
-                                </div>
-                                <div className="container list-more-art ">
-                                    <Link
-                                        // 直接設定一個變數抓資料庫的id
-                                        to={`/news/${list.id}?mainId=${list.categoryId}`}
-                                        className="mb-0 me-1 list-cursor-pinter"
-                                    >
-                                        閱讀全文
-                                    </Link>
-                                    <img
-                                        className="list-arrow"
-                                        style={{
-                                            width: '15px',
-                                            height: '15px',
-                                        }}
-                                        src={arrow}
-                                        alt="arrow"
-                                    />
-                                </div>
-                            </>
-                        );
-                    })}
-                </div>
-            </div>
             <div className="container">
                 <div className="row">
                     {pageProducts.length > 0 &&
-                        pageProducts[pageNow - 1].map((product) => {
+                        pageProducts[pageNow - 1].map((list) => {
                             return (
                                 <>
                                     <div
                                         key={uuidv4()}
-                                        className="col-md col-sm-12  d-flex mt-3"
+                                        className="col-12 col-md-5 d-flex mt-4"
                                     >
                                         <img
-                                            src={require(`../../../album/article/${product.image}`)}
-                                            alt="art02"
-                                            className="article-list-images2 mobile-images2"
+                                            src={require(`../../../album/article/${list.image}`)}
+                                            alt="list-images"
+                                            className="article-list-images mobile-list-images"
                                         />
                                     </div>
-                                    <div className="col-md-9  col-sm-12  mt-3">
-                                        <span className="ms-2 gary-dark-color h4 list-cursor-pinter ">
-                                            {product.title}
+
+                                    <div className="col-12 col-md-7 mt-4">
+                                        <div className=" gary-dark-color h4 list-cursor-pinter ">
+                                            {list.title}
                                             <div className="d-flex mt-2 ">
-                                                <p className="ms-2 list-music-article2 small  ">
-                                                    {product.categoryName}
+                                                <p className=" list-music-article2 small  ">
+                                                    {list.categoryName}
                                                 </p>
                                                 <p className="ms-2 mt-1 ">
-                                                    {product.author} －
-                                                    {product.creation_date}
+                                                    {list.author} －
+                                                    {list.creation_date}
                                                 </p>
                                             </div>
-                                        </span>
-                                        <p className=" ms-2 article-list-content ">
-                                            {product.content}...
+                                        </div>
+                                        <p className=" article-list-content ">
+                                            {list.content}...
                                         </p>
                                     </div>
                                     <div className="container list-more-art ">
                                         <Link
-                                            // data={data}
-                                            // activeText={activeText}
-                                            to={`/news/${product.id}?mainId=${product.categoryId}`}
+                                            // 直接設定一個變數抓資料庫的id
+                                            to={`/news/${list.id}?mainId=${list.categoryId}`}
                                             className="mb-0 me-1 list-cursor-pinter"
-                                            data={data}
-                                            SmallArticles={product.categoryId}
                                         >
                                             閱讀全文
                                         </Link>
@@ -249,10 +193,11 @@ function MusicArticle() {
                         })}
                 </div>
             </div>
+
             {/* 頁碼 */}
             <div className="d-flex justify-content-center align-items-center my-5">
                 {console.log('thing', pageProducts)}
-                {SmallArticles.length > perPage ? (
+                {data.length > perPage ? (
                     <PaginationBar
                         pageNow={pageNow}
                         setPageNow={setPageNow}

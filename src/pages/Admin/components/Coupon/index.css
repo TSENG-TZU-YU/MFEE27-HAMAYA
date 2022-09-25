@@ -67,3 +67,64 @@
     border: 0;
     margin: 0;
 }
+
+.CouponDetail .content{
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    /* border: 2px solid gray;
+    border-radius: 5px; */
+    padding: 10px;
+    /* background-color: #ffffff; */
+}
+
+.CouponDetail .closebtn{
+    border: 2px solid #00000000;
+    padding: 0;
+    border-radius: 2px;
+    transition: .3s;
+}
+.CouponDetail .closebtn:hover{
+    border: 2px solid #00323d;
+}
+
+.CouponDetail .deletebtn:hover{
+    
+}
+.CouponDetail .deletebtn1{
+    display: flex;
+    align-items: center;
+    border: 1px solid #535353 ;
+    border-radius: 2px;
+    color: #535353;
+    font-weight: 400;
+    font-size: 14px;
+    margin: 0 5px;
+}
+.CouponDetail .deletebtn2{
+    display: flex;
+    align-items: center;
+    border: 1px solid #a00000 ;
+    border-radius: 2px;
+    color: #a00000;
+    font-weight: 400;
+    font-size: 14px;
+    margin: 0 5px;
+}
+.CouponDetail .icon1{
+    width: 25px;
+    height: 20px;
+}
+.CouponDetail .span1{
+    font-size: 12px;
+}
+.CouponDetail .table1{
+    min-height: 300px;
+    max-height: 400px;
+    overflow: auto;
+    
+}
+.CouponDetail thead tr th {
+    position: sticky;
+    top: 0;
+  }

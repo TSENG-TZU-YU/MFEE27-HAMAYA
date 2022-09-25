@@ -91,14 +91,6 @@ function CommonQA(props) {
                 console.log('管理員進入List頁面');
                 let socket = io('http://localhost:3001');
                 setSocketConn(socket);
-                // let params = new URLSearchParams(location.search);
-                // let nlid = params.get('nlid');
-                // let response = await axios.get(
-                //     `${API_URL}/admin/customerservice/commonqa/detail?nlid=${nlid}`,
-                //     {
-                //         withCredentials: true,
-                //     }
-                // );
                 socket.on(`customer_List`, (res) => {
                     console.log('新訊息', res);
                     //判斷是否需要更新資料庫
@@ -170,6 +162,12 @@ function CommonQA(props) {
                                 className="text-nowrap fw-light text-center"
                                 scope="col"
                             >
+                                E-MAIL
+                            </th>
+                            <th
+                                className="text-nowrap fw-light text-center"
+                                scope="col"
+                            >
                                 姓名
                             </th>
                             <th
@@ -221,8 +219,12 @@ function CommonQA(props) {
                                             {data.create_time}
                                         </span>
                                     </th>
+                                    <td className="email">
+                                        {data.email}
+                                    </td>
                                     <td className="text-nowrap text-center">
                                         {data.name}
+                                        {data.user_id === 0 && '(訪客)'}
                                     </td>
                                     <td>{data.user_q_category}</td>
                                     <td>{data.title}</td>
@@ -262,7 +264,6 @@ function CommonQA(props) {
                     </tbody>
                 </table>
             )}
-
             {pageTotal > 1 && paginationBar}
         </div>
     );

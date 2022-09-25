@@ -11,22 +11,27 @@ import { API_URL } from '../../../../utils/config';
 import { useAuth } from '../../../../utils/use_auth';
 import { v4 as uuidv4 } from 'uuid';
 import { ReactComponent as Close } from '../../../../assets/svg/close.svg';
+import { io } from 'socket.io-client';
+import { errorToast } from '../../../../components/Alert';
 
 function OrderQADetail(props) {
+    const [loadingComplete, setLoadingComplete] = useState(false);
     const [setbread] = useOutletContext();
     const navigate = useNavigate();
     const location = useLocation();
-    const [myQuestion, setMyQuestion] = useState({
+    const [socketConn, setSocketConn] = useState(null);
+    const [orderQA, setOrderQA] = useState({
         detail: {
             id: '',
+            order_id: '',
             user_id: '',
             name: '',
             email: '',
             phone: '',
-            user_q_category: '',
+            category: '',
             title: '',
-            comment: '',
-            user_reply_state: '',
+            q_content: '',
+            manager_reply_state: '',
             create_time: '',
             update_time: '',
         },
@@ -39,39 +44,66 @@ function OrderQADetail(props) {
         ],
     });
 
+    //建立socket連線
+    useEffect(() => {
+        async function customerConn() {
+            if (!socketConn) {
+                console.log('管理員進入Detail頁面建立連線');
+                let socket = io('http://localhost:3001');
+                setSocketConn(socket);
+                let params = new URLSearchParams(location.search);
+                let orid = params.get('orid');
+                let response = await axios.get(
+                    `${API_URL}/admin/customerservice/orderqa/detail?orid=${orid}`,
+                    {
+                        withCredentials: true,
+                    }
+                );
+                socket.on(`userid${response.data.detail.user_id}`, (res) => {
+                    console.log('新訊息', res);
+                    //判斷是否需要更新資料庫
+                    if (res.newMessage) {
+                        console.log('更新資料庫');
+                        orderQADetail();
+                    }
+                });
+            }
+        }
+        customerConn();
+    }, []);
+
     //讀取問答詳細
-    async function myQuestionDetail(orid) {
+    async function orderQADetail() {
+        let params = new URLSearchParams(location.search);
+        let orid = params.get('orid');
         try {
             let response = await axios.get(
-                `${API_URL}/member/myquestion/detail?qaid=${orid}`,
+                `${API_URL}/admin/customerservice/orderqa/detail?orid=${orid}`,
                 {
                     withCredentials: true,
                 }
             );
             console.log(response.data);
             setreplyForm({
-                ...replyForm,
-                user_qna_id: response.data.detail.id,
+                user_id: response.data.detail.user_id,
+                order_id: response.data.detail.order_id,
+                q_content: '',
             });
-            setMyQuestion(response.data);
+            setOrderQA(response.data);
         } catch (err) {
             console.log(err.response.data);
             alert(err.response.data.message);
         }
     }
     useEffect(() => {
-        let params = new URLSearchParams(location.search);
-        let orid = params.get('orid');
-        console.log(orid);
-        myQuestionDetail(orid);
-        // console.log(myQuestion);
-    }, [location]);
+        orderQADetail();
+    }, []);
 
     //新增回覆
     const [replyForm, setreplyForm] = useState({
-        user_qna_id: '',
+        user_id: '',
+        order_id: '',
         q_content: '',
-        // name: '', 從session拿
     });
     const replyFormChange = (e) => {
         setreplyForm({ ...replyForm, q_content: e.target.value });
@@ -80,32 +112,27 @@ function OrderQADetail(props) {
         e.preventDefault();
         try {
             let response = await axios.post(
-                `${API_URL}/member/myquestion/reply`,
+                `${API_URL}/admin/customerservice/orderqa/reply`,
                 replyForm,
                 {
                     withCredentials: true,
                 }
             );
-            // console.log(response.data);
-            //讀取問答詳細
-            myQuestionDetail(replyForm.user_qna_id);
-            //清空replyForm input
-            setreplyForm({ ...replyForm, q_content: '' });
-            // alert(response.data.message);
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
 
     return (
-        <div className="mb-3  MyQuestionDetail">
-            <div className="d-flex align-items-center justify-content-between content  my-2">
+        <div className="mb-3  NLQADetail">
+            <div className="d-flex align-items-center justify-content-between my-2">
                 <div>
                     <h4 className="main-color ">問答詳細</h4>
                     <div className="">
-                        問答編號:OR00{myQuestion.detail.id}&nbsp;
-                        {myQuestion.detail.create_time}
+                        問答編號:OR00{orderQA.detail.id}&nbsp;
+                        {orderQA.detail.create_time}
                     </div>
                 </div>
                 <div>
@@ -119,13 +146,29 @@ function OrderQADetail(props) {
                     </button>
                 </div>
             </div>
-            <div className="content ">
+            <div>
                 <div className="d-flex border">
                     <div className="col-3 text-center text-light bg-main-color p-1">
-                        問題主旨
+                        姓名
                     </div>
                     <div className=" col-9 text-center p-1">
-                        {myQuestion.detail.title}
+                        {orderQA.detail.name}
+                    </div>
+                </div>
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        連絡電話
+                    </div>
+                    <div className=" col-9 text-center p-1">
+                        {orderQA.detail.phone}
+                    </div>
+                </div>
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        電子郵件
+                    </div>
+                    <div className=" col-9 text-center p-1">
+                        {orderQA.detail.email}
                     </div>
                 </div>
                 <div className="d-flex border">
@@ -133,7 +176,15 @@ function OrderQADetail(props) {
                         問題類型
                     </div>
                     <div className="col-9 text-center  p-1">
-                        {myQuestion.detail.user_q_category}
+                        {orderQA.detail.q_category}
+                    </div>
+                </div>
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        問題主旨
+                    </div>
+                    <div className=" col-9 text-center p-1">
+                        {orderQA.detail.title}
                     </div>
                 </div>
                 <div className="d-flex border">
@@ -141,7 +192,18 @@ function OrderQADetail(props) {
                         回覆狀態
                     </div>
                     <div className="col-9 text-center  p-1">
-                        {myQuestion.detail.user_reply_state}
+                        <span
+                            className={
+                                orderQA.detail.manager_reply_state === '未回覆'
+                                    ? 'reply_state'
+                                    : orderQA.detail.manager_reply_state ===
+                                      '已回覆'
+                                    ? 'reply_state2'
+                                    : 'reply_state3'
+                            }
+                        >
+                            {orderQA.detail.manager_reply_state}
+                        </span>
                     </div>
                 </div>
                 <div className="d-flex border">
@@ -149,7 +211,7 @@ function OrderQADetail(props) {
                         最後更新時間
                     </div>
                     <div className="col-9 text-center  p-1">
-                        {myQuestion.detail.update_time}
+                        {orderQA.detail.update_time}
                     </div>
                 </div>
                 <div className=" text-center text-light bg-main-color p-1 border">
@@ -157,7 +219,7 @@ function OrderQADetail(props) {
                 </div>
                 <div className="border maincontent p-1">
                     <div className="">
-                        {myQuestion.content.map((data) => {
+                        {orderQA.content.map((data) => {
                             return (
                                 <div key={uuidv4()}>
                                     <p className="text-start m-0">
@@ -179,20 +241,21 @@ function OrderQADetail(props) {
                 </div>
                 <div className="border p-1">
                     <form>
-                        <textarea
-                            className="w-100 textarea"
-                            rows="4"
+                        <input
+                            className="w-100 inputcontent"
                             type="text"
                             name="q_content"
                             value={replyForm.q_content}
                             onChange={replyFormChange}
-                            placeholder="輸入內容"
+                            placeholder="請輸入內容"
+                            autoComplete="off"
+                            disabled={orderQA.detail.user_id === 0}
                         />
                         <button
-                            className="text-light bg-main-color p-1 px-5 btn1"
+                            className="text-light bg-main-color p-1 px-5 btn1 "
                             onClick={replyFormSubmit}
                         >
-                            進行回覆
+                            送出
                         </button>
                     </form>
                 </div>

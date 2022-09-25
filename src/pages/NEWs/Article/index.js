@@ -57,8 +57,7 @@ function Article() {
                                 </Link>
                                 /
                                 <Link
-                                    //TODO:如何跳到那一頁
-                                    to={`news/section?categoryList=${article.category}`}
+                                    to={`/news/section?categoryList=${article.category}`}
                                 >
                                     <p className="article-Breadcrumbs text-nowrap">
                                         {article.articleName}
