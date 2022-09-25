@@ -15,7 +15,6 @@ function PaginationBar(props) {
                         window.scrollTo({
                             top: 0,
                             left: 0,
-                            // behavior: 'smooth',
                         });
                     }}
                 >
@@ -35,7 +34,6 @@ function PaginationBar(props) {
                                     window.scrollTo({
                                         top: 0,
                                         left: 0,
-                                        // behavior: 'smooth',
                                     });
                                 }}
                             >
