@@ -24,6 +24,9 @@
 
     text-align: right;
 }
+.NLQA .email{
+    font-size: 12px;
+}
 .NLQA .ellipsis{
     overflow: hidden;
     text-overflow: ellipsis;
@@ -32,6 +35,7 @@
     -webkit-line-clamp: 2; 
     -webkit-box-orient: vertical;
 }
+
 
 .NLQADetail{
     width: 100%;
@@ -74,11 +78,16 @@
 }
 
 .placeholderNone::placeholder{
-    color:  rgb(160, 0, 0);
+    color:  #a00000;
 }
 
 /* 頁碼設定  */
 .CommonQA{
+    position: relative;
+    margin-bottom: 50px;
+    min-height: 500px;
+}
+.OrderQA{
     position: relative;
     margin-bottom: 50px;
     min-height: 500px;
