@@ -136,7 +136,7 @@ function NEWs() {
                         );
                     })}
 
-                    <div className="col-12 col-md-6 News-blank-art-left  ">
+                    <div className="col-12 col-md-6 News-blank-art-left mt-2  ">
                         {news2.map((article, index) => {
                             return (
                                 <div key={index}>
