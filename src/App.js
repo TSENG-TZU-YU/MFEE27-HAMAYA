@@ -26,6 +26,7 @@ import Class from './pages/Class';
 import Place from './pages/Place';
 import AboutUs from './pages/AboutUs';
 import Member from './pages/Member';
+import NotFound from './pages/NotFound';
 
 //News 次頁面
 import MusicArticle from './pages/NEWs/MusicArticle';
@@ -290,10 +291,7 @@ function App() {
                                         />
                                     </Route>
                                     {/* 404未找到的頁面路由，需放在最下方 */}
-                                    <Route
-                                        path="*"
-                                        element={<h1>404 NOT FOUND</h1>}
-                                    />
+                                    <Route path="*" element={<NotFound />} />
                                 </Route>
                             </Routes>
                             <Footer />
