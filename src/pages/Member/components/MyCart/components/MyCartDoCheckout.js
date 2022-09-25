@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../../utils/use_auth';
 import { cityData, distData } from '../../MyProfile/location';
 import axios from 'axios';
@@ -21,6 +21,7 @@ function MyCartDoCheckout({
 }) {
     const { member } = useAuth();
     const [myCoupon, setMyCoupon] = useState([]);
+    const navigate = useNavigate();
     useEffect(() => {
         async function getCoupon() {
             try {
@@ -183,6 +184,7 @@ function MyCartDoCheckout({
                     setMyCartA([]);
                     setMyCartB([]);
                     setHiddenState(false);
+                    navigate('/member/myorder');
                 } catch (err) {
                     console.log('新增訂單錯誤', err);
                 }

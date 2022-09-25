@@ -87,7 +87,13 @@ function ProductCompare(props) {
     //加入購物車
     function getCheck(itemInfo) {
         // console.log('get Member', member);
-        console.log('itemInfo', itemInfo);
+        console.log('itemInfo compare', itemInfo);
+        let stock = itemInfo.stock;
+        let amount = itemInfo.amount;
+        if (stock < amount) {
+            setShopCartState(false);
+            return errorToast('暫無庫存', '關閉');
+        }
         //確認有沒有重複
         let newItemInfo = shoppingCart.find((v) => {
             return v.product_id === itemInfo.product_id;
@@ -120,7 +126,7 @@ function ProductCompare(props) {
                     //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
                     try {
                         let response = await axios.post(
-                            `${API_URL}/member/mycart`,
+                            `${API_URL}/member/mycart/single`,
                             itemsData
                         );
                         // console.log('duplicate', response.data.duplicate);
@@ -392,6 +398,7 @@ function ProductCompare(props) {
                                                         spec: value.spec,
                                                         shipment:
                                                             value.shipment,
+                                                        stock: value.stock,
                                                     });
                                                 }}
                                             />

@@ -72,7 +72,7 @@ function Cart() {
                     `${API_URL}/member/mycart/multi`,
                     itemsData
                 );
-                // successToast(response.data.message, '關閉');
+                successToast(response.data.message, '關閉');
             } catch (err) {
                 console.log(err.response.data.message);
             }
@@ -119,22 +119,44 @@ function Cart() {
                                         .replace('3.', '')}
                                 >
                                     {item.category_id === 'A' && (
-                                        <img
-                                            className="shoppingCartItemImg mx-3"
-                                            src={require(`../../album/products/${item.image}`)}
-                                            alt=""
-                                        />
+                                        <Link
+                                            to={`/products/${item.product_id}`}
+                                        >
+                                            <img
+                                                className="shoppingCartItemImg mx-3"
+                                                src={require(`../../album/products/${item.image}`)}
+                                                alt=""
+                                            />
+                                        </Link>
                                     )}
                                     {item.category_id === 'B' && (
-                                        <img
-                                            className="shoppingCartItemImg mx-3"
-                                            src={require(`../../album/class/${item.image_1}`)}
-                                            alt=""
-                                        />
+                                        <Link
+                                            to={`/class/list/${item.product_id}`}
+                                        >
+                                            <img
+                                                className="shoppingCartItemImg mx-3"
+                                                src={require(`../../album/class/${item.image_1}`)}
+                                                alt=""
+                                            />
+                                        </Link>
                                     )}
 
                                     <div className="d-flex flex-column">
                                         <span className="small main-color mb-5">
+                                            {item.category_id === 'A' && (
+                                                <Link
+                                                    to={`/products/${item.product_id}`}
+                                                >
+                                                    {item.name}
+                                                </Link>
+                                            )}
+                                            {item.category_id === 'B' && (
+                                                <Link
+                                                    to={`/class/list/${item.product_id}`}
+                                                >
+                                                    {item.name}
+                                                </Link>
+                                            )}
                                             {item.name}
                                         </span>
                                         <span className="small gary-dark-color">

@@ -99,6 +99,12 @@ function Detailed({ ins_main_id }) {
     function getCheck(itemInfo) {
         // console.log('get Member', member);
         console.log('itemInfo class detail', itemInfo);
+        let stock = itemInfo.stock;
+        let amount = itemInfo.amount;
+        if (stock < amount) {
+            setShopCartState(false);
+            return errorToast('暫無庫存', '關閉');
+        }
         //確認有沒有重複
         let newItemInfo = shoppingCart.find((v) => {
             return v.product_id === itemInfo.product_id;
@@ -131,7 +137,7 @@ function Detailed({ ins_main_id }) {
                     //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
                     try {
                         let response = await axios.post(
-                            `${API_URL}/member/mycart`,
+                            `${API_URL}/member/mycart/single`,
                             itemsData
                         );
                         // console.log('duplicate', response.data.duplicate);
@@ -160,14 +166,19 @@ function Detailed({ ins_main_id }) {
             return;
         }
         // console.log('itemInfo fff', itemInfo);
+        let stock = itemInfo[0].stock;
+        let amount = itemInfo[0].amount;
+        if (Number(stock) < Number(amount)) {
+            setShopCartState(false);
+            return errorToast('暫無庫存', '關閉');
+        }
 
-        console.log('itemsData', itemInfo);
         setItemsData(itemInfo);
         async function setItemsData(itemsData) {
             //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
             try {
                 let response = await axios.post(
-                    `${API_URL}/member/mycart`,
+                    `${API_URL}/member/mycart/single`,
                     itemsData
                 );
                 // console.log('duplicate', response.data.duplicate);
@@ -314,13 +325,13 @@ function Detailed({ ins_main_id }) {
                                             <img
                                                 src={note}
                                                 alt="note"
-                                                className="position-absolute classDetail-note "
+                                                className="position-absolute classDetail-note d-none d-lg-block "
                                             />
                                             <h6 className=" AdultDetailed-line-height mt-4">
                                                 {classDetailed.course_intro}
                                             </h6>
                                             <p className="mb-0 AdultDetailed-line-height mt-3">
-                                                名額：10 人
+                                                名額：{classDetailed.stock} 人
                                             </p>
                                             <p className="mb-0 AdultDetailed-line-height">
                                                 報名截止：
@@ -441,6 +452,7 @@ function Detailed({ ins_main_id }) {
                                                                     classDetailed.product_id,
                                                                 category_id:
                                                                     classDetailed.category_id,
+                                                                stock: classDetailed.stock,
                                                                 amount: 1,
                                                             },
                                                         ]);
@@ -464,7 +476,10 @@ function Detailed({ ins_main_id }) {
                                                     className="col m-2 btn btn-primary AdultDetailed-btn d-flex justify-content-center align-items-center border-0"
                                                     onClick={() => {
                                                         setShopCartState(true);
-                                                        getCheck(classDetailed);
+                                                        getCheck({
+                                                            ...classDetailed,
+                                                            amount: 1,
+                                                        });
                                                     }}
                                                 >
                                                     <img

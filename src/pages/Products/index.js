@@ -385,8 +385,15 @@ function Products() {
     };
 
     function getCheck(itemInfo) {
-        // console.log('get Member', member);
-        //確認有沒有重複
+        console.log('itemInfo', itemInfo);
+        let stock = itemInfo.stock;
+        let amount = itemInfo.amount;
+        if (stock < amount) {
+            setShopCartState(false);
+            return errorToast('暫無庫存', '關閉');
+        }
+
+        //前端確認有沒有重複
         let newItemInfo = shoppingCart.find((v) => {
             return v.product_id === itemInfo.product_id;
         });
@@ -398,7 +405,7 @@ function Products() {
                 let getNewLocal = JSON.parse(
                     localStorage.getItem('shoppingCart')
                 );
-                // console.log('getNewLocal', getNewLocal);
+                console.log('getNewLocal', getNewLocal);
 
                 const itemsData = getNewLocal.map((item) => {
                     return {
@@ -408,14 +415,14 @@ function Products() {
                         amount: item.amount,
                     };
                 });
-                // console.log('itemsData', itemsData);
+                console.log('itemsData', itemsData);
                 //寫進資料庫
                 setItemsData(itemsData);
                 async function setItemsData(itemsData) {
                     //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
                     try {
                         let response = await axios.post(
-                            `${API_URL}/member/mycart`,
+                            `${API_URL}/member/mycart/single`,
                             itemsData
                         );
                         if (response.data.duplicate === 1) {
@@ -928,6 +935,7 @@ function Products() {
                                                                                 spec: product.spec,
                                                                                 shipment:
                                                                                     product.shipment,
+                                                                                stock: product.stock,
                                                                             }
                                                                         );
                                                                     }}
