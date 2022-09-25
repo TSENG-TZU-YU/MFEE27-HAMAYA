@@ -12,6 +12,10 @@ function PaginationBar(props) {
                     className="pagination-btn cursor-pointer"
                     onClick={() => {
                         setPageNow(pageNow === 1 ? pageNow : pageNow - 1);
+                        window.scrollTo({
+                            top: 0,
+                            left: 0,
+                        });
                     }}
                 >
                     <FiChevronLeft />
@@ -30,7 +34,6 @@ function PaginationBar(props) {
                                     window.scrollTo({
                                         top: 0,
                                         left: 0,
-                                        behavior: 'smooth',
                                     });
                                 }}
                             >
@@ -47,7 +50,7 @@ function PaginationBar(props) {
                         window.scrollTo({
                             top: 0,
                             left: 0,
-                            behavior: 'smooth',
+                            // behavior: 'smooth',
                         });
                     }}
                 >

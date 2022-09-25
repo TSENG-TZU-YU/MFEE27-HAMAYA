@@ -58,7 +58,7 @@ function MyOrder() {
             </div>
             {hiddenState ? (
                 <>
-                    <table className="table my-2 myOrderTable">
+                    <table className="table table-hover my-2 myOrderTable">
                         <thead>
                             <tr className="text-center accent-light-color bg-main-color">
                                 <th className="myOrderThWidth">#</th>

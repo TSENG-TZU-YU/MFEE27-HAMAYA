@@ -170,7 +170,7 @@ function ChildrenCourse({
                                                         }
                                                     </p>
                                                     <p className="mb-0">
-                                                        名額：10 人{' '}
+                                                        名額：{classChild.stock} 人{' '}
                                                     </p>
                                                     <p className="mb-0">
                                                         報名截止：

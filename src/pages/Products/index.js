@@ -12,7 +12,12 @@ import { Container } from 'react-bootstrap';
 import './index.scss';
 
 // 項目資料
-import { sortByTitle, categoryMainTypes as categoryMain } from './constants';
+import {
+    sortByTitle,
+    breadCrumbCategorySub,
+    breadCrumbCategoryMain,
+    loader,
+} from './constants';
 
 // 元件
 import ProductCompare from './ProductCompare';
@@ -85,6 +90,7 @@ function Products() {
 
     // 商品次類別 從資料庫撈
     const [categorySub, setCategorySub] = useState([]);
+    const [categoryMain, setCategoryMain] = useState([]);
 
     // 搜尋
     const [searchWord, setSearchWord] = useState('');
@@ -120,6 +126,7 @@ function Products() {
         let getCategory = async () => {
             let response = await axios.get(`${API_URL}/products/category`);
             setCategorySub(response.data.categorySub);
+            setCategoryMain(response.data.categoryMain);
         };
         getCategory();
     }, []);
@@ -189,17 +196,6 @@ function Products() {
     }, [location]);
 
     useEffect(() => {}, [products]);
-
-    const loader = (
-        <div className="sk-chase ">
-            <div className="sk-chase-dot"></div>
-            <div className="sk-chase-dot"></div>
-            <div className="sk-chase-dot"></div>
-            <div className="sk-chase-dot"></div>
-            <div className="sk-chase-dot"></div>
-            <div className="sk-chase-dot"></div>
-        </div>
-    );
 
     // 品牌篩選 選取陣列
     const handleBrandTagsChecked = (id) => {
@@ -389,8 +385,15 @@ function Products() {
     };
 
     function getCheck(itemInfo) {
-        // console.log('get Member', member);
-        //確認有沒有重複
+        console.log('itemInfo', itemInfo);
+        let stock = itemInfo.stock;
+        let amount = itemInfo.amount;
+        if (stock < amount) {
+            setShopCartState(false);
+            return errorToast('暫無庫存', '關閉');
+        }
+
+        //前端確認有沒有重複
         let newItemInfo = shoppingCart.find((v) => {
             return v.product_id === itemInfo.product_id;
         });
@@ -402,7 +405,7 @@ function Products() {
                 let getNewLocal = JSON.parse(
                     localStorage.getItem('shoppingCart')
                 );
-                // console.log('getNewLocal', getNewLocal);
+                console.log('getNewLocal', getNewLocal);
 
                 const itemsData = getNewLocal.map((item) => {
                     return {
@@ -412,14 +415,14 @@ function Products() {
                         amount: item.amount,
                     };
                 });
-                // console.log('itemsData', itemsData);
+                console.log('itemsData', itemsData);
                 //寫進資料庫
                 setItemsData(itemsData);
                 async function setItemsData(itemsData) {
                     //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
                     try {
                         let response = await axios.post(
-                            `${API_URL}/member/mycart`,
+                            `${API_URL}/member/mycart/single`,
                             itemsData
                         );
                         if (response.data.duplicate === 1) {
@@ -499,26 +502,6 @@ function Products() {
         }
     }
 
-    // TODO: 放到constants 在import進來用
-    const breadCrumbCategory = (mainId) => {
-        switch (mainId) {
-            case '1':
-                return `/ 琴鍵樂器`;
-            case '2':
-                return '/ 管樂器';
-            case '3':
-                return '/ 弓弦樂器';
-            case '4':
-                return '/ 吉他/烏克麗麗';
-            case '5':
-                return '/ 打擊樂器';
-            case '6':
-                return '/ 配件';
-            default:
-                return '/ 最新消息';
-        }
-    };
-
     return (
         <>
             <img className="img-fluid" src={banner} alt="banner" />
@@ -535,9 +518,22 @@ function Products() {
                                     {/* 麵包屑 */}
                                     <div className="d-flex">
                                         <BreadCrumb />
-                                        {/* TODO:麵包屑 */}
                                         <p className="m-0 py-2 d-block align-items-center">
-                                            &nbsp;{breadCrumbCategory(mainId)}
+                                            &nbsp;
+                                            {breadCrumbCategoryMain(
+                                                Number(mainId)
+                                            )}
+                                            {breadCrumbCategorySub(
+                                                Number(subId)
+                                            )}
+                                            {breadCrumbCategoryMain(
+                                                Number(mainId)
+                                            ) === '' &&
+                                            breadCrumbCategorySub(
+                                                Number(subId)
+                                            ) === ''
+                                                ? '/ 最新商品'
+                                                : ''}
                                         </p>
                                     </div>
                                     {/* 麵包屑 end */}
@@ -636,7 +632,21 @@ function Products() {
                         <div className="d-md-none">
                             <div className="d-flex justify-content-between align-items-center">
                                 {/* 麵包屑 */}
-                                <BreadCrumb />
+                                <div className="d-flex">
+                                    <BreadCrumb />
+                                    <p className="m-0 py-2 d-block align-items-center">
+                                        &nbsp;
+                                        {breadCrumbCategoryMain(Number(mainId))}
+                                        {breadCrumbCategorySub(Number(subId))}
+                                        {breadCrumbCategoryMain(
+                                            Number(mainId)
+                                        ) === '' &&
+                                        breadCrumbCategorySub(Number(subId)) ===
+                                            ''
+                                            ? '/ 最新商品'
+                                            : ''}
+                                    </p>
+                                </div>
                                 {/* 麵包屑 end */}
 
                                 {/* 搜尋 */}
@@ -721,6 +731,7 @@ function Products() {
                                 {categoryToggled ? (
                                     <MobileCategoryNav
                                         categorySub={categorySub}
+                                        categoryMain={categoryMain}
                                         navigate={navigate}
                                         url={url}
                                         setUrl={setUrl}
@@ -764,234 +775,244 @@ function Products() {
                             {/* 篩選 end */}
                         </div>
                         {/* 手機 end */}
+                        {/* TODO:  Toggled 關閉 無法按按鈕 */}
+                        <div
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setSortToggled(false);
+                                setFilterToggled(false);
+                                setCategoryToggled(false);
+                                setSearchToggled(false);
+                            }}
+                        >
+                            <div className="row">
+                                {/* 桌機 商品類別選項 */}
+                                <CategoryNav
+                                    categorySub={categorySub}
+                                    categoryMain={categoryMain}
+                                    navigate={navigate}
+                                    url={url}
+                                    setUrl={setUrl}
+                                />
+                                {/* 桌機 商品類別選項 end */}
 
-                        <div className="row">
-                            {/* 桌機 商品類別選項 */}
-                            <CategoryNav
-                                categorySub={categorySub}
-                                navigate={navigate}
-                                url={url}
-                                setUrl={setUrl}
-                            />
-                            {/* 桌機 商品類別選項 end */}
-
-                            <div className="col-12 col-md-10 d-flex flex-column justify-content-between">
-                                {/* 商品列 */}
-                                <ListMotionContainer
-                                    element="div"
-                                    className="row row-cols-2 row-cols-md-3 row-cols-xl-4"
-                                >
-                                    {error && <div>{error}</div>}
-                                    {pageProducts.length === 0 ? (
-                                        <h4 className="mt-5 d-flex w-100 main-gary-light-color text-center justify-content-center align-items-center">
-                                            <TbMusicOff
-                                                className="me-2"
-                                                style={{
-                                                    width: '30px',
-                                                    height: '30px',
-                                                }}
-                                            />
-                                            無符合條件商品
-                                        </h4>
-                                    ) : (
-                                        ''
-                                    )}
-                                    {pageProducts.length > 0 &&
-                                        pageProducts[pageNow - 1].map(
-                                            (product) => {
-                                                return (
-                                                    <ListMotionItem
-                                                        element="div"
-                                                        className="col product"
-                                                        key={uuidv4()}
-                                                    >
-                                                        <div className="position-relative">
-                                                            {/* 商品照片 */}
-                                                            <Link
-                                                                to={`/products/${product.product_id}?main_id=${product.ins_main_id}`}
-                                                                className="product-img d-block"
-                                                            >
-                                                                <div className="product-img-mask position-absolute"></div>
-                                                                <img
-                                                                    src={require(`../../album/products/${product.image}`)}
-                                                                    className="card-img-top"
-                                                                    alt="product"
-                                                                />
-                                                            </Link>
-                                                            <div className="product-like position-absolute top-0 end-0">
-                                                                {member.id ? (
-                                                                    favProducts.includes(
-                                                                        product.product_id
-                                                                    ) ? (
-                                                                        <div
-                                                                            className="favorite-box bg-accent-light-color rounded-circle position-relative"
-                                                                            onClick={(
-                                                                                e
-                                                                            ) => {
-                                                                                e.preventDefault();
-                                                                                handleRemoveFavorite(
-                                                                                    product.product_id
-                                                                                );
-                                                                            }}
-                                                                        >
-                                                                            <HeartFill className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle" />
-                                                                        </div>
+                                <div className="col-12 col-md-10 d-flex flex-column justify-content-between">
+                                    {/* 商品列 */}
+                                    <ListMotionContainer
+                                        element="div"
+                                        className="row row-cols-2 row-cols-md-3 row-cols-xl-4"
+                                    >
+                                        {error && <div>{error}</div>}
+                                        {pageProducts.length === 0 ? (
+                                            <h4 className="mt-5 d-flex w-100 main-gary-light-color text-center justify-content-center align-items-center">
+                                                <TbMusicOff
+                                                    className="me-2"
+                                                    style={{
+                                                        width: '30px',
+                                                        height: '30px',
+                                                    }}
+                                                />
+                                                無符合條件商品
+                                            </h4>
+                                        ) : (
+                                            ''
+                                        )}
+                                        {pageProducts.length > 0 &&
+                                            pageProducts[pageNow - 1].map(
+                                                (product) => {
+                                                    return (
+                                                        <ListMotionItem
+                                                            element="div"
+                                                            className="col product"
+                                                            key={uuidv4()}
+                                                        >
+                                                            <div className="position-relative">
+                                                                {/* 商品照片 */}
+                                                                <Link
+                                                                    to={`/products/${product.product_id}?main_id=${product.ins_main_id}`}
+                                                                    className="product-img d-block"
+                                                                >
+                                                                    <div className="product-img-mask position-absolute"></div>
+                                                                    <img
+                                                                        src={require(`../../album/products/${product.image}`)}
+                                                                        className="card-img-top"
+                                                                        alt="product"
+                                                                    />
+                                                                </Link>
+                                                                <div className="product-like position-absolute top-0 end-0">
+                                                                    {member.id ? (
+                                                                        favProducts.includes(
+                                                                            product.product_id
+                                                                        ) ? (
+                                                                            <div
+                                                                                className="favorite-box bg-accent-light-color rounded-circle position-relative"
+                                                                                onClick={(
+                                                                                    e
+                                                                                ) => {
+                                                                                    e.preventDefault();
+                                                                                    handleRemoveFavorite(
+                                                                                        product.product_id
+                                                                                    );
+                                                                                }}
+                                                                            >
+                                                                                <HeartFill className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle" />
+                                                                            </div>
+                                                                        ) : (
+                                                                            <div
+                                                                                className="favorite-box bg-accent-light-color rounded-circle position-relative"
+                                                                                onClick={(
+                                                                                    e
+                                                                                ) => {
+                                                                                    e.preventDefault();
+                                                                                    handleAddFavorite(
+                                                                                        {
+                                                                                            user_id:
+                                                                                                member.id,
+                                                                                            product_id:
+                                                                                                product.product_id,
+                                                                                            category_id:
+                                                                                                product.category_id,
+                                                                                        }
+                                                                                    );
+                                                                                }}
+                                                                            >
+                                                                                <HeartLine className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle" />
+                                                                            </div>
+                                                                        )
                                                                     ) : (
-                                                                        <div
-                                                                            className="favorite-box bg-accent-light-color rounded-circle position-relative"
-                                                                            onClick={(
-                                                                                e
-                                                                            ) => {
-                                                                                e.preventDefault();
-                                                                                handleAddFavorite(
-                                                                                    {
-                                                                                        user_id:
-                                                                                            member.id,
-                                                                                        product_id:
-                                                                                            product.product_id,
-                                                                                        category_id:
-                                                                                            product.category_id,
-                                                                                    }
-                                                                                );
-                                                                            }}
-                                                                        >
-                                                                            <HeartLine className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle" />
-                                                                        </div>
-                                                                    )
-                                                                ) : (
-                                                                    ''
-                                                                )}
-                                                            </div>
-                                                            <div
-                                                                className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-2"
-                                                                onClick={() =>
-                                                                    getCompare({
-                                                                        product_id:
-                                                                            product.product_id,
-                                                                        category_id:
-                                                                            product.category_id,
-                                                                        image: product.image,
-                                                                        name: product.name,
-                                                                        brand: product.brandName,
-                                                                        color: product.color,
-                                                                        price: product.price,
-                                                                        spec: product.spec,
-                                                                        mainId: product.ins_main_id,
-                                                                        create_time:
-                                                                            product.create_time,
-                                                                    })
-                                                                }
-                                                            >
-                                                                <img
-                                                                    src={
-                                                                        compare
-                                                                    }
-                                                                    alt="compare"
-                                                                    className="product-icon me-1"
-                                                                />
-                                                                比較
-                                                            </div>
-                                                            <button
-                                                                className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
-                                                                onClick={(
-                                                                    e
-                                                                ) => {
-                                                                    setShopCartState(
-                                                                        true
-                                                                    );
-                                                                    getCheck({
-                                                                        product_id:
-                                                                            product.product_id,
-                                                                        category_id:
-                                                                            product.category_id,
-                                                                        image: product.image,
-                                                                        name: product.name,
-                                                                        amount: 1,
-                                                                        price: product.price,
-                                                                        spec: product.spec,
-                                                                        shipment:
-                                                                            product.shipment,
-                                                                    });
-                                                                }}
-                                                            >
-                                                                <img
-                                                                    src={
-                                                                        cartCheck
-                                                                    }
-                                                                    alt="cartCheck"
-                                                                    className="product-icon me-1"
-                                                                />
-                                                                加入購物車
-                                                            </button>
-                                                        </div>
-                                                        <div className="product-body py-2">
-                                                            {/* 品名 */}
-                                                            <div className="d-flex justify-content-between">
-                                                                <div>
-                                                                    <Link
-                                                                        to={`/products/${product.product_id}?main_id=${product.ins_main_id}`}
-                                                                        className="product-name"
-                                                                    >
-                                                                        {
-                                                                            product.name
-                                                                        }
-                                                                    </Link>
-                                                                    {/* 價格 */}
-                                                                    <h1 className="product-price accent-color py-1">
-                                                                        NT $
-                                                                        {
-                                                                            product.price
-                                                                        }
-                                                                    </h1>
+                                                                        ''
+                                                                    )}
                                                                 </div>
                                                                 <div
-                                                                    className="products-filter-color-box"
-                                                                    style={{
-                                                                        backgroundColor: `${product.color}`,
+                                                                    className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-2"
+                                                                    onClick={() =>
+                                                                        getCompare(
+                                                                            {
+                                                                                product_id:
+                                                                                    product.product_id,
+                                                                                category_id:
+                                                                                    product.category_id,
+                                                                                image: product.image,
+                                                                                name: product.name,
+                                                                                brand: product.brandName,
+                                                                                color: product.color,
+                                                                                price: product.price,
+                                                                                spec: product.spec,
+                                                                                mainId: product.ins_main_id,
+                                                                                create_time:
+                                                                                    product.create_time,
+                                                                            }
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <img
+                                                                        src={
+                                                                            compare
+                                                                        }
+                                                                        alt="compare"
+                                                                        className="product-icon me-1"
+                                                                    />
+                                                                    比較
+                                                                </div>
+                                                                <button
+                                                                    className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
+                                                                    onClick={(
+                                                                        e
+                                                                    ) => {
+                                                                        setShopCartState(
+                                                                            true
+                                                                        );
+                                                                        getCheck(
+                                                                            {
+                                                                                product_id:
+                                                                                    product.product_id,
+                                                                                category_id:
+                                                                                    product.category_id,
+                                                                                image: product.image,
+                                                                                name: product.name,
+                                                                                amount: 1,
+                                                                                price: product.price,
+                                                                                spec: product.spec,
+                                                                                shipment:
+                                                                                    product.shipment,
+                                                                                stock: product.stock,
+                                                                            }
+                                                                        );
                                                                     }}
-                                                                ></div>
+                                                                >
+                                                                    <img
+                                                                        src={
+                                                                            cartCheck
+                                                                        }
+                                                                        alt="cartCheck"
+                                                                        className="product-icon me-1"
+                                                                    />
+                                                                    加入購物車
+                                                                </button>
                                                             </div>
-                                                            <p className="product-name border-top py-1 m-0">
-                                                                上架日期：
-                                                                {
-                                                                    product.create_time
-                                                                }
-                                                            </p>
-                                                            <p className="product-name border-top py-1 m-0">
-                                                                品牌：
-                                                                {
-                                                                    product.brandName
-                                                                }
-                                                            </p>
-                                                        </div>
-                                                    </ListMotionItem>
-                                                );
-                                            }
-                                        )}
-                                </ListMotionContainer>
-                                {/* 商品列 end */}
+                                                            <div className="product-body py-2">
+                                                                {/* 品名 */}
+                                                                <div className="d-flex justify-content-between">
+                                                                    <div>
+                                                                        <Link
+                                                                            to={`/products/${product.product_id}?main_id=${product.ins_main_id}`}
+                                                                            className="product-name"
+                                                                        >
+                                                                            {
+                                                                                product.name
+                                                                            }
+                                                                        </Link>
+                                                                        {/* 價格 */}
+                                                                        <h1 className="product-price accent-color py-1">
+                                                                            NT $
+                                                                            {
+                                                                                product.price
+                                                                            }
+                                                                        </h1>
+                                                                    </div>
+                                                                    <div
+                                                                        className="products-filter-color-box"
+                                                                        style={{
+                                                                            backgroundColor: `${product.color}`,
+                                                                        }}
+                                                                    ></div>
+                                                                </div>
+                                                                <p className="product-name border-top py-1 m-0">
+                                                                    上架日期：
+                                                                    {
+                                                                        product.create_time
+                                                                    }
+                                                                </p>
+                                                                <p className="product-name border-top py-1 m-0">
+                                                                    品牌：
+                                                                    {
+                                                                        product.brandName
+                                                                    }
+                                                                </p>
+                                                            </div>
+                                                        </ListMotionItem>
+                                                    );
+                                                }
+                                            )}
+                                    </ListMotionContainer>
+                                    {/* 商品列 end */}
 
-                                {/* 頁碼 */}
-                                <div className="d-flex justify-content-center align-items-center my-5">
-                                    {displayProducts.length > perPage ? (
-                                        <PaginationBar
-                                            pageNow={pageNow}
-                                            setPageNow={setPageNow}
-                                            pageTotal={pageTotal}
-                                        />
-                                    ) : (
-                                        ''
-                                    )}
+                                    {/* 頁碼 */}
+                                    <div className="d-flex justify-content-center align-items-center my-5">
+                                        {displayProducts.length > perPage ? (
+                                            <PaginationBar
+                                                pageNow={pageNow}
+                                                setPageNow={setPageNow}
+                                                pageTotal={pageTotal}
+                                            />
+                                        ) : (
+                                            ''
+                                        )}
+                                    </div>
+                                    {/* 頁碼 end */}
                                 </div>
-                                {/* 頁碼 end */}
                             </div>
                         </div>
-
-                        {/* 商品比較 btn */}
-                        <CompareBtn
-                            toggleProductCompare={toggleProductCompare}
-                            compareProduct={compareProduct}
-                        />
                     </Container>
                     {/* 比較頁顯示 */}
                     {productCompare ? (
@@ -1005,6 +1026,11 @@ function Products() {
                     )}
                 </>
             )}
+            {/* 商品比較 btn */}
+            <CompareBtn
+                toggleProductCompare={toggleProductCompare}
+                compareProduct={compareProduct}
+            />
         </>
     );
 }

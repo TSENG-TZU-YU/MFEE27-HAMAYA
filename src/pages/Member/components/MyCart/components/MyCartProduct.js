@@ -2,15 +2,12 @@ import React from 'react';
 import '../MyCart.scss';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
-import { useCart } from '../../../../../utils/use_cart';
 import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
 import { ReactComponent as HeartLine } from '../../../../../assets/svg/favorite_defaut.svg';
 import { ReactComponent as HeartFill } from '../../../../../assets/svg/favorite_check.svg';
-import CartFavorite from '../../../../../components/CartFavorite';
-import { RiAddFill } from 'react-icons/ri';
-import { RiSubtractFill } from 'react-icons/ri';
 import MyCartCount from './MyCartCount';
 import { successToast, errorToast } from '../../../../../components/Alert';
 
@@ -19,6 +16,7 @@ function MyCartProduct({
     setMyCart,
     myCartA,
     setMyCartA,
+    setHiddenState,
     check,
     setCheck,
     handleCheckBox,
@@ -53,6 +51,9 @@ function MyCartProduct({
                 // console.log('myCart_cateA', myCart_cateA);
                 setMyCartA(myCart_cateA);
                 setMyCart(newMyCartAfterDelete);
+                if (newMyCartAfterDelete.length === 0) {
+                    setHiddenState(false);
+                }
             };
             setItemDataDelete();
         }
@@ -121,19 +122,23 @@ function MyCartProduct({
                                     />
                                 </div>
                                 <div className="flex-lg-grow-1">
-                                    <img
-                                        className="myCart-Img myCart-contain"
-                                        src={require(`../../../../../album/products/${item.image}`)}
-                                        alt=""
-                                    />
+                                    <Link to={`/products/${item.product_id}`}>
+                                        <img
+                                            className="myCart-Img myCart-contain"
+                                            src={require(`../../../../../album/products/${item.image}`)}
+                                            alt=""
+                                        />
+                                    </Link>
                                 </div>
                             </div>
                         </td>
                         <td align="center">
                             <div className="d-flex flex-column align-items-lg-start pt-lg-2">
-                                <span className="p main-color">
-                                    <b>{item.name}</b>
-                                </span>
+                                <Link to={`/products/${item.product_id}`}>
+                                    <span className="p main-color">
+                                        <b>{item.name}</b>
+                                    </span>
+                                </Link>
                                 <span className="small">
                                     型號：{item.brand_name}
                                 </span>

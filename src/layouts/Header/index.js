@@ -18,7 +18,8 @@ import NavbarMobile from '../../components/NavbarMobile';
 
 import { successToast, errorToast, warningToast } from '../../components/Alert';
 function Header(props) {
-    const { member, setMember, isLogin, setIsLogin,hideHeaderFooter } = useAuth();
+    const { member, setMember, isLogin, setIsLogin, hideHeaderFooter } =
+        useAuth();
     const [loginPopup, setLoginPopup] = useState(false);
     // const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
     const { shopCartState, setShopCartState } = useCart();
@@ -96,10 +97,10 @@ function Header(props) {
                                         <Link className="" to="news">
                                             最新消息
                                         </Link>
-                                        <ul className="list-unstyled bg-main-light-color py-1 mt-2">
+                                        <ul className="list-unstyled bg-main-light-color py-1 mt-2 ">
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/news/section?categoryList=1"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     促銷活動
@@ -107,7 +108,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/news/section?categoryList=2"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     活動快訊
@@ -115,7 +116,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/news/section?categoryList=3"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     重要通知

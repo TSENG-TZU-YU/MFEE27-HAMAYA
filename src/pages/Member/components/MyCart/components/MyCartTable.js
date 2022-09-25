@@ -199,6 +199,7 @@ function MyCartTable({
                                 setMyCart={setMyCart}
                                 myCartA={myCartA}
                                 setMyCartA={setMyCartA}
+                                setHiddenState={setHiddenState}
                                 check={check}
                                 setCheck={setCheck}
                                 handleCheckBox={handleCheckBox}
@@ -227,6 +228,7 @@ function MyCartTable({
                                 setMyCart={setMyCart}
                                 myCartB={myCartB}
                                 setMyCartB={setMyCartB}
+                                setHiddenState={setHiddenState}
                                 check={check}
                                 setCheck={setCheck}
                                 handleCheckBox={handleCheckBox}

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../../utils/use_auth';
 import { cityData, distData } from '../../MyProfile/location';
 import axios from 'axios';
@@ -21,6 +21,7 @@ function MyCartDoCheckout({
 }) {
     const { member } = useAuth();
     const [myCoupon, setMyCoupon] = useState([]);
+    const navigate = useNavigate();
     useEffect(() => {
         async function getCoupon() {
             try {
@@ -171,17 +172,19 @@ function MyCartDoCheckout({
                         `訂單編號：${response.data.order_id} & ${response.data.message}`,
                         '關閉'
                     );
+                    console.log(response.data);
                     if (response.data.noStock) {
                         basicAlert(
-                            `商品編號：${response.data.noStock}  ${response.data.message} `,
+                            `商品名稱：${response.data.noStock}  ${response.data.message} `,
                             '關閉'
                         );
+                        return;
                     }
                     setMyCart([]);
                     setMyCartA([]);
                     setMyCartB([]);
                     setHiddenState(false);
-                    // console.log(response.data);
+                    navigate('/member/myorder');
                 } catch (err) {
                     console.log('新增訂單錯誤', err);
                 }
@@ -343,7 +346,7 @@ function MyCartDoCheckout({
                                 id=""
                                 onChange={getMyCartCou}
                             >
-                                <option value="">請選擇折扣</option>
+                                <option value="0/0/0">請選擇折扣</option>
                                 {myCoupon.map((v) => {
                                     let option =
                                         v.name +
