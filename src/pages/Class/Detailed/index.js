@@ -325,13 +325,13 @@ function Detailed({ ins_main_id }) {
                                             <img
                                                 src={note}
                                                 alt="note"
-                                                className="position-absolute classDetail-note "
+                                                className="position-absolute classDetail-note d-none d-lg-block "
                                             />
                                             <h6 className=" AdultDetailed-line-height mt-4">
                                                 {classDetailed.course_intro}
                                             </h6>
                                             <p className="mb-0 AdultDetailed-line-height mt-3">
-                                                名額：10 人
+                                                名額：{classDetailed.stock} 人
                                             </p>
                                             <p className="mb-0 AdultDetailed-line-height">
                                                 報名截止：
