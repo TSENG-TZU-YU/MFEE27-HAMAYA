@@ -6,7 +6,7 @@ import { useAuth } from '../../../../../utils/use_auth';
 import '../MyCart.scss';
 import MyCartProduct from './MyCartProduct';
 import MyCartClass from './MyCartClass';
-import { successToast, errorToast } from '../../../../../components/Alert';
+import { successSmallToast } from '../../../../../components/Alert';
 
 function MyCartTable({
     myCart,
@@ -135,11 +135,21 @@ function MyCartTable({
                 let productsB = response.data.class.map(
                     (item) => item.product_id
                 );
-                successToast(response.data.message, '關閉');
+                successSmallToast.fire({
+                    icon: 'success',
+                    iconColor: '#86a8ae',
+                    color: '#00323d',
+                    title: response.data.message,
+                });
                 setFavA(productsA);
                 setFavB(productsB);
             } catch (err) {
-                errorToast(err.response.data.message, '關閉');
+                successSmallToast.fire({
+                    icon: 'error',
+                    iconColor: '#c59894',
+                    color: '#5b322f',
+                    title: err.response.data.message,
+                });
             }
         }
     }

@@ -8,7 +8,7 @@ import { useCart } from '../../../../../utils/use_cart';
 import {
     successToast,
     warningToast,
-    errorToast,
+    successSmallToast,
 } from '../../../../../components/Alert';
 import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
 import { ReactComponent as AddCart } from '../../../../../assets/svg/shopping_cart_check.svg';
@@ -143,7 +143,12 @@ function BucketProduct({
                     data: itemsData,
                 }
             );
-            successToast(response.data.message, '關閉');
+            successSmallToast.fire({
+                icon: 'success',
+                iconColor: '#86a8ae',
+                color: '#00323d',
+                title: response.data.message,
+            });
             setMyBucketA(response.data.product);
             const pageListA = _.chunk(response.data.product, perPageA);
             if (pageListA.length > 0) {
@@ -152,7 +157,12 @@ function BucketProduct({
                 setPageProductsA(pageListA);
             }
         } catch (err) {
-            errorToast(err.response.data.message, '關閉');
+            successSmallToast.fire({
+                icon: 'error',
+                iconColor: '#c59894',
+                color: '#5b322f',
+                title: err.response.data.message,
+            });
         }
     }
 
@@ -175,14 +185,24 @@ function BucketProduct({
                         data: itemsData,
                     }
                 );
-                successToast(response.data.message, '關閉');
+                successSmallToast.fire({
+                    icon: 'success',
+                    iconColor: '#86a8ae',
+                    color: '#00323d',
+                    title: response.data.message,
+                });
                 setMyBucketA(response.data.product);
                 const pageListA = _.chunk(response.data.product, perPageA);
                 setPageTotalA(pageListA.length);
                 // 設定到state中
                 setPageProductsA(pageListA);
             } catch (err) {
-                console.log(err.response.data.message);
+                successSmallToast.fire({
+                    icon: 'error',
+                    iconColor: '#c59894',
+                    color: '#5b322f',
+                    title: err.response.data.message,
+                });
             }
         }
     }

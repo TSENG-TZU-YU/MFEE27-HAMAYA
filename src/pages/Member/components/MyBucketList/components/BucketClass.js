@@ -9,6 +9,7 @@ import {
     successToast,
     warningToast,
     errorToast,
+    successSmallToast,
 } from '../../../../../components/Alert';
 //svg
 import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
@@ -217,7 +218,12 @@ function BucketClass({
                     data: itemsData,
                 }
             );
-            successToast(response.data.message, '關閉');
+            successSmallToast.fire({
+                icon: 'success',
+                iconColor: '#86a8ae',
+                color: '#00323d',
+                title: response.data.message,
+            });
             // setMyBucketB(response.data.class);
             setMyBucketB(response.data.class);
             const pageListB = _.chunk(response.data.class, perPageB);
@@ -227,9 +233,16 @@ function BucketClass({
                 setPageProductsB(pageListB);
             }
         } catch (err) {
-            errorToast(err.response.data.message, '關閉');
+            successSmallToast.fire({
+                icon: 'error',
+                iconColor: '#c59894',
+                color: '#5b322f',
+                title: err.response.data.message,
+            });
         }
     }
+
+    console.log(myBucketB);
 
     // 多筆 取消收藏
     async function handleRemoveFavorite() {
@@ -250,14 +263,24 @@ function BucketClass({
                         data: itemsData,
                     }
                 );
-                successToast(response.data.message, '關閉');
+                successSmallToast.fire({
+                    icon: 'success',
+                    iconColor: '#86a8ae',
+                    color: '#00323d',
+                    title: response.data.message,
+                });
                 setMyBucketB(response.data.class);
                 const pageListB = _.chunk(response.data.class, perPageB);
                 setPageTotalB(pageListB.length);
                 // 設定到state中
                 setPageProductsB(pageListB);
             } catch (err) {
-                console.log(err.response.data.message);
+                successSmallToast.fire({
+                    icon: 'error',
+                    iconColor: '#c59894',
+                    color: '#5b322f',
+                    title: err.response.data.message,
+                });
             }
         }
     }
