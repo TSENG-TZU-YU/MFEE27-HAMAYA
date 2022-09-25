@@ -86,7 +86,9 @@ function MusicArticle() {
             name: '音樂文章',
         },
     ];
-
+    const id = ListItems.filter((v) => v.id === activeText);
+    // const Breadcrumbs = id.slice(0);
+    // console.log('麵包屑', Breadcrumbs);
     // console.log(activeText);
     return (
         <>
@@ -101,8 +103,12 @@ function MusicArticle() {
                     <p className="News-Breadcrumbs">最新消息</p>
                 </Link>
                 /
-                <Link to="/class">
-                    <p className="News-Breadcrumbs">促銷活動</p>
+                <Link
+                    data={data}
+                    activeText={activeText}
+                    to={`/news/section?categoryList=${activeText.id}`}
+                >
+                    <p className="News-Breadcrumbs">{id[0].name}</p>
                 </Link>
             </div>
             {/* 麵包屑 */}
