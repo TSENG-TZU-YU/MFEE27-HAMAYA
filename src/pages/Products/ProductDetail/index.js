@@ -186,7 +186,13 @@ function Product() {
     //加入購物車
     function getCheck(itemInfo) {
         // console.log('get Member', member);
-        // console.log('itemInfo', itemInfo);
+        console.log('itemInfo detail', itemInfo);
+        let stock = itemInfo.stock;
+        let amount = itemInfo.amount;
+        if (stock < amount) {
+            setShopCartState(false);
+            return errorToast('暫無庫存', '關閉');
+        }
         //確認有沒有重複
         let newItemInfo = shoppingCart.find((v) => {
             return v.product_id === itemInfo.product_id;
@@ -219,7 +225,7 @@ function Product() {
                     //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
                     try {
                         let response = await axios.post(
-                            `${API_URL}/member/mycart`,
+                            `${API_URL}/member/mycart/single`,
                             itemsData
                         );
                         // console.log('duplicate', response.data.duplicate);
@@ -248,15 +254,18 @@ function Product() {
             basicAlert('請先登入', '關閉');
             return;
         }
-        // console.log('itemInfo fff', itemInfo);
-
+        let stock = itemInfo[0].stock;
+        let amount = itemInfo[0].amount;
+        if (stock < amount) {
+            return errorToast('暫無庫存', '關閉');
+        }
         console.log('itemsData', itemInfo);
         setItemsData(itemInfo);
         async function setItemsData(itemsData) {
             //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
             try {
                 let response = await axios.post(
-                    `${API_URL}/member/mycart`,
+                    `${API_URL}/member/mycart/single`,
                     itemsData
                 );
                 // console.log('duplicate', response.data.duplicate);
@@ -466,6 +475,7 @@ function Product() {
                                                             value.product_id,
                                                         category_id:
                                                             value.category_id,
+                                                        stock: value.stock,
                                                         amount: count,
                                                     },
                                                 ]);
@@ -499,6 +509,7 @@ function Product() {
                                                     price: value.price,
                                                     spec: value.spec,
                                                     shipment: value.shipment,
+                                                    stock: value.stock,
                                                 });
                                             }}
                                         >

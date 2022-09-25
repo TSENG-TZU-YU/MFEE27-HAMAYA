@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../../../../utils/use_auth';
 import { API_URL } from '../../../../../utils/config';
@@ -194,26 +194,38 @@ function MyOrderDetail() {
                             <tr key={item.id}>
                                 <td className="align-middle" align="center">
                                     <div className="detail-Img">
-                                        <img
-                                            className="myOrder-Img myOrder-contain"
-                                            src={require(`../../../../../album/products/${item.image}`)}
-                                            alt=""
-                                        />
-                                    </div>
-                                    {/* for mobile */}
-                                    <div className="row d-lg-none">
-                                        <div className="col-3">
+                                        <Link
+                                            to={`/products/${item.product_id}`}
+                                        >
                                             <img
                                                 className="myOrder-Img myOrder-contain"
                                                 src={require(`../../../../../album/products/${item.image}`)}
                                                 alt=""
                                             />
+                                        </Link>
+                                    </div>
+                                    {/* for mobile */}
+                                    <div className="row d-lg-none">
+                                        <div className="col-3">
+                                            <Link
+                                                to={`/products/${item.product_id}`}
+                                            >
+                                                <img
+                                                    className="myOrder-Img myOrder-contain"
+                                                    src={require(`../../../../../album/products/${item.image}`)}
+                                                    alt=""
+                                                />
+                                            </Link>
                                         </div>
                                         <div className="col-9 row g-0 px-2">
                                             <div className="col-12 text-start">
-                                                <p className="m-0 main-color">
-                                                    <b>{item.name}</b>
-                                                </p>
+                                                <Link
+                                                    to={`/products/${item.product_id}`}
+                                                >
+                                                    <p className="m-0 main-color">
+                                                        <b>{item.name}</b>
+                                                    </p>
+                                                </Link>
                                             </div>
                                             <div className="gary-dark-color p col-6 gy-2 text-start">
                                                 <span className="main-color">
@@ -232,9 +244,13 @@ function MyOrderDetail() {
                                 </td>
                                 <td>
                                     <div className="d-flex flex-column align-items-lg-start pt-lg-2">
-                                        <span className="p main-color">
-                                            <b>{item.name}</b>
-                                        </span>
+                                        <Link
+                                            to={`/products/${item.product_id}`}
+                                        >
+                                            <span className="p main-color">
+                                                <b>{item.name}</b>
+                                            </span>
+                                        </Link>
                                         <span className="small">
                                             型號：{item.brand_name}
                                         </span>
@@ -283,26 +299,38 @@ function MyOrderDetail() {
                             <tr key={item.id}>
                                 <td className="align-middle" align="center">
                                     <div className="detail-Img">
-                                        <img
-                                            className="myOrder-Img myOrder-contain"
-                                            src={require(`../../../../../album/class/${item.image_1}`)}
-                                            alt=""
-                                        />
-                                    </div>
-                                    {/* for mobile */}
-                                    <div className="row d-lg-none">
-                                        <div className="col-3">
+                                        <Link
+                                            to={`/class/list/${item.product_id}`}
+                                        >
                                             <img
                                                 className="myOrder-Img myOrder-contain"
                                                 src={require(`../../../../../album/class/${item.image_1}`)}
                                                 alt=""
                                             />
+                                        </Link>
+                                    </div>
+                                    {/* for mobile */}
+                                    <div className="row d-lg-none">
+                                        <div className="col-3">
+                                            <Link
+                                                to={`/class/list/${item.product_id}`}
+                                            >
+                                                <img
+                                                    className="myOrder-Img myOrder-contain"
+                                                    src={require(`../../../../../album/class/${item.image_1}`)}
+                                                    alt=""
+                                                />
+                                            </Link>
                                         </div>
                                         <div className="col-9 row g-0 px-2">
                                             <div className="col-12 text-start">
-                                                <p className="m-0 main-color">
-                                                    <b>{item.name}</b>
-                                                </p>
+                                                <Link
+                                                    to={`/class/list/${item.product_id}`}
+                                                >
+                                                    <p className="m-0 main-color">
+                                                        <b>{item.name}</b>
+                                                    </p>
+                                                </Link>
                                             </div>
                                             <div className="gary-dark-color p col-6 gy-2 text-start">
                                                 <span className="main-color">
@@ -321,9 +349,13 @@ function MyOrderDetail() {
                                 </td>
                                 <td>
                                     <div className="align-items-lg-start pt-lg-2">
-                                        <span className="p main-color">
-                                            <b>{item.name}</b>
-                                        </span>
+                                        <Link
+                                            to={`/class/list/${item.product_id}`}
+                                        >
+                                            <span className="p main-color">
+                                                <b>{item.name}</b>
+                                            </span>
+                                        </Link>
                                     </div>
                                 </td>
                                 <td align="center" className="align-middle">
