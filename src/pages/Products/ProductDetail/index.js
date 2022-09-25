@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 // 套件
 import { Container, Row, Col } from 'react-bootstrap';
+import Swal from 'sweetalert2';
 
 // 樣式
 import './index.scss';
@@ -21,6 +22,7 @@ import {
     warningToast,
     basicAlert,
     errorToast,
+    successSmallToast,
 } from '../../../components/Alert';
 
 // 圖檔
@@ -93,45 +95,184 @@ function Product() {
         getProductDetail();
     }, [location]);
 
-    const productCount = (stock) => {
+    const productCount = (props) => {
+        const {
+            user_id,
+            product_id,
+            category_id,
+            image,
+            name,
+            price,
+            spec,
+            shipment,
+            stock,
+        } = props;
         if (stock !== 0) {
             return (
                 <>
-                    <div className="d-flex align-items-center mt-2">
-                        <h6 className="mb-0 me-2 productDetail-line-height fw-400">
-                            數量：
+                    <div className=" d-flex">
+                        <h6 className="mb-0 productDetail-line-height fw-400">
+                            付款方式：
                         </h6>
-                        <div className="d-flex  align-items-center">
-                            <FiMinus
-                                size="30px"
-                                className="gary-dark-color cursor-pointer"
-                                onClick={() =>
-                                    count > 0
-                                        ? setCount(count - 1)
-                                        : setCount(0)
-                                }
-                            />
-                            <div className="product-purchase-quantity border border-2 mx-2">
-                                <h4 className="text-center m-0">{count}</h4>
+                        <div className="ms-2">
+                            <div className="form-check m-2">
+                                <input
+                                    className="form-check-input d-block me-2"
+                                    type="radio"
+                                    value=""
+                                    name="flexRadioDefault"
+                                    id="flexRadioDefault1"
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="flexRadioDefault1"
+                                >
+                                    <h6 className="fw-400">轉帳匯款</h6>
+                                </label>
                             </div>
-                            <FiPlus
-                                size="30px"
-                                className="gary-dark-color cursor-pointer"
-                                onClick={() =>
-                                    stock > count
-                                        ? setCount(count + 1)
-                                        : setCount(count)
-                                }
-                            />
+                            <div className="form-check m-2">
+                                <input
+                                    className="form-check-input d-block me-2"
+                                    type="radio"
+                                    value=""
+                                    name="flexRadioDefault"
+                                    id="flexRadioDefault1"
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="flexRadioDefault1"
+                                >
+                                    <h6 className="fw-400">信用卡</h6>
+                                </label>
+                            </div>
+                            <div className="form-check m-2">
+                                <input
+                                    className="form-check-input d-block me-2"
+                                    type="radio"
+                                    value=""
+                                    name="flexRadioDefault"
+                                    id="flexRadioDefault1"
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor="flexRadioDefault1"
+                                >
+                                    <h6 className="fw-400">LINE Pay</h6>
+                                </label>
+                            </div>
                         </div>
-                        <p className="mb-0 ms-2 gary-light-color">庫存充足</p>
+                    </div>
+                    <div className="d-flex align-items-center">
+                        <h3 className="accent-color fw-bold productDetail-price-letter-spacing my-3">
+                            NT $ {price}
+                        </h3>
+                    </div>
+                    <div className="d-flex align-items-center mt-2">
+                        <div className="d-flex align-items-center mt-2">
+                            <h6 className="mb-0 me-2 productDetail-line-height fw-400">
+                                數量：
+                            </h6>
+                            <div className="d-flex  align-items-center">
+                                <FiMinus
+                                    size="30px"
+                                    className="gary-dark-color cursor-pointer"
+                                    onClick={() =>
+                                        count > 0
+                                            ? setCount(count - 1)
+                                            : setCount(0)
+                                    }
+                                />
+                                <div className="product-purchase-quantity border border-2 mx-2">
+                                    <h4 className="text-center m-0">{count}</h4>
+                                </div>
+                                <FiPlus
+                                    size="30px"
+                                    className="gary-dark-color cursor-pointer"
+                                    onClick={() =>
+                                        stock > count
+                                            ? setCount(count + 1)
+                                            : setCount(count)
+                                    }
+                                />
+                            </div>
+                            <p className="mb-0 ms-2 gary-light-color">
+                                {stock > count ? '庫存充足' : '已達庫存上限'}
+                            </p>
+                        </div>
+                    </div>
+                    <div className="row mt-4">
+                        <button
+                            className="col m-2 btn btn-primary productDetail-btn d-flex justify-content-center align-items-center"
+                            onClick={() => {
+                                getImmediate([
+                                    {
+                                        user_id,
+                                        product_id,
+                                        category_id,
+                                        stock,
+                                        amount: count,
+                                    },
+                                ]);
+                            }}
+                        >
+                            <img
+                                style={{
+                                    width: '30px',
+                                    height: '30px',
+                                }}
+                                src={cartCheckout}
+                                alt="cartCheckout"
+                                className="d-block product-icon me-1"
+                            />
+                            <h6 className="accent-light-color text-center">
+                                立即購買
+                            </h6>
+                        </button>
+                        <button
+                            className="col m-2 btn btn-secondary productDetail-btn d-flex justify-content-center align-items-center"
+                            onClick={() => {
+                                setShopCartState(true);
+                                getCheck({
+                                    product_id,
+                                    category_id,
+                                    image,
+                                    name,
+                                    amount: count,
+                                    price,
+                                    spec,
+                                    shipment,
+                                    stock,
+                                });
+                            }}
+                        >
+                            <img
+                                style={{
+                                    width: '30px',
+                                    height: '30px',
+                                }}
+                                src={cartCheck}
+                                alt="cartCheck"
+                                className="d-block product-icon me-1"
+                            />
+                            <h6 className="d-block accent-light-color text-center">
+                                加入購物車
+                            </h6>
+                        </button>
                     </div>
                 </>
             );
         } else {
             return (
                 <>
-                    <h4 className="mb-0 gary-light-color">熱銷缺貨中</h4>
+                    {/* <h4 className="text-center accent-color">熱銷缺貨中</h4> */}
+                    <button
+                        className="col my-2 py-2 btn btn-danger productDetail-btn d-flex justify-content-center align-items-center"
+                        disabled="disabled"
+                    >
+                        <h6 className="d-block accent-light-color text-center">
+                            熱銷缺貨中
+                        </h6>
+                    </button>
                 </>
             );
         }
@@ -282,6 +423,24 @@ function Product() {
         }
     }
 
+    // const Toast = Swal.mixin({
+    //     customClass: {
+    //         popup: 'border-radius-0',
+    //     },
+    //     width: '10%',
+    //     toast: true,
+    //     position: 'top',
+    //     showConfirmButton: false,
+    //     background: '#f2f2f2',
+    //     color: '#00323d',
+    //     iconColor: '#86a8ae',
+    //     timer: 3000,
+    //     onOpen: (toast) => {
+    //         toast.addEventListener('mouseenter', Swal.stopTimer);
+    //         toast.addEventListener('mouseleave', Swal.resumeTimer);
+    //     },
+    // });
+
     // 收藏
     const { favProducts, setFavProducts } = useLiked();
 
@@ -298,10 +457,20 @@ function Product() {
                     let products = response.data.product.map(
                         (item) => item.product_id
                     );
-                    successToast(response.data.message, '關閉');
+                    successSmallToast.fire({
+                        icon: 'success',
+                        iconColor: '#86a8ae',
+                        color: '#00323d',
+                        title: response.data.message,
+                    });
                     setFavProducts(products);
                 } catch (err) {
-                    errorToast(err.response.data.message, '關閉');
+                    successSmallToast.fire({
+                        icon: 'error',
+                        iconColor: '#c59894',
+                        color: '#5b322f',
+                        title: err.response.data.message,
+                    });
                 }
             }
         }
@@ -319,10 +488,20 @@ function Product() {
                 }
             );
             let products = response.data.product.map((item) => item.product_id);
-            successToast(response.data.message, '關閉');
+            successSmallToast.fire({
+                icon: 'success',
+                iconColor: '#86a8ae',
+                color: '#00323d',
+                title: response.data.message,
+            });
             setFavProducts(products);
         } catch (err) {
-            errorToast(err.response.data.message, '關閉');
+            successSmallToast.fire({
+                icon: 'error',
+                iconColor: '#c59894',
+                color: '#5b322f',
+                title: err.response.data.message,
+            });
         }
     }
 
@@ -397,136 +576,18 @@ function Product() {
                                             運送方式：{value.shipmentName}
                                         </h6>
                                     </div>
+                                    {productCount({
+                                        user_id: member.id,
+                                        product_id: value.product_id,
+                                        category_id: value.category_id,
+                                        image: productImgs[0],
+                                        name: value.name,
+                                        price: value.price,
+                                        spec: value.spec,
+                                        shipment: value.shipment,
+                                        stock: value.stock,
+                                    })}
 
-                                    <div className=" d-flex">
-                                        <h6 className="mb-0 productDetail-line-height fw-400">
-                                            付款方式：
-                                        </h6>
-                                        <div className="ms-2">
-                                            <div className="form-check m-2">
-                                                <input
-                                                    className="form-check-input d-block me-2"
-                                                    type="radio"
-                                                    value=""
-                                                    name="flexRadioDefault"
-                                                    id="flexRadioDefault1"
-                                                />
-                                                <label
-                                                    className="form-check-label"
-                                                    htmlFor="flexRadioDefault1"
-                                                >
-                                                    <h6 className="fw-400">
-                                                        轉帳匯款
-                                                    </h6>
-                                                </label>
-                                            </div>
-                                            <div className="form-check m-2">
-                                                <input
-                                                    className="form-check-input d-block me-2"
-                                                    type="radio"
-                                                    value=""
-                                                    name="flexRadioDefault"
-                                                    id="flexRadioDefault1"
-                                                />
-                                                <label
-                                                    className="form-check-label"
-                                                    htmlFor="flexRadioDefault1"
-                                                >
-                                                    <h6 className="fw-400">
-                                                        信用卡
-                                                    </h6>
-                                                </label>
-                                            </div>
-                                            <div className="form-check m-2">
-                                                <input
-                                                    className="form-check-input d-block me-2"
-                                                    type="radio"
-                                                    value=""
-                                                    name="flexRadioDefault"
-                                                    id="flexRadioDefault1"
-                                                />
-                                                <label
-                                                    className="form-check-label"
-                                                    htmlFor="flexRadioDefault1"
-                                                >
-                                                    <h6 className="fw-400">
-                                                        LINE Pay
-                                                    </h6>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <h3 className="accent-color fw-bold productDetail-price-letter-spacing my-3">
-                                            NT $ {value.price}
-                                        </h3>
-                                    </div>
-                                    <div className="d-flex align-items-center mt-2">
-                                        {productCount(value.stock)}
-                                    </div>
-                                    <div className="row mt-4">
-                                        <button
-                                            className="col m-2 btn btn-primary productDetail-btn d-flex justify-content-center align-items-center"
-                                            onClick={() => {
-                                                getImmediate([
-                                                    {
-                                                        user_id: member.id,
-                                                        product_id:
-                                                            value.product_id,
-                                                        category_id:
-                                                            value.category_id,
-                                                        stock: value.stock,
-                                                        amount: count,
-                                                    },
-                                                ]);
-                                            }}
-                                        >
-                                            <img
-                                                style={{
-                                                    width: '30px',
-                                                    height: '30px',
-                                                }}
-                                                src={cartCheckout}
-                                                alt="cartCheckout"
-                                                className="d-block product-icon me-1"
-                                            />
-                                            <h6 className="accent-light-color text-center">
-                                                立即購買
-                                            </h6>
-                                        </button>
-                                        <button
-                                            className="col m-2 btn btn-secondary productDetail-btn d-flex justify-content-center align-items-center"
-                                            onClick={() => {
-                                                setShopCartState(true);
-                                                getCheck({
-                                                    product_id:
-                                                        value.product_id,
-                                                    category_id:
-                                                        value.category_id,
-                                                    image: productImgs[0],
-                                                    name: value.name,
-                                                    amount: count,
-                                                    price: value.price,
-                                                    spec: value.spec,
-                                                    shipment: value.shipment,
-                                                    stock: value.stock,
-                                                });
-                                            }}
-                                        >
-                                            <img
-                                                style={{
-                                                    width: '30px',
-                                                    height: '30px',
-                                                }}
-                                                src={cartCheck}
-                                                alt="cartCheck"
-                                                className="d-block product-icon me-1"
-                                            />
-                                            <h6 className="d-block accent-light-color text-center">
-                                                加入購物車
-                                            </h6>
-                                        </button>
-                                    </div>
                                     {/* 收藏、分享、比較 btn */}
                                     <div className="d-flex">
                                         {/* 收藏 */}

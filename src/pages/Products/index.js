@@ -29,7 +29,12 @@ import FilterBar from './components/FilterBar';
 import MobileFilterBar from './components/MobileFilterBar';
 import PaginationBar from '../../components/PaginationBar/PaginationBar';
 import CompareBtn from './components/CompareBtn';
-import { successToast, warningToast, errorToast } from '../../components/Alert';
+import {
+    successToast,
+    warningToast,
+    errorToast,
+    successSmallToast,
+} from '../../components/Alert';
 import {
     ListMotionContainer,
     ListMotionItem,
@@ -474,10 +479,20 @@ function Products() {
                     let products = response.data.product.map(
                         (item) => item.product_id
                     );
-                    successToast(response.data.message, '關閉');
+                    successSmallToast.fire({
+                        icon: 'success',
+                        iconColor: '#86a8ae',
+                        color: '#00323d',
+                        title: response.data.message,
+                    });
                     setFavProducts(products);
                 } catch (err) {
-                    errorToast(err.response.data.message, '關閉');
+                    successSmallToast.fire({
+                        icon: 'error',
+                        iconColor: '#c59894',
+                        color: '#5b322f',
+                        title: err.response.data.message,
+                    });
                 }
             }
         }
@@ -495,10 +510,20 @@ function Products() {
                 }
             );
             let products = response.data.product.map((item) => item.product_id);
-            successToast(response.data.message, '關閉');
+            successSmallToast.fire({
+                icon: 'success',
+                iconColor: '#86a8ae',
+                color: '#00323d',
+                title: response.data.message,
+            });
             setFavProducts(products);
         } catch (err) {
-            errorToast(err.response.data.message, '關閉');
+            successSmallToast.fire({
+                icon: 'error',
+                iconColor: '#c59894',
+                color: '#5b322f',
+                title: err.response.data.message,
+            });
         }
     }
 

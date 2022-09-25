@@ -9,7 +9,10 @@ import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
 import { ReactComponent as HeartLine } from '../../../../../assets/svg/favorite_defaut.svg';
 import { ReactComponent as HeartFill } from '../../../../../assets/svg/favorite_check.svg';
 import MyCartCount from './MyCartCount';
-import { successToast, errorToast } from '../../../../../components/Alert';
+import {
+    successToast,
+    successSmallToast,
+} from '../../../../../components/Alert';
 
 function MyCartProduct({
     myCart,
@@ -72,10 +75,20 @@ function MyCartProduct({
                     let products = response.data.product.map(
                         (item) => item.product_id
                     );
-                    successToast(response.data.message, '關閉');
+                    successSmallToast.fire({
+                        icon: 'success',
+                        iconColor: '#86a8ae',
+                        color: '#00323d',
+                        title: response.data.message,
+                    });
                     setFavA(products);
                 } catch (err) {
-                    errorToast(err.response.data.message, '關閉');
+                    successSmallToast.fire({
+                        icon: 'error',
+                        iconColor: '#c59894',
+                        color: '#5b322f',
+                        title: err.response.data.message,
+                    });
                 }
             }
         }
@@ -93,10 +106,20 @@ function MyCartProduct({
                 }
             );
             let products = response.data.product.map((item) => item.product_id);
-            successToast(response.data.message, '關閉');
+            successSmallToast.fire({
+                icon: 'success',
+                iconColor: '#86a8ae',
+                color: '#00323d',
+                title: response.data.message,
+            });
             setFavA(products);
         } catch (err) {
-            errorToast(err.response.data.message, '關閉');
+            successSmallToast.fire({
+                icon: 'error',
+                iconColor: '#c59894',
+                color: '#5b322f',
+                title: err.response.data.message,
+            });
         }
     }
 
