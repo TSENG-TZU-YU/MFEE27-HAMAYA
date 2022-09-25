@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 // 套件
 import { Container } from 'react-bootstrap';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 // 樣式
 import './index.scss';
@@ -127,14 +129,14 @@ function Products() {
     const { favProducts, setFavProducts } = useLiked();
 
     // 取得商品次類別 api
-    useEffect(() => {
-        let getCategory = async () => {
-            let response = await axios.get(`${API_URL}/products/category`);
-            setCategorySub(response.data.categorySub);
-            setCategoryMain(response.data.categoryMain);
-        };
-        getCategory();
-    }, []);
+    // useEffect(() => {
+    //     let getCategory = async () => {
+    //         let response = await axios.get(`${API_URL}/products/category`);
+    //         setCategorySub(response.data.categorySub);
+    //         setCategoryMain(response.data.categoryMain);
+    //     };
+    //     getCategory();
+    // }, []);
 
     // 分頁用
     const [pageNow, setPageNow] = useState(1); // 目前頁號
@@ -198,6 +200,12 @@ function Products() {
         setTimeout(() => {
             setIsLoading(false);
         }, 1500);
+        let getCategory = async () => {
+            let response = await axios.get(`${API_URL}/products/category`);
+            setCategorySub(response.data.categorySub);
+            setCategoryMain(response.data.categoryMain);
+        };
+        getCategory();
     }, [location]);
 
     useEffect(() => {}, [products]);
@@ -534,8 +542,7 @@ function Products() {
                 loader
             ) : (
                 <>
-                    {/* 主要內容 */}
-                    <Container className="products-min-height">
+                    <Container>
                         {/* 桌機 篩選 */}
                         <div className="d-none d-md-block">
                             <div className="d-flex flex-row-reverse">
@@ -800,16 +807,18 @@ function Products() {
                             {/* 篩選 end */}
                         </div>
                         {/* 手機 end */}
-                        {/* TODO:  Toggled 關閉 無法按按鈕 */}
-                        <div
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setSortToggled(false);
-                                setFilterToggled(false);
-                                setCategoryToggled(false);
-                                setSearchToggled(false);
-                            }}
-                        >
+                    </Container>
+                    <div
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setSortToggled(false);
+                            setFilterToggled(false);
+                            setCategoryToggled(false);
+                            setSearchToggled(false);
+                        }}
+                    >
+                        {/* 主要內容 */}
+                        <Container className="products-min-height">
                             <div className="row">
                                 {/* 桌機 商品類別選項 */}
                                 <CategoryNav
@@ -823,10 +832,7 @@ function Products() {
 
                                 <div className="col-12 col-md-10 d-flex flex-column justify-content-between">
                                     {/* 商品列 */}
-                                    <ListMotionContainer
-                                        element="div"
-                                        className="row row-cols-2 row-cols-md-3 row-cols-xl-4"
-                                    >
+                                    <div className="row row-cols-2 row-cols-md-3 row-cols-xl-4">
                                         {error && <div>{error}</div>}
                                         {pageProducts.length === 0 ? (
                                             <h4 className="mt-5 d-flex w-100 main-gary-light-color text-center justify-content-center align-items-center">
@@ -846,8 +852,7 @@ function Products() {
                                             pageProducts[pageNow - 1].map(
                                                 (product) => {
                                                     return (
-                                                        <ListMotionItem
-                                                            element="div"
+                                                        <div
                                                             className="col product"
                                                             key={uuidv4()}
                                                         >
@@ -1015,11 +1020,11 @@ function Products() {
                                                                     }
                                                                 </p>
                                                             </div>
-                                                        </ListMotionItem>
+                                                        </div>
                                                     );
                                                 }
                                             )}
-                                    </ListMotionContainer>
+                                    </div>
                                     {/* 商品列 end */}
 
                                     {/* 頁碼 */}
@@ -1037,18 +1042,18 @@ function Products() {
                                     {/* 頁碼 end */}
                                 </div>
                             </div>
-                        </div>
-                    </Container>
-                    {/* 比較頁顯示 */}
-                    {productCompare ? (
-                        <ProductCompare
-                            compareProduct={compareProduct}
-                            setCompareProduct={setCompareProduct}
-                            setProductCompare={setProductCompare}
-                        />
-                    ) : (
-                        ''
-                    )}
+                        </Container>
+                        {/* 比較頁顯示 */}
+                        {productCompare ? (
+                            <ProductCompare
+                                compareProduct={compareProduct}
+                                setCompareProduct={setCompareProduct}
+                                setProductCompare={setProductCompare}
+                            />
+                        ) : (
+                            ''
+                        )}
+                    </div>
                 </>
             )}
             {/* 商品比較 btn */}

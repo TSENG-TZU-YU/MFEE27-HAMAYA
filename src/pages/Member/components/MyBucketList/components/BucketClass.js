@@ -242,6 +242,8 @@ function BucketClass({
         }
     }
 
+    console.log(myBucketB);
+
     // 多筆 取消收藏
     async function handleRemoveFavorite() {
         //filter我選取的東西

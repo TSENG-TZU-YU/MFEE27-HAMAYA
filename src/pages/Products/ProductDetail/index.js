@@ -91,6 +91,10 @@ function Product() {
             console.log(imgData);
             setProductImgs(imgData);
             setRelatedProducts(response.data.relatedProducts);
+            window.scrollTo({
+                top: 0,
+                left: 0,
+            });
         };
         getProductDetail();
     }, [location]);
@@ -196,7 +200,9 @@ function Product() {
                                 />
                             </div>
                             <p className="mb-0 ms-2 gary-light-color">
-                                {stock > count ? '庫存充足' : '已達庫存上限'}
+                                {stock === count
+                                    ? '目前為庫存上限'
+                                    : '庫存充足'}
                             </p>
                         </div>
                     </div>
@@ -422,24 +428,6 @@ function Product() {
             }
         }
     }
-
-    // const Toast = Swal.mixin({
-    //     customClass: {
-    //         popup: 'border-radius-0',
-    //     },
-    //     width: '10%',
-    //     toast: true,
-    //     position: 'top',
-    //     showConfirmButton: false,
-    //     background: '#f2f2f2',
-    //     color: '#00323d',
-    //     iconColor: '#86a8ae',
-    //     timer: 3000,
-    //     onOpen: (toast) => {
-    //         toast.addEventListener('mouseenter', Swal.stopTimer);
-    //         toast.addEventListener('mouseleave', Swal.resumeTimer);
-    //     },
-    // });
 
     // 收藏
     const { favProducts, setFavProducts } = useLiked();
