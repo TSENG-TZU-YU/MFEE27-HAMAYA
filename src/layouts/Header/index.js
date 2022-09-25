@@ -100,7 +100,7 @@ function Header(props) {
                                         <ul className="list-unstyled bg-main-light-color py-1 mt-2 ">
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/news/section?categoryList=1"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     促銷活動
@@ -108,7 +108,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/news/section?categoryList=2"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     活動快訊
@@ -116,7 +116,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/news/section?categoryList=3"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     重要通知
