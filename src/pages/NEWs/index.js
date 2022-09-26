@@ -8,10 +8,6 @@ import { v4 as uuidv4 } from 'uuid';
 // 圖檔
 import NewsBanner from '../../assets/NewsImg/news-banner.jpg';
 
-import NewsImg2 from '../../assets/NewsImg/news-img2.png';
-import NewsImg3 from '../../assets/NewsImg/news-img3.png';
-import NewsImg4 from '../../assets/NewsImg/news-img4.png';
-
 import NewsActivity from './MusicArticle/components/NewsActivity';
 
 //TODO:類別顏色切換
@@ -78,6 +74,24 @@ function NEWs() {
         },
     ];
 
+    //文章分類的標籤切換
+    const colorChange = (categoryId) => {
+        switch (categoryId) {
+            case 1:
+                return 'News-music-article small';
+            case 2:
+                return 'News-music-article-color2 small';
+
+            case 3:
+                return 'News-music-article-color3 small';
+            case 4:
+                return 'News-music-article-color4 small';
+
+            default:
+                return '';
+        }
+    };
+
     return (
         <>
             <img src={NewsBanner} alt="banner" className="img-fluid" />
@@ -104,10 +118,10 @@ function NEWs() {
             <div className="container">
                 <div className="row">
                     {/* 活動快訊那一欄 */}
-                    {news.map((activity, index) => {
+                    {news.map((activity) => {
                         return (
                             <>
-                                <div key={uuidv4()} className="col-12 col-md-6">
+                                <div className="col-12 col-md-6" key={uuidv4()}>
                                     <Link
                                         to={`/news/${activity.id}?mainId=${activity.categoryId}`}
                                     >
@@ -122,7 +136,7 @@ function NEWs() {
                                             {activity.title}
                                         </p>
                                         <div className=" d-flex mt-3 ">
-                                            <p className="News-music-article small me-2">
+                                            <p className="News-music-article-color2 small me-2">
                                                 {activity.categoryName}
                                             </p>
                                             <p>
@@ -137,11 +151,12 @@ function NEWs() {
                     })}
 
                     <div className="col-12 col-md-6 News-blank-art-left mt-2  ">
-                        {news2.map((article, index) => {
+                        {news2.map((article) => {
                             return (
-                                <div key={index}>
+                                <div>
                                     <Link
-                                        to={`/news/${article.article_id}?mainId=${article.category}`}
+                                        to={`/news/${article.id}?mainId=${article.category}`}
+                                        key={uuidv4()}
                                     >
                                         <div className="d-flex">
                                             <img
@@ -154,20 +169,23 @@ function NEWs() {
                                                 alt="art02"
                                             />
                                             <div>
-                                                <h5 className=" cursor-pinter">
+                                                <h5 className="gary-dark-color h5 News-cursor-pinter mt-3">
                                                     {article.title}
                                                 </h5>
 
-                                                <div className=" d-flex mt-2 ">
+                                                <div className="  d-flex mt-2 ">
                                                     <small
-                                                        className="music-article me-3"
-                                                        style={{
-                                                            color: '#f2f2f2',
-                                                        }}
+                                                        className={colorChange(
+                                                            Number(
+                                                                article.categoryId
+                                                                    ? true
+                                                                    : false
+                                                            )
+                                                        )}
                                                     >
                                                         {article.name}
                                                     </small>
-                                                    <p>
+                                                    <p className="me-2">
                                                         {article.auther} －
                                                         {article.creation_date}
                                                     </p>
@@ -188,9 +206,10 @@ function NEWs() {
 
             <div className="container mt-5">
                 <div className="row text-center ">
-                    {menuItems.map((value, index) => {
+                    {menuItems.map((value) => {
                         return (
                             <Link
+                                key={uuidv4()}
                                 // activeText={activeText}
                                 // data={data}
                                 className={
@@ -198,7 +217,6 @@ function NEWs() {
                                         ? 'col-3 News-word3  News-vector5-Btn-active'
                                         : 'col-3 News-word3  News-vector5-Btn'
                                 }
-                                key={index}
                                 to={`/news?categoryId=${value.id}`}
                                 onClick={() => {
                                     setActiveText(value.id);
