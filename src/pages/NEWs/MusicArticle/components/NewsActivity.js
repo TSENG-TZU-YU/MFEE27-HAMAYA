@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import arrow from '../../../../assets/svg/arrow_back_ios_new.svg';
 import { v4 as uuidv4 } from 'uuid';
-
+import '../index.scss';
 function NewsActivity({ data, activeText, menuItems }) {
     // const [data, setData] = useState([]);
     // const { data } = props;
@@ -30,18 +30,33 @@ function NewsActivity({ data, activeText, menuItems }) {
     //     console.log('News', 'useEffect [data]');
     // }, [data]);
 
+    //文章分類的標籤切換
+    const colorChange = (categoryId) => {
+        switch (categoryId) {
+            case 1:
+                return 'News-music-article small';
+            case 2:
+                return 'News-music-article-color2 small';
+
+            case 3:
+                return 'News-music-article-color3 small';
+            case 4:
+                return 'News-music-article-color4 small';
+
+            default:
+                return '';
+        }
+    };
+
     // TODO:要修圖片的尺寸大小
     return (
         <>
             <div className="container">
                 <div className="row  News-articles ">
-                    {data.map((activity) => {
+                    {data.map((activity, index) => {
                         return (
                             <>
-                                <div
-                                    key={uuidv4()}
-                                    className="col-12 col-md-4 "
-                                >
+                                <div className="col-12 col-md-4 ">
                                     <div className="mt-4">
                                         <Link
                                             to={`/news/${activity.id}?mainId=${activity.categoryId}`}
@@ -55,7 +70,13 @@ function NewsActivity({ data, activeText, menuItems }) {
                                             <span className="col-md-12 gary-dark-color h6 News-cursor-pinter mt-2">
                                                 {activity.title}
                                                 <div className=" d-flex mt-2 ">
-                                                    <p className="News-music-article4 small">
+                                                    <p
+                                                        className={colorChange(
+                                                            Number(
+                                                                activity.categoryId
+                                                            )
+                                                        )}
+                                                    >
                                                         {activity.categoryName}
                                                     </p>
                                                     <p className="ms-2">

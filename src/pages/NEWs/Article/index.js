@@ -30,6 +30,24 @@ function Article() {
 
     console.log(data);
 
+    //文章分類的標籤切換
+    const colorChange = (categoryId) => {
+        switch (categoryId) {
+            case 1:
+                return 'News-music-article small';
+            case 2:
+                return 'News-music-article-color2 small';
+
+            case 3:
+                return 'News-music-article-color3 small';
+            case 4:
+                return 'News-music-article-color4 small';
+
+            default:
+                return '';
+        }
+    };
+
     return (
         <>
             {/* 麵包屑 end*/}
@@ -168,9 +186,7 @@ function Article() {
                         return (
                             <>
                                 <div
-                                    key={Math.random()
-                                        .toString(36)
-                                        .replace('3.', '')}
+                                    key={uuidv4()}
                                     className="col-12 col-md-4 "
                                 >
                                     <div className="mt-4 ">
@@ -185,7 +201,13 @@ function Article() {
                                             <span className="gary-dark-color h6 article-cursor-pinter mt-2">
                                                 {recommend.title}
                                                 <div className=" d-flex mt-2 ">
-                                                    <p className="article-music4 small">
+                                                    <p
+                                                        className={colorChange(
+                                                            Number(
+                                                                recommend.category
+                                                            )
+                                                        )}
+                                                    >
                                                         {recommend.articleName}
                                                     </p>
                                                     <p className="ms-2">
