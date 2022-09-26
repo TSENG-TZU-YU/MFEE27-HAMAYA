@@ -68,12 +68,15 @@ input:disabled {
 
 .item1{
   color:$main;
+  margin-bottom: 15px;
 }
 .item2{
   color: $gary-light;
+  margin-bottom: 15px;
 }
 .item3{
   color:$accent;
+  margin-bottom: 15px;
 }
 .formitem{
   color: $gary-dark;;
@@ -83,7 +86,9 @@ input:disabled {
 .studioImgDIV{
   //  min-height: 300px;
   //  相片比例
-  aspect-ratio: 4 / 3;
+  width: 100%;
+  aspect-ratio: 5 / 3;
+
 }
 .studio{
   position: absolute;
@@ -134,7 +139,7 @@ input:disabled {
 @media screen and (max-width:1200px) {
   //xl
   .studioImgDIV{
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 3 / 2;
   }
 }
 @media screen and (max-width:992px) {
@@ -161,7 +166,7 @@ input:disabled {
   margin: 0;
   }
   .studioImgDIV{
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 5 / 3;
   }
 }
 @media screen and (max-width:576px) {

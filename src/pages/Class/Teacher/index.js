@@ -8,20 +8,23 @@ import { useParams } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 
 import './index.scss';
+import { TbTable } from 'react-icons/tb';
 // 圖檔
 // import teacher01 from '../../../assets/ClassImg/teacher01.png';
 function Teacher() {
     const [data, setData] = useState([]);
+    const [classTeacher, seClassTeacher] = useState([]);
 
     // 把網址上的 :detailedID 拿出來
     const { detailedID } = useParams();
-    console.log('teacherDetailID', detailedID);
+
     useEffect(() => {
         let getAdultClass = async () => {
             let response = await axios.get(
                 `http://localhost:3001/api/class/teacher/${detailedID}`
             );
-            setData(response.data);
+            setData(response.data.data);
+            seClassTeacher(response.data.classTeacher);
             // window.scrollTo({
             //     top: 0,
             //     left: 0,
@@ -32,6 +35,12 @@ function Teacher() {
     }, []);
 
     useEffect(() => {}, [data]);
+
+    // 標點符號限制
+    const teacherClass = classTeacher.map((teacher) => {
+        return teacher.name;
+    });
+    const teacherC = teacherClass.join('、');
 
     return (
         <div>
@@ -47,7 +56,11 @@ function Teacher() {
                     </Link>
                     /
                     <Link to="/class/article">
-                        <p>音樂教育</p>
+                        <p>
+                            {data.map((teacher) => {
+                                return <p>{teacher.name}</p>;
+                            })}
+                        </p>
                     </Link>
                 </div>
                 {/* 麵包屑 end*/}
@@ -85,10 +98,7 @@ function Teacher() {
                                             教授課程
                                         </h6>
                                     </div>
-                                    <p className="mt-4 px-2">
-                                        {/* TODO:  */}
-                                        成人古典鋼琴課程、成人流行鍵盤課程
-                                    </p>
+                                    <p className="mt-4 px-2">{teacherC}</p>
                                     <div className="article-title-bg p-1 px-2 mt-4">
                                         <h6 style={{ color: '#f2f2f2' }}>
                                             師資簡介

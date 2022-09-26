@@ -75,14 +75,45 @@
   cursor: pointer;
 }
 
-.article-music4{
+.News-music-article {
   width: 70px;
   height: 25px;
   text-align: center;
   vertical-align: middle;
-  line-height: 25px;
-  background-color: $main;
+  background-color:$main;
   color: $accent-light;
+  line-height: 25px;
+}
+
+
+.News-music-article-color2{
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color:$gary-light ;
+  color: $accent-light;
+  line-height: 25px;
+}
+
+.News-music-article-color3 {
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color:$accent ;
+  color: $accent-light;
+  line-height: 25px;
+}
+
+.News-music-article-color4 {
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color:$main-light ;
+  color: $accent-light;
+  line-height: 25px;
 }
 
 .article-content{

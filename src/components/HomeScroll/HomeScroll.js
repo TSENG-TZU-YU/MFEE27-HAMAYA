@@ -1,11 +1,7 @@
 import React, { useEffect, useState, useParams } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-import PropTypes from 'prop-types';
-import { API_URL } from '../../utils/config';
-import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -17,31 +13,41 @@ import './HomeScroll.scss';
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper';
 
-function HomeScroll(props) {
-    // const [data, setData] = useState([]);
-    // const [slider, setSlider] = useState([]);
-
-    // const { content } = useParams();
-
-    // const location = useLocation();
-
-    // useEffect(() => {
-    //     // let params = new URLSearchParams(location.search);
-    //     // let mainId = params.get('mainId');
-    //     let getArticle = async () => {
-    //         let response = await axios.get(
-    //             `${API_URL}/home/${content}?mainId=${1}`
-    //         );
-    //         setData(response.data.data);
-    //         setSlider(response.data.slider);
-    //     };
-    //     getArticle();
-    // }, [location]);
-
-    // console.log(data);
+function HomeScroll({ data, slider }) {
+    console.log(data);
+    console.log(slider);
 
     return (
         <>
+            <Swiper
+                spaceBetween={30}
+                centeredSlides={true}
+                autoplay={{
+                    delay: 3500,
+                    disableOnInteraction: false,
+                }}
+                pagination={{
+                    el: '.swiper-pagination ',
+                    clickable: true,
+                }}
+                navigation={true}
+                modules={[Autoplay, Pagination, Navigation]}
+                className="mySwiper"
+            >
+                {slider.map((item, index) => (
+                    <SwiperSlide key={index}>
+                        <Link to={`/news/${item.id}?mainId=${item.category}`}>
+                            <div>
+                                <img
+                                    className=""
+                                    src={require(`../../album/article/${item.image}`)}
+                                    alt="home images"
+                                />
+                            </div>
+                        </Link>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
             <Swiper
                 spaceBetween={30}
                 centeredSlides={true}
@@ -55,21 +61,38 @@ function HomeScroll(props) {
                 }}
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
-                className="mySwiper"
+                className="none"
             >
-                {props.images.map((item, index) => (
-                    <SwiperSlide key={index}>
-                        <img src={item} alt="home images" />
-                    </SwiperSlide>
-                ))}
+                <div className="container bg-main-gary-light-color ">
+                    {slider.map((item, index) => (
+                        <SwiperSlide key={index}>
+                            <Link
+                                to={`/news/${item.id}?mainId=${item.category}`}
+                            >
+                                <div className="slider-titles">
+                                    <span className="home-word ">
+                                        NEW &ensp;
+                                        <span className="home-word2">
+                                            {item.creation_date}&ensp;
+                                        </span>
+                                        <span className="home-word3">
+                                            {item.title}
+                                        </span>
+                                    </span>
+                                </div>
+                            </Link>
+                        </SwiperSlide>
+                    ))}
+                </div>
             </Swiper>
+
             <div className="container d-flex justify-content-end swiper-pagination swiper-pagination-1"></div>
         </>
     );
 }
 
-HomeScroll.propTypes = {
-    images: PropTypes.array.isRequired,
-};
+// HomeScroll.propTypes = {
+//     images: PropTypes.array.isRequired,
+// };
 
 export default HomeScroll;

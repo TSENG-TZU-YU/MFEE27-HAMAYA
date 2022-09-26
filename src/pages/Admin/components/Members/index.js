@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import detail_img from '../../../../assets/svg/detailed.svg';
+import { IMAGE_URL } from '../../../../utils/config';
 import {
     Link,
     useOutletContext,
@@ -10,11 +10,14 @@ import {
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import _ from 'lodash';
+import './index.css';
 import {
     FiChevronLeft,
     FiChevronRight,
     FiPlus,
     FiPlusSquare,
+    FiSettings,
+    FiSearch,
 } from 'react-icons/fi';
 function Members(props) {
     const [loadingComplete, setLoadingComplete] = useState(false); //是否已載入完成
@@ -123,7 +126,16 @@ function Members(props) {
                     </ol>
                 </nav>
             </div>
-            <h3>會員管理</h3>
+            <div className="d-flex justify-content-between align-items-center">
+                <h3>會員管理</h3>
+                <div>
+                    <input placeholder="搜尋" />
+                    <button>
+                        <FiSearch />
+                    </button>
+                </div>
+            </div>
+
             <hr />
             <div className="position-relative">
                 {loadingComplete && (
@@ -146,6 +158,12 @@ function Members(props) {
                                     className="text-nowrap fw-light text-center"
                                     scope="col"
                                 >
+                                    會員大頭貼
+                                </th>
+                                <th
+                                    className="text-nowrap fw-light text-center"
+                                    scope="col"
+                                >
                                     電子郵件
                                 </th>
                                 <th
@@ -153,6 +171,12 @@ function Members(props) {
                                     scope="col"
                                 >
                                     連絡電話
+                                </th>
+                                <th
+                                    className="text-nowrap fw-light text-center"
+                                    scope="col"
+                                >
+                                    生日
                                 </th>
                                 <th
                                     className="text-nowrap fw-light text-center"
@@ -173,7 +197,7 @@ function Members(props) {
                                     啟用狀態
                                 </th>
                                 <th
-                                    className="text-nowrap fw-light text-center"
+                                    className="text-nowrap fw-light text-center "
                                     scope="col"
                                 >
                                     功能
@@ -187,11 +211,21 @@ function Members(props) {
                                         <th scope="row" className="text-center">
                                             {data.id}
                                         </th>
-                                        <td className="text-center">
+                                        <td className="text-center text-nowrap">
                                             {data.name}
+                                        </td>
+                                        <td>
+                                            <img
+                                                className="memberphoto"
+                                                alt="memberphoto"
+                                                src={IMAGE_URL + data.photo}
+                                            ></img>
                                         </td>
                                         <td>{data.email}</td>
                                         <td>{data.phone}</td>
+                                        <td className="text-nowrap">
+                                            {data.birthday}
+                                        </td>
                                         <td>
                                             <div className="text-start">
                                                 {data.city}
@@ -199,16 +233,33 @@ function Members(props) {
                                                 {data.address}
                                             </div>
                                         </td>
-                                        <td className="">{data.sub}</td>
-                                        <td className="">{data.enable}</td>
-                                        <td className="text-nowrap ">
-                                            <Link
-                                                className=""
-                                                to={`/admin/customerservice/commonqa/detail?nlid=${data.id}`}
-                                            >
-                                                <img src={detail_img} alt="" />
-                                                查看詳細
-                                            </Link>
+                                        <td className="">
+                                            {data.sub === 1 ? '是' : '否'}
+                                        </td>
+                                        <td>
+                                            <div className="form-check form-switch d-flex align-items-center justify-content-center">
+                                                <input
+                                                    className="form-check-input"
+                                                    type="checkbox"
+                                                    role="switch"
+                                                    id="flexSwitchCheckChecked"
+                                                    checked={
+                                                        data.enable == 1
+                                                            ? true
+                                                            : false
+                                                    }
+                                                />
+                                                <label
+                                                    className="form-check-label"
+                                                    for="flexSwitchCheckChecked"
+                                                ></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button className="deletebtn3">
+                                                <FiSettings className="icon1" />
+                                                修改
+                                            </button>
                                         </td>
                                     </tr>
                                 );

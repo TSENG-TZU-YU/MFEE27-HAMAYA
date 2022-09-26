@@ -27,7 +27,7 @@ function Car({ itemsCart }) {
         let amount = itemInfo.amount;
         if (stock < amount) {
             setShopCartState(false);
-            return errorToast('暫無庫存', '關閉');
+            return errorToast('已額滿', '關閉');
         }
         //確認有沒有重複
         let newItemInfo = shoppingCart.find((v) => {

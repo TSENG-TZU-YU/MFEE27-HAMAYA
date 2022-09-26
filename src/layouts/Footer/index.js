@@ -119,26 +119,26 @@ function Footer(props) {
                         <div className="col-md pt-3">
                             <Link
                                 className="main-gary-light-color word-size text-nowrap "
-                                to="class"
+                                to="/class"
                             >
                                 音樂教育
                             </Link>
                             <div className="d-flex  align-items-start flex-column ">
                                 <Link
                                     className="ms-1 main-gary-light-color text-nowrap word-size2 "
-                                    to="class/list"
+                                    to="/class/list?class=1"
                                 >
                                     成人課程
                                 </Link>
                                 <Link
                                     className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                    to="class"
+                                    to="/class/list?class=2"
                                 >
                                     兒童課程
                                 </Link>
                                 <Link
                                     className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                    to="class"
+                                    to="/class"
                                 >
                                     師資介紹
                                 </Link>

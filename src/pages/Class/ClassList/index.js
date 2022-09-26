@@ -337,7 +337,7 @@ function ClassList(props) {
                                                 style={{ color: '#f2f2f2' }}
                                             >
                                                 {/* TODO: 評價塞選 */}
-                                                課程評價
+                                                {/* 課程評價 */}
                                             </p>
                                         </div>
                                     ) : (
@@ -400,7 +400,11 @@ function ClassList(props) {
                                 ></img>
                             </button>
                             {searchToggled ? (
-                                <div className=" position-absolute class-search ">
+                                <div
+                                    className=" position-absolute class-search "
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    {/*TODO: rwd 搜尋的詞會不見 但條件還在 */}
                                     <SearchBar
                                         searchWord={searchWord}
                                         setSearchWord={setSearchWord}
@@ -423,7 +427,10 @@ function ClassList(props) {
                         </button>
                     </div>
                     {searchToggled ? (
-                        <div className=" mob-class-search ">
+                        <div
+                            className=" mob-class-search "
+                            onClick={(e) => e.stopPropagation()}
+                        >
                             <SearchBar
                                 searchWord={searchWord}
                                 setSearchWord={setSearchWord}

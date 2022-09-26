@@ -21,7 +21,7 @@ function Header(props) {
     const { member, setMember, isLogin, setIsLogin, hideHeaderFooter } =
         useAuth();
     const [loginPopup, setLoginPopup] = useState(false);
-    // const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
+
     const { shopCartState, setShopCartState } = useCart();
     const navigate = useNavigate();
     // 課程 Toggled
@@ -78,7 +78,7 @@ function Header(props) {
             // shoppingCart={shoppingCart}
             // setShoppingCart={setShoppingCart}
             />
-            <nav className="bg-main-gary-light-color d-none d-md-block fixed-top">
+            <nav className="bg-main-gary-light-color d-none d-md-block fixed-top header1">
                 <div className="container">
                     <div className="row header-height ">
                         <div className="col-2 p-0 d-flex justify-content-center align-items-center ">
@@ -194,13 +194,13 @@ function Header(props) {
                                 </div>
                                 <div className="col p-0 m-2 m-lg-3 text-center header-text">
                                     <div className="navbaritem fw-bold">
-                                        <Link className="" to="class">
+                                        <Link className="" to="/class">
                                             音樂教育
                                         </Link>
                                         <ul className="list-unstyled bg-main-light-color py-1 mt-2">
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/class"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     音樂文章
@@ -210,9 +210,6 @@ function Header(props) {
                                                 <Link
                                                     to="/class/list?class=1"
                                                     className="accent-light-color fw-light"
-                                                    // onClick={() => {
-                                                    //     setSelectCourse(true);
-                                                    // }}
                                                 >
                                                     成人課程
                                                 </Link>
@@ -221,9 +218,6 @@ function Header(props) {
                                                 <Link
                                                     to="/class/list?class=2"
                                                     className="accent-light-color fw-light"
-                                                    // onClick={() => {
-                                                    //     setSelectCourse(false);
-                                                    // }}
                                                 >
                                                     兒童課程
                                                 </Link>

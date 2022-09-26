@@ -1,11 +1,11 @@
 @import '../../styles/global.scss';
 .Cart-bg {
     position: fixed;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background-color:  transparent;
+    background-color: transparent;
     z-index: 2;
     display: flex;
     align-items: center;
@@ -28,7 +28,7 @@
 .shoppingCartItem {
     border-bottom: 1px solid $main-gary-light;
 }
-.shoppingCartItemImg{
+.shoppingCartItemImg {
     width: 80px;
     height: 80px;
     object-fit: contain;
@@ -41,8 +41,8 @@
 }
 
 .checkOutBtn:hover {
-   color: $accent-light;
-   background: #002a33;
+    color: $accent-light;
+    background: #002a33;
 }
 
 /* 修改 svg icon */
@@ -53,6 +53,21 @@
 .checkOutIcon {
     width: 20px;
     height: 20px;
+}
+.cartBtn {
+    border: 2px solid #00000000;
+    padding: 0;
+    border-radius: 2px;
+    background-color: #fff;
+    transition: 0.3s;
+}
+.cartBtn:hover {
+    border: 2px solid #00323d;
+}
+
+.ashBinSvg {
+    width: 35px;
+    height: 35px;
 }
 
 .scrollStyle {
@@ -70,5 +85,5 @@
 }
 /* 捲軸本體顏色 */
 .scrollStyle::-webkit-scrollbar-thumb {
-    background-color: #D9D9D9;
+    background-color: #d9d9d9;
 }

@@ -35,15 +35,6 @@ function MusicArticle() {
 
     const location = useLocation();
 
-    // useEffect(() => {
-    //     let params = new URLSearchParams(location.search);
-    //     let categoryList = params.get('categoryList');
-    //     if (categoryList !== null) {
-    //         setActiveText(categoryList);
-    //     }
-    //     console.log(categoryList);
-    // }, []);
-
     useEffect(() => {
         let params = new URLSearchParams(location.search);
         let categoryList = params.get('categoryList');
@@ -86,6 +77,25 @@ function MusicArticle() {
             name: '音樂文章',
         },
     ];
+
+    //文章分類的標籤切換
+    const colorChange = (categoryId) => {
+        switch (categoryId) {
+            case 1:
+                return 'News-music-article small';
+            case 2:
+                return 'News-music-article-color2 small';
+
+            case 3:
+                return 'News-music-article-color3 small';
+            case 4:
+                return 'News-music-article-color4 small';
+
+            default:
+                return '';
+        }
+    };
+
     const id = ListItems.filter((v) => v.id === activeText);
     // const Breadcrumbs = id.slice(0);
     // console.log('麵包屑', Breadcrumbs);
@@ -157,7 +167,11 @@ function MusicArticle() {
                                         <div className=" gary-dark-color h4 list-cursor-pinter ">
                                             {list.title}
                                             <div className="d-flex mt-2 ">
-                                                <p className=" list-music-article2 small  ">
+                                                <p
+                                                    className={colorChange(
+                                                        Number(list.categoryId)
+                                                    )}
+                                                >
                                                     {list.categoryName}
                                                 </p>
                                                 <p className="ms-2 mt-1 ">

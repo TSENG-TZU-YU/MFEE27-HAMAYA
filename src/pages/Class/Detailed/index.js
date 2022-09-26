@@ -172,7 +172,7 @@ function Detailed({ ins_main_id }) {
         let amount = itemInfo[0].amount;
         if (Number(stock) < Number(amount)) {
             setShopCartState(false);
-            return errorToast('暫無庫存', '關閉');
+            return errorToast('已額滿', '關閉');
         }
 
         setItemsData(itemInfo);
@@ -495,7 +495,7 @@ function Detailed({ ins_main_id }) {
                                                 </button>
 
                                                 <button
-                                                    className="col m-2 btn btn-primary AdultDetailed-btn d-flex justify-content-center align-items-center border-0"
+                                                    className="col m-2 btn btn-secondary AdultDetailed-btn d-flex justify-content-center align-items-center border-0"
                                                     onClick={() => {
                                                         getCheck({
                                                             ...classDetailed,

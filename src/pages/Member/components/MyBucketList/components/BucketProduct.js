@@ -8,6 +8,7 @@ import { useCart } from '../../../../../utils/use_cart';
 import {
     successToast,
     warningToast,
+    errorToast,
     successSmallToast,
 } from '../../../../../components/Alert';
 import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
@@ -33,7 +34,7 @@ function BucketProduct({
 
     //商品單選checkbox
     function handleCheckBox(e) {
-        console.log('value, allCheck, check', e.target.value, allCheck, check);
+        // console.log('value, allCheck, check', e.target.value, allCheck, check);
 
         const value = e.target.value;
         let newItem = [];
@@ -52,7 +53,7 @@ function BucketProduct({
         if (newItem.length !== myBucketA.length) {
             setAllCheck(false);
         }
-        console.log('newItem', newItem);
+        // console.log('newItem', newItem);
     }
 
     //取得product_id
@@ -79,7 +80,13 @@ function BucketProduct({
     };
     //icon 加入購物車
     function getCheck(itemInfo) {
-        // console.log('itemInfo', itemInfo);
+        console.log('itemInfo', itemInfo);
+        let stock = itemInfo.stock;
+        let amount = itemInfo.amount;
+        if (stock < amount) {
+            setShopCartState(false);
+            return errorToast('暫無庫存', '關閉');
+        }
         //確認有沒有重複
         let newItemInfo = shoppingCart.find((v) => {
             return v.product_id === itemInfo.product_id;
@@ -109,7 +116,7 @@ function BucketProduct({
                     //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
                     try {
                         let response = await axios.post(
-                            `${API_URL}/member/mycart`,
+                            `${API_URL}/member/mycart/single`,
                             itemsData
                         );
                         // console.log('duplicate', response.data.duplicate);
@@ -208,19 +215,19 @@ function BucketProduct({
 
     //依賴checkbox加入購物車
     function getCheckBucket() {
-        console.log('buy bucket  myBucketA', check, myBucketA);
+        // console.log('buy bucket  myBucketA', check, myBucketA);
 
         //過濾出有被選取的
         let newMyBucketA = myBucketA.filter((item) => {
             return check.indexOf(item.product_id) !== -1;
         });
-        console.log('newMyBucketA', newMyBucketA);
+        // console.log('newMyBucketA', newMyBucketA);
 
-        //確認有無存在購物車
+        //確認有無存在臨時購物車
         let newItemInfo = shoppingCart.find((v) => {
             return v.product_id === newMyBucketA.product_id;
         });
-        console.log('newItemInfo', newItemInfo);
+        // console.log('newItemInfo', newItemInfo);
 
         let reNewMyBucketA = newMyBucketA.map((item) => {
             return {
@@ -232,7 +239,7 @@ function BucketProduct({
                 image: item.image,
             };
         });
-        console.log('reNewMyBucketA', reNewMyBucketA);
+        // console.log('reNewMyBucketA', reNewMyBucketA);
         if (!newItemInfo) {
             //localStorage
             setNewLocal([...reNewMyBucketA, ...shoppingCart]);
@@ -251,14 +258,14 @@ function BucketProduct({
                         amount: item.amount,
                     };
                 });
-                console.log('itemsData', itemsData);
+                // console.log('itemsData', itemsData);
                 //寫進資料庫
                 setItemsData(itemsData);
                 async function setItemsData(itemsData) {
                     //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
                     try {
                         let response = await axios.post(
-                            `${API_URL}/member/mycart`,
+                            `${API_URL}/member/mycart/single`,
                             itemsData
                         );
                         // console.log('duplicate', response.data.duplicate);
@@ -282,7 +289,7 @@ function BucketProduct({
         warningToast('已加入臨時購物車', '關閉');
     }
 
-    console.log(pageProductsA);
+    // console.log(pageProductsA);
     return (
         <>
             <div className="row p-2">
@@ -391,6 +398,7 @@ function BucketProduct({
                                                             name: item.name,
                                                             amount: 1,
                                                             price: item.price,
+                                                            stock: item.stock,
                                                             spec: item.spec,
                                                             shipment:
                                                                 item.shipment,
