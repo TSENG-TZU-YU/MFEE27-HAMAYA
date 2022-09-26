@@ -157,11 +157,13 @@ function MyCartProduct({
                         </td>
                         <td align="center">
                             <div className="d-flex flex-column align-items-lg-start pt-lg-2">
-                                <Link to={`/products/${item.product_id}`}>
-                                    <span className="p main-color">
-                                        <b>{item.name}</b>
-                                    </span>
-                                </Link>
+                                <div>
+                                    <Link to={`/products/${item.product_id}`}>
+                                        <span className="p main-color">
+                                            <b>{item.name}</b>
+                                        </span>
+                                    </Link>
+                                </div>
                                 <span className="small">
                                     型號：{item.brand_name}
                                 </span>
@@ -210,23 +212,30 @@ function MyCartProduct({
                             </div>
                         </td>
                         <td align="center" className="align-middle">
-                            <MyCartCount
-                                count={item.amount}
-                                setCount={(newCount) => {
-                                    const newMyCart = myCart.map((v, i) => {
-                                        return item.id === v.id
-                                            ? { ...v, amount: newCount }
-                                            : { ...v };
-                                    });
-                                    const newMyCartA = myCartA.map((v, i) => {
-                                        return item.id === v.id
-                                            ? { ...v, amount: newCount }
-                                            : { ...v };
-                                    });
-                                    setMyCartA(newMyCartA);
-                                    setMyCart(newMyCart);
-                                }}
-                            />
+                            <div className="d-inline-block">
+                                <MyCartCount
+                                    count={item.amount}
+                                    setCount={(newCount) => {
+                                        const newMyCart = myCart.map((v, i) => {
+                                            return item.id === v.id
+                                                ? { ...v, amount: newCount }
+                                                : { ...v };
+                                        });
+                                        const newMyCartA = myCartA.map(
+                                            (v, i) => {
+                                                return item.id === v.id
+                                                    ? { ...v, amount: newCount }
+                                                    : { ...v };
+                                            }
+                                        );
+                                        setMyCartA(newMyCartA);
+                                        setMyCart(newMyCart);
+                                    }}
+                                />
+                            </div>
+                            <p className="accent-color minimum m-0">
+                                剩餘庫存:{item.stock}
+                            </p>
                         </td>
                         <td align="center" className="align-middle ">
                             <div className="gary-dark">

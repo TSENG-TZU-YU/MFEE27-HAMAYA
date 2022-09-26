@@ -171,7 +171,7 @@ function Detailed({ ins_main_id }) {
         let amount = itemInfo[0].amount;
         if (Number(stock) < Number(amount)) {
             setShopCartState(false);
-            return errorToast('暫無庫存', '關閉');
+            return errorToast('已額滿', '關閉');
         }
 
         setItemsData(itemInfo);
