@@ -996,6 +996,7 @@ function Products() {
                                                                                 mainId: product.ins_main_id,
                                                                                 create_time:
                                                                                     product.create_time,
+                                                                                stock: product.stock,
                                                                             }
                                                                         )
                                                                     }
