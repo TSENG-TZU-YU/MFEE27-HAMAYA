@@ -5,7 +5,9 @@ import { useCart } from '../../utils/use_cart';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import './Cart.scss';
-import ashBin from '../../assets/svg/delete.svg';
+import LogInSignUp from '../../components/LogInSignUp';
+import { ReactComponent as AshBin } from '../../assets/svg/delete.svg';
+import { ReactComponent as Close } from '../../assets/svg/close.svg';
 import { basicAlert, successToast } from '../../components/Alert';
 //修改 CheckOut 顏色
 import { ReactComponent as CheckOut } from '../../assets/svg/shopping_cart_checkout.svg';
@@ -54,6 +56,7 @@ function Cart() {
     }
     //多筆加入購物車 訂單結帳
     function getMultipleCheck() {
+        
         let shoppingCartLocal = JSON.parse(
             localStorage.getItem('shoppingCart')
         );
@@ -72,7 +75,7 @@ function Cart() {
                     `${API_URL}/member/mycart/multi`,
                     itemsData
                 );
-                successToast(response.data.message, '關閉');
+                // successToast(response.data.message, '關閉');
             } catch (err) {
                 console.log(err.response.data.message);
             }
@@ -102,11 +105,23 @@ function Cart() {
                         <b className="">購物車</b>
                     </span>
                     <span className="minimum main-gary-light-color">
-                        共有{shoppingCart.length}件商品
+                        共有
+                        <span className="accent-color">
+                            {shoppingCart.length}
+                        </span>
+                        件商品
                     </span>
                     <span className="minimum">
                         總金額:NT ${shoppingCartPrice}
                     </span>
+                    <button
+                        className="cartBtn"
+                        onClick={() => {
+                            setShopCartState(false);
+                        }}
+                    >
+                        <Close />
+                    </button>
                 </div>
                 <div className="scrollStyle overflow-auto pb-2">
                     {shoppingCart.length !== 0 ? (
@@ -157,7 +172,6 @@ function Cart() {
                                                     {item.name}
                                                 </Link>
                                             )}
-                                            {item.name}
                                         </span>
                                         <span className="small gary-dark-color">
                                             數量:{item.amount}
@@ -167,12 +181,12 @@ function Cart() {
                                         </span>
                                     </div>
                                     <button
-                                        className="border-0 btn ms-auto"
+                                        className="btn border-0 ms-auto p-0"
                                         onClick={() => {
                                             handleRemoveItem(item.product_id);
                                         }}
                                     >
-                                        <img src={ashBin} alt="" />
+                                        <AshBin className="cartBtn ashBinSvg" />
                                     </button>
                                 </div>
                             );

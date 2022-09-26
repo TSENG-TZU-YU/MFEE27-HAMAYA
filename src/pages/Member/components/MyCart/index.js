@@ -61,7 +61,7 @@ function MyCart() {
                 if (items_amount !== 0) {
                     setHiddenState(true);
                     setMyCart(response.data.myCart);
-                    // console.log('All MyCart', response.data.myCart);
+                    console.log('All MyCart', response.data.myCart);
                     //分類別
                     let myCartList = response.data.myCart;
                     const myCart_cateA = myCartList.filter((v) => {

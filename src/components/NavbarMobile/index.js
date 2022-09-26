@@ -238,7 +238,16 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                             <ul className={showSublist02}>
                                 <li>
                                     <Link
-                                        to="/"
+                                        to="products"
+                                        className="accent-light-color fw-light text-nowrap"
+                                        onClick={closeList}
+                                    >
+                                        最新商品
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/products?main_id=1"
                                         className="accent-light-color fw-light text-nowrap"
                                         onClick={closeList}
                                     >
@@ -247,7 +256,7 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                                 </li>
                                 <li>
                                     <Link
-                                        to="/"
+                                        to="/products?main_id=2"
                                         className="accent-light-color fw-light text-nowrap"
                                         onClick={closeList}
                                     >
@@ -256,7 +265,7 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                                 </li>
                                 <li>
                                     <Link
-                                        to="/"
+                                        to="/products?main_id=3"
                                         className="accent-light-color fw-light text-nowrap"
                                         onClick={closeList}
                                     >
@@ -265,7 +274,7 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                                 </li>
                                 <li>
                                     <Link
-                                        to="/"
+                                        to="/products?main_id=4"
                                         className="accent-light-color fw-light text-nowrap"
                                         onClick={closeList}
                                     >
@@ -276,7 +285,7 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                                 </li>
                                 <li>
                                     <Link
-                                        to="/"
+                                        to="/products?main_id=5"
                                         className="accent-light-color fw-light text-nowrap"
                                         onClick={closeList}
                                     >
@@ -285,7 +294,7 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                                 </li>
                                 <li>
                                     <Link
-                                        to="/"
+                                        to="/products?main_id=6"
                                         className="accent-light-color fw-light text-nowrap"
                                         onClick={closeList}
                                     >
