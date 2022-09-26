@@ -85,7 +85,7 @@ function Car({ itemsCart }) {
 
     return (
         <button
-            className="add-car d-flex justify-content-center align-items-center border-0"
+            className="btn btn-primary add-car d-flex justify-content-center align-items-center border-0"
             onClick={(e) => {
                 e.preventDefault();
                 getCheck({ ...itemsCart, amount: 1 });

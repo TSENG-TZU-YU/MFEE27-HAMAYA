@@ -611,7 +611,7 @@ function Products() {
                     <Container>
                         {/* 桌機 篩選 */}
                         <div className="d-none d-md-block">
-                            <div className="d-flex flex-row-reverse">
+                            <div className="d-flex flex-row-reverse mt-3">
                                 <div className="col-10 d-flex justify-content-between align-items-center">
                                     {/* 麵包屑 */}
                                     <div className="d-flex">
@@ -728,7 +728,7 @@ function Products() {
 
                         {/* 手機 篩選 */}
                         <div className="d-md-none">
-                            <div className="d-flex justify-content-between align-items-center">
+                            <div className="d-flex justify-content-between align-items-center mt-5">
                                 {/* 麵包屑 */}
                                 <div className="d-flex">
                                     <BreadCrumb />

@@ -10,7 +10,7 @@ function MainOutlet(props) {
 
     return (
         <>
-            <div className="mainOutlet-fixed-height"></div>
+            <div className="mainOutlet-fixed-height d-none d-md-block"></div>
             <div className="mainOutlet-height">
                 <Outlet context={[selectCourse, setSelectCourse]} />
             </div>

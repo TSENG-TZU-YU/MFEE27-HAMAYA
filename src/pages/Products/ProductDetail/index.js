@@ -171,7 +171,7 @@ function Product() {
                             NT $ {price}
                         </h3>
                     </div>
-                    <div className="d-flex align-items-center mt-2">
+                    <div className="d-flex align-items-center mt-2 flex-row justify-content-center justify-content-md-start">
                         <div className="d-flex align-items-center mt-2">
                             <h6 className="mb-0 me-2 productDetail-line-height fw-400">
                                 數量：
@@ -504,9 +504,9 @@ function Product() {
 
     return (
         <>
-            <Container>
+            <Container className="productDetail-mobile">
                 {/* 麵包屑 */}
-                <div className="d-flex">
+                <div className="d-flex px-3">
                     <BreadCrumb />
                     {product.map((value) => {
                         return (
@@ -586,7 +586,7 @@ function Product() {
                                     })}
 
                                     {/* 收藏、分享、比較 btn */}
-                                    <div className="d-flex">
+                                    <div className="d-flex justify-content-center justify-content-md-start">
                                         {/* 收藏 */}
                                         {member.id ? (
                                             favProducts.includes(
@@ -698,7 +698,7 @@ function Product() {
                     );
                 })}
                 <div className="d-flex mt-5 align-items-center">
-                    <h4 className="text-nowrap fw-bold main-color me-3">
+                    <h4 className="text-nowrap fw-bold main-color me-3 mb-3">
                         推薦商品
                     </h4>
                     <div className="productDetail-vector bg-main-light-color"></div>

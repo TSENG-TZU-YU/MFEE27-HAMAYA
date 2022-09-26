@@ -7,6 +7,7 @@ import { API_URL } from '../../utils/config';
 import MemberListTable from './components/MemberListTable';
 import MemberListMobile from './components/MemberListMobile';
 import { successToast, errorToast, warningToast } from '../../components/Alert';
+import './index.css';
 
 import { io } from 'socket.io-client';
 
@@ -63,28 +64,33 @@ function Members(props) {
     //     return <Navigate to="/" />;
     // }
     return (
-        <div className="container">
-            <div className="mt-2 d-flex justify-content-between ">
-                <nav aria-label="breadcrumb ">
-                    <ol className="breadcrumb">
-                        <li className="breadcrumb-item">
-                            <a href="/">首頁</a>
-                        </li>
-                        <li className="breadcrumb-item">
-                            <a href="/member">會員專區</a>
-                        </li>
-                        <li className="breadcrumb-item " aria-current="page">
-                            {bread}
-                        </li>
-                    </ol>
-                </nav>
+        <>
+            <div className="container">
+                <div className="mt-2 d-flex justify-content-between ">
+                    <nav aria-label="breadcrumb ">
+                        <ol className="breadcrumb">
+                            <li className="breadcrumb-item">
+                                <a href="/">首頁</a>
+                            </li>
+                            <li className="breadcrumb-item">
+                                <a href="/member">會員專區</a>
+                            </li>
+                            <li
+                                className="breadcrumb-item "
+                                aria-current="page"
+                            >
+                                {bread}
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+                <MemberListMobile />
+                <div className="row">
+                    <MemberListTable />
+                    <Outlet context={[setbread]} />
+                </div>
             </div>
-            <MemberListMobile />
-            <div className="row">
-                <MemberListTable />
-                <Outlet context={[setbread]} />
-            </div>
-        </div>
+        </>
     );
 }
 
