@@ -78,7 +78,7 @@ function Header(props) {
             // shoppingCart={shoppingCart}
             // setShoppingCart={setShoppingCart}
             />
-            <nav className="bg-main-gary-light-color d-none d-md-block ">
+            <nav className="bg-main-gary-light-color d-none d-md-block header1">
                 <div className="container">
                     <div className="row header-height ">
                         <div className="col-2 p-0 d-flex justify-content-center align-items-center ">
