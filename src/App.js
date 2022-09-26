@@ -77,6 +77,9 @@ import Product from './pages/Admin/components/Product';
 import Teachers from './pages/Admin/components/Teachers';
 import BeHome from './pages/Admin/components/BeHome';
 
+//Order次頁
+import OrderDetail from './pages/Admin/components/Order/OrderDetail';
+
 //CustomerService次頁
 import CommonQA from './pages/Admin/components/CustomerService/CommonQA';
 import CommonQADetail from './pages/Admin/components/CustomerService/CommonQADetail';
@@ -291,6 +294,10 @@ function App() {
                                         <Route
                                             path="order"
                                             element={<Order />}
+                                        />
+                                        <Route
+                                            path="order/detail"
+                                            element={<OrderDetail />}
                                         />
                                         <Route
                                             path="product"

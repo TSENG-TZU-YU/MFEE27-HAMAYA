@@ -23,7 +23,7 @@ function Order(props) {
     const [socketConn, setSocketConn] = useState(null);
     const [orderQAList, setOrderQAList] = useState(null);
     const [pageNow, setPageNow] = useState(1); // 目前頁號
-    const [perPage, setPerPage] = useState(6); // 每頁多少筆資料
+    const [perPage, setPerPage] = useState(10); // 每頁多少筆資料
     const [pageTotal, setPageTotal] = useState(0); //總共幾頁
     const location = useLocation();
     //讀取頁數
@@ -70,12 +70,8 @@ function Order(props) {
                 className="page_number"
                 to={
                     pageNow > 1
-                        ? `/admin/customerservice/orderqa?page=${
-                              Number(pageNow) - 1
-                          }`
-                        : `/admin/customerservice/orderqa?page=${Number(
-                              pageNow
-                          )}`
+                        ? `/admin/order?page=${Number(pageNow) - 1}`
+                        : `/admin/order?page=${Number(pageNow)}`
                 }
             >
                 <FiChevronLeft />
@@ -86,7 +82,7 @@ function Order(props) {
                     return (
                         <Link
                             key={i}
-                            to={`/admin/customerservice/orderqa?page=${i + 1}`}
+                            to={`/admin/order?page=${i + 1}`}
                             className={
                                 i + 1 === Number(pageNow)
                                     ? 'page_number active'
@@ -101,12 +97,8 @@ function Order(props) {
                 className="page_number"
                 to={
                     pageNow < pageTotal
-                        ? `/admin/customerservice/orderqa?page=${
-                              Number(pageNow) + 1
-                          }`
-                        : `/admin/customerservice/orderqa?page=${Number(
-                              pageNow
-                          )}`
+                        ? `/admin/order?page=${Number(pageNow) + 1}`
+                        : `/admin/order?page=${Number(pageNow)}`
                 }
             >
                 <FiChevronRight />
@@ -204,7 +196,8 @@ function Order(props) {
                                         </th>
                                         <td className="text-nowrap">
                                             <span className="time">
-                                                {data.receiver}<br/>
+                                                {data.receiver}
+                                                <br />
                                                 ID:{data.user_id}
                                             </span>
                                         </td>
@@ -235,7 +228,7 @@ function Order(props) {
                                         <td className="text-nowrap ">
                                             <Link
                                                 className=""
-                                                to={`/admin/customerservice/orderqa/detail?orid=${data.order_id}`}
+                                                to={`/admin/order/detail?orid=${data.order_id}`}
                                             >
                                                 <img src={detail_img} alt="" />
                                                 查看詳細
