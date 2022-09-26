@@ -1,3 +1,9 @@
-.test {
-  min-height: 100vh;
+.mainOutlet-height {
+  min-height: 50vh;
+}
+
+@media screen and (max-width:576px) {
+  .mainOutlet-height {
+    min-height: 100vh;
+  }
 }

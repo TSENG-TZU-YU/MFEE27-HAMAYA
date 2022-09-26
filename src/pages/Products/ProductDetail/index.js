@@ -270,7 +270,6 @@ function Product() {
         } else {
             return (
                 <>
-                    {/* <h4 className="text-center accent-color">熱銷缺貨中</h4> */}
                     <button
                         className="col my-2 py-2 btn btn-danger productDetail-btn d-flex justify-content-center align-items-center"
                         disabled="disabled"
@@ -316,7 +315,7 @@ function Product() {
                 icon: 'success',
                 iconColor: '#86a8ae',
                 color: '#00323d',
-                title: '加入比較項目',
+                title: '加入比較項目成功!',
             });
         }
         if (newCompareItem) {
@@ -324,7 +323,7 @@ function Product() {
                 icon: 'warning',
                 iconColor: '#767676',
                 color: '#00323d',
-                title: '已加入比較項目中',
+                title: '已加入比較項目中!',
             });
         }
     }
@@ -537,7 +536,7 @@ function Product() {
                         {product.map((value, index) => {
                             return (
                                 <div
-                                    className="d-flex flex-column m-3 text-start"
+                                    className="d-flex flex-column m-3 text-start position-relative"
                                     key={index}
                                 >
                                     <div>
@@ -547,7 +546,7 @@ function Product() {
                                         <img
                                             src={note}
                                             alt="note"
-                                            className="productDetail-note position-absolute d-none d-md-block"
+                                            className="productDetail-note position-absolute d-none d-lg-block"
                                         />
                                         <div className="border-top border-secondary border-3 pt-3">
                                             <h6 className="mb-0 productDetail-line-height fw-400">

@@ -20,8 +20,8 @@ function MainOutlet(props) {
     const [selectCourse, setSelectCourse] = useState(true);
 
     return (
-        <div className="test">
-            <Outlet context={[selectCourse, setSelectCourse]} />;
+        <div className="mainOutlet-height">
+            <Outlet context={[selectCourse, setSelectCourse]} />
         </div>
     );
 }
