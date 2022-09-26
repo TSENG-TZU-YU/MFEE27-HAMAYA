@@ -136,7 +136,7 @@ function Header(props) {
                                                     to="products"
                                                     className="accent-light-color fw-light"
                                                 >
-                                                    最新消息
+                                                    最新商品
                                                 </Link>
                                             </li>
                                             <li>
