@@ -125,7 +125,7 @@ function ChildrenCourse({
                                         to={`${classChild.product_id}?class=${classChild.ins_main_id}`}
                                     >
                                         <div
-                                            className="introduce row mx-0 mb-5 class-shadow"
+                                            className="introduce row mx-0  class-shadow"
                                             data-aos="fade-right"
                                             data-aos-once="true"
                                         >

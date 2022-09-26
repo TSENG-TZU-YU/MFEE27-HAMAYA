@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './index.css';
 import Close from '../../assets/svg/close.svg';
 import { useAuth } from '../../utils/use_auth';
 
-
 import LogIn from './LogIn';
 import SignUp from './SignUp';
+
 
 function LogInSignUp({ setLoginPopup }) {
     const [logInActive, setLogInActive] = useState(true);

@@ -194,13 +194,13 @@ function Header(props) {
                                 </div>
                                 <div className="col p-0 m-2 m-lg-3 text-center header-text">
                                     <div className="navbaritem fw-bold">
-                                        <Link className="" to="class">
+                                        <Link className="" to="/class">
                                             音樂教育
                                         </Link>
                                         <ul className="list-unstyled bg-main-light-color py-1 mt-2">
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/class"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     音樂文章
@@ -210,9 +210,6 @@ function Header(props) {
                                                 <Link
                                                     to="/class/list?class=1"
                                                     className="accent-light-color fw-light"
-                                                    // onClick={() => {
-                                                    //     setSelectCourse(true);
-                                                    // }}
                                                 >
                                                     成人課程
                                                 </Link>
@@ -221,9 +218,6 @@ function Header(props) {
                                                 <Link
                                                     to="/class/list?class=2"
                                                     className="accent-light-color fw-light"
-                                                    // onClick={() => {
-                                                    //     setSelectCourse(false);
-                                                    // }}
                                                 >
                                                     兒童課程
                                                 </Link>

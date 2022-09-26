@@ -494,7 +494,7 @@ function Detailed({ ins_main_id }) {
                                                 </button>
 
                                                 <button
-                                                    className="col m-2 btn btn-primary AdultDetailed-btn d-flex justify-content-center align-items-center border-0"
+                                                    className="col m-2 btn btn-secondary AdultDetailed-btn d-flex justify-content-center align-items-center border-0"
                                                     onClick={() => {
                                                         setShopCartState(true);
                                                         getCheck({
