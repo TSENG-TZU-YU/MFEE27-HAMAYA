@@ -45,6 +45,18 @@ function MyCart() {
     const [myCartB, setMyCartB] = useState([]);
     //有資料true,沒資料false
     const [hiddenState, setHiddenState] = useState(false);
+    const [myCartInfo, setMyCartInfo] = useState({
+        receiver: member.fullName,
+        phone: member.phone,
+        freight: 0,
+        city: '',
+        dist: '',
+        address: '',
+        pay_method: 1,
+        coupon: 0,
+        coupon_id: '',
+        minimum: 0,
+    });
 
     useEffect(() => {
         setbread('購物車'); //載入頁面時 設定麵包削
@@ -102,6 +114,8 @@ function MyCart() {
                         setMyCart={setMyCart}
                         myCartB={myCartB}
                         setMyCartB={setMyCartB}
+                        myCartInfo={myCartInfo}
+                        setMyCartInfo={setMyCartInfo}
                         myCartA={myCartA}
                         setMyCartA={setMyCartA}
                         favA={favA}
@@ -116,6 +130,8 @@ function MyCart() {
                             setMyCart={setMyCart}
                             setMyCartA={setMyCartA}
                             setMyCartB={setMyCartB}
+                            myCartInfo={myCartInfo}
+                            setMyCartInfo={setMyCartInfo}
                             setHiddenState={setHiddenState}
                             calcTotalPrice={calcTotalPrice()}
                         />

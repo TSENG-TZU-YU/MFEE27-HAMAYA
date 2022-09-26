@@ -24,15 +24,26 @@ function MyOrder() {
             let response = await axios.get(
                 `${API_URL}/member/myorder/${member.id}`
             );
-            console.log('response', response.data);
+            // console.log('response DoCheckout', response.data);
+            //排序時間大小
+            let sortCreateTime = response.data.myOrder.sort((a, b) => {
+                if (a.create_time > b.create_time) {
+                    return -1;
+                }
+                if (a.create_time < b.create_time) {
+                    return 1;
+                }
+                return 0;
+            });
+            // console.log('sortCreateTime', sortCreateTime);
             //找order_id
-            let order_id = response.data.myOrder.map((item) => item.order_id);
+            let order_id = sortCreateTime.map((item) => item.order_id);
             //過濾重複的
             let noRepeat = order_id.filter((item, index, arr) => {
                 return arr.indexOf(item) === index;
             });
             let newResponse = noRepeat.map((id) => {
-                return response.data.myOrder.find((item) => {
+                return sortCreateTime.find((item) => {
                     return item.order_id === id;
                 });
             });

@@ -19,6 +19,8 @@ function MyCartProduct({
     setMyCart,
     myCartA,
     setMyCartA,
+    myCartInfo,
+    setMyCartInfo,
     setHiddenState,
     check,
     setCheck,
@@ -27,7 +29,7 @@ function MyCartProduct({
     setFavA,
 }) {
     const { member } = useAuth();
-
+    // console.log('mycart product', myCartInfo);
     //進行刪除
     function handleRemoveItem(itemId) {
         // console.log('click');
@@ -56,6 +58,9 @@ function MyCartProduct({
                 setMyCart(newMyCartAfterDelete);
                 if (newMyCartAfterDelete.length === 0) {
                     setHiddenState(false);
+                }
+                if (myCart_cateA.length === 0) {
+                    setMyCartInfo({ ...myCartInfo, freight: 0 });
                 }
             };
             setItemDataDelete();
