@@ -21,7 +21,7 @@ function Header(props) {
     const { member, setMember, isLogin, setIsLogin, hideHeaderFooter } =
         useAuth();
     const [loginPopup, setLoginPopup] = useState(false);
-    // const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
+
     const { shopCartState, setShopCartState } = useCart();
     const navigate = useNavigate();
     // 課程 Toggled
@@ -78,7 +78,7 @@ function Header(props) {
             // shoppingCart={shoppingCart}
             // setShoppingCart={setShoppingCart}
             />
-            <nav className="bg-main-gary-light-color d-none d-md-block ">
+            <nav className="bg-main-gary-light-color d-none d-md-block header1">
                 <div className="container">
                     <div className="row header-height ">
                         <div className="col-2 p-0 d-flex justify-content-center align-items-center ">
@@ -136,7 +136,7 @@ function Header(props) {
                                                     to="products"
                                                     className="accent-light-color fw-light"
                                                 >
-                                                    最新消息
+                                                    最新商品
                                                 </Link>
                                             </li>
                                             <li>

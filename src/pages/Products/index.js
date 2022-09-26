@@ -200,6 +200,7 @@ function Products() {
         setTimeout(() => {
             setIsLoading(false);
         }, 1500);
+        // 產品主次類別
         let getCategory = async () => {
             let response = await axios.get(`${API_URL}/products/category`);
             setCategorySub(response.data.categorySub);
@@ -381,10 +382,20 @@ function Products() {
             setNewCompareLocal([{ ...compareItem }, ...compareProduct]);
             // 存localStorage
             setCompareProduct([{ ...compareItem }, ...compareProduct]);
-            successToast('成功加入比較!', '關閉');
+            successSmallToast.fire({
+                icon: 'success',
+                iconColor: '#86a8ae',
+                color: '#00323d',
+                title: '加入比較項目!',
+            });
         }
         if (newCompareItem) {
-            warningToast('已加入項目中', '關閉');
+            successSmallToast.fire({
+                icon: 'warning',
+                iconColor: '#767676',
+                color: '#00323d',
+                title: '已加入比較項目中!',
+            });
         }
     }
 
@@ -534,6 +545,60 @@ function Products() {
             });
         }
     }
+
+    const cartCheckBtn = (props) => {
+        const {
+            product_id,
+            category_id,
+            image,
+            name,
+            price,
+            spec,
+            shipment,
+            stock,
+        } = props;
+        if (stock !== 0) {
+            return (
+                <>
+                    <button
+                        className="btn-primary btn w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
+                        onClick={(e) => {
+                            setShopCartState(true);
+                            getCheck({
+                                product_id: product_id,
+                                category_id: category_id,
+                                image: image,
+                                name: name,
+                                amount: 1,
+                                price: price,
+                                spec: spec,
+                                shipment: shipment,
+                                stock: stock,
+                            });
+                        }}
+                    >
+                        <img
+                            src={cartCheck}
+                            alt="cartCheck"
+                            className="product-icon me-1"
+                        />
+                        加入購物車
+                    </button>
+                </>
+            );
+        } else {
+            return (
+                <>
+                    <button
+                        className="btn btn-danger w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
+                        disabled="disabled"
+                    >
+                        熱銷缺貨中
+                    </button>
+                </>
+            );
+        }
+    };
 
     return (
         <>
@@ -931,6 +996,7 @@ function Products() {
                                                                                 mainId: product.ins_main_id,
                                                                                 create_time:
                                                                                     product.create_time,
+                                                                                stock: product.stock,
                                                                             }
                                                                         )
                                                                     }
@@ -944,41 +1010,20 @@ function Products() {
                                                                     />
                                                                     比較
                                                                 </div>
-                                                                <button
-                                                                    className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
-                                                                    onClick={(
-                                                                        e
-                                                                    ) => {
-                                                                        setShopCartState(
-                                                                            true
-                                                                        );
-                                                                        getCheck(
-                                                                            {
-                                                                                product_id:
-                                                                                    product.product_id,
-                                                                                category_id:
-                                                                                    product.category_id,
-                                                                                image: product.image,
-                                                                                name: product.name,
-                                                                                amount: 1,
-                                                                                price: product.price,
-                                                                                spec: product.spec,
-                                                                                shipment:
-                                                                                    product.shipment,
-                                                                                stock: product.stock,
-                                                                            }
-                                                                        );
-                                                                    }}
-                                                                >
-                                                                    <img
-                                                                        src={
-                                                                            cartCheck
-                                                                        }
-                                                                        alt="cartCheck"
-                                                                        className="product-icon me-1"
-                                                                    />
-                                                                    加入購物車
-                                                                </button>
+                                                                {cartCheckBtn({
+                                                                    product_id:
+                                                                        product.product_id,
+                                                                    category_id:
+                                                                        product.category_id,
+                                                                    image: product.image,
+                                                                    name: product.name,
+                                                                    amount: 1,
+                                                                    price: product.price,
+                                                                    spec: product.spec,
+                                                                    shipment:
+                                                                        product.shipment,
+                                                                    stock: product.stock,
+                                                                })}
                                                             </div>
                                                             <div className="product-body py-2">
                                                                 {/* 品名 */}

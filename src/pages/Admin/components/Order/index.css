@@ -1,0 +1,25 @@
+.OrderDetail{
+    /* width: 100%; */
+    /* background-color: aquamarine; */
+}
+.OrderDetail .test{
+    text-align: center;
+}
+.OrderDetail .title1{
+    width: 110px;
+    text-align: center;
+}
+.OrderDetail .title2{
+    width: 150px;
+}
+.OrderDetail .table1{
+    width: 100%;
+}
+.OrderDetail .table2{
+    width: 100%;
+}
+.OrderDetail .classimg{
+    width: 100px;
+    height: 60px;
+    object-fit: cover;
+}

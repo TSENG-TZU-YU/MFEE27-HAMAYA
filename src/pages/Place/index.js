@@ -176,7 +176,7 @@ function Place(props) {
                                     Studio-A 錄音室
                                 </h5>
                             </div>
-                            <div className="col-12 col-md-6 order-1 ">
+                            <div className="col-12 col-md-6 order-1 d-flex align-items-center">
                                 <div className="position-relative p-3 studioImgDIV">
                                     <img
                                         src={studioA01}
@@ -207,8 +207,8 @@ function Place(props) {
                                     />
                                 </div>
                             </div>
-                            <div className="col-12 col-md-6 order-3 order-md-2">
-                                <h4 className="item1 d-flex justify-content-end d-none d-md-block">
+                            <div className="col-12 col-md-6 order-3 order-md-2 ">
+                                <h4 className="item1 d-none d-md-block">
                                     Studio-A 錄音室
                                 </h4>
                                 <div className="intro1">

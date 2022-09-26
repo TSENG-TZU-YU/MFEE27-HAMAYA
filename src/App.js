@@ -52,6 +52,10 @@ import MyQuestion from './pages/Member/components/MyQuestion';
 import MyOrderDetail from './pages/Member/components/MyOrder/components/MyOrderDetail';
 import MyPlace from './pages/Member/components/MyPlace';
 
+//MyOrder次頁面
+import MyOrderAdd from './pages/Member/components/MyOrder/components/MyOrderAdd';
+import MyOrderQA from './pages/Member/components/MyOrder/components/MyOrderQA';
+
 //MyQuestion 次頁面
 import MyQuestionList from './pages/Member/components/MyQuestion/components/MyQuestionList';
 import MyQuestionAdd from './pages/Member/components/MyQuestion/components/MyQuestionAdd';
@@ -73,6 +77,9 @@ import Order from './pages/Admin/components/Order';
 import Product from './pages/Admin/components/Product';
 import Teachers from './pages/Admin/components/Teachers';
 import BeHome from './pages/Admin/components/BeHome';
+
+//Order次頁
+import OrderDetail from './pages/Admin/components/Order/OrderDetail';
 
 //CustomerService次頁
 import CommonQA from './pages/Admin/components/CustomerService/CommonQA';
@@ -186,7 +193,14 @@ function App() {
                                             path="/member/myorder/:orderId"
                                             element={<MyOrderDetail />}
                                         />
-
+                                        <Route
+                                            path="myorder/add"
+                                            element={<MyOrderAdd />}
+                                        />
+                                        <Route
+                                            path="myorder/qa"
+                                            element={<MyOrderQA />}
+                                        />
                                         <Route
                                             path="mycoupon"
                                             element={<MyCoupon />}
@@ -281,6 +295,10 @@ function App() {
                                         <Route
                                             path="order"
                                             element={<Order />}
+                                        />
+                                        <Route
+                                            path="order/detail"
+                                            element={<OrderDetail />}
                                         />
                                         <Route
                                             path="product"

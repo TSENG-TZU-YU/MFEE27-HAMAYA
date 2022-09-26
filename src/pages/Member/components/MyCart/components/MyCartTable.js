@@ -6,7 +6,10 @@ import { useAuth } from '../../../../../utils/use_auth';
 import '../MyCart.scss';
 import MyCartProduct from './MyCartProduct';
 import MyCartClass from './MyCartClass';
-import { successSmallToast } from '../../../../../components/Alert';
+import {
+    successSmallToast,
+    successToast,
+} from '../../../../../components/Alert';
 
 function MyCartTable({
     myCart,
@@ -63,8 +66,6 @@ function MyCartTable({
 
     //依賴checkbox移除
     function handleRemoveItem() {
-        console.log('移除品項', check);
-
         if (member !== null && member.id !== '') {
             //重組陣列 加入member.id
             let newCheck = check.map((product_id) => {
@@ -76,7 +77,7 @@ function MyCartTable({
                     data: newCheck,
                 });
                 // console.log('刪除response.data', response.data);
-                alert(response.data.message);
+                successToast(response.data.message, '關閉');
 
                 // //copy myCart
                 let newMyCart = myCart.map((item) => {

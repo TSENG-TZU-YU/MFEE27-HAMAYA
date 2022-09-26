@@ -83,6 +83,12 @@ function BucketClass({
     //點選icon的加入購物車
     function getCheck(itemInfo) {
         console.log('itemInfo', itemInfo);
+        let stock = itemInfo.stock;
+        let amount = itemInfo.amount;
+        if (stock < amount) {
+            setShopCartState(false);
+            return errorToast('已額滿', '關閉');
+        }
         //確認有沒有重複
         let newItemInfo = shoppingCart.find((v) => {
             return v.product_id === itemInfo.product_id;
@@ -112,7 +118,7 @@ function BucketClass({
                     //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
                     try {
                         let response = await axios.post(
-                            `${API_URL}/member/mycart`,
+                            `${API_URL}/member/mycart/single`,
                             itemsData
                         );
                         // console.log('duplicate', response.data.duplicate);
@@ -184,7 +190,7 @@ function BucketClass({
                     //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
                     try {
                         let response = await axios.post(
-                            `${API_URL}/member/mycart`,
+                            `${API_URL}/member/mycart/single`,
                             itemsData
                         );
                         // console.log('duplicate', response.data.duplicate);
@@ -224,14 +230,11 @@ function BucketClass({
                 color: '#00323d',
                 title: response.data.message,
             });
-            // setMyBucketB(response.data.class);
             setMyBucketB(response.data.class);
             const pageListB = _.chunk(response.data.class, perPageB);
-            if (pageListB.length > 0) {
-                setPageTotalB(pageListB.length);
-                // 設定到state中
-                setPageProductsB(pageListB);
-            }
+            setPageTotalB(pageListB.length);
+            // 設定到state中
+            setPageProductsB(pageListB);
         } catch (err) {
             successSmallToast.fire({
                 icon: 'error',
@@ -410,6 +413,7 @@ function BucketClass({
                                                         name: item.name,
                                                         amount: 1,
                                                         price: item.price,
+                                                        stock: item.stock,
                                                     });
                                                 }}
                                             >

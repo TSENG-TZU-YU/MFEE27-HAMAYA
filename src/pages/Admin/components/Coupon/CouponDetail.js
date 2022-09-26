@@ -23,6 +23,7 @@ import { FiTrash2,FiTool,FiSettings } from 'react-icons/fi';
 function CouponDetail(props) {
     const [loadingComplete, setLoadingComplete] = useState(false); //是否已載入完成
     const [couponDetailList, setCouponDetailList] = useState(null);
+    
     const navigate = useNavigate();
     const location = useLocation();
     //讀取優惠券
