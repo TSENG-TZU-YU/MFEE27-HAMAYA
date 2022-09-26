@@ -56,7 +56,6 @@ function Cart() {
     }
     //多筆加入購物車 訂單結帳
     function getMultipleCheck() {
-        
         let shoppingCartLocal = JSON.parse(
             localStorage.getItem('shoppingCart')
         );
@@ -200,22 +199,16 @@ function Cart() {
                 <div className="pt-2">
                     {/* 訂單結帳 如果未登入要要求登入 已登入要把資料送到後台重複的不寫入 沒有則寫入 清空localStorage*/}
                     <button
-                        className="border-0 bg-main-color checkOutBtn py-2"
+                        className="btn btn-primary border-0 bg-main-color checkOutBtn py-2"
                         onClick={() => {
                             getMultipleCheck();
                         }}
                     >
                         <CheckOut className="checkOutIcon" />
-                        <span className="px-2">訂單結帳</span>
+                        <span className="px-2">前往會員購物車</span>
                     </button>
                 </div>
             </div>
-            <div
-            //className="Cart-bg"
-            //onClick={(e) => {
-            //setShopCartState(false);
-            //}}
-            ></div>
         </div>
     );
 }

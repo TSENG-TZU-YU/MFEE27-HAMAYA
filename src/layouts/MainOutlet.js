@@ -9,9 +9,12 @@ function MainOutlet(props) {
     const [selectCourse, setSelectCourse] = useState(true);
 
     return (
-        <div className="mainOutlet-height">
-            <Outlet context={[selectCourse, setSelectCourse]} />
-        </div>
+        <>
+            <div className="mainOutlet-fixed-height d-none d-md-block"></div>
+            <div className="mainOutlet-height">
+                <Outlet context={[selectCourse, setSelectCourse]} />
+            </div>
+        </>
     );
 }
 

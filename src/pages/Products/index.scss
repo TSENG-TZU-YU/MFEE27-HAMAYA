@@ -123,7 +123,16 @@ li.products-page-active {
   opacity: 0;
   line-height: 1rem;
   letter-spacing: 0.1rem;
+  height: 2.5rem;
 }
+
+// @media screen and (max-width:576px) {
+//   .product-compare,
+//   .product-cart-check-btn,
+//   .product-like  {
+//     opacity: 1;
+//   }
+// }
 
 .product:hover .product-compare {
   opacity: 1;

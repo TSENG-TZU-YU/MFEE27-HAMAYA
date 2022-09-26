@@ -22,6 +22,12 @@
   border-color: #BABABA;
 }
 
+@media screen and (max-width:576px) {
+  .product-purchase-quantity {
+    width: 50px;
+  }
+}
+
 .product-purchase-quantity > h4{
   line-height: 45px;
 }
@@ -47,4 +53,9 @@
 
 .align-items-stretch {
   align-items: stretch;
+}
+@media screen and (max-width:576px) {
+  .productDetail-mobile {
+    margin-top: 80px;
+  }
 }

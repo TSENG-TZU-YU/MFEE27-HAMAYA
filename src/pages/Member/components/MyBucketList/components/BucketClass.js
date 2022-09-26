@@ -127,6 +127,7 @@ function BucketClass({
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
+                        setShopCartState(true);
                         successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);
@@ -199,6 +200,7 @@ function BucketClass({
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
+                        setShopCartState(true);
                         successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);
@@ -317,7 +319,6 @@ function BucketClass({
                     <button
                         className="btn btn-primary col mx-2 p-0 text-nowrap"
                         onClick={() => {
-                            setShopCartState(true);
                             //checkbox select add cart
                             getCheckBucket();
                         }}
@@ -403,7 +404,6 @@ function BucketClass({
                                             <button
                                                 className="btn border-0 p-0 mx-3"
                                                 onClick={() => {
-                                                    setShopCartState(true);
                                                     getCheck({
                                                         product_id:
                                                             item.product_id,

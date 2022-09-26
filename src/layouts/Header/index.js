@@ -78,7 +78,7 @@ function Header(props) {
             // shoppingCart={shoppingCart}
             // setShoppingCart={setShoppingCart}
             />
-            <nav className="bg-main-gary-light-color d-none d-md-block header1">
+            <nav className="bg-main-gary-light-color d-none d-md-block fixed-top header1 header-box-shadow">
                 <div className="container">
                     <div className="row header-height ">
                         <div className="col-2 p-0 d-flex justify-content-center align-items-center ">
@@ -297,8 +297,8 @@ function Header(props) {
                     )}
                     <ScrollTo />
                 </div>
+                {shopCartState ? <Cart className="sticky-top" /> : ''}
             </nav>
-            {shopCartState ? <Cart /> : ''}
         </div>
     );
 }

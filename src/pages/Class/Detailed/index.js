@@ -147,6 +147,7 @@ function Detailed({ ins_main_id }) {
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
+                        setShopCartState(true);
                         successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);
@@ -496,7 +497,6 @@ function Detailed({ ins_main_id }) {
                                                 <button
                                                     className="col m-2 btn btn-secondary AdultDetailed-btn d-flex justify-content-center align-items-center border-0"
                                                     onClick={() => {
-                                                        setShopCartState(true);
                                                         getCheck({
                                                             ...classDetailed,
                                                             amount: 1,

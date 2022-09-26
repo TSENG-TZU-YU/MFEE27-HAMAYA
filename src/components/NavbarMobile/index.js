@@ -14,6 +14,7 @@ import drop_down_menu from './drop_down_menu.svg';
 import drop_up_menu from './drop_up_menu.svg';
 import ScrollTo from '../ScrollTo';
 import { useCart } from '../../utils/use_cart';
+import Cart from '../../layouts/Cart/Cart';
 
 function NavbarMobile({ shoppingCart, setShoppingCart }) {
     const [loginPopup, setLoginPopup] = useState(false);
@@ -63,7 +64,7 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
     return (
         <>
             {loginPopup && <LogInSignUp setLoginPopup={setLoginPopup} />}
-            <nav className="NavbarMobile list-unstyled d-block d-md-none ">
+            <nav className="NavbarMobile list-unstyled d-block d-md-none  fixed-top ">
                 <div className="space-block"></div>
                 <div className="header d-flex justify-content-between align-items-center px-2">
                     <div className="">
@@ -387,6 +388,7 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                     </ul>
                     <ScrollTo />
                 </div>
+                {shopCartState ? <Cart className="sticky-top" /> : ''}
             </nav>
         </>
     );

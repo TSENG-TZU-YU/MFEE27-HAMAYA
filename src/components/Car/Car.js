@@ -68,6 +68,7 @@ function Car({ itemsCart }) {
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
+                        setShopCartState(true);
                         successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);
@@ -84,9 +85,8 @@ function Car({ itemsCart }) {
 
     return (
         <button
-            className="add-car d-flex justify-content-center align-items-center border-0"
+            className="btn btn-primary add-car d-flex justify-content-center align-items-center border-0"
             onClick={(e) => {
-                setShopCartState(true);
                 e.preventDefault();
                 getCheck({ ...itemsCart, amount: 1 });
                 console.log('itemsCart', itemsCart);

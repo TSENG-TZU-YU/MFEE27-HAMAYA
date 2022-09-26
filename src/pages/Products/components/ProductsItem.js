@@ -105,6 +105,7 @@ function ProductsItem({
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
+                        setShopCartState(true);
                         successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);
@@ -258,7 +259,6 @@ function ProductsItem({
                 <button
                     className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
                     onClick={() => {
-                        setShopCartState(true);
                         getCheck({
                             product_id: product_id,
                             category_id: category_id,

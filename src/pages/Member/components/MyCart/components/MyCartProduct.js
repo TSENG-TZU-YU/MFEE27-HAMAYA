@@ -127,6 +127,7 @@ function MyCartProduct({
             });
         }
     }
+    console.log('myCartA', myCartA);
 
     return (
         <>
@@ -150,7 +151,9 @@ function MyCartProduct({
                                     />
                                 </div>
                                 <div className="flex-lg-grow-1">
-                                    <Link to={`/products/${item.product_id}`}>
+                                    <Link
+                                        to={`/products/${item.product_id}?main_id=${item.ins_main_id}`}
+                                    >
                                         <img
                                             className="myCart-Img myCart-contain"
                                             src={require(`../../../../../album/products/${item.image}`)}
@@ -163,7 +166,9 @@ function MyCartProduct({
                         <td align="center">
                             <div className="d-flex flex-column align-items-lg-start pt-lg-2">
                                 <div>
-                                    <Link to={`/products/${item.product_id}`}>
+                                    <Link
+                                        to={`/products/${item.product_id}?main_id=${item.ins_main_id}`}
+                                    >
                                         <span className="p main-color">
                                             <b>{item.name}</b>
                                         </span>
