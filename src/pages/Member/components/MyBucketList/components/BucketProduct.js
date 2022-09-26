@@ -151,11 +151,9 @@ function BucketProduct({
             });
             setMyBucketA(response.data.product);
             const pageListA = _.chunk(response.data.product, perPageA);
-            if (pageListA.length > 0) {
-                setPageTotalA(pageListA.length);
-                // 設定到state中
-                setPageProductsA(pageListA);
-            }
+            setPageTotalA(pageListA.length);
+            // 設定到state中
+            setPageProductsA(pageListA);
         } catch (err) {
             successSmallToast.fire({
                 icon: 'error',
@@ -281,6 +279,8 @@ function BucketProduct({
         }
         warningToast('已加入臨時購物車', '關閉');
     }
+
+    console.log(pageProductsA);
     return (
         <>
             <div className="row p-2">

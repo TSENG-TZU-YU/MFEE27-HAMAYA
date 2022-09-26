@@ -224,14 +224,11 @@ function BucketClass({
                 color: '#00323d',
                 title: response.data.message,
             });
-            // setMyBucketB(response.data.class);
             setMyBucketB(response.data.class);
             const pageListB = _.chunk(response.data.class, perPageB);
-            if (pageListB.length > 0) {
                 setPageTotalB(pageListB.length);
                 // 設定到state中
                 setPageProductsB(pageListB);
-            }
         } catch (err) {
             successSmallToast.fire({
                 icon: 'error',
