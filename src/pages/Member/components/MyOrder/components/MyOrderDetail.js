@@ -81,12 +81,12 @@ function MyOrderDetail() {
     }
     //前往結帳
     function doCheckOut() {
-        setOrderTwo(true);
         // eslint-disable-next-line no-restricted-globals
         let yes = confirm('你確定嗎？');
 
         if (yes) {
             alert('你按了確定按鈕');
+            setOrderTwo(true);
         } else {
             alert('你按了取消按鈕');
         }

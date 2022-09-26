@@ -18,6 +18,8 @@ function MyCartTable({
     setMyCartA,
     myCartB,
     setMyCartB,
+    myCartInfo,
+    setMyCartInfo,
     favA,
     setFavA,
     favB,
@@ -210,6 +212,8 @@ function MyCartTable({
                                 setMyCart={setMyCart}
                                 myCartA={myCartA}
                                 setMyCartA={setMyCartA}
+                                myCartInfo={myCartInfo}
+                                setMyCartInfo={setMyCartInfo}
                                 setHiddenState={setHiddenState}
                                 check={check}
                                 setCheck={setCheck}

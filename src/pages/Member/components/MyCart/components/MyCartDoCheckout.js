@@ -16,6 +16,8 @@ function MyCartDoCheckout({
     setMyCart,
     setMyCartA,
     setMyCartB,
+    myCartInfo,
+    setMyCartInfo,
     setHiddenState,
     calcTotalPrice,
 }) {
@@ -23,19 +25,7 @@ function MyCartDoCheckout({
     const [myCoupon, setMyCoupon] = useState([]);
     const navigate = useNavigate();
 
-    const [myCartInfo, setMyCartInfo] = useState({
-        receiver: member.fullName,
-        phone: member.phone,
-        freight: 0,
-        city: '',
-        dist: '',
-        address: '',
-        pay_method: 1,
-        coupon: 0,
-        coupon_id: '',
-        minimum: 0,
-    });
-    console.log('myCartInfo', myCartInfo);
+    // console.log('myCartInfo DoCheckout', myCartInfo);
     useEffect(() => {
         async function getCoupon() {
             try {
@@ -85,11 +75,12 @@ function MyCartDoCheckout({
             }
         }
         getCoupon();
+        //運費
         let checkA = myCart.filter((v) => {
             return v.category_id === 'A';
         });
-        // console.log('A', checkA);
-        if (checkA !== 0) {
+        console.log('A', checkA);
+        if (checkA.length !== 0) {
             setMyCartInfo({ ...myCartInfo, freight: 2000 });
         }
     }, []);
