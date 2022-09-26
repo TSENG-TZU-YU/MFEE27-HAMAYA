@@ -84,7 +84,6 @@ export const basicAlert = (title, confirmBtnName) => {
 
 // 小的 toast 訊息
 export const successSmallToast = Swal.mixin({
-    width: '10%',
     toast: true,
     position: 'top',
     showConfirmButton: false,

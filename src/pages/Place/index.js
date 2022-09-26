@@ -207,7 +207,7 @@ function Place(props) {
                                     />
                                 </div>
                             </div>
-                            <div className="col-12 col-md-6 order-3 order-md-2">
+                            <div className="col-12 col-md-6 order-3 order-md-2 ">
                                 <h4 className="item1 d-flex justify-content-end d-none d-md-block">
                                     Studio-A 錄音室
                                 </h4>

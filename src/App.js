@@ -51,6 +51,10 @@ import MyQuestion from './pages/Member/components/MyQuestion';
 import MyOrderDetail from './pages/Member/components/MyOrder/components/MyOrderDetail';
 import MyPlace from './pages/Member/components/MyPlace';
 
+//MyOrder次頁面
+import MyOrderAdd from './pages/Member/components/MyOrder/components/MyOrderAdd';
+import MyOrderQA from './pages/Member/components/MyOrder/components/MyOrderQA';
+
 //MyQuestion 次頁面
 import MyQuestionList from './pages/Member/components/MyQuestion/components/MyQuestionList';
 import MyQuestionAdd from './pages/Member/components/MyQuestion/components/MyQuestionAdd';
@@ -185,7 +189,14 @@ function App() {
                                             path="/member/myorder/:orderId"
                                             element={<MyOrderDetail />}
                                         />
-
+                                        <Route
+                                            path="myorder/add"
+                                            element={<MyOrderAdd />}
+                                        />
+                                        <Route
+                                            path="myorder/qa"
+                                            element={<MyOrderQA />}
+                                        />
                                         <Route
                                             path="mycoupon"
                                             element={<MyCoupon />}
