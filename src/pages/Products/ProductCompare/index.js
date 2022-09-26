@@ -406,7 +406,6 @@ function ProductCompare(props) {
                                                 }}
                                                 className="me-5 cursor-pointer"
                                                 onClick={() => {
-                                                    setShopCartState(true);
                                                     getCheck({
                                                         product_id:
                                                             value.product_id,

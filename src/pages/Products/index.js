@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
@@ -7,8 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 // 套件
 import { Container } from 'react-bootstrap';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+// import AOS from 'aos';
+// import 'aos/dist/aos.css';
 
 // 樣式
 import './index.scss';
@@ -71,8 +71,6 @@ import { useAuth } from '../../utils/use_auth';
 
 // 購物車
 import { useCart } from '../../utils/use_cart';
-// import Cart from '../../layouts/Cart/Cart';
-import { RiContactsBookLine } from 'react-icons/ri';
 
 // 收藏
 import { useLiked } from '../../utils/use_liked';
@@ -128,16 +126,6 @@ function Products() {
     // 收藏
     const { favProducts, setFavProducts } = useLiked();
 
-    // 取得商品次類別 api
-    // useEffect(() => {
-    //     let getCategory = async () => {
-    //         let response = await axios.get(`${API_URL}/products/category`);
-    //         setCategorySub(response.data.categorySub);
-    //         setCategoryMain(response.data.categoryMain);
-    //     };
-    //     getCategory();
-    // }, []);
-
     // 分頁用
     const [pageNow, setPageNow] = useState(1); // 目前頁號
     const [perPage, setPerPage] = useState(24); // 每頁多少筆資料
@@ -174,6 +162,7 @@ function Products() {
         setIsLoading(true);
         // 切換撥放呈現商品項目動畫
         setIsVisable(true);
+        // 回歸原始狀態
         clearState();
         let getProducts = async () => {
             let response = await axios.get(
@@ -285,12 +274,20 @@ function Products() {
             (product) => product.price >= minPrice && product.price <= maxPrice
         );
 
+        // 把結果丟去 debounce
+        debounceHandle(newProducts);
+    };
+
+    const handle = (newProducts) => {
         setPageNow(1);
         setDisplayProducts(newProducts);
         const newPageProducts = _.chunk(newProducts, perPage);
         setPageTotal(newPageProducts.length);
         setPageProducts(newPageProducts);
     };
+
+    // debounce function + useCallback
+    const debounceHandle = useCallback(_.debounce(handle, 400), []);
 
     // 當類別重選時篩選條件回初始值
     const clearState = () => {
@@ -306,6 +303,8 @@ function Products() {
     useEffect(() => {
         applyFilters();
     }, [products, colorTags, selectedPrice, brandTags, searchWord, sortBy]);
+
+    useCallback(_.debounce(applyFilters, 10000), []);
 
     // Toggled
     const [productCompare, setProductCompare] = useState(false);
@@ -454,6 +453,7 @@ function Products() {
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
+                        setShopCartState(true);
                         successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);
@@ -563,7 +563,6 @@ function Products() {
                     <button
                         className="btn-primary btn w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
                         onClick={(e) => {
-                            setShopCartState(true);
                             getCheck({
                                 product_id: product_id,
                                 category_id: category_id,
@@ -578,6 +577,8 @@ function Products() {
                         }}
                     >
                         <img
+                            width="30px"
+                            height="30px"
                             src={cartCheck}
                             alt="cartCheck"
                             className="product-icon me-1"

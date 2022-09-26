@@ -237,7 +237,6 @@ function Product() {
                         <button
                             className="col m-2 btn btn-secondary productDetail-btn d-flex justify-content-center align-items-center"
                             onClick={() => {
-                                setShopCartState(true);
                                 getCheck({
                                     product_id,
                                     category_id,
@@ -390,6 +389,7 @@ function Product() {
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
+                        setShopCartState(true);
                         successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);

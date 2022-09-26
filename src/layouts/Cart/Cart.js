@@ -157,7 +157,6 @@ function Cart() {
                                                     {item.name}
                                                 </Link>
                                             )}
-                                            {item.name}
                                         </span>
                                         <span className="small gary-dark-color">
                                             數量:{item.amount}
@@ -192,16 +191,10 @@ function Cart() {
                         }}
                     >
                         <CheckOut className="checkOutIcon" />
-                        <span className="px-2">訂單結帳</span>
+                        <span className="px-2">前往會員購物車</span>
                     </button>
                 </div>
             </div>
-            <div
-            //className="Cart-bg"
-            //onClick={(e) => {
-            //setShopCartState(false);
-            //}}
-            ></div>
         </div>
     );
 }

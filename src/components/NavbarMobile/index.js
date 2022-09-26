@@ -14,6 +14,7 @@ import drop_down_menu from './drop_down_menu.svg';
 import drop_up_menu from './drop_up_menu.svg';
 import ScrollTo from '../ScrollTo';
 import { useCart } from '../../utils/use_cart';
+import Cart from '../../layouts/Cart/Cart';
 
 function NavbarMobile({ shoppingCart, setShoppingCart }) {
     const [loginPopup, setLoginPopup] = useState(false);
@@ -388,6 +389,7 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                     <ScrollTo />
                 </div>
             </nav>
+            {/* {shopCartState ? <Cart className="sticky-top" /> : ''} */}
         </>
     );
 }

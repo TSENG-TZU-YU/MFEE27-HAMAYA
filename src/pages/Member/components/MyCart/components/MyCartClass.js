@@ -61,7 +61,6 @@ function MyCartClass({
             setItemDataDelete();
         }
     }
-    // console.log(myCartB);
 
     // 新增收藏
     const handleAddFavorite = (itemsData) => {
