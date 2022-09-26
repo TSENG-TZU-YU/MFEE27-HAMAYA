@@ -100,7 +100,7 @@ function NEWs() {
                 <Link to="/">
                     <p className="News-Breadcrumbs">首頁</p>
                 </Link>
-                /
+                &nbsp;/&nbsp;
                 <Link to="/class">
                     <p className="News-Breadcrumbs">最新消息</p>
                 </Link>

@@ -149,7 +149,7 @@ function Place(props) {
                         <a href="/">
                             <p>首頁</p>
                         </a>
-                        /
+                        &nbsp;/&nbsp;
                         <a href="/">
                             <p>場地租借</p>
                         </a>

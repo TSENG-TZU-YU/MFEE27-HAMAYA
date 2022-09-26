@@ -129,7 +129,7 @@ function About(props) {
                         <a href="/">
                             <p style={{ color: '#f2f2f2' }}>首頁</p>
                         </a>
-                        /
+                        &nbsp;/&nbsp;
                         <a href="/">
                             {' '}
                             <p style={{ color: '#f2f2f2' }}>關於我們</p>

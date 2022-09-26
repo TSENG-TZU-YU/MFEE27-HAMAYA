@@ -74,7 +74,7 @@ function Class(props) {
                             <Link to="/">
                                 <p>首頁</p>
                             </Link>
-                            /
+                            &nbsp;/&nbsp;
                             <Link to="/class">
                                 <p>音樂教育</p>
                             </Link>

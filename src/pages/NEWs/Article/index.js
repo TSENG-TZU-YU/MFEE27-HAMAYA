@@ -67,13 +67,13 @@ function Article() {
                                         首頁
                                     </p>
                                 </Link>
-                                /
+                                &nbsp;/&nbsp;
                                 <Link to="/news">
                                     <p className="article-Breadcrumbs text-nowrap">
                                         最新消息
                                     </p>
                                 </Link>
-                                /
+                                &nbsp;/&nbsp;
                                 <Link
                                     to={`/news/section?categoryList=${article.category}`}
                                 >
@@ -81,7 +81,7 @@ function Article() {
                                         {article.articleName}
                                     </p>
                                 </Link>
-                                /
+                                &nbsp;/&nbsp;
                                 <Link to="">
                                     <p className="article-Breadcrumbs  ">
                                         {article.title}

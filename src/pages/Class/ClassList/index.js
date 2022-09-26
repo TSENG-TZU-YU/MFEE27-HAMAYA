@@ -228,13 +228,13 @@ function ClassList(props) {
                     {/* 麵包屑 */}
                     <nav className="d-flex">
                         <Link to="/">
-                            <p className="mb-0">首頁</p>
+                            <p className="mb-0">首頁 </p>
                         </Link>
-                        /
+                        &nbsp;/&nbsp;
                         <Link to="/class">
-                            <p className="mb-0">音樂教育</p>
+                            <p className="mb-0"> 音樂教育 </p>
                         </Link>
-                        /
+                        &nbsp;/&nbsp;
                         <Link to="/class/list">
                             <p className="mb-0 ">
                                 {selectCourse ? '成人課程' : '兒童課程'}

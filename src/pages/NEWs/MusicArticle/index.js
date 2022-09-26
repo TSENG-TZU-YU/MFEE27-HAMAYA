@@ -108,11 +108,11 @@ function MusicArticle() {
                 <Link to="/">
                     <p className="News-Breadcrumbs">首頁</p>
                 </Link>
-                /
+                &nbsp;/&nbsp;
                 <Link to="/news">
                     <p className="News-Breadcrumbs">最新消息</p>
                 </Link>
-                /
+                &nbsp;/&nbsp;
                 <Link
                     data={data}
                     activeText={activeText}

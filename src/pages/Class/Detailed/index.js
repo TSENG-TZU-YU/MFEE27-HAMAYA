@@ -287,15 +287,15 @@ function Detailed({ ins_main_id }) {
                     <Link to="/">
                         <p className="mb-0">首頁</p>
                     </Link>
-                    /
+                    &nbsp;/&nbsp;
                     <Link to="/class">
                         <p className="mb-0">音樂教育</p>
                     </Link>
-                    /
+                    &nbsp;/&nbsp;
                     <Link to="/class/list">
                         <p className="mb-0 ">成人課程</p>
                     </Link>
-                    /
+                    &nbsp;/&nbsp;
                     <Link to="/class/list/Detailed">
                         {data.map((classDetailed) => {
                             return (
