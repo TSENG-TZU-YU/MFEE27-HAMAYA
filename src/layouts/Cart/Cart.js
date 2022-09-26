@@ -72,7 +72,7 @@ function Cart() {
                     `${API_URL}/member/mycart/multi`,
                     itemsData
                 );
-                successToast(response.data.message, '關閉');
+                // successToast(response.data.message, '關閉');
             } catch (err) {
                 console.log(err.response.data.message);
             }
@@ -157,7 +157,6 @@ function Cart() {
                                                     {item.name}
                                                 </Link>
                                             )}
-                                            {item.name}
                                         </span>
                                         <span className="small gary-dark-color">
                                             數量:{item.amount}
@@ -167,7 +166,7 @@ function Cart() {
                                         </span>
                                     </div>
                                     <button
-                                        className="border-0 btn ms-auto"
+                                        className="border-0 btn ms-auto ashBinBtn"
                                         onClick={() => {
                                             handleRemoveItem(item.product_id);
                                         }}

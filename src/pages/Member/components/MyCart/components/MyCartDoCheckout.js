@@ -107,7 +107,7 @@ function MyCartDoCheckout({
 
     //前往付款 成立訂單
     async function setSaveOrder(saveOrderInfo) {
-        // console.log('saveOrderInfo', saveOrderInfo, myCart);
+        console.log('saveOrderInfo', saveOrderInfo, myCart);
         //確保是否登入
         if (member !== null && member.id !== '') {
             //串要傳資料庫的內容 前端驗證資訊是否填妥
@@ -132,12 +132,12 @@ function MyCartDoCheckout({
                 return errorToast('金額未達使用該優惠券額度', '關閉');
             }
 
-            let categoryOnlyB = myCart.find((item) => {
+            let categoryHaveA = myCart.find((item) => {
                 return item.category_id === 'A';
             });
             // console.log('categoryOnlyB', categoryOnlyB);
 
-            if (categoryOnlyB) {
+            if (categoryHaveA) {
                 if (saveOrderInfo.city === '' && saveOrderInfo.dist === '') {
                     warningToast('請填寫完整地址', '關閉');
                     return;
@@ -150,6 +150,23 @@ function MyCartDoCheckout({
                     warningToast('請選擇運費', '關閉');
                     return;
                 }
+                saveOrderInfo = {
+                    ...saveOrderInfo,
+                    total_amount:
+                        calcTotalPrice +
+                        Number(saveOrderInfo.freight) -
+                        Number(saveOrderInfo.coupon),
+                };
+                // console.log('saveOrderInfo AAAA', saveOrderInfo);
+            } else {
+                saveOrderInfo = {
+                    ...saveOrderInfo,
+                    freight: 0,
+                    address: '',
+                    city: '',
+                    dist: '',
+                };
+                // console.log('saveOrderInfo BBBBB', saveOrderInfo);
             }
 
             let newSaveOrderInfo = [
@@ -157,7 +174,7 @@ function MyCartDoCheckout({
                     user_id: member.id,
                     ...saveOrderInfo,
                     pay_method: 1,
-                    product_detail: newMyCart,
+                    product_detail: myCart,
                 },
             ];
 
@@ -312,6 +329,7 @@ function MyCartDoCheckout({
                 </div>
                 <div className="d-flex justify-content-between align-items-center py-lg-2">
                     <div className="d-flex align-items-center justify-content-between px-2 mx-3">
+                        {/* TODO:改成付款方式運費寫死 */}
                         <div className="myCartMarginLeft">
                             <span className="accent-color">運費</span>
                         </div>
@@ -400,10 +418,12 @@ function MyCartDoCheckout({
                             //TODO:(1)如果可以做是否結帳詢問的確認訊息 (2)串接信用卡
                             setSaveOrder({
                                 ...myCartInfo,
-                                total_amount:
-                                    calcTotalPrice +
-                                    Number(myCartInfo.freight) -
-                                    Number(myCartInfo.coupon),
+                                total_amount: calcTotalPrice,
+
+                                // total_amount:
+                                //     calcTotalPrice +
+                                //     Number(myCartInfo.freight) -
+                                //     Number(myCartInfo.coupon),
                             });
                         }}
                     >

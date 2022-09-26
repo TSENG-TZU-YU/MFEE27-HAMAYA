@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../../../../utils/use_auth';
 import { API_URL } from '../../../../../utils/config';
 import { ReactComponent as OrderFinish } from '../../../../../assets/svg/order_status_finish.svg';
 import { ReactComponent as OrderUndone } from '../../../../../assets/svg/order_status_undone.svg';
+import { ReactComponent as Close } from '../../../../../assets/svg/close.svg';
 import { ReactComponent as OK } from '../../../../../assets/svg/ok.svg';
 import { ReactComponent as Message } from '../../../../../assets/svg/message.svg';
 import './MyOrderDetail.scss';
@@ -12,6 +13,7 @@ import './MyOrderDetail.scss';
 function MyOrderDetail() {
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     const { orderId } = useParams();
+    const navigate = useNavigate();
     // console.log('orderId', orderId);
 
     const [myOrderUserInfo, setMyOrderUserInfo] = useState([]);
@@ -83,6 +85,16 @@ function MyOrderDetail() {
                             <span className="main-color p d-inline-block mx-2">
                                 訂單編號：{userInfo.order_id}
                             </span>
+                            <div className="ms-auto">
+                                <button
+                                    className="myOrderDetail-closeBtn"
+                                    onClick={() => {
+                                        navigate(-1);
+                                    }}
+                                >
+                                    <Close />
+                                </button>
+                            </div>
                         </div>
                         <div className="d-flex justify-content-evenly pt-4">
                             <div>

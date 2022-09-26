@@ -209,23 +209,30 @@ function MyCartClass({
                             </div>
                         </td>
                         <td align="center" className="align-middle">
-                            <MyCartCount
-                                count={item.amount}
-                                setCount={(newCount) => {
-                                    const newMyCart = myCart.map((v, i) => {
-                                        return item.id === v.id
-                                            ? { ...v, amount: newCount }
-                                            : { ...v };
-                                    });
-                                    const newMyCartB = myCartB.map((v, i) => {
-                                        return item.id === v.id
-                                            ? { ...v, amount: newCount }
-                                            : { ...v };
-                                    });
-                                    setMyCartB(newMyCartB);
-                                    setMyCart(newMyCart);
-                                }}
-                            />
+                            <div className="d-inline-block">
+                                <MyCartCount
+                                    count={item.amount}
+                                    setCount={(newCount) => {
+                                        const newMyCart = myCart.map((v, i) => {
+                                            return item.id === v.id
+                                                ? { ...v, amount: newCount }
+                                                : { ...v };
+                                        });
+                                        const newMyCartB = myCartB.map(
+                                            (v, i) => {
+                                                return item.id === v.id
+                                                    ? { ...v, amount: newCount }
+                                                    : { ...v };
+                                            }
+                                        );
+                                        setMyCartB(newMyCartB);
+                                        setMyCart(newMyCart);
+                                    }}
+                                />
+                            </div>
+                            <p className="accent-color minimum m-0">
+                                剩餘名額:{item.stock}
+                            </p>
                         </td>
                         <td align="center" className="align-middle ">
                             <div className="gary-dark">

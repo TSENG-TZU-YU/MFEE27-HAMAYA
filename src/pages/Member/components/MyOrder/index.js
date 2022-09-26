@@ -58,7 +58,7 @@ function MyOrder() {
             </div>
             {hiddenState ? (
                 <>
-                    <table className="table table-hover my-2 myOrderTable">
+                    <table className="table my-2 myOrderTable">
                         <thead>
                             <tr className="text-center accent-light-color bg-main-color">
                                 <th className="myOrderThWidth">#</th>
@@ -106,7 +106,12 @@ function MyOrder() {
                                                     訂單編號
                                                 </span>
                                                 <span className="col-lg-6 col-3 text-lg-center text-end pe-2 pe-lg-0">
-                                                    {order.order_id}
+                                                    <Link
+                                                        to={`/member/myorder/${order.order_id}`}
+                                                        className="btn border-0 p-0"
+                                                    >
+                                                        {order.order_id}
+                                                    </Link>
                                                 </span>
                                                 <span className="col-3  d-lg-none main-color ps-2">
                                                     訂單價錢
