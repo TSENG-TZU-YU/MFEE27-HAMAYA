@@ -21,7 +21,7 @@ function Header(props) {
     const { member, setMember, isLogin, setIsLogin, hideHeaderFooter } =
         useAuth();
     const [loginPopup, setLoginPopup] = useState(false);
-    // const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
+
     const { shopCartState, setShopCartState } = useCart();
     const navigate = useNavigate();
     // 課程 Toggled

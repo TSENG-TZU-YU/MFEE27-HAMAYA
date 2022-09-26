@@ -212,30 +212,46 @@ function MyCartProduct({
                             </div>
                         </td>
                         <td align="center" className="align-middle">
-                            <div className="d-inline-block">
-                                <MyCartCount
-                                    count={item.amount}
-                                    setCount={(newCount) => {
-                                        const newMyCart = myCart.map((v, i) => {
-                                            return item.id === v.id
-                                                ? { ...v, amount: newCount }
-                                                : { ...v };
-                                        });
-                                        const newMyCartA = myCartA.map(
-                                            (v, i) => {
-                                                return item.id === v.id
-                                                    ? { ...v, amount: newCount }
-                                                    : { ...v };
-                                            }
-                                        );
-                                        setMyCartA(newMyCartA);
-                                        setMyCart(newMyCart);
-                                    }}
-                                />
-                            </div>
-                            <p className="accent-color minimum m-0">
-                                剩餘庫存:{item.stock}
-                            </p>
+                            {item.stock !== 0 ? (
+                                <>
+                                    <div className="d-inline-block">
+                                        <MyCartCount
+                                            count={item.amount}
+                                            setCount={(newCount) => {
+                                                const newMyCart = myCart.map(
+                                                    (v, i) => {
+                                                        return item.id === v.id
+                                                            ? {
+                                                                  ...v,
+                                                                  amount: newCount,
+                                                              }
+                                                            : { ...v };
+                                                    }
+                                                );
+                                                const newMyCartA = myCartA.map(
+                                                    (v, i) => {
+                                                        return item.id === v.id
+                                                            ? {
+                                                                  ...v,
+                                                                  amount: newCount,
+                                                              }
+                                                            : { ...v };
+                                                    }
+                                                );
+                                                setMyCartA(newMyCartA);
+                                                setMyCart(newMyCart);
+                                            }}
+                                        />
+                                    </div>
+                                    <p className="accent-color minimum m-0">
+                                        剩餘庫存:{item.stock}
+                                    </p>
+                                </>
+                            ) : (
+                                <h6 className="m-0 accent-color">
+                                    <b>熱銷缺貨中</b>
+                                </h6>
+                            )}
                         </td>
                         <td align="center" className="align-middle ">
                             <div className="gary-dark">

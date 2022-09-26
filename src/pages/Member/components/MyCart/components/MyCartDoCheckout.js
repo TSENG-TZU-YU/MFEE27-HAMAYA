@@ -22,6 +22,20 @@ function MyCartDoCheckout({
     const { member } = useAuth();
     const [myCoupon, setMyCoupon] = useState([]);
     const navigate = useNavigate();
+
+    const [myCartInfo, setMyCartInfo] = useState({
+        receiver: member.fullName,
+        phone: member.phone,
+        freight: 0,
+        city: '',
+        dist: '',
+        address: '',
+        pay_method: 1,
+        coupon: 0,
+        coupon_id: '',
+        minimum: 0,
+    });
+    console.log('myCartInfo', myCartInfo);
     useEffect(() => {
         async function getCoupon() {
             try {
@@ -71,29 +85,25 @@ function MyCartDoCheckout({
             }
         }
         getCoupon();
+        let checkA = myCart.filter((v) => {
+            return v.category_id === 'A';
+        });
+        // console.log('A', checkA);
+        if (checkA !== 0) {
+            setMyCartInfo({ ...myCartInfo, freight: 2000 });
+        }
     }, []);
 
-    const [myCartInfo, setMyCartInfo] = useState({
-        receiver: member.fullName,
-        phone: member.phone,
-        freight: 0,
-        city: '',
-        dist: '',
-        address: '',
-        coupon: 0,
-        coupon_id: '',
-        minimum: 0,
-    });
-    console.log('myCartInfo', myCartInfo);
-
+    //除優惠券以外表單
     function getMyCartInfo(e) {
         setMyCartInfo({ ...myCartInfo, [e.target.name]: e.target.value });
     }
+    //select 優惠券
     function getMyCartCou(e) {
         const [coupon_id] = e.target.value.split('/');
         const [, value] = e.target.value.split('/');
         const [, , minimum] = e.target.value.split('/');
-        console.log(coupon_id, value, minimum, e.target.value);
+        // console.log(coupon_id, value, minimum, e.target.value);
         if (calcTotalPrice < minimum) {
             errorToast('此優惠券未滿' + minimum, '關閉');
         }
@@ -146,10 +156,10 @@ function MyCartDoCheckout({
                     warningToast('請填寫完整地址', '關閉');
                     return;
                 }
-                if (saveOrderInfo.freight === 0) {
-                    warningToast('請選擇運費', '關閉');
-                    return;
-                }
+                // if (saveOrderInfo.freight === 0) {
+                //     warningToast('請選擇運費', '關閉');
+                //     return;
+                // }
                 saveOrderInfo = {
                     ...saveOrderInfo,
                     total_amount:
@@ -173,7 +183,7 @@ function MyCartDoCheckout({
                 {
                     user_id: member.id,
                     ...saveOrderInfo,
-                    pay_method: 1,
+                    pay_method: 1, //付款方式
                     product_detail: myCart,
                 },
             ];
@@ -330,24 +340,27 @@ function MyCartDoCheckout({
                 <div className="d-flex justify-content-between align-items-center py-lg-2">
                     <div className="d-flex align-items-center justify-content-between px-2 mx-3">
                         {/* TODO:改成付款方式運費寫死 */}
-                        <div className="myCartMarginLeft">
-                            <span className="accent-color">運費</span>
+                        <div className="">
+                            <span className="accent-color text-nowrap">
+                                付款方式
+                            </span>
                         </div>
                         <div className="myCartSelectMargin">
                             <select
                                 className="form-select"
-                                name="freight"
+                                name="pay_method"
                                 onChange={getMyCartInfo}
                             >
-                                <option value="0">請選擇運費</option>
-                                <option value="2000">2000</option>
-                                <option value="5000">5000</option>
-                                <option value="3000">3000</option>
+                                <option value="0">請選擇付款方式</option>
+                                <option value="1">信用卡</option>
+                                <option value="2">ATM轉帳</option>
                             </select>
                         </div>
                     </div>
                     <div className="ps-2">
-                        <span className="">NT:{myCartInfo.freight}</span>
+                        <span className="text-nowrap accent-color">
+                            運費 NT:{myCartInfo.freight}
+                        </span>
                     </div>
                 </div>
                 <div className="d-flex align-items-center justify-content-between py-2 orderBottomLine">
@@ -391,7 +404,7 @@ function MyCartDoCheckout({
                             </select>
                         </div>
                     </div>
-                    <span className="text-nowrap">
+                    <span className="text-nowrap accent-color">
                         - NT:{myCartInfo.coupon}
                     </span>
                 </div>

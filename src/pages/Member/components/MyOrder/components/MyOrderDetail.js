@@ -68,6 +68,29 @@ function MyOrderDetail() {
         }
         getMyOrderDetail();
     }, []);
+    //完成訂單
+    async function setOrderFinish() {
+        let response = await axios.put(
+            `${API_URL}/member/myorder/detail/finish/${orderId}`,
+            {
+                withCredentials: true,
+                user_id: member.id,
+            }
+        );
+        console.log('response 完成訂單', response);
+    }
+    //前往結帳
+    function doCheckOut() {
+        setOrderTwo(true);
+        // eslint-disable-next-line no-restricted-globals
+        let yes = confirm('你確定嗎？');
+
+        if (yes) {
+            alert('你按了確定按鈕');
+        } else {
+            alert('你按了取消按鈕');
+        }
+    }
 
     return (
         <div className="col-12 col-md-8 col-lg-9">
@@ -447,13 +470,25 @@ function MyOrderDetail() {
                                     <Message className="myOrderDetailBtn-Icon px-1" />
                                     訂單詢問
                                 </button>
-                                {orderTwo ? (
-                                    <button className="btn btn-primary col mx-2 p-0 text-nowrap">
+                                {orderTwo && !orderThr && (
+                                    <button
+                                        className="btn btn-primary col mx-2 p-0 text-nowrap"
+                                        onClick={() => {
+                                            setOrderThr(true);
+                                            setOrderFinish();
+                                        }}
+                                    >
                                         <OK className="myOrderDetailBtn-Icon px-1" />
                                         訂單完成
                                     </button>
-                                ) : (
-                                    <button className="btn btn-primary col mx-2 p-0 text-nowrap">
+                                )}
+                                {orderOne && !orderTwo && (
+                                    <button
+                                        className="btn btn-primary col mx-2 p-0 text-nowrap"
+                                        onClick={() => {
+                                            doCheckOut();
+                                        }}
+                                    >
                                         前往付款
                                     </button>
                                 )}
