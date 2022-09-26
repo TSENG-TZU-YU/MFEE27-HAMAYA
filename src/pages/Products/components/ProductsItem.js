@@ -244,6 +244,7 @@ function ProductsItem({
                             spec: spec,
                             mainId: ins_main_id,
                             create_time: create_time,
+                            stock: stock,
                         })
                     }
                 >
