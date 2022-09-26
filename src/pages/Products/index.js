@@ -200,6 +200,7 @@ function Products() {
         setTimeout(() => {
             setIsLoading(false);
         }, 1500);
+        // 產品主次類別
         let getCategory = async () => {
             let response = await axios.get(`${API_URL}/products/category`);
             setCategorySub(response.data.categorySub);
@@ -381,10 +382,20 @@ function Products() {
             setNewCompareLocal([{ ...compareItem }, ...compareProduct]);
             // 存localStorage
             setCompareProduct([{ ...compareItem }, ...compareProduct]);
-            successToast('成功加入比較!', '關閉');
+            successSmallToast.fire({
+                icon: 'success',
+                iconColor: '#86a8ae',
+                color: '#00323d',
+                title: '加入比較項目',
+            });
         }
         if (newCompareItem) {
-            warningToast('已加入項目中', '關閉');
+            successSmallToast.fire({
+                icon: 'warning',
+                iconColor: '#767676',
+                color: '#00323d',
+                title: '已加入比較項目中',
+            });
         }
     }
 
