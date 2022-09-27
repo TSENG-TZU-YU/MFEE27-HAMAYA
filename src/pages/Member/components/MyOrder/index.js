@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useOutletContext, Link } from 'react-router-dom'; //抓取Outlet的props
+import { useOutletContext, Link, useNavigate } from 'react-router-dom'; //抓取Outlet的props
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { useAuth } from '../../../../utils/use_auth';
@@ -8,11 +8,13 @@ import classPic from '../../../../assets/ClassImg/Adult img.png';
 import search from '../../../../assets/svg/search.svg';
 import { ReactComponent as Detailed } from '../../../../assets/svg/detailed.svg';
 import { ReactComponent as Message } from '../../../../assets/svg/message.svg';
+import { ReactComponent as Review } from '../../../../assets/svg/rate_review.svg';
 import './MyOrder.scss';
 
 function MyOrder() {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
     const { member, setMember, isLogin, setIsLogin } = useAuth();
+    const navigate = useNavigate();
 
     const [myOrder, setMyOrder] = useState([]);
     //有資料true,沒資料false
@@ -188,13 +190,51 @@ function MyOrder() {
                                         <td className="align-middle text-center text-xl-center text-lg-end">
                                             <div className="row justify-content-around align-items-center">
                                                 <div className="col-lg-12 col-xl-7 col-7">
-                                                    <button className="btn border-0 p-0">
-                                                        <Message className="myOrderIcon" />
-                                                        訂單詢問
-                                                    </button>
-                                                    <span className="small accent-light-color bg-main-color mx-1">
+                                                    {/* {order.qa == 0 ? (
+                                                        <Link
+                                                            to={`/member/myorder/addqa?orid=${order.id}`}
+                                                            className="btn border-0 p-0"
+                                                        >
+                                                            <FiMessageSquare className="icon" />
+                                                            訂單詢問
+                                                        </Link>
+                                                    ) : (
+                                                        <Link
+                                                            to={`/member/myorder/qadetail?orid=${order.id}`}
+                                                            className="btn border-0 p-0"
+                                                        >
+                                                            <FiSearch className="icon" />
+                                                            查看詢問
+                                                        </Link>
+                                                    )} */}
+                                                    {order.qa === 0 ? (
+                                                        <button
+                                                            className="btn border-0 p-0"
+                                                            onClick={() => {
+                                                                navigate(
+                                                                    `/member/myorder/addqa?orid=${order.id}`
+                                                                );
+                                                            }}
+                                                        >
+                                                            <Review className="icon" />
+                                                            訂單詢問
+                                                        </button>
+                                                    ) : (
+                                                        <button
+                                                            className="btn border-0 p-0"
+                                                            onClick={() => {
+                                                                navigate(
+                                                                    `/member/myorder/qadetail?orid=${order.id}`
+                                                                );
+                                                            }}
+                                                        >
+                                                            <Message className="icon" />
+                                                            查看詢問
+                                                        </button>
+                                                    )}
+                                                    {/* <span className="small accent-light-color bg-main-color mx-1">
                                                         未回覆
-                                                    </span>
+                                                    </span> */}
                                                 </div>
                                                 <div className="col-lg-12 col-xl-5 col-5">
                                                     <Link

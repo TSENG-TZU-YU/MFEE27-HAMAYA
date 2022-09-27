@@ -19,6 +19,9 @@ function MyOrderQA(props) {
     const navigate = useNavigate();
     const location = useLocation();
     const [myQuestion, setMyQuestion] = useState({
+        order: {
+            order_id: '',
+        },
         detail: {
             id: '',
             user_id: '',
@@ -63,7 +66,7 @@ function MyOrderQA(props) {
             // alert(err.response.data.message);
         }
     }
-
+    //http://localhost:3000/member/myorder/qadetail?orid=16
     useEffect(() => {
         let params = new URLSearchParams(location.search);
         let orid = params.get('orid');

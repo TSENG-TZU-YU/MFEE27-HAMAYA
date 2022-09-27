@@ -19,6 +19,11 @@ function SignUp({ setLoginPopup }) {
         repassword: '',
         sub: '0',
     });
+    const [checkForm, setCheckForm] = useState({
+        fullName: '',
+        email: '',
+        password: '',
+    });
 
     const profileChange = (e) => {
         const newUser = { ...newMember, [e.target.name]: e.target.value };
@@ -53,7 +58,7 @@ function SignUp({ setLoginPopup }) {
     return (
         <form>
             <label>
-                會員姓名
+                會員姓名{checkForm.fullName}
                 <br />
                 <input
                     type="text"
@@ -65,7 +70,7 @@ function SignUp({ setLoginPopup }) {
                 />
             </label>
             <label>
-                帳號(E-MAIL)
+                帳號(E-MAIL){checkForm.email}
                 <br />
                 <input
                     type="email"
@@ -78,7 +83,7 @@ function SignUp({ setLoginPopup }) {
             </label>
 
             <label className="position-relative">
-                密碼
+                密碼{checkForm.password}
                 <br />
                 <input
                     type={visibility ? 'text' : 'password'}
