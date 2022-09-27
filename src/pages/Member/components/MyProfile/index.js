@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import './index.css';
+import visib from '../../../../components/LogInSignUp/visibility.svg';
+import unVisib from '../../../../components/LogInSignUp/visibility_off.svg';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { useAuth } from '../../../../utils/use_auth';
@@ -12,6 +14,10 @@ import {
 } from '../../../../components/Alert';
 
 function MyProfile(props) {
+    const [visibility, setVisibility] = useState(false);
+    const [visibility2, setVisibility2] = useState(false);
+    const [visibility3, setVisibility3] = useState(false);
+
     const {
         member,
         setMember,
@@ -320,40 +326,82 @@ function MyProfile(props) {
                         <tr>
                             <td className="text-primary">舊密碼</td>
                             <td>
-                                <input
-                                    type="password"
-                                    value={password.password}
-                                    name="password"
-                                    onChange={passwordChange}
-                                    disabled={editPassword}
-                                    placeholder="請輸入舊密碼"
-                                />
+                                <span className="position-relative">
+                                    <input
+                                        type={visibility ? 'text' : 'password'}
+                                        value={password.password}
+                                        name="password"
+                                        onChange={passwordChange}
+                                        disabled={editPassword}
+                                        placeholder="請輸入舊密碼"
+                                    />
+                                    <button
+                                        className="eyes border-0"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            setVisibility(!visibility);
+                                        }}
+                                    >
+                                        <img
+                                            src={visibility ? visib : unVisib}
+                                            alt=""
+                                        />
+                                    </button>
+                                </span>
                             </td>
                         </tr>
                         <tr>
                             <td className="text-primary">新密碼</td>
                             <td>
-                                <input
-                                    type="password"
-                                    value={password.newpassword}
-                                    name="newpassword"
-                                    onChange={passwordChange}
-                                    disabled={editPassword}
-                                    placeholder="請輸入新密碼"
-                                />
+                                <span className="position-relative">
+                                    <input
+                                        type={visibility2 ? 'text' : 'password'}
+                                        value={password.newpassword}
+                                        name="newpassword"
+                                        onChange={passwordChange}
+                                        disabled={editPassword}
+                                        placeholder="請輸入新密碼"
+                                    />
+                                    <button
+                                        className="eyes border-0"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            setVisibility2(!visibility2);
+                                        }}
+                                    >
+                                        <img
+                                            src={visibility2 ? visib : unVisib}
+                                            alt=""
+                                        />
+                                    </button>
+                                </span>
                             </td>
                         </tr>
                         <tr>
                             <td className="text-primary">確認新密碼</td>
                             <td>
-                                <input
-                                    type="password"
-                                    value={password.renewpassword}
-                                    name="renewpassword"
-                                    onChange={passwordChange}
-                                    disabled={editPassword}
-                                    placeholder="再次輸入新密碼"
-                                />
+                                <span className="position-relative">
+                                    <input
+                                        type={visibility3 ? 'text' : 'password'}
+                                        value={password.renewpassword}
+                                        name="renewpassword"
+                                        onChange={passwordChange}
+                                        disabled={editPassword}
+                                        placeholder="再次輸入新密碼"
+                                    />
+                                    <button
+                                        className="eyes border-0"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            setVisibility3(!visibility3);
+                                        }}
+                                    >
+                                        <img
+                                            src={visibility3 ? visib : unVisib}
+                                            alt=""
+                                        />
+                                    </button>
+                                </span>
                             </td>
                         </tr>
                     </tbody>

@@ -24,3 +24,13 @@
     outline:solid 2px #0099ff;
     width: 100%;
 }
+.eyes{
+    position: absolute;
+    top: -3px;
+    right: 0;
+    background-color: transparent;
+}
+.eyes img{
+    width: 23px;
+    height: 23px;
+}
