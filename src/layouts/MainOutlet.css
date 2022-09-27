@@ -1,5 +1,11 @@
 .mainOutlet-height {
-  min-height: 100vh;
+  min-height: calc(100vh - 300px);
+}
+
+@media screen and (max-width:576px) {
+  .mainOutlet-height {
+    min-height: 100vh;
+  }
 }
 
 .mainOutlet-fixed-height {

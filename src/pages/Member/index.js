@@ -66,6 +66,7 @@ function Members(props) {
     return (
         <>
             <div className="container">
+                <div className="member-fixed-heigh"></div>
                 <div className="mt-2 d-flex justify-content-between ">
                     <nav aria-label="breadcrumb ">
                         <ol className="breadcrumb">
@@ -85,7 +86,7 @@ function Members(props) {
                     </nav>
                 </div>
                 <MemberListMobile />
-                <div className="row">
+                <div className="row mb-5">
                     <MemberListTable />
                     <Outlet context={[setbread]} />
                 </div>
