@@ -207,8 +207,10 @@ function Home() {
                                                 className="article-imgs article-img"
                                             />
                                             <span className="gary-dark-color h6 article-cursor-pinter mt-2">
-                                                {article.title}
-                                                <div className=" d-flex mt-2 ">
+                                            <div className="mt-2 ms-2">
+                                                    {article.title}
+                                                </div>
+                                                <div className=" d-flex mt-2  ms-2">
                                                     <p className="News-music-article-color4 small">
                                                         {article.articleName}
                                                     </p>
@@ -239,8 +241,10 @@ function Home() {
                                                 alt="art02"
                                                 className="News-imgs"
                                             />
-                                            <span className="gary-dark-color h6 News-cursor-pinter ">
-                                                {article2.title}
+                                            <span className="gary-dark-color h6 News-cursor-pinter  ">
+                                                <div className="mt-2 ms-2">
+                                                    {article2.title}
+                                                </div>
                                                 <div className="d-flex mt-2 ">
                                                     <p className="News-music-article-color4 small News-label">
                                                         {article2.articleName}
