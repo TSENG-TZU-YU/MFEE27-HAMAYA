@@ -7,6 +7,7 @@ function SearchBar(props) {
     const { searchWord, setSearchWord } = props;
     return (
         <div className="input-group bg-main-light-color searchBar-box">
+        {/* 桌機、手機的輸入會無法同步 要用input*/}
             <InputIME
                 type="text"
                 className="form-control"

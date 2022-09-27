@@ -3,12 +3,18 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { API_URL } from '../../../utils/config';
 
 // npm install react-player
 import ReactPlayer from 'react-player';
 
 import './index.scss';
+
+// 圖檔
 import { TbTable } from 'react-icons/tb';
+
+// 會員
+import { useAuth } from '../../../utils/use_auth';
 // 圖檔
 // import teacher01 from '../../../assets/ClassImg/teacher01.png';
 function Teacher() {
@@ -18,18 +24,37 @@ function Teacher() {
     // 把網址上的 :detailedID 拿出來
     const { detailedID } = useParams();
 
+    // 登入狀態
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+
+    //會員登入狀態判斷
+    useEffect(() => {
+        async function getMember() {
+            try {
+                // console.log('檢查是否登入');
+                let response = await axios.get(`${API_URL}/auth`, {
+                    withCredentials: true,
+                });
+                // console.log('已登入', response.data);
+                setIsLogin(true);
+                setMember(response.data);
+            } catch (err) {
+                // navigate('/');
+                console.log(err.response.data.message);
+            }
+        }
+        getMember();
+    }, []);
+
+    // 老師資料
     useEffect(() => {
         let getAdultClass = async () => {
             let response = await axios.get(
-                `http://localhost:3001/api/class/teacher/${detailedID}`
+                `${API_URL}/class/teacher/${detailedID}`
             );
             setData(response.data.data);
             seClassTeacher(response.data.classTeacher);
-            // window.scrollTo({
-            //     top: 0,
-            //     left: 0,
-            //     behavior: 'auto',
-            // });
+            window.scrollTo(0, 0);
         };
         getAdultClass();
     }, []);
