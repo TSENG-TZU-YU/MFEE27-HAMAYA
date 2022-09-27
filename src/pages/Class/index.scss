@@ -88,6 +88,30 @@
     margin-left: 45px;
     color: $accent-light;
 }
+.class-shadow {
+    &:after {
+        content: '';
+        background-image: linear-gradient(
+            to top,
+            hsla(0, 0%, 0%, 0) 0%,
+            hsla(0, 0%, 0%, 0.009) 11.7%,
+            hsla(0, 0%, 0%, 0.034) 22.1%,
+            hsla(0, 0%, 0%, 0.072) 31.2%,
+            hsla(0, 0%, 0%, 0.123) 39.4%,
+            hsla(0, 0%, 0%, 0.182) 46.6%,
+            hsla(0, 0%, 0%, 0.249) 53.1%,
+            hsla(0, 0%, 0%, 0.32) 58.9%,
+            hsla(0, 0%, 0%, 0.394) 64.3%,
+            hsla(0, 0%, 0%, 0.468) 69.3%,
+            hsla(0, 0%, 0%, 0.54) 74.1%,
+            hsla(0, 0%, 0%, 0.607) 78.8%,
+            hsla(0, 0%, 0%, 0.668) 83.6%,
+            hsla(0, 0%, 0%, 0.721) 88.7%,
+            hsla(0, 0%, 0%, 0.762) 94.1%,
+            hsla(0, 0%, 0%, 0.79) 100%
+        );
+    }
+}
 
 .children-lessons {
     position: absolute;
@@ -97,6 +121,7 @@
 }
 .decorate1 {
     position: absolute;
+    width: 30%;
     bottom: 0;
     left: -10px;
     object-fit: cover;
@@ -106,6 +131,7 @@
 }
 .decorate2 {
     position: absolute;
+    width: 30%;
     bottom: 0;
     right: 0;
     object-fit: cover;
@@ -114,13 +140,54 @@
 }
 .decorate3 {
     position: absolute;
-    bottom: 0;
-    right: 280px;
+    width: 15%;
+    bottom: -30px;
+    right: 14%;
     object-fit: cover;
     pointer-events: none;
     z-index: 500;
 }
 
+@media screen and (max-width: 1200px) {
+    .decorate1 {
+        position: absolute;
+        width: 35%;
+        bottom: 0;
+        left: -10px;
+        object-fit: cover;
+        pointer-events: none;
+        z-index: 500;
+    }
+    .decorate2 {
+        position: absolute;
+        width: 35%;
+        bottom: 0;
+        right: 0;
+        object-fit: cover;
+        pointer-events: none;
+        z-index: 500;
+    }
+    .decorate3 {
+        position: absolute;
+        width: 15%;
+        bottom: -30px;
+        right: 14%;
+        object-fit: cover;
+        pointer-events: none;
+        z-index: 500;
+    }
+}
+@media screen and (max-width: 992px) {
+    .decorate2 {
+        position: absolute;
+        width: 70%;
+        bottom: 0;
+        right: 0;
+        object-fit: cover;
+        pointer-events: none;
+        z-index: 500;
+    }
+}
 @media screen and (max-width: 768px) {
     .adult-course {
         position: absolute;
@@ -135,7 +202,6 @@
         color: $accent-light;
     }
 }
-
 // loading
 .sk-chase {
     margin: 20% auto;

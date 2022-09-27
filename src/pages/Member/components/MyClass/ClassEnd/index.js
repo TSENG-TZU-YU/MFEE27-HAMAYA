@@ -13,7 +13,7 @@ import { errorToast, successToast } from '../../../../../components/Alert';
 
 // 圖檔
 import rate_review from '../../../../../assets/svg/rate_review.svg';
-import evaluation_doc from '../../../../../assets/ClassImg/evaluation.png';
+import evaluation_doc from '../../../../../assets/ClassImg/evaluation.svg';
 
 function ClassEnd(props) {
     const [popup, setPopup] = useState(false);
