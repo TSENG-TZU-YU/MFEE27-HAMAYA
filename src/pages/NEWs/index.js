@@ -120,43 +120,40 @@ function NEWs() {
                     {/* 活動快訊那一欄 */}
                     {news.map((activity) => {
                         return (
-                            <>
-                                <div className="col-12 col-md-6" key={uuidv4()}>
-                                    <Link
-                                        to={`/news/${activity.id}?mainId=${activity.categoryId}`}
-                                    >
-                                        <img
-                                            src={require(`../../album/article/${activity.image}`)}
-                                            alt="banner"
-                                            width="600"
-                                            height="100%"
-                                            className="img-fluid mt-2"
-                                        />
-                                        <p className="gary-dark-color h5 News-cursor-pinter mt-3">
-                                            {activity.title}
+                            <div key={uuidv4()} className="col-12 col-md-6">
+                                <Link
+                                    to={`/news/${activity.id}?mainId=${activity.categoryId}`}
+                                >
+                                    <img
+                                        src={require(`../../album/article/${activity.image}`)}
+                                        alt="banner"
+                                        width="600"
+                                        height="100%"
+                                        className="img-fluid mt-2"
+                                    />
+                                    <p className="gary-dark-color h5 News-cursor-pinter mt-3">
+                                        {activity.title}
+                                    </p>
+                                    <div className=" d-flex mt-3 ">
+                                        <p className="News-music-article-color2 small me-2">
+                                            {activity.categoryName}
                                         </p>
-                                        <div className=" d-flex mt-3 ">
-                                            <p className="News-music-article-color2 small me-2">
-                                                {activity.categoryName}
-                                            </p>
-                                            <p>
-                                                {activity.author} －
-                                                {activity.creation_date}
-                                            </p>
-                                        </div>
-                                    </Link>
-                                </div>
-                            </>
+                                        <p>
+                                            {activity.author} －
+                                            {activity.creation_date}
+                                        </p>
+                                    </div>
+                                </Link>
+                            </div>
                         );
                     })}
 
                     <div className="col-12 col-md-6 News-blank-art-left mt-2  ">
                         {news2.map((article) => {
                             return (
-                                <div>
+                                <div key={uuidv4()}>
                                     <Link
                                         to={`/news/${article.id}?mainId=${article.category}`}
-                                        key={uuidv4()}
                                     >
                                         <div className="d-flex">
                                             <img
@@ -178,8 +175,6 @@ function NEWs() {
                                                         className={colorChange(
                                                             Number(
                                                                 article.categoryId
-                                                                    ? true
-                                                                    : false
                                                             )
                                                         )}
                                                     >
@@ -204,8 +199,8 @@ function NEWs() {
 
             {/* TODO:底線要有距離，還需要再修 */}
 
-            <div className="container mt-5">
-                <div className="row text-center ">
+            <div className="container mt-5 ">
+                <div className="row text-center  ">
                     {menuItems.map((value) => {
                         return (
                             <Link

@@ -13,23 +13,6 @@ function NewsActivity({ data, activeText, menuItems }) {
     const id = menuItems.filter((v) => v.id === activeText);
     console.log(id[0].name);
 
-    // useEffect(() => {
-    //     console.log('News', 'useEffect []');
-    //     console.log('useEffect[]', data);
-    //     let getNewsActivity = async () => {
-    //         let response = await axios.get(
-    //             'http://localhost:3001/api/news/section?news=1'
-    //         );
-    //         setData(response.data);
-    //         console.log('useEffect[] after set', data);
-    //     };
-    //     getNewsActivity();
-    // }, []);
-
-    // useEffect(() => {
-    //     console.log('News', 'useEffect [data]');
-    // }, [data]);
-
     //文章分類的標籤切換
     const colorChange = (categoryId) => {
         switch (categoryId) {
@@ -55,40 +38,40 @@ function NewsActivity({ data, activeText, menuItems }) {
                 <div className="row  News-articles ">
                     {data.map((activity, index) => {
                         return (
-                            <>
-                                <div className="col-12 col-md-4 ">
-                                    <div className="mt-4">
-                                        <Link
-                                            to={`/news/${activity.id}?mainId=${activity.categoryId}`}
-                                        >
-                                            <img
-                                                src={require(`../../../../album/article/${activity.image}`)}
-                                                alt="art02"
-                                                width=""
-                                                className="News-imgs"
-                                            />
-                                            <span className="col-md-12 gary-dark-color h6 News-cursor-pinter mt-2">
+                            <div key={index} className="col-12 col-md-4 ">
+                                <div className="mt-4 ">
+                                    <Link
+                                        to={`/news/${activity.id}?mainId=${activity.categoryId}`}
+                                    >
+                                        <img
+                                            src={require(`../../../../album/article/${activity.image}`)}
+                                            alt="art02"
+                                            className="All-imgs"
+                                        />
+                                        <span className="col-md-12 gary-dark-color h6 News-cursor-pinter ">
+                                            <div className="mt-2">
                                                 {activity.title}
-                                                <div className=" d-flex mt-2 ">
-                                                    <p
-                                                        className={colorChange(
-                                                            Number(
-                                                                activity.categoryId
-                                                            )
-                                                        )}
-                                                    >
-                                                        {activity.categoryName}
-                                                    </p>
-                                                    <p className="ms-2">
-                                                        {activity.author} －
-                                                        {activity.creation_date}
-                                                    </p>
-                                                </div>
-                                            </span>
-                                        </Link>
-                                    </div>
+                                            </div>
+                                            <div className=" d-flex mt-2  ">
+                                                <p
+                                                    className={colorChange(
+                                                        Number(
+                                                            activity.categoryId
+                                                        )
+                                                    )}
+                                                >
+                                                    {activity.categoryName}
+                                                </p>
+
+                                                <p className="ms-2 mt-1">
+                                                    {activity.author} －
+                                                    {activity.creation_date}
+                                                </p>
+                                            </div>
+                                        </span>
+                                    </Link>
                                 </div>
-                            </>
+                            </div>
                         );
                     })}
                 </div>

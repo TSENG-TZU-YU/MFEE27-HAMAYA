@@ -55,13 +55,10 @@ function Article() {
             <div className="container">
                 {data.map((article) => {
                     return (
-                        <>
+                        <div key={uuidv4()}>
                             {/* 麵包屑 */}
                             {/* TODO: ＲＷＤ版AI執筆的位置不對 */}
-                            <div
-                                key={uuidv4()}
-                                className="container d-flex mt-5 "
-                            >
+                            <div className="container d-flex mt-5 ">
                                 <Link to="/">
                                     <p className="article-Breadcrumbs text-nowrap">
                                         首頁
@@ -96,14 +93,14 @@ function Article() {
                             <div className="h3 text-center">
                                 {article.title}
                             </div>
-                            <p className="mt-2 text-center">
+                            <p className="mt-2 text-center ">
                                 {article.author} － {article.creation_date}
                             </p>
-                            <div className="container text-center ">
+                            <div className="container text-center article-img ">
                                 <img
                                     src={require(`../../../album/article/${article.image}`)}
                                     alt="art02"
-                                    className=" article-img"
+                                    className=" "
                                 />
                             </div>
                             <div className="mt-4 lh-lg">
@@ -166,7 +163,7 @@ function Article() {
                                     <br />
                                 </div>
                             </div>
-                        </>
+                        </div>
                     );
                 })}
             </div>
@@ -184,44 +181,37 @@ function Article() {
                 <div className="row ">
                     {read.map((recommend) => {
                         return (
-                            <>
-                                <div
-                                    key={uuidv4()}
-                                    className="col-12 col-md-4 "
-                                >
-                                    <div className="mt-4 ">
-                                        <Link
-                                            to={`/news/${recommend.id}?mainId=${recommend.category}`}
-                                        >
-                                            <img
-                                                src={require(`../../../album/article/${recommend.image}`)}
-                                                alt="art02"
-                                                className="article-imgs article-img"
-                                            />
-                                            <span className="gary-dark-color h6 article-cursor-pinter mt-2">
-                                                {recommend.title}
-                                                <div className=" d-flex mt-2 ">
-                                                    <p
-                                                        className={colorChange(
-                                                            Number(
-                                                                recommend.category
-                                                            )
-                                                        )}
-                                                    >
-                                                        {recommend.articleName}
-                                                    </p>
-                                                    <p className="ms-2">
-                                                        {recommend.author}－
-                                                        {
-                                                            recommend.creation_date
-                                                        }
-                                                    </p>
-                                                </div>
-                                            </span>
-                                        </Link>
-                                    </div>
+                            <div key={uuidv4()} className="col-12 col-md-4 ">
+                                <div className="mt-4 ">
+                                    <Link
+                                        to={`/news/${recommend.id}?mainId=${recommend.category}`}
+                                    >
+                                        <img
+                                            src={require(`../../../album/article/${recommend.image}`)}
+                                            alt="art02"
+                                            className="article-imgs article-img"
+                                        />
+                                        <span className="gary-dark-color h6 article-cursor-pinter mt-2">
+                                            {recommend.title}
+                                            <div className=" d-flex mt-2 ">
+                                                <p
+                                                    className={colorChange(
+                                                        Number(
+                                                            recommend.category
+                                                        )
+                                                    )}
+                                                >
+                                                    {recommend.articleName}
+                                                </p>
+                                                <p className="ms-2">
+                                                    {recommend.author}－
+                                                    {recommend.creation_date}
+                                                </p>
+                                            </div>
+                                        </span>
+                                    </Link>
                                 </div>
-                            </>
+                            </div>
                         );
                     })}
                 </div>
