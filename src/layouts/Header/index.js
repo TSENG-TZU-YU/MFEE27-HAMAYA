@@ -94,7 +94,10 @@ function Header(props) {
                             <div className="row navbar-center">
                                 <div className="col p-0 m-2 m-lg-3 text-center header-text">
                                     <div className="navbaritem fw-bold">
-                                        <Link className="" to="news">
+                                        <Link
+                                            className=""
+                                            to="/news?categoryId=1"
+                                        >
                                             最新消息
                                         </Link>
                                         <ul className="list-unstyled bg-main-light-color py-1 mt-2 ">
