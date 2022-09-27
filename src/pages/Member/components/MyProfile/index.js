@@ -22,8 +22,10 @@ function MyProfile(props) {
     } = useAuth();
     // const [originalmember, setOriginalMember] = useState(null);
     const [password, setPassword] = useState({
-        password: '********',
-        repassword: '',
+        id: '',
+        password: '',
+        newpassword: '',
+        renewpassword: '',
     });
 
     const [setbread] = useOutletContext();
@@ -44,6 +46,7 @@ function MyProfile(props) {
     useEffect(() => {
         setbread('會員資料');
         setSaveMember({ ...member });
+        setPassword({ ...password, id: member.id });
     }, [member]);
 
     const [editProfile, setEditProfile] = useState(true);
@@ -106,6 +109,12 @@ function MyProfile(props) {
             console.log(response.data);
             setEditPassword(true);
             successToast(response.data.message, '關閉');
+            setPassword({
+                ...password,
+                password: '',
+                newpassword: '',
+                renewpassword: '',
+            });
             // alert(response.data.message);
         } catch (err) {
             console.log(err.response.data);
@@ -309,12 +318,25 @@ function MyProfile(props) {
                     <thead></thead>
                     <tbody>
                         <tr>
-                            <td className="text-primary">新密碼</td>
+                            <td className="text-primary">舊密碼</td>
                             <td>
                                 <input
                                     type="password"
                                     value={password.password}
                                     name="password"
+                                    onChange={passwordChange}
+                                    disabled={editPassword}
+                                    placeholder="請輸入舊密碼"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="text-primary">新密碼</td>
+                            <td>
+                                <input
+                                    type="password"
+                                    value={password.newpassword}
+                                    name="newpassword"
                                     onChange={passwordChange}
                                     disabled={editPassword}
                                     placeholder="請輸入新密碼"
@@ -326,8 +348,8 @@ function MyProfile(props) {
                             <td>
                                 <input
                                     type="password"
-                                    value={password.repassword}
-                                    name="repassword"
+                                    value={password.renewpassword}
+                                    name="renewpassword"
                                     onChange={passwordChange}
                                     disabled={editPassword}
                                     placeholder="再次輸入新密碼"

@@ -8,6 +8,7 @@ import { ReactComponent as OrderUndone } from '../../../../../assets/svg/order_s
 import { ReactComponent as Close } from '../../../../../assets/svg/close.svg';
 import { ReactComponent as OK } from '../../../../../assets/svg/ok.svg';
 import { ReactComponent as Message } from '../../../../../assets/svg/message.svg';
+import { ReactComponent as Review } from '../../../../../assets/svg/rate_review.svg';
 import './MyOrderDetail.scss';
 
 function MyOrderDetail() {
@@ -33,7 +34,7 @@ function MyOrderDetail() {
                     params: { user_id: member.id },
                 }
             );
-            // console.log('response order detail', response.data);
+            console.log('response order detail', response.data);
 
             setMyOrderUserInfo(response.data.userInfo);
             setMyOrderList(response.data.orderList);
@@ -466,10 +467,35 @@ function MyOrderDetail() {
                                 </p>
                             </div>
                             <div className="py-2 row col-lg-5 offset-lg-7 align-items-center">
-                                <button className="btn btn-secondary col mx-2 p-0 text-nowrap">
-                                    <Message className="myOrderDetailBtn-Icon px-1" />
-                                    訂單詢問
-                                </button>
+                                {console.log(
+                                    'myOrderUserInfo.qa:',
+                                    myOrderUserInfo[0].qa
+                                )}
+                                {myOrderUserInfo[0].qa === 0 ? (
+                                    <button
+                                        className="btn btn-secondary col mx-2 p-0 text-nowrap"
+                                        onClick={() => {
+                                            navigate(
+                                                `/member/myorder/addqa?orid=${myOrderUserInfo[0].id}`
+                                            );
+                                        }}
+                                    >
+                                        <Review className="myOrderDetailBtn-Icon px-1" />
+                                        訂單詢問
+                                    </button>
+                                ) : (
+                                    <button
+                                        className="btn btn-secondary col mx-2 p-0 text-nowrap"
+                                        onClick={() => {
+                                            navigate(
+                                                `/member/myorder/qadetail?orid=${myOrderUserInfo[0].id}`
+                                            );
+                                        }}
+                                    >
+                                        <Message className="myOrderDetailBtn-Icon px-1" />
+                                        查看詢問
+                                    </button>
+                                )}
                                 {orderTwo && !orderThr && (
                                     <button
                                         className="btn btn-primary col mx-2 p-0 text-nowrap"
