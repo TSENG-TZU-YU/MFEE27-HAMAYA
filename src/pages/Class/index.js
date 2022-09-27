@@ -72,7 +72,7 @@ function Class(props) {
             setArticle1(response.data.article1);
         };
         getAdultClass();
-
+        window.scrollTo(0, 0);
         // 0.8秒後關起動畫呈現資料
         setTimeout(() => {
             setIsLoading(false);
@@ -266,7 +266,7 @@ function Class(props) {
                                         <img
                                             src={Adult_Course}
                                             alt="Adult Course"
-                                            className="class-shadow  cursor-pinter img-fluid "
+                                            className="classShadow  cursor-pinter img-fluid "
                                             onClick={() => {
                                                 setSelectCourse(true);
                                             }}
@@ -283,7 +283,7 @@ function Class(props) {
                                 >
                                     <Link to="list?class=2">
                                         <img
-                                            className="class-shadow cursor-pinter img-fluid"
+                                            className="classShadow cursor-pinter img-fluid"
                                             src={Children_Lessons}
                                             alt="Children Lessons"
                                             onClick={() => {

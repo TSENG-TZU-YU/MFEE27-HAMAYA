@@ -88,11 +88,18 @@
     margin-left: 45px;
     color: $accent-light;
 }
-.class-shadow {
+.classShadow {
     &:after {
         content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 200%;
+        pointer-events: none;
         background-image: linear-gradient(
-            to top,
+            to bottom,
             hsla(0, 0%, 0%, 0) 0%,
             hsla(0, 0%, 0%, 0.009) 11.7%,
             hsla(0, 0%, 0%, 0.034) 22.1%,
@@ -111,6 +118,8 @@
             hsla(0, 0%, 0%, 0.79) 100%
         );
     }
+    // transform: translateY(-50%);
+    transition: transform calc(var(--d) * 2) var(--e);
 }
 
 .children-lessons {

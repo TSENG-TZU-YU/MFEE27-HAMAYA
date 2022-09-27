@@ -47,6 +47,7 @@ function Teacher({ data }) {
                                 src={require(`../../album/teacher/images/${item.image}`)}
                                 alt="product images"
                                 style={{ width: '100%', height: '300px' }}
+                                className="teacherImg"
                             />
                             <div className="text-center mt-1">
                                 <h5 className="teacher-h5">{item.name} 老師</h5>

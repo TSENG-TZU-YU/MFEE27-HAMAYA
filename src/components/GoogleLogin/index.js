@@ -11,10 +11,10 @@ import { successToast, errorToast, warningToast } from '../Alert';
 const GoogleLogin = () => {
     const navigate = useNavigate();
     const { member, setMember, isLogin, setIsLogin } = useAuth();
-    const handleCallbackResponse = async (res) => {
-        const rawData = jwt_decode(res.credential);
+    const handleCallbackResponse = async (googleData) => {
+        const rawData = jwt_decode(googleData.credential);
         console.log('Encode JWT ID token ' + rawData);
-        console.log('success ' + res.profileObj);
+        console.log('success ' + googleData.profileObj);
 
         const userObject = {
             // id: userId,
@@ -28,30 +28,12 @@ const GoogleLogin = () => {
         };
         console.log('userObject', userObject);
         try {
-            let response = await axios.post(
-                `${API_URL}/auth/register`,
-                userObject
-            );
-            console.log(response.data);
-            setIsLogin(true);
-            // setLoginPopup(false);
-
-            successToast('註冊成功', '關閉');
-            navigate('/member');
-
-            // let response1 = await axios.post(
-            //     `${API_URL}/auth/login`,
-            //     userObject,
-            //     {
-            //         withCredentials: true,
-            //     }
-            // );
-            // console.log(response1.data);
-            // setMember(response1.data);
-            // setIsLogin(true);
-            // navigate('/member');
-            // // setLoginPopup(false);
-            // successToast('登入成功', '關閉');
+            let response = await axios.post(`${API_URL}/member/googleAuth`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    token: googleData.tokenId,
+                }),
+            });
         } catch (err) {
             console.log(err.response.data);
         }
