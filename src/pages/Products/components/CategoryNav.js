@@ -6,7 +6,7 @@ function CategoryNav(props) {
     return (
         <>
             {/* 桌機 商品類別選項 */}
-            <div className="col-2 d-none d-md-block">
+            <div className="col-2 d-none d-md-block mb-5">
                 <ul className="products-category-navbar">
                     <li className="products-main-category">
                         <Link to="/products" className="accent-color">
