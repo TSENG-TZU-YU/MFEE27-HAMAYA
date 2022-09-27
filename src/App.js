@@ -194,11 +194,11 @@ function App() {
                                             element={<MyOrderDetail />}
                                         />
                                         <Route
-                                            path="myorder/add"
+                                            path="myorder/addqa"
                                             element={<MyOrderAdd />}
                                         />
                                         <Route
-                                            path="myorder/qa"
+                                            path="myorder/qadetail"
                                             element={<MyOrderQA />}
                                         />
                                         <Route

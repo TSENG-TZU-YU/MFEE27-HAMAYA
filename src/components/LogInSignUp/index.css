@@ -88,3 +88,7 @@
     width: 25px;
 }
 
+.SignUp .err{
+    color: red;
+    font-size: 13px;
+}

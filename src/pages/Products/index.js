@@ -158,10 +158,10 @@ function Products() {
 
     // 取得商品 api
     useEffect(() => {
-        // 開啟載入指示動畫
-        setIsLoading(true);
         // 切換撥放呈現商品項目動畫
         setIsVisable(true);
+        // 開啟載入指示動畫
+        setIsLoading(true);
         // 回歸原始狀態
         clearState();
         let getProducts = async () => {
@@ -898,7 +898,7 @@ function Products() {
 
                                 <div className="col-12 col-md-10 d-flex flex-column justify-content-between">
                                     {/* 商品列 */}
-                                    <div className="row row-cols-2 row-cols-md-3 row-cols-xl-4">
+                                    <ListMotionContainer className="row row-cols-2 row-cols-md-3 row-cols-xl-4">
                                         {error && <div>{error}</div>}
                                         {pageProducts.length === 0 ? (
                                             <h4 className="mt-5 d-flex w-100 main-gary-light-color text-center justify-content-center align-items-center">
@@ -918,9 +918,11 @@ function Products() {
                                             pageProducts[pageNow - 1].map(
                                                 (product) => {
                                                     return (
-                                                        <div
+                                                        <ListMotionItem
                                                             className="col product"
-                                                            key={uuidv4()}
+                                                            key={
+                                                                product.product_id
+                                                            }
                                                         >
                                                             <div className="position-relative">
                                                                 {/* 商品照片 */}
@@ -1066,11 +1068,11 @@ function Products() {
                                                                     }
                                                                 </p>
                                                             </div>
-                                                        </div>
+                                                        </ListMotionItem>
                                                     );
                                                 }
                                             )}
-                                    </div>
+                                    </ListMotionContainer>
                                     {/* 商品列 end */}
 
                                     {/* 頁碼 */}

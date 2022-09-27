@@ -164,7 +164,7 @@ function MyCoupon(props) {
                     />
                     <button className="btn1" onClick={addCouponSubmit}>
                         <img alt="add_img" src={add_img2} />
-                        新增優惠券
+                        領取優惠券
                     </button>
                 </div>
             </div>
