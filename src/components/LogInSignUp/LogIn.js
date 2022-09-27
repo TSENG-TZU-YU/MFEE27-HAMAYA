@@ -19,7 +19,7 @@ function LogIn({ setLoginPopup }) {
 
     const [loginMember, setLoginMember] = useState({
         email: '234ad7891@gmail.com',
-        password: 'xswedc123456',
+        password: '12345678',
     });
     const { member, setMember, isLogin, setIsLogin } = useAuth();
 
