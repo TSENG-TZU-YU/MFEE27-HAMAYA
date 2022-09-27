@@ -19,6 +19,9 @@ function MyOrderQA(props) {
     const navigate = useNavigate();
     const location = useLocation();
     const [myQuestion, setMyQuestion] = useState({
+        order: {
+            order_id: '',
+        },
         detail: {
             id: '',
             user_id: '',
@@ -42,17 +45,18 @@ function MyOrderQA(props) {
     });
 
     //讀取問答詳細
-    async function myQuestionDetail(qaid) {
+    // http://localhost:3001/api/member/myorder/qadetail?orid=
+    async function myQuestionDetail(orid) {
         try {
             let response = await axios.get(
-                `${API_URL}/member/myquestion/detail?qaid=${qaid}`,
+                `${API_URL}/member/myorder/qadetail?orid=${orid}`,
                 {
                     withCredentials: true,
                 }
             );
             console.log(response.data);
             setreplyForm({
-                user_qna_id: response.data.detail.id,
+                order_id: response.data.detail.order_id,
                 q_content: '',
             });
             setMyQuestion(response.data);
@@ -62,12 +66,12 @@ function MyOrderQA(props) {
             // alert(err.response.data.message);
         }
     }
-
+    //http://localhost:3000/member/myorder/qadetail?orid=16
     useEffect(() => {
         let params = new URLSearchParams(location.search);
-        let qaid = params.get('qaid');
-        console.log(qaid);
-        myQuestionDetail(qaid);
+        let orid = params.get('orid');
+        console.log('orid', orid);
+        myQuestionDetail(orid);
         console.log(socketStatus);
     }, [location]);
 
@@ -79,15 +83,15 @@ function MyOrderQA(props) {
                 newMessage: false,
             });
             let params = new URLSearchParams(location.search);
-            let qaid = params.get('qaid');
+            let orid = params.get('orid');
             // console.log(qaid);
-            myQuestionDetail(qaid);
+            myQuestionDetail(orid);
         }
     }, [socketStatus.newMessage]);
 
     //新增回覆
     const [replyForm, setreplyForm] = useState({
-        user_qna_id: '',
+        order_id: '',
         q_content: '',
     });
     const replyFormChange = (e) => {
@@ -97,7 +101,7 @@ function MyOrderQA(props) {
         e.preventDefault();
         try {
             let response = await axios.post(
-                `${API_URL}/member/myquestion/reply`,
+                `${API_URL}/member/myorder/qareply`,
                 replyForm,
                 {
                     withCredentials: true,
@@ -118,7 +122,7 @@ function MyOrderQA(props) {
                 <div>
                     <h4 className="main-color ">問答詳細</h4>
                     <div className="">
-                        問答編號:QA00{myQuestion.detail.id}&nbsp;
+                        訂單編號:{myQuestion.order.order_id}&nbsp;
                         {myQuestion.detail.create_time}
                     </div>
                 </div>
@@ -147,7 +151,7 @@ function MyOrderQA(props) {
                         問題類型
                     </div>
                     <div className="col-9 text-center  p-1">
-                        {myQuestion.detail.user_q_category}
+                        {myQuestion.detail.q_category}
                     </div>
                 </div>
                 <div className="d-flex border">

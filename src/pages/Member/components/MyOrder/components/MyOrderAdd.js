@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
 import { ReactComponent as Close } from '../../../../../assets/svg/close.svg';
@@ -10,8 +10,19 @@ import {
 } from '../../../../../components/Alert';
 function MyOrderAdd(props) {
     const navigate = useNavigate();
+    const location = useLocation();
+    useEffect(() => {
+        let params = new URLSearchParams(location.search);
+        let orid = params.get('orid');
+        setAskForm({
+            ...askForm,
+            order_id: orid,
+        });
+    }, [location]);
+
     //詢問表單
     const [askForm, setAskForm] = useState({
+        order_id: '',
         q_category: '0',
         title: '',
         comment: '',
@@ -24,18 +35,18 @@ function MyOrderAdd(props) {
         e.preventDefault();
         try {
             const response = await axios.post(
-                `${API_URL}/member/myquestion/add`,
+                `${API_URL}/member/myorder/addqa`,
                 askForm,
                 { withCredentials: true }
             );
             console.log(response.data);
             // loadingMyQuestion();
-            setAskForm({
-                q_category: '0',
-                title: '',
-                comment: '',
-            });
-            navigate('/member/myquestion');
+            // setAskForm({
+            //     q_category: '0',
+            //     title: '',
+            //     comment: '',
+            // });
+            navigate('/member/myorder');
             // setOpenAskForm(false);
             successToast(response.data.message, '關閉');
             // alert(response.data.message);
