@@ -19,11 +19,13 @@ import {
 } from 'react-icons/fi';
 import './index.css';
 import { clearConfigCache } from 'prettier';
+import { ReactComponent as Close } from '../../../../assets/svg/close.svg';
 
 function OrderDetail(props) {
     const [loadingComplete, setLoadingComplete] = useState(false); //是否已載入完成
     const [orderDetailList, setOrderDetailList] = useState(null);
     const location = useLocation();
+    const navigate = useNavigate();
     useEffect(() => {
         async function loadingOrderDetail() {
             try {
@@ -74,16 +76,43 @@ function OrderDetail(props) {
             </div>
             <h3>訂單詳細</h3>
             <hr />
-            <div className="OrderDetail">
+            <div className="OrderDetail mb-4">
                 {loadingComplete && (
                     <div>
+                        <div className="d-flex justify-content-end ">
+                            <button
+                                className="closebtn"
+                                onClick={() => {
+                                    navigate(-1);
+                                }}
+                            >
+                                <Close />
+                            </button>
+                        </div>
+                        <h5 className="title3">收件資訊</h5>
+                        <div className="row my-2">
+                            <div className="col-2">
+                                <span className="title3">姓名</span>
+                                &nbsp;&nbsp;{orderDetailList.detail.receiver}
+                            </div>
+                            <div className="col-4">
+                                <span className="title3">電話</span>
+                                &nbsp;&nbsp;{orderDetailList.detail.phone}
+                            </div>
+                            <div className="col-6">
+                                <span className="title3">地址</span>
+                                &nbsp;&nbsp;{orderDetailList.detail.address}
+                            </div>
+                        </div>
                         <table className="table table1">
                             <thead className="text-light bg-main-color ">
                                 <tr>
                                     <th className="text-center text-light title1">
                                         樂器商城
                                     </th>
-                                    <th className="text-center">商品名稱</th>
+                                    <th className="text-center title2">
+                                        商品名稱
+                                    </th>
                                     <th className="text-center">價格</th>
                                     <th className="text-center">數量</th>
                                     <th className="text-center">小計</th>
@@ -97,7 +126,7 @@ function OrderDetail(props) {
                                 {orderDetailList.response_orderListA.map(
                                     (data) => {
                                         return (
-                                            <tr key={uuidv4()} className=''>
+                                            <tr key={uuidv4()} className="">
                                                 <td className="text-center">
                                                     <img
                                                         className="classimg"
@@ -105,16 +134,16 @@ function OrderDetail(props) {
                                                         alt=""
                                                     />
                                                 </td>
-                                                <td className="text-center align-self-center">
+                                                <td className="text-center align-middle">
                                                     {data.name}
                                                 </td>
-                                                <td className="text-center align-self-center">
+                                                <td className="text-center align-middle">
                                                     NT${data.price}
                                                 </td>
-                                                <td className="text-center align-self-center">
+                                                <td className="text-center align-middle">
                                                     {data.amount}
                                                 </td>
-                                                <td className="text-center">
+                                                <td className="text-center align-middle">
                                                     NT$
                                                     {data.price * data.amount}
                                                 </td>
@@ -130,18 +159,12 @@ function OrderDetail(props) {
                                     <th className="text-center text-light title1">
                                         音樂教育
                                     </th>
-                                    <th className="text-center " scope="col">
+                                    <th className="text-center title2">
                                         課程名稱
                                     </th>
-                                    <th className="text-center" scope="col">
-                                        價格
-                                    </th>
-                                    <th className="text-center" scope="col">
-                                        數量
-                                    </th>
-                                    <th className="text-center" scope="col">
-                                        小計
-                                    </th>
+                                    <th className="text-center">價格</th>
+                                    <th className="text-center">數量</th>
+                                    <th className="text-center">小計</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -159,16 +182,16 @@ function OrderDetail(props) {
                                                 {console.log(
                                                     `../../../../album/class/${data.image_1}`
                                                 )}
-                                                <td className="text-center">
+                                                <td className="text-center align-middle">
                                                     {data.name}
                                                 </td>
-                                                <td className="text-center">
+                                                <td className="text-center align-middle">
                                                     NT${data.price}
                                                 </td>
-                                                <td className="text-center">
+                                                <td className="text-center align-middle">
                                                     {data.amount}
                                                 </td>
-                                                <td className="text-center">
+                                                <td className="text-center align-middle">
                                                     NT$
                                                     {data.price * data.amount}
                                                 </td>
@@ -178,83 +201,36 @@ function OrderDetail(props) {
                                 )}
                             </tbody>
                         </table>
-                        <hr />
+                        <hr className="hr" />
                         <div className="row">
-                            <div className="col-7">
-                                <table className="table table2">
-                                    <thead className="text-light bg-main-color ">
-                                        <tr>
-                                            <th>收件人資訊</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th>姓名</th>
-                                            <td>
-                                                {
-                                                    orderDetailList.detail
-                                                        .receiver
-                                                }
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>電話</th>
-                                            <td>
-                                                {orderDetailList.detail.phone}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>地址</th>
-                                            <td>
-                                                {orderDetailList.detail.address}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div className="col-7"></div>
+                            <div className="col-2 text-end">總計</div>
+                            <div className="col-2 text-end">
+                                NT${orderDetailList.detail.total_amount}
                             </div>
-                            <div className="col-5">
-                                <table className="table table2">
-                                    <thead className="text-light bg-accent-color ">
-                                        <tr>
-                                            <th>訂單資訊</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th>總計</th>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th>運費</th>
-                                            <td>
-                                                NT$
-                                                {orderDetailList.detail.freight}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>優惠券折扣</th>
-                                            <td>
-                                                {
-                                                    orderDetailList.detail
-                                                        .coupon_name
-                                                }
-                                                NT$
-                                                {
-                                                    orderDetailList.detail
-                                                        .discount
-                                                }
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div className="text-end">訂單金額</div>
-                                <div className="text-end">
-                                    NT${orderDetailList.detail.total_amount}
-                                </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-7"></div>
+                            <div className="col-2 text-end">運費</div>
+                            <div className="col-2 text-end">
+                                NT$
+                                {orderDetailList.detail.freight}
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-7"></div>
+                            <div className="col-2 text-end">優惠券折扣</div>
+                            <div className="col-2 text-end">
+                                - NT$
+                                {orderDetailList.detail.discount}
+                            </div>
+                        </div>
+                        <hr className="hr" />
+                        <div className="row">
+                            <div className="col-7"></div>
+                            <div className="col-2 text-end">訂單金額</div>
+                            <div className="col-2 text-end">
+                                NT${orderDetailList.detail.total_amount}
                             </div>
                         </div>
                     </div>

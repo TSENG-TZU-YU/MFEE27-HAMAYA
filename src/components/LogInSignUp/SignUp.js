@@ -45,9 +45,9 @@ function SignUp({ setLoginPopup }) {
             console.log(response.data);
             // setMember(response.data);
             // setIsLogin(true);
-            // navigate('/member');
             setLoginPopup(false);
-            successToast('註冊成功', '關閉');
+
+            successToast(response.data.message, '關閉');
 
         } catch (err) {
             console.log(err.response.data);

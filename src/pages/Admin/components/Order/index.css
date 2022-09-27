@@ -6,12 +6,17 @@
     text-align: center;
 }
 .OrderDetail .title1{
-    width: 110px;
+    width: 20%;
     text-align: center;
 }
 .OrderDetail .title2{
-    width: 150px;
+    width: 20%;
 }
+.OrderDetail .title1{
+    width: 20%;
+    text-align: center;
+}
+
 .OrderDetail .table1{
     width: 100%;
 }
@@ -22,4 +27,25 @@
     width: 100px;
     height: 60px;
     object-fit: cover;
+}
+.OrderDetail .hr{
+    border-top: 3px solid #000000
+    
+}
+.equalDivide tr td {
+    width:25%;  
+}
+.OrderDetail .title3{
+    color: #00323d;
+    
+}
+.OrderDetail .closebtn{
+    border: 2px solid #00000000;
+    padding: 0;
+    border-radius: 2px;
+    transition: .3s;
+    
+}
+.OrderDetail .closebtn:hover{
+    border: 2px solid #00323d;
 }
