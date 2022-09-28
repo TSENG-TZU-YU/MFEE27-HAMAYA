@@ -28,6 +28,7 @@ import AboutUs from './pages/AboutUs';
 import Member from './pages/Member';
 import NotFound from './pages/NotFound';
 import EnableMember from './utils/EnableMember';
+import ForgetPassword from './pages/ForgetPassword';
 
 //News 次頁面
 import MusicArticle from './pages/NEWs/MusicArticle';
@@ -312,6 +313,10 @@ function App() {
                                     <Route
                                         path="enable"
                                         element={<EnableMember />}
+                                    />
+                                    <Route
+                                        path="forget"
+                                        element={<ForgetPassword />}
                                     />
                                     {/* 404未找到的頁面路由，需放在最下方 */}
                                     <Route path="*" element={<NotFound />} />
