@@ -20,12 +20,18 @@
   border-width: 100%;
 }
 .brand {
-  padding-top: 40px;
-  padding-bottom: 60px;
+  // padding-top: 40px;
+  // padding-bottom: 60px;
+  height: 370px;
 }
 .brand h6{
-  padding: 20px;
+  padding: 0px;
   font-weight: 100;
+}
+
+.brandconcept{
+  background-color: #6A777A;
+
 }
 
 
@@ -36,15 +42,53 @@
   color:#f2f2f2
 }
 
-.founder {
-  aspect-ratio: 1 / 1;
-  width: 220px;
-  height: 220px;
+.intropic{
+  font-size: 32px;
+  padding: 0;
+  margin-top: 80px;
 }
-.founder img{
+.intropic img{
   width: 100%;
-  height: 100%;
 }
+.intropic h6{
+  color:  #ffffff;
+  font-weight: 100;
+}
+
+.imgho{
+  opacity: 0;
+  top: 0;
+  left: 0;
+  transition: 1s;
+}
+
+.imgho:hover{
+  opacity: 1;
+}
+
+.intropic .item1{
+  position: absolute;
+  width: 80%;
+  bottom:0;
+  left: 50%;
+  transform: translate(-50%,0);
+}
+
+
+.teachtext{
+  background-color: rgb(53, 84, 91,0.6);
+
+}
+
+.coursetext{
+  background-color: rgb(51, 51, 51,0.6);
+
+}
+.placetext{
+  background-color: rgb(91, 50, 47,0.6);
+
+}
+
 
 
 .askform input,.askform select, .askform textarea{
@@ -64,4 +108,24 @@
 
 input:disabled {
   background: rgb(206, 206, 206);
+}
+
+
+@media screen and (max-width:1400px) {
+  //xxl
+}
+@media screen and (max-width:1200px) {
+  //xl
+
+}
+@media screen and (max-width:992px) {
+  //lg
+
+}
+@media screen and (max-width:768px) {
+  //md
+
+}
+@media screen and (max-width:576px) {
+  //sm
 }
