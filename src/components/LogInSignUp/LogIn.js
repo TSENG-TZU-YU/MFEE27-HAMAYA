@@ -6,7 +6,7 @@ import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import { useAuth } from '../../utils/use_auth';
 import { successToast, errorToast, warningToast } from '../Alert';
-import GoogleLogin from '../GoogleLogin';
+// import GoogleLogin from '../GoogleLogin';
 
 function LogIn({ setLoginPopup }) {
     const [visibility, setVisibility] = useState(false);
@@ -96,7 +96,7 @@ function LogIn({ setLoginPopup }) {
             <button className="subBtn" onClick={loginSubmit}>
                 登入
             </button>
-            <GoogleLogin />
+            {/* <GoogleLogin /> */}
         </form>
     );
 }

@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import './index.css';
 import Close from '../../assets/svg/close.svg';
 import { useAuth } from '../../utils/use_auth';
+import GoogleLogin from '../GoogleLogin';
 
 import LogIn from './LogIn';
 import SignUp from './SignUp';
 
-
 function LogInSignUp({ setLoginPopup }) {
     const [logInActive, setLogInActive] = useState(true);
+    
 
     return (
         <div>
@@ -30,6 +31,7 @@ function LogInSignUp({ setLoginPopup }) {
                         <img src={Close} alt="close" />
                     </button>
                 </div>
+                <GoogleLogin />
                 <div className="d-flex justify-content-center ">
                     <button
                         className={logInActive ? 'setLogIn active' : 'setLogIn'}
