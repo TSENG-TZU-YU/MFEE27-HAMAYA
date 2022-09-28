@@ -1,0 +1,23 @@
+.ForgetPassword .space{
+    height: 110px;
+}
+.ForgetPassword .form{
+    width: 300px;
+}
+.ForgetPassword input{
+    width: 100%;
+    padding: 5px;
+}
+.ForgetPassword .form{
+    width: 300px;
+}
+.ForgetPassword .title1{
+    color: #00323d;
+   font-size: 16px;
+}
+.ForgetPassword .btn1{
+    width: 100%; 
+    color: white;
+    background-color: #00323d;
+    border: 0;
+}

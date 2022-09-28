@@ -31,28 +31,27 @@ function NewsActivity({ data, activeText, menuItems }) {
         }
     };
 
-    // TODO:要修圖片的尺寸大小
     return (
         <>
             <div className="container">
                 <div className="row  News-articles ">
                     {data.map((activity, index) => {
                         return (
-                            <div key={index} className="col-12 col-md-4 ">
-                                <div className="mt-4 ">
+                            <div key={index} className="col-12 col-md-4  ">
+                                <div className="mt-4">
                                     <Link
                                         to={`/news/${activity.id}?mainId=${activity.categoryId}`}
                                     >
                                         <img
                                             src={require(`../../../../album/article/${activity.image}`)}
                                             alt="art02"
-                                            className="All-imgs"
+                                            className="News-imgs"
                                         />
                                         <span className="col-md-12 gary-dark-color h6 News-cursor-pinter ">
                                             <div className="mt-2">
                                                 {activity.title}
                                             </div>
-                                            <div className=" d-flex mt-2  ">
+                                            <div className=" d-flex mt-2   ">
                                                 <p
                                                     className={colorChange(
                                                         Number(
@@ -82,11 +81,11 @@ function NewsActivity({ data, activeText, menuItems }) {
                     data={data}
                     activeText={activeText}
                     to={`/news/section?categoryList=${activeText}`}
-                    className="mb-0 me-1 cursor-pinter"
+                    className="mb-0 me-2 cursor-pinter"
                 >
                     看更多{id[0].name}
                     <img
-                        className="News-art-arrow"
+                        className="my-1 ms-2"
                         style={{
                             width: '15px',
                             height: '15px',

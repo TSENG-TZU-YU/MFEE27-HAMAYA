@@ -43,7 +43,7 @@ function HomeAnimation(props) {
                     />
                 </div>
 
-                <div className="muzieknootjes">
+                <div className="muzieknootje d-none d-md-block ">
                     <div className="noot-1">
                         <img src={Note5} alt="" />
                     </div>
@@ -59,6 +59,23 @@ function HomeAnimation(props) {
                     <div className="noot-5">
                         <img src={Note6} alt="" width="30" />
                     </div>
+                </div>
+            </div>
+            <div className="muzieknootje d-md-none  ">
+                <div className="noot-1">
+                    <img src={Note5} alt="" width="15" />
+                </div>
+                <div className="noot-2">
+                    <img src={Note2} alt="" width="15"  />
+                </div>
+                <div className="noot-3">
+                    <img src={Note7} alt="" width="15" />
+                </div>
+                <div className="noot-4">
+                    <img src={Note4} alt="" width="15"/>
+                </div>
+                <div className="noot-5">
+                    <img src={Note6} alt="" width="15" />
                 </div>
             </div>
         </>

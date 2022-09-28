@@ -301,7 +301,6 @@ function Place(props) {
                                     <p>吉他音箱：Marshall DSL15H + MX212cab</p>
                                     <p>貝斯音箱：GK MB112 II </p>
                                     <p>
-                                        {' '}
                                         爵士鼓組：Dixon Aritisan Standard 5粒組
                                     </p>
                                     <h6>

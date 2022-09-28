@@ -20,10 +20,10 @@ function EnableMember(props) {
             try {
                 console.log('會員進入啟用頁面');
                 let params = new URLSearchParams(location.search);
-                let userid = params.get('userid');
+                let id = params.get('id');
                 let key = params.get('key');
                 let response = await axios.get(
-                    `${API_URL}/auth/enable?userid=${userid}&key=${key}`,
+                    `${API_URL}/auth/enable?id=${id}&key=${key}`,
                     {
                         withCredentials: true,
                     }

@@ -1,4 +1,3 @@
-import React, { useEffect, useState, useParams } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from 'react-router-dom';
@@ -23,14 +22,14 @@ function HomeScroll({ data, slider }) {
                 spaceBetween={30}
                 centeredSlides={true}
                 autoplay={{
-                    delay: 3500,
+                    delay: 3000,
                     disableOnInteraction: false,
                 }}
                 pagination={{
                     el: '.swiper-pagination ',
                     clickable: true,
                 }}
-                navigation={true}
+                // navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
                 className="mySwiper"
             >
@@ -55,7 +54,7 @@ function HomeScroll({ data, slider }) {
                 spaceBetween={30}
                 centeredSlides={true}
                 autoplay={{
-                    delay: 3500,
+                    delay: 3000,
                     disableOnInteraction: false,
                 }}
                 pagination={{
@@ -72,7 +71,7 @@ function HomeScroll({ data, slider }) {
                             <Link
                                 to={`/news/${item.id}?mainId=${item.category}`}
                             >
-                                <div className="slider-titles d-none d-md-block">
+                                <div className="slider-titles d-none d-md-block mt-3">
                                     <span className="home-word ">
                                         NEW &ensp;
                                         <span className="home-word2">
