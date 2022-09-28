@@ -89,6 +89,7 @@ li.articles-page-active {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: justify;
 }
 
 
@@ -166,6 +167,18 @@ li.articles-page-active {
     line-height: 25px;
   }
 
+
+  .All-imgs{
+    width: 400px;
+    height: 280px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px solid;
+    object-fit: cover;
+
+  }
   
 @media screen and (max-width: 768px) {
 
@@ -183,3 +196,146 @@ li.articles-page-active {
 
    
   }
+
+
+
+  //TODO:篩選
+  // 篩選 pc
+.filter-active {
+  position: absolute;
+  width: 140px;
+  background-color: $main-light;
+  top: 40px;
+  left: -15px;
+  z-index: 880;
+}
+
+
+.sort-active {
+  position: absolute;
+  width: 130px;
+  background-color: $main-light;
+  top: 40px;
+  left: -8px;
+  z-index: 880;
+}
+
+
+.sort-menu-class {
+  background: $main-light;
+  left: 110px;
+  top: 40px;
+  z-index: 880;
+  color: $accent-light;
+}
+.sort-menu-class > ul > li {
+  padding: 2px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.sort-menu-class > ul {
+  line-height: 0.9rem;
+  padding: 0;
+  margin-bottom: 0 !important;
+}
+
+.article-Search-box {
+  right: 0;
+  top: 34px;
+  z-index: 2;
+  width: 100%;
+  width: 250px;
+}
+
+//篩選 pc end
+
+
+// 篩選 mob
+.mob-search {
+  margin-top: -20px;
+}
+.mob-class-search {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+.mobile-class-filter-nav {
+  margin: 10px 0;
+}
+
+.class-filter-nav-item-name {
+  color: $gary-light;
+  margin-left: 10px;
+  margin-bottom: 0;
+}
+
+
+
+.class-filter-nav-btn {
+  font-style: 1.5rem;
+  color: $main;
+  margin: auto;
+}
+
+.class-filter-nav-item.border-end {
+  border-color: $gary-light;
+}
+
+.class-filter-category-select {
+  width: 100%;
+  height: 300px;
+  background: $main-light;
+  color: $accent-light;
+}
+
+.class-filter-category-select:focus {
+  border: none;
+}
+
+.class-filter-category-select > option {
+  font-size: 1rem;
+  padding: 5px;
+}
+
+//篩選 mob end
+
+ul > li {
+  list-style: none;
+  font-size: 1rem;
+}
+.z-index {
+  z-index: -1;
+}
+
+.vector5-Btn {
+  color: $main-light;
+  border: 0px;
+  border-bottom: 3px solid $main-light;
+}
+.vector5-Btn-active {
+  color: $main;
+  border: 0px;
+  border-bottom: 5px solid $main;
+}
+
+.pages {
+  display: inline-block;
+  margin: 2px;
+  border-width: 1px;
+  width: 28px;
+  height: 28px;
+  text-align: center;
+}
+
+.class-search {
+  margin-top: 40px;
+  margin-left: 20px;
+}
+.class-h4-color {
+  color: $main-light;
+}
+
+.class-h4-color-active {
+  color: $main;
+}
+
+

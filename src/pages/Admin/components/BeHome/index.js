@@ -27,6 +27,12 @@ function BeHome(props) {
                             文章管理
                         </Link>
                         <hr />
+                        <Link
+                            to="/admin/customerservice"
+                            className="secondtitle"
+                        >
+                            新增文章
+                        </Link>
                     </div>
                 </div>
                 <div className="col-6 col-md-4 col-lg-3 p-0 d-flex justify-content-center align-items-center">
@@ -35,6 +41,12 @@ function BeHome(props) {
                             優惠券管理
                         </Link>
                         <hr />
+                        <Link
+                            to="/admin/customerservice"
+                            className="secondtitle"
+                        >
+                            新增優惠券
+                        </Link>
                     </div>
                 </div>
                 <div className="col-6 col-md-4 col-lg-3 p-0 d-flex justify-content-center align-items-center">

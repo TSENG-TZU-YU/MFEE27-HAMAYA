@@ -6,32 +6,90 @@ import { API_URL } from '../../../utils/config';
 import { v4 as uuidv4 } from 'uuid';
 // 圖檔
 import NewsBanner from '../../../assets/NewsImg/news-banner.jpg';
-
 import arrow from '../../../assets/svg/arrow_back_ios_new.svg';
+
+import sort from '../../../assets/svg/sort.svg';
+import search from '../../../assets/svg/search.svg';
+import arrowDown from '../../../assets/ProductsImg/icon/arrow_down.svg';
 
 //分頁
 import _ from 'lodash';
 
+// 項目資料
+import { sortByTitle } from '../constants';
 //元件
 import PaginationBar from '../../../components/PaginationBar/PaginationBar';
-import { clearConfigCache } from 'prettier';
+import SearchBar from '../../../components/SearchBar';
+import { sortByTypes } from '../constants';
 
-//TODO:頁碼還沒有做
-//TODO:類別顏色切換，四個選項的顏色切換
-//TODO:連結到下一頁的變數
-
-function MusicArticle() {
+function MusicArticle(props) {
     const [data, setData] = useState([]);
     const [activeText, setActiveText] = useState(1);
-
-    // 畫面上目前呈現用狀態
-    const [articleDisplay, setArticleDisplay] = useState([]);
 
     //分頁用;
     const [pageNow, setPageNow] = useState(1); // 目前頁號
     const [perPage, setPerPage] = useState(5); // 每頁多少筆資料
     const [pageTotal, setPageTotal] = useState(0); //總共幾頁，在didMount時要決定
     const [pageProducts, setPageProducts] = useState([]);
+
+    // 排序 Toggled
+    const [sortToggled, setSortToggled] = useState(false);
+    const toggleSortTrueFalse = (e) => {
+        if (sortToggled || searchToggled) {
+            setSearchToggled(false);
+        }
+        e.stopPropagation();
+        setSortToggled(!sortToggled);
+    };
+
+    // 2. 用於網頁上經過各種處理(排序、搜尋、過濾)後的資料
+    const [displayData, setDisplayData] = useState([]);
+    const [sortBy, setSortBy] = useState('');
+
+    // const [filterBy, setFilterBy] = useState('');
+    // 排序：處理方法
+    const handleSort = (data, sortBy) => {
+        let newData = [...data];
+
+        // 以時間排序-新到舊
+        if (sortBy === '1') {
+            newData = [...newData].sort((a, b) =>
+                b.creation_date.localeCompare(a.creation_date)
+            );
+        }
+        // 以時間排序-新到舊
+        if (sortBy === '2') {
+            newData = [...newData].sort((a, b) =>
+                a.creation_date.localeCompare(b.creation_date)
+            );
+        }
+
+        return newData;
+    };
+
+    // 搜尋 Toggled
+    const [searchToggled, setSearchToggled] = useState(false);
+    const toggleSearchToggled = (e) => {
+        if (sortToggled) {
+            setSortToggled(false);
+        }
+        e.stopPropagation();
+        setSearchToggled(!searchToggled);
+    };
+
+    // 搜尋
+    const [searchWord, setSearchWord] = useState('');
+    // 搜尋：處理方法
+    const handleSearch = (data, searchWord) => {
+        let newData = [...data];
+        if (searchWord.length) {
+            newData = data.filter((data) => {
+                return data.title.includes(searchWord);
+            });
+        }
+
+        return newData;
+    };
 
     const location = useLocation();
 
@@ -96,34 +154,196 @@ function MusicArticle() {
         }
     };
 
+    // 當過濾表單元素有更動時
+    useEffect(() => {
+        let newData = [...data];
+
+        // 處理搜尋
+        newData = handleSearch(newData, searchWord);
+
+        // 處理排序
+        newData = handleSort(newData, sortBy);
+
+        // 篩選後 PageNow = 1 map 才有作用
+        setPageNow(1);
+        setDisplayData(newData);
+        const newPageData = _.chunk(newData, perPage);
+        setPageTotal(newPageData.length);
+        setPageProducts(newPageData);
+    }, [data, sortBy, searchWord]);
+
     const id = ListItems.filter((v) => v.id === activeText);
-    // const Breadcrumbs = id.slice(0);
-    // console.log('麵包屑', Breadcrumbs);
-    // console.log(activeText);
+
     return (
-        <>
+        <div
+            onClick={(e) => {
+                e.preventDefault();
+                setSortToggled(false);
+
+                setSearchToggled(false);
+            }}
+        >
             <img src={NewsBanner} alt="banner" className="img-fluid" />
-            {/* 麵包屑 end*/}
-            <div className="container d-flex mt-5 ">
-                <Link to="/">
-                    <p className="News-Breadcrumbs">首頁</p>
-                </Link>
-                &nbsp;/&nbsp;
-                <Link to="/news">
-                    <p className="News-Breadcrumbs">最新消息</p>
-                </Link>
-                &nbsp;/&nbsp;
-                <Link
-                    data={data}
-                    activeText={activeText}
-                    to={`/news/section?categoryList=${activeText.id}`}
-                >
-                    <p className="News-Breadcrumbs">{id[0].name}</p>
-                </Link>
+            <div className="container d-flex  justify-content-between align-items-center ">
+                {/* 麵包屑 end */}
+                <div className="container d-flex mt-5 ">
+                    <Link to="/">
+                        <p className="News-Breadcrumbs text-nowrap">首頁</p>
+                    </Link>
+                    &nbsp;/&nbsp;
+                    <Link to="/news">
+                        <p className="News-Breadcrumbs text-nowrap">最新消息</p>
+                    </Link>
+                    &nbsp;/&nbsp;
+                    <Link
+                        data={data}
+                        activeText={activeText}
+                        to={`/news/section?categoryList=${activeText.id}`}
+                    >
+                        <p className="News-Breadcrumbs text-nowrap">
+                            {id[0].name}
+                        </p>
+                    </Link>
+                    {/* <SearchBar /> */}
+                    {/* 麵包屑 */}
+                </div>
+                {/* 篩選 pc */}
+
+                <div className="d-flex mt-3  d-none d-md-block ">
+                    <div className="d-flex me-5 justify-content-between align-items-center position-relative">
+                        <div className="d-flex justify-content-between align-items-center position-relative">
+                            <p
+                                className="mb-0 cursor-pinter News-Breadcrumbs text-nowrap "
+                                onClick={toggleSortTrueFalse}
+                            >
+                                文章排序
+                            </p>
+                            <img
+                                className=" ms-1 cursor-pinter"
+                                src={sort}
+                                alt="Sort"
+                            />
+                            <div
+                                className={sortToggled ? 'sort-active' : ''}
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                {sortToggled ? (
+                                    <div className="sort-menu-class text-center ">
+                                        <ul className="p-2">
+                                            {sortByTypes.map((item, index) => {
+                                                return (
+                                                    <li
+                                                        className="py-1"
+                                                        key={index}
+                                                        onClick={(e) => {
+                                                            setSortBy(item.id);
+                                                            setSortToggled(
+                                                                false
+                                                            );
+                                                        }}
+                                                    >
+                                                        {item.name}
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    </div>
+                                ) : (
+                                    ''
+                                )}
+                            </div>
+                        </div>
+                        <button
+                            className="border-0 position-relative "
+                            onClick={toggleSearchToggled}
+                        >
+                            <img
+                                className="ms-5 "
+                                src={search}
+                                alt="search"
+                            ></img>
+                        </button>
+                        {searchToggled ? (
+                            <div
+                                className=" position-absolute article-Search-box "
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                {/*TODO: rwd 搜尋的詞會不見 但條件還在 */}
+                                <SearchBar
+                                    searchWord={searchWord}
+                                    setSearchWord={setSearchWord}
+                                />
+                            </div>
+                        ) : (
+                            ''
+                        )}
+                    </div>
+                </div>
             </div>
-            {/* 麵包屑 */}
+            {/* 篩選 mob */}
+            <div className="d-md-none">
+                <div className=" d-flex justify-content-end mob-search">
+                    <button className="border-0 " onClick={toggleSearchToggled}>
+                        <img className="" src={search} alt="search"></img>
+                    </button>
+                </div>
+
+                {searchToggled ? (
+                    <div
+                        className=" mob-class-search "
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <SearchBar
+                            searchWord={searchWord}
+                            setSearchWord={setSearchWord}
+                        />
+                    </div>
+                ) : (
+                    ''
+                )}
+                <div className="">
+                    <div className="class-filter-nav-item">
+                        <p className="products-filter-nav-item-name ">
+                            文章排序
+                        </p>
+                        <button
+                            className="border-0 class-filter-nav-btn  "
+                            onClick={toggleSortTrueFalse}
+                        >
+                            {sortByTitle(sortBy)}
+
+                            <img src={arrowDown} alt="arrowDown" />
+                        </button>
+                    </div>
+                </div>
+                {/* 商品排序區塊 */}
+                {sortToggled ? (
+                    <div
+                        className="products-sort-menu"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <ul className="p-3">
+                            {sortByTypes.map((item, index) => {
+                                return (
+                                    <li
+                                        key={index}
+                                        onClick={(e) => {
+                                            setSortBy(item.id);
+                                            setSortToggled(false);
+                                        }}
+                                    >
+                                        {item.name}
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
+                ) : (
+                    ''
+                )}
+            </div>
             <div className="container">
-                <div className="row text-center ">
+                <div className="row text-center mt-5">
                     {ListItems.map((value) => {
                         return (
                             <Link
@@ -132,7 +352,7 @@ function MusicArticle() {
                                         ? 'col-3 News-word3  News-vector5-Btn-active'
                                         : 'col-3 News-word3  News-vector5-Btn'
                                 }
-                                key={uuidv4()}
+                                key={value.id}
                                 to={`/news/section?categoryList=${value.id}`}
                                 onClick={() => {
                                     setActiveText(value.id);
@@ -147,14 +367,14 @@ function MusicArticle() {
                 </div>
             </div>
             <div className="container">
-                <div className="row">
+                <div className="row mt-5">
                     {pageProducts.length > 0 &&
                         pageProducts[pageNow - 1].map((list) => {
                             return (
                                 <>
                                     <div
-                                        key={uuidv4()}
-                                        className="col-12 col-md-5 d-flex mt-4"
+                                        key={list.id}
+                                        className="col-12 col-md-5 d-flex "
                                     >
                                         <img
                                             src={require(`../../../album/article/${list.image}`)}
@@ -223,7 +443,7 @@ function MusicArticle() {
                 {/* 不會顯示任何東西 */}
             </div>
             {/* 頁碼 end */}
-        </>
+        </div>
     );
 }
 

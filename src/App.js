@@ -2,7 +2,6 @@
 
 import React, { useEffect } from 'react';
 
-
 // import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // 登入元件
@@ -28,6 +27,7 @@ import Place from './pages/Place';
 import AboutUs from './pages/AboutUs';
 import Member from './pages/Member';
 import NotFound from './pages/NotFound';
+import EnableMember from './utils/EnableMember';
 
 //News 次頁面
 import MusicArticle from './pages/NEWs/MusicArticle';
@@ -309,6 +309,10 @@ function App() {
                                             element={<Teachers />}
                                         />
                                     </Route>
+                                    <Route
+                                        path="enable"
+                                        element={<EnableMember />}
+                                    />
                                     {/* 404未找到的頁面路由，需放在最下方 */}
                                     <Route path="*" element={<NotFound />} />
                                 </Route>

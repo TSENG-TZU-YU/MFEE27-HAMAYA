@@ -44,6 +44,9 @@ function HomeScroll({ data, slider }) {
                                     alt="home images"
                                 />
                             </div>
+                            <Link
+                                to={`/news/${item.id}?mainId=${item.category}`}
+                            ></Link>
                         </Link>
                     </SwiperSlide>
                 ))}
@@ -59,7 +62,7 @@ function HomeScroll({ data, slider }) {
                     el: '.swiper-pagination',
                     clickable: true,
                 }}
-                navigation={true}
+                // navigation={true}輪播按鈕樣式
                 modules={[Autoplay, Pagination, Navigation]}
                 className="none"
             >
@@ -69,7 +72,7 @@ function HomeScroll({ data, slider }) {
                             <Link
                                 to={`/news/${item.id}?mainId=${item.category}`}
                             >
-                                <div className="slider-titles">
+                                <div className="slider-titles d-none d-md-block">
                                     <span className="home-word ">
                                         NEW &ensp;
                                         <span className="home-word2">
@@ -81,6 +84,24 @@ function HomeScroll({ data, slider }) {
                                     </span>
                                 </div>
                             </Link>
+                            {/* 手機版 */}
+                            <div className="d-md-none">
+                                <Link
+                                    to={`/news/${item.id}?mainId=${item.category}`}
+                                >
+                                    <div className="">
+                                        <span className="home-word ">
+                                            NEW &ensp;
+                                            <span className="home-word2">
+                                                {item.creation_date}&ensp;
+                                            </span>
+                                            <span className="home-word3">
+                                                {item.title}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </Link>
+                            </div>
                         </SwiperSlide>
                     ))}
                 </div>

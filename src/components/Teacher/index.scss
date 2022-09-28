@@ -22,6 +22,9 @@
         margin: 0;
     }
 }
+.teacherImg:hover {
+    transform: translateY(-20px);
+}
 .swiper-slide img {
     display: block;
     width: 100%;

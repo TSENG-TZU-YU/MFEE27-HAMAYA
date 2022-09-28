@@ -45,20 +45,28 @@ function SignUp({ setLoginPopup }) {
             console.log(response.data);
             // setMember(response.data);
             // setIsLogin(true);
-            // navigate('/member');
             setLoginPopup(false);
-            successToast('註冊成功', '關閉');
-            // alert('註冊成功');
+
+            successToast(response.data.message, '關閉');
+
         } catch (err) {
             console.log(err.response.data);
-            // alert(err.response.data.errors[0].msg);
-            errorToast(err.response.data.errors[0].msg, '關閉');
+            setCheckForm(err.response.data);
+            // alert(err.response.data.fullName);
+            errorToast('格式錯誤', '關閉');
         }
     }
+
+    const handleFormChange = (e) => {
+        setCheckForm({
+            ...checkForm,
+            [e.target.name]: '',
+        });
+    };
     return (
-        <form>
+        <form className="SignUp" onChange={handleFormChange}>
             <label>
-                會員姓名{checkForm.fullName}
+                會員姓名<span className="err">{checkForm.fullName}</span>
                 <br />
                 <input
                     type="text"
@@ -70,7 +78,7 @@ function SignUp({ setLoginPopup }) {
                 />
             </label>
             <label>
-                帳號(E-MAIL){checkForm.email}
+                帳號(E-MAIL)<span className="err">{checkForm.email}</span>
                 <br />
                 <input
                     type="email"
@@ -83,7 +91,7 @@ function SignUp({ setLoginPopup }) {
             </label>
 
             <label className="position-relative">
-                密碼{checkForm.password}
+                密碼<span className="err">{checkForm.password}</span>
                 <br />
                 <input
                     type={visibility ? 'text' : 'password'}

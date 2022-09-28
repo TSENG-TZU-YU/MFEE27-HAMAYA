@@ -10,6 +10,9 @@ import { Link } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+// 會員
+import { useAuth } from '../../utils/use_auth';
+
 // 項目資料
 import { loader } from './constants';
 
@@ -22,10 +25,9 @@ import banner from '../../assets/ClassImg/banner.png';
 import arrow from '../../assets/svg/arrow_back_ios_new.svg';
 import Adult_Course from '../../assets/ClassImg/Adult Course.png';
 import Children_Lessons from '../../assets/ClassImg/Children Lessons.png';
-import decorate1 from '../../assets/ClassImg/音樂裝飾1.png';
-import decorate2 from '../../assets/ClassImg/音樂裝飾2.png';
-import decorate3 from '../../assets/ClassImg/音樂裝飾3.png';
-// import { useAuth } from '../../utils/use_auth';
+import decorate1 from '../../assets/ClassImg/音樂裝飾1.svg';
+import decorate2 from '../../assets/ClassImg/音樂裝飾2.svg';
+import decorate3 from '../../assets/ClassImg/音樂裝飾3.svg';
 
 function Class(props) {
     AOS.init();
@@ -38,8 +40,27 @@ function Class(props) {
     // 是否正在載入資料的旗標, true = 載入資料中
     const [isLoading, setIsLoading] = useState(false);
 
-    // 取得會員 ID 資料
-    // const { member } = useAuth();
+    // 登入狀態
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+
+    //會員登入狀態判斷
+    useEffect(() => {
+        async function getMember() {
+            try {
+                // console.log('檢查是否登入');
+                let response = await axios.get(`${API_URL}/auth`, {
+                    withCredentials: true,
+                });
+                // console.log('已登入', response.data);
+                setIsLogin(true);
+                setMember(response.data);
+            } catch (err) {
+                // navigate('/');
+                console.log(err.response.data.message);
+            }
+        }
+        getMember();
+    }, []);
 
     useEffect(() => {
         //開啟載入指示動畫
@@ -51,7 +72,7 @@ function Class(props) {
             setArticle1(response.data.article1);
         };
         getAdultClass();
-
+        window.scrollTo(0, 0);
         // 0.8秒後關起動畫呈現資料
         setTimeout(() => {
             setIsLoading(false);
@@ -59,7 +80,6 @@ function Class(props) {
     }, []);
 
     useEffect(() => {}, [data]);
-
 
     return (
         <>
@@ -205,7 +225,6 @@ function Class(props) {
                         </div>
                     </Container>
                     <div className="session-bg ">
-                        {/* TODO: background-size */}
                         <img
                             className="decorate1 d-none d-lg-block  img-fluid"
                             src={decorate1}
@@ -247,7 +266,7 @@ function Class(props) {
                                         <img
                                             src={Adult_Course}
                                             alt="Adult Course"
-                                            className="cursor-pinter img-fluid "
+                                            className="classShadow  cursor-pinter img-fluid "
                                             onClick={() => {
                                                 setSelectCourse(true);
                                             }}
@@ -264,7 +283,7 @@ function Class(props) {
                                 >
                                     <Link to="list?class=2">
                                         <img
-                                            className="cursor-pinter img-fluid"
+                                            className="classShadow cursor-pinter img-fluid"
                                             src={Children_Lessons}
                                             alt="Children Lessons"
                                             onClick={() => {
