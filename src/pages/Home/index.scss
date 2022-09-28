@@ -89,13 +89,15 @@
 
 
 .home-blank-top2 {
-  margin-top: 60px;
+  margin-top: 30px;
 }
-
 .home-blank-top3 {
-  margin-top: 110px;
+  margin-top: 115px;
 }
 
+.home-blank-top4{
+padding-bottom: 50px;
+} 
 
 
 
@@ -262,7 +264,7 @@ bottom:-60px;
 }
 
 //1400px縮放調整
-@media (max-width: 1400px) {
+@media screen and (max-width: 1400px) {
   .pushed-box {
 		position: absolute;
 		left: 5%;
@@ -284,8 +286,7 @@ bottom:-60px;
     
   }
 
-
-@media (max-width: 768px) {
+  @media screen and (max-width: 768px) {
   .pushed-box {
 		position: absolute;
 		left: 5%;
@@ -338,9 +339,9 @@ bottom:-60px;
   }
 
   .home-blank-top4{
-      margin-top: 30px;
+      margin-top: 10px;
     }
-    
+
   }
 
   .News-music-article-color4 {
@@ -352,3 +353,15 @@ bottom:-60px;
     color: $accent-light;
     line-height: 25px;
   }
+  .home-imgs{
+    width: 100%;
+    height: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px solid;
+    object-fit: cover;
+
+  }
+
+ 

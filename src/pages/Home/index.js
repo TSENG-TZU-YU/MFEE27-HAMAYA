@@ -46,6 +46,7 @@ function Home() {
             setSlider(response.data.slider);
         };
         getArticle();
+        window.scrollTo(0, 0);
     }, [location]);
 
     console.log(data);
@@ -60,14 +61,7 @@ function Home() {
 
                     <HomeScroll data={data} slider={slider} />
 
-                    <div className="container bg-main-gary-light-color ">
-                        {/* <span className="home-word">
-                            NEW &ensp;
-                            <span className="home-word2">2022.08.25&ensp;</span>
-                            <span className="home-word3">
-                            </span>
-                        </span> */}
-                    </div>
+                    <div className="container bg-main-gary-light-color "></div>
                 </div>
 
                 <MobileHome />
@@ -145,7 +139,7 @@ function Home() {
                             />
                         </div>
                     </div>
-                    <div className=" pushed-content pushed-box  ">
+                    <div className=" pushed-content pushed-box">
                         <Link to="place">
                             <span className="item-word">場地租借</span>
                             <img
@@ -180,7 +174,8 @@ function Home() {
                     <img src={Note9} width="15" alt="Logo" className="note9" />
                 </div>
 
-                <div className="container d-flex home-blank-top4 ">
+                {/* 音樂文章列表 */}
+                <div className="container d-flex  home-blank-top ">
                     <p className="home-word4 fw-bold home-cursor-pinter me-3 text-nowrap">
                         音樂文章
                     </p>
@@ -189,32 +184,32 @@ function Home() {
                     </p>
                     <div className=" mt-3 home-vector3"></div>
                 </div>
-                <div className="container bg-main-gary-light-color ">
-                    <div className="row  News-articles">
+                <div className="container bg-main-gary-light-color  home-blank-top4 ">
+                    <div className="row  News-articles bg-main-gary-light-color ">
                         {data.map((article) => {
                             return (
                                 <div
                                     key={uuidv4()}
                                     className="col-12 col-md-4 "
                                 >
-                                    <div className="mt-4 ">
+                                    <div className="mt-4  ">
                                         <Link
                                             to={`/news/${article.id}?mainId=${article.category}`}
                                         >
                                             <img
                                                 src={require(`../../album/article/${article.image}`)}
                                                 alt="art02"
-                                                className="article-imgs article-img"
+                                                className="home-imgs"
                                             />
                                             <span className="gary-dark-color h6 article-cursor-pinter mt-2">
-                                            <div className="mt-2 ms-2">
+                                                <div className="mt-2 ms-2">
                                                     {article.title}
                                                 </div>
                                                 <div className=" d-flex mt-2  ms-2">
                                                     <p className="News-music-article-color4 small">
                                                         {article.articleName}
                                                     </p>
-                                                    <p className="ms-2">
+                                                    <p className="ms-2 mt-1">
                                                         {article.author}－
                                                         {article.creation_date}
                                                     </p>
@@ -232,20 +227,20 @@ function Home() {
                                     key={uuidv4()}
                                     className="col-12 col-md-4  "
                                 >
-                                    <div className="mt-4">
+                                    <div className="mt-4 ">
                                         <Link
                                             to={`/news/${article2.id}?mainId=${article2.category}`}
                                         >
                                             <img
                                                 src={require(`../../album/article/${article2.image}`)}
                                                 alt="art02"
-                                                className="News-imgs"
+                                                className="home-imgs"
                                             />
                                             <span className="gary-dark-color h6 News-cursor-pinter  ">
                                                 <div className="mt-2 ms-2">
                                                     {article2.title}
                                                 </div>
-                                                <div className="d-flex mt-2 ">
+                                                <div className="d-flex mt-2  ms-2 ">
                                                     <p className="News-music-article-color4 small News-label">
                                                         {article2.articleName}
                                                     </p>
