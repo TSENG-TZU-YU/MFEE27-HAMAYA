@@ -89,7 +89,7 @@
 
 
 .home-blank-top2 {
-  margin-top: 30px;
+  margin-top: 70px;
 }
 .home-blank-top3 {
   margin-top: 115px;
@@ -364,4 +364,10 @@ bottom:-60px;
 
   }
 
- 
+  //音樂文章動畫效果
+
+  .move-up:hover{
+    background-color: $main-gary-light;
+    transition: all .5s;
+    transform : translateY(-20px);
+}
