@@ -85,24 +85,61 @@ function OrderDetail(props) {
                     <Close />
                 </button>
             </div>
-            <div className="position-relative">
+            <div className="position-relative pay_state">
                 <div className="d-flex item1">
-                    <div className="bg-info line"></div>
-                    <div className="bg-success line"></div>
+                    <div
+                        className={
+                            orderDetailList.detail.order_state === '訂單成立'
+                                ? 'linecolor1'
+                                : orderDetailList.detail.order_state ===
+                                  '已出貨'
+                                ? 'linecolor2'
+                                : 'linecolor2'
+                        }
+                    ></div>
+                    <div
+                        className={
+                            orderDetailList.detail.order_state === '訂單成立'
+                                ? 'linecolor1'
+                                : orderDetailList.detail.order_state ===
+                                  '已出貨'
+                                ? 'linecolor1'
+                                : 'linecolor2'
+                        }
+                    ></div>
                 </div>
                 <div className="d-flex justify-content-between align-items-center item2">
                     <div className="d-flex flex-column align-items-center">
-                        <Finish className=" icon" />
+                        <Finish className="icon" />
                         訂單成立
                     </div>
-                    <div className="d-flex flex-column align-items-center">
-                        <Finish className=" icon" />
-                        待出貨
-                    </div>
-                    <div className="d-flex flex-column align-items-center">
-                        <Finish className=" icon" />
-                        訂單完成
-                    </div>
+                    {orderDetailList.detail.order_state === '已出貨' ? (
+                        <div className="d-flex flex-column align-items-center">
+                            <Finish className="icon" />
+                            已出貨
+                        </div>
+                    ) : orderDetailList.detail.order_state === '訂單完成' ? (
+                        <div className="d-flex flex-column align-items-center">
+                            <Finish className="icon" />
+                            已出貨
+                        </div>
+                    ) : (
+                        <div className="d-flex flex-column align-items-center">
+                            <Undone className=" icon" />
+                            待出貨
+                        </div>
+                    )}
+                    {orderDetailList.detail.order_state === '訂單完成' ? (
+                        <div className="d-flex flex-column align-items-center">
+                            <Finish className=" icon" />
+                            訂單完成
+                        </div>
+                    ) : (
+                        <div className="d-flex flex-column align-items-center">
+                            <Undone className=" icon" />
+                            訂單完成
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="mb-4">
