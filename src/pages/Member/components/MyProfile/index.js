@@ -341,6 +341,7 @@ function MyProfile(props) {
                                             e.preventDefault();
                                             setVisibility(!visibility);
                                         }}
+                                        disabled={editPassword}
                                     >
                                         <img
                                             src={visibility ? visib : unVisib}
@@ -368,6 +369,7 @@ function MyProfile(props) {
                                             e.preventDefault();
                                             setVisibility2(!visibility2);
                                         }}
+                                        disabled={editPassword}
                                     >
                                         <img
                                             src={visibility2 ? visib : unVisib}
@@ -395,6 +397,7 @@ function MyProfile(props) {
                                             e.preventDefault();
                                             setVisibility3(!visibility3);
                                         }}
+                                        disabled={editPassword}
                                     >
                                         <img
                                             src={visibility3 ? visib : unVisib}
@@ -429,8 +432,9 @@ function MyProfile(props) {
                         onClick={() => {
                             setEditPassword(true);
                             setPassword({
-                                password: '********',
-                                repassword: '',
+                                password: '',
+                                newpassword: '',
+                                renewpassword: '',
                             });
                         }}
                     >

@@ -399,6 +399,7 @@ function Detailed({ ins_main_id }) {
                                                             value=""
                                                             name="flexRadioDefault"
                                                             id="flexRadioDefault1"
+                                                            checked
                                                         />
                                                         <label
                                                             className="form-check-label"

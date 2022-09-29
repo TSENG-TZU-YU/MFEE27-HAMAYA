@@ -22,13 +22,6 @@
   cursor: pointer;
 }
 
-// 試試將圖與內容包起來
-.article-card{
-  max-width: 300px;
- 
-
-}
-
 
 .article-img2 {
   width: 300px;
@@ -110,21 +103,7 @@ li.articles-page-active {
     max-height: 100%;
 
   }
-  .article-list-images2{
-    width: 300px;
-    height: 200px;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 0px solid;
-  }
 
-  .article-list-images2 img{
-    max-width: 100%;
-    max-height: 100%;
-
-  }
   
   .News-music-article {
     width: 70px;
@@ -167,18 +146,12 @@ li.articles-page-active {
     line-height: 25px;
   }
 
-
-  .All-imgs{
-    width: 400px;
-    height: 280px;
-    margin: auto;
+  .list-blank{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 0px solid;
-    object-fit: cover;
-
+    margin-top: 50px;
   }
+
+ 
   
 @media screen and (max-width: 768px) {
 
@@ -193,6 +166,11 @@ li.articles-page-active {
    
     
   }
+  .list-blank{
+    display: flex;
+    margin-top: 20px;
+  }
+  
 
    
   }
@@ -252,11 +230,17 @@ li.articles-page-active {
 
 // 篩選 mob
 .mob-search {
-  margin-top: -20px;
+  position: relative;
+  top:-15px;
+  right:10px;
+  display: flex;
+ justify-content: end;
 }
+
 .mob-class-search {
-  margin-top: 10px;
-  margin-left: 20px;
+  position: relative;
+  top:-15px;
+  right:10px;
 }
 .mobile-class-filter-nav {
   margin: 10px 0;

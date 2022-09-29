@@ -145,7 +145,7 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                             <div className="d-flex justify-content-center align-items-center">
                                 <Link
                                     className="accent-light-color text-nowrap"
-                                    to="news"
+                                    to="/news?categoryId=1"
                                     onClick={closeList}
                                 >
                                     最新消息

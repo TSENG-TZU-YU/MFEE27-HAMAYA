@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
 //圖檔
+import arrow from '../../../assets/svg/arrow_back_ios_new.svg';
 
 function Article() {
     const [data, setData] = useState([]);
@@ -26,6 +27,7 @@ function Article() {
             setRead(response.data.read);
         };
         getArticle();
+        window.scrollTo(0, 0);
     }, [location]);
 
     console.log(data);
@@ -163,12 +165,18 @@ function Article() {
                                     <br />
                                 </div>
                             </div>
+                            <div className="container text-center ">
+                                <Link
+                                    to={`/news/section?categoryList=${article.category}`}
+                                    className="mb-0 me-1 list-cursor-pinter"
+                                >
+                                    回上一頁
+                                </Link>
+                            </div>
                         </div>
                     );
                 })}
             </div>
-
-            {/* <div className="mt-4 lh-lg"></div> */}
 
             <div className="container d-flex article-blank-top">
                 <p className="article-word fw-bold article-cursor-pinter me-3 text-nowrap">
@@ -177,12 +185,12 @@ function Article() {
 
                 <div className=" mt-3 article-vector3"></div>
             </div>
-            <div className="container ">
+            <div className="container  article-blank-top2 ">
                 <div className="row ">
                     {read.map((recommend) => {
                         return (
                             <div key={uuidv4()} className="col-12 col-md-4 ">
-                                <div className="mt-4 ">
+                                <div className="mt-4">
                                     <Link
                                         to={`/news/${recommend.id}?mainId=${recommend.category}`}
                                     >
@@ -192,8 +200,11 @@ function Article() {
                                             className="article-imgs article-img"
                                         />
                                         <span className="gary-dark-color h6 article-cursor-pinter mt-2">
-                                            {recommend.title}
-                                            <div className=" d-flex mt-2 ">
+                                            <div className="mt-2 ">
+                                                {recommend.title}
+                                            </div>
+
+                                            <div className=" d-flex mt-2">
                                                 <p
                                                     className={colorChange(
                                                         Number(
@@ -203,7 +214,7 @@ function Article() {
                                                 >
                                                     {recommend.articleName}
                                                 </p>
-                                                <p className="ms-2">
+                                                <p className="ms-2 mt-1">
                                                     {recommend.author}－
                                                     {recommend.creation_date}
                                                 </p>

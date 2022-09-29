@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 // 圖檔
 import NewsBanner from '../../../assets/NewsImg/news-banner.jpg';
 import arrow from '../../../assets/svg/arrow_back_ios_new.svg';
-
+import { TbMusicOff } from 'react-icons/tb';
 import sort from '../../../assets/svg/sort.svg';
 import search from '../../../assets/svg/search.svg';
 import arrowDown from '../../../assets/ProductsImg/icon/arrow_down.svg';
@@ -32,6 +32,10 @@ function MusicArticle(props) {
     const [pageTotal, setPageTotal] = useState(0); //總共幾頁，在didMount時要決定
     const [pageProducts, setPageProducts] = useState([]);
 
+    //  用於網頁上經過各種處理(排序、搜尋、過濾)後的資料
+    const [displayData, setDisplayData] = useState([]);
+    const [sortBy, setSortBy] = useState('');
+
     // 排序 Toggled
     const [sortToggled, setSortToggled] = useState(false);
     const toggleSortTrueFalse = (e) => {
@@ -41,10 +45,6 @@ function MusicArticle(props) {
         e.stopPropagation();
         setSortToggled(!sortToggled);
     };
-
-    // 2. 用於網頁上經過各種處理(排序、搜尋、過濾)後的資料
-    const [displayData, setDisplayData] = useState([]);
-    const [sortBy, setSortBy] = useState('');
 
     // const [filterBy, setFilterBy] = useState('');
     // 排序：處理方法
@@ -112,9 +112,8 @@ function MusicArticle(props) {
             }
         };
         getMusicArticle();
+        window.scrollTo(0, 0);
     }, [location]);
-
-    // console.log(data);
 
     // 假資料;
     const ListItems = [
@@ -172,6 +171,7 @@ function MusicArticle(props) {
         setPageProducts(newPageData);
     }, [data, sortBy, searchWord]);
 
+    //讓麵包屑也跟切換文章種類
     const id = ListItems.filter((v) => v.id === activeText);
 
     return (
@@ -184,9 +184,9 @@ function MusicArticle(props) {
             }}
         >
             <img src={NewsBanner} alt="banner" className="img-fluid" />
-            <div className="container d-flex  justify-content-between align-items-center ">
+            <div className="container d-flex  justify-content-between align-items-center  ">
                 {/* 麵包屑 end */}
-                <div className="container d-flex mt-5 ">
+                <div className="container  list-blank ">
                     <Link to="/">
                         <p className="News-Breadcrumbs text-nowrap">首頁</p>
                     </Link>
@@ -207,8 +207,7 @@ function MusicArticle(props) {
                     {/* <SearchBar /> */}
                     {/* 麵包屑 */}
                 </div>
-                {/* 篩選 pc */}
-
+                {/* 排序搜尋 pc */}
                 <div className="d-flex mt-3  d-none d-md-block ">
                     <div className="d-flex me-5 justify-content-between align-items-center position-relative">
                         <div className="d-flex justify-content-between align-items-center position-relative">
@@ -275,22 +274,31 @@ function MusicArticle(props) {
                                 />
                             </div>
                         ) : (
-                            ''
+                            <div
+                                className=" position-absolute class-search "
+                                onClick={(e) => e.stopPropagation()}
+                                style={{ display: 'none' }}
+                            >
+                                <SearchBar
+                                    searchWord={searchWord}
+                                    setSearchWord={setSearchWord}
+                                />
+                            </div>
                         )}
                     </div>
                 </div>
             </div>
             {/* 篩選 mob */}
             <div className="d-md-none">
-                <div className=" d-flex justify-content-end mob-search">
-                    <button className="border-0 " onClick={toggleSearchToggled}>
-                        <img className="" src={search} alt="search"></img>
+                <div className="mob-search">
+                    <button className="border-0" onClick={toggleSearchToggled}>
+                        <img className=" " src={search} alt="search"></img>
                     </button>
                 </div>
 
                 {searchToggled ? (
                     <div
-                        className=" mob-class-search "
+                        className="mob-class-search text-center"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <SearchBar
@@ -299,24 +307,32 @@ function MusicArticle(props) {
                         />
                     </div>
                 ) : (
-                    ''
-                )}
-                <div className="">
-                    <div className="class-filter-nav-item">
-                        <p className="products-filter-nav-item-name ">
-                            文章排序
-                        </p>
-                        <button
-                            className="border-0 class-filter-nav-btn  "
-                            onClick={toggleSortTrueFalse}
-                        >
-                            {sortByTitle(sortBy)}
-
-                            <img src={arrowDown} alt="arrowDown" />
-                        </button>
+                    <div
+                        className=" mob-class-search "
+                        onClick={(e) => e.stopPropagation()}
+                        style={{ display: 'none' }}
+                    >
+                        <SearchBar
+                            searchWord={searchWord}
+                            setSearchWord={setSearchWord}
+                        />
                     </div>
+                )}
+                <div className="container class-filter-nav-item  d-flex ">
+                    <p className="products-filter-nav-item-name  text-center">
+                        文章排序
+                    </p>
+                    <button
+                        className="border-0 class-filter-nav-btn  "
+                        onClick={toggleSortTrueFalse}
+                    >
+                        {sortByTitle(sortBy)}
+
+                        <img src={arrowDown} alt="arrowDown" />
+                    </button>
                 </div>
-                {/* 商品排序區塊 */}
+
+                {/* 文章排序區塊 */}
                 {sortToggled ? (
                     <div
                         className="products-sort-menu"
@@ -426,6 +442,23 @@ function MusicArticle(props) {
                             );
                         })}
                 </div>
+                {/* 文章選擇 toggle  end*/}
+                {pageProducts.length === 0 ? (
+                    <div style={{ height: '50vh' }}>
+                        <h4 className="mt-5 d-flex w-100 h-100 main-gary-light-color text-center justify-content-center align-items-center">
+                            <TbMusicOff
+                                className="me-2"
+                                style={{
+                                    width: '30px',
+                                    height: '30px',
+                                }}
+                            />
+                            無符合條件文章
+                        </h4>
+                    </div>
+                ) : (
+                    ''
+                )}
             </div>
 
             {/* 頁碼 */}
