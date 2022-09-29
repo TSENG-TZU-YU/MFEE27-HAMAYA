@@ -29,10 +29,31 @@ function MyCartClass({
     setFavB,
 }) {
     const { member } = useAuth();
+    const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
+        useCart();
 
     //進行刪除及時更新
     function handleRemoveItem(itemId) {
         if (member !== null && member.id !== '') {
+            //取得localStorage內容
+            let shoppingCartLocal = JSON.parse(
+                localStorage.getItem('shoppingCart')
+            );
+            // console.log('shoppingCartLocal', shoppingCartLocal);
+            //確保臨時購物車沒有按結帳 以至於購物車刪除臨時購物車卻還存在
+            if (shoppingCartLocal) {
+                //移除
+                let removeItem = shoppingCartLocal.filter((item) => {
+                    return item.product_id !== itemId;
+                });
+                //存回localStorage
+                localStorage.setItem(
+                    'shoppingCart',
+                    JSON.stringify(removeItem)
+                );
+                setShoppingCart(removeItem);
+            }
+
             //讀資料庫 進行刪除 還必須確認資料庫有無東西
             let setItemDataDelete = async () => {
                 let response = await axios.delete(`${API_URL}/member/mycart`, {

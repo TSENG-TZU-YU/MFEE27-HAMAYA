@@ -129,10 +129,10 @@ function Members(props) {
             </div>
             <div className="d-flex justify-content-between align-items-center">
                 <h3>會員管理</h3>
-                <div>
+                <div className='d-flex'>
                     <input placeholder="搜尋" />
-                    <button>
-                        <FiSearch />
+                    <button className=' d-flex justify-content-center align-items-center'>
+                        <FiSearch  className='seachbtn'/>
                     </button>
                 </div>
             </div>

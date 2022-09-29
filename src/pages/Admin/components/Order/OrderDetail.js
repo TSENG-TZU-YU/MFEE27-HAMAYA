@@ -147,11 +147,11 @@ function OrderDetail(props) {
                     <div>
                         <h5 className="title3">收件資訊</h5>
                         <div className="row my-2">
-                            <div className="col-2">
+                            <div className="col-3">
                                 <span className="title3">姓名</span>
                                 &nbsp;&nbsp;{orderDetailList.detail.receiver}
                             </div>
-                            <div className="col-4">
+                            <div className="col-3">
                                 <span className="title3">電話</span>
                                 &nbsp;&nbsp;{orderDetailList.detail.phone}
                             </div>
@@ -178,7 +178,7 @@ function OrderDetail(props) {
                                 {orderDetailList.response_orderListA.map(
                                     (data) => {
                                         return (
-                                            <tr key={uuidv4()} className="">
+                                            <tr key={uuidv4()} className="list">
                                                 <td className="text-center">
                                                     <img
                                                         className="classimg"
@@ -223,7 +223,7 @@ function OrderDetail(props) {
                                 {orderDetailList.response_orderListB.map(
                                     (data) => {
                                         return (
-                                            <tr key={uuidv4()}>
+                                            <tr key={uuidv4()} className="list">
                                                 <td className="text-center">
                                                     <img
                                                         className="classimg"
