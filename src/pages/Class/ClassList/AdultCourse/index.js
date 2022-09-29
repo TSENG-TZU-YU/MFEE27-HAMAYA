@@ -59,28 +59,32 @@ function AdultCourse({
         setIsLoading(true);
         // 載入資料
         let getAdultClass = async () => {
-            let response = await axios.get(`${API_URL}/class/list?class=1`);
-            setProducts(response.data.data);
-            setDisplayProducts(response.data.data);
-            setMaxPrice(response.data.maxPrice[0].maxPrice);
-            setMinPrice(response.data.minPrice[0].minPrice);
-            setSelectedPrice([
-                response.data.minPrice[0].minPrice,
-                response.data.maxPrice[0].maxPrice,
-            ]);
+            try {
+                let response = await axios.get(`${API_URL}/class/list?class=1`);
+                setProducts(response.data.data);
+                setDisplayProducts(response.data.data);
+                setMaxPrice(response.data.maxPrice[0].maxPrice);
+                setMinPrice(response.data.minPrice[0].minPrice);
+                setSelectedPrice([
+                    response.data.minPrice[0].minPrice,
+                    response.data.maxPrice[0].maxPrice,
+                ]);
 
-            // 從前端取得總頁數 (lastPage)
-            const pageList = _.chunk(response.data.data, perPage);
-            // 預設1頁
-            // setPageNow(1);
-            if (pageList.length > 0) {
-                setPageTotal(pageList.length);
+                // 從前端取得總頁數 (lastPage)
+                const pageList = _.chunk(response.data.data, perPage);
+                // 預設1頁
+                // setPageNow(1);
+                if (pageList.length > 0) {
+                    setPageTotal(pageList.length);
 
-                // 設定到state中
-                setPageProducts(pageList);
+                    // 設定到state中
+                    setPageProducts(pageList);
+                }
+
+                window.scrollTo(0, 0);
+            } catch (err) {
+                console.log(err.response.data.message);
             }
-
-            window.scrollTo(0, 0);
         };
         getAdultClass();
 
