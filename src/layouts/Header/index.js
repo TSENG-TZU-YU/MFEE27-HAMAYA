@@ -18,9 +18,15 @@ import NavbarMobile from '../../components/NavbarMobile';
 
 import { successToast, errorToast, warningToast } from '../../components/Alert';
 function Header(props) {
-    const { member, setMember, isLogin, setIsLogin, hideHeaderFooter } =
-        useAuth();
-    const [loginPopup, setLoginPopup] = useState(false);
+    const {
+        member,
+        setMember,
+        isLogin,
+        setIsLogin,
+        hideHeaderFooter,
+        loginPopup,
+        setLoginPopup,
+    } = useAuth();
 
     const { shopCartState, setShopCartState } = useCart();
     const navigate = useNavigate();

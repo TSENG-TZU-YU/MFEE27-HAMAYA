@@ -92,18 +92,24 @@ function ChildrenCourse({
 
     // 會員收藏的資料
     useEffect(() => {
-        let getAllFavProducts = async () => {
-            let response = await axios.get(
-                `${API_URL}/member/mybucketlist/${member.id}`,
-                { withCredentials: true }
-            );
+        try {
+            let getAllFavProducts = async () => {
+                let response = await axios.get(
+                    `${API_URL}/member/mybucketlist/${member.id}`,
+                    { withCredentials: true }
+                );
 
-            let products = response.data.class.map((item) => item.product_id);
-            // console.log(products);
-            setFavProducts(products);
-        };
-        if (member.id) {
-            getAllFavProducts();
+                let products = response.data.class.map(
+                    (item) => item.product_id
+                );
+                // console.log(products);
+                setFavProducts(products);
+            };
+            if (member.id) {
+                getAllFavProducts();
+            }
+        } catch (err) {
+            console.log(err.response.data);
         }
     }, [member]);
 
@@ -170,7 +176,8 @@ function ChildrenCourse({
                                                         }
                                                     </p>
                                                     <p className="mb-0">
-                                                        名額：{classChild.stock} 人{' '}
+                                                        名額：{classChild.stock}{' '}
+                                                        人{' '}
                                                     </p>
                                                     <p className="mb-0">
                                                         報名截止：

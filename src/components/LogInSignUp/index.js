@@ -8,8 +8,9 @@ import GoogleLogin from '../GoogleLogin';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
 
-function LogInSignUp({ setLoginPopup }) {
+function LogInSignUp() {
     const [logInActive, setLogInActive] = useState(true);
+    const { loginPopup, setLoginPopup } = useAuth();
     return (
         <div>
             <div
@@ -29,7 +30,7 @@ function LogInSignUp({ setLoginPopup }) {
                         <img src={Close} alt="close" />
                     </button>
                 </div>
-                <GoogleLogin />
+
                 <div className="d-flex justify-content-center ">
                     <button
                         className={logInActive ? 'setLogIn active' : 'setLogIn'}
@@ -50,12 +51,10 @@ function LogInSignUp({ setLoginPopup }) {
                         註冊
                     </button>
                 </div>
+
                 <br />
-                {logInActive ? (
-                    <LogIn setLoginPopup={setLoginPopup} />
-                ) : (
-                    <SignUp setLoginPopup={setLoginPopup} />
-                )}
+                {logInActive ? <LogIn /> : <SignUp />}
+                <GoogleLogin />
             </div>
         </div>
     );
