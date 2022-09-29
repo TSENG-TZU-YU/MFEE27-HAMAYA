@@ -115,7 +115,7 @@ function MusicArticle(props) {
         window.scrollTo(0, 0);
     }, [location]);
 
-    // 假資料;
+    // 假資料對應資料庫的文章分類
     const ListItems = [
         {
             id: 1,
@@ -186,12 +186,12 @@ function MusicArticle(props) {
             <img src={NewsBanner} alt="banner" className="img-fluid" />
             <div className="container d-flex  justify-content-between align-items-center  ">
                 {/* 麵包屑 end */}
-                <div className="container  list-blank ">
+                <div className="container d-flex list-blank ">
                     <Link to="/">
                         <p className="News-Breadcrumbs text-nowrap">首頁</p>
                     </Link>
                     &nbsp;/&nbsp;
-                    <Link to="/news">
+                    <Link to="/news?categoryId=1">
                         <p className="News-Breadcrumbs text-nowrap">最新消息</p>
                     </Link>
                     &nbsp;/&nbsp;
@@ -208,7 +208,7 @@ function MusicArticle(props) {
                     {/* 麵包屑 */}
                 </div>
                 {/* 排序搜尋 pc */}
-                <div className="d-flex mt-3  d-none d-md-block ">
+                <div className="d-flex   d-none d-md-block ">
                     <div className="d-flex me-5 justify-content-between align-items-center position-relative">
                         <div className="d-flex justify-content-between align-items-center position-relative">
                             <p
@@ -318,21 +318,27 @@ function MusicArticle(props) {
                         />
                     </div>
                 )}
-                <div className="container class-filter-nav-item  d-flex ">
-                    <p className="products-filter-nav-item-name  text-center">
-                        文章排序
-                    </p>
-                    <button
-                        className="border-0 class-filter-nav-btn  "
-                        onClick={toggleSortTrueFalse}
-                    >
-                        {sortByTitle(sortBy)}
-
-                        <img src={arrowDown} alt="arrowDown" />
-                    </button>
-                </div>
 
                 {/* 文章排序區塊 */}
+                <div className="mobile-class-filter-nav position-relative">
+                    <div className="d-flex justify-content-center align-items-center ">
+                        <div className="class-filter-nav-item border-end  ">
+                            <button className="border-0 class-filter p-2 d-flex align-items-center ">
+                                文章排序
+                            </button>
+                        </div>
+                        <div className="class-filter-nav-item">
+                            <button
+                                className="border-0 class-filter-nav-btn p-2 d-flex align-items-center"
+                                onClick={toggleSortTrueFalse}
+                            >
+                                {sortByTitle(sortBy)}
+                                <img src={arrowDown} alt="arrowDown" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 {sortToggled ? (
                     <div
                         className="products-sort-menu"
