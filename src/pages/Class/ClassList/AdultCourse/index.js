@@ -101,17 +101,23 @@ function AdultCourse({
 
     // 會員收藏的資料
     useEffect(() => {
-        let getAllFavProducts = async () => {
-            let response = await axios.get(
-                `${API_URL}/member/mybucketlist/${member.id}`,
-                { withCredentials: true }
-            );
+        try {
+            let getAllFavProducts = async () => {
+                let response = await axios.get(
+                    `${API_URL}/member/mybucketlist/${member.id}`,
+                    { withCredentials: true }
+                );
 
-            let products = response.data.class.map((item) => item.product_id);
-            setFavProducts(products);
-        };
-        if (member.id) {
-            getAllFavProducts();
+                let products = response.data.class.map(
+                    (item) => item.product_id
+                );
+                setFavProducts(products);
+            };
+            if (member.id) {
+                getAllFavProducts();
+            }
+        } catch (err) {
+            console.log(err.response.data);
         }
     }, [member]);
 

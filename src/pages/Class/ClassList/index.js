@@ -52,7 +52,6 @@ function ClassList(props) {
                 setIsLogin(true);
                 setMember(response.data);
             } catch (err) {
-                // navigate('/');
                 console.log(err.response.data.message);
             }
         }
@@ -87,7 +86,7 @@ function ClassList(props) {
             setSortToggled(false);
             setFilterToggled(false);
         }
-        // e.stopPropagation();
+        e.stopPropagation();
         setSearchToggled(!searchToggled);
     };
     // 搜尋
@@ -221,9 +220,6 @@ function ClassList(props) {
         return newProducts;
     };
 
-    console.log('searchWord', searchWord);
-    console.log('rating', rating);
-
     // 評價：篩選方法
     const handleRating = (products, rating) => {
         let newProducts = [...products];
@@ -286,12 +282,12 @@ function ClassList(props) {
 
     return (
         <div
-        // onClick={(e) => {
-        //     e.preventDefault();
-        //     setSortToggled(false);
-        //     setFilterToggled(false);
-        //     setSearchToggled(false);
-        // }}
+            onClick={(e) => {
+                e.preventDefault();
+                setSortToggled(false);
+                setFilterToggled(false);
+                setSearchToggled(false);
+            }}
         >
             <Container>
                 <div className="d-flex mt-5 justify-content-between align-items-center ">
@@ -316,7 +312,12 @@ function ClassList(props) {
                     <nav className="d-none d-md-block">
                         <nav className="d-flex  ">
                             <div className="d-flex me-5 justify-content-between align-items-center position-relative">
-                                <p className="mb-0 cursor-pinter">進階篩選</p>
+                                <p
+                                    className="mb-0 cursor-pinter"
+                                    onClick={toggleFilterTrueFalse}
+                                >
+                                    進階篩選
+                                </p>
                                 <img
                                     className="ms-1 cursor-pinter"
                                     src={filterIcon}
@@ -336,7 +337,7 @@ function ClassList(props) {
                                                 className="toggled-p mb-0 "
                                                 style={{ color: '#f2f2f2' }}
                                             >
-                                                樂器類型
+                                                樂器類型:
                                             </p>
                                             <select
                                                 className="select-class mt-1 border-0"
@@ -381,7 +382,7 @@ function ClassList(props) {
                                                 className="toggled-p mb-0  mt-1 mb-1"
                                                 style={{ color: '#f2f2f2' }}
                                             >
-                                                價格
+                                                價格:
                                             </p>
                                             <div className=" mb-1">
                                                 <div className="input-group">
@@ -407,7 +408,7 @@ function ClassList(props) {
                                                 className=" mt-2 mb-1"
                                                 style={{ color: '#f2f2f2' }}
                                             >
-                                                課程評價
+                                                課程評價:
                                             </p>
                                             <div className="d-flex">
                                                 {' '}
@@ -438,47 +439,6 @@ function ClassList(props) {
                                                         name="flexRadioDefault"
                                                         id="flexRadioDefault1"
                                                         onClick={() => {
-                                                            setRating('1');
-                                                        }}
-                                                    />
-                                                    <p
-                                                        style={{
-                                                            color: '#f2f2f2',
-                                                        }}
-                                                    >
-                                                        {' '}
-                                                        1星
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className="d-flex">
-                                                {' '}
-                                                <div className="formCheck me-2">
-                                                    <input
-                                                        className="form-check-input me-1"
-                                                        type="radio"
-                                                        name="flexRadioDefault"
-                                                        id="flexRadioDefault1"
-                                                        onClick={() => {
-                                                            setRating('2');
-                                                        }}
-                                                    />
-                                                    <p
-                                                        style={{
-                                                            color: '#f2f2f2',
-                                                        }}
-                                                    >
-                                                        {' '}
-                                                        2星
-                                                    </p>
-                                                </div>
-                                                <div className="formCheck">
-                                                    <input
-                                                        className="form-check-input me-1"
-                                                        type="radio"
-                                                        name="flexRadioDefault"
-                                                        id="flexRadioDefault1"
-                                                        onClick={() => {
                                                             setRating('3');
                                                         }}
                                                     />
@@ -492,6 +452,7 @@ function ClassList(props) {
                                                     </p>
                                                 </div>
                                             </div>
+
                                             <div className="d-flex">
                                                 {' '}
                                                 <div className="formCheck me-2">
@@ -543,7 +504,7 @@ function ClassList(props) {
                                                 className="toggled-p mb-0 "
                                                 style={{ color: '#f2f2f2' }}
                                             >
-                                                樂器類型
+                                                樂器類型:
                                             </p>
                                             <select
                                                 className="select-class mt-1 border-0"
@@ -588,7 +549,7 @@ function ClassList(props) {
                                                 className="toggled-p mb-0  mt-1 mb-1"
                                                 style={{ color: '#f2f2f2' }}
                                             >
-                                                價格
+                                                價格:
                                             </p>
                                             <div className=" mb-1">
                                                 <div className="input-group">
@@ -614,7 +575,7 @@ function ClassList(props) {
                                                 className=" mt-2 mb-1"
                                                 style={{ color: '#f2f2f2' }}
                                             >
-                                                課程評價
+                                                課程評價:
                                             </p>
                                             <div className="d-flex">
                                                 {' '}
@@ -645,47 +606,6 @@ function ClassList(props) {
                                                         name="flexRadioDefault"
                                                         id="flexRadioDefault1"
                                                         onClick={() => {
-                                                            setRating('1');
-                                                        }}
-                                                    />
-                                                    <p
-                                                        style={{
-                                                            color: '#f2f2f2',
-                                                        }}
-                                                    >
-                                                        {' '}
-                                                        1星
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className="d-flex">
-                                                {' '}
-                                                <div className="formCheck me-2">
-                                                    <input
-                                                        className="form-check-input me-1"
-                                                        type="radio"
-                                                        name="flexRadioDefault"
-                                                        id="flexRadioDefault1"
-                                                        onClick={() => {
-                                                            setRating('2');
-                                                        }}
-                                                    />
-                                                    <p
-                                                        style={{
-                                                            color: '#f2f2f2',
-                                                        }}
-                                                    >
-                                                        {' '}
-                                                        2星
-                                                    </p>
-                                                </div>
-                                                <div className="formCheck">
-                                                    <input
-                                                        className="form-check-input me-1"
-                                                        type="radio"
-                                                        name="flexRadioDefault"
-                                                        id="flexRadioDefault1"
-                                                        onClick={() => {
                                                             setRating('3');
                                                         }}
                                                     />
@@ -699,6 +619,7 @@ function ClassList(props) {
                                                     </p>
                                                 </div>
                                             </div>
+                                            <div className="d-flex"></div>
                                             <div className="d-flex">
                                                 {' '}
                                                 <div className="formCheck me-2">
@@ -745,7 +666,12 @@ function ClassList(props) {
                                 </div>
                             </div>
                             <div className="d-flex justify-content-between align-items-center position-relative">
-                                <p className="mb-0 cursor-pinter">商品排序</p>
+                                <p
+                                    className="mb-0 cursor-pinter"
+                                    onClick={toggleSortTrueFalse}
+                                >
+                                    商品排序
+                                </p>
                                 <img
                                     className=" ms-1 cursor-pinter"
                                     src={sort}
@@ -825,7 +751,7 @@ function ClassList(props) {
                 </div>
                 {/* 篩選 mob */}
                 <nav className="d-md-none ">
-                    <div className=" d-flex justify-content-end mob-search">
+                    <div className=" d-flex justify-content-end mob-search ">
                         <button
                             className="border-0 "
                             onClick={toggleSearchToggled}
@@ -833,19 +759,10 @@ function ClassList(props) {
                             <img className="" src={search} alt="search"></img>
                         </button>
                     </div>
-                    <div
-                        className=" mob-class-search "
-                        // onClick={(e) => e.stopPropagation()}
-                    >
-                        <SearchBar
-                            searchWord={searchWord}
-                            setSearchWord={setSearchWord}
-                        />
-                    </div>
                     {searchToggled ? (
                         <div
                             className=" mob-class-search "
-                            // onClick={(e) => e.stopPropagation()}
+                            onClick={(e) => e.stopPropagation()}
                         >
                             <SearchBar
                                 searchWord={searchWord}
@@ -865,7 +782,7 @@ function ClassList(props) {
                         </div>
                     )}
 
-                    <div className="mobile-class-filter-nav position-relative">
+                    <nav className="mobile-class-filter-nav position-relative">
                         <div className="d-flex justify-content-center align-items-center mt-4">
                             <div className="class-filter-nav-item border-end  ">
                                 <p className="class-filter-nav-item-name text-center pe-5 me-1">
@@ -892,7 +809,7 @@ function ClassList(props) {
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </nav>
                     {/* 進階篩選區塊 */}
                     {filterToggled ? (
                         <div
@@ -902,7 +819,7 @@ function ClassList(props) {
                             <div className="p-3">
                                 <p className="mb-2 accent-light-color">
                                     {' '}
-                                    樂器類型
+                                    樂器類型:
                                 </p>
                                 <div className="row g-1 ">
                                     <select
@@ -934,7 +851,7 @@ function ClassList(props) {
                                 </div>
 
                                 <p className="mt-4 mb-0 accent-light-color">
-                                    價格
+                                    價格:
                                 </p>
                                 <div className=" mb-1">
                                     <div className="input-group">
@@ -955,11 +872,10 @@ function ClassList(props) {
                                     {String(selectedPrice[1])}
                                 </p>
                                 <p
-                                    className=" mt-2 mb-3"
+                                    className=" mt-3 mb-2"
                                     style={{ color: '#f2f2f2' }}
                                 >
-                                    {/* TODO: 評價塞選 */}
-                                    課程評價
+                                    課程評價:
                                 </p>
                                 <div className="d-flex">
                                     <div className="formCheck me-3">
@@ -980,44 +896,6 @@ function ClassList(props) {
                                         >
                                             {' '}
                                             全部
-                                        </p>
-                                    </div>
-                                    <div className="formCheck me-3">
-                                        <input
-                                            className="form-check-input me-1"
-                                            type="radio"
-                                            name="flexRadioDefault"
-                                            id="flexRadioDefault1"
-                                            onClick={() => {
-                                                setRating('1');
-                                            }}
-                                        />
-                                        <p
-                                            style={{
-                                                color: '#f2f2f2',
-                                            }}
-                                        >
-                                            {' '}
-                                            1星
-                                        </p>
-                                    </div>
-                                    <div className="formCheck me-3">
-                                        <input
-                                            className="form-check-input me-1"
-                                            type="radio"
-                                            name="flexRadioDefault"
-                                            id="flexRadioDefault1"
-                                            onClick={() => {
-                                                setRating('2');
-                                            }}
-                                        />
-                                        <p
-                                            style={{
-                                                color: '#f2f2f2',
-                                            }}
-                                        >
-                                            {' '}
-                                            2星
                                         </p>
                                     </div>
                                     <div className="formCheck me-3">
@@ -1089,7 +967,7 @@ function ClassList(props) {
                             <div className="p-3">
                                 <p className="mb-2 accent-light-color">
                                     {' '}
-                                    樂器類型
+                                    樂器類型:
                                 </p>
                                 <div className="row g-1 ">
                                     <select
@@ -1121,7 +999,7 @@ function ClassList(props) {
                                 </div>
 
                                 <p className="mt-4 mb-0 accent-light-color">
-                                    價格
+                                    價格:
                                 </p>
                                 <div className=" mb-1">
                                     <div className="input-group">
@@ -1146,7 +1024,7 @@ function ClassList(props) {
                                     style={{ color: '#f2f2f2' }}
                                 >
                                     {/* TODO: 評價塞選 */}
-                                    課程評價
+                                    課程評價:
                                 </p>
                                 <div className="d-flex">
                                     <div className="formCheck me-3">
@@ -1167,44 +1045,6 @@ function ClassList(props) {
                                         >
                                             {' '}
                                             全部
-                                        </p>
-                                    </div>
-                                    <div className="formCheck me-3">
-                                        <input
-                                            className="form-check-input me-1"
-                                            type="radio"
-                                            name="flexRadioDefault"
-                                            id="flexRadioDefault1"
-                                            onClick={() => {
-                                                setRating('1');
-                                            }}
-                                        />
-                                        <p
-                                            style={{
-                                                color: '#f2f2f2',
-                                            }}
-                                        >
-                                            {' '}
-                                            1星
-                                        </p>
-                                    </div>
-                                    <div className="formCheck me-3">
-                                        <input
-                                            className="form-check-input me-1"
-                                            type="radio"
-                                            name="flexRadioDefault"
-                                            id="flexRadioDefault1"
-                                            onClick={() => {
-                                                setRating('2');
-                                            }}
-                                        />
-                                        <p
-                                            style={{
-                                                color: '#f2f2f2',
-                                            }}
-                                        >
-                                            {' '}
-                                            2星
                                         </p>
                                     </div>
                                     <div className="formCheck me-3">

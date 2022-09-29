@@ -38,3 +38,28 @@
 .myOrderDetailAlertBtn {
     margin: 0 5px;
 }
+
+.pay_state{
+    margin: 20px 150px;
+}
+.pay_state .item1{
+    /* margin: 0 30px; */
+    height: 4px;
+    position: absolute;
+    width: 100%;
+    top: 30px;
+    padding: 0 30px;
+}
+.pay_state .line{
+    /* width: 500px; */
+    /* width: auto; */
+    width: 100%;
+}
+.pay_state .item2{
+    margin: 0;
+}
+.pay_state .icon{
+    z-index: 100;
+    width: 60px;
+    height: 60px;
+}

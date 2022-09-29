@@ -5,6 +5,8 @@ const AuthContext = createContext();
 
 // 建立一個新的Provider元件，內容是提供auth狀態
 export const AuthProvider = ({ children }) => {
+    // popup
+    const [loginPopup, setLoginPopup] = useState(false);
     //是否登入
     const [isLogin, setIsLogin] = useState(false);
     //會員資料
@@ -40,6 +42,8 @@ export const AuthProvider = ({ children }) => {
                 setSocketStatus,
                 hideHeaderFooter,
                 sethideHeaderFooter,
+                loginPopup,
+                setLoginPopup,
             }}
         >
             {children}

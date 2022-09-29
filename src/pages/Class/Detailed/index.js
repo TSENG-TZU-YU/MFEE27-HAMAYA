@@ -60,25 +60,29 @@ function Detailed({ ins_main_id }) {
         let params = new URLSearchParams(location.search);
         let selectClass = params.get('class');
         let getClassDetail = async () => {
-            let response = await axios.get(
-                `${API_URL}/class/list/${detailedID}?class=${selectClass}`
-            );
-            setData(response.data.data);
-            setRecommendClass(response.data.recommendClass);
-            setEvaluation(response.data.evaluation);
-            setAvg(response.data.avg);
+            try {
+                let response = await axios.get(
+                    `${API_URL}/class/list/${detailedID}?class=${selectClass}`
+                );
+                setData(response.data.data);
+                setRecommendClass(response.data.recommendClass);
+                setEvaluation(response.data.evaluation);
+                setAvg(response.data.avg);
 
-            let imgData = response.data.dataImg[0];
-            // 圖片拆陣列
-            imgData = Object.keys(imgData).map((key) => {
-                return imgData[key];
-            });
-            setDataImg(imgData);
-            window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: 'auto',
-            });
+                let imgData = response.data.dataImg[0];
+                // 圖片拆陣列
+                imgData = Object.keys(imgData).map((key) => {
+                    return imgData[key];
+                });
+                setDataImg(imgData);
+                window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'auto',
+                });
+            } catch (err) {
+                console.log(err.response.data.message);
+            }
         };
         getClassDetail();
     }, [location]);
@@ -202,18 +206,24 @@ function Detailed({ ins_main_id }) {
 
     // 會員收藏的資料
     useEffect(() => {
-        let getAllFavProducts = async () => {
-            let response = await axios.get(
-                `${API_URL}/member/mybucketlist/${member.id}`,
-                { withCredentials: true }
-            );
+        try {
+            let getAllFavProducts = async () => {
+                let response = await axios.get(
+                    `${API_URL}/member/mybucketlist/${member.id}`,
+                    { withCredentials: true }
+                );
 
-            let products = response.data.class.map((item) => item.product_id);
-            console.log(products);
-            setFavProducts(products);
-        };
-        if (member.id) {
-            getAllFavProducts();
+                let products = response.data.class.map(
+                    (item) => item.product_id
+                );
+                console.log(products);
+                setFavProducts(products);
+            };
+            if (member.id) {
+                getAllFavProducts();
+            }
+        } catch (err) {
+            console.log(err.response.data);
         }
     }, [member]);
 
@@ -651,7 +661,7 @@ function Detailed({ ins_main_id }) {
                             >
                                 <Col>
                                     <div
-                                        className="card mb-4 mx-auto"
+                                        className="card mb-4 mx-auto border-0"
                                         style={{ width: ' 19rem' }}
                                     >
                                         <img

@@ -55,7 +55,6 @@ function Class(props) {
                 setIsLogin(true);
                 setMember(response.data);
             } catch (err) {
-                // navigate('/');
                 console.log(err.response.data.message);
             }
         }
@@ -66,10 +65,14 @@ function Class(props) {
         //開啟載入指示動畫
         setIsLoading(true);
         let getAdultClass = async () => {
-            let response = await axios.get(`${API_URL}/class`);
-            setData(response.data.teacher);
-            setArticle(response.data.article);
-            setArticle1(response.data.article1);
+            try {
+                let response = await axios.get(`${API_URL}/class`);
+                setData(response.data.teacher);
+                setArticle(response.data.article);
+                setArticle1(response.data.article1);
+            } catch (err) {
+                console.log(err.response.data.message);
+            }
         };
         getAdultClass();
         window.scrollTo(0, 0);
@@ -83,7 +86,11 @@ function Class(props) {
 
     return (
         <>
-            <img className=" w-100" src={banner} alt="banner" />
+            <img
+                className="d-none d-md-block w-100"
+                src={banner}
+                alt="banner"
+            />
             {isLoading ? (
                 loader
             ) : (

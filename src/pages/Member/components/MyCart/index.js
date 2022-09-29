@@ -17,20 +17,26 @@ function MyCart() {
 
     // 會員收藏的資料
     useEffect(() => {
-        let getAllFavProducts = async () => {
-            let response = await axios.get(
-                `${API_URL}/member/mybucketlist/${member.id}`,
-                { withCredentials: true }
-            );
-            let productsA = response.data.product.map(
-                (item) => item.product_id
-            );
-            let productsB = response.data.class.map((item) => item.product_id);
-            setFavA(productsA);
-            setFavB(productsB);
-        };
-        if (member.id) {
-            getAllFavProducts();
+        try {
+            let getAllFavProducts = async () => {
+                let response = await axios.get(
+                    `${API_URL}/member/mybucketlist/${member.id}`,
+                    { withCredentials: true }
+                );
+                let productsA = response.data.product.map(
+                    (item) => item.product_id
+                );
+                let productsB = response.data.class.map(
+                    (item) => item.product_id
+                );
+                setFavA(productsA);
+                setFavB(productsB);
+            };
+            if (member.id) {
+                getAllFavProducts();
+            }
+        } catch (err) {
+            console.log(err.response.data);
         }
     }, [member]);
 
