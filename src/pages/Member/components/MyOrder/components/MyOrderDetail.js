@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import { useAuth } from '../../../../../utils/use_auth';
 import { API_URL } from '../../../../../utils/config';
 import { ReactComponent as OrderFinish } from '../../../../../assets/svg/order_status_finish.svg';
@@ -9,6 +10,10 @@ import { ReactComponent as Close } from '../../../../../assets/svg/close.svg';
 import { ReactComponent as OK } from '../../../../../assets/svg/ok.svg';
 import { ReactComponent as Message } from '../../../../../assets/svg/message.svg';
 import { ReactComponent as Review } from '../../../../../assets/svg/rate_review.svg';
+import {
+    successSmallToast,
+    successToast,
+} from '../../../../../components/Alert';
 import './MyOrderDetail.scss';
 
 function MyOrderDetail() {
@@ -70,27 +75,53 @@ function MyOrderDetail() {
         getMyOrderDetail();
     }, []);
     //完成訂單
-    async function setOrderFinish() {
-        let response = await axios.put(
-            `${API_URL}/member/myorder/detail/finish/${orderId}`,
-            {
-                withCredentials: true,
-                user_id: member.id,
-            }
-        );
-        console.log('response 完成訂單', response);
+    function doFinish() {
+        async function setOrderFinish() {
+            let response = await axios.put(
+                `${API_URL}/member/myorder/detail/finish/${orderId}`,
+                {
+                    withCredentials: true,
+                    user_id: member.id,
+                }
+            );
+            successToast(response.data.message, '關閉');
+            console.log('response 完成訂單', response);
+        }
+        setOrderFinish();
     }
+
     //前往結帳
     function doCheckOut() {
         // eslint-disable-next-line no-restricted-globals
-        let yes = confirm('你確定嗎？');
-
-        if (yes) {
-            alert('你按了確定按鈕');
-            setOrderTwo(true);
-        } else {
-            alert('你按了取消按鈕');
-        }
+        Swal.fire({
+            title: '確定前往付款?',
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger myOrderDetailAlertBtn',
+            },
+            icon: 'warning',
+            showCancelButton: true,
+            buttonsStyling: false,
+            iconColor: '#767676',
+            confirmButtonText: '確定',
+            cancelButtonText: '取消',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                //按確定 前往結帳
+                async function setOrderCheckOut() {
+                    let response = await axios.put(
+                        `${API_URL}/member/myorder/detail/checkout/${orderId}`,
+                        {
+                            withCredentials: true,
+                            user_id: member.id,
+                        }
+                    );
+                    console.log('response docheckout', response);
+                }
+                setOrderCheckOut();
+                setOrderTwo(true);
+            }
+        });
     }
 
     return (
@@ -501,7 +532,7 @@ function MyOrderDetail() {
                                         className="btn btn-primary col mx-2 p-0 text-nowrap"
                                         onClick={() => {
                                             setOrderThr(true);
-                                            setOrderFinish();
+                                            doFinish();
                                         }}
                                     >
                                         <OK className="myOrderDetailBtn-Icon px-1" />

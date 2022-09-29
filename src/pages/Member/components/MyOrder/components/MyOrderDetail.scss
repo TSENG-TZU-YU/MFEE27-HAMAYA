@@ -5,7 +5,10 @@
     .myOrderDetailTable thead {
         display: none;
     }
-    .detail-tbody tr td:nth-child(2), .detail-tbody tr td:nth-child(3),.detail-tbody tr td:nth-child(4), .detail-tbody tr td:nth-child(5){
+    .detail-tbody tr td:nth-child(2),
+    .detail-tbody tr td:nth-child(3),
+    .detail-tbody tr td:nth-child(4),
+    .detail-tbody tr td:nth-child(5) {
         display: none;
     }
     .detail-Img {
@@ -29,6 +32,9 @@
     width: 25px;
     height: 25px;
 }
-.myOrderDetailTable{
+.myOrderDetailTable {
     background-color: #fff;
+}
+.myOrderDetailAlertBtn {
+    margin: 0 5px;
 }
