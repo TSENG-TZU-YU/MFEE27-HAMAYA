@@ -151,14 +151,14 @@ function MyOrderDetail() {
                                 </button>
                             </div>
                         </div>
-                        <div className="position-relative pay_state">
+                        <div className="position-relative pay_state2">
                             <div className="d-flex item1">
                                 <div
                                     className={
                                         myOrderUserInfo[0].order_state === 1
                                             ? 'linecolor1'
                                             : myOrderUserInfo[0].order_state ===
-                                            2
+                                              2
                                             ? 'linecolor2'
                                             : 'linecolor2'
                                     }
@@ -168,7 +168,7 @@ function MyOrderDetail() {
                                         myOrderUserInfo[0].order_state === 1
                                             ? 'linecolor1'
                                             : myOrderUserInfo[0].order_state ===
-                                            2
+                                              2
                                             ? 'linecolor1'
                                             : 'linecolor2'
                                     }
