@@ -77,26 +77,30 @@ function Product() {
 
     // 取得商品 api
     useEffect(() => {
-        let params = new URLSearchParams(location.search);
-        let mainId = params.get('main_id');
-        let getProductDetail = async () => {
-            let response = await axios.get(
-                `${API_URL}/products/${productId}?mainId=${mainId}`
-            );
-            setProduct(response.data.data);
-            let imgData = response.data.dataImg[0];
-            imgData = Object.keys(imgData).map((key) => {
-                return imgData[key];
-            });
-            console.log(imgData);
-            setProductImgs(imgData);
-            setRelatedProducts(response.data.relatedProducts);
-            window.scrollTo({
-                top: 0,
-                left: 0,
-            });
-        };
-        getProductDetail();
+        try {
+            let params = new URLSearchParams(location.search);
+            let mainId = params.get('main_id');
+            let getProductDetail = async () => {
+                let response = await axios.get(
+                    `${API_URL}/products/${productId}?mainId=${mainId}`
+                );
+                setProduct(response.data.data);
+                let imgData = response.data.dataImg[0];
+                imgData = Object.keys(imgData).map((key) => {
+                    return imgData[key];
+                });
+                console.log(imgData);
+                setProductImgs(imgData);
+                setRelatedProducts(response.data.relatedProducts);
+                window.scrollTo({
+                    top: 0,
+                    left: 0,
+                });
+            };
+            getProductDetail();
+        } catch (err) {
+            console.log(err.response.data.message);
+        }
     }, [location]);
 
     const productCount = (props) => {
@@ -698,7 +702,7 @@ function Product() {
                     );
                 })}
                 <div className="d-flex mt-5 align-items-center">
-                    <h4 className="text-nowrap fw-bold main-color me-3 mb-3">
+                    <h4 className="text-nowrap fw-bold main-color me-3">
                         推薦商品
                     </h4>
                     <div className="productDetail-vector bg-main-light-color"></div>

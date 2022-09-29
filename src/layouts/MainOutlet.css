@@ -1,5 +1,5 @@
 .mainOutlet-height {
-  min-height: calc(100vh - 300px);
+  min-height: calc(100vh - 320px);
 }
 
 @media screen and (max-width:576px) {

@@ -164,38 +164,46 @@ function Products() {
         setIsLoading(true);
         // 回歸原始狀態
         clearState();
-        let getProducts = async () => {
-            let response = await axios.get(
-                `${API_URL}/products?mainId=${mainId}&subId=${subId}`
-            );
-            response.data.color.unshift({ color: '' });
-            response.data.brand.forEach((e) => (e.checked = false));
-            setBrandTags(response.data.brand);
-            setColorTagsTypes(response.data.color);
-            setMaxPrice(response.data.maxPrice[0].maxPrice);
-            setSelectedPrice([0, response.data.maxPrice[0].maxPrice]);
-            setProducts(response.data.data);
-            setDisplayProducts(response.data.data);
-            // console.log('所有產品', response.data.data);
-            const pageList = _.chunk(response.data.data, perPage);
-            if (pageList.length > 0) {
-                setPageTotal(pageList.length);
-                // 設定到state中
-                setPageProducts(pageList);
-            }
-        };
-        getProducts();
+        try {
+            let getProducts = async () => {
+                let response = await axios.get(
+                    `${API_URL}/products?mainId=${mainId}&subId=${subId}`
+                );
+                response.data.color.unshift({ color: '' });
+                response.data.brand.forEach((e) => (e.checked = false));
+                setBrandTags(response.data.brand);
+                setColorTagsTypes(response.data.color);
+                setMaxPrice(response.data.maxPrice[0].maxPrice);
+                setSelectedPrice([0, response.data.maxPrice[0].maxPrice]);
+                setProducts(response.data.data);
+                setDisplayProducts(response.data.data);
+                // console.log('所有產品', response.data.data);
+                const pageList = _.chunk(response.data.data, perPage);
+                if (pageList.length > 0) {
+                    setPageTotal(pageList.length);
+                    // 設定到state中
+                    setPageProducts(pageList);
+                }
+            };
+            getProducts();
+        } catch (err) {
+            console.log(err.response.data.message);
+        }
         // 2秒後關起動畫呈現資料
         setTimeout(() => {
             setIsLoading(false);
-        }, 1500);
+        }, 1000);
         // 產品主次類別
-        let getCategory = async () => {
-            let response = await axios.get(`${API_URL}/products/category`);
-            setCategorySub(response.data.categorySub);
-            setCategoryMain(response.data.categoryMain);
-        };
-        getCategory();
+        try {
+            let getCategory = async () => {
+                let response = await axios.get(`${API_URL}/products/category`);
+                setCategorySub(response.data.categorySub);
+                setCategoryMain(response.data.categoryMain);
+            };
+            getCategory();
+        } catch (err) {
+            console.log(err.response.data.message);
+        }
     }, [location]);
 
     useEffect(() => {}, [products]);
@@ -470,17 +478,23 @@ function Products() {
 
     // 會員收藏的資料
     useEffect(() => {
-        let getAllFavProducts = async () => {
-            let response = await axios.get(
-                `${API_URL}/member/mybucketlist/${member.id}`,
-                { withCredentials: true }
-            );
+        try {
+            let getAllFavProducts = async () => {
+                let response = await axios.get(
+                    `${API_URL}/member/mybucketlist/${member.id}`,
+                    { withCredentials: true }
+                );
 
-            let products = response.data.product.map((item) => item.product_id);
-            setFavProducts(products);
-        };
-        if (member.id) {
-            getAllFavProducts();
+                let products = response.data.product.map(
+                    (item) => item.product_id
+                );
+                setFavProducts(products);
+            };
+            if (member.id) {
+                getAllFavProducts();
+            }
+        } catch (err) {
+            console.log(err.response.data);
         }
     }, [member]);
 
