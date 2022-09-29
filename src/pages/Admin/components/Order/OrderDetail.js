@@ -20,10 +20,14 @@ import {
 import './index.css';
 import { clearConfigCache } from 'prettier';
 import { ReactComponent as Close } from '../../../../assets/svg/close.svg';
+import { ReactComponent as Finish } from '../../../../assets/svg/order_status_finish.svg';
+import { ReactComponent as Undone } from '../../../../assets/svg/order_status_undone.svg';
 
 function OrderDetail(props) {
     const [loadingComplete, setLoadingComplete] = useState(false); //是否已載入完成
-    const [orderDetailList, setOrderDetailList] = useState(null);
+    const [orderDetailList, setOrderDetailList] = useState({
+        detail: { order_id: '' },
+    });
     const location = useLocation();
     const navigate = useNavigate();
     useEffect(() => {
@@ -40,25 +44,15 @@ function OrderDetail(props) {
                 console.log(response.data);
                 setOrderDetailList(response.data);
                 setLoadingComplete(true);
-                //分切頁面資料
-                // const pageList = _.chunk(response.data, perPage);
-
-                // console.log(pageList);
-
-                // if (response.data.content.length > 0) {
-                //     setOrderDetailList(response.data);
-                //     setLoadingComplete(true); //載入完成
-                // }
             } catch (err) {
                 console.log(err.response.data);
                 errorToast(err.response.data.message, '關閉');
-                // alert(err.response.data.message);
             }
         }
         loadingOrderDetail();
     }, [location]);
     return (
-        <>
+        <div className="OrderDetail">
             <div className="mt-1">
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
@@ -74,21 +68,83 @@ function OrderDetail(props) {
                     </ol>
                 </nav>
             </div>
-            <h3>訂單詳細</h3>
+            <div className="d-flex align-items-end">
+                <h3>訂單詳細</h3>
+                <span className="main-color">
+                    &nbsp;訂單編號:{orderDetailList.detail.order_id}
+                </span>
+            </div>
             <hr />
-            <div className="OrderDetail mb-4">
+            <div className="d-flex justify-content-end ">
+                <button
+                    className=" closebtn"
+                    onClick={() => {
+                        navigate(-1);
+                    }}
+                >
+                    <Close />
+                </button>
+            </div>
+            <div className="position-relative pay_state">
+                <div className="d-flex item1">
+                    <div
+                        className={
+                            orderDetailList.detail.order_state === '訂單成立'
+                                ? 'linecolor1'
+                                : orderDetailList.detail.order_state ===
+                                  '已出貨'
+                                ? 'linecolor2'
+                                : 'linecolor2'
+                        }
+                    ></div>
+                    <div
+                        className={
+                            orderDetailList.detail.order_state === '訂單成立'
+                                ? 'linecolor1'
+                                : orderDetailList.detail.order_state ===
+                                  '已出貨'
+                                ? 'linecolor1'
+                                : 'linecolor2'
+                        }
+                    ></div>
+                </div>
+                <div className="d-flex justify-content-between align-items-center item2">
+                    <div className="d-flex flex-column align-items-center">
+                        <Finish className="icon" />
+                        訂單成立
+                    </div>
+                    {orderDetailList.detail.order_state === '已出貨' ? (
+                        <div className="d-flex flex-column align-items-center">
+                            <Finish className="icon" />
+                            已出貨
+                        </div>
+                    ) : orderDetailList.detail.order_state === '訂單完成' ? (
+                        <div className="d-flex flex-column align-items-center">
+                            <Finish className="icon" />
+                            已出貨
+                        </div>
+                    ) : (
+                        <div className="d-flex flex-column align-items-center">
+                            <Undone className=" icon" />
+                            待出貨
+                        </div>
+                    )}
+                    {orderDetailList.detail.order_state === '訂單完成' ? (
+                        <div className="d-flex flex-column align-items-center">
+                            <Finish className=" icon" />
+                            訂單完成
+                        </div>
+                    ) : (
+                        <div className="d-flex flex-column align-items-center">
+                            <Undone className=" icon" />
+                            訂單完成
+                        </div>
+                    )}
+                </div>
+            </div>
+            <div className="mb-4">
                 {loadingComplete && (
                     <div>
-                        <div className="d-flex justify-content-end ">
-                            <button
-                                className="closebtn"
-                                onClick={() => {
-                                    navigate(-1);
-                                }}
-                            >
-                                <Close />
-                            </button>
-                        </div>
                         <h5 className="title3">收件資訊</h5>
                         <div className="row my-2">
                             <div className="col-2">
@@ -119,10 +175,6 @@ function OrderDetail(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {console.log(
-                                    '123',
-                                    orderDetailList.response_orderListA
-                                )}
                                 {orderDetailList.response_orderListA.map(
                                     (data) => {
                                         return (
@@ -179,9 +231,6 @@ function OrderDetail(props) {
                                                         alt=""
                                                     />
                                                 </td>
-                                                {console.log(
-                                                    `../../../../album/class/${data.image_1}`
-                                                )}
                                                 <td className="text-center align-middle">
                                                     {data.name}
                                                 </td>
@@ -206,19 +255,39 @@ function OrderDetail(props) {
                             <div className="col-7"></div>
                             <div className="col-2 text-end">總計</div>
                             <div className="col-2 text-end">
-                                NT${orderDetailList.detail.total_amount}
+                                NT$
+                                {orderDetailList.response_orderListA.reduce(
+                                    (prev, next) => {
+                                        return prev + next.price * next.amount;
+                                    },
+                                    0
+                                ) +
+                                    orderDetailList.response_orderListB.reduce(
+                                        (prev, next) => {
+                                            return (
+                                                prev + next.price * next.amount
+                                            );
+                                        },
+                                        0
+                                    )}
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-7"></div>
                             <div className="col-2 text-end">運費</div>
                             <div className="col-2 text-end">
-                                NT$
+                                + NT$
                                 {orderDetailList.detail.freight}
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-7"></div>
+                            <div className="col-7 ">
+                                使用優惠券:{orderDetailList.detail.coupon_name}
+                                &nbsp; SN:{orderDetailList.detail.sn}
+                            </div>
+                            {/* <div className="col-3  text-end">
+                                SN:{orderDetailList.detail.sn}
+                            </div> */}
                             <div className="col-2 text-end">優惠券折扣</div>
                             <div className="col-2 text-end">
                                 - NT$
@@ -236,7 +305,7 @@ function OrderDetail(props) {
                     </div>
                 )}
             </div>
-        </>
+        </div>
     );
 }
 

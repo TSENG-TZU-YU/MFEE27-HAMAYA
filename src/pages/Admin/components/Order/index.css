@@ -1,7 +1,4 @@
-.OrderDetail{
-    /* width: 100%; */
-    /* background-color: aquamarine; */
-}
+
 .OrderDetail .test{
     text-align: center;
 }
@@ -48,4 +45,39 @@
 }
 .OrderDetail .closebtn:hover{
     border: 2px solid #00323d;
+}
+
+
+.OrderDetail  .pay_state{
+    margin: 20px 150px;
+}
+.OrderDetail .item1{
+    /* margin: 0 30px; */
+    height: 4px;
+    position: absolute;
+    width: 100%;
+    top: 30px;
+    padding: 0 30px;
+}
+.OrderDetail .line{
+    /* width: 500px; */
+    /* width: auto; */
+    width: 100%;
+}
+.OrderDetail .item2{
+    margin: 0;
+}
+.OrderDetail .icon{
+    z-index: 100;
+    width: 60px;
+    height: 60px;
+}
+.linecolor1{
+ background-color: #BABABA;
+ width: 100%;
+ /* z-index; */
+}
+.linecolor2{
+    background-color: #5B322F;
+    width: 100%;
 }

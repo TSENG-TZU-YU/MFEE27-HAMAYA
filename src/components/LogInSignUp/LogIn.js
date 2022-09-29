@@ -8,7 +8,7 @@ import { useAuth } from '../../utils/use_auth';
 import { successToast, errorToast, warningToast } from '../Alert';
 import GoogleLogin from '../GoogleLogin';
 
-function LogIn({ setLoginPopup }) {
+function LogIn() {
     const [visibility, setVisibility] = useState(false);
     const [showForgetPassword, setshowForgetPassword] = useState(false);
     const navigate = useNavigate();
@@ -47,7 +47,14 @@ function LogIn({ setLoginPopup }) {
         email: '234ad7891@gmail.com',
         password: '12345678',
     });
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    const {
+        member,
+        setMember,
+        isLogin,
+        setIsLogin,
+        loginPopup,
+        setLoginPopup,
+    } = useAuth();
 
     async function loginSubmit(e) {
         e.preventDefault();

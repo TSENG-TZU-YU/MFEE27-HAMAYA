@@ -39,7 +39,6 @@ function Teacher() {
                 setIsLogin(true);
                 setMember(response.data);
             } catch (err) {
-                // navigate('/');
                 console.log(err.response.data.message);
             }
         }
@@ -49,12 +48,16 @@ function Teacher() {
     // 老師資料
     useEffect(() => {
         let getAdultClass = async () => {
-            let response = await axios.get(
-                `${API_URL}/class/teacher/${detailedID}`
-            );
-            setData(response.data.data);
-            seClassTeacher(response.data.classTeacher);
-            window.scrollTo(0, 0);
+            try {
+                let response = await axios.get(
+                    `${API_URL}/class/teacher/${detailedID}`
+                );
+                setData(response.data.data);
+                seClassTeacher(response.data.classTeacher);
+                window.scrollTo(0, 0);
+            } catch (err) {
+                console.log(err.response.data.message);
+            }
         };
         getAdultClass();
     }, []);

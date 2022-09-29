@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { IMAGE_URL } from '../../../../utils/config';
+import member_img from '../../../../assets/svg/member_avatar.svg';
 import {
     Link,
     useOutletContext,
@@ -218,7 +219,11 @@ function Members(props) {
                                             <img
                                                 className="memberphoto"
                                                 alt="memberphoto"
-                                                src={IMAGE_URL + data.photo}
+                                                src={
+                                                    data.photo === ''
+                                                        ? member_img
+                                                        : IMAGE_URL + data.photo
+                                                }
                                             ></img>
                                         </td>
                                         <td>{data.email}</td>
@@ -227,7 +232,7 @@ function Members(props) {
                                             {data.birthday}
                                         </td>
                                         <td>
-                                            <div className="text-start">
+                                            <div className="text-start text-nowrap">
                                                 {data.city}
                                                 {data.dist}
                                                 {data.address}
@@ -256,7 +261,7 @@ function Members(props) {
                                             </div>
                                         </td>
                                         <td>
-                                            <button className="deletebtn3">
+                                            <button className="deletebtn3 text-nowrap">
                                                 <FiSettings className="icon1" />
                                                 修改
                                             </button>

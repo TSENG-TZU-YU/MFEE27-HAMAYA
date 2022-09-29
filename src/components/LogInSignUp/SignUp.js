@@ -6,12 +6,20 @@ import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import { useAuth } from '../../utils/use_auth';
 import { successToast, errorToast, warningToast } from '../Alert';
+import GoogleLogin from '../GoogleLogin';
 
-function SignUp({ setLoginPopup }) {
+function SignUp() {
     const [visibility, setVisibility] = useState(false);
     const [visibility2, setVisibility2] = useState(false);
 
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    const {
+        member,
+        setMember,
+        isLogin,
+        setIsLogin,
+        loginPopup,
+        setLoginPopup,
+    } = useAuth();
     const [newMember, setNewMember] = useState({
         fullName: 'MemberTest',
         email: 'MemberTest@gmail.com',
@@ -48,7 +56,6 @@ function SignUp({ setLoginPopup }) {
             setLoginPopup(false);
 
             successToast(response.data.message, '關閉');
-
         } catch (err) {
             console.log(err.response.data);
             setCheckForm(err.response.data);

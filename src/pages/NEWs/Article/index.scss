@@ -30,7 +30,6 @@
   object-fit: cover;
   width: 800px;
   height: 500px;
-  margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,7 +45,6 @@
 .article-imgs {
   width: 400px;
   height: 260px;
-  margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,6 +58,11 @@
   max-height: 100%;
 }
 
+.article-blank-top2{
+  padding-bottom: 50px;
+  } 
+  
+  
 
 
 .article-word {
@@ -136,7 +139,6 @@
 
 @media screen and (max-width: 768px) {
 
-
   .article-img {
     width: 100%;
     height: 100%;
@@ -145,10 +147,6 @@
 
   }
 
-  // .article-imgs {
-  //   width: 100%;
-  //   height: 100%;
-  //   
-  // }
+ 
 
 }

@@ -4,19 +4,20 @@ import { useAuth } from '../../utils/use_auth';
 import { API_URL } from '../../utils/config';
 import './about.scss';
 import { successToast, warningToast } from '../../components/Alert';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 import banner from '../../assets/AboutImg/banner.png';
-import avatar01 from '../../assets/AboutImg/avatar01.png';
-import avatar02 from '../../assets/AboutImg/avatar02.png';
-import avatar03 from '../../assets/AboutImg/avatar03.png';
-import avatar04 from '../../assets/AboutImg/avatar04.png';
-import avatar05 from '../../assets/AboutImg/avatar05.png';
-import avatar06 from '../../assets/AboutImg/avatar06.png';
+import about1 from '../../assets/AboutImg/about1.png';
+import about2 from '../../assets/AboutImg/about2.png';
+import about3 from '../../assets/AboutImg/about3.png';
 import fb from '../../assets/AboutImg/fb.png';
 import line from '../../assets/AboutImg/line.png';
+import Vector128 from '../../assets/AboutImg/Vector128.svg';
 import axios from 'axios';
 
 function About(props) {
+    AOS.init();
     const [editAsk, setEditAsk] = useState(false);
     // 表單狀態
     const [memberLogin, setMemberLogin] = useState(false);
@@ -123,7 +124,7 @@ function About(props) {
             <div className="p-0">
                 <img src={banner} alt="banner" className="w-100" />
             </div>
-            <div className="bg-main-light-color">
+            <div className="brandconcept">
                 <div className="container">
                     <div className="d-flex pt-3" style={{ color: '#f2f2f2' }}>
                         <a href="/">
@@ -152,7 +153,7 @@ function About(props) {
                             <div className="vector1 mt-3"></div>
                         </div>
                     </div>
-                    <div className="brand">
+                    <div className="brand d-flex flex-column justify-content-around">
                         <h6
                             className="text-center"
                             style={{ color: '#f2f2f2' }}
@@ -181,72 +182,67 @@ function About(props) {
                     </div>
                 </div>
             </div>
+            <div className="">
+                <img src={Vector128} className="w-100" alt="Vector128"></img>
+            </div>
 
-            <div className="container mt-5">
-                <div className="pt-5 d-flex">
-                    <h4
-                        className="me-2 text-nowrap"
-                        style={{ color: '#00323d' }}
-                    >
-                        創辦人
-                    </h4>
-                    <h4 className="engText text-nowrap me-5">FOUNDER</h4>
-                    <div className="vector3 mt-3"></div>
-                </div>
-
-                <div className="row mt-5 p-4">
-                    <div className="col-md-3 col-6">
-                        <div>
-                            <div className="founder">
-                                <img src={avatar03} alt="cat" className="" />
+            <div className="container intropic">
+                <div className="position-relative my-5" data-aos="zoom-in-left">
+                    <img className="" src={about1} alt="about1"></img>
+                    <div className="h-100 w-100 position-absolute imgho">
+                        <div className="item1">
+                            <a
+                                style={{ color: ' #00323d' }}
+                                href="http://localhost:3000/news/section?categoryList=4"
+                            >
+                                優良的教學品質
+                            </a>
+                            <div className="teachtext">
+                                <h6>
+                                    給予學生優良的教學品質是我們的首要考量，不同資歷的老師，有不同的收費標準，我們相信給予老師公平的待遇，才能有更優質的教學品質。建立一個高水準的教學機構，給予最專業的指導，並與學員一同用音樂串連生活，一直是我們最大的期許。
+                                </h6>
                             </div>
-                            <h5 style={{ color: '#5b322f' }}>33 范家寧 組長</h5>
-                            <h6 style={{ color: '#333333' }}>負責項目</h6>
-                            <hr />
                         </div>
                     </div>
-                    <div className="col-md-3 col-6">
-                        <div className="founder">
-                            <img src={avatar04} alt="cat" className="" />
+                </div>
+                <div
+                    className="position-relative my-5"
+                    data-aos="zoom-in-right"
+                >
+                    <img className="" src={about2} alt="about2"></img>
+                    <div className="h-100 w-100 position-absolute imgho">
+                        <div className="item1">
+                            <a
+                                style={{ color: ' #ffffff' }}
+                                href="http://localhost:3000/class"
+                            >
+                                多元的課程選擇
+                            </a>
+                            <div className="coursetext">
+                                <h6>
+                                    給予學生優良的教學品質是我們的首要考量，不同資歷的老師，有不同的收費標準，我們相信給予老師公平的待遇，才能有更優質的教學品質。建立一個高水準的教學機構，給予最專業的指導，並與學員一同用音樂串連生活，一直是我們最大的期許。
+                                </h6>
+                            </div>
                         </div>
-                        <h5 style={{ color: '#5b322f' }}>03 黃睿渝 技術長</h5>
-                        <h6 style={{ color: '#333333' }}>負責項目</h6>
-                        <hr />
                     </div>
-                    <div className="col-md-3 col-6">
-                        <div className="founder">
-                            <img src={avatar02} alt="cat" className="" />
+                </div>
+                <div className="position-relative my-5" data-aos="zoom-in-left">
+                    <img className="" src={about3} alt="about3"></img>
+                    <div className="h-100 w-100 position-absolute imgho">
+                        <div className="item1">
+                            <a
+                                style={{ color: ' #5b322f' }}
+                                href="http://localhost:3000/place"
+                            >
+                                給你舞台
+                            </a>
+                            <div className="placetext">
+                                <h6>
+                                    我們深知在學習階段，每位學員都擁有一定程度的表演慾，需要一個自在的舞台，因此我們提供表演場所供學員租借使用，家中不方便練習的學員也可以租借練習室，盡情沉浸在音樂中。此外也提供專業錄音室給每位想製作音樂的學員。
+                                </h6>
+                            </div>
                         </div>
-                        <h5 style={{ color: '#5b322f' }}>09 黃秀莉</h5>
-                        <h6 style={{ color: '#333333' }}>負責項目</h6>
-                        <hr />
                     </div>
-                    <div className="col-md-3 col-6">
-                        <div className="founder">
-                            <img src={avatar05} alt="cat" className="" />
-                        </div>
-                        <h5 style={{ color: '#5b322f' }}>15 劉光育</h5>
-                        <h6 style={{ color: '#333333' }}>負責項目</h6>
-                        <hr />
-                    </div>
-                    <div className="col-md-3 col-6 d-none d-md-block"></div>
-                    <div className="col-md-3 col-6">
-                        <div className="founder">
-                            <img src={avatar06} alt="cat" className="" />
-                        </div>
-                        <h5 style={{ color: '#5b322f' }}>17 温侑臻</h5>
-                        <h6 style={{ color: '#333333' }}>負責項目</h6>
-                        <hr />
-                    </div>
-                    <div className="col-md-3 col-6">
-                        <div className="founder">
-                            <img src={avatar01} alt="cat" className="" />
-                        </div>
-                        <h5 style={{ color: '#5b322f' }}>27 曾子瑜</h5>
-                        <h6 style={{ color: '#333333' }}>負責項目</h6>
-                        <hr />
-                    </div>
-                    <div className="col-md-3 col-6 d-none d-md-block"></div>
                 </div>
             </div>
 
