@@ -6,7 +6,7 @@ import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import { useAuth } from '../../utils/use_auth';
 import { successToast, errorToast, warningToast } from '../Alert';
-// import GoogleLogin from '../GoogleLogin';
+import GoogleLogin from '../GoogleLogin';
 
 function LogIn({ setLoginPopup }) {
     const [visibility, setVisibility] = useState(false);
@@ -139,13 +139,9 @@ function LogIn({ setLoginPopup }) {
             <button className="subBtn mt-1" onClick={loginSubmit}>
                 登入
             </button>
-<<<<<<< HEAD
-            {/* <GoogleLogin /> */}
-=======
             <div className="d-flex justify-content-center">
                 <GoogleLogin />
             </div>
->>>>>>> ee0619d1351575d714c3eecc1efd64e9cbb2e07f
         </form>
     );
 }

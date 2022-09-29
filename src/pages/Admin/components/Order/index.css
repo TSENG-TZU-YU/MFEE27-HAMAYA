@@ -1,7 +1,4 @@
-.OrderDetail{
-    /* width: 100%; */
-    /* background-color: aquamarine; */
-}
+
 .OrderDetail .test{
     text-align: center;
 }
@@ -48,4 +45,25 @@
 }
 .OrderDetail .closebtn:hover{
     border: 2px solid #00323d;
+}
+
+.OrderDetail .icon{
+    /* display: block; */
+    
+    
+}
+.OrderDetail .item1{
+    /* margin: 0 30px; */
+    height: 4px;
+    position: absolute;
+    width: 100%;
+    top: 15px;
+}
+.OrderDetail .line{
+    /* width: 500px; */
+    /* width: auto; */
+    width: 100%;
+}
+.OrderDetail .item2{
+    
 }
