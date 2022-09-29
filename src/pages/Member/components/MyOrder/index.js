@@ -13,10 +13,11 @@ import './MyOrder.scss';
 
 function MyOrder() {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    const { member, setMember, isLogin, setIsLogin, socketStatus } = useAuth();
     const navigate = useNavigate();
 
-    const [myOrder, setMyOrder] = useState([]);
+    const [replyState, setreplyState] = useState([{ order_id: '' }]);
+    const [myOrder, setMyOrder] = useState([{ order_id: '' }]);
     //有資料true,沒資料false
     const [hiddenState, setHiddenState] = useState(false);
     useEffect(() => {
@@ -56,7 +57,19 @@ function MyOrder() {
             }
         }
         getMyOrder();
+        getReplyState();
     }, []);
+    async function getReplyState() {
+        let response = await axios.get(`${API_URL}/member/myorder/replystate`, {
+            withCredentials: true,
+        });
+        setreplyState(response.data);
+        console.log('123', response.data);
+        //排序時間大小
+    }
+    useEffect(() => {
+        getReplyState();
+    }, [socketStatus.newMessage]);
 
     return (
         <div className="col-12 col-md-8 col-lg-9">
@@ -232,6 +245,27 @@ function MyOrder() {
                                                             查看詢問
                                                         </button>
                                                     )}
+                                                    {replyState.map((data) => {
+                                                        if (
+                                                            data.order_id ===
+                                                            order.order_id
+                                                        ) {
+                                                            return (
+                                                                <span
+                                                                    className={
+                                                                        data.user_reply_state ===
+                                                                        '未回覆'
+                                                                            ? 'replystyle1'
+                                                                            : 'replystyle2'
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        data.user_reply_state
+                                                                    }
+                                                                </span>
+                                                            );
+                                                        }
+                                                    })}
                                                     {/* <span className="small accent-light-color bg-main-color mx-1">
                                                         未回覆
                                                     </span> */}
