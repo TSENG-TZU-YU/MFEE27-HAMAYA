@@ -9,20 +9,21 @@ import { API_URL } from '../../utils/config';
 
 import { useAuth } from '../../utils/use_auth';
 
-const GoogleLogin = ({ setLoginPopup }) => {
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
+const GoogleLogin = () => {
+    const { setMember, setIsLogin, setLoginPopup } = useAuth();
+
     const navigate = useNavigate();
     const handleCallbackResponse = async (res) => {
         console.log('Encode JWT ID token ' + res.credential);
         const rawData = jwt_decode(res.credential);
+        console.log(rawData);
 
         const userObject = {
             fullName: rawData.name,
             email: rawData.email,
-            password: '123456789',
-            repassword: '123456789',
+            password: '12345678',
+            repassword: '12345678',
             sub: '1',
-
             create_time: moment().format('YYYY-MM-DD h:mm:ss'),
         };
         // setMember(userObject);
