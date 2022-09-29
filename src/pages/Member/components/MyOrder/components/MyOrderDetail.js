@@ -120,63 +120,61 @@ function MyOrderDetail() {
                                 </button>
                             </div>
                         </div>
-                        <div className="d-flex justify-content-evenly pt-4">
-                            <div>
-                                {orderOne ? (
-                                    <>
-                                        <OrderFinish className="myOrderDetail-Icon" />
-                                        <p className="gary-dark-color">
-                                            訂單成立
-                                        </p>
-                                    </>
-                                ) : (
-                                    <>
-                                        <OrderUndone className="myOrderDetail-Icon" />
-                                        <p className="gary-dark-color">
-                                            訂單成立
-                                        </p>
-                                    </>
-                                )}
-                                {/* <OrderFinish className="myOrderDetail-Icon" />
-                                <p className="gary-dark-color">訂單成立</p> */}
+                        <div className="position-relative pay_state">
+                            <div className="d-flex item1">
+                                <div
+                                    className={
+                                        myOrderUserInfo[0].order_state === 1
+                                            ? 'linecolor1'
+                                            : myOrderUserInfo[0].order_state ===
+                                            2
+                                            ? 'linecolor2'
+                                            : 'linecolor2'
+                                    }
+                                ></div>
+                                <div
+                                    className={
+                                        myOrderUserInfo[0].order_state === 1
+                                            ? 'linecolor1'
+                                            : myOrderUserInfo[0].order_state ===
+                                            2
+                                            ? 'linecolor1'
+                                            : 'linecolor2'
+                                    }
+                                ></div>
                             </div>
-                            <div>
-                                {orderTwo ? (
-                                    <>
-                                        <OrderFinish className="myOrderDetail-Icon" />
-                                        <p className="gary-dark-color">
-                                            待出貨
-                                        </p>
-                                    </>
+                            <div className="d-flex justify-content-between align-items-center item2">
+                                <div className="d-flex flex-column align-items-center">
+                                    <OrderFinish className="icon" />
+                                    訂單成立
+                                </div>
+                                {myOrderUserInfo[0].order_state === 2 ? (
+                                    <div className="d-flex flex-column align-items-center">
+                                        <OrderFinish className="icon" />
+                                        已出貨
+                                    </div>
+                                ) : myOrderUserInfo[0].order_state === 3 ? (
+                                    <div className="d-flex flex-column align-items-center">
+                                        <OrderFinish className="icon" />
+                                        已出貨
+                                    </div>
                                 ) : (
-                                    <>
-                                        <OrderUndone className="myOrderDetail-Icon" />
-                                        <p className="gary-dark-color">
-                                            待出貨
-                                        </p>
-                                    </>
+                                    <div className="d-flex flex-column align-items-center">
+                                        <OrderUndone className=" icon" />
+                                        待出貨
+                                    </div>
                                 )}
-                                {/* <OrderFinish className="myOrderDetail-Icon" />
-                                <p className="gary-dark-color">待出貨</p> */}
-                            </div>
-                            <div>
-                                {orderThr ? (
-                                    <>
-                                        <OrderFinish className="myOrderDetail-Icon" />
-                                        <p className="gary-dark-color">
-                                            訂單完成
-                                        </p>
-                                    </>
+                                {myOrderUserInfo[0].order_state === 3 ? (
+                                    <div className="d-flex flex-column align-items-center">
+                                        <OrderFinish className=" icon" />
+                                        訂單完成
+                                    </div>
                                 ) : (
-                                    <>
-                                        <OrderUndone className="myOrderDetail-Icon" />
-                                        <p className="gary-dark-color">
-                                            訂單完成
-                                        </p>
-                                    </>
+                                    <div className="d-flex flex-column align-items-center">
+                                        <OrderUndone className=" icon" />
+                                        訂單完成
+                                    </div>
                                 )}
-                                {/* <OrderUndone className="myOrderDetail-Icon" />
-                                <p className="gary-dark-color">訂單完成</p> */}
                             </div>
                         </div>
                         <h6 className="main-color py-2">收件資訊</h6>

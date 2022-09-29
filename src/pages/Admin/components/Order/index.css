@@ -20,10 +20,13 @@
 .OrderDetail .table2{
     width: 100%;
 }
+.OrderDetail .list{
+    background-color: white;
+}
 .OrderDetail .classimg{
     width: 100px;
     height: 60px;
-    object-fit: cover;
+    object-fit:contain;
 }
 .OrderDetail .hr{
     border-top: 3px solid #000000

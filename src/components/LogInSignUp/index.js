@@ -10,8 +10,6 @@ import SignUp from './SignUp';
 
 function LogInSignUp({ setLoginPopup }) {
     const [logInActive, setLogInActive] = useState(true);
-    
-
     return (
         <div>
             <div
