@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -29,6 +29,8 @@ function MyOrderDetail() {
     const [orderOne, setOrderOne] = useState(false);
     const [orderTwo, setOrderTwo] = useState(false);
     const [orderThr, setOrderThr] = useState(false);
+
+    const newWindow = useRef(null);
 
     useEffect(() => {
         async function getMyOrderDetail() {
@@ -74,6 +76,58 @@ function MyOrderDetail() {
         }
         getMyOrderDetail();
     }, []);
+
+    //開新視窗引用eddy老師
+    function PopupCenter(url, title, w, h) {
+        var userAgent = navigator.userAgent,
+            mobile = function () {
+                return (
+                    /\b(iPhone|iP[ao]d)/.test(userAgent) ||
+                    /\b(iP[ao]d)/.test(userAgent) ||
+                    /Android/i.test(userAgent) ||
+                    /Mobile/i.test(userAgent)
+                );
+            },
+            screenX =
+                typeof window.screenX != 'undefined'
+                    ? window.screenX
+                    : window.screenLeft,
+            screenY =
+                typeof window.screenY != 'undefined'
+                    ? window.screenY
+                    : window.screenTop,
+            outerWidth =
+                typeof window.outerWidth != 'undefined'
+                    ? window.outerWidth
+                    : document.documentElement.clientWidth,
+            outerHeight =
+                typeof window.outerHeight != 'undefined'
+                    ? window.outerHeight
+                    : document.documentElement.clientHeight - 22,
+            targetWidth = mobile() ? null : w,
+            targetHeight = mobile() ? null : h,
+            V = screenX < 0 ? window.screen.width + screenX : screenX,
+            left = parseInt(V + (outerWidth - targetWidth) / 2, 10),
+            right = parseInt(screenY + (outerHeight - targetHeight) / 2.5, 10),
+            features = [];
+        if (targetWidth !== null) {
+            features.push('width=' + targetWidth);
+        }
+        if (targetHeight !== null) {
+            features.push('height=' + targetHeight);
+        }
+        features.push('left=' + left);
+        features.push('top=' + right);
+        features.push('scrollbars=1');
+
+        var newWindow = window.open(url, title, features.join(','));
+
+        if (window.focus) {
+            newWindow.focus();
+        }
+
+        return newWindow;
+    }
     //完成訂單
     function doFinish() {
         async function setOrderFinish() {
@@ -109,17 +163,27 @@ function MyOrderDetail() {
             if (result.isConfirmed) {
                 //按確定 前往結帳
                 async function setOrderCheckOut() {
-                    let response = await axios.put(
+                    let response = await axios.post(
                         `${API_URL}/member/myorder/detail/checkout/${orderId}`,
                         {
                             withCredentials: true,
                             user_id: member.id,
+                            myOrderUserInfo: myOrderUserInfo,
+                            myOrderList: myOrderList,
                         }
                     );
-                    console.log('response docheckout', response);
+                    // console.log('response docheckout', response.data.web);
+                    newWindow.current = PopupCenter(
+                        response.data.web,
+                        'LinelogInPopup',
+                        400,
+                        600
+                    );
+                    window.open(response.data.web);
                 }
                 setOrderCheckOut();
                 setOrderTwo(true);
+                successToast('付款成功', '關閉');
             }
         });
     }

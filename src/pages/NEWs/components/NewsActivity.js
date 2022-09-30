@@ -7,11 +7,7 @@ function NewsActivity({ data, activeText, menuItems }) {
     // const [data, setData] = useState([]);
     // const { data } = props;
 
-    console.log(data);
-    console.log(menuItems);
-    console.log('nnn', activeText);
     const id = menuItems.filter((v) => v.id === activeText);
-    console.log(id[0].name);
 
     //文章分類的標籤切換
     const colorChange = (categoryId) => {

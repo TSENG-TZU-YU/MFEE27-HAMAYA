@@ -500,7 +500,7 @@ function Detailed({ ins_main_id }) {
                                                         src={cartCheckout}
                                                         alt="cartCheckout"
                                                     />
-                                                    <h6 className="AdultDetailed-car-text-color text-center">
+                                                    <h6 className="accent-light-color text-center">
                                                         立即報名
                                                     </h6>
                                                 </button>
@@ -523,7 +523,7 @@ function Detailed({ ins_main_id }) {
                                                         src={shop_car}
                                                         alt="shop_car"
                                                     />
-                                                    <h6 className="AdultDetailed-car-text-color d-block">
+                                                    <h6 className="accent-light-color  d-block">
                                                         加入購物車
                                                     </h6>
                                                 </button>

@@ -1,18 +1,18 @@
 @import '../../index.scss';
 
-:root {
-  position: relative;
-  height: 100%;
-}
+// :root {
+//   position: relative;
+//   height: 100%;
+// }
 
-:root {
-  background: #eee;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  color: #000;
-  margin: 0;
-  padding: 0;
-}
+// :root {
+//   // background: #eee;
+//   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+//   font-size: 14px;
+//   color: #000;
+//   margin: 0;
+//   padding: 0;
+// }
 
 .mySwiper {
   width:100%;
@@ -68,7 +68,7 @@
 
   .swiper-pagination.swiper-pagination-1{
     position: relative;
-    bottom: -2rem;
+    bottom: -1rem;
 
     
   }

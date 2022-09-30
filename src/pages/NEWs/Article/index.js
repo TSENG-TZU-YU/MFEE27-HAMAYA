@@ -189,7 +189,10 @@ function Article() {
                 <div className="row ">
                     {read.map((recommend) => {
                         return (
-                            <div key={uuidv4()} className="col-12 col-md-4 ">
+                            <div
+                                key={uuidv4()}
+                                className="col-12 col-md-4 news-move-up"
+                            >
                                 <div className="mt-4">
                                     <Link
                                         to={`/news/${recommend.id}?mainId=${recommend.category}`}

@@ -94,6 +94,7 @@ import PlaceQADetail from './pages/Admin/components/CustomerService/PlaceQADetai
 import CouponList from './pages/Admin/components/Coupon/CouponList';
 import CouponAdd from './pages/Admin/components/Coupon/CouponAdd';
 import CouponDetail from './pages/Admin/components/Coupon/CouponDetail';
+import MyOrderConfirm from './pages/Member/components/MyOrder/components/MyOrderConfirm';
 
 function App() {
     //page to top 要用的
@@ -193,6 +194,10 @@ function App() {
                                         <Route
                                             path="/member/myorder/:orderId"
                                             element={<MyOrderDetail />}
+                                        />
+                                        <Route
+                                            path="/member/myorder/linepay/confirm"
+                                            element={<MyOrderConfirm />}
                                         />
                                         <Route
                                             path="myorder/addqa"

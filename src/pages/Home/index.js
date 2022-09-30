@@ -237,14 +237,14 @@ function Home() {
                     <div className=" mt-3 home-vector3"></div>
                 </div>
                 <div className="container bg-main-gary-light-color  home-blank-top4  ">
-                    <div className="row  News-articles bg-main-gary-light-color ">
+                    <div className="row  home-articles bg-main-gary-light-color ">
                         {data.map((article) => {
                             return (
                                 <div
                                     key={uuidv4()}
                                     className="col-12 col-md-4 "
                                 >
-                                    <div className="mt-4 move-up">
+                                    <div className="move-up">
                                         <Link
                                             to={`/news/${article.id}?mainId=${article.category}`}
                                         >
@@ -279,7 +279,7 @@ function Home() {
                                     key={uuidv4()}
                                     className="col-12 col-md-4 move-up"
                                 >
-                                    <div className="mt-4 ">
+                                    <div className="">
                                         <Link
                                             to={`/news/${article2.id}?mainId=${article2.category}`}
                                         >

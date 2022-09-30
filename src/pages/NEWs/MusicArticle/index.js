@@ -12,6 +12,9 @@ import sort from '../../../assets/svg/sort.svg';
 import search from '../../../assets/svg/search.svg';
 import arrowDown from '../../../assets/ProductsImg/icon/arrow_down.svg';
 
+//動畫效果
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 //分頁
 import _ from 'lodash';
 
@@ -23,6 +26,7 @@ import SearchBar from '../../../components/SearchBar';
 import { sortByTypes } from '../constants';
 
 function MusicArticle(props) {
+    AOS.init();
     const [data, setData] = useState([]);
     const [activeText, setActiveText] = useState(1);
 
@@ -229,11 +233,11 @@ function MusicArticle(props) {
                                 {sortToggled ? (
                                     <div className="sort-menu-class text-center ">
                                         <ul className="p-2">
-                                            {sortByTypes.map((item, index) => {
+                                            {sortByTypes.map((item) => {
                                                 return (
                                                     <li
+                                                        key={uuidv4()}
                                                         className="py-1"
-                                                        key={index}
                                                         onClick={(e) => {
                                                             setSortBy(item.id);
                                                             setSortToggled(
@@ -288,6 +292,7 @@ function MusicArticle(props) {
                     </div>
                 </div>
             </div>
+
             {/* 篩選 mob */}
             <div className="d-md-none">
                 <div className="mob-search">
@@ -345,10 +350,10 @@ function MusicArticle(props) {
                         onClick={(e) => e.stopPropagation()}
                     >
                         <ul className="p-3">
-                            {sortByTypes.map((item, index) => {
+                            {sortByTypes.map((item) => {
                                 return (
                                     <li
-                                        key={index}
+                                        key={uuidv4()}
                                         onClick={(e) => {
                                             setSortBy(item.id);
                                             setSortToggled(false);
@@ -374,7 +379,7 @@ function MusicArticle(props) {
                                         ? 'col-3 News-word3  News-vector5-Btn-active'
                                         : 'col-3 News-word3  News-vector5-Btn'
                                 }
-                                key={value.id}
+                                key={uuidv4()}
                                 to={`/news/section?categoryList=${value.id}`}
                                 onClick={() => {
                                     setActiveText(value.id);
@@ -388,16 +393,20 @@ function MusicArticle(props) {
                     })}
                 </div>
             </div>
+            {/* 文章列表管理 */}
             <div className="container">
-                <div className="row mt-5">
-                    {pageProducts.length > 0 &&
-                        pageProducts[pageNow - 1].map((list) => {
-                            return (
-                                <>
-                                    <div
-                                        key={list.id}
-                                        className="col-12 col-md-5 d-flex "
-                                    >
+                {pageProducts.length > 0 &&
+                    pageProducts[pageNow - 1].map((list) => {
+                        return (
+                            <>
+                                <div
+                                    key={list.id}
+                                    className="row mt-5 d-flex"
+                                    data-aos="fade-up"
+                                    data-aos-duration="2000"
+                                    data-aos-offset="60"
+                                >
+                                    <div className="col-12 col-md-5 ">
                                         <img
                                             src={require(`../../../album/article/${list.image}`)}
                                             alt="list-images"
@@ -426,6 +435,7 @@ function MusicArticle(props) {
                                             {list.content}...
                                         </p>
                                     </div>
+
                                     <div className="container list-more-art ">
                                         <Link
                                             // 直接設定一個變數抓資料庫的id
@@ -444,10 +454,11 @@ function MusicArticle(props) {
                                             alt="arrow"
                                         />
                                     </div>
-                                </>
-                            );
-                        })}
-                </div>
+                                </div>
+                            </>
+                        );
+                    })}
+
                 {/* 文章選擇 toggle  end*/}
                 {pageProducts.length === 0 ? (
                     <div style={{ height: '50vh' }}>
@@ -466,10 +477,8 @@ function MusicArticle(props) {
                     ''
                 )}
             </div>
-
             {/* 頁碼 */}
             <div className="d-flex justify-content-center align-items-center my-5">
-                {console.log('thing', pageProducts)}
                 {data.length > perPage ? (
                     <PaginationBar
                         pageNow={pageNow}
