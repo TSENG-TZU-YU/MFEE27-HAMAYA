@@ -15,6 +15,7 @@ import { io } from 'socket.io-client';
 import { errorToast } from '../../../../components/Alert';
 import customer_img from '../../../../assets/svg/customer_service.svg';
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
+import member_img from '../../../../assets/svg/member_avatar.svg';
 
 function OrderQADetail(props) {
     const [loadingComplete, setLoadingComplete] = useState(false);
@@ -241,21 +242,25 @@ function OrderQADetail(props) {
                     <div className="">
                         {orderQA.content.map((data) => {
                             return (
-                                <div className="d-flex">
+                                <div key={uuidv4()} className="d-flex">
                                     <div className="imgdiv">
                                         <img
                                             src={
                                                 orderQA.detail.name ===
-                                                data.name
+                                                    data.name &&
+                                                orderQA.detail.photo !== ''
                                                     ? IMAGE_URL +
-                                                    orderQA.detail.photo
+                                                      orderQA.detail.photo
+                                                    : orderQA.detail.name ===
+                                                      data.name
+                                                    ? member_img
                                                     : customer_img
                                             }
                                             className="img1"
                                             alt=""
                                         />
                                     </div>
-                                    <div key={uuidv4()}>
+                                    <div>
                                         <p className="text-start m-0">
                                             <span className=" fs-5 fw-bolder">
                                                 {data.name}

@@ -7,15 +7,19 @@ import {
     useLocation,
 } from 'react-router-dom';
 import axios from 'axios';
-import { API_URL } from '../../../../utils/config';
+import { API_URL, IMAGE_URL } from '../../../../utils/config';
 import { useAuth } from '../../../../utils/use_auth';
 import { v4 as uuidv4 } from 'uuid';
 import { ReactComponent as Close } from '../../../../assets/svg/close.svg';
 import { io } from 'socket.io-client';
 import { errorToast } from '../../../../components/Alert';
+import customer_img from '../../../../assets/svg/customer_service.svg';
+import member_img from '../../../../assets/svg/member_avatar.svg';
+import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
 
 function PlaceQADetail(props) {
     const [setbread] = useOutletContext();
+    const [uploadPhotoURL, setUploadPhotoURL] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
     const [socketConn, setSocketConn] = useState(null);
@@ -88,6 +92,7 @@ function PlaceQADetail(props) {
                 user_id: response.data.detail.user_id,
                 place_rt_id: response.data.detail.id,
                 place_content: '',
+                photo: '',
             });
             setMyQuestion(response.data);
         } catch (err) {
@@ -105,22 +110,34 @@ function PlaceQADetail(props) {
         user_id: '',
         place_rt_id: '',
         place_content: '',
-        // name: '', 從session拿
+        photo: '',
     });
     const replyFormChange = (e) => {
         setreplyForm({ ...replyForm, place_content: e.target.value });
     };
+    const photoChange = (e) => {
+        setUploadPhotoURL(URL.createObjectURL(e.target.files[0]));
+        setreplyForm({ ...replyForm, photo: e.target.files[0] });
+    };
     async function replyFormSubmit(e) {
         e.preventDefault();
         try {
+            let formData = new FormData();
+            formData.append('user_id', replyForm.user_id);
+            formData.append('place_rt_id', replyForm.place_rt_id);
+            formData.append('place_content', replyForm.place_content);
+            formData.append('photo', replyForm.photo);
             let response = await axios.post(
                 `${API_URL}/admin/customerservice/placeqa/reply`,
-                replyForm,
+                formData,
                 {
                     withCredentials: true,
                 }
             );
             //清空replyForm input
+            document.querySelector('.photo').value = '';
+            setreplyForm({ ...replyForm, photo: '' });
+            setUploadPhotoURL('');
             // setreplyForm({ ...replyForm, place_content: '' });
             // alert(response.data.message);
         } catch (err) {
@@ -227,19 +244,53 @@ function PlaceQADetail(props) {
                     <div className="">
                         {myQuestion.myPlace.map((data) => {
                             return (
-                                <div key={uuidv4()}>
-                                    <p className="text-start m-0">
-                                        <span className=" fs-5 fw-bolder">
-                                            {data.name}
-                                        </span>
-                                        &nbsp;
-                                        <span className="">
-                                            {data.create_time}
-                                        </span>
-                                    </p>
-                                    <p className="text-start fs-6 m-0">
-                                        {data.place_content}
-                                    </p>
+                                <div key={uuidv4()} className="d-flex">
+                                    <div className="imgdiv">
+                                        <img
+                                            src={
+                                                myQuestion.detail.name ===
+                                                    data.name &&
+                                                myQuestion.detail.photo !==
+                                                    '' &&
+                                                myQuestion.detail.photo !== null
+                                                    ? IMAGE_URL +
+                                                      myQuestion.detail.photo
+                                                    : myQuestion.detail.name ===
+                                                      data.name
+                                                    ? member_img
+                                                    : customer_img
+                                            }
+                                            className="img1"
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div key={uuidv4()}>
+                                        <p className="text-start m-0">
+                                            <span className=" fs-5 fw-bolder">
+                                                {data.name}
+                                            </span>
+                                            &nbsp;
+                                            <span className="">
+                                                {data.create_time}
+                                            </span>
+                                        </p>
+                                        <p className="text-start fs-6 m-0">
+                                            {data.place_content.includes(
+                                                'uploadsQA'
+                                            ) ? (
+                                                <img
+                                                    width={200}
+                                                    src={
+                                                        IMAGE_URL +
+                                                        data.place_content
+                                                    }
+                                                    alt=""
+                                                />
+                                            ) : (
+                                                data.place_content
+                                            )}
+                                        </p>
+                                    </div>
                                 </div>
                             );
                         })}
@@ -265,12 +316,35 @@ function PlaceQADetail(props) {
                             autoComplete="off"
                             disabled={myQuestion.detail.user_id === 0}
                         />
-                        <button
-                            className="text-light bg-main-color p-1 px-5 btn1"
-                            onClick={replyFormSubmit}
-                        >
-                            進行回覆
-                        </button>
+                        <div className="d-flex justify-content-between align-items-center">
+                            <div>
+                                <label>
+                                    <input
+                                        className="photo d-none"
+                                        type="file"
+                                        name="photo"
+                                        accept="image/png, image/jpeg, image/jpg"
+                                        onChange={photoChange}
+                                    />
+                                    <MdOutlineAddPhotoAlternate className="addimgbtn" />
+                                </label>
+                                {uploadPhotoURL !== '' ? (
+                                    <img
+                                        src={uploadPhotoURL}
+                                        alt=""
+                                        className="addimgmin mx-2"
+                                    />
+                                ) : (
+                                    ''
+                                )}
+                            </div>
+                            <button
+                                className="text-light bg-main-color p-1 px-5 btn1"
+                                onClick={replyFormSubmit}
+                            >
+                                送出
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
