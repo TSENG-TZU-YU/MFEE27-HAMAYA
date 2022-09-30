@@ -96,6 +96,7 @@ function MyProfile(props) {
             successToast(response.data[1], '關閉');
             // alert(response.data[1]);
             setMember(response.data[0]);
+            document.querySelector('.photo').value = ''
         } catch (err) {
             console.log(err.response.data);
             errorToast(err.response.data.message, '關閉');
@@ -149,8 +150,8 @@ function MyProfile(props) {
                         <tr>
                             <td className="text-primary">大頭貼照</td>
                             <td>
-                                <div></div>
                                 <input
+                                    className="photo"
                                     type="file"
                                     name="photo"
                                     onChange={photoChange}
@@ -311,6 +312,7 @@ function MyProfile(props) {
                                 setEditProfile(true);
                                 // setCity(member.city);
                                 // setDist(member.dist);
+                                document.querySelector('.photo').value = '';
                             }}
                         >
                             取消
