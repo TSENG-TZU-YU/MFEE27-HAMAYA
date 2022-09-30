@@ -56,25 +56,29 @@ function ChildrenCourse({
         //開啟載入指示動畫
         setIsLoading(true);
         let getAdultClass = async () => {
-            let response = await axios.get(`${API_URL}/class/list?class=2`);
-            setProducts(response.data.data);
-            setDisplayProducts(response.data.data);
-            setMaxPrice(response.data.maxPrice[1].maxPrice);
-            setMinPrice(response.data.minPrice[1].minPrice);
-            setSelectedPrice([
-                response.data.minPrice[1].minPrice,
-                response.data.maxPrice[0].maxPrice,
-            ]);
-            // 從前端取得總頁數 (lastPage)
-            const pageList = _.chunk(response.data, perPage);
-            setPageNow(1);
-            if (pageList.length > 0) {
-                setPageTotal(pageList.length);
+            try {
+                let response = await axios.get(`${API_URL}/class/list?class=2`);
+                setProducts(response.data.data);
+                setDisplayProducts(response.data.data);
+                setMaxPrice(response.data.maxPrice[1].maxPrice);
+                setMinPrice(response.data.minPrice[1].minPrice);
+                setSelectedPrice([
+                    response.data.minPrice[1].minPrice,
+                    response.data.maxPrice[0].maxPrice,
+                ]);
+                // 從前端取得總頁數 (lastPage)
+                const pageList = _.chunk(response.data, perPage);
+                setPageNow(1);
+                if (pageList.length > 0) {
+                    setPageTotal(pageList.length);
 
-                // 設定到state中
-                setPageProducts(pageList);
+                    // 設定到state中
+                    setPageProducts(pageList);
+                }
+                window.scrollTo(0, 0);
+            } catch (err) {
+                console.log(err.response.data.message);
             }
-            window.scrollTo(0, 0);
         };
         getAdultClass();
         // 0.8秒後關起動畫呈現資料
