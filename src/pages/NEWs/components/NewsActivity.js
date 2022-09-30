@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import arrow from '../../../../assets/svg/arrow_back_ios_new.svg';
+import arrow from '../../../assets/svg/arrow_back_ios_new.svg';
 import { v4 as uuidv4 } from 'uuid';
 import '../index.scss';
 function NewsActivity({ data, activeText, menuItems }) {
@@ -34,16 +34,19 @@ function NewsActivity({ data, activeText, menuItems }) {
     return (
         <>
             <div className="container">
-                <div className="row  News-articles ">
+                <div className="row ">
                     {data.map((activity, index) => {
                         return (
-                            <div key={index} className="col-12 col-md-4  ">
-                                <div className="mt-4">
+                            <div
+                                key={index}
+                                className="col-12 col-md-4 news-move-up  "
+                            >
+                                <div className="News-articles">
                                     <Link
                                         to={`/news/${activity.id}?mainId=${activity.categoryId}`}
                                     >
                                         <img
-                                            src={require(`../../../../album/article/${activity.image}`)}
+                                            src={require(`../../../album/article/${activity.image}`)}
                                             alt="art02"
                                             className="News-imgs"
                                         />

@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { API_URL } from '../../../../../utils/config';
 import { useAuth } from '../../../../../utils/use_auth';
+import { useCart } from '../../../../../utils/use_cart';
 import { ReactComponent as AshBin } from '../../../../../assets/svg/delete.svg';
 import { ReactComponent as HeartLine } from '../../../../../assets/svg/favorite_defaut.svg';
 import { ReactComponent as HeartFill } from '../../../../../assets/svg/favorite_check.svg';
@@ -29,12 +30,32 @@ function MyCartProduct({
     setFavA,
 }) {
     const { member } = useAuth();
+    const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
+        useCart();
     // console.log('mycart product', myCartInfo);
     //進行刪除
     function handleRemoveItem(itemId) {
         // console.log('click');
         if (member !== null && member.id !== '') {
-            //讀資料庫 進行刪除 還必須確認資料庫有無東西
+            //取得localStorage內容
+            let shoppingCartLocal = JSON.parse(
+                localStorage.getItem('shoppingCart')
+            );
+            //確保臨時購物車沒有按結帳 以至於購物車刪除臨時購物車卻還存在
+            if (shoppingCartLocal) {
+                //移除
+                let removeItem = shoppingCartLocal.filter((item) => {
+                    return item.product_id !== itemId;
+                });
+                //存回localStorage
+                localStorage.setItem(
+                    'shoppingCart',
+                    JSON.stringify(removeItem)
+                );
+                setShoppingCart(removeItem);
+            }
+
+            //刪除購物車在資料庫的資料 確認資料庫有無東西
             let setItemDataDelete = async () => {
                 let response = await axios.delete(`${API_URL}/member/mycart`, {
                     data: [[member.id, itemId]],

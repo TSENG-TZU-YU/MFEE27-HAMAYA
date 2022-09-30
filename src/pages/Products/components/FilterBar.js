@@ -13,7 +13,7 @@ function FilterBar(props) {
         changeChecked,
         brandTags,
         activeColorTags,
-        setActiveColorTags
+        setActiveColorTags,
     } = props;
     return (
         <div className="products-filter-menu position-absolute">
@@ -83,10 +83,24 @@ function FilterBar(props) {
                             value={selectedPrice}
                             min={0}
                             max={maxPrice}
+                            trackStyle={{
+                                height: '5px',
+                                backgroundColor: '#00323d',
+                            }}
+                            railStyle={{
+                                height: '5px',
+                                backgroundColor: '#bababa',
+                            }}
+                            handleStyle={{
+                                backgroundColor: '#767676',
+                                border: 'none',
+                                opacity: '1',
+                                boxShadow: '0 0 0 2px #bababa',
+                            }}
                         />
                     </div>
                 </div>
-                <p className="accent-light-color small m-0">
+                <p className="accent-light-color m-0">
                     NT ${String(selectedPrice[0])} ~ {String(selectedPrice[1])}
                 </p>
             </div>

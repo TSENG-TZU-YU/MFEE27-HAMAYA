@@ -176,7 +176,7 @@ function OrderQA(props) {
                             return (
                                 <tr key={uuidv4()} className="cssTable">
                                     <th scope="row">
-                                        OR00{data.order_id}
+                                        {data.order_id1}
                                         <br />
                                         <span className="time">
                                             {data.create_time}

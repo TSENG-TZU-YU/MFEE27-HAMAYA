@@ -63,6 +63,10 @@ function Cart() {
             basicAlert('請先登入', '確認');
             return;
         }
+        if (shoppingCart.length === 0) {
+            basicAlert('購物車沒有商品', '確認');
+            return;
+        }
         //把資料組成陣列
         let multipleCart = shoppingCartLocal.map((item) => {
             return [member.id, item.product_id, item.category_id, item.amount];

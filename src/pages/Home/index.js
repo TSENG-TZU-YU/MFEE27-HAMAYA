@@ -4,17 +4,16 @@ import React, { useEffect, useState } from 'react';
 import { API_URL } from '../../utils/config';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
-// 套件
 
-//TODO:首頁ＲＷＤ要再排版
-//TODO:卷軸要做
-//TODO:點擊輪播時會跑版要修
+//動畫效果
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
+// 元件
 import MobileHome from './MobileHome';
 import HomeScroll from '../../components/HomeScroll/HomeScroll';
 
 //圖檔
-// import MobileHome from './MobileHome';
 import ServiceItem from '../../assets/HomeImg/service-item.jpg';
 import ServiceItem2 from '../../assets/HomeImg/service-item2.jpg';
 import ServiceItem3 from '../../assets/HomeImg/service-item3.jpg';
@@ -29,6 +28,7 @@ import Note9 from '../../assets/HomeImg/note-9.svg';
 import HomeAnimation from './HomeAnimation/HomeAnimation';
 
 function Home() {
+    AOS.init();
     const [data, setData] = useState([]);
     const [read, setRead] = useState([]);
     const [slider, setSlider] = useState([]);
@@ -77,7 +77,11 @@ function Home() {
                 </div>
                 <div className="container pushed-wrapper home-blank-top d-none d-md-block ">
                     <div className="row">
-                        <div className="">
+                        <div
+                            data-aos="fade-right"
+                            data-aos-duration="1500"
+                            data-aos-offset="60"
+                        >
                             <img
                                 src={ServiceItem}
                                 width="700"
@@ -87,15 +91,31 @@ function Home() {
                         </div>
                     </div>
                     <div className=" pushed-content pushed-box  ">
-                        <Link to="products">
-                            <span className="item-word">樂器商城</span>
+                        <Link
+                            to="products"
+                            data-aos="fade-left"
+                            data-aos-easing="ease"
+                        >
+                            <span
+                                className="item-word"
+                                data-aos="fade-left"
+                                data-aos-duration="1500"
+                                data-aos-offset="60"
+                            >
+                                樂器商城
+                            </span>
                             <img
                                 src={Vector25}
                                 width="150"
                                 alt="Logo"
                                 className="vector25"
                             />
-                            <span className="item-word2">
+                            <span
+                                className="item-word2"
+                                data-aos="fade-left"
+                                data-aos-duration="1500"
+                                data-aos-offset="60"
+                            >
                                 Instrumental Store
                             </span>
                         </Link>
@@ -103,22 +123,38 @@ function Home() {
                 </div>
 
                 <div className="container pushed-wrapper home-blank-top2 d-none d-md-block">
-                    <div className="row pushed-box4 pushed-box5">
+                    <div className="row pushed-box4 pushed-box5 ">
                         <Link className="" to="class">
-                            <span className="item-word3">音樂教育</span>
+                            <span
+                                className="item-word3"
+                                data-aos="fade-right"
+                                data-aos-duration="1500"
+                                data-aos-offset="60"
+                            >
+                                音樂教育
+                            </span>
                             <img
                                 src={Vector25}
                                 width="150"
                                 alt="Logo"
                                 className="vector25-2"
                             />
-                            <span className="item-word4">
+                            <span
+                                className="item-word4"
+                                data-aos="fade-right"
+                                data-aos-duration="1500"
+                                data-aos-offset="60"
+                            >
                                 Musical Education
                             </span>
                         </Link>
                     </div>
                     <div className="pushed-box2  home-blank-top ">
-                        <div className="">
+                        <div
+                            data-aos="fade-left"
+                            data-aos-duration="1500"
+                            data-aos-offset="60"
+                        >
                             <img
                                 src={ServiceItem2}
                                 width="700"
@@ -130,7 +166,11 @@ function Home() {
                 </div>
                 <div className="container pushed-wrapper home-blank-top3 d-none d-md-block ">
                     <div className="row">
-                        <div className="">
+                        <div
+                            data-aos="fade-right"
+                            data-aos-duration="1500"
+                            data-aos-offset="60"
+                        >
                             <img
                                 src={ServiceItem3}
                                 width="700"
@@ -141,14 +181,26 @@ function Home() {
                     </div>
                     <div className=" pushed-content pushed-box">
                         <Link to="place">
-                            <span className="item-word">場地租借</span>
+                            <span
+                                className="item-word"
+                                data-aos="fade-left"
+                                data-aos-duration="1500"
+                                data-aos-offset="60"
+                            >
+                                場地租借
+                            </span>
                             <img
                                 src={Vector25}
                                 width="150"
                                 alt="Logo"
                                 className="vector25"
                             />
-                            <span className="item-word2">
+                            <span
+                                className="item-word2"
+                                data-aos="fade-left"
+                                data-aos-duration="1500"
+                                data-aos-offset="60"
+                            >
                                 Facility Rental Services
                             </span>
                         </Link>
@@ -184,7 +236,7 @@ function Home() {
                     </p>
                     <div className=" mt-3 home-vector3"></div>
                 </div>
-                <div className="container bg-main-gary-light-color  home-blank-top4 ">
+                <div className="container bg-main-gary-light-color  home-blank-top4  ">
                     <div className="row  News-articles bg-main-gary-light-color ">
                         {data.map((article) => {
                             return (
@@ -192,7 +244,7 @@ function Home() {
                                     key={uuidv4()}
                                     className="col-12 col-md-4 "
                                 >
-                                    <div className="mt-4  ">
+                                    <div className="mt-4 move-up">
                                         <Link
                                             to={`/news/${article.id}?mainId=${article.category}`}
                                         >
@@ -225,7 +277,7 @@ function Home() {
                             return (
                                 <div
                                     key={uuidv4()}
-                                    className="col-12 col-md-4  "
+                                    className="col-12 col-md-4 move-up"
                                 >
                                     <div className="mt-4 ">
                                         <Link

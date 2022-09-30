@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import { useAuth } from '../../../../../utils/use_auth';
 import { API_URL } from '../../../../../utils/config';
 import { ReactComponent as OrderFinish } from '../../../../../assets/svg/order_status_finish.svg';
@@ -9,6 +10,10 @@ import { ReactComponent as Close } from '../../../../../assets/svg/close.svg';
 import { ReactComponent as OK } from '../../../../../assets/svg/ok.svg';
 import { ReactComponent as Message } from '../../../../../assets/svg/message.svg';
 import { ReactComponent as Review } from '../../../../../assets/svg/rate_review.svg';
+import {
+    successSmallToast,
+    successToast,
+} from '../../../../../components/Alert';
 import './MyOrderDetail.scss';
 
 function MyOrderDetail() {
@@ -70,27 +75,53 @@ function MyOrderDetail() {
         getMyOrderDetail();
     }, []);
     //完成訂單
-    async function setOrderFinish() {
-        let response = await axios.put(
-            `${API_URL}/member/myorder/detail/finish/${orderId}`,
-            {
-                withCredentials: true,
-                user_id: member.id,
-            }
-        );
-        console.log('response 完成訂單', response);
+    function doFinish() {
+        async function setOrderFinish() {
+            let response = await axios.put(
+                `${API_URL}/member/myorder/detail/finish/${orderId}`,
+                {
+                    withCredentials: true,
+                    user_id: member.id,
+                }
+            );
+            successToast(response.data.message, '關閉');
+            console.log('response 完成訂單', response);
+        }
+        setOrderFinish();
     }
+
     //前往結帳
     function doCheckOut() {
         // eslint-disable-next-line no-restricted-globals
-        let yes = confirm('你確定嗎？');
-
-        if (yes) {
-            alert('你按了確定按鈕');
-            setOrderTwo(true);
-        } else {
-            alert('你按了取消按鈕');
-        }
+        Swal.fire({
+            title: '確定前往付款?',
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger myOrderDetailAlertBtn',
+            },
+            icon: 'warning',
+            showCancelButton: true,
+            buttonsStyling: false,
+            iconColor: '#767676',
+            confirmButtonText: '確定',
+            cancelButtonText: '取消',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                //按確定 前往結帳
+                async function setOrderCheckOut() {
+                    let response = await axios.put(
+                        `${API_URL}/member/myorder/detail/checkout/${orderId}`,
+                        {
+                            withCredentials: true,
+                            user_id: member.id,
+                        }
+                    );
+                    console.log('response docheckout', response);
+                }
+                setOrderCheckOut();
+                setOrderTwo(true);
+            }
+        });
     }
 
     return (
@@ -120,63 +151,61 @@ function MyOrderDetail() {
                                 </button>
                             </div>
                         </div>
-                        <div className="d-flex justify-content-evenly pt-4">
-                            <div>
-                                {orderOne ? (
-                                    <>
-                                        <OrderFinish className="myOrderDetail-Icon" />
-                                        <p className="gary-dark-color">
-                                            訂單成立
-                                        </p>
-                                    </>
-                                ) : (
-                                    <>
-                                        <OrderUndone className="myOrderDetail-Icon" />
-                                        <p className="gary-dark-color">
-                                            訂單成立
-                                        </p>
-                                    </>
-                                )}
-                                {/* <OrderFinish className="myOrderDetail-Icon" />
-                                <p className="gary-dark-color">訂單成立</p> */}
+                        <div className="position-relative pay_state2">
+                            <div className="d-flex item1">
+                                <div
+                                    className={
+                                        myOrderUserInfo[0].order_state === 1
+                                            ? 'linecolor1'
+                                            : myOrderUserInfo[0].order_state ===
+                                              2
+                                            ? 'linecolor2'
+                                            : 'linecolor2'
+                                    }
+                                ></div>
+                                <div
+                                    className={
+                                        myOrderUserInfo[0].order_state === 1
+                                            ? 'linecolor1'
+                                            : myOrderUserInfo[0].order_state ===
+                                              2
+                                            ? 'linecolor1'
+                                            : 'linecolor2'
+                                    }
+                                ></div>
                             </div>
-                            <div>
-                                {orderTwo ? (
-                                    <>
-                                        <OrderFinish className="myOrderDetail-Icon" />
-                                        <p className="gary-dark-color">
-                                            待出貨
-                                        </p>
-                                    </>
+                            <div className="d-flex justify-content-between align-items-center item2">
+                                <div className="d-flex flex-column align-items-center">
+                                    <OrderFinish className="icon" />
+                                    訂單成立
+                                </div>
+                                {myOrderUserInfo[0].order_state === 2 ? (
+                                    <div className="d-flex flex-column align-items-center">
+                                        <OrderFinish className="icon" />
+                                        已出貨
+                                    </div>
+                                ) : myOrderUserInfo[0].order_state === 3 ? (
+                                    <div className="d-flex flex-column align-items-center">
+                                        <OrderFinish className="icon" />
+                                        已出貨
+                                    </div>
                                 ) : (
-                                    <>
-                                        <OrderUndone className="myOrderDetail-Icon" />
-                                        <p className="gary-dark-color">
-                                            待出貨
-                                        </p>
-                                    </>
+                                    <div className="d-flex flex-column align-items-center">
+                                        <OrderUndone className=" icon" />
+                                        待出貨
+                                    </div>
                                 )}
-                                {/* <OrderFinish className="myOrderDetail-Icon" />
-                                <p className="gary-dark-color">待出貨</p> */}
-                            </div>
-                            <div>
-                                {orderThr ? (
-                                    <>
-                                        <OrderFinish className="myOrderDetail-Icon" />
-                                        <p className="gary-dark-color">
-                                            訂單完成
-                                        </p>
-                                    </>
+                                {myOrderUserInfo[0].order_state === 3 ? (
+                                    <div className="d-flex flex-column align-items-center">
+                                        <OrderFinish className=" icon" />
+                                        訂單完成
+                                    </div>
                                 ) : (
-                                    <>
-                                        <OrderUndone className="myOrderDetail-Icon" />
-                                        <p className="gary-dark-color">
-                                            訂單完成
-                                        </p>
-                                    </>
+                                    <div className="d-flex flex-column align-items-center">
+                                        <OrderUndone className=" icon" />
+                                        訂單完成
+                                    </div>
                                 )}
-                                {/* <OrderUndone className="myOrderDetail-Icon" />
-                                <p className="gary-dark-color">訂單完成</p> */}
                             </div>
                         </div>
                         <h6 className="main-color py-2">收件資訊</h6>
@@ -501,7 +530,7 @@ function MyOrderDetail() {
                                         className="btn btn-primary col mx-2 p-0 text-nowrap"
                                         onClick={() => {
                                             setOrderThr(true);
-                                            setOrderFinish();
+                                            doFinish();
                                         }}
                                     >
                                         <OK className="myOrderDetailBtn-Icon px-1" />

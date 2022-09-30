@@ -11,6 +11,10 @@
 
 }
 
+.News-articles{
+padding-top: 50px;
+}  
+
 
 .News-engText {
   font-family: 'Noto Serif Display', serif;
@@ -268,4 +272,10 @@
   0% {
       transform: scale(1);
   }
+}
+
+.news-move-up:hover{
+  // background-color: $main-gary-light;
+  transition: all .5s;
+  transform : translateY(-20px);
 }

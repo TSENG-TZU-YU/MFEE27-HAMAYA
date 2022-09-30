@@ -147,7 +147,7 @@ li.articles-page-active {
   }
 
   .list-blank{
-    display: flex;
+  
     margin-top: 50px;
   }
 
@@ -254,9 +254,9 @@ li.articles-page-active {
 
 
 
-.class-filter-nav-btn {
+.class-filter {
   font-style: 1.5rem;
-  color: $main;
+  color: $main-light;
   margin: auto;
 }
 

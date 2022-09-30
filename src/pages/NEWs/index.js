@@ -5,18 +5,23 @@ import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import { v4 as uuidv4 } from 'uuid';
 
-// 項目資料
+// 項目資料 載入畫面
 import { loader } from './constants';
 // 圖檔
 import NewsBanner from '../../assets/NewsImg/news-banner.jpg';
-import NewsActivity from './MusicArticle/components/NewsActivity';
+//元件
+import NewsActivity from './components/NewsActivity';
 
-//TODO:類別顏色切換
-//TODO:上面一塊尚未拉資料庫
+
+//動畫效果
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 //TODO:activeText會出現紅字找不到父層
 
 //設定變數換網址
 function NEWs() {
+    AOS.init();
     //只是在設定active的狀態
     const [activeText, setActiveText] = useState(1);
     const [data, setData] = useState([]);
@@ -124,7 +129,7 @@ function NEWs() {
                             <p className="News-Breadcrumbs">首頁</p>
                         </Link>
                         &nbsp;/&nbsp;
-                        <Link to="/class">
+                        <Link to="/">
                             <p className="News-Breadcrumbs">最新消息</p>
                         </Link>
                     </div>
@@ -148,6 +153,9 @@ function NEWs() {
                                     <div
                                         key={uuidv4()}
                                         className="col-12 col-md-6"
+                                        data-aos="fade-right"
+                                        data-aos-duration="1500"
+                                        data-aos-offset="60"
                                     >
                                         <Link
                                             to={`/news/${activity.id}?mainId=${activity.categoryId}`}
@@ -176,7 +184,12 @@ function NEWs() {
                                 );
                             })}
 
-                            <div className="col-12 col-md-6 News-blank-art-left mt-2  ">
+                            <div
+                                className="col-12 col-md-6 News-blank-art-left mt-2"
+                                data-aos="fade-left"
+                                data-aos-duration="1500"
+                                data-aos-offset="60"
+                            >
                                 {news2.map((article) => {
                                     return (
                                         <div key={uuidv4()}>

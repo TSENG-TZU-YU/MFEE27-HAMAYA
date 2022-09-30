@@ -397,6 +397,24 @@ function ClassList(props) {
                                                         value={selectedPrice}
                                                         min={minPrice}
                                                         max={maxPrice}
+                                                        trackStyle={{
+                                                            height: '5px',
+                                                            backgroundColor:
+                                                                '#00323d',
+                                                        }}
+                                                        railStyle={{
+                                                            height: '5px',
+                                                            backgroundColor:
+                                                                '#bababa',
+                                                        }}
+                                                        handleStyle={{
+                                                            backgroundColor:
+                                                                '#767676',
+                                                            border: 'none',
+                                                            opacity: '1',
+                                                            boxShadow:
+                                                                '0 0 0 2px #bababa',
+                                                        }}
                                                     />
                                                 </div>
                                             </div>
@@ -564,6 +582,24 @@ function ClassList(props) {
                                                         value={selectedPrice}
                                                         min={minPrice}
                                                         max={maxPrice}
+                                                        trackStyle={{
+                                                            height: '5px',
+                                                            backgroundColor:
+                                                                '#00323d',
+                                                        }}
+                                                        railStyle={{
+                                                            height: '5px',
+                                                            backgroundColor:
+                                                                '#bababa',
+                                                        }}
+                                                        handleStyle={{
+                                                            backgroundColor:
+                                                                '#767676',
+                                                            border: 'none',
+                                                            opacity: '1',
+                                                            boxShadow:
+                                                                '0 0 0 2px #bababa',
+                                                        }}
                                                     />
                                                 </div>
                                             </div>
@@ -864,6 +900,20 @@ function ClassList(props) {
                                             value={selectedPrice}
                                             min={minPrice}
                                             max={maxPrice}
+                                            trackStyle={{
+                                                height: '5px',
+                                                backgroundColor: '#00323d',
+                                            }}
+                                            railStyle={{
+                                                height: '5px',
+                                                backgroundColor: '#bababa',
+                                            }}
+                                            handleStyle={{
+                                                backgroundColor: '#767676',
+                                                border: 'none',
+                                                opacity: '1',
+                                                boxShadow: '0 0 0 2px #bababa',
+                                            }}
                                         />
                                     </div>
                                 </div>
@@ -1012,6 +1062,20 @@ function ClassList(props) {
                                             value={selectedPrice}
                                             min={minPrice}
                                             max={maxPrice}
+                                            trackStyle={{
+                                                height: '5px',
+                                                backgroundColor: '#00323d',
+                                            }}
+                                            railStyle={{
+                                                height: '5px',
+                                                backgroundColor: '#bababa',
+                                            }}
+                                            handleStyle={{
+                                                backgroundColor: '#767676',
+                                                border: 'none',
+                                                opacity: '1',
+                                                boxShadow: '0 0 0 2px #bababa',
+                                            }}
                                         />
                                     </div>
                                 </div>

@@ -2,12 +2,15 @@ import React from 'react';
 import './index.scss';
 import { Link } from 'react-router-dom';
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import MobileImg from '../../../assets/HomeImg/mobile-img.jpg';
 import MobileImg2 from '../../../assets/HomeImg/mobile-img2.jpg';
 import MobileImg3 from '../../../assets/HomeImg/mobile-img3.jpg';
 import Vector25 from '../../../assets/HomeImg/Vector25.svg';
 
 function MobileHome(props) {
+    AOS.init();
     return (
         <>
             <div className="container d-flex mobile-blank-top d-md-none d-block">
@@ -30,7 +33,12 @@ function MobileHome(props) {
                         />
                     </div>
                 </div>
-                <div className="mobile-pushed-content mobile-pushed-box ">
+                <div
+                    className="mobile-pushed-content mobile-pushed-box "
+                    data-aos="fade-up"
+                    data-aos-duration="2000"
+                    data-aos-offset="100"
+                >
                     <Link to="products">
                         <span className="mobile-word">樂器商城</span>
                         <img
@@ -48,7 +56,12 @@ function MobileHome(props) {
             </div>
 
             <div className="container pushed-wrapper home-blank-top2 d-md-none d-block">
-                <div className="row mobile-pushed-content mobile-pushed-box2">
+                <div
+                    className="row mobile-pushed-content mobile-pushed-box2"
+                    data-aos="fade-up"
+                    data-aos-duration="2000"
+                    data-aos-offset="100"
+                >
                     <Link to="class">
                         <span className="mobile-word">音樂教育</span>
                         <img
@@ -85,7 +98,12 @@ function MobileHome(props) {
                         />
                     </div>
                 </div>
-                <div className=" mobile-pushed-content  mobile-pushed-box  ">
+                <div
+                    className=" mobile-pushed-content  mobile-pushed-box"
+                    data-aos="fade-up"
+                    data-aos-duration="2000"
+                    data-aos-offset="100"
+                >
                     <Link to="place">
                         <span className="mobile-word">場地租借</span>
                         <img

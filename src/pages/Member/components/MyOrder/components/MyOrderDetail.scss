@@ -5,7 +5,10 @@
     .myOrderDetailTable thead {
         display: none;
     }
-    .detail-tbody tr td:nth-child(2), .detail-tbody tr td:nth-child(3),.detail-tbody tr td:nth-child(4), .detail-tbody tr td:nth-child(5){
+    .detail-tbody tr td:nth-child(2),
+    .detail-tbody tr td:nth-child(3),
+    .detail-tbody tr td:nth-child(4),
+    .detail-tbody tr td:nth-child(5) {
         display: none;
     }
     .detail-Img {
@@ -29,6 +32,55 @@
     width: 25px;
     height: 25px;
 }
-.myOrderDetailTable{
+.myOrderDetailTable {
     background-color: #fff;
 }
+.myOrderDetailAlertBtn {
+    margin: 0 5px;
+}
+
+.pay_state2{
+    margin: 20px 150px;
+}
+.pay_state2 .item1{
+    /* margin: 0 30px; */
+    height: 4px;
+    position: absolute;
+    width: 100%;
+    top: 30px;
+    padding: 0 30px;
+}
+.pay_state2 .line{
+    /* width: 500px; */
+    /* width: auto; */
+    width: 100%;
+}
+.pay_state2 .item2{
+    margin: 0;
+}
+.pay_state2 .icon{
+    z-index: 100;
+    width: 60px;
+    height: 60px;
+}
+@media screen and (max-width:1400px) {
+    //xxl
+  }
+  @media screen and (max-width:1200px) {
+    //xl
+    .pay_state2{
+        margin: 20px 100px;
+    }
+  }
+  @media screen and (max-width:992px) {
+    //lg
+    .pay_state2{
+        margin: 20px 50px;
+    }
+  }
+  @media screen and (max-width:768px) {
+    //md
+  }
+  @media screen and (max-width:576px) {
+    //sm
+  }

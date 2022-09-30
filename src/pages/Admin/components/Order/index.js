@@ -136,7 +136,7 @@ function Order(props) {
                                     className="text-nowrap fw-light text-center"
                                     scope="col"
                                 >
-                                    會員姓名
+                                    姓名
                                 </th>
                                 <th
                                     className="text-nowrap fw-light text-center"
@@ -198,7 +198,7 @@ function Order(props) {
                                             <span className="time">
                                                 {data.receiver}
                                                 <br />
-                                                ID:{data.user_id}
+                                                user_id:{data.user_id}
                                             </span>
                                         </td>
                                         <td className="text-nowrap">
