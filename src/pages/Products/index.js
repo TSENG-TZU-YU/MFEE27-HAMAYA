@@ -15,7 +15,6 @@ import {
     sortByTitle,
     breadCrumbCategorySub,
     breadCrumbCategoryMain,
-    loader,
 } from './constants';
 
 // 元件
@@ -38,6 +37,7 @@ import {
     ListMotionContainer,
     ListMotionItem,
 } from '../../components/ListMotion';
+import Loader from '../../components/Loader';
 
 // 元件 FilterNav
 import SearchBar from '../../components/SearchBar';
@@ -610,13 +610,14 @@ function Products() {
 
     return (
         <>
+            <div className="product-mobile-top d-md-none"></div>
             <img
                 className="d-none d-md-block w-100"
                 src={banner}
                 alt="banner"
             />
             {isLoading ? (
-                loader
+                <Loader />
             ) : (
                 <>
                     <Container>
