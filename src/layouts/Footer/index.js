@@ -31,120 +31,33 @@ function Footer(props) {
                                 className="footerConnect footer-imgs2"
                             />
                         </div>
-                        <div className="col-md  pt-3 ">
+                        <div className="col-md footer-list ">
                             <Link
                                 className="main-gary-light-color word-size text-nowrap "
                                 to="news"
                             >
                                 最新消息
                             </Link>
-                            <div className="d-flex  align-items-start flex-column ">
-                                <Link
-                                    className="ms-1 main-gary-light-color  text-nowrap  word-size2"
-                                    to="news"
-                                >
-                                    促銷活動
-                                </Link>
-                                <Link
-                                    className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                    to="news"
-                                >
-                                    活動快訊
-                                </Link>
-                                <Link
-                                    className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                    to="news"
-                                >
-                                    重要通知
-                                </Link>
-                                <Link
-                                    className="ms-1 main-gary-light-color  text-nowrap word-size2"
-                                    to="news/section"
-                                >
-                                    音樂文章
-                                </Link>
-                            </div>
+                            <div className="d-flex  align-items-start flex-column "></div>
                         </div>
 
-                        <div className="col-md pt-3 d-flex  align-items-start flex-column">
+                        <div className="col-md  d-flex  align-items-start flex-column footer-list">
                             <Link
                                 className="main-gary-light-color  word-size text-nowrap col-md-1 "
                                 to="products"
                             >
                                 樂器商城
                             </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                to="/products"
-                            >
-                                最新商品
-                            </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                to="/products?main_id=1"
-                            >
-                                琴鍵樂器
-                            </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                to="/products?main_id=2"
-                            >
-                                管樂器
-                            </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                to="/products?main_id=3"
-                            >
-                                弓弦樂器
-                            </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                to="/products?main_id=4"
-                            >
-                                吉他/烏克麗麗
-                            </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                to="/products?main_id=5"
-                            >
-                                打擊樂器
-                            </Link>
-                            <Link
-                                className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                to="/products?main_id=6"
-                            >
-                                配件
-                            </Link>
                         </div>
-                        <div className="col-md pt-3">
+                        <div className="col-md footer-list">
                             <Link
                                 className="main-gary-light-color word-size text-nowrap "
                                 to="/class"
                             >
                                 音樂教育
                             </Link>
-                            <div className="d-flex  align-items-start flex-column ">
-                                <Link
-                                    className="ms-1 main-gary-light-color text-nowrap word-size2 "
-                                    to="/class/list?class=1"
-                                >
-                                    成人課程
-                                </Link>
-                                <Link
-                                    className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                    to="/class/list?class=2"
-                                >
-                                    兒童課程
-                                </Link>
-                                <Link
-                                    className="ms-1 main-gary-light-color text-nowrap word-size2"
-                                    to="/class"
-                                >
-                                    師資介紹
-                                </Link>
-                            </div>
                         </div>
-                        <div className="col-md   pt-3 text-nowrap">
+                        <div className="col-md text-nowrap footer-list">
                             <Link
                                 className="main-gary-light-color word-size"
                                 to="place"
@@ -153,7 +66,7 @@ function Footer(props) {
                             </Link>
                         </div>
 
-                        <div className="col-md pt-3 text-nowrap ">
+                        <div className="col-md  text-nowrap footer-list">
                             <Link
                                 className="main-gary-light-color word-size"
                                 to="aboutus"
@@ -162,7 +75,7 @@ function Footer(props) {
                             </Link>
                         </div>
 
-                        <div className="col-md picture-height">
+                        <div className="col-md picture-height ">
                             <Link className="" to="">
                                 <img
                                     src={Fb}

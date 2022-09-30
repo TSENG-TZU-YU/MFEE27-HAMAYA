@@ -84,7 +84,7 @@
 
 
 .home-blank-top {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 
@@ -95,9 +95,7 @@
   margin-top: 115px;
 }
 
-.home-blank-top4{
-padding-bottom: 50px;
-} 
+
 
 
 
@@ -152,6 +150,11 @@ padding-bottom: 50px;
  .home-blank-top2 {
   margin-top: 20px;
 }
+
+.home-blank-top{
+  margin-top: 30px;
+}
+
 
 }
 
@@ -260,6 +263,7 @@ bottom:-60px;
 .scroll-word{
   font-size: 25px;
   text-align: center;
+  color: $accent-light;
   
 }
 
@@ -277,10 +281,7 @@ bottom:-60px;
  
     
 	}
-  .home-blank-top4{
-    margin-top: 30px;
-  }
-  
+
 
 
     
@@ -336,6 +337,7 @@ bottom:-60px;
     font-size: 15px;
     text-align: center;
     margin: 30px 50px;
+    color: $accent-light;
   }
 
   .home-blank-top4{
@@ -371,3 +373,14 @@ bottom:-60px;
     transition: all .5s;
     transform : translateY(-20px);
 }
+
+
+.home-articles{
+  padding-top: 35px;
+  }  
+  
+  .home-blank-top4{
+    padding-bottom: 50px;
+    
+    
+    } 
