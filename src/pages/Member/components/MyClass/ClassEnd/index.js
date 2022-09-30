@@ -40,9 +40,9 @@ function ClassEnd(props) {
 
     useEffect(() => {
         let getAdultClass = async () => {
-            let response = await axios.get(
-                `${API_URL}/member/myclass/${member.id}`
-            );
+            let response = await axios.get(`${API_URL}/member/myclass`, {
+                withCredentials: true,
+            });
             setSuccess(false);
             setFinishClass(response.data.finishClass);
         };
