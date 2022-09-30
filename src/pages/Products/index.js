@@ -3,12 +3,9 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import _ from 'lodash';
-import { v4 as uuidv4 } from 'uuid';
 
 // 套件
 import { Container } from 'react-bootstrap';
-// import AOS from 'aos';
-// import 'aos/dist/aos.css';
 
 // 樣式
 import './index.scss';
@@ -18,7 +15,6 @@ import {
     sortByTitle,
     breadCrumbCategorySub,
     breadCrumbCategoryMain,
-    loader,
 } from './constants';
 
 // 元件
@@ -41,6 +37,7 @@ import {
     ListMotionContainer,
     ListMotionItem,
 } from '../../components/ListMotion';
+import Loader from '../../components/Loader';
 
 // 元件 FilterNav
 import SearchBar from '../../components/SearchBar';
@@ -116,9 +113,6 @@ function Products() {
     // 價格
     const [selectedPrice, setSelectedPrice] = useState([0, 7380000]);
     const [maxPrice, setMaxPrice] = useState();
-
-    console.log('selectedPrice', selectedPrice);
-    console.log('maxPrice', maxPrice);
 
     // 登入狀態
     const { member, setMember, isLogin, setIsLogin } = useAuth();
@@ -416,7 +410,7 @@ function Products() {
     };
 
     function getCheck(itemInfo) {
-        console.log('itemInfo', itemInfo);
+        // console.log('itemInfo', itemInfo);
         let stock = itemInfo.stock;
         let amount = itemInfo.amount;
         if (stock < amount) {
@@ -436,7 +430,7 @@ function Products() {
                 let getNewLocal = JSON.parse(
                     localStorage.getItem('shoppingCart')
                 );
-                console.log('getNewLocal', getNewLocal);
+                // console.log('getNewLocal', getNewLocal);
 
                 const itemsData = getNewLocal.map((item) => {
                     return {
@@ -446,7 +440,7 @@ function Products() {
                         amount: item.amount,
                     };
                 });
-                console.log('itemsData', itemsData);
+                // console.log('itemsData', itemsData);
                 //寫進資料庫
                 setItemsData(itemsData);
                 async function setItemsData(itemsData) {
@@ -481,7 +475,7 @@ function Products() {
         try {
             let getAllFavProducts = async () => {
                 let response = await axios.get(
-                    `${API_URL}/member/mybucketlist/${member.id}`,
+                    `${API_URL}/member/mybucketlist`,
                     { withCredentials: true }
                 );
 
@@ -500,7 +494,6 @@ function Products() {
 
     // 新增收藏
     const handleAddFavorite = (itemsData) => {
-        console.log(itemsData);
         if (itemsData.user_id !== null && itemsData.user_id !== '') {
             setItemsData(itemsData);
             async function setItemsData(itemsData) {
@@ -617,9 +610,14 @@ function Products() {
 
     return (
         <>
-            <img className="img-fluid" src={banner} alt="banner" />
+            <div className="product-mobile-top d-md-none"></div>
+            <img
+                className="d-none d-md-block w-100"
+                src={banner}
+                alt="banner"
+            />
             {isLoading ? (
-                loader
+                <Loader />
             ) : (
                 <>
                     <Container>
@@ -742,7 +740,7 @@ function Products() {
 
                         {/* 手機 篩選 */}
                         <div className="d-md-none">
-                            <div className="d-flex justify-content-between align-items-center mt-5">
+                            <div className="product-mobile-top d-flex justify-content-between align-items-center mt-5">
                                 {/* 麵包屑 */}
                                 <div className="d-flex">
                                     <BreadCrumb />
@@ -793,14 +791,14 @@ function Products() {
                                             商品分類
                                         </p>
                                         <div
-                                            className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center"
+                                            className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center cursor-pointer"
                                             onClick={toggleCategoryToggled}
                                         >
                                             商品類別
                                             <img
                                                 src={arrowDown}
                                                 alt="arrowDown"
-                                                className="products-mobile-arrowDown-img"
+                                                className="products-mobile-arrowDown-img cursor-pointer"
                                             />
                                         </div>
                                     </div>
@@ -809,14 +807,14 @@ function Products() {
                                             進階篩選
                                         </p>
                                         <div
-                                            className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center"
+                                            className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center cursor-pointer"
                                             onClick={toggleFilterToggled}
                                         >
                                             篩選條件
                                             <img
                                                 src={arrowDown}
                                                 alt="arrowDown"
-                                                className="products-mobile-arrowDown-img"
+                                                className="products-mobile-arrowDown-img cursor-pointer"
                                             />
                                         </div>
                                     </div>
@@ -825,14 +823,14 @@ function Products() {
                                             商品排序
                                         </p>
                                         <div
-                                            className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center"
+                                            className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center cursor-pointer"
                                             onClick={toggleSortToggled}
                                         >
                                             {sortByTitle(sortBy)}
                                             <img
                                                 src={arrowDown}
                                                 alt="arrowDown"
-                                                className="products-mobile-arrowDown-img"
+                                                className="products-mobile-arrowDown-img cursor-pointer"
                                             />
                                         </div>
                                     </div>

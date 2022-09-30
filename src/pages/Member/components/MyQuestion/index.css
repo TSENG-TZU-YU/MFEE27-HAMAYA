@@ -111,7 +111,11 @@
 }
 
 .MyQuestionDetail .content{
-    max-width: 700px;
+    max-width: 650px;
+    /* margin: 0 auto; */
+    padding: 10px;
+    border: 2px solid #767676;
+    border-radius: 5px;
 }
 .MyQuestionDetail .maincontent{
     height: 350px;
@@ -134,9 +138,27 @@
     margin: 5px 0;
     border: 0;
 }
+.MyQuestionDetail .addimgbtn{
+    margin-left: 5px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    color: #616161;
+}
+.MyQuestionDetail .addimgbtn:hover{
+    color: #00323d;
+    /* border: 2px solid #00323d ;
+    border-radius: 3px; */
+}
+.MyQuestionDetail .addimgmin{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
 
 .MyQuestionDetail .maincontent{
-    min-height: 300px;
+    min-height: 400px;
     background-color: #e6e6e6;
     /* overflow: auto; */
 }
@@ -164,6 +186,19 @@
     /* transform: translate(-3px,-3px); */
     /* shadow: #3c3c3c; */
 }
+.MyQuestionDetail .imgdiv{
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #e6e6e6
+}
+.MyQuestionDetail .img1{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
 .MyPlaceDetail .maincontent{
     height: 350px;
@@ -185,6 +220,8 @@
     border: transparent;
     outline: 2px solid cornflowerblue;
 }
+
+
 @media screen and (max-width:768px) {
     .myQuestion_form .btn1{
         width: 100%;

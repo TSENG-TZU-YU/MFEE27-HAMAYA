@@ -89,7 +89,7 @@ function ProductsItem({
                         amount: item.amount,
                     };
                 });
-                console.log('itemsData', itemsData);
+                // console.log('itemsData', itemsData);
                 //寫進資料庫
                 setItemsData(itemsData);
                 async function setItemsData(itemsData) {
@@ -125,7 +125,7 @@ function ProductsItem({
 
     // 新增收藏
     const handleAddFavorite = (itemsData) => {
-        console.log(itemsData);
+        // console.log(itemsData);
         if (itemsData.user_id !== null && itemsData.user_id !== '') {
             setItemsData(itemsData);
             async function setItemsData(itemsData) {

@@ -27,7 +27,7 @@ function BucketClass({
     perPageB,
     pageNowB,
 }) {
-    console.log('myBucketB', myBucketB);
+    // console.log('myBucketB', myBucketB);
     const { member } = useAuth();
     //checkbox check 裡面放product_id
     const [check, setCheck] = useState([]);
@@ -36,7 +36,7 @@ function BucketClass({
 
     //商品單選checkbox
     function handleCheckBox(e) {
-        console.log('value, allCheck, check', e.target.value, allCheck, check);
+        // console.log('value, allCheck, check', e.target.value, allCheck, check);
 
         const value = e.target.value;
         let newItem = [];
@@ -55,7 +55,7 @@ function BucketClass({
         if (newItem.length !== myBucketB.length) {
             setAllCheck(false);
         }
-        console.log('newItem', newItem);
+        // console.log('newItem', newItem);
     }
 
     //取得product_id
@@ -82,7 +82,7 @@ function BucketClass({
     };
     //點選icon的加入購物車
     function getCheck(itemInfo) {
-        console.log('itemInfo', itemInfo);
+        // console.log('itemInfo', itemInfo);
         let stock = itemInfo.stock;
         let amount = itemInfo.amount;
         if (stock < amount) {
@@ -101,7 +101,7 @@ function BucketClass({
                 let getNewLocal = JSON.parse(
                     localStorage.getItem('shoppingCart')
                 );
-                console.log('getNewLocal', getNewLocal);
+                // console.log('getNewLocal', getNewLocal);
 
                 const itemsData = getNewLocal.map((item) => {
                     return {
@@ -111,7 +111,7 @@ function BucketClass({
                         amount: item.amount,
                     };
                 });
-                console.log('itemsData', itemsData);
+                // console.log('itemsData', itemsData);
                 //寫進資料庫
                 setItemsData(itemsData);
                 async function setItemsData(itemsData) {
@@ -174,7 +174,7 @@ function BucketClass({
                 let getNewLocal = JSON.parse(
                     localStorage.getItem('shoppingCart')
                 );
-                console.log('getNewLocal', getNewLocal);
+                // console.log('getNewLocal', getNewLocal);
 
                 const itemsData = getNewLocal.map((item) => {
                     return {
@@ -184,7 +184,7 @@ function BucketClass({
                         amount: item.amount,
                     };
                 });
-                console.log('itemsData', itemsData);
+                // console.log('itemsData', itemsData);
                 //寫進資料庫
                 setItemsData(itemsData);
                 async function setItemsData(itemsData) {
@@ -247,7 +247,7 @@ function BucketClass({
         }
     }
 
-    console.log(myBucketB);
+    // console.log(myBucketB);
 
     // 多筆 取消收藏
     async function handleRemoveFavorite() {

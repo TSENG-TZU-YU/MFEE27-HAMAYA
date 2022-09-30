@@ -7,15 +7,18 @@ import {
     useLocation,
 } from 'react-router-dom';
 import axios from 'axios';
-import { API_URL } from '../../../../utils/config';
+import { API_URL, IMAGE_URL } from '../../../../utils/config';
 import { useAuth } from '../../../../utils/use_auth';
 import { v4 as uuidv4 } from 'uuid';
 import { ReactComponent as Close } from '../../../../assets/svg/close.svg';
 import { io } from 'socket.io-client';
 import { errorToast } from '../../../../components/Alert';
+import customer_img from '../../../../assets/svg/customer_service.svg';
+import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
 
 function CommonQADetail(props) {
     const [setbread] = useOutletContext();
+    const [uploadPhotoURL, setUploadPhotoURL] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
     const [socketConn, setSocketConn] = useState(null);
@@ -86,6 +89,7 @@ function CommonQADetail(props) {
                 user_id: response.data.detail.user_id,
                 user_qna_id: response.data.detail.id,
                 q_content: '',
+                photo: '',
             });
             setMyQuestion(response.data);
         } catch (err) {
@@ -102,21 +106,35 @@ function CommonQADetail(props) {
         user_id: '',
         user_qna_id: '',
         q_content: '',
+        photo: '',
     });
     const replyFormChange = (e) => {
         setreplyForm({ ...replyForm, q_content: e.target.value });
     };
+    const photoChange = (e) => {
+        setUploadPhotoURL(URL.createObjectURL(e.target.files[0]));
+        setreplyForm({ ...replyForm, photo: e.target.files[0] });
+        // setSelectedPhoto(e.target.files[0]);
+    };
     async function replyFormSubmit(e) {
         e.preventDefault();
         try {
+            let formData = new FormData();
+            formData.append('user_id', replyForm.user_id);
+            formData.append('user_qna_id', replyForm.user_qna_id);
+            formData.append('q_content', replyForm.q_content);
+            formData.append('photo', replyForm.photo);
             let response = await axios.post(
                 `${API_URL}/admin/customerservice/commonqa/reply`,
-                replyForm,
+                formData,
                 {
                     withCredentials: true,
                 }
             );
             //清空replyForm input
+            document.querySelector('.photo').value = '';
+            setreplyForm({ ...replyForm, photo: '' });
+            setUploadPhotoURL('');
             // setreplyForm({ ...replyForm, q_content: '' });
             // alert(response.data.message);
         } catch (err) {
@@ -224,19 +242,47 @@ function CommonQADetail(props) {
                     <div className="">
                         {myQuestion.content.map((data) => {
                             return (
-                                <div key={uuidv4()}>
-                                    <p className="text-start m-0">
-                                        <span className=" fs-5 fw-bolder">
-                                            {data.name}
-                                        </span>
-                                        &nbsp;
-                                        <span className="">
-                                            {data.create_time}
-                                        </span>{' '}
-                                    </p>
-                                    <p className="text-start fs-6 m-0">
-                                        {data.q_content}
-                                    </p>
+                                <div className="d-flex">
+                                    <div className="imgdiv">
+                                        <img
+                                            src={
+                                                myQuestion.detail.name ===
+                                                data.name
+                                                    ? IMAGE_URL +
+                                                      myQuestion.detail.photo
+                                                    : customer_img
+                                            }
+                                            className="img1"
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div key={uuidv4()}>
+                                        <p className="text-start m-0">
+                                            <span className=" fs-5 fw-bolder">
+                                                {data.name}
+                                            </span>
+                                            &nbsp;
+                                            <span className="">
+                                                {data.create_time}
+                                            </span>{' '}
+                                        </p>
+                                        <p className="text-start fs-6 m-0">
+                                            {data.q_content.includes(
+                                                'uploadsQA'
+                                            ) ? (
+                                                <img
+                                                    width={200}
+                                                    src={
+                                                        IMAGE_URL +
+                                                        data.q_content
+                                                    }
+                                                    alt=""
+                                                />
+                                            ) : (
+                                                data.q_content
+                                            )}
+                                        </p>
+                                    </div>
                                 </div>
                             );
                         })}
@@ -262,12 +308,35 @@ function CommonQADetail(props) {
                             autoComplete="off"
                             disabled={myQuestion.detail.user_id === 0}
                         />
-                        <button
-                            className="text-light bg-main-color p-1 px-5 btn1 "
-                            onClick={replyFormSubmit}
-                        >
-                            送出
-                        </button>
+                        <div className="d-flex justify-content-between align-items-center">
+                            <div>
+                                <label>
+                                    <input
+                                        className="photo d-none"
+                                        type="file"
+                                        name="photo"
+                                        accept="image/png, image/jpeg, image/jpg"
+                                        onChange={photoChange}
+                                    />
+                                    <MdOutlineAddPhotoAlternate className="addimgbtn" />
+                                </label>
+                                {uploadPhotoURL !== '' ? (
+                                    <img
+                                        src={uploadPhotoURL}
+                                        alt=""
+                                        className="addimgmin mx-2"
+                                    />
+                                ) : (
+                                    ''
+                                )}
+                            </div>
+                            <button
+                                className="text-light bg-main-color p-1 px-5 btn1"
+                                onClick={replyFormSubmit}
+                            >
+                                送出
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
