@@ -96,13 +96,22 @@ export const breadCrumbCategoryMain = (mainId) => {
 };
 
 // loader 動畫
+// export const loader = (
+//     <div className="sk-chase">
+//         <div className="sk-chase-dot"></div>
+//         <div className="sk-chase-dot"></div>
+//         <div className="sk-chase-dot"></div>
+//         <div className="sk-chase-dot"></div>
+//         <div className="sk-chase-dot"></div>
+//         <div className="sk-chase-dot"></div>
+//     </div>
+// );
+
 export const loader = (
-    <div className="sk-chase">
-        <div className="sk-chase-dot"></div>
-        <div className="sk-chase-dot"></div>
-        <div className="sk-chase-dot"></div>
-        <div className="sk-chase-dot"></div>
-        <div className="sk-chase-dot"></div>
-        <div className="sk-chase-dot"></div>
+    <div className="waveform">
+        <div className="waveform__bar"></div>
+        <div className="waveform__bar"></div>
+        <div className="waveform__bar"></div>
+        <div className="waveform__bar"></div>
     </div>
 );

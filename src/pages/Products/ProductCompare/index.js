@@ -88,7 +88,7 @@ function ProductCompare(props) {
     //加入購物車
     function getCheck(itemInfo) {
         // console.log('get Member', member);
-        console.log('itemInfo compare', itemInfo);
+        // console.log('itemInfo compare', itemInfo);
         let stock = itemInfo.stock;
         let amount = itemInfo.amount;
         if (stock < amount) {
@@ -120,7 +120,7 @@ function ProductCompare(props) {
                         amount: item.amount,
                     };
                 });
-                console.log('itemsData', itemsData);
+                // console.log('itemsData', itemsData);
                 //寫進資料庫
                 setItemsData(itemsData);
                 async function setItemsData(itemsData) {
@@ -158,7 +158,7 @@ function ProductCompare(props) {
         try {
             let getAllFavProducts = async () => {
                 let response = await axios.get(
-                    `${API_URL}/member/mybucketlist/${member.id}`,
+                    `${API_URL}/member/mybucketlist`,
                     { withCredentials: true }
                 );
 
@@ -177,7 +177,7 @@ function ProductCompare(props) {
 
     // 新增收藏
     const handleAddFavorite = (itemsData) => {
-        console.log(itemsData);
+        // console.log(itemsData);
         if (itemsData.user_id !== null && itemsData.user_id !== '') {
             setItemsData(itemsData);
             async function setItemsData(itemsData) {
