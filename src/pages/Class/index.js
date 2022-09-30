@@ -123,7 +123,7 @@ function Class(props) {
                             <Col xl={6}>
                                 {article1.map((article1, index) => {
                                     return (
-                                        <div key={index}>
+                                        <div key={index} data-aos="fade-right">
                                             <Link
                                                 to={`/news/${article1.article_id}?mainId=${article1.category}`}
                                             >
@@ -164,7 +164,7 @@ function Class(props) {
                             <Col xl={6}>
                                 {article.map((article, index) => {
                                     return (
-                                        <div key={index}>
+                                        <div key={index} data-aos="fade-left">
                                             <Link
                                                 to={`/news/${article.article_id}?mainId=${article.category}`}
                                             >
