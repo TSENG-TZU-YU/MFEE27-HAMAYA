@@ -192,6 +192,7 @@
     margin: 5px;
     border-radius: 50%;
     overflow: hidden;
+    background-color: #e6e6e6
 }
 .MyQuestionDetail .img1{
     width: 100%;

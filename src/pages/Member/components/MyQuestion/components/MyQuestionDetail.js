@@ -12,7 +12,7 @@ import { useAuth } from '../../../../../utils/use_auth';
 import { v4 as uuidv4 } from 'uuid';
 import { ReactComponent as Close } from '../../../../../assets/svg/close.svg';
 import { errorToast } from '../../../../../components/Alert';
-import member_img from '../../../../../assets/svg/member_avatar.svg';
+import customer_img from '../../../../../assets/svg/customer_service.svg';
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
 function MyQuestionDetail(props) {
     const [setbread] = useOutletContext();
@@ -210,7 +210,7 @@ function MyQuestionDetail(props) {
                                                 data.name
                                                     ? IMAGE_URL +
                                                       myQuestion.detail.photo
-                                                    : member_img
+                                                    : customer_img
                                             }
                                             className="img1"
                                             alt=""
