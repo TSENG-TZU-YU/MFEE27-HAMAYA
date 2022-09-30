@@ -56,9 +56,9 @@ function MyBucketList(props) {
         async function getMyBucket() {
             try {
                 let response = await axios.get(
-                    `${API_URL}/member/mybucketlist/${member.id}`
+                    `${API_URL}/member/mybucketlist`,
+                    { withCredentials: true }
                 );
-                // console.log('response', response.data);
                 setMyBucketA(response.data.product);
                 const pageListA = _.chunk(response.data.product, perPageA);
                 if (pageListA.length > 0) {

@@ -7,6 +7,10 @@ import Slider from 'rc-slider';
 import _ from 'lodash';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
+import moment from 'moment';
+
+//antd
+import { DatePicker } from 'antd';
 
 // 會員
 import { useAuth } from '../../../utils/use_auth';
@@ -58,6 +62,7 @@ function ClassList(props) {
         getMember();
     }, []);
 
+    //  篩選 Toggled
     const toggleFilterTrueFalse = (e) => {
         if (filterToggled || searchToggled || sortToggled) {
             setSortToggled(false);
@@ -100,8 +105,12 @@ function ClassList(props) {
     // 樂器
     const [subIns, setSubIns] = useState('');
 
-    // 評價塞選
+    // 評價篩選
     const [rating, setRating] = useState('');
+
+    // 日期篩選
+    const [selectedDate, setSelectedDate] = useState('null');
+    const { RangePicker } = DatePicker;
 
     // 產品用的資料
     // 1. 從伺服器來的原始資料
@@ -253,6 +262,32 @@ function ClassList(props) {
         return newProducts;
     };
 
+    // 日期：篩選方法
+    const applyDate = (products, selectedDate) => {
+        let newProducts = [...products];
+
+        // 日期區間
+        const minDate = selectedDate[0];
+        const maxDate = selectedDate[1];
+
+        // 價格：篩選方法
+        newProducts = newProducts.filter((product) => {
+            if (selectedDate === 'null') {
+                return product.start_date;
+            } else {
+                return (
+                    product.start_date >= minDate &&
+                    product.start_date <= maxDate
+                );
+            }
+        });
+
+        // [[page1],[page2]]
+        // need chunk to display
+
+        return newProducts;
+    };
+
     // 當過濾表單元素有更動時
     useEffect(() => {
         let newProducts = [...products];
@@ -272,13 +307,24 @@ function ClassList(props) {
         // 處理評論
         newProducts = handleRating(newProducts, rating);
 
+        // 處理評論
+        newProducts = applyDate(newProducts, selectedDate);
+
         // 篩選後 PageNow = 1 map 才有作用
         setPageNow(1);
         setDisplayProducts(newProducts);
         const newPageProducts = _.chunk(newProducts, perPage);
         setPageTotal(newPageProducts.length);
         setPageProducts(newPageProducts);
-    }, [products, selectedPrice, sortBy, searchWord, subIns, rating]);
+    }, [
+        products,
+        selectedPrice,
+        sortBy,
+        searchWord,
+        subIns,
+        rating,
+        selectedDate,
+    ]);
 
     return (
         <div
@@ -309,9 +355,28 @@ function ClassList(props) {
                     </nav>
                     {/* 麵包屑 end*/}
                     {/* 篩選 pc */}
-                    <nav className="d-none d-md-block">
+                    <nav className="d-none d-lg-block">
                         <nav className="d-flex  ">
                             <div className="d-flex me-5 justify-content-between align-items-center position-relative">
+                                <div className="me-4">
+                                    <RangePicker
+                                        onChange={(value) => {
+                                            if (value === null) {
+                                                setSelectedDate('null');
+                                            } else {
+                                                setSelectedDate(
+                                                    value.map((item) => {
+                                                        return moment(
+                                                            item
+                                                        ).format('YYYY-MM-DD');
+                                                    })
+                                                );
+                                            }
+                                        }}
+                                        className="antdColor"
+                                    />
+                                </div>
+
                                 <p
                                     className="mb-0 cursor-pinter"
                                     onClick={toggleFilterTrueFalse}
@@ -786,7 +851,7 @@ function ClassList(props) {
                     </nav>
                 </div>
                 {/* 篩選 mob */}
-                <nav className="d-md-none ">
+                <nav className="d-lg-none ">
                     <div className=" d-flex justify-content-end mob-search ">
                         <button
                             className="border-0 "
@@ -817,6 +882,24 @@ function ClassList(props) {
                             />
                         </div>
                     )}
+                    <div className="d-flex justify-content-center">
+                        <RangePicker
+                            onChange={(value) => {
+                                if (value === null) {
+                                    setSelectedDate('null');
+                                } else {
+                                    setSelectedDate(
+                                        value.map((item) => {
+                                            return moment(item).format(
+                                                'YYYY-MM-DD'
+                                            );
+                                        })
+                                    );
+                                }
+                            }}
+                            className="antdColor"
+                        />
+                    </div>
 
                     <nav className="mobile-class-filter-nav position-relative">
                         <div className="d-flex justify-content-center align-items-center mt-4">

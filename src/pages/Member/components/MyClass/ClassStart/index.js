@@ -11,18 +11,23 @@ import { useAuth } from '../../../../../utils/use_auth';
 function ClassStart(props) {
     const [buyClass, setBuyClass] = useState([]);
     // 取得會員 ID 資料
-    const { member } = useAuth();
+    // const { member } = useAuth();
+
     useEffect(() => {
-        let getAdultClass = async () => {
-            let response = await axios.get(
-                `${API_URL}/member/myclass/${member.id}`
-            );
+        try {
+            let getAdultClass = async () => {
+                let response = await axios.get(`${API_URL}/member/myclass`, {
+                    withCredentials: true,
+                });
 
-            setBuyClass(response.data.buyClass);
+                setBuyClass(response.data.buyClass);
 
-            console.log('buyClass', buyClass);
-        };
-        getAdultClass();
+                console.log('buyClass', buyClass);
+            };
+            getAdultClass();
+        } catch (err) {
+            console.log(err.response.data.message);
+        }
     }, []);
     return (
         <div>

@@ -99,7 +99,7 @@ function ChildrenCourse({
         try {
             let getAllFavProducts = async () => {
                 let response = await axios.get(
-                    `${API_URL}/member/mybucketlist/${member.id}`,
+                    `${API_URL}/member/mybucketlist`,
                     { withCredentials: true }
                 );
 
