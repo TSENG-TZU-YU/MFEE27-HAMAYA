@@ -720,7 +720,7 @@ function ClassList(props) {
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div className="d-flex"></div>
+
                                             <div className="d-flex">
                                                 {' '}
                                                 <div className="formCheck me-2">
