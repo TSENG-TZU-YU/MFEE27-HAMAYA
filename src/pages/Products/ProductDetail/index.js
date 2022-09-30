@@ -89,7 +89,7 @@ function Product() {
                 imgData = Object.keys(imgData).map((key) => {
                     return imgData[key];
                 });
-                console.log(imgData);
+                // console.log(imgData);
                 setProductImgs(imgData);
                 setRelatedProducts(response.data.relatedProducts);
                 window.scrollTo({
@@ -345,7 +345,7 @@ function Product() {
     //加入購物車
     function getCheck(itemInfo) {
         // console.log('get Member', member);
-        console.log('itemInfo detail', itemInfo);
+        // console.log('itemInfo detail', itemInfo);
         let stock = itemInfo.stock;
         let amount = itemInfo.amount;
         if (stock < amount) {
@@ -419,7 +419,7 @@ function Product() {
         if (stock < amount) {
             return errorToast('暫無庫存', '關閉');
         }
-        console.log('itemsData', itemInfo);
+        // console.log('itemsData', itemInfo);
         setItemsData(itemInfo);
         async function setItemsData(itemsData) {
             //要做後端資料庫裡是否重複 重複則請去去購物車修改數量

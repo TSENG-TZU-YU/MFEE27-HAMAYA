@@ -80,7 +80,7 @@ function BucketProduct({
     };
     //icon 加入購物車
     function getCheck(itemInfo) {
-        console.log('itemInfo', itemInfo);
+        // console.log('itemInfo', itemInfo);
         let stock = itemInfo.stock;
         let amount = itemInfo.amount;
         if (stock < amount) {
@@ -248,7 +248,7 @@ function BucketProduct({
                 let getNewLocal = JSON.parse(
                     localStorage.getItem('shoppingCart')
                 );
-                console.log('getNewLocal', getNewLocal);
+                // console.log('getNewLocal', getNewLocal);
 
                 const itemsData = getNewLocal.map((item) => {
                     return {
