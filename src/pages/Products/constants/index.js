@@ -106,12 +106,3 @@ export const breadCrumbCategoryMain = (mainId) => {
 //         <div className="sk-chase-dot"></div>
 //     </div>
 // );
-
-export const loader = (
-    <div className="waveform">
-        <div className="waveform__bar"></div>
-        <div className="waveform__bar"></div>
-        <div className="waveform__bar"></div>
-        <div className="waveform__bar"></div>
-    </div>
-);
