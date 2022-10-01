@@ -63,7 +63,12 @@ function MyOrderDetail() {
                 default:
                     setOrderOne(true);
             }
-
+            console.log(
+                'orderOne orderTwo orderThr',
+                orderOne,
+                orderTwo,
+                orderThr
+            );
             //分類別
             const myOrder_cateA = response.data.orderList.filter((v) => {
                 return v.category_id === 'A';
@@ -183,7 +188,6 @@ function MyOrderDetail() {
                 }
                 setOrderCheckOut();
                 setOrderTwo(true);
-                successToast('付款成功', '關閉');
             }
         });
     }
@@ -219,22 +223,12 @@ function MyOrderDetail() {
                             <div className="d-flex item1">
                                 <div
                                     className={
-                                        myOrderUserInfo[0].order_state === 1
-                                            ? 'linecolor1'
-                                            : myOrderUserInfo[0].order_state ===
-                                              2
-                                            ? 'linecolor2'
-                                            : 'linecolor2'
+                                        orderTwo ? 'linecolor2' : 'linecolor1'
                                     }
                                 ></div>
                                 <div
                                     className={
-                                        myOrderUserInfo[0].order_state === 1
-                                            ? 'linecolor1'
-                                            : myOrderUserInfo[0].order_state ===
-                                              2
-                                            ? 'linecolor1'
-                                            : 'linecolor2'
+                                        orderThr ? 'linecolor2' : 'linecolor1'
                                     }
                                 ></div>
                             </div>
@@ -243,12 +237,12 @@ function MyOrderDetail() {
                                     <OrderFinish className="icon" />
                                     訂單成立
                                 </div>
-                                {myOrderUserInfo[0].order_state === 2 ? (
+                                {orderTwo && !orderThr ? (
                                     <div className="d-flex flex-column align-items-center">
                                         <OrderFinish className="icon" />
-                                        已出貨
+                                        待出貨
                                     </div>
-                                ) : myOrderUserInfo[0].order_state === 3 ? (
+                                ) : orderThr ? (
                                     <div className="d-flex flex-column align-items-center">
                                         <OrderFinish className="icon" />
                                         已出貨
@@ -259,7 +253,7 @@ function MyOrderDetail() {
                                         待出貨
                                     </div>
                                 )}
-                                {myOrderUserInfo[0].order_state === 3 ? (
+                                {orderThr ? (
                                     <div className="d-flex flex-column align-items-center">
                                         <OrderFinish className=" icon" />
                                         訂單完成
@@ -320,7 +314,11 @@ function MyOrderDetail() {
                     {myOrderListA.map((item) => {
                         let itemPriceTotal = item.amount * item.price;
                         return (
-                            <tr key={item.id}>
+                            <tr
+                                key={Math.random()
+                                    .toString(36)
+                                    .replace('3.', '')}
+                            >
                                 <td className="align-middle" align="center">
                                     <div className="detail-Img">
                                         <Link
@@ -425,7 +423,11 @@ function MyOrderDetail() {
                     {myOrderListB.map((item) => {
                         let itemPriceTotal = item.amount * item.price;
                         return (
-                            <tr key={item.id}>
+                            <tr
+                                key={Math.random()
+                                    .toString(36)
+                                    .replace('3.', '')}
+                            >
                                 <td className="align-middle" align="center">
                                     <div className="detail-Img">
                                         <Link

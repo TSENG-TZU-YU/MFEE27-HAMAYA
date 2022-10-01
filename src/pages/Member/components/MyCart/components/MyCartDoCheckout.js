@@ -26,6 +26,7 @@ function MyCartDoCheckout({
     const navigate = useNavigate();
 
     // console.log('myCartInfo DoCheckout', myCartInfo);
+    //載入優惠券
     useEffect(() => {
         async function getCoupon() {
             try {
@@ -120,7 +121,10 @@ function MyCartDoCheckout({
             if (!newMyCart.length) {
                 return errorToast('商品數量不對喔', '關閉');
             }
-
+            if (saveOrderInfo.pay_method === 0) {
+                warningToast('請選擇付款方式', '關閉');
+                return;
+            }
             if (saveOrderInfo.receiver === '') {
                 warningToast('請填寫訂購人姓名', '關閉');
                 return;
@@ -213,7 +217,7 @@ function MyCartDoCheckout({
 
     return (
         <>
-            <div className="pt-5 col-lg-7">
+            <div className="pt-5 col-lg-6">
                 <div className="titleBg bg-main-color">
                     <span className="h6 accent-light-color px-2">
                         <b>收件人資訊</b>
@@ -318,7 +322,7 @@ function MyCartDoCheckout({
                     />
                 </div>
             </div>
-            <div className="pt-5 pb-2 col-lg-5">
+            <div className="pt-5 pb-2 col-lg-6">
                 <div className="titleBg bg-accent-color">
                     <span className="h6 accent-light-color px-2">
                         <b>訂購資訊</b>
@@ -330,7 +334,7 @@ function MyCartDoCheckout({
                 </div>
                 <div className="d-flex justify-content-between align-items-center py-lg-2">
                     <div className="d-flex align-items-center justify-content-between px-2 mx-3">
-                        {/* TODO:改成付款方式運費寫死 */}
+                        {/* 預設pay_method=1 */}
                         <div className="">
                             <span className="accent-color text-nowrap">
                                 付款方式
@@ -345,6 +349,7 @@ function MyCartDoCheckout({
                                 <option value="0">請選擇付款方式</option>
                                 <option value="1">信用卡</option>
                                 <option value="2">ATM轉帳</option>
+                                <option value="3">貨到付款</option>
                             </select>
                         </div>
                     </div>
@@ -419,15 +424,10 @@ function MyCartDoCheckout({
                         className="w-100 btn btn-primary p-0 mt-2"
                         onClick={() => {
                             //要送order資料庫
-                            //TODO:(1)如果可以做是否結帳詢問的確認訊息 (2)串接信用卡
+                            //(1)如果可以做是否結帳詢問的確認訊息 (2)串接信用卡
                             setSaveOrder({
                                 ...myCartInfo,
                                 total_amount: calcTotalPrice,
-
-                                // total_amount:
-                                //     calcTotalPrice +
-                                //     Number(myCartInfo.freight) -
-                                //     Number(myCartInfo.coupon),
                             });
                         }}
                     >

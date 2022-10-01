@@ -48,7 +48,11 @@ function MyOrderConfirm() {
                 .catch((error) => console.log(error));
         }
     }, []);
-    return <div className="col-12 col-md-8 col-lg-9">付款成功</div>;
+    return (
+        <div className="col-12 col-md-8 col-lg-9">
+            <h1>付款完成</h1>
+        </div>
+    );
 }
 
 export default MyOrderConfirm;
