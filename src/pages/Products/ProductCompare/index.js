@@ -101,6 +101,7 @@ function ProductCompare(props) {
         });
 
         if (!newItemInfo) {
+            setShopCartState(true);
             //臨時購物車
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
             //localStorage;

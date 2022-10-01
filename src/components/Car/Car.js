@@ -34,6 +34,7 @@ function Car({ itemsCart }) {
             return v.product_id === itemInfo.product_id;
         });
         if (!newItemInfo) {
+            setShopCartState(true);
             //臨時購物車
             // setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
             //localStorage
@@ -68,7 +69,6 @@ function Car({ itemsCart }) {
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
-                        setShopCartState(true);
                         successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);

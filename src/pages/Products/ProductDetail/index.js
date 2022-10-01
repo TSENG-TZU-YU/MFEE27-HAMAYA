@@ -358,6 +358,7 @@ function Product() {
         });
 
         if (!newItemInfo) {
+            setShopCartState(true);
             //臨時購物車
             // setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
             //localStorage;
@@ -393,7 +394,6 @@ function Product() {
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
-                        setShopCartState(true);
                         successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);

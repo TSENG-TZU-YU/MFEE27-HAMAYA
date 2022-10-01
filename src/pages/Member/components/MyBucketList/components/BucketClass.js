@@ -94,6 +94,7 @@ function BucketClass({
             return v.product_id === itemInfo.product_id;
         });
         if (!newItemInfo) {
+            setShopCartState(true);
             //localStorage
             setNewLocal([{ ...itemInfo }, ...shoppingCart]);
             //判斷是否為登入
@@ -127,7 +128,6 @@ function BucketClass({
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
-                        setShopCartState(true);
                         successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);
@@ -167,6 +167,7 @@ function BucketClass({
         });
         // console.log('reNewMyBucketB', reNewMyBucketB);
         if (!newItemInfo) {
+            setShopCartState(true);
             //localStorage
             setNewLocal([...reNewMyBucketB, ...shoppingCart]);
             //判斷是否為登入
@@ -200,7 +201,6 @@ function BucketClass({
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
-                        setShopCartState(true);
                         successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);

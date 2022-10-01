@@ -116,6 +116,7 @@ function Detailed({ ins_main_id }) {
         });
 
         if (!newItemInfo) {
+            setShopCartState(true);
             //臨時購物車
             // setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
             //localStorage;
@@ -151,7 +152,6 @@ function Detailed({ ins_main_id }) {
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
-                        setShopCartState(true);
                         successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);

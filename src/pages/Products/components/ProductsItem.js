@@ -70,6 +70,7 @@ function ProductsItem({
         });
 
         if (!newItemInfo) {
+            setShopCartState(true);
             //臨時購物車
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
             //localStorage;
@@ -105,7 +106,6 @@ function ProductsItem({
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
-                        setShopCartState(true);
                         successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);
@@ -185,6 +185,61 @@ function ProductsItem({
         }
     }
 
+    const cartCheckBtn = (props) => {
+        const {
+            product_id,
+            category_id,
+            image,
+            name,
+            price,
+            spec,
+            shipment,
+            stock,
+        } = props;
+        if (stock !== 0) {
+            return (
+                <>
+                    <button
+                        className="btn-primary btn w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
+                        onClick={(e) => {
+                            getCheck({
+                                product_id: product_id,
+                                category_id: category_id,
+                                image: image,
+                                name: name,
+                                amount: 1,
+                                price: price,
+                                spec: spec,
+                                shipment: shipment,
+                                stock: stock,
+                            });
+                        }}
+                    >
+                        <img
+                            width="30px"
+                            height="30px"
+                            src={cartCheck}
+                            alt="cartCheck"
+                            className="product-icon me-1"
+                        />
+                        加入購物車
+                    </button>
+                </>
+            );
+        } else {
+            return (
+                <>
+                    <button
+                        className="btn btn-danger w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
+                        disabled="disabled"
+                    >
+                        熱銷缺貨中
+                    </button>
+                </>
+            );
+        }
+    };
+
     return (
         <div className="col product">
             <div className="position-relative">
@@ -256,7 +311,17 @@ function ProductsItem({
                     />
                     比較
                 </div>
-                <button
+                {cartCheckBtn({
+                    product_id: product_id,
+                    category_id: category_id,
+                    image: image,
+                    name: name,
+                    amount: 1,
+                    price: price,
+                    spec: spec,
+                    stock: stock,
+                })}
+                {/* <button
                     className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
                     onClick={() => {
                         getCheck({
@@ -277,7 +342,7 @@ function ProductsItem({
                         className="product-icon me-1"
                     />
                     加入購物車
-                </button>
+                </button> */}
             </div>
             <div className="product-body py-2">
                 {/* 品名 */}
