@@ -111,8 +111,4 @@ function HomeScroll({ data, slider }) {
     );
 }
 
-// HomeScroll.propTypes = {
-//     images: PropTypes.array.isRequired,
-// };
-
 export default HomeScroll;
