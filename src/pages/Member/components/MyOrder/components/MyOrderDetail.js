@@ -184,7 +184,7 @@ function MyOrderDetail() {
                         400,
                         600
                     );
-                    window.open(response.data.web);
+                    // window.open(response.data.web);
                 }
                 setOrderCheckOut();
                 setOrderTwo(true);
