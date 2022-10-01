@@ -2,7 +2,7 @@
     display: none;
 } */
 .adminMainContent{
-    min-height: calc(100vh - 80px);
+    min-height: calc(100vh - 130px);
 }
 .adminHeader{
     position: absolute;
@@ -16,7 +16,7 @@
     height: 80px;
 }
 .header_space{
-    height: 80px;
+    height: 40px;
 }
 .adminHeader .title1{
     color: rgb(255, 255, 255);
