@@ -43,7 +43,7 @@ function NEWs() {
             setNews2(response.data.news2);
         };
         getNews();
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
     }, [location]);
 
     //預設的api這個網頁
@@ -57,7 +57,7 @@ function NEWs() {
             setNews2(response.data.news2);
         };
         getNews();
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
     }, []);
 
     useEffect(() => {}, [data]);

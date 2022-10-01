@@ -399,62 +399,70 @@ function MusicArticle(props) {
                     pageProducts[pageNow - 1].map((list) => {
                         return (
                             <>
-                                <div
-                                    key={list.id}
-                                    className="row mt-5 d-flex"
-                                    data-aos="fade-up"
-                                    data-aos-duration="2000"
-                                    data-aos-offset="60"
+                                <Link
+                                    // 直接設定一個變數抓資料庫的id
+                                    to={`/news/${list.id}?mainId=${list.categoryId}`}
+                                    className="mb-0 me-1 list-cursor-pinter"
                                 >
-                                    <div className="col-12 col-md-5 ">
-                                        <img
-                                            src={require(`../../../album/article/${list.image}`)}
-                                            alt="list-images"
-                                            className="article-list-images mobile-list-images"
-                                        />
-                                    </div>
-
-                                    <div className="col-12 col-md-7 mt-4">
-                                        <div className=" gary-dark-color h4 list-cursor-pinter ">
-                                            {list.title}
-                                            <div className="d-flex mt-2 ">
-                                                <p
-                                                    className={colorChange(
-                                                        Number(list.categoryId)
-                                                    )}
-                                                >
-                                                    {list.categoryName}
-                                                </p>
-                                                <p className="ms-2 mt-1 ">
-                                                    {list.author} －
-                                                    {list.creation_date}
-                                                </p>
-                                            </div>
+                                    <div
+                                        key={list.id}
+                                        className="row mt-5 d-flex"
+                                        data-aos="fade-up"
+                                        data-aos-duration="2000"
+                                        data-aos-offset="60"
+                                    >
+                                        <div className="col-12 col-md-5 ">
+                                            <img
+                                                src={require(`../../../album/article/${list.image}`)}
+                                                alt="list-images"
+                                                className="article-list-images mobile-list-images"
+                                            />
                                         </div>
-                                        <p className=" article-list-content ">
-                                            {list.content}...
-                                        </p>
-                                    </div>
 
-                                    <div className="container list-more-art ">
-                                        <Link
-                                            // 直接設定一個變數抓資料庫的id
-                                            to={`/news/${list.id}?mainId=${list.categoryId}`}
-                                            className="mb-0 me-1 list-cursor-pinter"
-                                        >
-                                            閱讀全文
-                                        </Link>
-                                        <img
-                                            className="list-arrow"
-                                            style={{
-                                                width: '15px',
-                                                height: '15px',
-                                            }}
-                                            src={arrow}
-                                            alt="arrow"
-                                        />
+                                        <div className="col-12 col-md-7 mt-4">
+                                            <div className=" gary-dark-color h4 list-cursor-pinter ">
+                                                {list.title}
+                                                <div className="d-flex mt-2 ">
+                                                    <p
+                                                        className={colorChange(
+                                                            Number(
+                                                                list.categoryId
+                                                            )
+                                                        )}
+                                                    >
+                                                        {list.categoryName}
+                                                    </p>
+                                                    <p className="ms-2 mt-1 ">
+                                                        {list.author} －
+                                                        {list.creation_date}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <p className=" article-list-content ">
+                                                {list.content}...
+                                            </p>
+                                        </div>
+
+                                        <div className="container list-more-art ">
+                                            <Link
+                                                // 直接設定一個變數抓資料庫的id
+                                                to={`/news/${list.id}?mainId=${list.categoryId}`}
+                                                className="mb-0 me-1 list-cursor-pinter"
+                                            >
+                                                閱讀全文
+                                            </Link>
+                                            <img
+                                                className="list-arrow"
+                                                style={{
+                                                    width: '15px',
+                                                    height: '15px',
+                                                }}
+                                                src={arrow}
+                                                alt="arrow"
+                                            />
+                                        </div>
                                     </div>
-                                </div>
+                                </Link>
                             </>
                         );
                     })}
