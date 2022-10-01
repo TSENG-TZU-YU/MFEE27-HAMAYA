@@ -55,7 +55,7 @@ function MyCart() {
         city: '',
         dist: '',
         address: '',
-        pay_method: 1,
+        pay_method: 0,
         coupon: 0,
         coupon_id: '',
         minimum: 0,
@@ -68,15 +68,15 @@ function MyCart() {
     useEffect(() => {
         async function getMyCart() {
             try {
-                let response = await axios.get(
-                    `${API_URL}/member/mycart/${member.id}`
-                );
+                let response = await axios.get(`${API_URL}/member/mycart`, {
+                    withCredentials: true,
+                });
 
                 let items_amount = response.data.myCart.length;
                 if (items_amount !== 0) {
                     setHiddenState(true);
                     setMyCart(response.data.myCart);
-                    console.log('All MyCart', response.data.myCart);
+                    // console.log('All MyCart', response.data.myCart);
                     //分類別
                     let myCartList = response.data.myCart;
                     const myCart_cateA = myCartList.filter((v) => {

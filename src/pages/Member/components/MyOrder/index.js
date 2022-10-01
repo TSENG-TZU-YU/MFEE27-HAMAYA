@@ -24,9 +24,9 @@ function MyOrder() {
         setbread('訂單查詢'); //載入頁面時 設定麵包削
 
         async function getMyOrder() {
-            let response = await axios.get(
-                `${API_URL}/member/myorder/${member.id}`
-            );
+            let response = await axios.get(`${API_URL}/member/myorder/`, {
+                withCredentials: true,
+            });
             // console.log('response DoCheckout', response.data);
             //排序時間大小
             let sortCreateTime = response.data.myOrder.sort((a, b) => {
@@ -50,7 +50,7 @@ function MyOrder() {
                     return item.order_id === id;
                 });
             });
-            console.log('order_id noRepeat', order_id, noRepeat, newResponse);
+            // console.log('order_id noRepeat', order_id, noRepeat, newResponse);
             if (newResponse.length !== 0) {
                 setHiddenState(true);
                 setMyOrder(newResponse);
