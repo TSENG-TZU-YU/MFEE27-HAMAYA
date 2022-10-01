@@ -76,7 +76,7 @@ li.articles-page-active {
   color: $main;
 }
 
-.article-list-content{
+.article-list-content {
   display: -webkit-box;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
@@ -87,99 +87,96 @@ li.articles-page-active {
 
 
 
-  .article-list-images{
-    width: 500px;
-    height: 300px;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 0px solid;
-    object-fit: cover;
-    
-  }
+.article-list-images {
+  width: 500px;
+  height: 300px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0px solid;
+  object-fit: cover;
 
-  // .article-list-images img{
-  //   max-width: 100%;
-  //   max-height: 100%;
+}
 
-  // }
+// .article-list-images img{
+//   max-width: 100%;
+//   max-height: 100%;
 
-  
-  .News-music-article {
-    width: 70px;
-    height: 25px;
-    text-align: center;
-    vertical-align: middle;
-    background-color:$main;
-    color: $accent-light;
-    line-height: 25px;
-  }
+// }
 
 
-  .News-music-article-color2{
-    width: 70px;
-    height: 25px;
-    text-align: center;
-    vertical-align: middle;
-    background-color:$gary-light ;
-    color: $accent-light;
-    line-height: 25px;
-  }
+.News-music-article {
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $main;
+  color: $accent-light;
+  line-height: 25px;
+}
 
-  .News-music-article-color3 {
-    width: 70px;
-    height: 25px;
-    text-align: center;
-    vertical-align: middle;
-    background-color:$accent ;
-    color: $accent-light;
-    line-height: 25px;
-  }
 
-  .News-music-article-color4 {
-    width: 70px;
-    height: 25px;
-    text-align: center;
-    vertical-align: middle;
-    background-color:$main-light ;
-    color: $accent-light;
-    line-height: 25px;
-  }
+.News-music-article-color2 {
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $gary-light ;
+  color: $accent-light;
+  line-height: 25px;
+}
 
-  .list-blank{
-  
-    margin-top: 50px;
-  }
+.News-music-article-color3 {
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $accent ;
+  color: $accent-light;
+  line-height: 25px;
+}
 
- 
-  
+.News-music-article-color4 {
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $main-light ;
+  color: $accent-light;
+  line-height: 25px;
+}
+
+.list-blank {
+
+  margin-top: 50px;
+}
+
+
+
 @media screen and (max-width: 768px) {
 
 
-  .mobile-list-images{
-    width: 100%;
-    
+  .mobile-list-images {
+    width:100%;
+    height: 100%;
+    object-fit: cover;
   }
 
- .mobile-images2{
-  max-width: 100%;
-   
-    
-  }
-  .list-blank{
+
+  .list-blank {
     display: flex;
     margin-top: 20px;
   }
-  
-
-   
-  }
 
 
 
-  //TODO:篩選
-  // 篩選 pc
+}
+
+
+
+//TODO:篩選
+// 篩選 pc
 .filter-active {
   position: absolute;
   width: 140px;
@@ -207,12 +204,14 @@ li.articles-page-active {
   z-index: 880;
   color: $accent-light;
 }
-.sort-menu-class > ul > li {
+
+.sort-menu-class>ul>li {
   padding: 2px;
   margin-bottom: 5px;
   cursor: pointer;
 }
-.sort-menu-class > ul {
+
+.sort-menu-class>ul {
   line-height: 0.9rem;
   padding: 0;
   margin-bottom: 0 !important;
@@ -232,17 +231,18 @@ li.articles-page-active {
 // 篩選 mob
 .mob-search {
   position: relative;
-  top:-15px;
-  right:10px;
+  top: -15px;
+  right: 10px;
   display: flex;
- justify-content: end;
+  justify-content: end;
 }
 
 .mob-class-search {
   position: relative;
-  top:-15px;
-  right:10px;
+  top: -15px;
+  right: 10px;
 }
+
 .mobile-class-filter-nav {
   margin: 10px 0;
 }
@@ -276,17 +276,18 @@ li.articles-page-active {
   border: none;
 }
 
-.class-filter-category-select > option {
+.class-filter-category-select>option {
   font-size: 1rem;
   padding: 5px;
 }
 
 //篩選 mob end
 
-ul > li {
+ul>li {
   list-style: none;
   font-size: 1rem;
 }
+
 .z-index {
   z-index: -1;
 }
@@ -296,6 +297,7 @@ ul > li {
   border: 0px;
   border-bottom: 3px solid $main-light;
 }
+
 .vector5-Btn-active {
   color: $main;
   border: 0px;
@@ -315,6 +317,7 @@ ul > li {
   margin-top: 40px;
   margin-left: 20px;
 }
+
 .class-h4-color {
   color: $main-light;
 }
@@ -322,5 +325,3 @@ ul > li {
 .class-h4-color-active {
   color: $main;
 }
-
-

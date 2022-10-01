@@ -60,7 +60,7 @@ function Article() {
                         <div key={uuidv4()}>
                             {/* 麵包屑 */}
                             {/* TODO: ＲＷＤ版AI執筆的位置不對 */}
-                            <div className="container d-flex mt-5 ">
+                            <div className="container d-flex article-blank-top  ">
                                 <Link to="/">
                                     <p className="article-Breadcrumbs text-nowrap">
                                         首頁
