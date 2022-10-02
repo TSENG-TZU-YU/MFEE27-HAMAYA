@@ -27,7 +27,7 @@ function MyOrder() {
             let response = await axios.get(`${API_URL}/member/myorder/`, {
                 withCredentials: true,
             });
-            // console.log('response DoCheckout', response.data);
+            // console.log('response order', response.data);
             //排序時間大小
             let sortCreateTime = response.data.myOrder.sort((a, b) => {
                 if (a.create_time > b.create_time) {

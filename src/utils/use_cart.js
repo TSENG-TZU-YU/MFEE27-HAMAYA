@@ -8,6 +8,8 @@ export const CartProvider = ({ children }) => {
 
     //臨時購物車的狀態
     const [shoppingCart, setShoppingCart] = useState([]);
+
+    const [linePay, setLinePay] = useState(false);
     return (
         <CartContext.Provider
             value={{
@@ -15,6 +17,8 @@ export const CartProvider = ({ children }) => {
                 setShopCartState,
                 shoppingCart,
                 setShoppingCart,
+                linePay,
+                setLinePay,
             }}
         >
             {children}

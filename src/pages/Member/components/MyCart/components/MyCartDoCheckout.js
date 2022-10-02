@@ -178,11 +178,11 @@ function MyCartDoCheckout({
                 {
                     user_id: member.id,
                     ...saveOrderInfo,
-                    pay_method: 1, //付款方式
+                    // pay_method: 1, //付款方式
                     product_detail: myCart,
                 },
             ];
-
+            // console.log('newSaveOrderInfo', newSaveOrderInfo);
             async function setOrderInfo() {
                 try {
                     let response = await axios.post(
@@ -349,7 +349,8 @@ function MyCartDoCheckout({
                                 <option value="0">請選擇付款方式</option>
                                 <option value="1">信用卡</option>
                                 <option value="2">ATM轉帳</option>
-                                <option value="3">貨到付款</option>
+                                <option value="3">Line Pay</option>
+                                <option value="4">貨到付款</option>
                             </select>
                         </div>
                     </div>
