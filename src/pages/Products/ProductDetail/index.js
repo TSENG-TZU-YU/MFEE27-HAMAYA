@@ -24,6 +24,7 @@ import {
     errorToast,
     successSmallToast,
 } from '../../../components/Alert';
+import Loader from '../../../components/Loader';
 
 // 圖檔
 import { FiMinus, FiPlus } from 'react-icons/fi';
@@ -45,6 +46,8 @@ import { useCart } from '../../../utils/use_cart';
 import { useLiked } from '../../../utils/use_liked';
 
 function Product() {
+    // 是否正在載入資料的旗標, true = 載入資料中
+    const [isLoading, setIsLoading] = useState(false);
     // 商品 伺服器來的資料
     const [product, setProduct] = useState([]);
     const [productImgs, setProductImgs] = useState([]);
@@ -77,6 +80,8 @@ function Product() {
 
     // 取得商品 api
     useEffect(() => {
+        // 開啟載入指示動畫
+        setIsLoading(true);
         try {
             let params = new URLSearchParams(location.search);
             let mainId = params.get('main_id');
@@ -101,6 +106,10 @@ function Product() {
         } catch (err) {
             console.log(err.response.data.message);
         }
+        // 2秒後關起動畫呈現資料
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
     }, [location]);
 
     const productCount = (props) => {
@@ -508,232 +517,245 @@ function Product() {
 
     return (
         <>
-            <Container className="productDetail-mobile">
-                {/* 麵包屑 */}
-                <div className="d-flex px-3">
-                    <BreadCrumb />
-                    {product.map((value) => {
-                        return (
-                            <p
-                                className="m-0 py-2 d-block align-items-center"
-                                key={uuidv4()}
-                            >
-                                &nbsp; {value.name}
-                            </p>
-                        );
-                    })}
-                </div>
-                {/* 麵包屑 end */}
-                <Row>
-                    {/* 商品照片 */}
-                    <Col lg={6}>
-                        <div className="d-flex h-100 align-items-center justify-content-center">
-                            <div className="w-100 h-100 p-3">
-                                <ProductCarousel images={productImgs} />
-                            </div>
-                        </div>
-                    </Col>
-                    {/* 商品照片 end */}
-
-                    {/* 品名、規格、數量、購買 */}
-                    <Col lg={6}>
-                        {product.map((value, index) => {
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <Container className="productDetail-mobile">
+                    {/* 麵包屑 */}
+                    <div className="d-flex px-3">
+                        <BreadCrumb />
+                        {product.map((value) => {
                             return (
-                                <div
-                                    className="d-flex flex-column m-3 text-start position-relative"
-                                    key={index}
+                                <p
+                                    className="m-0 py-2 d-block align-items-center"
+                                    key={uuidv4()}
                                 >
-                                    <div>
-                                        <h4 className="ms-2 mb-2 main-color">
-                                            {value.name}
-                                        </h4>
-                                        <img
-                                            src={note}
-                                            alt="note"
-                                            className="productDetail-note position-absolute d-none d-lg-block"
-                                        />
-                                        <div className="border-top border-secondary border-3 pt-3">
-                                            <h6 className="mb-0 productDetail-line-height fw-400">
-                                                品牌：{value.brandName}
-                                            </h6>
-                                            <h6 className="mb-0 productDetail-line-height fw-400">
-                                                規格：{value.spec}
-                                            </h6>
-                                            <div className="d-flex align-items-center">
-                                                <h6 className="mb-0 productDetail-line-height fw-400">
-                                                    顏色：
-                                                </h6>
-                                                <div
-                                                    className="product-color-box m-1"
-                                                    style={{
-                                                        backgroundColor: `${value.color}`,
-                                                    }}
-                                                ></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="pb-3 align-items-stretch">
-                                        <h6 className="col mb-0 productDetail-line-height fw-400">
-                                            運送方式：{value.shipmentName}
-                                        </h6>
-                                    </div>
-                                    {productCount({
-                                        user_id: member.id,
-                                        product_id: value.product_id,
-                                        category_id: value.category_id,
-                                        image: productImgs[0],
-                                        name: value.name,
-                                        price: value.price,
-                                        spec: value.spec,
-                                        shipment: value.shipment,
-                                        stock: value.stock,
-                                    })}
-
-                                    {/* 收藏、分享、比較 btn */}
-                                    <div className="d-flex justify-content-center justify-content-md-start">
-                                        {/* 收藏 */}
-                                        {member.id ? (
-                                            favProducts.includes(
-                                                value.product_id
-                                            ) ? (
-                                                <div
-                                                    className="d-flex justify-content-center align-items-center cursor-pinter me-5"
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        handleRemoveFavorite(
-                                                            value.product_id
-                                                        );
-                                                    }}
-                                                >
-                                                    <RiHeartAddFill
-                                                        className="plus-icon-size me-2 plus-icon-color  main-color"
-                                                        style={{
-                                                            fontSize: '30px',
-                                                        }}
-                                                    />
-                                                    <p className="mt-3 collect">
-                                                        取消收藏
-                                                    </p>
-                                                </div>
-                                            ) : (
-                                                <div
-                                                    className="d-flex justify-content-center align-items-center cursor-pinter me-5"
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        handleAddFavorite({
-                                                            user_id: member.id,
-                                                            product_id:
-                                                                value.product_id,
-                                                            category_id:
-                                                                value.category_id,
-                                                        });
-                                                    }}
-                                                >
-                                                    <RiHeartAddLine
-                                                        className="plus-icon-size me-2 plus-icon-color  main-color"
-                                                        style={{
-                                                            fontSize: '30px',
-                                                        }}
-                                                    />
-                                                    <p className="mt-3 collect">
-                                                        收藏
-                                                    </p>
-                                                </div>
-                                            )
-                                        ) : (
-                                            ''
-                                        )}
-                                        {/* 分享 */}
-                                        <div className="d-flex justify-content-center align-items-center cursor-pinter ">
-                                            <img
-                                                className="me-2 mt-1"
-                                                src={Share}
-                                                alt="Share"
-                                            />
-                                            <p className="mt-3 share">分享</p>
-                                        </div>
-                                        {/* 比較 */}
-                                        <div
-                                            className="d-flex justify-content-center align-items-center cursor-pinter my-3 mx-4"
-                                            onClick={() =>
-                                                getCompare({
-                                                    product_id:
-                                                        value.product_id,
-                                                    category_id:
-                                                        value.category_id,
-                                                    image: productImgs[0],
-                                                    name: value.name,
-                                                    brand: value.brandName,
-                                                    color: value.color,
-                                                    price: value.price,
-                                                    spec: value.spec,
-                                                    mainId: value.ins_main_id,
-                                                    create_time:
-                                                        value.create_time,
-                                                    stock: value.stock,
-                                                })
-                                            }
-                                        >
-                                            <CompareButton className="me-2 mt-1" />
-                                            <p className="mt-3 share">比較</p>
-                                        </div>
-                                    </div>
-                                    {/* 收藏、分享、比較 btn end*/}
-                                </div>
+                                    &nbsp; {value.name}
+                                </p>
                             );
                         })}
-                    </Col>
-                    {/* 品名、規格、數量、購買 end*/}
-                </Row>
-                <div className="d-flex mt-5 align-items-center">
-                    <h4 className="text-nowrap fw-bold main-color me-3">
-                        商品說明
-                    </h4>
-                    <div className="productDetail-vector bg-main-light-color"></div>
-                </div>
-                {product.map((value, index) => {
-                    return (
-                        <div
-                            className="my-5 productDetail-description"
-                            key={Math.random().toString(36).replace('3.', '')}
-                        >
-                            {value.intro}
-                        </div>
-                    );
-                })}
-                <div className="d-flex mt-5 align-items-center">
-                    <h4 className="text-nowrap fw-bold main-color me-3">
-                        推薦商品
-                    </h4>
-                    <div className="productDetail-vector bg-main-light-color"></div>
-                </div>
-                <Row className="mt-2 mb-5 row-cols-2 row-cols-xl-4">
-                    {relatedProducts.map((value, index) => {
+                    </div>
+                    {/* 麵包屑 end */}
+                    <Row>
+                        {/* 商品照片 */}
+                        <Col lg={6}>
+                            <div className="d-flex h-100 align-items-center justify-content-center">
+                                <div className="w-100 h-100 p-3">
+                                    <ProductCarousel images={productImgs} />
+                                </div>
+                            </div>
+                        </Col>
+                        {/* 商品照片 end */}
+
+                        {/* 品名、規格、數量、購買 */}
+                        <Col lg={6}>
+                            {product.map((value, index) => {
+                                return (
+                                    <div
+                                        className="d-flex flex-column m-3 text-start position-relative"
+                                        key={index}
+                                    >
+                                        <div>
+                                            <h4 className="ms-2 mb-2 main-color">
+                                                {value.name}
+                                            </h4>
+                                            <img
+                                                src={note}
+                                                alt="note"
+                                                className="productDetail-note position-absolute d-none d-lg-block"
+                                            />
+                                            <div className="border-top border-secondary border-3 pt-3">
+                                                <h6 className="mb-0 productDetail-line-height fw-400">
+                                                    品牌：{value.brandName}
+                                                </h6>
+                                                <h6 className="mb-0 productDetail-line-height fw-400">
+                                                    規格：{value.spec}
+                                                </h6>
+                                                <div className="d-flex align-items-center">
+                                                    <h6 className="mb-0 productDetail-line-height fw-400">
+                                                        顏色：
+                                                    </h6>
+                                                    <div
+                                                        className="product-color-box m-1"
+                                                        style={{
+                                                            backgroundColor: `${value.color}`,
+                                                        }}
+                                                    ></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="pb-3 align-items-stretch">
+                                            <h6 className="col mb-0 productDetail-line-height fw-400">
+                                                運送方式：{value.shipmentName}
+                                            </h6>
+                                        </div>
+                                        {productCount({
+                                            user_id: member.id,
+                                            product_id: value.product_id,
+                                            category_id: value.category_id,
+                                            image: productImgs[0],
+                                            name: value.name,
+                                            price: value.price,
+                                            spec: value.spec,
+                                            shipment: value.shipment,
+                                            stock: value.stock,
+                                        })}
+
+                                        {/* 收藏、分享、比較 btn */}
+                                        <div className="d-flex justify-content-center justify-content-md-start">
+                                            {/* 收藏 */}
+                                            {member.id ? (
+                                                favProducts.includes(
+                                                    value.product_id
+                                                ) ? (
+                                                    <div
+                                                        className="d-flex justify-content-center align-items-center cursor-pinter me-5"
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            handleRemoveFavorite(
+                                                                value.product_id
+                                                            );
+                                                        }}
+                                                    >
+                                                        <RiHeartAddFill
+                                                            className="plus-icon-size me-2 plus-icon-color  main-color"
+                                                            style={{
+                                                                fontSize:
+                                                                    '30px',
+                                                            }}
+                                                        />
+                                                        <p className="mt-3 collect">
+                                                            取消收藏
+                                                        </p>
+                                                    </div>
+                                                ) : (
+                                                    <div
+                                                        className="d-flex justify-content-center align-items-center cursor-pinter me-5"
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            handleAddFavorite({
+                                                                user_id:
+                                                                    member.id,
+                                                                product_id:
+                                                                    value.product_id,
+                                                                category_id:
+                                                                    value.category_id,
+                                                            });
+                                                        }}
+                                                    >
+                                                        <RiHeartAddLine
+                                                            className="plus-icon-size me-2 plus-icon-color  main-color"
+                                                            style={{
+                                                                fontSize:
+                                                                    '30px',
+                                                            }}
+                                                        />
+                                                        <p className="mt-3 collect">
+                                                            收藏
+                                                        </p>
+                                                    </div>
+                                                )
+                                            ) : (
+                                                ''
+                                            )}
+                                            {/* 分享 */}
+                                            <div className="d-flex justify-content-center align-items-center cursor-pinter ">
+                                                <img
+                                                    className="me-2 mt-1"
+                                                    src={Share}
+                                                    alt="Share"
+                                                />
+                                                <p className="mt-3 share">
+                                                    分享
+                                                </p>
+                                            </div>
+                                            {/* 比較 */}
+                                            <div
+                                                className="d-flex justify-content-center align-items-center cursor-pinter my-3 mx-4"
+                                                onClick={() =>
+                                                    getCompare({
+                                                        product_id:
+                                                            value.product_id,
+                                                        category_id:
+                                                            value.category_id,
+                                                        image: productImgs[0],
+                                                        name: value.name,
+                                                        brand: value.brandName,
+                                                        color: value.color,
+                                                        price: value.price,
+                                                        spec: value.spec,
+                                                        mainId: value.ins_main_id,
+                                                        create_time:
+                                                            value.create_time,
+                                                        stock: value.stock,
+                                                    })
+                                                }
+                                            >
+                                                <CompareButton className="me-2 mt-1" />
+                                                <p className="mt-3 share">
+                                                    比較
+                                                </p>
+                                            </div>
+                                        </div>
+                                        {/* 收藏、分享、比較 btn end*/}
+                                    </div>
+                                );
+                            })}
+                        </Col>
+                        {/* 品名、規格、數量、購買 end*/}
+                    </Row>
+                    <div className="d-flex mt-5 align-items-center">
+                        <h4 className="text-nowrap fw-bold main-color me-3">
+                            商品說明
+                        </h4>
+                        <div className="productDetail-vector bg-main-light-color"></div>
+                    </div>
+                    {product.map((value, index) => {
                         return (
-                            <ProductsItem
-                                getCompare={getCompare}
-                                key={uuidv4()}
-                                value={value}
-                            />
+                            <div
+                                className="my-5 productDetail-description"
+                                key={Math.random()
+                                    .toString(36)
+                                    .replace('3.', '')}
+                            >
+                                {value.intro}
+                            </div>
                         );
                     })}
-                </Row>
-                {/* 商品比較 btn */}
-                <CompareBtn
-                    toggleProductCompare={toggleProductCompare}
-                    compareProduct={compareProduct}
-                />
-                {/* 比較頁顯示 */}
-                {productCompare ? (
-                    <ProductCompare
+                    <div className="d-flex mt-5 align-items-center">
+                        <h4 className="text-nowrap fw-bold main-color me-3">
+                            推薦商品
+                        </h4>
+                        <div className="productDetail-vector bg-main-light-color"></div>
+                    </div>
+                    <Row className="mt-2 mb-5 row-cols-2 row-cols-xl-4">
+                        {relatedProducts.map((value, index) => {
+                            return (
+                                <ProductsItem
+                                    getCompare={getCompare}
+                                    key={uuidv4()}
+                                    value={value}
+                                />
+                            );
+                        })}
+                    </Row>
+                    {/* 商品比較 btn */}
+                    <CompareBtn
+                        toggleProductCompare={toggleProductCompare}
                         compareProduct={compareProduct}
-                        setCompareProduct={setCompareProduct}
-                        setProductCompare={setProductCompare}
                     />
-                ) : (
-                    ''
-                )}
-            </Container>
+                    {/* 比較頁顯示 */}
+                    {productCompare ? (
+                        <ProductCompare
+                            compareProduct={compareProduct}
+                            setCompareProduct={setCompareProduct}
+                            setProductCompare={setProductCompare}
+                        />
+                    ) : (
+                        ''
+                    )}
+                </Container>
+            )}
         </>
     );
 }

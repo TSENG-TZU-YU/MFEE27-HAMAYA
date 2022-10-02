@@ -171,6 +171,10 @@ function Products() {
                 setSelectedPrice([0, response.data.maxPrice[0].maxPrice]);
                 setProducts(response.data.data);
                 setDisplayProducts(response.data.data);
+                window.scrollTo({
+                    top: 0,
+                    left: 0,
+                });
                 // console.log('所有產品', response.data.data);
                 const pageList = _.chunk(response.data.data, perPage);
                 if (pageList.length > 0) {
