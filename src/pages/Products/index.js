@@ -204,7 +204,7 @@ function Products() {
         }
     }, [location]);
 
-    useEffect(() => {}, [products]);
+    // useEffect(() => {}, [products]);
 
     // 品牌篩選 選取陣列
     const handleBrandTagsChecked = (id) => {
@@ -241,6 +241,13 @@ function Products() {
         if (sortBy === '4') {
             newProducts = [...newProducts].sort((a, b) =>
                 a.create_time.localeCompare(b.create_time)
+            );
+        }
+
+        // 熱銷排序
+        if (sortBy === '5') {
+            newProducts = [...newProducts].sort(
+                (a, b) => Number(b.sales) - Number(a.sales)
             );
         }
 
@@ -556,6 +563,8 @@ function Products() {
             });
         }
     }
+
+    console.log('pageProducts', pageProducts);
 
     const cartCheckBtn = (props) => {
         const {
@@ -1016,6 +1025,7 @@ function Products() {
                                                                                 create_time:
                                                                                     product.create_time,
                                                                                 stock: product.stock,
+                                                                                sales: product.sales,
                                                                             }
                                                                         )
                                                                     }
@@ -1077,12 +1087,25 @@ function Products() {
                                                                         product.create_time
                                                                     }
                                                                 </p>
-                                                                <p className="product-name border-top py-1 m-0">
-                                                                    品牌：
-                                                                    {
-                                                                        product.brandName
-                                                                    }
-                                                                </p>
+                                                                <div className="d-flex border-top justify-content-between">
+                                                                    <p className="product-name py-1 m-0">
+                                                                        品牌：
+                                                                        {
+                                                                            product.brandName
+                                                                        }
+                                                                    </p>
+                                                                    {product.sales ? (
+                                                                        <p className="product-name py-1 m-0 accent-color fw-bold">
+                                                                            售出
+                                                                            {
+                                                                                product.sales
+                                                                            }
+                                                                            件
+                                                                        </p>
+                                                                    ) : (
+                                                                        ''
+                                                                    )}
+                                                                </div>
                                                             </div>
                                                         </ListMotionItem>
                                                     );

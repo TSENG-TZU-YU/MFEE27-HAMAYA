@@ -582,6 +582,14 @@ function Product() {
                                                         }}
                                                     ></div>
                                                 </div>
+                                                {value.sales ? (
+                                                    <h6 className="mb-0 productDetail-line-height fw-400">
+                                                        售出件數：{value.sales}
+                                                        件
+                                                    </h6>
+                                                ) : (
+                                                    ''
+                                                )}
                                             </div>
                                         </div>
                                         <div className="pb-3 align-items-stretch">
@@ -688,6 +696,7 @@ function Product() {
                                                         create_time:
                                                             value.create_time,
                                                         stock: value.stock,
+                                                        sales: value.sales,
                                                     })
                                                 }
                                             >

@@ -66,6 +66,12 @@ function ProductCompare(props) {
                 b.create_time.localeCompare(a.create_time)
             );
         }
+        // 熱銷排序
+        if (compareTags === '3') {
+            newCompareProduct = [...newCompareProduct].sort(
+                (a, b) => Number(b.sales) - Number(a.sales)
+            );
+        }
         setCompareProduct(newCompareProduct);
     };
 
@@ -270,6 +276,18 @@ function ProductCompare(props) {
                                 <p className="accent-light-color">最新上架</p>
                             </div>
                             <div
+                                className={
+                                    compareTags === '3'
+                                        ? 'bg-main-color productCompare__Tags text-center me-3 cursor-pinter'
+                                        : 'bg-main-light-color productCompare__Tags text-center me-3 cursor-pinter'
+                                }
+                                onClick={(e) => {
+                                    setCompareTags('3');
+                                }}
+                            >
+                                <p className="accent-light-color">熱銷排行</p>
+                            </div>
+                            <div
                                 className="productCompare__Tags bg-accent-color text-center cursor-pinter"
                                 onClick={() => {
                                     handleClear();
@@ -308,6 +326,9 @@ function ProductCompare(props) {
                             <div className="productCompare__list border-bottom ">
                                 <p className="main-color">上架日期</p>
                             </div>
+                            <div className="productCompare__list border-bottom ">
+                                <p className="main-color">銷售數量</p>
+                            </div>
                             <div className="productCompare__list productCompare__list-height border-bottom "></div>
                         </div>
                         {compareProduct.length === 0 ? (
@@ -341,7 +362,10 @@ function ProductCompare(props) {
                                                 setProductCompare(false);
                                             }}
                                         >
-                                            <div className="productCompare__list-img">
+                                            <div className="productCompare__list-img position-relative">
+                                                <div class="sort-numbers position-absolute top-0 start-0 py-1 bg-main-color accent-light-color">
+                                                    {index + 1}
+                                                </div>
                                                 <img
                                                     className="img-fluid"
                                                     src={require(`../../../album/products/${value.image}`)}
@@ -383,6 +407,13 @@ function ProductCompare(props) {
                                         </div>
                                         <div className="productCompare__list border-bottom">
                                             <p>{value.create_time}</p>
+                                        </div>
+                                        <div className="productCompare__list border-bottom">
+                                            {value.sales ? (
+                                                <p>{value.sales}件</p>
+                                            ) : (
+                                                <p>無銷售紀錄</p>
+                                            )}
                                         </div>
                                         <div className="productCompare__list productCompare__list-height  border-bottom">
                                             {member.id ? (

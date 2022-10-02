@@ -39,6 +39,7 @@ function ProductsItem({
         spec,
         stock,
         create_time,
+        sales,
     },
     getCompare,
 }) {
@@ -301,6 +302,7 @@ function ProductsItem({
                             mainId: ins_main_id,
                             create_time: create_time,
                             stock: stock,
+                            sales: sales,
                         })
                     }
                 >

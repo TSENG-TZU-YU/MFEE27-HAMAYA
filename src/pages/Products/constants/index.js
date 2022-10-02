@@ -15,6 +15,9 @@ export const sortByTitle = (sortBy) => {
     if (sortBy === '4') {
         return '上架 舊>新';
     }
+    if (sortBy === '5') {
+        return '最熱銷商品';
+    }
 };
 
 // 排序篩選選項
@@ -23,6 +26,7 @@ export const sortByTypes = [
     { id: '2', name: '價格：高到低' },
     { id: '3', name: '上架：新到舊' },
     { id: '4', name: '上架：舊到新' },
+    { id: '5', name: '最熱銷商品' },
 ];
 
 // 麵包屑 次類別
