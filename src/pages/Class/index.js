@@ -263,7 +263,7 @@ function Class(props) {
                                 </h4>
                                 <div className="vector4 mt-3"></div>
                             </div>
-                            <Row className="mt-5 text-center pb-md-5 ">
+                            {/* <Row className="mt-5 text-center pb-md-5 ">
                                 <Col
                                     lg={6}
                                     className="pb-5 mb-md-5 "
@@ -301,45 +301,55 @@ function Class(props) {
                                             兒童課程
                                         </h3>
                                     </Link>
-                                </Col>
+                                </Col> */}
 
-                                {/* <div className="actrow d-lg-flex">
-                                    <div className="actCard">
-                                        <div className="actContent">
-                                            <h4>成人課程</h4>
-                                            <p className="cardDes">
-                                                    成人課程
-                                                </p>
-                                            <Link
-                                                to="list?class=1"
-                                                onClick={() => {
-                                                    setSelectCourse(true);
-                                                }}
-                                            >
-                                                <button className="btn btn-white">
-                                                    MORE
-                                                </button>
-                                            </Link>
-                                        </div>
-                                        <div className="actContent">
-                                            <h4>兒童課程</h4>
-                                            <p className="cardDes">
-                                                    兒童課程
-                                                </p>
-                                            <Link
-                                                to="list?class=2"
-                                                onClick={() => {
-                                                    setSelectCourse(false);
-                                                }}
-                                            >
-                                                <button className="btn  btn-white">
-                                                    MORE
-                                                </button>
-                                            </Link>
-                                        </div>
+                            <Row className="actrow mt-5 text-center pb-md-5 ">
+                                <Col
+                                    lg={5}
+                                    className="actCard mb-5  mb-md-5"
+                                    data-aos="fade-right"
+                                >
+                                    <div className="actContent">
+                                        <h3 className="mt-5 mb-3 classText">成人課程</h3>
+                                        {/* <p className="cardDes classText">
+                                            成人課程
+                                        </p> */}
+                                        <Link
+                                            to="list?class=1"
+                                            onClick={() => {
+                                                setSelectCourse(true);
+                                            }}
+                                        >
+                                            <button className="btn btn-secondary classText ">
+                                                進入課程
+                                            </button>
+                                        </Link>
                                     </div>
-                                </div> */}
+                                </Col>
+                                <Col
+                                    lg={5}
+                                    className="actCard mb-5"
+                                    data-aos="fade-left"
+                                >
+                                    <div className="actContent">
+                                        <h3 className="mt-5 mb-3 classText">兒童課程</h3>
+                                        {/* <p className="cardDes classText">
+                                            兒童課程
+                                        </p> */}
+                                        <Link
+                                            to="list?class=2"
+                                            onClick={() => {
+                                                setSelectCourse(false);
+                                            }}
+                                        >
+                                            <button className="btn  btn-secondary classText">
+                                                進入課程
+                                            </button>
+                                        </Link>
+                                    </div>
+                                </Col>
                             </Row>
+                            {/* </Row> */}
                         </Container>
                     </div>
                     <Container>

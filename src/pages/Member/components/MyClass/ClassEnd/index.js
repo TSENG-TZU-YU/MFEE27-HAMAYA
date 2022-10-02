@@ -20,6 +20,7 @@ function ClassEnd(props) {
 
     // 資料庫
     const [finishClass, setFinishClass] = useState([]);
+    
 
     // 取得會員 ID 資料
     const { member } = useAuth();
@@ -125,6 +126,9 @@ function ClassEnd(props) {
                                                     img: buyClass.image_1,
                                                     name: buyClass.name,
                                                 });
+                                                // setClassId({
+
+                                                // });
                                             }}
                                         >
                                             <img

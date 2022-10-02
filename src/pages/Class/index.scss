@@ -228,53 +228,33 @@
     }
 }
 
-// CARD
-.actrow {
-    // display: flex;
-    max-width: 100%;
-    margin: 0 auto;
-    font-family: var(--font-sans);
-    justify-content: space-around;
-}
-@media (min-width: 600px) {
-    .actrow {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-@media (min-width: 1040px) {
-    .actrow {
-        grid-template-columns: repeat(4, 1fr);
-    }
+// Card
+:root {
+    --d: 700ms;
+    --e: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
+.actrow {
+    display: flex;
+    justify-content: space-evenly;
+}
 .actCard {
     position: relative;
-    // display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    width: 100%;
     width: 588px;
     height: 300px;
     text-align: center;
     color: #ffffff;
     background-color: #ffffff;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), 0 2px 2px rgba(0, 0, 0, 0.3),
-        0 4px 4px rgba(0, 0, 0, 0.3), 0 8px 8px rgba(0, 0, 0, 0.3),
-        0 16px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 14px 26px rgba(0, 0, 0, 0.4);
 
-    // @media (max-width: 600px) {
-    //     margin-bottom: 30px;
-    // }
 }
-@media (min-width: 600px) {
-    .card {
-        height: 350px;
-    }
-}
-:root {
-    --d: 700ms;
-    --e: cubic-bezier(0.19, 1, 0.22, 1);
+
+
+.classText {
+    color: $accent-light;
 }
 
 .actCard:before {
@@ -332,12 +312,14 @@
 }
 
 .actCard:nth-child(1):before {
+    max-width: 100%;
     background-image: url('../../assets/ClassImg/Adult Course.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 .actCard:nth-child(2):before {
+    max-width: 100%;
     background-image: url('../../assets/ClassImg/Children Lessons.png');
     background-size: cover;
     background-position: center;
@@ -361,10 +343,11 @@
     .actCard:focus-within {
         align-items: center;
     }
-    .actCard:hover:before,
-    .actCard:focus-within:before {
-        transform: translateY(-4%);
-    }
+    //圖片移動
+    // .actCard:hover:before,
+    // .actCard:focus-within:before {
+        // transform: translateY(-4%);
+    // }
     .actCard:hover:after,
     .actCard:focus-within:after {
         transform: translateY(-50%);

@@ -220,7 +220,7 @@ function ChildrenCourse({
                                                             )}
                                                         </p>
                                                     </div>
-                                                    <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">
+                                                    <div className="d-flex justify-content-between align-items-center pt-1">
                                                         <h4
                                                             className=" fw-bold"
                                                             style={{
