@@ -4,17 +4,17 @@ export const sortByTitle = (sortBy) => {
         return '排序條件';
     }
     if (sortBy === '1') {
-        return '日期 高>低';
+        return '日期 近>遠';
     }
     if (sortBy === '2') {
-        return '日期 低>高';
+        return '日期 遠>近';
     }
 };
 
 // 排序篩選選項
 export const sortByTypes = [
-    { id: '1', name: '日期：高到低' },
-    { id: '2', name: '日期：低到高' },
+    { id: '1', name: '日期：近到遠' },
+    { id: '2', name: '日期：遠到近' },
 ];
 
 // loader 動畫
