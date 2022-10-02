@@ -74,7 +74,7 @@ function MyOrder() {
     return (
         <div className="col-12 col-md-8 col-lg-9">
             {/*此className為RWD設定請勿更動*/}
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between mt-3">
                 <h4 className="main-color">
                     <b>訂單查詢</b>
                 </h4>
