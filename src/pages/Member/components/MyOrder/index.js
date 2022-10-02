@@ -27,7 +27,7 @@ function MyOrder() {
             let response = await axios.get(`${API_URL}/member/myorder/`, {
                 withCredentials: true,
             });
-            // console.log('response DoCheckout', response.data);
+            // console.log('response order', response.data);
             //排序時間大小
             let sortCreateTime = response.data.myOrder.sort((a, b) => {
                 if (a.create_time > b.create_time) {
@@ -74,7 +74,7 @@ function MyOrder() {
     return (
         <div className="col-12 col-md-8 col-lg-9">
             {/*此className為RWD設定請勿更動*/}
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between mt-3">
                 <h4 className="main-color">
                     <b>訂單查詢</b>
                 </h4>

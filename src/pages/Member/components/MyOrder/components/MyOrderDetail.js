@@ -4,6 +4,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useAuth } from '../../../../../utils/use_auth';
 import { API_URL } from '../../../../../utils/config';
+// import { useCart } from '../../../../../utils/use_cart';
 import { ReactComponent as OrderFinish } from '../../../../../assets/svg/order_status_finish.svg';
 import { ReactComponent as OrderUndone } from '../../../../../assets/svg/order_status_undone.svg';
 import { ReactComponent as Close } from '../../../../../assets/svg/close.svg';
@@ -29,6 +30,7 @@ function MyOrderDetail() {
     const [orderOne, setOrderOne] = useState(false);
     const [orderTwo, setOrderTwo] = useState(false);
     const [orderThr, setOrderThr] = useState(false);
+    // const { linePay, setLinePay } = useCart();
 
     const newWindow = useRef(null);
 
@@ -63,12 +65,7 @@ function MyOrderDetail() {
                 default:
                     setOrderOne(true);
             }
-            console.log(
-                'orderOne orderTwo orderThr',
-                orderOne,
-                orderTwo,
-                orderThr
-            );
+
             //分類別
             const myOrder_cateA = response.data.orderList.filter((v) => {
                 return v.category_id === 'A';
@@ -166,7 +163,7 @@ function MyOrderDetail() {
             cancelButtonText: '取消',
         }).then((result) => {
             if (result.isConfirmed) {
-                //按確定 前往結帳
+                //按確定 前往結帳 3 linepay
                 async function setOrderCheckOut() {
                     let response = await axios.post(
                         `${API_URL}/member/myorder/detail/checkout/${orderId}`,
@@ -177,17 +174,29 @@ function MyOrderDetail() {
                             myOrderList: myOrderList,
                         }
                     );
-                    // console.log('response docheckout', response.data.web);
-                    newWindow.current = PopupCenter(
-                        response.data.web,
-                        'LinelogInPopup',
-                        400,
-                        600
-                    );
-                    // window.open(response.data.web);
+                    // console.log('response docheckout', response.data.message);
+
+                    if (myOrderUserInfo[0].pay_method === 3) {
+                        newWindow.current = PopupCenter(
+                            response.data.web,
+                            'LinelogInPopup',
+                            400,
+                            600
+                        );
+                        // setLinePay(true);
+                        //TODO:想辦法視窗關閉的時候在設定
+                        // setOrderTwo(true);
+                    } else {
+                        console.log(
+                            'response docheckout',
+                            response.data.message
+                        );
+                        setOrderTwo(true);
+                        successToast('付款成功', '關閉');
+                    }
                 }
                 setOrderCheckOut();
-                setOrderTwo(true);
+                // setOrderTwo(true);
             }
         });
     }
@@ -533,6 +542,14 @@ function MyOrderDetail() {
                                 </p>
                                 <p className="m-0 col-lg-2 col-5 text-end">
                                     NT ${calcTotalPrice}
+                                </p>
+                            </div>
+                            <div className="py-2 col-12 row justify-content-end">
+                                <p className="m-0 col-lg-2 col-5 text-end">
+                                    選擇付款方式
+                                </p>
+                                <p className="m-0 col-lg-2 col-5 text-end">
+                                    {userInfo.pay_method_name}
                                 </p>
                             </div>
                             <div className="py-2 col-12 row justify-content-end">

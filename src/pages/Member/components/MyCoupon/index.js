@@ -145,7 +145,7 @@ function MyCoupon(props) {
     );
     return (
         <div className="col-12 col-md-8 col-lg-9 MyCoupon">
-            <div className="d-flex">
+            <div className="d-flex mt-3">
                 <h4 className="main-color mx-1">我的優惠券</h4>
                 <Link to="/products" className="link01  ">
                     去商城逛逛&nbsp;
@@ -201,11 +201,15 @@ function MyCoupon(props) {
                                         ) : (
                                             ''
                                         )}
-                                        <h3>
-                                            <span className="NT">NT</span>$
-                                            {data.discount}
+                                        <h3 className="accent-light-color">
+                                            <span className="NT accent-light-color">
+                                                NT
+                                            </span>
+                                            ${data.discount}
                                         </h3>
-                                        <h6>商品折價券</h6>
+                                        <h6 className="accent-light-color">
+                                            商品折價券
+                                        </h6>
                                         <p className="text-nowrap p01">
                                             消費滿${data.minimum}可使用
                                         </p>

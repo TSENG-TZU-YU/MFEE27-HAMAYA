@@ -85,7 +85,7 @@ function MyBucketList(props) {
     const [bucketClass, setBucketClass] = useState(false);
     return (
         <div className="col-12 col-md-8 col-lg-9">
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between mt-3">
                 <h4 className="main-color">
                     <b>我的收藏</b>
                 </h4>
@@ -105,7 +105,7 @@ function MyBucketList(props) {
                         setBucketClass(false);
                     }}
                 >
-                    <h6>
+                    <h6 className="main-color">
                         <b>樂器商城商品</b>
                     </h6>
                 </button>
@@ -120,7 +120,7 @@ function MyBucketList(props) {
                         setBucketClass(true);
                     }}
                 >
-                    <h6>
+                    <h6 className="main-color">
                         <b>音樂教育課程</b>
                     </h6>
                 </button>

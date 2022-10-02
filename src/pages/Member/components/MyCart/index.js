@@ -6,10 +6,12 @@ import MyCartDoCheckout from './components/MyCartDoCheckout';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { useAuth } from '../../../../utils/use_auth';
+import { useCart } from '../../../../utils/use_cart';
 function MyCart() {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
     const { member, setMember, isLogin, setIsLogin } = useAuth();
-
+    const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
+        useCart();
     // 收藏 product
     const [favA, setFavA] = useState([]);
     // 收藏 class
@@ -107,7 +109,7 @@ function MyCart() {
     return (
         <div className="col-12 col-md-8 col-lg-9">
             {/*此className為RWD設定請勿更動*/}
-            <h4 className="main-color">
+            <h4 className="main-color  mt-3">
                 <b> 購物車</b>
             </h4>
             {hiddenState ? (

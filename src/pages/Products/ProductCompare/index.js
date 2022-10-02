@@ -305,6 +305,9 @@ function ProductCompare(props) {
                             <div className="productCompare__list border-bottom ">
                                 <p className="main-color">顏色</p>
                             </div>
+                            <div className="productCompare__list border-bottom ">
+                                <p className="main-color">上架日期</p>
+                            </div>
                             <div className="productCompare__list productCompare__list-height border-bottom "></div>
                         </div>
                         {compareProduct.length === 0 ? (
@@ -378,33 +381,41 @@ function ProductCompare(props) {
                                                 }}
                                             ></div>
                                         </div>
+                                        <div className="productCompare__list border-bottom">
+                                            <p>{value.create_time}</p>
+                                        </div>
                                         <div className="productCompare__list productCompare__list-height  border-bottom">
-                                            {favProducts.includes(
-                                                value.product_id
-                                            ) ? (
-                                                <HeartFill
-                                                    className="me-5 CartFavorite cursor-pointer"
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        handleRemoveFavorite(
-                                                            value.product_id
-                                                        );
-                                                    }}
-                                                />
+                                            {member.id ? (
+                                                favProducts.includes(
+                                                    value.product_id
+                                                ) ? (
+                                                    <HeartFill
+                                                        className="me-5 CartFavorite cursor-pointer"
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            handleRemoveFavorite(
+                                                                value.product_id
+                                                            );
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    <HeartLine
+                                                        className="me-5 CartFavorite cursor-pointer"
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            handleAddFavorite({
+                                                                user_id:
+                                                                    member.id,
+                                                                product_id:
+                                                                    value.product_id,
+                                                                category_id:
+                                                                    value.category_id,
+                                                            });
+                                                        }}
+                                                    />
+                                                )
                                             ) : (
-                                                <HeartLine
-                                                    className="me-5 CartFavorite cursor-pointer"
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        handleAddFavorite({
-                                                            user_id: member.id,
-                                                            product_id:
-                                                                value.product_id,
-                                                            category_id:
-                                                                value.category_id,
-                                                        });
-                                                    }}
-                                                />
+                                                ''
                                             )}
                                             <CartCheck
                                                 style={{

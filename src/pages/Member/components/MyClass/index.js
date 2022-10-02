@@ -61,7 +61,9 @@ function MyClass(props) {
                         setSelectCourse(true);
                     }}
                 >
-                    <h6>開課中課程</h6>
+                    <h6 className="main-color">
+                        <b>開課中課程</b>
+                    </h6>
                 </button>
                 <button
                     className={`cursor-pinter col-6  ${
@@ -71,7 +73,9 @@ function MyClass(props) {
                         setSelectCourse(false);
                     }}
                 >
-                    <h6>已完成課程</h6>
+                    <h6 className="main-color">
+                        <b>已完成課程</b>
+                    </h6>
                 </button>
                 <div className="mt-5 px-0 ">
                     {selectCourse ? <ClassStart /> : <ClassEnd />}
