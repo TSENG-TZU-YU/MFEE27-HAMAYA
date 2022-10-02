@@ -105,7 +105,7 @@ function MyBucketList(props) {
                         setBucketClass(false);
                     }}
                 >
-                    <h6>
+                    <h6 className="main-color">
                         <b>樂器商城商品</b>
                     </h6>
                 </button>
@@ -120,7 +120,7 @@ function MyBucketList(props) {
                         setBucketClass(true);
                     }}
                 >
-                    <h6>
+                    <h6 className="main-color">
                         <b>音樂教育課程</b>
                     </h6>
                 </button>

@@ -35,17 +35,17 @@
     height: 100%;
   }
   &__list {
-    padding: .3rem;
+    padding: .2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px;
+    height: 40px;
   }
   &__list > p {
     margin: 0;
   }
   &__list-height {
-    height: 80px;
+    height: 70px;
   }
   &__item-box {
     -ms-overflow-style: none;  /* Internet Explorer 10+ */

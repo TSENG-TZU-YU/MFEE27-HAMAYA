@@ -201,11 +201,15 @@ function MyCoupon(props) {
                                         ) : (
                                             ''
                                         )}
-                                        <h3>
-                                            <span className="NT">NT</span>$
-                                            {data.discount}
+                                        <h3 className="accent-light-color">
+                                            <span className="NT accent-light-color">
+                                                NT
+                                            </span>
+                                            ${data.discount}
                                         </h3>
-                                        <h6>商品折價券</h6>
+                                        <h6 className="accent-light-color">
+                                            商品折價券
+                                        </h6>
                                         <p className="text-nowrap p01">
                                             消費滿${data.minimum}可使用
                                         </p>
