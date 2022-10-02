@@ -53,20 +53,28 @@ function Cart() {
         //存回localStorage
         localStorage.setItem('shoppingCart', JSON.stringify(removeItem));
         setShoppingCart(removeItem);
+        if (removeItem.length === 0) {
+            setShopCartState(false);
+        }
     }
     //多筆加入購物車 訂單結帳
     function getMultipleCheck() {
         let shoppingCartLocal = JSON.parse(
             localStorage.getItem('shoppingCart')
         );
-        if (member === null || member.id === '') {
-            basicAlert('請先登入', '確認');
-            return;
-        }
         if (shoppingCart.length === 0) {
             basicAlert('購物車沒有商品', '確認');
             return;
         }
+        if (shoppingCartLocal.length === 0) {
+            basicAlert('購物車沒有商品', '確認');
+            return;
+        }
+        if (member === null || member.id === '') {
+            basicAlert('請先登入', '確認');
+            return;
+        }
+
         //把資料組成陣列
         let multipleCart = shoppingCartLocal.map((item) => {
             return [member.id, item.product_id, item.category_id, item.amount];

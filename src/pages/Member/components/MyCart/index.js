@@ -6,10 +6,12 @@ import MyCartDoCheckout from './components/MyCartDoCheckout';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { useAuth } from '../../../../utils/use_auth';
+import { useCart } from '../../../../utils/use_cart';
 function MyCart() {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
     const { member, setMember, isLogin, setIsLogin } = useAuth();
-
+    const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
+        useCart();
     // 收藏 product
     const [favA, setFavA] = useState([]);
     // 收藏 class
