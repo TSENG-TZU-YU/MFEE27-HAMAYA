@@ -24,3 +24,12 @@ export const sortByTypes = [
     { id: '3', name: '開課：新到舊' },
     { id: '4', name: '開課：舊到新' },
 ];
+
+export const loader = (
+    <div className="waveform">
+        <div className="waveform__bar"></div>
+        <div className="waveform__bar"></div>
+        <div className="waveform__bar"></div>
+        <div className="waveform__bar"></div>
+    </div>
+);

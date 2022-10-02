@@ -1,13 +1,14 @@
 @import '../../../index.scss';
+@import '~antd/dist/antd.css';
 
 // 篩選 pc
 .filter-active {
     position: absolute;
-    width: 130px;
-    // height: 181px;
+    width: 140px;
     background-color: $main-light;
     top: 40px;
-    left: -15px;
+    left: 325px;
+    z-index: 880;
 }
 
 .select-class {
@@ -19,12 +20,13 @@
     background-color: $main-light;
     top: 40px;
     left: -8px;
+    z-index: 880;
 }
 .sort-menu-class {
     background: $main-light;
     left: 110px;
     top: 40px;
-    z-index: 3;
+    z-index: 880;
     color: $accent-light;
 }
 .sort-menu-class > ul > li {
@@ -37,18 +39,32 @@
     padding: 0;
     margin-bottom: 0 !important;
 }
+.class-search {
+    position: absolute;
+    margin-top: 40px;
+    margin-left: 373px;
+    
+}
+.formCheck {
+    display: flex;
+    min-height: 0.5rem;
+    height: 30px;
+}
+.starP {
+    margin-bottom: 0;
+}
 //篩選 pc end
 
 // 篩選 mob
 .mob-search {
-    margin-top: -20px;
+    margin-top: -8px;
 }
 .mob-class-search {
     margin-top: 10px;
     margin-left: 20px;
 }
 .mobile-class-filter-nav {
-    margin: 10px 0;
+    margin-bottom: 10px;
 }
 
 .class-filter-nav-item-name {
@@ -106,6 +122,7 @@ ul > li {
     color: $main;
     border: 0px;
     border-bottom: 5px solid $main;
+    transition: all 0.3s ease-out;
 }
 
 .pages {
@@ -117,14 +134,126 @@ ul > li {
     text-align: center;
 }
 
-.class-search {
-    margin-top: 40px;
-    margin-left: 20px;
-}
 .class-h4-color {
     color: $main-light;
 }
 
 .class-h4-color-active {
     color: $main;
+}
+
+// antd
+.antdColor {
+    border-color: $main-light;
+}
+.antdColor:hover {
+    border-color: $main;
+}
+.ant-picker-focused {
+    border-color: $main;
+    box-shadow: 0 0 0 2px #bababa;
+    border-right-width: 1px;
+    outline: 0;
+}
+.ant-picker-input {
+    border-color: $main;
+}
+.ant-picker-input-placeholder {
+    border-color: $main-light;
+}
+.ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner {
+    color: #fff;
+    background: $main;
+}
+
+// 日期虛線樣式修改 (y左右)
+tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child::after,
+tr
+    > .ant-picker-cell-in-view.ant-picker-cell-range-hover-end:first-child::after,
+.ant-picker-cell-in-view.ant-picker-cell-start.ant-picker-cell-range-hover-edge-start.ant-picker-cell-range-hover-edge-start-near-range::after,
+.ant-picker-cell-in-view.ant-picker-cell-range-hover-edge-start:not(.ant-picker-cell-range-hover-edge-start-near-range)::after,
+.ant-picker-cell-in-view.ant-picker-cell-range-hover-start::after {
+    left: 6px;
+    border-left: 1px dashed #00323d;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+}
+tr > .ant-picker-cell-in-view.ant-picker-cell-range-hover:last-child::after,
+tr
+    > .ant-picker-cell-in-view.ant-picker-cell-range-hover-start:last-child::after,
+.ant-picker-cell-in-view.ant-picker-cell-end.ant-picker-cell-range-hover-edge-end.ant-picker-cell-range-hover-edge-end-near-range::after,
+.ant-picker-cell-in-view.ant-picker-cell-range-hover-edge-end:not(.ant-picker-cell-range-hover-edge-end-near-range)::after,
+.ant-picker-cell-in-view.ant-picker-cell-range-hover-end::after {
+    right: 6px;
+    border-right: 1px dashed #00323d;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+// 日期虛線樣式修改 (上下)
+.ant-picker-cell-in-view.ant-picker-cell-range-hover-start:not(.ant-picker-cell-in-range):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end)::after,
+.ant-picker-cell-in-view.ant-picker-cell-range-hover-end:not(.ant-picker-cell-in-range):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end)::after,
+.ant-picker-cell-in-view.ant-picker-cell-range-hover-start.ant-picker-cell-range-start-single::after,
+.ant-picker-cell-in-view.ant-picker-cell-range-hover-start.ant-picker-cell-range-start.ant-picker-cell-range-end.ant-picker-cell-range-end-near-hover::after,
+.ant-picker-cell-in-view.ant-picker-cell-range-hover-end.ant-picker-cell-range-start.ant-picker-cell-range-end.ant-picker-cell-range-start-near-hover::after,
+.ant-picker-cell-in-view.ant-picker-cell-range-hover-end.ant-picker-cell-range-end-single::after,
+.ant-picker-cell-in-view.ant-picker-cell-range-hover:not(.ant-picker-cell-in-range)::after {
+    position: absolute;
+    top: 50%;
+    z-index: 0;
+    height: 24px;
+    border-top: 1px dashed #00323d;
+    border-bottom: 1px dashed #00323d;
+    transform: translateY(-50%);
+    transition: all 0.3s;
+    content: '';
+}
+
+.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner,
+.ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
+.ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner {
+    color: #fff;
+    background: #00323d;
+}
+// 日期選擇開始、結束的底線
+.ant-picker-range .ant-picker-active-bar {
+    bottom: -1px;
+    height: 2px;
+    margin-left: 11px;
+    background: #00323d;
+    opacity: 0;
+    transition: all 0.3s ease-out;
+    pointer-events: none;
+}
+// 範圍選擇 hover
+.ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover::before,
+.ant-picker-cell-in-view.ant-picker-cell-range-start.ant-picker-cell-range-hover::before,
+.ant-picker-cell-in-view.ant-picker-cell-range-end.ant-picker-cell-range-hover::before,
+.ant-picker-cell-in-view.ant-picker-cell-range-start:not(.ant-picker-cell-range-start-single).ant-picker-cell-range-hover-start::before,
+.ant-picker-cell-in-view.ant-picker-cell-range-end:not(.ant-picker-cell-range-end-single).ant-picker-cell-range-hover-end::before,
+.ant-picker-panel
+    > :not(.ant-picker-date-panel)
+    .ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover-start::before,
+.ant-picker-panel
+    > :not(.ant-picker-date-panel)
+    .ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover-end::before {
+    background: #767676;
+}
+// 選擇的範圍被景色
+.ant-picker-cell-in-view.ant-picker-cell-in-range::before {
+    background: #bababa;
+}
+//ant-picker-cell-range-hover-start 開始時間的 hover
+.ant-picker-date-panel
+    .ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover-start
+    .ant-picker-cell-inner::after,
+.ant-picker-date-panel
+    .ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover-end
+    .ant-picker-cell-inner::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    background: #767676;
+    transition: all 0.3s;
+    content: '';
 }

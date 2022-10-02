@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import _ from 'lodash';
-import { v4 as uuidv4 } from 'uuid';
 
 // 套件
 import { Container } from 'react-bootstrap';
@@ -12,7 +11,11 @@ import { Container } from 'react-bootstrap';
 import './index.scss';
 
 // 項目資料
-import { sortByTitle } from './constants';
+import {
+    sortByTitle,
+    breadCrumbCategorySub,
+    breadCrumbCategoryMain,
+} from './constants';
 
 // 元件
 import ProductCompare from './ProductCompare';
@@ -24,14 +27,21 @@ import FilterBar from './components/FilterBar';
 import MobileFilterBar from './components/MobileFilterBar';
 import PaginationBar from '../../components/PaginationBar/PaginationBar';
 import CompareBtn from './components/CompareBtn';
-import { successToast, warningToast } from '../../components/Alert';
+import {
+    successToast,
+    warningToast,
+    errorToast,
+    successSmallToast,
+} from '../../components/Alert';
+import {
+    ListMotionContainer,
+    ListMotionItem,
+} from '../../components/ListMotion';
+import Loader from '../../components/Loader';
 
 // 元件 FilterNav
 import SearchBar from '../../components/SearchBar';
 import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
-
-// 元件 ProductsItem
-import Favorite from '../../components/Favorite';
 
 // 圖檔
 import banner from '../../assets/ProductsImg/banner.png';
@@ -49,13 +59,25 @@ import search from '../../assets/ProductsImg/icon/search.svg';
 // 圖檔 MobileFilterNav
 import arrowDown from '../../assets/ProductsImg/icon/arrow_down.svg';
 
+// 圖檔 Favorite
+import { ReactComponent as HeartLine } from '../../assets/svg/favorite_defaut.svg';
+import { ReactComponent as HeartFill } from '../../assets/svg/favorite_check.svg';
+
+// 會員
 import { useAuth } from '../../utils/use_auth';
-//購物車
+
+// 購物車
 import { useCart } from '../../utils/use_cart';
-// import Cart from '../../layouts/Cart/Cart';
-import { RiContactsBookLine } from 'react-icons/ri';
+
+// 收藏
+import { useLiked } from '../../utils/use_liked';
 
 function Products() {
+    // 是否正在載入資料的旗標, true = 載入資料中
+    const [isLoading, setIsLoading] = useState(false);
+
+    const [isVisibled, setIsVisable] = useState(false);
+
     const [url, setUrl] = useState('');
 
     const navigate = useNavigate();
@@ -70,6 +92,7 @@ function Products() {
 
     // 商品次類別 從資料庫撈
     const [categorySub, setCategorySub] = useState([]);
+    const [categoryMain, setCategoryMain] = useState([]);
 
     // 搜尋
     const [searchWord, setSearchWord] = useState('');
@@ -89,16 +112,13 @@ function Products() {
 
     // 價格
     const [selectedPrice, setSelectedPrice] = useState([0, 7380000]);
-    const [maxPrice, setMaxPrice] = useState(7380000);
+    const [maxPrice, setMaxPrice] = useState();
 
-    // 取得商品次類別 api
-    useEffect(() => {
-        let getCategory = async () => {
-            let response = await axios.get(`${API_URL}/products/category`);
-            setCategorySub(response.data.categorySub);
-        };
-        getCategory();
-    }, []);
+    // 登入狀態
+    const { member, setMember, isLogin, setIsLogin } = useAuth();
+
+    // 收藏
+    const { favProducts, setFavProducts } = useLiked();
 
     // 分頁用
     const [pageNow, setPageNow] = useState(1); // 目前頁號
@@ -107,34 +127,84 @@ function Products() {
     const [pageProducts, setPageProducts] = useState([]);
 
     const location = useLocation();
+    let params = new URLSearchParams(location.search);
+    let mainId = params.get('main_id');
+    let subId = params.get('sub_id');
+
+    //會員登入狀態判斷
+    useEffect(() => {
+        async function getMember() {
+            try {
+                // console.log('檢查是否登入');
+                let response = await axios.get(`${API_URL}/auth`, {
+                    withCredentials: true,
+                });
+                // console.log('已登入', response.data);
+                setIsLogin(true);
+                setMember(response.data);
+            } catch (err) {
+                // navigate('/');
+                console.log(err.response.data.message);
+            }
+        }
+        getMember();
+    }, []);
+
     // 取得商品 api
     useEffect(() => {
-        let params = new URLSearchParams(location.search);
-        let mainId = params.get('main_id');
-        let subId = params.get('sub_id');
+        // 切換撥放呈現商品項目動畫
+        setIsVisable(true);
+        // 開啟載入指示動畫
+        setIsLoading(true);
+        // 回歸原始狀態
         clearState();
-        let getProducts = async () => {
-            let response = await axios.get(
-                `${API_URL}/products?mainId=${mainId}&subId=${subId}`
-            );
-            response.data.color.unshift({ color: '' });
-            response.data.brand.forEach((e) => (e.checked = false));
-            setBrandTags(response.data.brand);
-            setColorTagsTypes(response.data.color);
-            setMaxPrice(response.data.maxPrice[0].maxPrice);
-            setSelectedPrice([0, response.data.maxPrice[0].maxPrice]);
-            setProducts(response.data.data);
-            setDisplayProducts(response.data.data);
-            // console.log('所有產品', response.data.data);
-            const pageList = _.chunk(response.data.data, perPage);
-            if (pageList.length > 0) {
-                setPageTotal(pageList.length);
-                // 設定到state中
-                setPageProducts(pageList);
-            }
-        };
-        getProducts();
+        try {
+            let getProducts = async () => {
+                let response = await axios.get(
+                    `${API_URL}/products?mainId=${mainId}&subId=${subId}`
+                );
+                response.data.color.unshift({ color: '' });
+                response.data.brand.forEach((e) => (e.checked = false));
+                setBrandTags(response.data.brand);
+                setColorTagsTypes(response.data.color);
+                setMaxPrice(response.data.maxPrice[0].maxPrice);
+                setSelectedPrice([0, response.data.maxPrice[0].maxPrice]);
+                setProducts(response.data.data);
+                setDisplayProducts(response.data.data);
+                window.scrollTo({
+                    top: 0,
+                    left: 0,
+                });
+                // console.log('所有產品', response.data.data);
+                const pageList = _.chunk(response.data.data, perPage);
+                if (pageList.length > 0) {
+                    setPageTotal(pageList.length);
+                    // 設定到state中
+                    setPageProducts(pageList);
+                }
+            };
+            getProducts();
+        } catch (err) {
+            console.log(err.response.data.message);
+        }
+        // 2秒後關起動畫呈現資料
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+        // 產品主次類別
+        try {
+            let getCategory = async () => {
+                let response = await axios.get(`${API_URL}/products/category`);
+                setCategorySub(response.data.categorySub);
+                setCategoryMain(response.data.categoryMain);
+            };
+            getCategory();
+        } catch (err) {
+            console.log(err.response.data.message);
+        }
     }, [location]);
+
+    useEffect(() => {}, [products]);
 
     // 品牌篩選 選取陣列
     const handleBrandTagsChecked = (id) => {
@@ -145,10 +215,11 @@ function Products() {
         setBrandTags(changeCheckedBrandTags);
     };
 
-    // 排序：處理方法
-    const handleSort = (products, sortBy) => {
+    // 篩選方法
+    const applyFilters = () => {
         let newProducts = [...products];
 
+        // 排序：處理方法
         // 價格排序 低 > 高
         if (sortBy === '1') {
             newProducts = [...newProducts].sort((a, b) => a.price - b.price);
@@ -172,16 +243,6 @@ function Products() {
                 a.create_time.localeCompare(b.create_time)
             );
         }
-
-        return newProducts;
-    };
-
-    // 篩選方法
-    const applyFilters = () => {
-        let newProducts = [...products];
-
-        // 排序：處理方法
-        newProducts = handleSort(products, sortBy);
 
         // 搜尋：處理方法
         if (searchWord.length) {
@@ -218,12 +279,21 @@ function Products() {
         newProducts = newProducts.filter(
             (product) => product.price >= minPrice && product.price <= maxPrice
         );
+
+        // 把結果丟去 debounce
+        debounceHandle(newProducts);
+    };
+
+    const handle = (newProducts) => {
         setPageNow(1);
         setDisplayProducts(newProducts);
         const newPageProducts = _.chunk(newProducts, perPage);
         setPageTotal(newPageProducts.length);
         setPageProducts(newPageProducts);
     };
+
+    // debounce function + useCallback
+    const debounceHandle = useCallback(_.debounce(handle, 400), []);
 
     // 當類別重選時篩選條件回初始值
     const clearState = () => {
@@ -239,6 +309,8 @@ function Products() {
     useEffect(() => {
         applyFilters();
     }, [products, colorTags, selectedPrice, brandTags, searchWord, sortBy]);
+
+    useCallback(_.debounce(applyFilters, 10000), []);
 
     // Toggled
     const [productCompare, setProductCompare] = useState(false);
@@ -315,17 +387,24 @@ function Products() {
             setNewCompareLocal([{ ...compareItem }, ...compareProduct]);
             // 存localStorage
             setCompareProduct([{ ...compareItem }, ...compareProduct]);
-            successToast('成功加入比較!', '關閉');
+            successSmallToast.fire({
+                icon: 'success',
+                iconColor: '#86a8ae',
+                color: '#00323d',
+                title: '加入比較項目!',
+            });
         }
         if (newCompareItem) {
-            warningToast('已加入在項目中', '關閉');
+            successSmallToast.fire({
+                icon: 'warning',
+                iconColor: '#767676',
+                color: '#00323d',
+                title: '已加入比較項目中!',
+            });
         }
     }
 
-    // 登入狀態
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
-
-    //購物車
+    // 購物車
     const { shopCartState, setShopCartState, shoppingCart, setShoppingCart } =
         useCart();
     //存localStorage
@@ -335,14 +414,20 @@ function Products() {
     };
 
     function getCheck(itemInfo) {
-        // console.log('get Member', member);
-        //確認有沒有重複
+        // console.log('itemInfo', itemInfo);
+        let stock = itemInfo.stock;
+        let amount = itemInfo.amount;
+        if (stock < amount) {
+            setShopCartState(false);
+            return errorToast('暫無庫存', '關閉');
+        }
+
+        //前端確認有沒有重複
         let newItemInfo = shoppingCart.find((v) => {
             return v.product_id === itemInfo.product_id;
         });
         if (!newItemInfo) {
-            // //臨時購物車
-            // setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            setShopCartState(true);
             //localStorage
             setNewLocal([{ ...itemInfo }, ...shoppingCart]);
             //判斷是否為登入
@@ -350,7 +435,7 @@ function Products() {
                 let getNewLocal = JSON.parse(
                     localStorage.getItem('shoppingCart')
                 );
-                console.log('getNewLocal', getNewLocal);
+                // console.log('getNewLocal', getNewLocal);
 
                 const itemsData = getNewLocal.map((item) => {
                     return {
@@ -367,56 +452,412 @@ function Products() {
                     //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
                     try {
                         let response = await axios.post(
-                            `${API_URL}/member/mycart`,
+                            `${API_URL}/member/mycart/single`,
                             itemsData
                         );
-                        // console.log('duplicate', response.data.duplicate);
-                        alert(response.data.message);
                         if (response.data.duplicate === 1) {
+                            warningToast(response.data.message, '關閉');
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
+                        successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);
                     }
                 }
             }
+            successToast('成功加入購物車', '關閉');
             //臨時購物車
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            return;
+        }
+        successToast('成功加入購物車', '關閉');
+    }
+
+    // 會員收藏的資料
+    useEffect(() => {
+        try {
+            let getAllFavProducts = async () => {
+                let response = await axios.get(
+                    `${API_URL}/member/mybucketlist`,
+                    { withCredentials: true }
+                );
+
+                let products = response.data.product.map(
+                    (item) => item.product_id
+                );
+                setFavProducts(products);
+            };
+            if (member.id) {
+                getAllFavProducts();
+            }
+        } catch (err) {
+            console.log(err.response.data);
+        }
+    }, [member]);
+
+    // 新增收藏
+    const handleAddFavorite = (itemsData) => {
+        if (itemsData.user_id !== null && itemsData.user_id !== '') {
+            setItemsData(itemsData);
+            async function setItemsData(itemsData) {
+                try {
+                    let response = await axios.post(
+                        `${API_URL}/member/mybucketlist`,
+                        [itemsData]
+                    );
+                    let products = response.data.product.map(
+                        (item) => item.product_id
+                    );
+                    successSmallToast.fire({
+                        icon: 'success',
+                        iconColor: '#86a8ae',
+                        color: '#00323d',
+                        title: response.data.message,
+                    });
+                    setFavProducts(products);
+                } catch (err) {
+                    successSmallToast.fire({
+                        icon: 'error',
+                        iconColor: '#c59894',
+                        color: '#5b322f',
+                        title: err.response.data.message,
+                    });
+                }
+            }
+        }
+    };
+
+    // 取消收藏
+    async function handleRemoveFavorite(product_id) {
+        let itemsData = [{ user_id: member.id, product_id: product_id }];
+        try {
+            let response = await axios.delete(
+                `${API_URL}/member/mybucketlist/delete`,
+                {
+                    withCredentials: true,
+                    data: itemsData,
+                }
+            );
+            let products = response.data.product.map((item) => item.product_id);
+            successSmallToast.fire({
+                icon: 'success',
+                iconColor: '#86a8ae',
+                color: '#00323d',
+                title: response.data.message,
+            });
+            setFavProducts(products);
+        } catch (err) {
+            successSmallToast.fire({
+                icon: 'error',
+                iconColor: '#c59894',
+                color: '#5b322f',
+                title: err.response.data.message,
+            });
         }
     }
 
+    const cartCheckBtn = (props) => {
+        const {
+            product_id,
+            category_id,
+            image,
+            name,
+            price,
+            spec,
+            shipment,
+            stock,
+        } = props;
+        if (stock !== 0) {
+            return (
+                <>
+                    <button
+                        className="btn-primary btn w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
+                        onClick={(e) => {
+                            getCheck({
+                                product_id: product_id,
+                                category_id: category_id,
+                                image: image,
+                                name: name,
+                                amount: 1,
+                                price: price,
+                                spec: spec,
+                                shipment: shipment,
+                                stock: stock,
+                            });
+                        }}
+                    >
+                        <img
+                            width="30px"
+                            height="30px"
+                            src={cartCheck}
+                            alt="cartCheck"
+                            className="product-icon me-1"
+                        />
+                        加入購物車
+                    </button>
+                </>
+            );
+        } else {
+            return (
+                <>
+                    <button
+                        className="btn btn-danger w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
+                        disabled="disabled"
+                    >
+                        熱銷缺貨中
+                    </button>
+                </>
+            );
+        }
+    };
+
     return (
         <>
-            <img className="img-fluid" src={banner} alt="banner" />
+            <div className="product-mobile-top d-md-none"></div>
+            <img
+                className="d-none d-md-block w-100"
+                src={banner}
+                alt="banner"
+            />
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <>
+                    <Container>
+                        {/* 桌機 篩選 */}
+                        <div className="d-none d-md-block">
+                            <div className="d-flex flex-row-reverse mt-3">
+                                <div className="col-10 d-flex justify-content-between align-items-center">
+                                    {/* 麵包屑 */}
+                                    <div className="d-flex">
+                                        <BreadCrumb />
+                                        <p className="m-0 py-2 d-block align-items-center">
+                                            &nbsp;
+                                            {breadCrumbCategoryMain(
+                                                Number(mainId)
+                                            )}
+                                            {breadCrumbCategorySub(
+                                                Number(subId)
+                                            )}
+                                            {breadCrumbCategoryMain(
+                                                Number(mainId)
+                                            ) === '' &&
+                                            breadCrumbCategorySub(
+                                                Number(subId)
+                                            ) === ''
+                                                ? '/ 最新商品'
+                                                : ''}
+                                        </p>
+                                    </div>
+                                    {/* 麵包屑 end */}
+                                    {/* 進階篩選 */}
+                                    <div className="filter-nav d-flex position-relative">
+                                        <button
+                                            className="products-btn-border-none main-color me-4 p-0 d-flex"
+                                            onClick={toggleFilterToggled}
+                                        >
+                                            進階篩選
+                                            <img
+                                                className="products-icon-img ms-1"
+                                                src={filterIcon}
+                                                alt="filterIcon"
+                                            ></img>
+                                        </button>
 
-            {/* 主要內容 */}
-            <Container className="products-min-height">
-                {/* 桌機 篩選 */}
-                <div className="d-none d-md-block">
-                    <div className="d-flex flex-row-reverse">
-                        <div className="col-10 d-flex justify-content-between align-items-center">
-                            {/* 麵包屑 */}
-                            <BreadCrumb />
-                            {/* 麵包屑 end */}
+                                        {/* 進階篩選區塊 */}
+                                        {filterToggled ? (
+                                            <FilterBar
+                                                setBrandTags={setBrandTags}
+                                                colorTags={colorTagsTypes}
+                                                setColorTags={setColorTags}
+                                                selectedPrice={selectedPrice}
+                                                setSelectedPrice={
+                                                    setSelectedPrice
+                                                }
+                                                maxPrice={maxPrice}
+                                                changeChecked={
+                                                    handleBrandTagsChecked
+                                                }
+                                                brandTags={brandTags}
+                                                activeColorTags={
+                                                    activeColorTags
+                                                }
+                                                setActiveColorTags={
+                                                    setActiveColorTags
+                                                }
+                                            />
+                                        ) : (
+                                            ''
+                                        )}
+                                        {/* 進階篩選區塊 end */}
 
-                            {/* 進階篩選 */}
-                            <div className="filter-nav d-flex position-relative">
+                                        <button
+                                            className="products-btn-border-none main-color me-4 position-relative p-0 d-flex"
+                                            onClick={toggleSortToggled}
+                                        >
+                                            商品排序
+                                            <img
+                                                className="products-icon-img ms-1"
+                                                src={sort}
+                                                alt="sort"
+                                            ></img>
+                                        </button>
+                                        {/* 商品排序區塊 */}
+                                        {sortToggled ? (
+                                            <SortBar
+                                                sortBy={sortBy}
+                                                setSortBy={setSortBy}
+                                                setSortToggled={setSortToggled}
+                                            />
+                                        ) : (
+                                            ''
+                                        )}
+                                        {/* 商品排序區塊 end */}
+                                        <button
+                                            className="products-btn-border-none"
+                                            onClick={toggleSearchToggled}
+                                        >
+                                            <img
+                                                className="products-icon-img ms-1"
+                                                src={search}
+                                                alt="search"
+                                            ></img>
+                                        </button>
+                                        {searchToggled ? (
+                                            <div className="products-Search-box position-absolute">
+                                                <SearchBar
+                                                    searchWord={searchWord}
+                                                    setSearchWord={
+                                                        setSearchWord
+                                                    }
+                                                />
+                                            </div>
+                                        ) : (
+                                            ''
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* 桌機 篩選 end */}
+
+                        {/* 手機 篩選 */}
+                        <div className="d-md-none">
+                            <div className="product-mobile-top d-flex justify-content-between align-items-center mt-5">
+                                {/* 麵包屑 */}
+                                <div className="d-flex">
+                                    <BreadCrumb />
+                                    <p className="m-0 py-2 d-block align-items-center">
+                                        &nbsp;
+                                        {breadCrumbCategoryMain(Number(mainId))}
+                                        {breadCrumbCategorySub(Number(subId))}
+                                        {breadCrumbCategoryMain(
+                                            Number(mainId)
+                                        ) === '' &&
+                                        breadCrumbCategorySub(Number(subId)) ===
+                                            ''
+                                            ? '/ 最新商品'
+                                            : ''}
+                                    </p>
+                                </div>
+                                {/* 麵包屑 end */}
+
+                                {/* 搜尋 */}
                                 <button
-                                    className="products-btn-border-none main-color me-4 p-0 d-flex"
-                                    onClick={toggleFilterToggled}
+                                    className="products-btn-border-none"
+                                    onClick={toggleSearchToggled}
                                 >
-                                    進階篩選
                                     <img
-                                        className="products-icon-img ms-1"
-                                        src={filterIcon}
-                                        alt="filterIcon"
+                                        className="products-icon-img ms-1 mb-1"
+                                        src={search}
+                                        alt="search"
                                     ></img>
                                 </button>
+                            </div>
+                            {searchToggled ? (
+                                <div className="products-Search-box">
+                                    <SearchBar
+                                        searchWord={searchWord}
+                                        setSearchWord={setSearchWord}
+                                    />
+                                </div>
+                            ) : (
+                                ''
+                            )}
+                            {/* 搜尋 end */}
+
+                            {/* 篩選按鈕 */}
+                            <div className="mobile-products-filter-nav position-relative">
+                                <div className="d-flex justify-content-center align-items-center">
+                                    <div className="products-filter-nav-item border-end">
+                                        <p className="products-filter-nav-item-name">
+                                            商品分類
+                                        </p>
+                                        <div
+                                            className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center cursor-pointer"
+                                            onClick={toggleCategoryToggled}
+                                        >
+                                            商品類別
+                                            <img
+                                                src={arrowDown}
+                                                alt="arrowDown"
+                                                className="products-mobile-arrowDown-img cursor-pointer"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="products-filter-nav-item border-end">
+                                        <p className="products-filter-nav-item-name">
+                                            進階篩選
+                                        </p>
+                                        <div
+                                            className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center cursor-pointer"
+                                            onClick={toggleFilterToggled}
+                                        >
+                                            篩選條件
+                                            <img
+                                                src={arrowDown}
+                                                alt="arrowDown"
+                                                className="products-mobile-arrowDown-img cursor-pointer"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="products-filter-nav-item">
+                                        <p className="products-filter-nav-item-name">
+                                            商品排序
+                                        </p>
+                                        <div
+                                            className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center cursor-pointer"
+                                            onClick={toggleSortToggled}
+                                        >
+                                            {sortByTitle(sortBy)}
+                                            <img
+                                                src={arrowDown}
+                                                alt="arrowDown"
+                                                className="products-mobile-arrowDown-img cursor-pointer"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* 篩選按鈕 end */}
+
+                                {/* 商品類別選項 */}
+                                {categoryToggled ? (
+                                    <MobileCategoryNav
+                                        categorySub={categorySub}
+                                        categoryMain={categoryMain}
+                                        navigate={navigate}
+                                        url={url}
+                                        setUrl={setUrl}
+                                    />
+                                ) : (
+                                    ''
+                                )}
+                                {/* 商品類別選項 end */}
 
                                 {/* 進階篩選區塊 */}
                                 {filterToggled ? (
-                                    <FilterBar
+                                    <MobileFilterBar
                                         setBrandTags={setBrandTags}
                                         colorTags={colorTagsTypes}
                                         setColorTags={setColorTags}
@@ -433,20 +874,9 @@ function Products() {
                                 )}
                                 {/* 進階篩選區塊 end */}
 
-                                <button
-                                    className="products-btn-border-none main-color me-4 position-relative p-0 d-flex"
-                                    onClick={toggleSortToggled}
-                                >
-                                    商品排序
-                                    <img
-                                        className="products-icon-img ms-1"
-                                        src={sort}
-                                        alt="sort"
-                                    ></img>
-                                </button>
                                 {/* 商品排序區塊 */}
                                 {sortToggled ? (
-                                    <SortBar
+                                    <MobileSortBar
                                         sortBy={sortBy}
                                         setSortBy={setSortBy}
                                         setSortToggled={setSortToggled}
@@ -455,338 +885,246 @@ function Products() {
                                     ''
                                 )}
                                 {/* 商品排序區塊 end */}
-                                <button
-                                    className="products-btn-border-none"
-                                    onClick={toggleSearchToggled}
-                                >
-                                    <img
-                                        className="products-icon-img ms-1"
-                                        src={search}
-                                        alt="search"
-                                    ></img>
-                                </button>
-                                {searchToggled ? (
-                                    <div className="products-Search-box position-absolute">
-                                        <SearchBar
-                                            searchWord={searchWord}
-                                            setSearchWord={setSearchWord}
-                                        />
-                                    </div>
-                                ) : (
-                                    ''
-                                )}
                             </div>
+                            {/* 篩選 end */}
                         </div>
-                    </div>
-                </div>
-                {/* 桌機 篩選 end */}
-
-                {/* 手機 篩選 */}
-                <div className="d-md-none">
-                    <div className="d-flex justify-content-between align-items-center">
-                        {/* 麵包屑 */}
-                        <BreadCrumb />
-                        {/* 麵包屑 end */}
-
-                        {/* 搜尋 */}
-                        <button
-                            className="products-btn-border-none"
-                            onClick={toggleSearchToggled}
-                        >
-                            <img
-                                className="products-icon-img ms-1 mb-1"
-                                src={search}
-                                alt="search"
-                            ></img>
-                        </button>
-                    </div>
-                    {searchToggled ? (
-                        <div className="products-Search-box">
-                            <SearchBar
-                                searchWord={searchWord}
-                                setSearchWord={setSearchWord}
-                            />
-                        </div>
-                    ) : (
-                        ''
-                    )}
-                    {/* 搜尋 end */}
-
-                    {/* 篩選按鈕 */}
-                    <div className="mobile-products-filter-nav position-relative">
-                        <div className="d-flex justify-content-center align-items-center">
-                            <div className="products-filter-nav-item border-end">
-                                <p className="products-filter-nav-item-name">
-                                    商品分類
-                                </p>
-                                <div
-                                    className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center"
-                                    onClick={toggleCategoryToggled}
-                                >
-                                    商品類別
-                                    <img
-                                        src={arrowDown}
-                                        alt="arrowDown"
-                                        className="products-mobile-arrowDown-img"
-                                    />
-                                </div>
-                            </div>
-                            <div className="products-filter-nav-item border-end">
-                                <p className="products-filter-nav-item-name">
-                                    進階篩選
-                                </p>
-                                <div
-                                    className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center"
-                                    onClick={toggleFilterToggled}
-                                >
-                                    篩選條件
-                                    <img
-                                        src={arrowDown}
-                                        alt="arrowDown"
-                                        className="products-mobile-arrowDown-img"
-                                    />
-                                </div>
-                            </div>
-                            <div className="products-filter-nav-item">
-                                <p className="products-filter-nav-item-name">
-                                    商品排序
-                                </p>
-                                <div
-                                    className="products-btn-border-none products-filter-nav-btn p-2 d-flex align-items-center"
-                                    onClick={toggleSortToggled}
-                                >
-                                    {sortByTitle(sortBy)}
-                                    <img
-                                        src={arrowDown}
-                                        alt="arrowDown"
-                                        className="products-mobile-arrowDown-img"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        {/* 篩選按鈕 end */}
-
-                        {/* 商品類別選項 */}
-                        {categoryToggled ? (
-                            <MobileCategoryNav
-                                categorySub={categorySub}
-                                navigate={navigate}
-                                url={url}
-                                setUrl={setUrl}
-                            />
-                        ) : (
-                            ''
-                        )}
-                        {/* 商品類別選項 end */}
-
-                        {/* 進階篩選區塊 */}
-                        {filterToggled ? (
-                            <MobileFilterBar
-                                setBrandTags={setBrandTags}
-                                colorTags={colorTagsTypes}
-                                setColorTags={setColorTags}
-                                selectedPrice={selectedPrice}
-                                setSelectedPrice={setSelectedPrice}
-                                maxPrice={maxPrice}
-                                changeChecked={handleBrandTagsChecked}
-                                brandTags={brandTags}
-                                activeColorTags={activeColorTags}
-                                setActiveColorTags={setActiveColorTags}
-                            />
-                        ) : (
-                            ''
-                        )}
-                        {/* 進階篩選區塊 end */}
-
-                        {/* 商品排序區塊 */}
-                        {sortToggled ? (
-                            <MobileSortBar
-                                sortBy={sortBy}
-                                setSortBy={setSortBy}
-                                setSortToggled={setSortToggled}
-                            />
-                        ) : (
-                            ''
-                        )}
-                        {/* 商品排序區塊 end */}
-                    </div>
-                    {/* 篩選 end */}
-                </div>
-                {/* 手機 end */}
-
-                <div className="row">
-                    {/* 桌機 商品類別選項 */}
-                    <CategoryNav
-                        categorySub={categorySub}
-                        navigate={navigate}
-                        url={url}
-                        setUrl={setUrl}
-                    />
-                    {/* 桌機 商品類別選項 end */}
-
-                    <div className="col-12 col-md-10 d-flex flex-column justify-content-between">
-                        {/* 商品列 */}
-                        <div className=" row row-cols-2 row-cols-md-3 row-cols-xl-4">
-                            {error && <div>{error}</div>}
-                            {pageProducts.length === 0 ? (
-                                <h4 className="mt-5 d-flex w-100 main-gary-light-color text-center justify-content-center align-items-center">
-                                    <TbMusicOff
-                                        style={{
-                                            width: '30px',
-                                            height: '30px',
-                                        }}
-                                    />
-                                    無符合條件商品
-                                </h4>
-                            ) : (
-                                ''
-                            )}
-                            {pageProducts.length > 0 &&
-                                pageProducts[pageNow - 1].map((product) => {
-                                    return (
-                                        <div
-                                            className="col product"
-                                            key={uuidv4()}
-                                        >
-                                            <div className="position-relative">
-                                                {/* 商品照片 */}
-                                                <Link
-                                                    to={`/products/${product.product_id}?main_id=${product.ins_main_id}`}
-                                                    className="product-img d-block"
-                                                >
-                                                    <div className="product-img-mask position-absolute"></div>
-                                                    <img
-                                                        src={require(`../../album/products/${product.image}`)}
-                                                        className="card-img-top"
-                                                        alt="product"
-                                                    />
-                                                </Link>
-                                                <div className="product-like position-absolute top-0 end-0">
-                                                    <Favorite />
-                                                </div>
-                                                <div
-                                                    className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-2"
-                                                    onClick={() =>
-                                                        getCompare({
-                                                            product_id:
-                                                                product.product_id,
-                                                            category_id:
-                                                                product.category_id,
-                                                            image: product.image,
-                                                            name: product.name,
-                                                            brand: product.brandName,
-                                                            color: product.color,
-                                                            price: product.price,
-                                                            spec: product.spec,
-                                                            mainId: product.ins_main_id,
-                                                            create_time:
-                                                                product.create_time,
-                                                        })
-                                                    }
-                                                >
-                                                    <img
-                                                        src={compare}
-                                                        alt="compare"
-                                                        className="product-icon me-1"
-                                                    />
-                                                    比較
-                                                </div>
-                                                <button
-                                                    className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
-                                                    onClick={(e) => {
-                                                        setShopCartState(true);
-                                                        getCheck({
-                                                            product_id:
-                                                                product.product_id,
-                                                            category_id:
-                                                                product.category_id,
-                                                            image: product.image,
-                                                            name: product.name,
-                                                            amount: 1,
-                                                            price: product.price,
-                                                            spec: product.spec,
-                                                            shipment:
-                                                                product.shipment,
-                                                        });
-                                                    }}
-                                                >
-                                                    <img
-                                                        src={cartCheck}
-                                                        alt="cartCheck"
-                                                        className="product-icon me-1"
-                                                    />
-                                                    加入購物車
-                                                </button>
-                                            </div>
-                                            <div className="product-body py-2">
-                                                {/* 品名 */}
-                                                <div className="d-flex justify-content-between">
-                                                    <div>
-                                                        <Link
-                                                            to={`/products/${product.product_id}?main_id=${product.ins_main_id}`}
-                                                            className="product-name"
-                                                        >
-                                                            {product.name}
-                                                        </Link>
-                                                        {/* 價格 */}
-                                                        <h1 className="product-price accent-color py-1">
-                                                            NT ${product.price}
-                                                        </h1>
-                                                    </div>
-                                                    <div
-                                                        className="products-filter-color-box"
-                                                        style={{
-                                                            backgroundColor: `${product.color}`,
-                                                        }}
-                                                    ></div>
-                                                </div>
-                                                <p className="product-name border-top py-1 m-0">
-                                                    上架日期：
-                                                    {product.create_time}
-                                                </p>
-                                                <p className="product-name border-top py-1 m-0">
-                                                    品牌：
-                                                    {product.brandName}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                        </div>
-                        {/* 商品列 end */}
-
-                        {/* 頁碼 */}
-                        <div className="d-flex justify-content-center align-items-center my-5">
-                            {displayProducts.length > perPage ? (
-                                <PaginationBar
-                                    pageNow={pageNow}
-                                    setPageNow={setPageNow}
-                                    pageTotal={pageTotal}
+                        {/* 手機 end */}
+                    </Container>
+                    <div
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setSortToggled(false);
+                            setFilterToggled(false);
+                            setCategoryToggled(false);
+                            setSearchToggled(false);
+                        }}
+                    >
+                        {/* 主要內容 */}
+                        <Container className="products-min-height">
+                            <div className="row">
+                                {/* 桌機 商品類別選項 */}
+                                <CategoryNav
+                                    categorySub={categorySub}
+                                    categoryMain={categoryMain}
+                                    navigate={navigate}
+                                    url={url}
+                                    setUrl={setUrl}
                                 />
-                            ) : (
-                                ''
-                            )}
-                        </div>
-                        {/* 頁碼 end */}
-                    </div>
-                </div>
+                                {/* 桌機 商品類別選項 end */}
 
-                {/* 商品比較 btn */}
-                <CompareBtn
-                    toggleProductCompare={toggleProductCompare}
-                    compareProduct={compareProduct}
-                />
-            </Container>
-            {/* 比較頁顯示 */}
-            {productCompare ? (
-                <ProductCompare
-                    compareProduct={compareProduct}
-                    setCompareProduct={setCompareProduct}
-                    setProductCompare={setProductCompare}
-                />
-            ) : (
-                ''
+                                <div className="col-12 col-md-10 d-flex flex-column justify-content-between">
+                                    {/* 商品列 */}
+                                    <ListMotionContainer className="row row-cols-2 row-cols-md-3 row-cols-xl-4">
+                                        {error && <div>{error}</div>}
+                                        {pageProducts.length === 0 ? (
+                                            <h4 className="mt-5 d-flex w-100 main-gary-light-color text-center justify-content-center align-items-center">
+                                                <TbMusicOff
+                                                    className="me-2"
+                                                    style={{
+                                                        width: '30px',
+                                                        height: '30px',
+                                                    }}
+                                                />
+                                                無符合條件商品
+                                            </h4>
+                                        ) : (
+                                            ''
+                                        )}
+                                        {pageProducts.length > 0 &&
+                                            pageProducts[pageNow - 1].map(
+                                                (product) => {
+                                                    return (
+                                                        <ListMotionItem
+                                                            className="col product"
+                                                            key={
+                                                                product.product_id
+                                                            }
+                                                        >
+                                                            <div className="position-relative">
+                                                                {/* 商品照片 */}
+                                                                <Link
+                                                                    to={`/products/${product.product_id}?main_id=${product.ins_main_id}`}
+                                                                    className="product-img d-block"
+                                                                >
+                                                                    <div className="product-img-mask position-absolute"></div>
+                                                                    <img
+                                                                        src={require(`../../album/products/${product.image}`)}
+                                                                        className="card-img-top"
+                                                                        alt="product"
+                                                                    />
+                                                                </Link>
+                                                                <div className="product-like position-absolute top-0 end-0">
+                                                                    {member.id ? (
+                                                                        favProducts.includes(
+                                                                            product.product_id
+                                                                        ) ? (
+                                                                            <div
+                                                                                className="favorite-box bg-accent-light-color rounded-circle position-relative"
+                                                                                onClick={(
+                                                                                    e
+                                                                                ) => {
+                                                                                    e.preventDefault();
+                                                                                    handleRemoveFavorite(
+                                                                                        product.product_id
+                                                                                    );
+                                                                                }}
+                                                                            >
+                                                                                <HeartFill className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle" />
+                                                                            </div>
+                                                                        ) : (
+                                                                            <div
+                                                                                className="favorite-box bg-accent-light-color rounded-circle position-relative"
+                                                                                onClick={(
+                                                                                    e
+                                                                                ) => {
+                                                                                    e.preventDefault();
+                                                                                    handleAddFavorite(
+                                                                                        {
+                                                                                            user_id:
+                                                                                                member.id,
+                                                                                            product_id:
+                                                                                                product.product_id,
+                                                                                            category_id:
+                                                                                                product.category_id,
+                                                                                        }
+                                                                                    );
+                                                                                }}
+                                                                            >
+                                                                                <HeartLine className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle" />
+                                                                            </div>
+                                                                        )
+                                                                    ) : (
+                                                                        ''
+                                                                    )}
+                                                                </div>
+                                                                <div
+                                                                    className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-2"
+                                                                    onClick={() =>
+                                                                        getCompare(
+                                                                            {
+                                                                                product_id:
+                                                                                    product.product_id,
+                                                                                category_id:
+                                                                                    product.category_id,
+                                                                                image: product.image,
+                                                                                name: product.name,
+                                                                                brand: product.brandName,
+                                                                                color: product.color,
+                                                                                price: product.price,
+                                                                                spec: product.spec,
+                                                                                mainId: product.ins_main_id,
+                                                                                create_time:
+                                                                                    product.create_time,
+                                                                                stock: product.stock,
+                                                                            }
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <img
+                                                                        src={
+                                                                            compare
+                                                                        }
+                                                                        alt="compare"
+                                                                        className="product-icon me-1"
+                                                                    />
+                                                                    比較
+                                                                </div>
+                                                                {cartCheckBtn({
+                                                                    product_id:
+                                                                        product.product_id,
+                                                                    category_id:
+                                                                        product.category_id,
+                                                                    image: product.image,
+                                                                    name: product.name,
+                                                                    amount: 1,
+                                                                    price: product.price,
+                                                                    spec: product.spec,
+                                                                    shipment:
+                                                                        product.shipment,
+                                                                    stock: product.stock,
+                                                                })}
+                                                            </div>
+                                                            <div className="product-body py-2">
+                                                                {/* 品名 */}
+                                                                <div className="d-flex justify-content-between">
+                                                                    <div>
+                                                                        <Link
+                                                                            to={`/products/${product.product_id}?main_id=${product.ins_main_id}`}
+                                                                            className="product-name"
+                                                                        >
+                                                                            {
+                                                                                product.name
+                                                                            }
+                                                                        </Link>
+                                                                        {/* 價格 */}
+                                                                        <h1 className="product-price accent-color py-1">
+                                                                            NT $
+                                                                            {
+                                                                                product.price
+                                                                            }
+                                                                        </h1>
+                                                                    </div>
+                                                                    <div
+                                                                        className="products-filter-color-box"
+                                                                        style={{
+                                                                            backgroundColor: `${product.color}`,
+                                                                        }}
+                                                                    ></div>
+                                                                </div>
+                                                                <p className="product-name border-top py-1 m-0">
+                                                                    上架日期：
+                                                                    {
+                                                                        product.create_time
+                                                                    }
+                                                                </p>
+                                                                <p className="product-name border-top py-1 m-0">
+                                                                    品牌：
+                                                                    {
+                                                                        product.brandName
+                                                                    }
+                                                                </p>
+                                                            </div>
+                                                        </ListMotionItem>
+                                                    );
+                                                }
+                                            )}
+                                    </ListMotionContainer>
+                                    {/* 商品列 end */}
+
+                                    {/* 頁碼 */}
+                                    <div className="d-flex justify-content-center align-items-center my-5">
+                                        {displayProducts.length > perPage ? (
+                                            <PaginationBar
+                                                pageNow={pageNow}
+                                                setPageNow={setPageNow}
+                                                pageTotal={pageTotal}
+                                            />
+                                        ) : (
+                                            ''
+                                        )}
+                                    </div>
+                                    {/* 頁碼 end */}
+                                </div>
+                            </div>
+                        </Container>
+                        {/* 比較頁顯示 */}
+                        {productCompare ? (
+                            <ProductCompare
+                                compareProduct={compareProduct}
+                                setCompareProduct={setCompareProduct}
+                                setProductCompare={setProductCompare}
+                            />
+                        ) : (
+                            ''
+                        )}
+                    </div>
+                </>
             )}
+            {/* 商品比較 btn */}
+            <CompareBtn
+                toggleProductCompare={toggleProductCompare}
+                compareProduct={compareProduct}
+            />
         </>
     );
 }

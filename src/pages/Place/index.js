@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../utils/use_auth';
 import { API_URL } from '../../utils/config';
+import { successToast, warningToast } from '../../components/Alert';
 
 import banner from '../../assets/PlaceImg/banner.png';
 import studioA01 from '../../assets/PlaceImg/studioA01.jpg';
@@ -105,9 +106,10 @@ function Place(props) {
                 item: '0',
                 comment: '',
             });
-            alert('表單已送出');
+            successToast('表單已送出', '關閉');
         } catch (err) {
             console.log(err.response.data);
+            warningToast('請填寫完整表單', '關閉');
 
             setAskErros({
                 fullName: err.response.data.fullName,
@@ -147,7 +149,7 @@ function Place(props) {
                         <a href="/">
                             <p>首頁</p>
                         </a>
-                        /
+                        &nbsp;/&nbsp;
                         <a href="/">
                             <p>場地租借</p>
                         </a>
@@ -174,7 +176,7 @@ function Place(props) {
                                     Studio-A 錄音室
                                 </h5>
                             </div>
-                            <div className="col-12 col-md-6 order-1 ">
+                            <div className="col-12 col-md-6 order-1 d-flex align-items-center">
                                 <div className="position-relative p-3 studioImgDIV">
                                     <img
                                         src={studioA01}
@@ -205,8 +207,8 @@ function Place(props) {
                                     />
                                 </div>
                             </div>
-                            <div className="col-12 col-md-6 order-3 order-md-2">
-                                <h4 className="item1 d-flex justify-content-end d-none d-md-block">
+                            <div className="col-12 col-md-6 order-3 order-md-2 ">
+                                <h4 className="item1 d-none d-md-block">
                                     Studio-A 錄音室
                                 </h4>
                                 <div className="intro1">
@@ -299,7 +301,6 @@ function Place(props) {
                                     <p>吉他音箱：Marshall DSL15H + MX212cab</p>
                                     <p>貝斯音箱：GK MB112 II </p>
                                     <p>
-                                        {' '}
                                         爵士鼓組：Dixon Aritisan Standard 5粒組
                                     </p>
                                     <h6>

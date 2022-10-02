@@ -37,6 +37,12 @@
         object-fit: contain;
     }
 }
+.myCartTable{
+    background-color: #ffffff;
+}
+// .myCartTable tbody tr:hover{
+//     background-color: $accent-light;
+// }
 
 .myCartPriceTitle {
     margin-right: 20px;
@@ -80,7 +86,7 @@
     padding: 0 18px;
 }
 .myCartSelectMargin{
-    margin-left: 85px;
+    margin-left: 40px;
 }
 
 .myCartMarginLeft {
@@ -89,4 +95,16 @@
 
 .orderBottomLine {
     border-bottom: 2px solid $accent;
+}
+
+
+// 收藏 icon
+.CartFavorite{
+    width: 25px;
+    height: 25px;
+}
+  
+.CartFavorite path {
+    fill: #8a3731;
+    stroke:  #8a3731;
 }

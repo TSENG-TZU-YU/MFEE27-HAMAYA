@@ -23,11 +23,12 @@ function StarRating({ evaluationChange, rating, setRating }) {
                                         setRating(ratingValue);
                                     }}
                                     onChange={evaluationChange}
+                                    className="star"
                                 />
                                 <AiFillStar
                                     className={`fa-star ${
                                         ratingValue <= (hover || rating)
-                                            ? 'yellow'
+                                            ? 'main'
                                             : 'gray'
                                     }`}
                                     onMouseEnter={() => setHover(ratingValue)}

@@ -27,12 +27,6 @@
     width: 100%;
 }
 
-// @media screen and (min-width: 1405px) {
-//     .blank-art-left {
-//         margin-left: -35px;
-//     }
-// }
-
 .important {
     width: 70px;
     height: 25px;
@@ -80,7 +74,6 @@
     margin-top: 3px;
 }
 .session-bg {
-    // height: 498px;
     background-color: $main-light;
     position: relative;
 }
@@ -103,23 +96,73 @@
 }
 .decorate1 {
     position: absolute;
+    width: 30%;
     bottom: 0;
     left: -10px;
     object-fit: cover;
+    // 不會擋到後面圖片的鼠標
+    pointer-events: none;
+    z-index: 500;
 }
 .decorate2 {
     position: absolute;
+    width: 30%;
     bottom: 0;
     right: 0;
     object-fit: cover;
+    pointer-events: none;
+    z-index: 500;
 }
 .decorate3 {
     position: absolute;
-    bottom: 0;
-    right: 280px;
+    width: 15%;
+    bottom: -30px;
+    right: 14%;
     object-fit: cover;
+    pointer-events: none;
+    z-index: 500;
 }
 
+@media screen and (max-width: 1200px) {
+    .decorate1 {
+        position: absolute;
+        width: 35%;
+        bottom: 0;
+        left: -10px;
+        object-fit: cover;
+        pointer-events: none;
+        z-index: 500;
+    }
+    .decorate2 {
+        position: absolute;
+        width: 35%;
+        bottom: 0;
+        right: 0;
+        object-fit: cover;
+        pointer-events: none;
+        z-index: 500;
+    }
+    .decorate3 {
+        position: absolute;
+        width: 15%;
+        bottom: -30px;
+        right: 14%;
+        object-fit: cover;
+        pointer-events: none;
+        z-index: 500;
+    }
+}
+@media screen and (max-width: 992px) {
+    .decorate2 {
+        position: absolute;
+        width: 70%;
+        bottom: 0;
+        right: 0;
+        object-fit: cover;
+        pointer-events: none;
+        z-index: 500;
+    }
+}
 @media screen and (max-width: 768px) {
     .adult-course {
         position: absolute;
@@ -132,5 +175,198 @@
         margin-top: -45px;
         margin-left: 20px;
         color: $accent-light;
+    }
+}
+// loaders
+.waveform {
+    --uib-size: 40px;
+    --uib-speed: 1s;
+    --uib-color: #6a777a;
+    --uib-line-weight: 3.5px;
+    margin: 20% auto;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    width: var(--uib-size);
+    height: calc(var(--uib-size) * 0.9);
+}
+
+.waveform__bar {
+    width: var(--uib-line-weight);
+    height: 100%;
+    background-color: var(--uib-color);
+}
+
+.waveform__bar:nth-child(1) {
+    animation: grow var(--uib-speed) ease-in-out calc(var(--uib-speed) * -0.45)
+        infinite;
+}
+
+.waveform__bar:nth-child(2) {
+    animation: grow var(--uib-speed) ease-in-out calc(var(--uib-speed) * -0.3)
+        infinite;
+}
+
+.waveform__bar:nth-child(3) {
+    animation: grow var(--uib-speed) ease-in-out calc(var(--uib-speed) * -0.15)
+        infinite;
+}
+
+.waveform__bar:nth-child(4) {
+    animation: grow var(--uib-speed) ease-in-out infinite;
+}
+
+@keyframes grow {
+    0%,
+    100% {
+        transform: scaleY(0.3);
+    }
+
+    50% {
+        transform: scaleY(1);
+    }
+}
+
+// Card
+:root {
+    --d: 700ms;
+    --e: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.actrow {
+    display: flex;
+    justify-content: space-evenly;
+}
+.actCard {
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 588px;
+    height: 300px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #ffffff;
+    box-shadow: 0 14px 26px rgba(0, 0, 0, 0.4);
+
+}
+
+
+.classText {
+    color: $accent-light;
+}
+
+.actCard:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 110%;
+    background-size: cover;
+    background-position: 0 0;
+    transition: transform calc(var(--d) * 1.5) var(--e);
+    pointer-events: none;
+}
+.actCard:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    pointer-events: none;
+    background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.009) 11.7%,
+        rgba(0, 0, 0, 0.034) 22.1%,
+        rgba(0, 0, 0, 0.072) 31.2%,
+        rgba(0, 0, 0, 0.123) 39.4%,
+        rgba(0, 0, 0, 0.182) 46.6%,
+        rgba(0, 0, 0, 0.249) 53.1%,
+        rgba(0, 0, 0, 0.32) 58.9%,
+        rgba(0, 0, 0, 0.394) 64.3%,
+        rgba(0, 0, 0, 0.468) 69.3%,
+        rgba(0, 0, 0, 0.54) 74.1%,
+        rgba(0, 0, 0, 0.607) 78.8%,
+        rgba(0, 0, 0, 0.668) 83.6%,
+        rgba(0, 0, 0, 0.721) 88.7%,
+        rgba(0, 0, 0, 0.762) 94.1%,
+        rgba(0, 0, 0, 0.79) 100%
+    );
+    transform: translateY(-50%);
+    transition: transform calc(var(--d) * 2) var(--e);
+}
+.actContent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 5rem 5rem 1rem 5rem;
+    transition: transform var(--d) var(--e);
+    z-index: 1;
+}
+
+.actCard:nth-child(1):before {
+    max-width: 100%;
+    background-image: url('../../assets/ClassImg/Adult Course.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.actCard:nth-child(2):before {
+    max-width: 100%;
+    background-image: url('../../assets/ClassImg/Children Lessons.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@media (hover: hover) and (min-width: 600px) {
+    .actCard:after {
+        transform: translateY(0);
+    }
+
+    .actContent {
+        transform: translateY(calc(100% - 4.5rem));
+    }
+    .actContent > *:not(.title) {
+        opacity: 0;
+        transform: translateY(1rem);
+        transition: transform var(--d) var(--e), opacity var(--d) var(--e);
+    }
+    .actCard:hover,
+    .actCard:focus-within {
+        align-items: center;
+    }
+    //圖片移動
+    // .actCard:hover:before,
+    // .actCard:focus-within:before {
+        // transform: translateY(-4%);
+    // }
+    .actCard:hover:after,
+    .actCard:focus-within:after {
+        transform: translateY(-50%);
+    }
+    .actCard:hover .actContent,
+    .actCard:focus-within .actContent {
+        transform: translateY(0);
+    }
+    .actCard:hover .actContent > *:not(.title),
+    .actCard:focus-within .actContent > *:not(.title) {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: calc(var(--d) / 8);
+    }
+
+    .actCard:focus-within:before,
+    .actCard:focus-within:after,
+    .actCard:focus-within .actContent,
+    .actCard:focus-within .actContent > *:not(.title) {
+        transition-duration: 0s;
     }
 }

@@ -5,7 +5,7 @@ import { API_URL } from '../../utils/config';
 import { useAuth } from '../../utils/use_auth';
 //購物車
 import { useCart } from '../../utils/use_cart';
-
+import { successToast, warningToast, errorToast } from '../Alert';
 // 圖檔
 import shop_car from '../../assets/svg/add_shopping_cart.svg';
 
@@ -22,12 +22,19 @@ function Car({ itemsCart }) {
     };
 
     function getCheck(itemInfo) {
-        console.log('get Member', member);
+        console.log('itemInfo', itemInfo);
+        let stock = itemInfo.stock;
+        let amount = itemInfo.amount;
+        if (stock < amount) {
+            setShopCartState(false);
+            return errorToast('已額滿', '關閉');
+        }
         //確認有沒有重複
         let newItemInfo = shoppingCart.find((v) => {
             return v.product_id === itemInfo.product_id;
         });
         if (!newItemInfo) {
+            setShopCartState(true);
             //臨時購物車
             // setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
             //localStorage
@@ -44,7 +51,7 @@ function Car({ itemsCart }) {
                         user_id: member.id,
                         product_id: item.product_id,
                         category_id: item.category_id,
-                        amount: 1,
+                        amount: item.amount,
                     };
                 });
                 // console.log('itemsData', itemsData);
@@ -54,32 +61,34 @@ function Car({ itemsCart }) {
                     //要做後端資料庫裡是否重複 重複則去購物車修改數量 目前只拿一個加入購物車
                     try {
                         let response = await axios.post(
-                            `${API_URL}/member/mycart`,
+                            `${API_URL}/member/mycart/single`,
                             itemsData
                         );
-                        alert(response.data.message);
                         if (response.data.duplicate === 1) {
+                            warningToast(response.data.message, '關閉');
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
-                        return;
+                        successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);
                     }
                 }
             }
+            successToast('成功加入購物車', '關閉');
             //臨時購物車
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            return;
         }
+        successToast('成功加入購物車', '關閉');
     }
 
     return (
         <button
-            className="add-car d-flex justify-content-center align-items-center border-0"
+            className="btn btn-primary add-car d-flex justify-content-center align-items-center border-0"
             onClick={(e) => {
-                setShopCartState(true);
                 e.preventDefault();
-                getCheck(itemsCart);
+                getCheck({ ...itemsCart, amount: 1 });
                 console.log('itemsCart', itemsCart);
             }}
         >

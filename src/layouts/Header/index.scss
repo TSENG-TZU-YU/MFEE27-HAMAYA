@@ -1,5 +1,13 @@
 @import '../../styles/global.scss';
 
+.header-box-shadow {
+  box-shadow: 0 0.25rem 0.5rem rgb(0 0 0 / 15%);
+}
+
+.header-fixed-height {
+  height: 50px;
+}
+
 .header-height{
   height:100px;
 }
@@ -22,7 +30,6 @@
   overflow: hidden;
   transition: 1s;
   z-index: 999;
-  
 }
 .navbaritem:hover{
   max-height: 300px;
@@ -58,4 +65,9 @@
 }
 @media screen and (max-width:576px) {
   //sm
+}
+
+.header1{
+  position: relative;
+  z-index: 999;
 }

@@ -42,6 +42,7 @@ function Teacher({ data }) {
                             to={`teacher/${item.id}`}
                             style={{ width: '230px', height: '360px' }}
                             data={data}
+                            className="teacherImg"
                         >
                             <img
                                 src={require(`../../album/teacher/images/${item.image}`)}

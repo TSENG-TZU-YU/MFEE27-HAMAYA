@@ -1,0 +1,27 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.evaluation[type='radio'] {
+    display: none;
+}
+
+.text {
+    color: #f4f6ff;
+    font-size: 22px;
+    margin-top: 15px;
+}
+
+.gray {
+    color: #c2c9ca;
+}
+
+.main {
+    color: #00323d;
+}
+.fa-star {
+    cursor: pointer;
+    transition: color 300ms;
+    font-size: 20px;
+}

@@ -30,14 +30,11 @@
 }
 .AdultDetailed-btn {
     height: 58px;
-    background-color: $main-light;
 }
 .AdultDetailed-btn:hover {
     background-color: $main;
 }
-.AdultDetailed-car-text-color {
-    color: $accent-light;
-}
+
 .detailed-arrow-left {
     position: absolute;
     width: 30px;
@@ -71,4 +68,11 @@
 .classDetail-note {
     right: -13px;
     top: 5px;
+}
+.card {
+    transition: 0.5s;
+}
+.card:hover {
+    transform: translateY(-5px) scale(1.005) translateZ(0);
+    box-shadow: 0 14px 26px rgba(0, 0, 0, 0.4);
 }

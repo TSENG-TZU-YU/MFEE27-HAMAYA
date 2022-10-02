@@ -1,27 +1,22 @@
-import React from 'react';
 import './index.scss';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { API_URL } from '../../utils/config';
+import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
-// 套件
+//動畫效果
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
-import { homeImages } from '../../album/home';
-
-//TODO:首頁ＲＷＤ要再排版
-//TODO:卷軸要做
-//TODO:點擊輪播時會跑版要修
-
+// 元件
 import MobileHome from './MobileHome';
 import HomeScroll from '../../components/HomeScroll/HomeScroll';
 
 //圖檔
-// import MobileHome from './MobileHome';
 import ServiceItem from '../../assets/HomeImg/service-item.jpg';
 import ServiceItem2 from '../../assets/HomeImg/service-item2.jpg';
 import ServiceItem3 from '../../assets/HomeImg/service-item3.jpg';
-
-import NewsImg5 from '../../assets/NewsImg/news-img5.png';
-import NewsImg6 from '../../assets/NewsImg/news-img6.png';
-import NewsImg7 from '../../assets/NewsImg/news-img7.png';
 import Vector25 from '../../assets/HomeImg/Vector25.svg';
 
 import Note6 from '../../assets/HomeImg/note-6.svg';
@@ -32,23 +27,43 @@ import Note9 from '../../assets/HomeImg/note-9.svg';
 
 import HomeAnimation from './HomeAnimation/HomeAnimation';
 
-function Home(props) {
+function Home() {
+    AOS.init();
+    const [data, setData] = useState([]);
+    const [read, setRead] = useState([]);
+    const [slider, setSlider] = useState([]);
+    // const { content } = useParams();
+
+    const location = useLocation();
+
+    useEffect(() => {
+        // let params = new URLSearchParams(location.search);
+        // let mainId = params.get('mainId');
+        let getArticle = async () => {
+            let response = await axios.get(`${API_URL}/home/${15}?mainId=${4}`);
+            setData(response.data.data);
+            setRead(response.data.read);
+            setSlider(response.data.slider);
+        };
+        getArticle();
+        window.scrollTo(0, 0);
+    }, [location]);
+
+    console.log(data);
+
     return (
         <>
             <HomeAnimation />
 
             <div className="bg-main-gary-light-color ">
                 <div className="">
-                    <HomeScroll images={homeImages} />
+                    {/* //TODO:接到資料庫但如何只顯示一個並對應左下的字會跟著變動 */}
+
+                    <HomeScroll data={data} slider={slider} />
+
+                    <div className="container bg-main-gary-light-color "></div>
                 </div>
 
-                <div className="container bg-main-gary-light-color ">
-                    <span className="home-word">
-                        NEW &ensp;
-                        <span className="home-word2">2022.08.25&ensp;</span>
-                        <span className="home-word3">九月琴房租借優惠中</span>
-                    </span>
-                </div>
                 <MobileHome />
                 <div className="container d-flex home-blank-top">
                     <p className=" d-none d-md-block home-word4 fw-bold home-cursor-pinter me-3 text-nowrap">
@@ -62,7 +77,11 @@ function Home(props) {
                 </div>
                 <div className="container pushed-wrapper home-blank-top d-none d-md-block ">
                     <div className="row">
-                        <div className="">
+                        <div
+                            data-aos="fade-right"
+                            data-aos-duration="1500"
+                            data-aos-offset="60"
+                        >
                             <img
                                 src={ServiceItem}
                                 width="700"
@@ -72,15 +91,31 @@ function Home(props) {
                         </div>
                     </div>
                     <div className=" pushed-content pushed-box  ">
-                        <Link to="products">
-                            <span className="item-word">樂器商城</span>
+                        <Link
+                            to="products"
+                            data-aos="fade-left"
+                            data-aos-easing="ease"
+                        >
+                            <span
+                                className="item-word"
+                                data-aos="fade-left"
+                                data-aos-duration="1500"
+                                data-aos-offset="60"
+                            >
+                                樂器商城
+                            </span>
                             <img
                                 src={Vector25}
                                 width="150"
                                 alt="Logo"
                                 className="vector25"
                             />
-                            <span className="item-word2">
+                            <span
+                                className="item-word2"
+                                data-aos="fade-left"
+                                data-aos-duration="1500"
+                                data-aos-offset="60"
+                            >
                                 Instrumental Store
                             </span>
                         </Link>
@@ -88,22 +123,38 @@ function Home(props) {
                 </div>
 
                 <div className="container pushed-wrapper home-blank-top2 d-none d-md-block">
-                    <div className="row pushed-box4 pushed-box5">
+                    <div className="row pushed-box4 pushed-box5 ">
                         <Link className="" to="class">
-                            <span className="item-word3">音樂教育</span>
+                            <span
+                                className="item-word3"
+                                data-aos="fade-right"
+                                data-aos-duration="1500"
+                                data-aos-offset="60"
+                            >
+                                音樂教育
+                            </span>
                             <img
                                 src={Vector25}
                                 width="150"
                                 alt="Logo"
                                 className="vector25-2"
                             />
-                            <span className="item-word4">
+                            <span
+                                className="item-word4"
+                                data-aos="fade-right"
+                                data-aos-duration="1500"
+                                data-aos-offset="60"
+                            >
                                 Musical Education
                             </span>
                         </Link>
                     </div>
                     <div className="pushed-box2  home-blank-top ">
-                        <div className="">
+                        <div
+                            data-aos="fade-left"
+                            data-aos-duration="1500"
+                            data-aos-offset="60"
+                        >
                             <img
                                 src={ServiceItem2}
                                 width="700"
@@ -115,7 +166,11 @@ function Home(props) {
                 </div>
                 <div className="container pushed-wrapper home-blank-top3 d-none d-md-block ">
                     <div className="row">
-                        <div className="">
+                        <div
+                            data-aos="fade-right"
+                            data-aos-duration="1500"
+                            data-aos-offset="60"
+                        >
                             <img
                                 src={ServiceItem3}
                                 width="700"
@@ -124,16 +179,28 @@ function Home(props) {
                             />
                         </div>
                     </div>
-                    <div className=" pushed-content pushed-box  ">
+                    <div className=" pushed-content pushed-box">
                         <Link to="place">
-                            <span className="item-word">場地租借</span>
+                            <span
+                                className="item-word"
+                                data-aos="fade-left"
+                                data-aos-duration="1500"
+                                data-aos-offset="60"
+                            >
+                                場地租借
+                            </span>
                             <img
                                 src={Vector25}
                                 width="150"
                                 alt="Logo"
                                 className="vector25"
                             />
-                            <span className="item-word2">
+                            <span
+                                className="item-word2"
+                                data-aos="fade-left"
+                                data-aos-duration="1500"
+                                data-aos-offset="60"
+                            >
                                 Facility Rental Services
                             </span>
                         </Link>
@@ -159,7 +226,8 @@ function Home(props) {
                     <img src={Note9} width="15" alt="Logo" className="note9" />
                 </div>
 
-                <div className="container d-flex home-blank-top4 ">
+                {/* 音樂文章列表 */}
+                <div className="container d-flex  home-blank-top ">
                     <p className="home-word4 fw-bold home-cursor-pinter me-3 text-nowrap">
                         音樂文章
                     </p>
@@ -168,74 +236,77 @@ function Home(props) {
                     </p>
                     <div className=" mt-3 home-vector3"></div>
                 </div>
-                <div className="container bg-main-gary-light-color ">
-                    <div className="row  News-articles">
-                        <div className="col-12 col-md-4 ">
-                            <div className="mt-4 ">
-                                <img
-                                    src={NewsImg5}
-                                    alt="art02"
-                                    width="100%"
-                                    height="100%"
-                                    className="News-imgs"
-                                />
-                                <span className="gary-dark-color h6 News-cursor-pinter mt-2">
-                                    買樂器就交給最專業的HAMAYA吧！
-                                    <div className=" d-flex mt-2 ">
-                                        <p className="News-music-article4 small">
-                                            促銷活動
-                                        </p>
-                                        <p className="ms-2 mt-1">
-                                            May － 2022/08/20
-                                        </p>
+                <div className="container bg-main-gary-light-color  home-blank-top4  ">
+                    <div className="row  home-articles bg-main-gary-light-color ">
+                        {data.map((article) => {
+                            return (
+                                <div
+                                    key={uuidv4()}
+                                    className="col-12 col-md-4 "
+                                >
+                                    <div className="move-up">
+                                        <Link
+                                            to={`/news/${article.id}?mainId=${article.category}`}
+                                        >
+                                            <img
+                                                src={require(`../../album/article/${article.image}`)}
+                                                alt="art02"
+                                                className="home-imgs"
+                                            />
+                                            <span className="gary-dark-color h6 article-cursor-pinter mt-2">
+                                                <div className="mt-2 ms-2">
+                                                    {article.title}
+                                                </div>
+                                                <div className=" d-flex mt-2  ms-2">
+                                                    <p className="News-music-article-color4 small">
+                                                        {article.articleName}
+                                                    </p>
+                                                    <p className="ms-2 mt-1">
+                                                        {article.author}－
+                                                        {article.creation_date}
+                                                    </p>
+                                                </div>
+                                            </span>
+                                        </Link>
                                     </div>
-                                </span>
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-4  ">
-                            <div className="mt-4">
-                                <img
-                                    src={NewsImg6}
-                                    alt="art02"
-                                    width="100%"
-                                    height="100%"
-                                    className="News-imgs"
-                                />
-                                <span className="gary-dark-color h6 News-cursor-pinter ">
-                                    樂時代～報名課程拿好康 Let's Music！
-                                    <div className="d-flex mt-2 ">
-                                        <p className="News-music-article4 small News-label">
-                                            促銷活動
-                                        </p>
-                                        <p className="ms-2 mt-1">
-                                            May － 2022/08/20
-                                        </p>
+                                </div>
+                            );
+                        })}
+
+                        {read.map((article2) => {
+                            return (
+                                <div
+                                    key={uuidv4()}
+                                    className="col-12 col-md-4 move-up"
+                                >
+                                    <div className="">
+                                        <Link
+                                            to={`/news/${article2.id}?mainId=${article2.category}`}
+                                        >
+                                            <img
+                                                src={require(`../../album/article/${article2.image}`)}
+                                                alt="art02"
+                                                className="home-imgs"
+                                            />
+                                            <span className="gary-dark-color h6 News-cursor-pinter  ">
+                                                <div className="mt-2 ms-2">
+                                                    {article2.title}
+                                                </div>
+                                                <div className="d-flex mt-2  ms-2 ">
+                                                    <p className="News-music-article-color4 small News-label">
+                                                        {article2.articleName}
+                                                    </p>
+                                                    <p className="ms-2 mt-1">
+                                                        {article2.author} －
+                                                        {article2.creation_date}
+                                                    </p>
+                                                </div>
+                                            </span>
+                                        </Link>
                                     </div>
-                                </span>
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-4  ">
-                            <div className="mt-4">
-                                <img
-                                    src={NewsImg7}
-                                    alt="art02"
-                                    width="100%"
-                                    height="100%"
-                                    className="News-imgs"
-                                />
-                                <span className="gary-dark-color h6 News-cursor-pinter mt-2">
-                                    學員專屬生日活動！
-                                    <div className="d-flex mt-2 ">
-                                        <p className="News-music-article4 small News-label">
-                                            促銷活動
-                                        </p>
-                                        <p className="ms-2 mt-1">
-                                            May － 2022/08/20
-                                        </p>
-                                    </div>
-                                </span>
-                            </div>
-                        </div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>

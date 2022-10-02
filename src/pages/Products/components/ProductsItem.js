@@ -1,21 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
-// 樣式
-// import './styles/productsItem.scss';
 
 // 元件
-import Favorite from '../../../components/Favorite';
+import {
+    successToast,
+    warningToast,
+    errorToast,
+    successSmallToast,
+} from '../../../components/Alert';
 
 // 圖檔
-import product from '../../../assets/ProductsImg/product.png';
 import cartCheck from '../../../assets/ProductsImg/icon/shopping_cart_check.svg';
 import compare from '../../../assets/ProductsImg/icon/compare.svg';
+import { ReactComponent as HeartLine } from '../../../assets/svg/favorite_defaut.svg';
+import { ReactComponent as HeartFill } from '../../../assets/svg/favorite_check.svg';
+
 //會員
 import { useAuth } from '../../../utils/use_auth';
+
 //購物車
 import { useCart } from '../../../utils/use_cart';
+
+// 收藏
+import { useLiked } from '../../../utils/use_liked';
 
 function ProductsItem({
     value: {
@@ -28,6 +37,7 @@ function ProductsItem({
         brandName,
         color,
         spec,
+        stock,
         create_time,
     },
     getCompare,
@@ -47,13 +57,20 @@ function ProductsItem({
     //加入購物車
     function getCheck(itemInfo) {
         // console.log('get Member', member);
-        console.log('itemInfo', itemInfo);
+        // console.log('itemInfo', itemInfo);
+        let stock = itemInfo.stock;
+        let amount = itemInfo.amount;
+        if (stock < amount) {
+            setShopCartState(false);
+            return errorToast('暫無庫存', '關閉');
+        }
         //確認有沒有重複
         let newItemInfo = shoppingCart.find((v) => {
             return v.product_id === itemInfo.product_id;
         });
 
         if (!newItemInfo) {
+            setShopCartState(true);
             //臨時購物車
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
             //localStorage;
@@ -73,31 +90,155 @@ function ProductsItem({
                         amount: item.amount,
                     };
                 });
-                console.log('itemsData', itemsData);
+                // console.log('itemsData', itemsData);
                 //寫進資料庫
                 setItemsData(itemsData);
                 async function setItemsData(itemsData) {
                     //要做後端資料庫裡是否重複 重複則請去去購物車修改數量
                     try {
                         let response = await axios.post(
-                            `${API_URL}/member/mycart`,
+                            `${API_URL}/member/mycart/single`,
                             itemsData
                         );
                         // console.log('duplicate', response.data.duplicate);
-                        alert(response.data.message);
                         if (response.data.duplicate === 1) {
+                            warningToast(response.data.message, '關閉');
                             setShoppingCart([...shoppingCart]);
                             return;
                         }
+                        successToast(response.data.message, '關閉');
                     } catch (err) {
                         console.log(err.response.data.message);
                     }
                 }
             }
-            //臨時購物車;
+            successToast('成功加入購物車', '關閉');
+            //臨時購物車
             setShoppingCart([{ ...itemInfo }, ...shoppingCart]);
+            return;
+        }
+        successToast('成功加入購物車', '關閉');
+    }
+
+    // 收藏
+    const { favProducts, setFavProducts } = useLiked();
+
+    // 新增收藏
+    const handleAddFavorite = (itemsData) => {
+        // console.log(itemsData);
+        if (itemsData.user_id !== null && itemsData.user_id !== '') {
+            setItemsData(itemsData);
+            async function setItemsData(itemsData) {
+                try {
+                    let response = await axios.post(
+                        `${API_URL}/member/mybucketlist`,
+                        [itemsData]
+                    );
+                    let products = response.data.product.map(
+                        (item) => item.product_id
+                    );
+                    successSmallToast.fire({
+                        icon: 'success',
+                        iconColor: '#86a8ae',
+                        color: '#00323d',
+                        title: response.data.message,
+                    });
+                    setFavProducts(products);
+                } catch (err) {
+                    successSmallToast.fire({
+                        icon: 'error',
+                        iconColor: '#c59894',
+                        color: '#5b322f',
+                        title: err.response.data.message,
+                    });
+                }
+            }
+        }
+    };
+
+    // 取消收藏
+    async function handleRemoveFavorite(product_id) {
+        let itemsData = [{ user_id: member.id, product_id: product_id }];
+        try {
+            let response = await axios.delete(
+                `${API_URL}/member/mybucketlist/delete`,
+                {
+                    withCredentials: true,
+                    data: itemsData,
+                }
+            );
+            let products = response.data.product.map((item) => item.product_id);
+            successSmallToast.fire({
+                icon: 'success',
+                iconColor: '#86a8ae',
+                color: '#00323d',
+                title: response.data.message,
+            });
+            setFavProducts(products);
+        } catch (err) {
+            successSmallToast.fire({
+                icon: 'error',
+                iconColor: '#c59894',
+                color: '#5b322f',
+                title: err.response.data.message,
+            });
         }
     }
+
+    const cartCheckBtn = (props) => {
+        const {
+            product_id,
+            category_id,
+            image,
+            name,
+            price,
+            spec,
+            shipment,
+            stock,
+        } = props;
+        if (stock !== 0) {
+            return (
+                <>
+                    <button
+                        className="btn-primary btn w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
+                        onClick={(e) => {
+                            getCheck({
+                                product_id: product_id,
+                                category_id: category_id,
+                                image: image,
+                                name: name,
+                                amount: 1,
+                                price: price,
+                                spec: spec,
+                                shipment: shipment,
+                                stock: stock,
+                            });
+                        }}
+                    >
+                        <img
+                            width="30px"
+                            height="30px"
+                            src={cartCheck}
+                            alt="cartCheck"
+                            className="product-icon me-1"
+                        />
+                        加入購物車
+                    </button>
+                </>
+            );
+        } else {
+            return (
+                <>
+                    <button
+                        className="btn btn-danger w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
+                        disabled="disabled"
+                    >
+                        熱銷缺貨中
+                    </button>
+                </>
+            );
+        }
+    };
 
     return (
         <div className="col product">
@@ -115,7 +256,35 @@ function ProductsItem({
                     />
                 </Link>
                 <div className="product-like position-absolute top-0 end-0">
-                    <Favorite />
+                    {member.id ? (
+                        favProducts.includes(product_id) ? (
+                            <div
+                                className="favorite-box bg-accent-light-color rounded-circle position-relative"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleRemoveFavorite(product_id);
+                                }}
+                            >
+                                <HeartFill className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle" />
+                            </div>
+                        ) : (
+                            <div
+                                className="favorite-box bg-accent-light-color rounded-circle position-relative"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleAddFavorite({
+                                        user_id: member.id,
+                                        product_id: product_id,
+                                        category_id: category_id,
+                                    });
+                                }}
+                            >
+                                <HeartLine className="favorite-icon-color favorite-icon-size position-absolute top-50 start-50 translate-middle" />
+                            </div>
+                        )
+                    ) : (
+                        ''
+                    )}
                 </div>
                 <div
                     className="product-compare small d-flex justify-content-center align-items-center position-absolute top-0 start-0 m-2"
@@ -131,6 +300,7 @@ function ProductsItem({
                             spec: spec,
                             mainId: ins_main_id,
                             create_time: create_time,
+                            stock: stock,
                         })
                     }
                 >
@@ -141,10 +311,19 @@ function ProductsItem({
                     />
                     比較
                 </div>
-                <button
+                {cartCheckBtn({
+                    product_id: product_id,
+                    category_id: category_id,
+                    image: image,
+                    name: name,
+                    amount: 1,
+                    price: price,
+                    spec: spec,
+                    stock: stock,
+                })}
+                {/* <button
                     className="btn btn-primary w-100 text-canter product-cart-check-btn position-absolute bottom-0 end-0"
                     onClick={() => {
-                        setShopCartState(true);
                         getCheck({
                             product_id: product_id,
                             category_id: category_id,
@@ -153,6 +332,7 @@ function ProductsItem({
                             amount: 1,
                             price: price,
                             spec: spec,
+                            stock: stock,
                         });
                     }}
                 >
@@ -162,7 +342,7 @@ function ProductsItem({
                         className="product-icon me-1"
                     />
                     加入購物車
-                </button>
+                </button> */}
             </div>
             <div className="product-body py-2">
                 {/* 品名 */}

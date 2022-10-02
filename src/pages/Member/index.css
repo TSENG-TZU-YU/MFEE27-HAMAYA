@@ -1,0 +1,9 @@
+.member-fixed-heigh{
+  height: 70px;
+}
+
+@media screen and (max-width:576px) {
+  .member-fixed-heigh{
+    height: 80px;
+  }
+}

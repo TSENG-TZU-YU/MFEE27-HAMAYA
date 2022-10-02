@@ -15,10 +15,19 @@ import LogInSignUp from '../../components/LogInSignUp';
 import ScrollTo from '../../components/ScrollTo';
 import Cart from '../Cart/Cart';
 import NavbarMobile from '../../components/NavbarMobile';
+
+import { successToast, errorToast, warningToast } from '../../components/Alert';
 function Header(props) {
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
-    const [loginPopup, setLoginPopup] = useState(false);
-    // const [shoppingCart, setShoppingCart] = useState(false); //預設關閉
+    const {
+        member,
+        setMember,
+        isLogin,
+        setIsLogin,
+        hideHeaderFooter,
+        loginPopup,
+        setLoginPopup,
+    } = useAuth();
+
     const { shopCartState, setShopCartState } = useCart();
     const navigate = useNavigate();
     // 課程 Toggled
@@ -61,20 +70,21 @@ function Header(props) {
                 loginDt: '',
             });
             navigate('/');
-            alert(response.data.message);
+            successToast(response.data.message, '關閉');
+            // alert(response.data.message);
         } catch (err) {
             console.log(err.response.data.message);
-            alert(err.response.data.message);
+            // alert(err.response.data.message);
         }
     }
 
     return (
-        <>
+        <div className={hideHeaderFooter && 'd-none'}>
             <NavbarMobile
             // shoppingCart={shoppingCart}
             // setShoppingCart={setShoppingCart}
             />
-            <nav className="bg-main-gary-light-color d-none d-md-block">
+            <nav className="bg-main-gary-light-color d-none d-md-block fixed-top header1 header-box-shadow">
                 <div className="container">
                     <div className="row header-height ">
                         <div className="col-2 p-0 d-flex justify-content-center align-items-center ">
@@ -90,13 +100,16 @@ function Header(props) {
                             <div className="row navbar-center">
                                 <div className="col p-0 m-2 m-lg-3 text-center header-text">
                                     <div className="navbaritem fw-bold">
-                                        <Link className="" to="news">
+                                        <Link
+                                            className=""
+                                            to="/news?categoryId=1"
+                                        >
                                             最新消息
                                         </Link>
-                                        <ul className="list-unstyled bg-main-light-color py-1 mt-2">
+                                        <ul className="list-unstyled bg-main-light-color py-1 mt-2 ">
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/news/section?categoryList=1"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     促銷活動
@@ -104,7 +117,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/news/section?categoryList=2"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     活動快訊
@@ -112,7 +125,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/news/section?categoryList=3"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     重要通知
@@ -129,7 +142,15 @@ function Header(props) {
                                         <ul className="list-unstyled bg-main-light-color py-1 mt-2">
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="products"
+                                                    className="accent-light-color fw-light"
+                                                >
+                                                    最新商品
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link
+                                                    to="/products?main_id=1"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     琴鍵樂器
@@ -137,7 +158,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/products?main_id=2"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     管樂器
@@ -145,7 +166,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/products?main_id=3"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     弓弦樂器
@@ -153,7 +174,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/products?main_id=4"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     吉他/
@@ -163,7 +184,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/products?main_id=5"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     打擊樂器
@@ -171,7 +192,7 @@ function Header(props) {
                                             </li>
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/products?main_id=6"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     配件
@@ -182,13 +203,13 @@ function Header(props) {
                                 </div>
                                 <div className="col p-0 m-2 m-lg-3 text-center header-text">
                                     <div className="navbaritem fw-bold">
-                                        <Link className="" to="class">
+                                        <Link className="" to="/class">
                                             音樂教育
                                         </Link>
                                         <ul className="list-unstyled bg-main-light-color py-1 mt-2">
                                             <li>
                                                 <Link
-                                                    to="/"
+                                                    to="/class"
                                                     className="accent-light-color fw-light"
                                                 >
                                                     音樂文章
@@ -198,9 +219,6 @@ function Header(props) {
                                                 <Link
                                                     to="/class/list?class=1"
                                                     className="accent-light-color fw-light"
-                                                    // onClick={() => {
-                                                    //     setSelectCourse(true);
-                                                    // }}
                                                 >
                                                     成人課程
                                                 </Link>
@@ -209,9 +227,6 @@ function Header(props) {
                                                 <Link
                                                     to="/class/list?class=2"
                                                     className="accent-light-color fw-light"
-                                                    // onClick={() => {
-                                                    //     setSelectCourse(false);
-                                                    // }}
                                                 >
                                                     兒童課程
                                                 </Link>
@@ -291,9 +306,9 @@ function Header(props) {
                     )}
                     <ScrollTo />
                 </div>
+                {shopCartState ? <Cart className="sticky-top" /> : ''}
             </nav>
-            {shopCartState ? <Cart /> : ''}
-        </>
+        </div>
     );
 }
 

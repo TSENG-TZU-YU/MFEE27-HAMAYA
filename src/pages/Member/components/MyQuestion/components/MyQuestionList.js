@@ -14,12 +14,13 @@ import { useAuth } from '../../../../../utils/use_auth';
 import _ from 'lodash';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { v4 as uuidv4 } from 'uuid';
+import { errorToast } from '../../../../../components/Alert';
 
 function MyQuestionList(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
     const navigate = useNavigate();
     const location = useLocation();
-    const { member } = useAuth();
+    const { socketStatus, setSocketStatus } = useAuth();
     const [haveQuestion, setHaveQuestion] = useState(0); //是否有詢問問題
     // const [openAskForm, setOpenAskForm] = useState(false); //開啟詢問表單
     const [myQuestionList, setMyQuestionList] = useState([
@@ -59,6 +60,17 @@ function MyQuestionList(props) {
         }
     }, [location]);
 
+    //有新訊息更新資料庫
+    useEffect(() => {
+        if (socketStatus.newMessage) {
+            setSocketStatus({
+                ...socketStatus,
+                newMessage: false,
+            });
+            loadingMyQuestion();
+        }
+    }, [socketStatus.newMessage]);
+
     //讀取我的詢問
     async function loadingMyQuestion() {
         try {
@@ -87,7 +99,8 @@ function MyQuestionList(props) {
             }
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
 
@@ -138,7 +151,6 @@ function MyQuestionList(props) {
         <div className="col-12 col-md-8 col-lg-9  MyQuestion">
             <div className="d-flex my-2">
                 <h4 className="main-color ">客服問答</h4>
-
                 <Link to="/member/myquestion/add" className="addbtn">
                     <AddImg />
                     我要提問
@@ -219,7 +231,14 @@ function MyQuestionList(props) {
                                                         </span>
                                                     </div>
                                                 </td>
-                                                <td className="">
+                                                <td
+                                                    className={
+                                                        data.user_reply_state ===
+                                                        '未回覆'
+                                                            ? 'reply_state'
+                                                            : 'reply_state2'
+                                                    }
+                                                >
                                                     {data.user_reply_state}
                                                 </td>
                                                 <td className="">
@@ -284,7 +303,16 @@ function MyQuestionList(props) {
                                             <div className="main-color text-nowrap">
                                                 回覆狀態:
                                             </div>
-                                            <div>{data.user_reply_state}</div>
+                                            <div
+                                                className={
+                                                    data.user_reply_state ===
+                                                    '未回覆'
+                                                        ? 'reply_state'
+                                                        : 'reply_state2'
+                                                }
+                                            >
+                                                {data.user_reply_state}
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="col-6">

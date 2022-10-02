@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { categoryMainTypes as categoryMain } from '../constants';
 
 function CategoryNav(props) {
-    const { categorySub } = props;
+    const { categorySub, categoryMain } = props;
     return (
         <>
             {/* 桌機 商品類別選項 */}
-            <div className="col-2 d-none d-md-block">
+            <div className="col-2 d-none d-md-block mb-5">
                 <ul className="products-category-navbar">
                     <li className="products-main-category">
                         <Link to="/products" className="accent-color">
@@ -26,7 +25,7 @@ function CategoryNav(props) {
                                         to={`/products?main_id=${value.id}`}
                                         className="accent-color"
                                     >
-                                        {value.mainName}
+                                        {value.name}
                                     </Link>
                                 </li>
                                 {categorySub.map((item) => {

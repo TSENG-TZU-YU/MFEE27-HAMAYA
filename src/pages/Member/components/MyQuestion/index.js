@@ -3,8 +3,8 @@ import { Outlet, useOutletContext } from 'react-router-dom';
 import './index.css';
 
 function MyQuestion(props) {
-    const [setbread,updetaQADetail] = useOutletContext();
-    return <Outlet context={[setbread,updetaQADetail]} />;
+    const [setbread] = useOutletContext();
+    return <Outlet context={[setbread]} />;
 }
 
 export default MyQuestion;

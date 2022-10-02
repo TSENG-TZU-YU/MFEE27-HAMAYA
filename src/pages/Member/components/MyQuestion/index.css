@@ -17,14 +17,27 @@
     display: -webkit-box;
     -webkit-line-clamp: 2; 
     -webkit-box-orient: vertical;
+}
+.reply_state{
+    color: rgb(160, 0, 0);
+}
 
-  }
+.reply_state2{
+    color: rgb(0, 104, 26);
+}
+.reply_state3{
+    color: rgb(212, 175, 55);
+}
 .cssTable td 
 {
     text-align: center; 
     /*垂直置中*/
     vertical-align: middle;
+   
 }
+.cssTable{
+     background-color: white;
+} 
 .MyQuestion .addbtn{ 
     color: white;
     background-color: #00323d;
@@ -102,14 +115,51 @@
 }
 
 .MyQuestionDetail .content{
-    max-width: 700px;
+    max-width: 650px;
+    /* margin: 0 auto; */
+    padding: 10px;
+    border: 2px solid #767676;
+    border-radius: 5px;
+}
+.MyQuestionDetail .maincontent{
+    height: 350px;
+    background-color:#e6e6e6 ;
+    overflow: auto;
+    display: flex;
+    flex-direction: column-reverse;
+}
+.MyQuestionDetail .inputcontent{
+    height: 50px;
+    padding: 5px;
+} 
+
+.MyQuestionDetail .inputcontent:focus{
+    border: transparent;
+    outline: 2px solid cornflowerblue;
 }
 
-.MyQuestionDetail .maincontent{
-    min-height: 300px;
-    background-color: rgb(230, 230, 230);
-    /* overflow: auto; */
+.MyQuestionDetail .btn1{
+    margin: 5px 0;
+    border: 0;
 }
+.MyQuestionDetail .addimgbtn{
+    margin-left: 5px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    color: #616161;
+}
+.MyQuestionDetail .addimgbtn:hover{
+    color: #00323d;
+    /* border: 2px solid #00323d ;
+    border-radius: 3px; */
+}
+.MyQuestionDetail .addimgmin{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
 .MyQuestionDetail .textarea:focus{
     border: transparent;
     /* width: 100%; */
@@ -117,28 +167,42 @@
 }
 .MyQuestionDetail .btn1{
     border: 0;
-    /* width: 100%; */
 }
 .MyQuestionDetail .closebtn{
-     /* border: 2px solid #00323d; */
      border: 2px solid #00000000;
      padding: 0;
      border-radius: 2px;
-     /* box-shadow:10px 5px 5px black ; */
      transition: .3s;
 }
 .MyQuestionDetail .closebtn:hover{
     border: 2px solid #00323d;
-    /* box-shadow:3px 3px 5px rgb(60, 60, 60) ; */
-    /* position: relative; */
-    /* transform: translate(-3px,-3px); */
-    /* shadow: #3c3c3c; */
+   
 }
+.MyQuestionDetail .imgdiv{
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.MyQuestionDetail .img1{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #00323d;
+}
+
+
+
+
 @media screen and (max-width:768px) {
     .myQuestion_form .btn1{
         width: 100%;
     }
     .MyQuestionDetail .btn1{
+        width: 100%;
+    }
+    .MyPlaceDetail .btn1{
         width: 100%;
     }
 }

@@ -107,7 +107,7 @@ li.products-page-active {
   color: $accent-light;
   width: 5rem;
   padding: 2px 1px;
-  background: $main-light;
+  background: $main;
   cursor: pointer;
   transition: .4s;
 }
@@ -123,6 +123,7 @@ li.products-page-active {
   opacity: 0;
   line-height: 1rem;
   letter-spacing: 0.1rem;
+  height: 2.5rem;
 }
 
 .product:hover .product-compare {
@@ -161,8 +162,8 @@ li.products-page-active {
 
 .products-filter-menu {
   background: $main-light;
-  width: 200px;
-  top: 40px;
+  width: 230px;
+  top: 36px;
   z-index: 1;
   color: $accent-light;
 }
@@ -212,8 +213,9 @@ button.products-btn-border-none {
 
 .products-sort-menu {
   background: $main-light;
-  left: 110px;
-  top: 40px;
+  right: 20px;
+  // left: 150px;
+  top: 36px;
   z-index: 1;
   color: $accent-light;
 }
@@ -231,9 +233,10 @@ button.products-btn-border-none {
 }
 
 .products-Search-box {
-  left: 110px;
-  top: 40px;
+  right: 0;
+  top: 36px;
   z-index: 2;
+  width: 100%;
 }
 
 
@@ -352,5 +355,13 @@ ul.products-sub-category {
     // 讓api還未打到資料時畫面高度不過於太矮
     min-height: 55vh;
 }
+
+@media screen and (max-width:576px) {
+  .product-mobile-top {
+    margin-top: 70px;
+  }
+}
+
+
 
 

@@ -17,7 +17,7 @@ export const successToast = (title, confirmBtnName) => {
         color: '#00323d',
         background: '#f2f2f2',
         iconColor: '#86a8ae',
-        timer: 1500,
+        timer: 2000,
         position: 'top',
     });
 };
@@ -38,7 +38,7 @@ export const errorToast = (title, confirmBtnName) => {
         color: '#5b322f',
         background: '#f2f2f2',
         iconColor: '#c59894',
-        timer: 1500,
+        timer: 2000,
         position: 'top',
     });
 };
@@ -59,7 +59,7 @@ export const warningToast = (title, confirmBtnName) => {
         color: '#00323d',
         background: '#f2f2f2',
         iconColor: '#767676',
-        timer: 1500,
+        timer: 2000,
         position: 'top',
     });
 };
@@ -81,3 +81,32 @@ export const basicAlert = (title, confirmBtnName) => {
         position: 'top',
     });
 };
+
+// 小的 toast 訊息
+export const successSmallToast = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    background: '#f2f2f2',
+    timer: 2000,
+    onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+});
+
+// 成功範例
+// successSmallToast.fire({
+//     icon: 'success',
+//     iconColor: '#86a8ae',
+//     color: '#00323d',
+//     title: response.data.message,
+// });
+
+// 錯誤範例
+// successSmallToast.fire({
+//     icon: 'error',
+//     iconColor: '#c59894',
+//     color: '#5b322f',
+//     title: response.data.message,
+// });

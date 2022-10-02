@@ -5,21 +5,56 @@ import unVisib from './visibility_off.svg';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import { useAuth } from '../../utils/use_auth';
+import { successToast, errorToast, warningToast } from '../Alert';
+import GoogleLogin from '../GoogleLogin';
 
-function LogIn({ setLoginPopup }) {
+function LogIn() {
     const [visibility, setVisibility] = useState(false);
-   
+    const [showForgetPassword, setshowForgetPassword] = useState(false);
     const navigate = useNavigate();
 
+    //忘記密碼
+    function forgetPasswordChange(e) {
+        setforgetPassword({ email: e.target.value });
+    }
+    const [forgetPassword, setforgetPassword] = useState({
+        email: '',
+    });
+    async function forgetPasswordSubmit(e) {
+        e.preventDefault();
+        try {
+            let response = await axios.post(
+                `${API_URL}/auth/forgetpassword`,
+                forgetPassword,
+                {
+                    withCredentials: true,
+                }
+            );
+            console.log(response.data);
+            setLoginPopup(false);
+            successToast(response.data.message, '關閉');
+        } catch (err) {
+            console.log(err.response.data);
+            errorToast(err.response.data.message, '關閉');
+        }
+    }
+
+    //登入
     function handleChange(e) {
         setLoginMember({ ...loginMember, [e.target.name]: e.target.value });
     }
-
     const [loginMember, setLoginMember] = useState({
         email: '234ad7891@gmail.com',
-        password: 'xswedc123456',
+        password: '12345678',
     });
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    const {
+        member,
+        setMember,
+        isLogin,
+        setIsLogin,
+        loginPopup,
+        setLoginPopup,
+    } = useAuth();
 
     async function loginSubmit(e) {
         e.preventDefault();
@@ -36,10 +71,11 @@ function LogIn({ setLoginPopup }) {
             setIsLogin(true);
             navigate('/member');
             setLoginPopup(false);
-            alert('登入成功');
+            successToast('登入成功', '關閉');
+            // alert('登入成功');
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
         }
     }
 
@@ -57,7 +93,7 @@ function LogIn({ setLoginPopup }) {
                     required
                 />
             </label>
-            <label className="position-relative">
+            <label className="position-relative p-0">
                 密碼
                 <br />
                 <input
@@ -78,21 +114,41 @@ function LogIn({ setLoginPopup }) {
                     <img src={visibility ? visib : unVisib} alt="" />
                 </button>
             </label>
-            <a>忘記密碼?</a>
-            <br />
-            <br />
-            {/* <Link
-                className="text-danger"
-                onClick={() => {
-                    setLoginPopup(false);
+            <button
+                className="forgetbtn"
+                onClick={(e) => {
+                    e.preventDefault();
+                    setshowForgetPassword(!showForgetPassword);
                 }}
-                to="/member"
             >
-                測試用登入
-            </Link> */}
-            <button className="subBtn" onClick={loginSubmit}>
+                忘記密碼?
+            </button>
+            {showForgetPassword ? (
+                <div className="forgetPassword">
+                    <label className="">
+                        <input
+                            type="email"
+                            name="email"
+                            value={forgetPassword.email}
+                            onChange={forgetPasswordChange}
+                            placeholder="請輸入帳號(E-MAIL)"
+                            required
+                        />
+                    </label>
+                    <button className="subBtn" onClick={forgetPasswordSubmit}>
+                        寄送重設密碼認證信
+                    </button>
+                </div>
+            ) : (
+                ''
+            )}
+            <hr />
+            <button className="subBtn mt-1" onClick={loginSubmit}>
                 登入
             </button>
+            <div className="d-flex justify-content-center">
+                <GoogleLogin />
+            </div>
         </form>
     );
 }

@@ -1,8 +1,7 @@
 import React from 'react';
-import { categoryMainTypes as categoryMain } from '../constants';
 
 function MobileCategoryNav(props) {
-    const { categorySub, navigate, url, setUrl } = props;
+    const { categorySub, categoryMain, navigate, url, setUrl } = props;
     return (
         <>
             {/* 商品類別選項 */}
@@ -24,7 +23,7 @@ function MobileCategoryNav(props) {
                             key={Math.random().toString(36).replace('1.', '')}
                         >
                             <option value={`/products?main_id=${value.id}`}>
-                                {value.mainName}
+                                {value.name}
                             </option>
 
                             {categorySub.map((item) => {

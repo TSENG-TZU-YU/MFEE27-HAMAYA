@@ -1,6 +1,127 @@
 .QAlist{
     font-size: 18px;
+    position: relative;
 }
+
 .QAlist .active{
-    border-bottom:4px solid #767676 ;
+    border:2px solid #00323d ;
 }
+.QAlist .title1{
+    color: #212529;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.NLQA .Qtitle{
+    min-width: 120px;
+}
+.NLQA .time{
+    font-size: 10px;
+    font-weight: 300;
+    text-align: center;
+}
+.NLQA .time2{
+
+    text-align: right;
+}
+.NLQA .email{
+    font-size: 12px;
+}
+.NLQA .ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* max-width: 200px;  */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+}
+
+
+.NLQADetail{
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.NLQADetail .maincontent{
+    height: 400px;
+    background-color:#e6e6e6 ;
+    overflow: auto;
+    display: flex;
+    flex-direction: column-reverse;
+
+}
+.NLQADetail .closebtn{
+    border: 2px solid #00000000;
+    padding: 0;
+    border-radius: 2px;
+    transition: .3s;
+    
+}
+.NLQADetail .closebtn:hover{
+    border: 2px solid #00323d;
+}
+
+.NLQADetail .inputcontent{
+    height: 50px;
+    padding: 5px;
+}
+
+.NLQADetail .inputcontent:focus{
+    border: transparent;
+    outline: 2px solid cornflowerblue;
+}
+
+.NLQADetail .btn1{
+    margin: 5px 0;
+    border: 0;
+}
+
+.placeholderNone::placeholder{
+    color:  #a00000;
+}
+.NLQADetail .imgdiv{
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    border-radius: 50%;
+    overflow: hidden;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+}
+.NLQADetail .img1{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #00323d;
+
+}
+.NLQADetail .addimgbtn{
+    margin-left: 5px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    color: #616161;
+}
+.NLQADetail .addimgbtn:hover{
+    color: #00323d;
+}
+.NLQADetail .addimgmin{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+/* 頁碼設定  */
+.CommonQA{
+    position: relative;
+    margin-bottom: 50px;
+    min-height: 500px;
+}
+.OrderQA{
+    position: relative;
+    margin-bottom: 50px;
+    min-height: 500px;
+}
+

@@ -10,12 +10,17 @@ import {
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import _ from 'lodash';
+import { errorToast } from '../../../../components/Alert';
+import { io } from 'socket.io-client';
+import {
+    FiChevronLeft,
+    FiChevronRight,
+    FiPlus,
+    FiPlusSquare,
+} from 'react-icons/fi';
 function CommonQA(props) {
-    // 分頁用
-    const [pageNow, setPageNow] = useState(1); // 目前頁號
-    const [perPage, setPerPage] = useState(6); // 每頁多少筆資料
-    const [pageTotal, setPageTotal] = useState(0); //總共幾頁
-
+    const [loadingComplete, setLoadingComplete] = useState(false); //是否已載入完成
+    const [socketConn, setSocketConn] = useState(null);
     const [myQuestionList, setMyQuestionList] = useState([
         [
             {
@@ -27,12 +32,27 @@ function CommonQA(props) {
                 user_q_category: '',
                 title: '',
                 comment: '',
-                user_reply_state: '',
+                manager_reply_state: '',
                 create_time: '',
                 update_time: '',
             },
         ],
     ]);
+
+    // 分頁用
+    const [pageNow, setPageNow] = useState(1); // 目前頁號
+    const [perPage, setPerPage] = useState(6); // 每頁多少筆資料
+    const [pageTotal, setPageTotal] = useState(0); //總共幾頁
+    const location = useLocation();
+    //讀取頁數
+    useEffect(() => {
+        let params = new URLSearchParams(location.search);
+        let page = params.get('page');
+        console.log('page', page);
+        if (page) {
+            setPageNow(page);
+        }
+    }, [location]);
 
     async function loadingCommonQA() {
         try {
@@ -52,19 +72,84 @@ function CommonQA(props) {
             if (pageList.length > 0) {
                 setPageTotal(pageList.length);
                 setMyQuestionList(pageList);
+                setLoadingComplete(true);
             }
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
     useEffect(() => {
         loadingCommonQA();
     }, []);
+
+    //建立socket連線
+    useEffect(() => {
+        async function customerConn() {
+            if (!socketConn) {
+                console.log('管理員進入List頁面');
+                let socket = io('http://localhost:3001');
+                setSocketConn(socket);
+                socket.on(`customer_List`, (res) => {
+                    console.log('新訊息', res);
+                    //判斷是否需要更新資料庫
+                    if (res.newMessage) {
+                        console.log('更新List頁面');
+                        loadingCommonQA();
+                    }
+                });
+            }
+        }
+        customerConn();
+    }, []);
+
+    //頁碼
+    const paginationBar = (
+        <div className="member_pagination d-flex justify-content-center align-items-center">
+            <Link
+                className="page_number"
+                to={
+                    pageNow > 1
+                        ? `/admin/customerservice?page=${Number(pageNow) - 1}`
+                        : `/admin/customerservice?page=${Number(pageNow)}`
+                }
+            >
+                <FiChevronLeft />
+            </Link>
+            {Array(pageTotal)
+                .fill(1)
+                .map((v, i) => {
+                    return (
+                        <Link
+                            key={i}
+                            to={`/admin/customerservice?page=${i + 1}`}
+                            className={
+                                i + 1 === Number(pageNow)
+                                    ? 'page_number active'
+                                    : 'page_number'
+                            }
+                        >
+                            {i + 1}
+                        </Link>
+                    );
+                })}
+            <Link
+                className="page_number"
+                to={
+                    pageNow < pageTotal
+                        ? `/admin/customerservice?page=${Number(pageNow) + 1}`
+                        : `/admin/customerservice?page=${Number(pageNow)}`
+                }
+            >
+                <FiChevronRight />
+            </Link>
+        </div>
+    );
     return (
-        <div>
-            <div className="">
-                <table className="table ">
+        <div className="CommonQA">
+            {loadingComplete && (
+                <table className="table NLQA">
                     <thead>
                         <tr className="bg-main-color accent-light-color ">
                             <th
@@ -72,6 +157,18 @@ function CommonQA(props) {
                                 scope="col"
                             >
                                 問答編號
+                            </th>
+                            <th
+                                className="text-nowrap fw-light text-center"
+                                scope="col"
+                            >
+                                E-MAIL
+                            </th>
+                            <th
+                                className="text-nowrap fw-light text-center"
+                                scope="col"
+                            >
+                                姓名
                             </th>
                             <th
                                 className="text-nowrap fw-light text-center"
@@ -116,12 +213,19 @@ function CommonQA(props) {
                             return (
                                 <tr key={uuidv4()} className="cssTable">
                                     <th scope="row">
-                                        NL00{data.id}
+                                        QA00{data.id}
                                         <br />
                                         <span className="time">
                                             {data.create_time}
                                         </span>
                                     </th>
+                                    <td className="email">
+                                        {data.email}
+                                    </td>
+                                    <td className="text-nowrap text-center">
+                                        {data.name}
+                                        {data.user_id === 0 && '(訪客)'}
+                                    </td>
                                     <td>{data.user_q_category}</td>
                                     <td>{data.title}</td>
                                     <td>
@@ -131,8 +235,18 @@ function CommonQA(props) {
                                             </span>
                                         </div>
                                     </td>
-                                    <td className="">
-                                        {data.user_reply_state}
+                                    <td
+                                        className={
+                                            data.manager_reply_state ===
+                                            '未回覆'
+                                                ? 'reply_state'
+                                                : data.manager_reply_state ===
+                                                  '已回覆'
+                                                ? 'reply_state2'
+                                                : 'reply_state3'
+                                        }
+                                    >
+                                        {data.manager_reply_state}
                                     </td>
                                     <td className="">{data.update_time}</td>
                                     <td className="text-nowrap ">
@@ -149,7 +263,8 @@ function CommonQA(props) {
                         })}
                     </tbody>
                 </table>
-            </div>
+            )}
+            {pageTotal > 1 && paginationBar}
         </div>
     );
 }

@@ -7,15 +7,22 @@ import {
     useLocation,
 } from 'react-router-dom';
 import axios from 'axios';
-import { API_URL } from '../../../../utils/config';
+import { API_URL, IMAGE_URL } from '../../../../utils/config';
 import { useAuth } from '../../../../utils/use_auth';
 import { v4 as uuidv4 } from 'uuid';
 import { ReactComponent as Close } from '../../../../assets/svg/close.svg';
+import { io } from 'socket.io-client';
+import { errorToast } from '../../../../components/Alert';
+import customer_img from '../../../../assets/svg/customer_service.svg';
+import member_img from '../../../../assets/svg/member_avatar.svg';
+import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
 
 function CommonQADetail(props) {
     const [setbread] = useOutletContext();
+    const [uploadPhotoURL, setUploadPhotoURL] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
+    const [socketConn, setSocketConn] = useState(null);
     const [myQuestion, setMyQuestion] = useState({
         detail: {
             id: '',
@@ -26,7 +33,7 @@ function CommonQADetail(props) {
             user_q_category: '',
             title: '',
             comment: '',
-            user_reply_state: '',
+            manager_reply_state: '',
             create_time: '',
             update_time: '',
         },
@@ -39,19 +46,51 @@ function CommonQADetail(props) {
         ],
     });
 
+    //建立socket連線
+    useEffect(() => {
+        async function customerConn() {
+            if (!socketConn) {
+                console.log('管理員進入Detail頁面建立連線');
+                let socket = io('http://localhost:3001');
+                setSocketConn(socket);
+                let params = new URLSearchParams(location.search);
+                let nlid = params.get('nlid');
+                let response = await axios.get(
+                    `${API_URL}/admin/customerservice/commonqa/detail?nlid=${nlid}`,
+                    {
+                        withCredentials: true,
+                    }
+                );
+                socket.on(`userid${response.data.detail.user_id}`, (res) => {
+                    console.log('新訊息', res);
+                    //判斷是否需要更新資料庫
+                    if (res.newMessage) {
+                        console.log('更新資料庫');
+                        myQuestionDetail();
+                    }
+                });
+            }
+        }
+        customerConn();
+    }, []);
+
     //讀取問答詳細
-    async function myQuestionDetail(nlid) {
+    async function myQuestionDetail() {
+        let params = new URLSearchParams(location.search);
+        let nlid = params.get('nlid');
         try {
             let response = await axios.get(
-                `${API_URL}/member/myquestion/detail?qaid=${nlid}`,
+                `${API_URL}/admin/customerservice/commonqa/detail?nlid=${nlid}`,
                 {
                     withCredentials: true,
                 }
             );
             console.log(response.data);
             setreplyForm({
-                ...replyForm,
+                user_id: response.data.detail.user_id,
                 user_qna_id: response.data.detail.id,
+                q_content: '',
+                photo: '',
             });
             setMyQuestion(response.data);
         } catch (err) {
@@ -60,51 +99,58 @@ function CommonQADetail(props) {
         }
     }
     useEffect(() => {
-        let params = new URLSearchParams(location.search);
-        let nlid = params.get('nlid');
-        console.log(nlid);
-        myQuestionDetail(nlid);
-        // console.log(myQuestion);
-    }, [location]);
+        myQuestionDetail();
+    }, []);
 
     //新增回覆
     const [replyForm, setreplyForm] = useState({
+        user_id: '',
         user_qna_id: '',
         q_content: '',
-        // name: '', 從session拿
+        photo: '',
     });
     const replyFormChange = (e) => {
         setreplyForm({ ...replyForm, q_content: e.target.value });
     };
+    const photoChange = (e) => {
+        setUploadPhotoURL(URL.createObjectURL(e.target.files[0]));
+        setreplyForm({ ...replyForm, photo: e.target.files[0] });
+    };
     async function replyFormSubmit(e) {
         e.preventDefault();
         try {
+            let formData = new FormData();
+            formData.append('user_id', replyForm.user_id);
+            formData.append('user_qna_id', replyForm.user_qna_id);
+            formData.append('q_content', replyForm.q_content);
+            formData.append('photo', replyForm.photo);
             let response = await axios.post(
-                `${API_URL}/member/myquestion/reply`,
-                replyForm,
+                `${API_URL}/admin/customerservice/commonqa/reply`,
+                formData,
                 {
                     withCredentials: true,
                 }
             );
-            // console.log(response.data);
-            //讀取問答詳細
-            myQuestionDetail(replyForm.user_qna_id);
             //清空replyForm input
-            setreplyForm({ ...replyForm, q_content: '' });
+            document.querySelector('.photo').value = '';
+            setreplyForm({ ...replyForm, photo: '' });
+            setUploadPhotoURL('');
+            // setreplyForm({ ...replyForm, q_content: '' });
             // alert(response.data.message);
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
 
     return (
-        <div className=" mb-3 MyQuestionDetail">
-            <div className="d-flex align-items-center justify-content-between   my-2">
+        <div className=" mb-3 NLQADetail">
+            <div className="d-flex align-items-center justify-content-between my-2">
                 <div>
                     <h4 className="main-color ">問答詳細</h4>
                     <div className="">
-                        問答編號:NL00{myQuestion.detail.id}&nbsp;
+                        問答編號:QA00{myQuestion.detail.id}&nbsp;
                         {myQuestion.detail.create_time}
                     </div>
                 </div>
@@ -119,13 +165,30 @@ function CommonQADetail(props) {
                     </button>
                 </div>
             </div>
-            <div className=" ">
+            <div>
                 <div className="d-flex border">
                     <div className="col-3 text-center text-light bg-main-color p-1">
-                        問題主旨
+                        姓名
                     </div>
                     <div className=" col-9 text-center p-1">
-                        {myQuestion.detail.title}
+                        {myQuestion.detail.name}
+                        {myQuestion.detail.user_id === 0 && '(訪客)'}
+                    </div>
+                </div>
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        連絡電話
+                    </div>
+                    <div className=" col-9 text-center p-1">
+                        {myQuestion.detail.phone}
+                    </div>
+                </div>
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
+                        電子郵件
+                    </div>
+                    <div className=" col-9 text-center p-1">
+                        {myQuestion.detail.email}
                     </div>
                 </div>
                 <div className="d-flex border">
@@ -138,10 +201,30 @@ function CommonQADetail(props) {
                 </div>
                 <div className="d-flex border">
                     <div className="col-3 text-center text-light bg-main-color p-1">
+                        問題主旨
+                    </div>
+                    <div className=" col-9 text-center p-1">
+                        {myQuestion.detail.title}
+                    </div>
+                </div>
+                <div className="d-flex border">
+                    <div className="col-3 text-center text-light bg-main-color p-1">
                         回覆狀態
                     </div>
                     <div className="col-9 text-center  p-1">
-                        {myQuestion.detail.user_reply_state}
+                        <span
+                            className={
+                                myQuestion.detail.manager_reply_state ===
+                                '未回覆'
+                                    ? 'reply_state'
+                                    : myQuestion.detail.manager_reply_state ===
+                                      '已回覆'
+                                    ? 'reply_state2'
+                                    : 'reply_state3'
+                            }
+                        >
+                            {myQuestion.detail.manager_reply_state}
+                        </span>
                     </div>
                 </div>
                 <div className="d-flex border">
@@ -159,19 +242,53 @@ function CommonQADetail(props) {
                     <div className="">
                         {myQuestion.content.map((data) => {
                             return (
-                                <div key={uuidv4()}>
-                                    <p className="text-start m-0">
-                                        <span className=" fs-5 fw-bolder">
-                                            {data.name}
-                                        </span>
-                                        &nbsp;
-                                        <span className="">
-                                            {data.create_time}
-                                        </span>{' '}
-                                    </p>
-                                    <p className="text-start fs-6 m-0">
-                                        {data.q_content}
-                                    </p>
+                                <div key={uuidv4()} className="d-flex">
+                                    <div className="imgdiv">
+                                        <img
+                                            src={
+                                                myQuestion.detail.name ===
+                                                    data.name &&
+                                                myQuestion.detail.photo !==
+                                                    '' &&
+                                                myQuestion.detail.photo !== null
+                                                    ? IMAGE_URL +
+                                                      myQuestion.detail.photo
+                                                    : myQuestion.detail.name ===
+                                                      data.name
+                                                    ? member_img
+                                                    : customer_img
+                                            }
+                                            className="img1"
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div>
+                                        <p className="text-start m-0">
+                                            <span className=" fs-5 fw-bolder">
+                                                {data.name}
+                                            </span>
+                                            &nbsp;
+                                            <span className="">
+                                                {data.create_time}
+                                            </span>{' '}
+                                        </p>
+                                        <p className="text-start fs-6 m-0">
+                                            {data.q_content.includes(
+                                                'uploadsQA'
+                                            ) ? (
+                                                <img
+                                                    width={200}
+                                                    src={
+                                                        IMAGE_URL +
+                                                        data.q_content
+                                                    }
+                                                    alt=""
+                                                />
+                                            ) : (
+                                                data.q_content
+                                            )}
+                                        </p>
+                                    </div>
                                 </div>
                             );
                         })}
@@ -179,21 +296,53 @@ function CommonQADetail(props) {
                 </div>
                 <div className="border p-1">
                     <form>
-                        <textarea
-                            className="w-100 textarea"
-                            rows="4"
+                        <input
+                            className={
+                                myQuestion.detail.user_id === 0
+                                    ? 'w-100 inputcontent placeholderNone'
+                                    : 'w-100 inputcontent'
+                            }
                             type="text"
                             name="q_content"
                             value={replyForm.q_content}
                             onChange={replyFormChange}
-                            placeholder="輸入內容"
+                            placeholder={
+                                myQuestion.detail.user_id === 0
+                                    ? '非會員請直接聯絡'
+                                    : '請輸入內容'
+                            }
+                            autoComplete="off"
+                            disabled={myQuestion.detail.user_id === 0}
                         />
-                        <button
-                            className="text-light bg-main-color p-1 px-5 btn1"
-                            onClick={replyFormSubmit}
-                        >
-                            進行回覆
-                        </button>
+                        <div className="d-flex justify-content-between align-items-center">
+                            <div>
+                                <label>
+                                    <input
+                                        className="photo d-none"
+                                        type="file"
+                                        name="photo"
+                                        accept="image/png, image/jpeg, image/jpg"
+                                        onChange={photoChange}
+                                    />
+                                    <MdOutlineAddPhotoAlternate className="addimgbtn" />
+                                </label>
+                                {uploadPhotoURL !== '' ? (
+                                    <img
+                                        src={uploadPhotoURL}
+                                        alt=""
+                                        className="addimgmin mx-2"
+                                    />
+                                ) : (
+                                    ''
+                                )}
+                            </div>
+                            <button
+                                className="text-light bg-main-color p-1 px-5 btn1"
+                                onClick={replyFormSubmit}
+                            >
+                                送出
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>

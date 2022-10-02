@@ -1,92 +1,105 @@
-.popup{
+.popup {
     position: fixed;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgb(0, 0, 0, .5);
+    background-color: rgb(0, 0, 0, 0.5);
     z-index: 998;
 
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.popup-inner{
+.popup-inner {
     position: fixed;
     transform: translate(-50%, -50%);
     top: 50%;
-    left:50%;
+    left: 50%;
     width: 350px;
     /* height: 500px; */
     padding: 20px 25px;
-    background-color: #F2F2F2;
-    z-index: 999
-
+    background-color: #f2f2f2;
+    z-index: 999;
 }
-.popup-inner label{
+.popup-inner label {
     width: 100%;
     font-size: 16px;
-    color: #00323D;
+    color: #00323d;
     padding-bottom: 10px;
-
 }
-.popup-inner input{
+.popup-inner input {
     width: 100%;
     font-size: 14px;
     padding: 5px;
-    border: solid 2px #D4D4D4;
+    border: solid 2px #d4d4d4;
     margin: 5px 0 0;
 }
 
-.popup-inner input:focus{
-    outline:solid 2px #0099ff;
+.popup-inner input:focus {
+    outline: solid 2px #0099ff;
 }
 
-.popup-inner input[type="checkbox"]{
+.popup-inner input[type='checkbox'] {
     width: 20px;
 }
-.popup-inner input[type="checkbox"]:focus{
-    outline:none;
+.popup-inner input[type='checkbox']:focus {
+    outline: none;
 }
 
-.closeBtn{
+.closeBtn {
     border: none;
 }
 
-.setLogIn{
+.setLogIn {
     width: 50%;
     border: none;
-    border-bottom: solid 3px #6A777A;
+    border-bottom: solid 3px #6a777a;
     font-size: 18px;
     font-weight: 600;
-    color: #6A777A;
+    color: #6a777a;
     padding: 10px;
 }
-.setLogIn.active{
-    color: #00323D;
-    border-bottom: solid 5px #00323D;
+.setLogIn.active {
+    color: #00323d;
+    border-bottom: solid 5px #00323d;
 }
-.loguptBtn{
+.loguptBtn {
     padding: 5px 10px;
     color: white;
     border: none;
     background-color: #810000;
 }
-.subBtn{
+.subBtn {
     width: 100%;
     padding: 5px 10px;
     color: white;
     border: none;
-    background-color: #00323D;
-    
+    background-color: #00323d;
 }
-.visibiImg{
-    background-color:transparent;
+.visibiImg {
+    background-color: transparent;
     position: absolute;
-    top:33px;
-    right:5px;
+    top: 33px;
+    right: 5px;
 }
 
-.popup-inner img{
+.popup-inner img {
     width: 25px;
+}
+
+.SignUp .err{
+    color: red;
+    font-size: 13px;
+}
+
+.forgetPassword{
+    border: 2px solid #6b6b6b;
+    padding: 5px;
+    margin-top: 3px;
+}
+.forgetbtn{
+    border: 0;
+    font-size: 15px;
+
 }

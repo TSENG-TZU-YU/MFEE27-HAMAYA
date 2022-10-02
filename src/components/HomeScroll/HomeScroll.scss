@@ -1,18 +1,18 @@
 @import '../../index.scss';
 
-:root {
-  position: relative;
-  height: 100%;
-}
+// :root {
+//   position: relative;
+//   height: 100%;
+// }
 
-:root {
-  background: #eee;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  color: #000;
-  margin: 0;
-  padding: 0;
-}
+// :root {
+//   // background: #eee;
+//   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+//   font-size: 14px;
+//   color: #000;
+//   margin: 0;
+//   padding: 0;
+// }
 
 .mySwiper {
   width:100%;
@@ -68,7 +68,7 @@
 
   .swiper-pagination.swiper-pagination-1{
     position: relative;
-    bottom: -2rem;
+    bottom: -1rem;
 
     
   }
@@ -80,24 +80,49 @@
       height: 100%;
     }
     .swiper-pagination.swiper-pagination-1{
-      position: relative;
-      bottom: -3.5rem;
-      right: 100rem;
-
-      // position: relative;
-      // bottom: -3rem;
-      // left:-12rem;
-    //  position: absolute;
-    //  left:-10rem;
-    // bottom:15rem;
+      position:relative;
+      bottom: -0.5rem;
+      left: -8rem;
+  
 
     }
+      //   按鈕樣式 上一張
+  .swiper-button-prev {
+    left: 0;
+    color: #f2f2f2;
+    width: 30px;
+    height: 30px;
+    background-color: #33333372;
+    margin: 0;
+  }
+
+  //   按鈕樣式 下一張
+  .swiper-button-next {
+    right: 0;
+    color: #f2f2f2;
+    width: 30px;
+    height: 30px;
+    background-color: #33333372;
+    margin: 0;
+  }
+
      
     }
 
-   
 
+// .swiper-button-next {
+//       display: none;
+//     }
+// .swiper-button-prev{
+//   display: none;
+// }
+
+
+
+.slider-titles{
+  position:relative;
+  right:420px;
+  // top: 150px;
+ 
   
-
-
-
+}

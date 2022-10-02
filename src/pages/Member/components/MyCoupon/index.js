@@ -7,6 +7,11 @@ import add_img2 from '../../../../assets/svg/add2.svg';
 import { BiLinkExternal } from 'react-icons/bi';
 import _ from 'lodash';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import {
+    successToast,
+    errorToast,
+    warningToast,
+} from '../../../../components/Alert';
 
 function MyCoupon(props) {
     const [setbread] = useOutletContext(); //此CODE為抓取麵包削setbread
@@ -66,7 +71,8 @@ function MyCoupon(props) {
             }
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
 
@@ -83,12 +89,14 @@ function MyCoupon(props) {
             );
             console.log(response.data);
             setCouponSn({ sn: '' });
-            alert(response.data.message);
-            loadingMyCoupon(); //TODO:TEST
+            successToast(response.data.message, '關閉');
+            // alert(response.data.message);
+            loadingMyCoupon();
             setHaveCoupon(1);
         } catch (err) {
             console.log(err.response.data);
-            alert(err.response.data.message);
+            errorToast(err.response.data.message, '關閉');
+            // alert(err.response.data.message);
         }
     }
 
@@ -137,9 +145,8 @@ function MyCoupon(props) {
     );
     return (
         <div className="col-12 col-md-8 col-lg-9 MyCoupon">
-           
-            <div className="d-flex">
-            <h4 className="main-color mx-1">我的優惠券</h4>
+            <div className="d-flex mt-3">
+                <h4 className="main-color mx-1">我的優惠券</h4>
                 <Link to="/products" className="link01  ">
                     去商城逛逛&nbsp;
                     <BiLinkExternal size="20" />
@@ -157,7 +164,7 @@ function MyCoupon(props) {
                     />
                     <button className="btn1" onClick={addCouponSubmit}>
                         <img alt="add_img" src={add_img2} />
-                        新增優惠券
+                        領取優惠券
                     </button>
                 </div>
             </div>
@@ -194,11 +201,15 @@ function MyCoupon(props) {
                                         ) : (
                                             ''
                                         )}
-                                        <h3>
-                                            <span className="NT">NT</span>$
-                                            {data.discount}
+                                        <h3 className="accent-light-color">
+                                            <span className="NT accent-light-color">
+                                                NT
+                                            </span>
+                                            ${data.discount}
                                         </h3>
-                                        <h6>商品折價券</h6>
+                                        <h6 className="accent-light-color">
+                                            商品折價券
+                                        </h6>
                                         <p className="text-nowrap p01">
                                             消費滿${data.minimum}可使用
                                         </p>

@@ -17,11 +17,52 @@
   padding-bottom: 5px
 }
 
+
+.article-vector5-Btn-active {
+  color: $main;
+  border: 0px;
+  border-bottom: 5px solid $main;
+}
+
 .article-img {
-  width: 879px;
-  height: 586px;
+  // width: 100%;
+  // height: 400px;
+  object-fit: cover;
+  width: 800px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0px solid;
+  
+}
+
+.article-img img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.article-imgs {
+  width: 400px;
+  height: 260px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0px solid;
+  object-fit: cover;
 
 }
+
+// .articles-img img {
+//   max-width: 100%;
+//   max-height: 100%;
+// }
+
+.article-blank-top2{
+  padding-bottom: 50px;
+  } 
+  
+  
 
 
 .article-word {
@@ -38,39 +79,84 @@
   cursor: pointer;
 }
 
-.article-music4{
+.News-music-article {
   width: 70px;
   height: 25px;
   text-align: center;
   vertical-align: middle;
-  line-height: 25px;
-  background-color: $main;
+  background-color:$main;
   color: $accent-light;
+  line-height: 25px;
 }
 
 
+.News-music-article-color2{
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color:$gary-light ;
+  color: $accent-light;
+  line-height: 25px;
+}
+
+.News-music-article-color3 {
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color:$accent ;
+  color: $accent-light;
+  line-height: 25px;
+}
+
+.News-music-article-color4 {
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color:$main-light ;
+  color: $accent-light;
+  line-height: 25px;
+}
+
+.article-content{
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: block;
+  height: 2em;
+  // line-height: 1em;
+  // letter-spacing: 0;
+  overflow: hidden;
+
+
+}
 .article-vector3 {
   border-top: 3px solid $main-light;
-  width: 72rem;
+  width: 100%;
 }
 
 @media screen and (max-width: 768px) {
 
-
   .article-img {
-    width: 100%;
+    width:100%;
     height: 100%;
+   
+
+   
 
   }
-
-  .article-imgs {
-    width: 100%;
-    height: 100%;
-
-
-
-
-
-
+  .article-blank-top {
+    margin-top: 70px;
   }
+  
+ 
+
+}
+
+.news-move-up:hover{
+  // background-color: $main-gary-light;
+  transition: all .5s;
+  transform : translateY(-20px);
 }

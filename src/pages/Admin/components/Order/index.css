@@ -1,0 +1,86 @@
+
+.OrderDetail .test{
+    text-align: center;
+}
+.OrderDetail .title1{
+    width: 20%;
+    text-align: center;
+}
+.OrderDetail .title2{
+    width: 20%;
+}
+.OrderDetail .title1{
+    width: 20%;
+    text-align: center;
+}
+
+.OrderDetail .table1{
+    width: 100%;
+}
+.OrderDetail .table2{
+    width: 100%;
+}
+.OrderDetail .list{
+    background-color: white;
+}
+.OrderDetail .classimg{
+    width: 100px;
+    height: 60px;
+    object-fit:contain;
+}
+.OrderDetail .hr{
+    border-top: 3px solid #000000
+    
+}
+.equalDivide tr td {
+    width:25%;  
+}
+.OrderDetail .title3{
+    color: #00323d;
+    
+}
+.OrderDetail .closebtn{
+    border: 2px solid #00000000;
+    padding: 0;
+    border-radius: 2px;
+    transition: .3s;
+    
+}
+.OrderDetail .closebtn:hover{
+    border: 2px solid #00323d;
+}
+
+
+.OrderDetail  .pay_state{
+    margin: 20px 150px;
+}
+.OrderDetail .item1{
+    /* margin: 0 30px; */
+    height: 4px;
+    position: absolute;
+    width: 100%;
+    top: 30px;
+    padding: 0 30px;
+}
+.OrderDetail .line{
+    /* width: 500px; */
+    /* width: auto; */
+    width: 100%;
+}
+.OrderDetail .item2{
+    margin: 0;
+}
+.OrderDetail .icon{
+    z-index: 100;
+    width: 60px;
+    height: 60px;
+}
+.linecolor1{
+ background-color: #BABABA;
+ width: 100%;
+ /* z-index; */
+}
+.linecolor2{
+    background-color: #5B322F;
+    width: 100%;
+}

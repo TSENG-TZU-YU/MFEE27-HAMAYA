@@ -16,6 +16,10 @@
     .myOrderTable td {
         display: inline;
     }
+    .myOrderTable td,
+    .myOrderTable th {
+        border: none;
+    }
 
     //訂單編號title
     .myOrderTable td:nth-child(2)::before {
@@ -25,21 +29,20 @@
         display: block;
         text-align: start;
         padding: 5px 15px;
-        // font-weight: 500;
     }
 
     .myOrderTable td::before {
         content: attr(data-title);
-        // background-color: $main;
         color: $main;
         display: block;
-
-        // text-align: start;
-        // padding: 5px 5px;
-        // font-weight: 500;
     }
 }
 
+@media screen and (min-width: 992px) {
+    .myOrderTable{
+        background-color: #ffffff;
+    }
+}
 
 .myOrderIcon path {
     fill: $main;
@@ -58,6 +61,39 @@
     width: 90px;
     height: 90px;
 }
-.myOrder-contain{
+.myOrder-contain {
     object-fit: contain;
+}
+
+.myOrderDetail-closeBtn{
+    border: 2px solid #00000000;
+    padding: 0;
+    border-radius: 2px;
+    transition: .3s;
+}
+.myOrderDetail-closeBtn:hover{
+    border: 2px solid #00323d;
+}
+
+.myOrderTable .icon{
+    width: 25px;
+    height: 25px;
+}
+.replystyle1{
+    background-color: #6a777a;
+    color: white;
+    font-size: 12px;
+    font-weight: 300;
+    border-radius: 2px;
+    padding: 1px 5px;
+    margin-left: 3px;
+}
+.replystyle2{
+    background-color: #00323d;
+    color: white;
+    font-size: 12px;
+    font-weight: 300;
+    border-radius: 2px;
+    padding: 1px 5px;
+    margin-left: 3px;
 }

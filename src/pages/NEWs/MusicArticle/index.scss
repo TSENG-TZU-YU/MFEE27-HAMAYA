@@ -22,13 +22,6 @@
   cursor: pointer;
 }
 
-// 試試將圖與內容包起來
-.article-card{
-  max-width: 300px;
- 
-
-}
-
 
 .article-img2 {
   width: 300px;
@@ -83,40 +76,252 @@ li.articles-page-active {
   color: $main;
 }
 
-.article-list-content{
+.article-list-content {
   display: -webkit-box;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: justify;
 }
 
 
 
-  .article-list-images{
-    max-width: 500px;
-    overflow: fit;
-  }
+.article-list-images {
+  width: 500px;
+  height: 300px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0px solid;
+  object-fit: cover;
 
-  .article-list-images2{
-    max-width: 300px;
-    overflow: fit;
-  }
+}
 
-  
+// .article-list-images img{
+//   max-width: 100%;
+//   max-height: 100%;
+
+// }
+
+
+.News-music-article {
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $main;
+  color: $accent-light;
+  line-height: 25px;
+}
+
+
+.News-music-article-color2 {
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $gary-light ;
+  color: $accent-light;
+  line-height: 25px;
+}
+
+.News-music-article-color3 {
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $accent ;
+  color: $accent-light;
+  line-height: 25px;
+}
+
+.News-music-article-color4 {
+  width: 70px;
+  height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $main-light ;
+  color: $accent-light;
+  line-height: 25px;
+}
+
+.list-blank {
+
+  margin-top: 50px;
+}
+
+
+
 @media screen and (max-width: 768px) {
 
 
-  .mobile-list-images{
-    width: 100%;
-    
+  .mobile-list-images {
+    width:100%;
+    height: 100%;
+    object-fit: cover;
   }
 
- .mobile-images2{
-  max-width: 100%;
-   
-    
+
+  .list-blank {
+    display: flex;
+    margin-top: 20px;
   }
 
-   
-  }
+
+
+}
+
+
+
+//TODO:篩選
+// 篩選 pc
+.filter-active {
+  position: absolute;
+  width: 140px;
+  background-color: $main-light;
+  top: 40px;
+  left: -15px;
+  z-index: 880;
+}
+
+
+.sort-active {
+  position: absolute;
+  width: 130px;
+  background-color: $main-light;
+  top: 40px;
+  left: -8px;
+  z-index: 880;
+}
+
+
+.sort-menu-class {
+  background: $main-light;
+  left: 110px;
+  top: 40px;
+  z-index: 880;
+  color: $accent-light;
+}
+
+.sort-menu-class>ul>li {
+  padding: 2px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.sort-menu-class>ul {
+  line-height: 0.9rem;
+  padding: 0;
+  margin-bottom: 0 !important;
+}
+
+.article-Search-box {
+  right: 0;
+  top: 34px;
+  z-index: 2;
+  width: 100%;
+  width: 250px;
+}
+
+//篩選 pc end
+
+
+// 篩選 mob
+.mob-search {
+  position: relative;
+  top: -15px;
+  right: 10px;
+  display: flex;
+  justify-content: end;
+}
+
+.mob-class-search {
+  position: relative;
+  top: -15px;
+  right: 10px;
+}
+
+.mobile-class-filter-nav {
+  margin: 10px 0;
+}
+
+.class-filter-nav-item-name {
+  color: $gary-light;
+  margin-left: 10px;
+  margin-bottom: 0;
+}
+
+
+
+.class-filter {
+  font-style: 1.5rem;
+  color: $main-light;
+  margin: auto;
+}
+
+.class-filter-nav-item.border-end {
+  border-color: $gary-light;
+}
+
+.class-filter-category-select {
+  width: 100%;
+  height: 300px;
+  background: $main-light;
+  color: $accent-light;
+}
+
+.class-filter-category-select:focus {
+  border: none;
+}
+
+.class-filter-category-select>option {
+  font-size: 1rem;
+  padding: 5px;
+}
+
+//篩選 mob end
+
+ul>li {
+  list-style: none;
+  font-size: 1rem;
+}
+
+.z-index {
+  z-index: -1;
+}
+
+.vector5-Btn {
+  color: $main-light;
+  border: 0px;
+  border-bottom: 3px solid $main-light;
+}
+
+.vector5-Btn-active {
+  color: $main;
+  border: 0px;
+  border-bottom: 5px solid $main;
+}
+
+.pages {
+  display: inline-block;
+  margin: 2px;
+  border-width: 1px;
+  width: 28px;
+  height: 28px;
+  text-align: center;
+}
+
+.class-search {
+  margin-top: 40px;
+  margin-left: 20px;
+}
+
+.class-h4-color {
+  color: $main-light;
+}
+
+.class-h4-color-active {
+  color: $main;
+}

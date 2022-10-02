@@ -1,37 +1,111 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../../utils/use_auth';
 import { cityData, distData } from '../../MyProfile/location';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
+import {
+    basicAlert,
+    successToast,
+    warningToast,
+    errorToast,
+} from '../../../../../components/Alert';
 
 function MyCartDoCheckout({
     myCart,
     setMyCart,
     setMyCartA,
     setMyCartB,
+    myCartInfo,
+    setMyCartInfo,
     setHiddenState,
     calcTotalPrice,
 }) {
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    const { member } = useAuth();
+    const [myCoupon, setMyCoupon] = useState([]);
+    const navigate = useNavigate();
 
-    const [myCartInfo, setMyCartInfo] = useState({
-        receiver: member.fullName,
-        phone: member.phone,
-        freight: 0,
-        city: '',
-        dist: '',
-        address: '',
-        coupon: 0,
-        coupon_id: 'coupon_id',
-    });
+    // console.log('myCartInfo DoCheckout', myCartInfo);
+    //載入優惠券
+    useEffect(() => {
+        async function getCoupon() {
+            try {
+                let response = await axios.get(
+                    `${API_URL}/member/mycoupon/loading`,
+                    {
+                        withCredentials: true,
+                    }
+                );
+                // console.log('myCoupon', response.data);
+                //過濾可以使用的
+                let filterUse = response.data.filter((v) => {
+                    return v.use === 1;
+                });
 
+                //過濾大於開始時間
+                let currentTime = Date.now();
+                // console.log('currentTime', currentTime);
+                let filterStart = filterUse.filter((v) => {
+                    let start_time = new Date(v.start_time).valueOf();
+                    return currentTime > start_time;
+                });
+                // console.log('filterStart', filterStart);
+                //過濾已到期
+                let filterEnd = filterStart.filter((v) => {
+                    let end_time = new Date(v.end_time).valueOf();
+                    return currentTime < end_time;
+                });
+                // console.log('filterEnd', filterEnd);
+
+                let newMyCoupon = filterEnd.map((item) => {
+                    return {
+                        coupon_id: item.coupon_id,
+                        use: item.use,
+                        discount: item.discount,
+                        minimum: item.minimum,
+                        name: item.name,
+                        end_time: item.end_time,
+                        start_time: item.start_time,
+                    };
+                });
+
+                // console.log('newMyCoupon', newMyCoupon);
+                setMyCoupon(newMyCoupon);
+            } catch (err) {
+                console.log('載入優惠券失敗', err);
+            }
+        }
+        getCoupon();
+        //運費
+        let checkA = myCart.filter((v) => {
+            return v.category_id === 'A';
+        });
+        console.log('A', checkA);
+        if (checkA.length !== 0) {
+            setMyCartInfo({ ...myCartInfo, freight: 2000 });
+        }
+    }, []);
+
+    //除優惠券以外表單
     function getMyCartInfo(e) {
         setMyCartInfo({ ...myCartInfo, [e.target.name]: e.target.value });
     }
-    // function getMyCartCou(e) {
-    //     console.log(e.target.selectedIndex); //抓得到option順序
-    // }
+    //select 優惠券
+    function getMyCartCou(e) {
+        const [coupon_id] = e.target.value.split('/');
+        const [, value] = e.target.value.split('/');
+        const [, , minimum] = e.target.value.split('/');
+        // console.log(coupon_id, value, minimum, e.target.value);
+        if (calcTotalPrice < minimum) {
+            errorToast('此優惠券未滿' + minimum, '關閉');
+        }
+        setMyCartInfo({
+            ...myCartInfo,
+            [e.target.name]: value,
+            coupon_id: coupon_id,
+            minimum: minimum,
+        });
+    }
 
     //前往付款 成立訂單
     async function setSaveOrder(saveOrderInfo) {
@@ -42,56 +116,97 @@ function MyCartDoCheckout({
             let newMyCart = myCart.filter((item) => {
                 return item.amount !== 0;
             });
-            console.log('newMyCart', newMyCart);
+            // console.log('newMyCart', newMyCart);
 
             if (!newMyCart.length) {
-                return alert('商品數量不對喔');
+                return errorToast('商品數量不對喔', '關閉');
             }
-
+            if (saveOrderInfo.pay_method === 0) {
+                warningToast('請選擇付款方式', '關閉');
+                return;
+            }
             if (saveOrderInfo.receiver === '') {
-                alert('請填寫收件人姓名');
+                warningToast('請填寫訂購人姓名', '關閉');
                 return;
             }
             if (saveOrderInfo.phone === '') {
-                alert('請填寫收件人電話');
+                warningToast('請填寫訂購人電話', '關閉');
                 return;
             }
-            if (saveOrderInfo.city === '' && saveOrderInfo.dist === '') {
-                alert('請填寫完整地址');
-                return;
+            if (saveOrderInfo.minimum > saveOrderInfo.total_amount) {
+                return errorToast('金額未達使用該優惠券額度', '關閉');
             }
-            if (saveOrderInfo.address === '') {
-                alert('請填寫完整地址');
-                return;
-            }
-            if (saveOrderInfo.freight === 0) {
-                alert('請選擇運費');
-                return;
+
+            let categoryHaveA = myCart.find((item) => {
+                return item.category_id === 'A';
+            });
+            // console.log('categoryOnlyB', categoryOnlyB);
+
+            if (categoryHaveA) {
+                if (saveOrderInfo.city === '' && saveOrderInfo.dist === '') {
+                    warningToast('請填寫完整地址', '關閉');
+                    return;
+                }
+                if (saveOrderInfo.address === '') {
+                    warningToast('請填寫完整地址', '關閉');
+                    return;
+                }
+                // if (saveOrderInfo.freight === 0) {
+                //     warningToast('請選擇運費', '關閉');
+                //     return;
+                // }
+                saveOrderInfo = {
+                    ...saveOrderInfo,
+                    total_amount:
+                        calcTotalPrice +
+                        Number(saveOrderInfo.freight) -
+                        Number(saveOrderInfo.coupon),
+                };
+                // console.log('saveOrderInfo AAAA', saveOrderInfo);
+            } else {
+                saveOrderInfo = {
+                    ...saveOrderInfo,
+                    freight: 0,
+                    address: '',
+                    city: '',
+                    dist: '',
+                };
+                // console.log('saveOrderInfo BBBBB', saveOrderInfo);
             }
 
             let newSaveOrderInfo = [
                 {
                     user_id: member.id,
                     ...saveOrderInfo,
-                    pay_method: 1,
-                    product_detail: newMyCart,
+                    // pay_method: 1, //付款方式
+                    product_detail: myCart,
                 },
             ];
-
+            // console.log('newSaveOrderInfo', newSaveOrderInfo);
             async function setOrderInfo() {
                 try {
                     let response = await axios.post(
                         `${API_URL}/member/myorder`,
                         newSaveOrderInfo
                     );
-                    alert(
-                        `訂單編號：${response.data.order_id} & ${response.data.message}`
+
+                    basicAlert(
+                        `訂單編號：${response.data.order_id} & ${response.data.message}`,
+                        '關閉'
                     );
+                    console.log(response.data);
+                    if (response.data.noStock) {
+                        basicAlert(
+                            `商品名稱：${response.data.noStock}  ${response.data.message} `,
+                            '關閉'
+                        );
+                        return;
+                    }
                     setMyCart([]);
                     setMyCartA([]);
                     setMyCartB([]);
                     setHiddenState(false);
-                    // console.log(response.data);
+                    navigate('/member/myorder');
                 } catch (err) {
                     console.log('新增訂單錯誤', err);
                 }
@@ -102,7 +217,7 @@ function MyCartDoCheckout({
 
     return (
         <>
-            <div className="pt-5 col-lg-7">
+            <div className="pt-5 col-lg-6">
                 <div className="titleBg bg-main-color">
                     <span className="h6 accent-light-color px-2">
                         <b>收件人資訊</b>
@@ -119,6 +234,7 @@ function MyCartDoCheckout({
                             type="text"
                             id=""
                             name="receiver"
+                            placeholder="請輸入姓名"
                             className="form-control"
                             onChange={getMyCartInfo}
                             value={myCartInfo.receiver}
@@ -134,6 +250,7 @@ function MyCartDoCheckout({
                             type="phone"
                             id=""
                             name="phone"
+                            placeholder="請輸入電話"
                             className="form-control"
                             maxLength={10}
                             onChange={getMyCartInfo}
@@ -148,7 +265,7 @@ function MyCartDoCheckout({
                     <div className="flex-grow-1 d-flex">
                         <div className="myCartSelectPadding">
                             <select
-                                class="form-select"
+                                className="form-select"
                                 id=""
                                 name="city"
                                 value={myCartInfo.city}
@@ -166,7 +283,7 @@ function MyCartDoCheckout({
                         </div>
                         <div>
                             <select
-                                class="form-select"
+                                className="form-select"
                                 id=""
                                 name="dist"
                                 value={myCartInfo.dist}
@@ -205,7 +322,7 @@ function MyCartDoCheckout({
                     />
                 </div>
             </div>
-            <div className="pt-5 pb-2 col-lg-5">
+            <div className="pt-5 pb-2 col-lg-6">
                 <div className="titleBg bg-accent-color">
                     <span className="h6 accent-light-color px-2">
                         <b>訂購資訊</b>
@@ -217,24 +334,30 @@ function MyCartDoCheckout({
                 </div>
                 <div className="d-flex justify-content-between align-items-center py-lg-2">
                     <div className="d-flex align-items-center justify-content-between px-2 mx-3">
-                        <div className="myCartMarginLeft">
-                            <span className="accent-color">運費</span>
+                        {/* 預設pay_method=1 */}
+                        <div className="">
+                            <span className="accent-color text-nowrap">
+                                付款方式
+                            </span>
                         </div>
                         <div className="myCartSelectMargin">
                             <select
                                 className="form-select"
-                                name="freight"
+                                name="pay_method"
                                 onChange={getMyCartInfo}
                             >
-                                <option value="0">請選擇運費</option>
-                                <option value="2000">2000</option>
-                                <option value="5000">5000</option>
-                                <option value="3000">3000</option>
+                                <option value="0">請選擇付款方式</option>
+                                <option value="1">信用卡</option>
+                                <option value="2">ATM轉帳</option>
+                                <option value="3">Line Pay</option>
+                                <option value="4">貨到付款</option>
                             </select>
                         </div>
                     </div>
                     <div className="ps-2">
-                        <span className="">NT:{myCartInfo.freight}</span>
+                        <span className="text-nowrap accent-color">
+                            運費 NT:{myCartInfo.freight}
+                        </span>
                     </div>
                 </div>
                 <div className="d-flex align-items-center justify-content-between py-2 orderBottomLine">
@@ -249,16 +372,36 @@ function MyCartDoCheckout({
                                 className="form-select"
                                 name="coupon"
                                 id=""
-                                onChange={getMyCartInfo}
+                                onChange={getMyCartCou}
                             >
-                                <option value="0">請選擇折扣</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                                <option value="200">200</option>
+                                <option value="0/0/0">請選擇折扣</option>
+                                {myCoupon.map((v) => {
+                                    let option =
+                                        v.name +
+                                        ' 滿' +
+                                        v.minimum +
+                                        '折' +
+                                        v.discount;
+
+                                    return (
+                                        <option
+                                            key={v.coupon_id}
+                                            value={
+                                                v.coupon_id +
+                                                '/' +
+                                                v.discount +
+                                                '/' +
+                                                v.minimum
+                                            }
+                                        >
+                                            {option}
+                                        </option>
+                                    );
+                                })}
                             </select>
                         </div>
                     </div>
-                    <span className="text-nowrap">
+                    <span className="text-nowrap accent-color">
                         - NT:{myCartInfo.coupon}
                     </span>
                 </div>
@@ -282,17 +425,14 @@ function MyCartDoCheckout({
                         className="w-100 btn btn-primary p-0 mt-2"
                         onClick={() => {
                             //要送order資料庫
-                            //TODO:(1)如果可以做是否結帳詢問的確認訊息 (2)串接信用卡
+                            //(1)如果可以做是否結帳詢問的確認訊息 (2)串接信用卡
                             setSaveOrder({
                                 ...myCartInfo,
-                                total_amount:
-                                    calcTotalPrice +
-                                    Number(myCartInfo.freight) -
-                                    Number(myCartInfo.coupon),
+                                total_amount: calcTotalPrice,
                             });
                         }}
                     >
-                        前往付款
+                        訂單成立
                     </button>
                 </div>
             </div>
