@@ -74,7 +74,6 @@
     margin-top: 3px;
 }
 .session-bg {
-    // height: 498px;
     background-color: $main-light;
     position: relative;
 }
@@ -87,39 +86,6 @@
     margin-top: -50px;
     margin-left: 45px;
     color: $accent-light;
-}
-.classShadow {
-    &:after {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 200%;
-        pointer-events: none;
-        background-image: linear-gradient(
-            to bottom,
-            hsla(0, 0%, 0%, 0) 0%,
-            hsla(0, 0%, 0%, 0.009) 11.7%,
-            hsla(0, 0%, 0%, 0.034) 22.1%,
-            hsla(0, 0%, 0%, 0.072) 31.2%,
-            hsla(0, 0%, 0%, 0.123) 39.4%,
-            hsla(0, 0%, 0%, 0.182) 46.6%,
-            hsla(0, 0%, 0%, 0.249) 53.1%,
-            hsla(0, 0%, 0%, 0.32) 58.9%,
-            hsla(0, 0%, 0%, 0.394) 64.3%,
-            hsla(0, 0%, 0%, 0.468) 69.3%,
-            hsla(0, 0%, 0%, 0.54) 74.1%,
-            hsla(0, 0%, 0%, 0.607) 78.8%,
-            hsla(0, 0%, 0%, 0.668) 83.6%,
-            hsla(0, 0%, 0%, 0.721) 88.7%,
-            hsla(0, 0%, 0%, 0.762) 94.1%,
-            hsla(0, 0%, 0%, 0.79) 100%
-        );
-    }
-    // transform: translateY(-50%);
-    transition: transform calc(var(--d) * 2) var(--e);
 }
 
 .children-lessons {
@@ -259,5 +225,165 @@
 
     50% {
         transform: scaleY(1);
+    }
+}
+
+// CARD
+.actrow {
+    // display: flex;
+    max-width: 100%;
+    margin: 0 auto;
+    font-family: var(--font-sans);
+    justify-content: space-around;
+}
+@media (min-width: 600px) {
+    .actrow {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (min-width: 1040px) {
+    .actrow {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.actCard {
+    position: relative;
+    // display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    width: 588px;
+    height: 300px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #ffffff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), 0 2px 2px rgba(0, 0, 0, 0.3),
+        0 4px 4px rgba(0, 0, 0, 0.3), 0 8px 8px rgba(0, 0, 0, 0.3),
+        0 16px 16px rgba(0, 0, 0, 0.3);
+
+    // @media (max-width: 600px) {
+    //     margin-bottom: 30px;
+    // }
+}
+@media (min-width: 600px) {
+    .card {
+        height: 350px;
+    }
+}
+:root {
+    --d: 700ms;
+    --e: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.actCard:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 110%;
+    background-size: cover;
+    background-position: 0 0;
+    transition: transform calc(var(--d) * 1.5) var(--e);
+    pointer-events: none;
+}
+.actCard:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    pointer-events: none;
+    background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.009) 11.7%,
+        rgba(0, 0, 0, 0.034) 22.1%,
+        rgba(0, 0, 0, 0.072) 31.2%,
+        rgba(0, 0, 0, 0.123) 39.4%,
+        rgba(0, 0, 0, 0.182) 46.6%,
+        rgba(0, 0, 0, 0.249) 53.1%,
+        rgba(0, 0, 0, 0.32) 58.9%,
+        rgba(0, 0, 0, 0.394) 64.3%,
+        rgba(0, 0, 0, 0.468) 69.3%,
+        rgba(0, 0, 0, 0.54) 74.1%,
+        rgba(0, 0, 0, 0.607) 78.8%,
+        rgba(0, 0, 0, 0.668) 83.6%,
+        rgba(0, 0, 0, 0.721) 88.7%,
+        rgba(0, 0, 0, 0.762) 94.1%,
+        rgba(0, 0, 0, 0.79) 100%
+    );
+    transform: translateY(-50%);
+    transition: transform calc(var(--d) * 2) var(--e);
+}
+.actContent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 5rem 5rem 1rem 5rem;
+    transition: transform var(--d) var(--e);
+    z-index: 1;
+}
+
+.actCard:nth-child(1):before {
+    background-image: url('../../assets/ClassImg/Adult Course.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.actCard:nth-child(2):before {
+    background-image: url('../../assets/ClassImg/Children Lessons.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@media (hover: hover) and (min-width: 600px) {
+    .actCard:after {
+        transform: translateY(0);
+    }
+
+    .actContent {
+        transform: translateY(calc(100% - 4.5rem));
+    }
+    .actContent > *:not(.title) {
+        opacity: 0;
+        transform: translateY(1rem);
+        transition: transform var(--d) var(--e), opacity var(--d) var(--e);
+    }
+    .actCard:hover,
+    .actCard:focus-within {
+        align-items: center;
+    }
+    .actCard:hover:before,
+    .actCard:focus-within:before {
+        transform: translateY(-4%);
+    }
+    .actCard:hover:after,
+    .actCard:focus-within:after {
+        transform: translateY(-50%);
+    }
+    .actCard:hover .actContent,
+    .actCard:focus-within .actContent {
+        transform: translateY(0);
+    }
+    .actCard:hover .actContent > *:not(.title),
+    .actCard:focus-within .actContent > *:not(.title) {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: calc(var(--d) / 8);
+    }
+
+    .actCard:focus-within:before,
+    .actCard:focus-within:after,
+    .actCard:focus-within .actContent,
+    .actCard:focus-within .actContent > *:not(.title) {
+        transition-duration: 0s;
     }
 }

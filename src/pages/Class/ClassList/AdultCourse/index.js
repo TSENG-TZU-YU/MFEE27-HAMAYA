@@ -88,7 +88,7 @@ function AdultCourse({
         };
         getAdultClass();
 
-        // 2秒後關起動畫呈現資料
+        // 0.8秒後關起動畫呈現資料
         setTimeout(() => {
             setIsLoading(false);
         }, 800);
@@ -144,7 +144,7 @@ function AdultCourse({
                                         to={`${classAdult.product_id}?class=${classAdult.ins_main_id}`}
                                     >
                                         <div
-                                            className="introduce row mx-0  class-shadow position-relative "
+                                            className="introduce row mx-0  class-shadow position-relative  "
                                             data-aos="fade-right"
                                             data-aos-once="true"
                                         >
@@ -230,7 +230,7 @@ function AdultCourse({
                                                         </p>
                                                     </div>
 
-                                                    <div className="d-lg-flex justify-content-lg-between align-items-lg-center pt-1">
+                                                    <div className="d-flex justify-content-between align-items-center pt-1">
                                                         <h4
                                                             className=" fw-bold"
                                                             style={{

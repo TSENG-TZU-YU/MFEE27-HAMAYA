@@ -15,9 +15,9 @@ $gary-dark: #333333;
 // 漸層色
 // 白 -> 透明
 $linear-light-transparent: linear-gradient(
-  180deg,
-  #ffffff 0%,
-  rgba(255, 255, 255, 0) 80%
+    180deg,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0) 80%
 );
 // 白 -> 墨綠
 $linear: linear-gradient(163.87deg, #ffffff 14.25%, #00323d 93.03%);
@@ -33,19 +33,17 @@ $border-radius: 0;
 
 $spacer: 5px !default; // 1rem
 $spacers: (
-  0: 0,
-  1: $spacer,
-  2: $spacer * 2,
-  // 10px
-  3: $spacer * 3,
-  // 15px
-  4: $spacer * 4,
-  // 20px
-  5: $spacer * 6,
-  // 30px
+    0: 0,
+    1: $spacer,
+    2: $spacer * 2,
+    // 10px
+    3: $spacer * 3,
+    // 15px
+    4: $spacer * 4,
+    // 20px
+    5: $spacer * 6,
+    // 30px
 ) !default;
-
-
 
 // 導入bootstrap所有的樣式與預設變數
 @import '~bootstrap/scss/bootstrap';
@@ -62,55 +60,55 @@ $spacers: (
 // font-family: 'Noto Serif Display', serif;
 
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Noto Sans TC', 'Microsoft JhengHei', PingFang, sans-serif;
-  letter-spacing: 0.1rem;
-  background: $accent-light;
-  color: $dark;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans TC', 'Microsoft JhengHei', PingFang, sans-serif;
+    letter-spacing: 0.1rem;
+    background: $accent-light;
+    color: $dark;
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .main {
-  height: 100%;
+    height: 100%;
 }
 
 // 背景顏色 ----------------------
 
 .bg-main-color {
-  background-color: $main;
+    background-color: $main;
 }
 
 .bg-main-light-color {
-  background-color: $main-light;
+    background-color: $main-light;
 }
 
 .bg-main-gary-light-color {
-  background-color: $main-gary-light;
+    background-color: $main-gary-light;
 }
 
 .bg-accent-color {
-  background-color: $accent;
+    background-color: $accent;
 }
 
 .bg-accent-light-color {
-  background-color: $accent-light;
+    background-color: $accent-light;
 }
 
 .bg-gary-light-color {
-  background-color: $gary-light;
+    background-color: $gary-light;
 }
 
 .bg-gary-dark-color {
-  background-color: $gary-dark;
+    background-color: $gary-dark;
 }
 
 // 背景顏色 end ----------------------
@@ -118,31 +116,31 @@ a {
 // 顏色 ----------------------
 
 .main-color {
-  color: $main;
+    color: $main;
 }
 
 .main-light-color {
-  color: $main-light;
+    color: $main-light;
 }
 
 .main-gary-light-color {
-  color: $main-gary-light;
+    color: $main-gary-light;
 }
 
 .accent-color {
-  color: $accent;
+    color: $accent;
 }
 
 .accent-light-color {
-  color: $accent-light;
+    color: $accent-light;
 }
 
 .gary-light-color {
-  color: $gary-light;
+    color: $gary-light;
 }
 
 .gary-dark-color {
-  color: $gary-dark;
+    color: $gary-dark;
 }
 
 // 顏色 end ----------------------
@@ -150,56 +148,55 @@ a {
 // 字級 ----------------------
 
 h1 {
-  font-size: 4rem; // 64px
+    font-size: 4rem; // 64px
 }
 
 h3 {
-  font-size: 3rem; // 48px
+    font-size: 3rem; // 48px
 }
 
 h3 {
-  font-size: 2rem; // 32px
+    font-size: 2rem; // 32px
 }
 
 h4 {
-  font-size: 1.5rem; // 24px
+    font-size: 1.5rem; // 24px
 }
 
 h5 {
-  font-size: 1.25rem; // 20px
+    font-size: 1.25rem; // 20px
 }
 
 h6 {
-  font-size: 1.15rem; // 18px
+    font-size: 1.15rem; // 18px
 }
 
 p {
-  font-size: 1rem; // 16px
+    font-size: 1rem; // 16px
 }
 
 .small {
-  font-size: 0.85rem; // 14px
+    font-size: 0.85rem; // 14px
 }
 
 .minimum {
-  font-size: 0.75rem; // 12px
+    font-size: 0.75rem; // 12px
 }
 
 // 字級 end ----------------------
 
-
 .btn:hover,
-.btn:focus{
-  outline: none;
-  box-shadow: none;
+.btn:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 // 網站文字反白顏色
 ::selection {
-	background: $main-light;
-	color: $accent-light;
+    background: $main-light;
+    color: $accent-light;
 }
 ::-moz-selection {
-	background: $main-light;
-	color: $accent-light;
+    background: $main-light;
+    color: $accent-light;
 }

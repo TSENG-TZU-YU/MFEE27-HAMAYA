@@ -273,7 +273,7 @@ function Class(props) {
                                         <img
                                             src={Adult_Course}
                                             alt="Adult Course"
-                                            className="classShadow  cursor-pinter img-fluid "
+                                            className="  cursor-pinter img-fluid "
                                             onClick={() => {
                                                 setSelectCourse(true);
                                             }}
@@ -290,7 +290,7 @@ function Class(props) {
                                 >
                                     <Link to="list?class=2">
                                         <img
-                                            className="classShadow cursor-pinter img-fluid"
+                                            className="cursor-pinter img-fluid"
                                             src={Children_Lessons}
                                             alt="Children Lessons"
                                             onClick={() => {
@@ -302,6 +302,43 @@ function Class(props) {
                                         </h3>
                                     </Link>
                                 </Col>
+
+                                {/* <div className="actrow d-lg-flex">
+                                    <div className="actCard">
+                                        <div className="actContent">
+                                            <h4>成人課程</h4>
+                                            <p className="cardDes">
+                                                    成人課程
+                                                </p>
+                                            <Link
+                                                to="list?class=1"
+                                                onClick={() => {
+                                                    setSelectCourse(true);
+                                                }}
+                                            >
+                                                <button className="btn btn-white">
+                                                    MORE
+                                                </button>
+                                            </Link>
+                                        </div>
+                                        <div className="actContent">
+                                            <h4>兒童課程</h4>
+                                            <p className="cardDes">
+                                                    兒童課程
+                                                </p>
+                                            <Link
+                                                to="list?class=2"
+                                                onClick={() => {
+                                                    setSelectCourse(false);
+                                                }}
+                                            >
+                                                <button className="btn  btn-white">
+                                                    MORE
+                                                </button>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div> */}
                             </Row>
                         </Container>
                     </div>

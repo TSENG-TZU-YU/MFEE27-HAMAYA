@@ -3,11 +3,16 @@ import { Row, Col } from 'react-bootstrap';
 import { IMAGE_URL } from '../../../../utils/config';
 import './index.scss';
 import { TbMusicOff } from 'react-icons/tb';
+import { useAuth } from '../../../../utils/use_auth';
 
 // 元件
 import Evaluation from '../../../../components/Evaluation/Evaluation';
 
+// 圖片
+import member_img from '../../../../assets/svg/member_avatar.svg';
+
 function Comment({ evaluation, avg }) {
+    const { member, uploadPhotoURL } = useAuth();
     return (
         <>
             {/* 用長度判斷是否有資料 */}
@@ -53,7 +58,18 @@ function Comment({ evaluation, avg }) {
                                         <div className="me-5">
                                             <img
                                                 src={
-                                                    IMAGE_URL + evaluation.photo
+                                                    uploadPhotoURL !== ''
+                                                        ? uploadPhotoURL
+                                                        : evaluation.photo.includes(
+                                                              'https:'
+                                                          )
+                                                        ? evaluation.photo
+                                                        : evaluation.photo.includes(
+                                                              '/uploads'
+                                                          )
+                                                        ? IMAGE_URL +
+                                                          evaluation.photo
+                                                        : member_img
                                                 }
                                                 alt=""
                                                 style={{

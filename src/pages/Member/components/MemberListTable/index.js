@@ -27,7 +27,7 @@ function MemberListTable(props) {
                         src={
                             uploadPhotoURL !== ''
                                 ? uploadPhotoURL
-                                : member.photo.includes('https://lh3')
+                                : member.photo.includes('https:')
                                 ? member.photo
                                 : member.photo.includes('/uploads')
                                 ? IMAGE_URL + member.photo
