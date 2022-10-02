@@ -51,7 +51,7 @@ import MyOrder from './pages/Member/components/MyOrder';
 import MyCoupon from './pages/Member/components/MyCoupon';
 import MyQuestion from './pages/Member/components/MyQuestion';
 import MyOrderDetail from './pages/Member/components/MyOrder/components/MyOrderDetail';
-import MyPlace from './pages/Member/components/Myplace';
+import MyPlace from './pages/Member/components/MyPlace';
 
 //MyOrder次頁面
 import MyOrderAdd from './pages/Member/components/MyOrder/components/MyOrderAdd';
@@ -63,8 +63,8 @@ import MyQuestionAdd from './pages/Member/components/MyQuestion/components/MyQue
 import MyQuestionDetail from './pages/Member/components/MyQuestion/components/MyQuestionDetail';
 
 // MyPlace 次頁面
-import MyPlaceList from './pages/Member/components/Myplace/components/MyPlaceList';
-import MyPlaceDetail from './pages/Member/components/Myplace/components/MyPlaceDetail';
+import MyPlaceList from './pages/Member/components/MyPlace/components/MyPlaceList';
+import MyPlaceDetail from './pages/Member/components/MyPlace/components/MyPlaceDetail';
 
 //後臺頁面
 import Admin from './pages/Admin';
