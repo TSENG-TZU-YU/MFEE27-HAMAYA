@@ -180,15 +180,17 @@ function ChildrenCourse({
                                                         }
                                                     </p>
                                                     <p className="mb-0">
-                                                        名額：{classChild.stock}{' '}
-                                                        人{' '}
+                                                        剩餘名額：
+                                                        {
+                                                            classChild.stock
+                                                        } 人{' '}
                                                     </p>
                                                     <p className="mb-0">
                                                         報名截止：
                                                         {classChild.deadline}
                                                     </p>
                                                     <p className="mb-0">
-                                                        開課時間：
+                                                        課程時間：
                                                         {
                                                             classChild.start_date
                                                         }{' '}

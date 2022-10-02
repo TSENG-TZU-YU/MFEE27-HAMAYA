@@ -199,7 +199,7 @@ function AdultCourse({
                                                         {classAdult.deadline}
                                                     </p>
                                                     <p className="mb-0">
-                                                        開課時間：
+                                                        課程時間：
                                                         {
                                                             classAdult.start_date
                                                         }{' '}

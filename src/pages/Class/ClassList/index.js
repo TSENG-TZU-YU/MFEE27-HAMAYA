@@ -131,6 +131,12 @@ function ClassList(props) {
     // 排序：處理方法
     const handleSort = (products, sortBy) => {
         let newProducts = [...products];
+        // 預設 以時間排序-新到舊
+        if (sortBy === '') {
+            newProducts = [...newProducts].sort((a, b) =>
+                b.start_date.localeCompare(a.start_date)
+            );
+        }
         // 以價格排序-低到高
         if (sortBy === '1') {
             newProducts = [...newProducts].sort((a, b) => a.price - b.price);
@@ -145,7 +151,7 @@ function ClassList(props) {
                 b.start_date.localeCompare(a.start_date)
             );
         }
-        // 以時間排序-新到舊
+        // 以時間排序-舊到新
         if (sortBy === '4') {
             newProducts = [...newProducts].sort((a, b) =>
                 a.start_date.localeCompare(b.start_date)
