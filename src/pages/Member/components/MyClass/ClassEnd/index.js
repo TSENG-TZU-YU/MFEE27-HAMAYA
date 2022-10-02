@@ -17,6 +17,7 @@ function ClassEnd(props) {
     const [popup, setPopup] = useState(false);
     // const [data, setData] = useState([]);
     const [finishClass, setFinishClass] = useState([]);
+    
 
     // 取得會員 ID 資料
     const { member } = useAuth();
@@ -27,7 +28,8 @@ function ClassEnd(props) {
 
     // 星級、內容狀態
     const [evaluation, setEvaluation] = useState();
-
+   
+    console.log('evaluation', evaluation);
     // 評價成功狀態
     // const [success, setSuccess] = useState();
 
@@ -53,18 +55,13 @@ function ClassEnd(props) {
 
     // 記入星級、評價內容
     const evaluationChange = (e) => {
-        const newEvaluation = {
-            ...evaluation,
-            [e.target.name]: e.target.value,
-        };
-
-        setEvaluation(newEvaluation);
+        setEvaluation({ ...evaluation, [e.target.name]: e.target.value });
     };
 
     async function evaluationSubmit(e) {
         e.preventDefault();
         try {
-            let response = await axios.post(
+            let response = await axios.patch(
                 `${API_URL}/member/myclass`,
                 evaluation,
                 {
@@ -131,6 +128,9 @@ function ClassEnd(props) {
                                                         buyClass.product_id,
                                                     memberID: member.id,
                                                 });
+                                                // setClassId({
+
+                                                // });
                                             }}
                                         >
                                             <img
