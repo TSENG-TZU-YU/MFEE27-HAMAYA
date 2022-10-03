@@ -122,6 +122,18 @@ function MyQuestionAdd(props) {
                     進行提問
                 </button>
             </form>
+            <button
+                className="addformbtn"
+                onClick={(e) => {
+                    e.preventDefault();
+                    setAskForm({
+                        ...askForm,
+                        q_category: '1',
+                        title: '可否自取',
+                        comment: '您好~請問可否訂購後去實體店面自行取貨?',
+                    });
+                }}
+            ></button>
         </div>
     );
     return <>{addQuestion}</>;
