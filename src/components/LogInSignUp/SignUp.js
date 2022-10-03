@@ -21,8 +21,8 @@ function SignUp() {
         setLoginPopup,
     } = useAuth();
     const [newMember, setNewMember] = useState({
-        fullName: 'MemberTest',
-        email: 'MemberTest@gmail.com',
+        fullName: '劉小育',
+        email: 'a77563166@yahoo.com.tw',
         password: '',
         repassword: '',
         sub: '0',

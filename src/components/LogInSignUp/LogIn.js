@@ -44,8 +44,8 @@ function LogIn() {
         setLoginMember({ ...loginMember, [e.target.name]: e.target.value });
     }
     const [loginMember, setLoginMember] = useState({
-        email: '234ad7891@gmail.com',
-        password: '12345678',
+        email: '',
+        password: '',
     });
     const {
         member,

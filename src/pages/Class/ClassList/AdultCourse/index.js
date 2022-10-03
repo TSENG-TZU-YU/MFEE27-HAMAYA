@@ -148,7 +148,7 @@ function AdultCourse({
                                             data-aos="fade-right"
                                             data-aos-once="true"
                                         >
-                                            <div className="d-flex col-lg-6  px-lg-0 p-0 position-relative">
+                                            <div className="d-flex col-lg-6 p-0 position-relative">
                                                 <img
                                                     className=" col-12 class-course-image"
                                                     src={require(`../../../../album/class/${classAdult.image_1}`)}
