@@ -173,6 +173,7 @@ function MusicArticle(props) {
         const newPageData = _.chunk(newData, perPage);
         setPageTotal(newPageData.length);
         setPageProducts(newPageData);
+        window.scrollTo(0, 0);
     }, [data, sortBy, searchWord]);
 
     //讓麵包屑也跟切換文章種類
