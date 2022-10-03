@@ -640,10 +640,7 @@ function Place(props) {
                         </button>
                     </div>
                     <div className="d-flex justify-content-center">
-                        <button
-                            className="bg-main-light-color accent-light-color border-0 px-5 py-1 mb-5"
-                            onClick={setDemo}
-                        ></button>
+                        <button className="demobtn" onClick={setDemo}></button>
                     </div>
                 </form>
             </div>
