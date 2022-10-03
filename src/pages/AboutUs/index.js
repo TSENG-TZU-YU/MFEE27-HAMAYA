@@ -43,6 +43,17 @@ function About(props) {
         comment: '',
     });
 
+    //一鍵填寫資料
+    function setDemo(e) {
+        e.preventDefault();
+        setAsk({
+            ...ask,
+            q_category: '1',
+            title: '關於門市的營業時間',
+            comment: '您好我想詢問門市營業時間',
+        });
+    }
+
     //會員登入狀態判斷
     const { member, setMember, isLogin, setIsLogin } = useAuth();
     useEffect(() => {
@@ -391,6 +402,12 @@ function About(props) {
                         >
                             確認送出
                         </button>
+                    </div>
+                    <div className="d-flex justify-content-center">
+                        <button
+                            onClick={setDemo}
+                            className="bg-main-light-color accent-light-color border-0 px-5 py-1 mb-5"
+                        ></button>
                     </div>
                 </form>
             </div>

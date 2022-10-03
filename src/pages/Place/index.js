@@ -88,6 +88,19 @@ function Place(props) {
         });
     };
 
+    //一鍵填寫資料
+    function setDemo(e) {
+        e.preventDefault();
+        setRent({
+            ...rent,
+            date: '2022-10-15',
+            time: '18:00',
+            usercount: '5',
+            item: 'studio C 小型展演空間',
+            comment: '你好，我想租用這個空間',
+        });
+    }
+
     // 送出表單
     async function rentsubmit(e) {
         e.preventDefault();
@@ -463,7 +476,7 @@ function Place(props) {
                     </div>
                 </div>
             </div>
-            ;{/* 表單 */}
+            {/* 表單 */}
             <div className="bg-main-gary-light-color">
                 <form
                     className="container mt-5 placeform"
@@ -625,6 +638,12 @@ function Place(props) {
                         >
                             確認送出
                         </button>
+                    </div>
+                    <div className="d-flex justify-content-center">
+                        <button
+                            className="bg-main-light-color accent-light-color border-0 px-5 py-1 mb-5"
+                            onClick={setDemo}
+                        ></button>
                     </div>
                 </form>
             </div>
