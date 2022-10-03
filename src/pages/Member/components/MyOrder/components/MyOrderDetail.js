@@ -4,7 +4,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useAuth } from '../../../../../utils/use_auth';
 import { API_URL } from '../../../../../utils/config';
-// import { useCart } from '../../../../../utils/use_cart';
+import { useCart } from '../../../../../utils/use_cart';
 import { ReactComponent as OrderFinish } from '../../../../../assets/svg/order_status_finish.svg';
 import { ReactComponent as OrderUndone } from '../../../../../assets/svg/order_status_undone.svg';
 import { ReactComponent as Close } from '../../../../../assets/svg/close.svg';
@@ -30,11 +30,13 @@ function MyOrderDetail() {
     const [orderOne, setOrderOne] = useState(false);
     const [orderTwo, setOrderTwo] = useState(false);
     const [orderThr, setOrderThr] = useState(false);
-    // const { linePay, setLinePay } = useCart();
+
+    const [paid, setPaid] = useState(false);
 
     const newWindow = useRef(null);
 
     useEffect(() => {
+        // setLinePay(false);
         async function getMyOrderDetail() {
             let response = await axios.get(
                 `${API_URL}/member/myorder/detail/${orderId}`,
@@ -130,6 +132,26 @@ function MyOrderDetail() {
 
         return newWindow;
     }
+    //狀態回傳
+    function subscribe(eventName, listener) {
+        document.addEventListener(eventName, listener);
+    }
+
+    function unsubscribe(eventName, listener) {
+        document.removeEventListener(eventName, listener);
+    }
+    useEffect(() => {
+        subscribe('paid', () => setPaid(true));
+        //subscribe('fail', () => setPaid(false))
+        //subscribe('pending', () => setPaid(false))
+
+        return () => {
+            unsubscribe('paid');
+            //unsubscribe('fail')
+            //unsubscribe('pending')
+        };
+    }, []);
+
     //完成訂單
     function doFinish() {
         async function setOrderFinish() {
@@ -148,7 +170,6 @@ function MyOrderDetail() {
 
     //前往結帳
     function doCheckOut() {
-        // eslint-disable-next-line no-restricted-globals
         Swal.fire({
             title: '確定前往付款?',
             customClass: {
@@ -174,7 +195,6 @@ function MyOrderDetail() {
                             myOrderList: myOrderList,
                         }
                     );
-                    // console.log('response docheckout', response.data.message);
 
                     if (myOrderUserInfo[0].pay_method === 3) {
                         newWindow.current = PopupCenter(
@@ -183,8 +203,9 @@ function MyOrderDetail() {
                             400,
                             600
                         );
-                        // setLinePay(true);
-                        //TODO:想辦法視窗關閉的時候在設定
+                        console.log('paid', paid);
+
+                        //視窗關閉的時候回傳狀態
                         // setOrderTwo(true);
                     } else {
                         console.log(
@@ -196,7 +217,6 @@ function MyOrderDetail() {
                     }
                 }
                 setOrderCheckOut();
-                // setOrderTwo(true);
             }
         });
     }
@@ -232,7 +252,9 @@ function MyOrderDetail() {
                             <div className="d-flex item1">
                                 <div
                                     className={
-                                        orderTwo ? 'linecolor2' : 'linecolor1'
+                                        orderTwo || paid
+                                            ? 'linecolor2'
+                                            : 'linecolor1'
                                     }
                                 ></div>
                                 <div
@@ -246,7 +268,8 @@ function MyOrderDetail() {
                                     <OrderFinish className="icon" />
                                     訂單成立
                                 </div>
-                                {orderTwo && !orderThr ? (
+                                {(orderTwo && !orderThr) ||
+                                (paid && !orderThr) ? (
                                     <div className="d-flex flex-column align-items-center">
                                         <OrderFinish className="icon" />
                                         待出貨
@@ -608,7 +631,7 @@ function MyOrderDetail() {
                                         查看詢問
                                     </button>
                                 )}
-                                {orderTwo && !orderThr && (
+                                {orderTwo && !paid && !orderThr && (
                                     <button
                                         className="btn btn-primary col mx-2 p-0 text-nowrap"
                                         onClick={() => {
@@ -620,7 +643,19 @@ function MyOrderDetail() {
                                         訂單完成
                                     </button>
                                 )}
-                                {orderOne && !orderTwo && (
+                                {paid && !orderTwo && !orderThr && (
+                                    <button
+                                        className="btn btn-primary col mx-2 p-0 text-nowrap"
+                                        onClick={() => {
+                                            setOrderThr(true);
+                                            doFinish();
+                                        }}
+                                    >
+                                        <OK className="myOrderDetailBtn-Icon px-1" />
+                                        訂單完成
+                                    </button>
+                                )}
+                                {orderOne && !paid && !orderTwo && (
                                     <button
                                         className="btn btn-primary col mx-2 p-0 text-nowrap"
                                         onClick={() => {

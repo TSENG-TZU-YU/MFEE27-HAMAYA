@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router';
 import { API_URL } from '../../../../../utils/config';
-import { useCart } from '../../../../../utils/use_cart';
 import {
     successSmallToast,
     successToast,
@@ -10,7 +9,6 @@ import {
 
 function MyOrderConfirm() {
     let location = useLocation(); //linePay, setLinePay
-    const { linePay, setLinePay } = useCart();
     // 這裡要處理伺服器通知line pay已確認付款，為必要流程 跳轉用頁面
     useEffect(() => {
         // TODO: 除非為不需登入的交易，為提高安全性應檢查是否為會員登入狀態
@@ -45,7 +43,6 @@ function MyOrderConfirm() {
 
                     // 關閉自己視窗
                     window.close();
-                    // setLinePay(true);
                 })
                 .catch((error) => console.log(error));
         }
