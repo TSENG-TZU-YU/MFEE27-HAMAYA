@@ -54,16 +54,6 @@ function MyOrderAdd(props) {
             console.log(err.response.data);
             errorToast(err.response.data.message, '關閉');
             // alert(err.response.data.message);
-
-            // setAskErros({
-            //     fullName: err.response.data.fullName,
-            //     user_id: err.response.data.user_id,
-            //     phone: err.response.data.phone,
-            //     email: err.response.data.email,
-            //     q_category: err.response.data.q_category,
-            //     title: err.response.data.title,
-            //     comment: err.response.data.comment,
-            // });
         }
     }
     const addQuestion = (
@@ -130,6 +120,19 @@ function MyOrderAdd(props) {
                     進行提問
                 </button>
             </form>
+            <button
+                className="addformbtn"
+                onClick={(e) => {
+                    e.preventDefault();
+                    setAskForm({
+                        ...askForm,
+                        q_category: '1',
+                        title: '貨運送貨時間',
+                        comment:
+                            '您好喔平日上班，只有假日能收貨，再麻煩跟司機大哥確認送貨時間。',
+                    });
+                }}
+            ></button>
         </div>
     );
     return <>{addQuestion}</>;
