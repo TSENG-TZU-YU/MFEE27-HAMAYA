@@ -404,10 +404,7 @@ function About(props) {
                         </button>
                     </div>
                     <div className="d-flex justify-content-center">
-                        <button
-                            onClick={setDemo}
-                            className="bg-main-light-color accent-light-color border-0 px-5 py-1 mb-5"
-                        ></button>
+                        <button onClick={setDemo} className="demobtn"></button>
                     </div>
                 </form>
             </div>
