@@ -185,7 +185,7 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                                 </li>
                                 <li>
                                     <Link
-                                         to="/news/section?categoryList=2"
+                                        to="/news/section?categoryList=2"
                                         className="accent-light-color fw-light text-nowrap"
                                         onClick={closeList}
                                     >
@@ -194,7 +194,7 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
                                 </li>
                                 <li>
                                     <Link
-                                         to="/news/section?categoryList=3"
+                                        to="/news/section?categoryList=3"
                                         className="accent-light-color fw-light text-nowrap"
                                         onClick={closeList}
                                     >

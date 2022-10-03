@@ -54,7 +54,9 @@ function LogInSignUp() {
 
                 <br />
                 {logInActive ? <LogIn /> : <SignUp />}
-                <GoogleLogin />
+                <div className="d-flex justify-content-center">
+                    <GoogleLogin />
+                </div>
             </div>
         </div>
     );

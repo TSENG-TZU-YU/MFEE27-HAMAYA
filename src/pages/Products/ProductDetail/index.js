@@ -169,6 +169,7 @@ function Product() {
                                     value=""
                                     name="flexRadioDefault"
                                     id="flexRadioDefault1"
+                                    checked
                                 />
                                 <label
                                     className="form-check-label"

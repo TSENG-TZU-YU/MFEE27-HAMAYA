@@ -6,7 +6,7 @@ import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import { useAuth } from '../../utils/use_auth';
 import { successToast, errorToast, warningToast } from '../Alert';
-import GoogleLogin from '../GoogleLogin';
+// import GoogleLogin from '../GoogleLogin';
 
 function LogIn() {
     const [visibility, setVisibility] = useState(false);
@@ -146,9 +146,6 @@ function LogIn() {
             <button className="subBtn mt-1" onClick={loginSubmit}>
                 登入
             </button>
-            <div className="d-flex justify-content-center">
-                <GoogleLogin />
-            </div>
         </form>
     );
 }
