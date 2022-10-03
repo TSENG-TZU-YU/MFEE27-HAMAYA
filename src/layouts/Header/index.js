@@ -131,6 +131,14 @@ function Header(props) {
                                                     重要通知
                                                 </Link>
                                             </li>
+                                            <li>
+                                                <Link
+                                                    to="/news/section?categoryList=4"
+                                                    className="accent-light-color fw-light"
+                                                >
+                                                    音樂文章
+                                                </Link>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
