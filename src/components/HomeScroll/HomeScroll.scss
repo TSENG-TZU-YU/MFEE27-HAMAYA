@@ -56,6 +56,9 @@
   .swiper-pagination.swiper-pagination-1{
     position: relative;
     bottom: -1rem;
+   
+    
+
 
     
   }
@@ -66,13 +69,7 @@
       width:100%;
       height: 100%;
     }
-    .swiper-pagination.swiper-pagination-1{
-      position:relative;
-      bottom: -0.5rem;
-      left: -8rem;
   
-
-    }
       //   按鈕樣式 上一張
   .swiper-button-prev {
     left: 0;
@@ -93,6 +90,13 @@
     margin: 0;
   }
 
+  .swiper-pagination.swiper-pagination-1{
+    position: relative;
+    bottom: -0.5rem;
+    left: -8rem;
+
+    
+  }
      
     }
 
