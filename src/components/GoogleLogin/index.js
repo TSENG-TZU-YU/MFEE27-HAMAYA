@@ -65,7 +65,7 @@ const GoogleLogin = () => {
             }
         );
     }, []);
-    return <div className="text-center mt-3" id="signInDiv"></div>;
+    return <div className=" text-center mt-3" id="signInDiv"></div>;
 };
 
 export default GoogleLogin;

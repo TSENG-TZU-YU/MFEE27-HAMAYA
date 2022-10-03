@@ -84,6 +84,7 @@ function Header(props) {
             // shoppingCart={shoppingCart}
             // setShoppingCart={setShoppingCart}
             />
+
             <nav className="bg-main-gary-light-color d-none d-md-block fixed-top header1 header-box-shadow">
                 <div className="container">
                     <div className="row header-height ">
@@ -309,9 +310,6 @@ function Header(props) {
                         </div>
                     </div>
 
-                    {loginPopup && (
-                        <LogInSignUp setLoginPopup={setLoginPopup} />
-                    )}
                     <ScrollTo />
                 </div>
                 {shopCartState ? <Cart className="sticky-top" /> : ''}

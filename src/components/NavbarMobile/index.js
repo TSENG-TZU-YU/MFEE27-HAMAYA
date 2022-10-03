@@ -17,14 +17,21 @@ import { useCart } from '../../utils/use_cart';
 import Cart from '../../layouts/Cart/Cart';
 
 function NavbarMobile({ shoppingCart, setShoppingCart }) {
-    const [loginPopup, setLoginPopup] = useState(false);
+    // const [loginPopup, setLoginPopup] = useState(false);
     const [showMenu, setShowMenu] = useState('list');
     const [showBackground, setShowBackground] = useState('background');
     const [showSublist, setShowSublist] = useState('list-unstyled sublist');
     const [showSublist02, setShowSublist02] = useState('list-unstyled sublist');
     const [showSublist03, setShowSublist03] = useState('list-unstyled sublist');
 
-    const { member, setMember, isLogin, setIsLogin } = useAuth();
+    const {
+        member,
+        setMember,
+        isLogin,
+        setIsLogin,
+        loginPopup,
+        setLoginPopup,
+    } = useAuth();
     const { shopCartState, setShopCartState } = useCart();
     const navigate = useNavigate();
 
@@ -63,8 +70,8 @@ function NavbarMobile({ shoppingCart, setShoppingCart }) {
     }
     return (
         <>
-            {loginPopup && <LogInSignUp setLoginPopup={setLoginPopup} />}
-            <nav className="NavbarMobile list-unstyled d-block d-md-none  fixed-top ">
+            {loginPopup && <LogInSignUp />}
+            <nav className="NavbarMobile list-unstyled   fixed-top ">
                 <div className="space-block"></div>
                 <div className="header d-flex justify-content-between align-items-center px-2">
                     <div className="">

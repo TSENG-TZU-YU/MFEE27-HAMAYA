@@ -22,7 +22,7 @@ function SignUp() {
     } = useAuth();
     const [newMember, setNewMember] = useState({
         fullName: '劉小育',
-        email: 'a77563166@yahoo.com.tw',
+        email: 'a77563166gmail.com',
         password: '',
         repassword: '',
         sub: '0',
