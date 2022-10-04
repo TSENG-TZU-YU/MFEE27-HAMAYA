@@ -15,6 +15,7 @@ function CompareBtn(props) {
     return (
         <>
             <img
+                title="比較頁"
                 src={compareBtn}
                 alt="compareBtn"
                 className="d-blok compare-btn m-4 cursor-pointer"
