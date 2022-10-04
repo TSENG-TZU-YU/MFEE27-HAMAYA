@@ -148,7 +148,6 @@ function MyCartProduct({
             });
         }
     }
-    console.log('myCartA', myCartA);
 
     return (
         <>

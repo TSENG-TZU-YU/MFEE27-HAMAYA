@@ -80,7 +80,6 @@ function MyCartDoCheckout({
         let checkA = myCart.filter((v) => {
             return v.category_id === 'A';
         });
-        console.log('A', checkA);
         if (checkA.length !== 0) {
             setMyCartInfo({ ...myCartInfo, freight: 2000 });
         }
@@ -109,7 +108,7 @@ function MyCartDoCheckout({
 
     //前往付款 成立訂單
     async function setSaveOrder(saveOrderInfo) {
-        console.log('saveOrderInfo', saveOrderInfo, myCart);
+        // console.log('saveOrderInfo', saveOrderInfo, myCart);
         //確保是否登入
         if (member !== null && member.id !== '') {
             //串要傳資料庫的內容 前端驗證資訊是否填妥
@@ -194,7 +193,7 @@ function MyCartDoCheckout({
                         `訂單編號：${response.data.order_id} & ${response.data.message}`,
                         '關閉'
                     );
-                    console.log(response.data);
+                    // console.log(response.data);
                     if (response.data.noStock) {
                         basicAlert(
                             `商品名稱：${response.data.noStock}  ${response.data.message} `,
