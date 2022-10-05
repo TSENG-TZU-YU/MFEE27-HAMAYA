@@ -51,8 +51,8 @@ function MyCart() {
     //有資料true,沒資料false
     const [hiddenState, setHiddenState] = useState(false);
     const [myCartInfo, setMyCartInfo] = useState({
-        receiver: member.fullName,
-        phone: member.phone,
+        receiver: '',
+        phone: '',
         freight: 0,
         city: '',
         dist: '',
@@ -78,7 +78,12 @@ function MyCart() {
                 if (items_amount !== 0) {
                     setHiddenState(true);
                     setMyCart(response.data.myCart);
-                    // console.log('All MyCart', response.data.myCart);
+                    let userInfo = response.data.userInfo[0];
+                    setMyCartInfo({
+                        ...myCartInfo,
+                        receiver: userInfo.name,
+                        phone: userInfo.phone,
+                    });
                     //分類別
                     let myCartList = response.data.myCart;
                     const myCart_cateA = myCartList.filter((v) => {

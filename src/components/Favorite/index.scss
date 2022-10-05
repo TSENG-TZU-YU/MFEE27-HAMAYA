@@ -3,6 +3,13 @@
   height: 40px;
 }
 
+.favorite-box:hover {
+  .favorite-icon-color path {
+    fill: #8a3731;
+  }
+}
+
+
 .favorite-icon-color path {
   fill: #8a3731;
 }
