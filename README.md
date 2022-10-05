@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+## 關於 HAMAYA MUSIC
+HAMAYA MUSIC 音樂教室理念以「創新、獨特」為理念，以美好音樂回饋於社會。
+學習音樂絕對不是有錢人的專利 !
+每一個細微處，栽培音小小的音樂種子細心呵護，培育音樂文化生根茁壯。希望結合
+社區力量循序漸進地擴張至音樂的全方位服務事業，踏著穩健的步伐瞭望音樂的視野，建
+立優質的音樂服務，創造專業、多元、充滿愉悅，建立分享的音樂地球村。
+## 建置動機及目的
+在早期的年代學習音樂不是一件容易的事情，選購樂器的管道也不多，有些人或許從
+小有個想學習鋼琴、小提琴的夢想，卻找尋不到適合的管道。隨著時代的發展、科技的進
+步，資訊傳遞越來越不受限制，人們開始擁有更多選擇，學習音樂也轉變成為一件較容易
+接觸到的事物。
+透過 HAMAYA MUSIC 音樂教室的成立，整合樂器買賣服務，為成人與兒童的客群
+嚴選不同類型的音樂教育課程，提供不同類型的場地租借及多元化選擇，讓消費者來到
+HAMAYA MUSIC 音樂教室網站時能收穫有關學習音樂的一切所需，滿足想要學習音樂、
+接觸音樂的人。
+## 網站特色
+* 明瞭直覺的介面設計，讓使用者能更輕易使用網站各功能。
+* 簡潔的購物流程，讓使用者可以迅速完成所有步驟。
+* 會員可收藏喜歡的商品跟課程。
+* 簡約質感的配色，搭配流暢的線條設計，營造高級的音樂教育品牌形象。
+* 透過商品比較功能，讓使用者更快地找到適合的樂器商品。
+* 提供課程評價系統，會員可在課程結束後分享心得及分數。
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 使用者目標
+讓想學習音樂演奏的使用者們，能透過網站的便利，快速取得音樂課程相關資訊，
+並且可以立即與相關人員聯絡，了解課程之後再透過線上立即報名付款，利用網站商城服
+務，購買學習時所需的樂器商品，使用預約服務進行空間租借以利課餘時練習演奏。
 
-## Available Scripts
+## 整體設計
+以五線譜線條與音符作為靈感，運用不同大小的幾何矩形，設計出不同樣式的組合
+變化，並讓網頁畫面增添層次感，商城商品圖片統一以白底呈現，視覺上保持一致性，每
+個頁面運用導覽麵包屑設計，呈現清楚直觀的導覽路徑，並於下方設計返回畫面上方的按
+鈕，增加使用上的靈活性。
 
-In the project directory, you can run:
+在各頁面中不時穿插音符符號，帶出 HAMAYA 音樂品牌的形象，使用粗細線、框等
+元素，增添優雅俐落的風格。區塊設計，不使用過多的色彩與陰影、圓角效果，讓整體風
+格乾淨鮮明。
 
-### `npm start`
+## 網站使用技術
+#### 視覺設計軟體平面設計
+Photoshop、Illustrator、Figma
+#### 前端技術
+HTML5、CSS3、JavaScript(ES6)、SCSS、Axios
+#### 前端框架
+React.js、Bootstrap 5
+#### 後端技術
+Node.js、Express.js、socket.io
+#### 金流串接
+LINE Pay
+#### 版本控制
+Git、GitHub
+#### 資料庫
+MySQL
+#### 套件管理
+npm、yarn
+#### 使用套件
+React-router-dom、React-bootstrap、React-icon、SweetAlert、AOS、Sass-loader、Cors、dotenv、Multer、MySQL2 (Node.js)、socket.io-client、swiper、jet-decode、moment
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 連結
+[企劃書](https://drive.google.com/file/d/1yPKmZ-AjqSOtJN21afs-J4GGE_OPL_xp/view?usp=sharing)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 
