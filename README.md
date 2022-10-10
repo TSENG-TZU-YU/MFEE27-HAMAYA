@@ -59,5 +59,5 @@ React-router-dom、React-bootstrap、React-icon、SweetAlert、AOS、Sass-loader
 ## 連結
 [企劃書](https://drive.google.com/file/d/1yPKmZ-AjqSOtJN21afs-J4GGE_OPL_xp/view?usp=sharing)
 
-[後端](https://github.com/TSENG-TZU-YU/MFEE27-HAMAYA-DB)
+[後端SERVER](https://github.com/TSENG-TZU-YU/MFEE27-HAMAYA-DB)
 ## 
