@@ -1,3 +1,8 @@
+## 連結
+[企劃書](https://drive.google.com/file/d/1yPKmZ-AjqSOtJN21afs-J4GGE_OPL_xp/view?usp=sharing)
+
+[後端SERVER](https://github.com/TSENG-TZU-YU/MFEE27-HAMAYA-DB)
+
 ## 關於 HAMAYA MUSIC
 HAMAYA MUSIC 音樂教室理念以「創新、獨特」為理念，以美好音樂回饋於社會。
 學習音樂絕對不是有錢人的專利 !
@@ -55,9 +60,4 @@ MySQL
 npm、yarn
 #### 使用套件
 React-router-dom、React-bootstrap、React-icon、SweetAlert、AOS、Sass-loader、Cors、dotenv、Multer、MySQL2 (Node.js)、socket.io-client、swiper、jet-decode、moment
-
-## 連結
-[企劃書](https://drive.google.com/file/d/1yPKmZ-AjqSOtJN21afs-J4GGE_OPL_xp/view?usp=sharing)
-
-[後端SERVER](https://github.com/TSENG-TZU-YU/MFEE27-HAMAYA-DB)
 ## 
