@@ -31,6 +31,11 @@
 
 }
 
+.item-img{
+  background-color: $main;
+  width: 700px;
+  height: 180px;
+}
 
 
 .item-word3 {
@@ -92,7 +97,7 @@
   margin-top: 70px;
 }
 .home-blank-top3 {
-  margin-top: 115px;
+  margin-top: 150px;
 }
 
 
@@ -237,9 +242,9 @@ bottom:-60px;
 .pushed-box4 {
   position: relative;
   right: -1%;
-  bottom: 30%;
+  top: 30%;
   // max-width: 50%;
-  transform: translateY(50%);
+  transform: translateY(35%);
   height: 90px;
   width: 700px;
   background:  #f2f2f244;
@@ -249,7 +254,8 @@ bottom:-60px;
 
 
 .parallax{
-  background: url('../../assets/HomeImg/service-item4-2.jpg') repeat fixed 100%;
+  // background: url('../../assets/HomeImg/service-item4-2.jpg') repeat fixed 100%;
+  background-color: $main-light;
   background-size: cover;
   color: aliceblue;
   height:300px; 
@@ -315,7 +321,7 @@ bottom:-60px;
   .pushed-box5 {
     position: relative;
     right: -1%;
-    bottom: 30%;
+    top: 30%;
     // max-width: 50%;
     transform: translateY(50%);
     height: 90px;
@@ -326,7 +332,8 @@ bottom:-60px;
   }
 
   .parallax2{
-    background: url('../../assets/HomeImg/service-item4-2.jpg') repeat fixed 100%;
+    // background: url('../../assets/HomeImg/service-item4-2.jpg') repeat fixed 100%;
+    background-color: $main-light;
     background-size: cover;
     color: aliceblue;
     height:180px; 
@@ -362,7 +369,7 @@ bottom:-60px;
     justify-content: center;
     align-items: center;
     border: 0px solid;
-    object-fit: cover;
+    object-fit: contain;
 
   }
 

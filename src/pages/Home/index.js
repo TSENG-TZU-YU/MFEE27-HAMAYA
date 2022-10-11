@@ -14,9 +14,9 @@ import MobileHome from './MobileHome';
 import HomeScroll from '../../components/HomeScroll/HomeScroll';
 
 //圖檔
-import ServiceItem from '../../assets/HomeImg/service-item.jpg';
-import ServiceItem2 from '../../assets/HomeImg/service-item2.jpg';
-import ServiceItem3 from '../../assets/HomeImg/service-item3.jpg';
+// import ServiceItem from '../../assets/HomeImg/service-item.jpg';
+// import ServiceItem2 from '../../assets/HomeImg/service-item2.jpg';
+// import ServiceItem3 from '../../assets/HomeImg/service-item3.jpg';
 import Vector25 from '../../assets/HomeImg/Vector25.svg';
 
 import Note6 from '../../assets/HomeImg/note-6.svg';
@@ -82,10 +82,11 @@ function Home() {
                             data-aos-duration="1500"
                             data-aos-offset="60"
                         >
-                            <img
-                                src={ServiceItem}
-                                width="700"
-                                alt="Logo"
+                            <div
+                                // src={ServiceItem}
+                                // width="700"
+                                // height="200"
+                                // alt="Logo"
                                 className="item-img"
                             />
                         </div>
@@ -155,10 +156,11 @@ function Home() {
                             data-aos-duration="1500"
                             data-aos-offset="60"
                         >
-                            <img
-                                src={ServiceItem2}
-                                width="700"
-                                alt="Logo"
+                            <div
+                                // src={ServiceItem}
+                                // width="700"
+                                // height="200"
+                                // alt="Logo"
                                 className="item-img"
                             />
                         </div>
@@ -171,15 +173,16 @@ function Home() {
                             data-aos-duration="1500"
                             data-aos-offset="60"
                         >
-                            <img
-                                src={ServiceItem3}
-                                width="700"
-                                alt="Logo"
+                            <div
+                                // src={ServiceItem}
+                                // width="700"
+                                // height="200"
+                                // alt="Logo"
                                 className="item-img"
                             />
                         </div>
                     </div>
-                    <div className=" pushed-content pushed-box">
+                    <div className="pushed-content pushed-box">
                         <Link to="place">
                             <span
                                 className="item-word"

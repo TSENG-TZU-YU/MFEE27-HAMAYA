@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import MobileImg from '../../../assets/HomeImg/mobile-img.jpg';
-import MobileImg2 from '../../../assets/HomeImg/mobile-img2.jpg';
-import MobileImg3 from '../../../assets/HomeImg/mobile-img3.jpg';
+// import MobileImg from '../../../assets/HomeImg/mobile-img.jpg';
+// import MobileImg2 from '../../../assets/HomeImg/mobile-img2.jpg';
+// import MobileImg3 from '../../../assets/HomeImg/mobile-img3.jpg';
 import Vector25 from '../../../assets/HomeImg/Vector25.svg';
 
 function MobileHome(props) {
@@ -25,10 +25,11 @@ function MobileHome(props) {
             <div className="container mobile-pushed-wrapper mobile-blank-top d-md-none d-block">
                 <div className="row">
                     <div className="">
-                        <img
-                            src={MobileImg}
-                            width="200"
-                            alt="Logo"
+                        <div
+                            // src={ServiceItem}
+                            // width="700"
+                            // height="200"
+                            // alt="Logo"
                             className="item-img"
                         />
                     </div>
@@ -78,11 +79,12 @@ function MobileHome(props) {
                 </div>
                 <div className="">
                     <div className="">
-                        <img
-                            src={MobileImg2}
-                            width=""
-                            alt="Logo"
-                            className="item-img2"
+                        <div
+                            // src={ServiceItem}
+                            // width="700"
+                            // height="200"
+                            // alt="Logo"
+                            className="item-img"
                         />
                     </div>
                 </div>
@@ -90,10 +92,11 @@ function MobileHome(props) {
             <div className="container pushed-wrapper mobile-blank-top3 d-md-none d-block ">
                 <div className="row">
                     <div className="">
-                        <img
-                            src={MobileImg3}
-                            width="200"
-                            alt="Logo"
+                        <div
+                            // src={ServiceItem}
+                            // width="700"
+                            // height="200"
+                            // alt="Logo"
                             className="item-img"
                         />
                     </div>
