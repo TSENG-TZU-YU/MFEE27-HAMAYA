@@ -50,7 +50,7 @@ function NewsActivity({ data, activeText, menuItems }) {
                                             <div className="mt-2">
                                                 {activity.title}
                                             </div>
-                                            <div className=" d-flex mt-2   ">
+                                            <div className=" d-flex mt-2">
                                                 <p
                                                     className={colorChange(
                                                         Number(

@@ -23,6 +23,7 @@ padding-top: 50px;
 
 .News-cursor-pinter {
   cursor: pointer;
+  object-fit: contain;
 }
 
 .News-blank-top {
@@ -164,7 +165,7 @@ padding-top: 50px;
   justify-content: center;
   align-items: center;
   border: 0px solid;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 

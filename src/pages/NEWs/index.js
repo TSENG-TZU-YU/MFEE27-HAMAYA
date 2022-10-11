@@ -142,7 +142,7 @@ function NEWs() {
                                     <img
                                         src={require(`../../album/article/${activity.image}`)}
                                         alt="banner"
-                                        width="600"
+                                        width="500"
                                         height="100%"
                                         className="img-fluid mt-2"
                                     />
@@ -177,7 +177,7 @@ function NEWs() {
                                             data-aos-offset="60"
                                         >
                                             <img
-                                                className="me-4 cursor-pinter"
+                                                className="News-cursor-pinter "
                                                 style={{
                                                     width: '150px',
                                                     height: '100px',
@@ -185,13 +185,13 @@ function NEWs() {
                                                 src={require(`../../album/article/${article.image}`)}
                                                 alt="art02"
                                             />
-                                            <div>
-                                                <h5 className="gary-dark-color h5 News-cursor-pinter mt-3">
+                                            <span className="gary-dark-color h6 News-cursor-pinter ">
+                                                <div className="mt-2">
                                                     {article.title}
-                                                </h5>
+                                                </div>
 
-                                                <div className="  d-flex mt-2 ">
-                                                    <small
+                                                <div className="d-flex mt-2 ">
+                                                    <p
                                                         className={colorChange(
                                                             Number(
                                                                 article.categoryId
@@ -199,13 +199,13 @@ function NEWs() {
                                                         )}
                                                     >
                                                         {article.name}
-                                                    </small>
-                                                    <p className="me-2">
-                                                        {article.auther} －
+                                                    </p>
+                                                    <p className="ms-2  mt-1">
+                                                        {article.author} －
                                                         {article.creation_date}
                                                     </p>
                                                 </div>
-                                            </div>
+                                            </span>
                                         </div>
                                     </Link>
 
