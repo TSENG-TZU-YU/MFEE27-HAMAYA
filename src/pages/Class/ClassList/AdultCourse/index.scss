@@ -49,7 +49,8 @@ p {
 }
 .class-course-image {
     max-height: 280px;
-    object-fit: cover;
+    // object-fit: cover;
+    object-fit: contain;
 }
 .doc-music {
     display: none;

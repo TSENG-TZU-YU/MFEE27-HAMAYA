@@ -698,9 +698,10 @@ function Detailed({ ins_main_id }) {
                                             style={{ width: ' 19rem' }}
                                         >
                                             <img
-                                                className="card-img-top img-fluid"
+                                                className="card-img-top img-fluid mx-auto" //原本沒有mx-auto
+                                                //原本width:280px height:175px
                                                 style={{
-                                                    width: '280px',
+                                                    width: '175px',
                                                     height: '175px',
                                                 }}
                                                 src={require(`../../../album/class/${recommend.image_1}`)}

@@ -314,14 +314,16 @@
 .actCard:nth-child(1):before {
     max-width: 100%;
     background-image: url('../../assets/ClassImg/Adult Course.png');
-    background-size: cover;
+    background-size: contain;//這是給logo圖用的
+    // background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 .actCard:nth-child(2):before {
     max-width: 100%;
     background-image: url('../../assets/ClassImg/Children Lessons.png');
-    background-size: cover;
+    background-size: contain;//這是給logo圖用的
+    // background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }

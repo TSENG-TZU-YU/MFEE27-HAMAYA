@@ -171,9 +171,10 @@ function Class(props) {
                                                 <div className="d-flex">
                                                     <img
                                                         className="me-4 cursor-pinter"
+                                                        //原本width:150xp height:100px
                                                         style={{
-                                                            width: '150px',
-                                                            height: '100px',
+                                                            width: '120px',
+                                                            height: '120px',
                                                         }}
                                                         src={require(`../../album/article/${article.image}`)}
                                                         alt="art02"

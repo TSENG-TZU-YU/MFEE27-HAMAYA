@@ -3,8 +3,6 @@ import { useOutletContext, Link, useNavigate } from 'react-router-dom'; //抓取
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { useAuth } from '../../../../utils/use_auth';
-import productImg from '../../../../album/products/FP-90-3.png';
-import classPic from '../../../../assets/ClassImg/Adult img.png';
 import search from '../../../../assets/svg/search.svg';
 import { ReactComponent as Detailed } from '../../../../assets/svg/detailed.svg';
 import { ReactComponent as Message } from '../../../../assets/svg/message.svg';
